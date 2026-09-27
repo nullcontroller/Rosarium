@@ -153,7 +153,16 @@ for (const id of primaryIds(design))
   design(".design-flow li")
     .map((_, e) => design(e).text().trim())
     .get(),
-  ["価値", "業務変化", "役割分担", "システム設計", "AI実装", "安全性・責任", "評価", "運用・改善", "再設計"],
+  [
+    "価値",
+    "実現したい業務変化",
+    "業務・システム設計",
+    "AI・人間・既存システムの役割分担",
+    "必要なAI技術",
+    "安全性・責任境界",
+    "評価・改善",
+    "運用・再設計",
+  ],
 );
 assert.deepEqual(
   design(".design-area-list .eyebrow")
