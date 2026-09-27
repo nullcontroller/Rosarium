@@ -605,7 +605,7 @@ blockquote {
   padding-left: 0.35rem;
   border-left: 1px solid var(--line);
 }
-.nav-children a {
+.sidebar nav .nav-children a {
   grid-template-columns: minmax(0, 1fr);
   padding-block: 0.55rem;
 }
