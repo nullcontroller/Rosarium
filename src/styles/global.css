@@ -373,14 +373,14 @@ blockquote {
 }
 .shell {
   display: grid;
-  grid-template-columns: 320px minmax(0, 1fr);
+  grid-template-columns: clamp(280px, 18vw, 380px) minmax(0, 1fr);
   width: 100%;
   justify-content: stretch;
   min-height: calc(100vh - 160px);
 }
 .shell.has-toc,
 .shell.has-theme-toc {
-  grid-template-columns: 320px minmax(0, 1fr) minmax(190px, 220px);
+  grid-template-columns: clamp(280px, 18vw, 380px) minmax(0, 1fr) clamp(190px, 13vw, 260px);
 }
 .career-shell {
   display: block;
@@ -388,8 +388,8 @@ blockquote {
 }
 .sidebar {
   padding: 2.3rem 1.1rem;
-  width: 320px;
-  min-width: 320px;
+  width: 100%;
+  min-width: 0;
   position: sticky;
   top: 88px;
   align-self: start;
