@@ -5,13 +5,14 @@
       "source_file": "index.md",
       "destination_file": "src/content/career/overview.md",
       "source_sha256": "904f71cb5684d60c7a1209c48f89e71a48258baf388127303d32061381266877",
-      "destination_body_sha256": "51b7cd3cd5dfff2f5d296c93fd6d24e7994d6e1105243cec167b1c20a4cf77dd"
+      "destination_body_sha256": "1cab2b964879965bb070e0f53204fa18c8e9567aa809d53c962c16b36c073ebb"
     },
     {
       "source_file": "profile/index.md",
       "destination_file": "src/content/career/profile.md",
       "source_sha256": "0d7ba53d536134b193aaf2804a721146973fc83212666fe2fe2cf2c53c6b2327",
-      "destination_body_sha256": "b70c806872fe319f173f94cdb80765100a1f798bcfa641f47d6c2130052ae293"
+      "destination_body_sha256": "99ba7111efc45525ba0c189009ce5952aae14538f75ee9e072eee724885b25b6"
     }
-  ]
+  ],
+  "revision_basis": "User-provided current career direction and factual corrections, 2026-09-27"
 }

@@ -155,6 +155,7 @@ export const topicPublications: Record<string, string[]> = {
   applicability: [
     "foundations/ai-business-design",
     "foundations/generation-and-acceptance",
+    "essays/dx-and-value",
   ],
   "responsibility-control": [
     "foundations/generation-and-acceptance",
@@ -185,6 +186,7 @@ export const topicPublications: Record<string, string[]> = {
   "lifecycle-operations": [
     "cases/system-understanding",
     "cases/three-ai-maintenance",
+    "essays/what-not-to-build-with-ai",
   ],
 };
 export const relatedPublications = (all: Entry[], topic?: string) =>

@@ -11,6 +11,7 @@
 | REWRITE | URLと出典を保ち、現在の理解で本文を再構成 |
 | MERGE | 役割を分割先へ統合し、既存URLを索引として維持 |
 | SPLIT | 集中していた責務を独立した正本として追加 |
+| ADD | 現在の思想・経験から新しい公開物として追加 |
 | ARCHIVE | 履歴として保持し、通常の公開導線から除外 |
 | REMOVE_FROM_PUBLIC | 出典記録は保持し、公開対象から除外 |
 
@@ -25,7 +26,7 @@
 | SPLIT | 7 |
 | ARCHIVE | 1 |
 | REMOVE_FROM_PUBLIC | 1 |
-| **Total** | **83** |
+| **Total** | **85** |
 
 ## Full Audit
 
@@ -38,8 +39,10 @@
 | `src/content/architecture/prompts-as-interfaces.md` | KEEP | Promptを工程間Interfaceとして整理 | — |
 | `src/content/architecture/reference-architecture.md` | UPDATE | 現行構造・表現との不一致 | 旧章番号への依存を除去し、現在のDesign Topicへ接続 |
 | `src/content/architecture/security-threat-modeling.md` | KEEP | 脅威・権限・Tool実行の境界が明確 | — |
-| `src/content/career/overview.md` | KEEP | Careerの正本から承認済み内容を統合したページ | — |
-| `src/content/career/profile.md` | KEEP | 詳細Careerの正本から承認済み内容を統合したページ | — |
+| `src/content/career/overview.md` | UPDATE | 現在のCareer方針とユーザー提供の実務事実へ整合 | 価値起点のApplied AI、問い合わせ対応DX、長期改善を中心に再編集 |
+| `src/content/career/profile.md` | UPDATE | 現在のCareer方針とユーザー提供の実務事実へ整合 | 年代、問い合わせ対応、現行業務、希望役割、Portfolioを更新 |
+| `src/content/essays/dx-and-value.md` | ADD | DX学習から得た価値起点のAI観を独立した随筆として保持 | DXを主軸化せず、個人的な思考変化からAI設計へ接続 |
+| `src/content/essays/what-not-to-build-with-ai.md` | ADD | AI時代の選択・ライフサイクル判断を独立した論点として保持 | 作る量ではなく、残す・変える・統合・移行・終了を論じる |
 | `src/content/cases/system-understanding.md` | REWRITE | 主題と事実は有効だが、現在の説明構造が必要 | 事実を保持し、ContextからResultと現在の改善点まで再構成 |
 | `src/content/cases/system-understanding/connecting-ui-and-internals.md` | KEEP | Book章の工程と事実を保持 | — |
 | `src/content/cases/system-understanding/human-and-ai-knowledge.md` | KEEP | 人間向け説明とAI参照構造の差を保持 | — |

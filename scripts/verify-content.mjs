@@ -103,11 +103,11 @@ console.log(
   `Verified: ${z.expected.article} articles, ${z.expected.book} books, ${z.expected.chapter} chapters, ${w.entries.length} Wiki pages, ${z.assets.length} assets; provenance metadata, coverage audits, order and slugs.`,
 );
 
-// Career source is copied read-only; verify approved mechanical conversion.
+// Career pages preserve their integrated source provenance and verify the current approved revision.
 const career = JSON.parse(read("migration/career-integration-manifest.json"));
 for (const entry of career.entries) {
  const { body, data } = parse(read(entry.destination_file));
  assert.equal(hash(body), entry.destination_body_sha256, entry.destination_file);
  assert.equal(data.source.commit, career.source_commit);
 }
-console.log("Verified 2 integrated Career pages and source commit.");
+console.log("Verified 2 current Career pages, approved body checksums and source provenance.");

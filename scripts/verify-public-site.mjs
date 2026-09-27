@@ -95,14 +95,18 @@ const profile = load(fs.readFileSync("dist/career/profile/index.html", "utf8"));
 for (const text of [
   "2016–2021",
   "2022–2024",
-  "2024–2026",
+  "2024–2025",
+  "2025–2026",
   "2026–現在",
   "DPAPI / CNG",
   "約7割",
   "希望条件",
   "資格",
+  "データサイエンス発展：2025年6月取得",
+  "価値",
 ])
   assert(profile("main").text().includes(text), text);
+assert(profile('a[href^="https://www.linkedin.com/in/"]').length, "LinkedIn profile");
 const baseline = JSON.parse(
   fs.readFileSync("migration/personal-site-baseline.json", "utf8"),
 );

@@ -28,6 +28,7 @@ export const useCases = [
       "foundations/generation-and-acceptance",
       "practices/ai-adoption-and-effective-use",
       "evaluation-hitl/human-review-capability",
+      "essays/dx-and-value",
     ],
   },
   {
@@ -67,6 +68,7 @@ export const useCases = [
       "software-engineering/code-generation-and-work-design",
       "software-engineering/ai-design-assistance",
       "cases/three-ai-maintenance",
+      "essays/what-not-to-build-with-ai",
     ],
   },
   {
@@ -198,7 +200,10 @@ export function contentUseCaseIds(entry: Entry): UseCaseId[] {
   if (data.layer === "case" || data.section === "cases")
     result.add("case-studies");
 
-  if (data.section === "essays" || tags.has("キャリア"))
+  if (
+    tags.has("キャリア") ||
+    ["essays/ai-career-market", "essays/ai-roles-beyond-fde"].includes(id)
+  )
     result.add("career-work");
 
   return [...result];

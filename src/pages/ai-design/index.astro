@@ -2,16 +2,62 @@
 import { getCollection } from "astro:content";
 import Site from "../../layouts/Site.astro";
 import ContentIndex from "../../components/ContentIndex.astro";
-import SectionVisual from "../../components/SectionVisual.astro";
 import { designTopics } from "../../lib/navigation";
 import { publicEntry, url } from "../../lib/site";
 import PageHeader from "../../components/PageHeader.astro";
-import SectionHeading from "../../components/SectionHeading.astro";
-import { iconForTopic } from "../../lib/icons";
 import ThemeArticleIndex from "../../components/ThemeArticleIndex.astro";
 import { readingNavigation } from "../../lib/reading";
 const all = await getCollection("pages", publicEntry);
 const themeGroups = readingNavigation(all, "ai-design");
+const designFlow = [
+  "価値",
+  "業務変化",
+  "役割分担",
+  "システム設計",
+  "AI実装",
+  "安全性・責任",
+  "評価",
+  "運用・改善",
+  "再設計",
+];
+const appliedAreas = [
+  {
+    number: "700",
+    title: "AI評価設計",
+    summary: "業務価値、品質、リスク、Human in the Loopを測り、採用と改善へつなぐ。",
+    path: "ai-design/evaluation-hitl",
+  },
+  {
+    number: "800",
+    title: "AIアーキテクチャ",
+    summary: "AI・人間・既存システムを一つの業務システムとして構成する。",
+    path: "ai-design/architecture",
+  },
+  {
+    number: "900",
+    title: "AI運用",
+    summary: "監視、変更、再評価、縮退、停止を継続運用として設計する。",
+    path: "ai-design/lifecycle-operations",
+  },
+  {
+    number: "1000",
+    title: "AIエージェント設計",
+    summary: "Tool、Workflow、Context、権限を分け、実行可能な工程として接続する。",
+    path: "architecture/agents-tools-and-workflows",
+  },
+  {
+    number: "1100",
+    title: "AIセキュリティ・権限制御",
+    summary: "生成・受理・実行を分離し、必要最小限の権限と停止条件を定める。",
+    path: "ai-design/responsibility-control",
+  },
+  {
+    number: "1200",
+    title: "AI・既存システム統合",
+    summary: "既存仕様と確定的処理を活かし、AIの確率的処理を安全に組み込む。",
+    path: "ai-design/software-engineering",
+  },
+];
 ---
 
 <Site
@@ -20,15 +66,38 @@ const themeGroups = readingNavigation(all, "ai-design");
   ogImage="og/ai-design.png"
   themeGroups={themeGroups}
 >
-  <PageHeader icon="ai-design" title="AI設計" />
-  <SectionVisual
-    name="system-architecture"
-    alt="複数の層と接続点から成るシステム設計のシンボル"
-  />
-  <p class="lead">AIの性質を前提として、業務システムへどう組み込むか。</p>
+  <PageHeader title="AI設計" />
+  <p class="lead">価値から逆算し、AIを業務システムへどう組み込むか。</p>
   <p>
-    適用判断から責任境界、評価、運用までを扱う現在の設計知識です。数学の章を先に読まなくても、必要なテーマから参照できます。
+    AI技術の導入を目的にせず、実現したい業務変化からAI・人間・既存システムの役割を決めます。AIを使わない判断も、AI設計の一部です。
   </p>
+
+  <section aria-labelledby="value-first-design">
+    <h2 id="value-first-design">価値から始める</h2>
+    <ol class="design-flow" aria-label="価値から再設計までの設計順序">
+      {designFlow.map((stage) => <li>{stage}</li>)}
+    </ol>
+    <p>
+      <a href={url("foundations/applicability-and-delegation")}>
+        価値からAIの適用可否と委任範囲を考える →
+      </a>
+    </p>
+  </section>
+
+  <section aria-labelledby="applied-ai-areas">
+    <h2 id="applied-ai-areas">Applied AI設計の接続領域</h2>
+    <p>既存の設計知識を、設計・構築・評価・運用・改善の循環として接続します。</p>
+    <ol class="design-area-list">
+      {appliedAreas.map((area) => (
+        <li>
+          <p class="eyebrow">{area.number}</p>
+          <h3><a href={url(area.path)}>{area.title} →</a></h3>
+          <p>{area.summary}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
   <ThemeArticleIndex groups={themeGroups} />
   <nav class="topic-navigation" aria-label="AI設計のテーマ">
     {designTopics.map(([key, title]) => (
@@ -37,10 +106,11 @@ const themeGroups = readingNavigation(all, "ai-design");
   </nav>
   {designTopics.map(([key, title, summary]) => (
     <section>
-      <SectionHeading icon={iconForTopic(key)} title={title} />
+      <h2>{title}</h2>
       <p class="section-title-link"><a href={url("ai-design/" + key)}>このテーマを見る →</a></p>
       <p>{summary}</p>
       <ContentIndex
+        showIcons={false}
         entries={all.filter(
           (e) => e.data.layer === "ai-design" && e.data.design_topic === key,
         )}

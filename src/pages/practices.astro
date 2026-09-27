@@ -3,10 +3,8 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import ContentIndex from "../components/ContentIndex.astro";
 import RelatedPublications from "../components/RelatedPublications.astro";
-import SectionVisual from "../components/SectionVisual.astro";
 import { publicEntry } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
-import SectionHeading from "../components/SectionHeading.astro";
 import ThemeArticleIndex from "../components/ThemeArticleIndex.astro";
 import { readingEntries, readingNavigation } from "../lib/reading";
 const all = await getCollection("pages", publicEntry);
@@ -15,19 +13,16 @@ const discoverable = readingEntries(all, "practices");
 ---
 
 <Site title="実践知" section="practices" themeGroups={themeGroups}>
-  <PageHeader icon="practices" title="実践知" />
-  <SectionVisual
-    name="lifecycle-roadmap"
-    alt="段階的な適用と継続的な改善を表すシンボル"
-  />
+  <PageHeader title="実践知" />
   <p class="lead">
     設計原則を、AI導入・教育・横展開・開発Workflowへ適用する。
   </p>
   <ThemeArticleIndex groups={themeGroups} />
-  <SectionHeading icon="practices" title="業務・開発プロセスへの組込み" />
-  <ContentIndex entries={discoverable} />
+  <h2>業務・開発プロセスへの組込み</h2>
+  <ContentIndex entries={discoverable} showIcons={false} />
   <RelatedPublications
     summary="設計判断の背景や、個別の問題意識を扱った公開記事です。"
+    showIcons={false}
     entries={all.filter(
       (e) =>
         e.data.section === "practices" &&

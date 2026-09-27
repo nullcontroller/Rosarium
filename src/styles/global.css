@@ -188,16 +188,17 @@ blockquote {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1.35rem;
 }
 .header-primary {
   justify-self: center;
-  font-size: 0.96rem;
+  gap: 2.6rem;
+  font-size: clamp(1.06rem, 1.4vw, 1.16rem);
   font-weight: 650;
   letter-spacing: 0.025em;
 }
 .header-actions {
   justify-self: end;
+  gap: 1.35rem;
 }
 .career-header-links {
   display: flex;
@@ -600,7 +601,7 @@ blockquote {
   border-left: 1px solid var(--line);
 }
 .nav-children a {
-  grid-template-columns: 2rem minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   padding-block: 0.55rem;
 }
 .nav-children .icon {
@@ -1063,30 +1064,42 @@ blockquote {
     padding: 1rem;
     position: relative;
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.2rem;
   }
   .brand-name {
     font-size: clamp(1.65rem, 7vw, 1.85rem);
   }
   .header-links {
-    display: flex;
-    font-size: 0.78rem;
+    display: block;
+    width: 100%;
     min-width: 0;
+    font-size: 0.78rem;
   }
-  .header-primary,
+  .header-primary {
+    gap: clamp(0.75rem, 3vw, 1.2rem);
+    flex-wrap: nowrap;
+    font-size: 0.94rem;
+  }
   .header-actions {
-    gap: 0.65rem;
-    flex-wrap: wrap;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: max-content;
+    gap: 0.35rem;
+    flex-wrap: nowrap;
   }
   .header-links button {
     padding: 0.1rem 0.4rem;
   }
   .global-search {
-    width: auto;
+    width: max-content;
   }
   .global-search-toggle {
     display: inline-flex;
   }
+
   .global-search-panel {
     display: none;
     position: absolute;
@@ -1202,7 +1215,11 @@ blockquote {
     font-size: 1.7rem;
   }
 }
-@media print {
+@media (max-width: 420px) {
+  .global-search-toggle span {
+    display: none;
+  }
+}@media print {
   @page {
     margin: 18mm;
   }
@@ -1375,6 +1392,9 @@ blockquote {
   align-items: start;
   margin-bottom: 1.3rem;
 }
+.page-heading.text-only {
+  grid-template-columns: minmax(0, 1fr);
+}
 .page-heading h1,
 .document-title-row h1 {
   margin: 0;
@@ -1393,6 +1413,9 @@ blockquote {
 }
 .icon-heading.section-heading {
   padding-top: 1.1rem;
+}
+.icon-heading.text-only {
+  grid-template-columns: minmax(0, 1fr);
 }
 .icon-heading h2,
 .icon-heading h3 {
@@ -1652,8 +1675,7 @@ blockquote {
 }
 .reading-area {
   display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--line);
 }
@@ -1823,8 +1845,7 @@ blockquote {
     font-size: 2.5rem;
   }
   .reading-area {
-    grid-template-columns: 2.4rem minmax(0, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: minmax(0, 1fr);
   }
   .case-outcome {
     grid-template-columns: 1fr;
@@ -1844,5 +1865,64 @@ blockquote {
     inset-block-start: auto;
     inset-block-end: 0.15rem;
     transform: none;
+  }
+}
+
+/* Value-first Applied AI design map */
+.design-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 1.25rem 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: design-stage;
+}
+.design-flow li {
+  position: relative;
+  min-height: 3rem;
+  padding: 0.75rem 0.8rem 0.75rem 2.6rem;
+  border-inline-start: 2px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  counter-increment: design-stage;
+}
+.design-flow li::before {
+  content: counter(design-stage, decimal-leading-zero);
+  position: absolute;
+  inset-inline-start: 0.75rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+}
+.design-area-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 1.25rem 0;
+  padding: 0;
+  list-style: none;
+  border-block-start: 1px solid var(--border);
+}
+.design-area-list li {
+  padding: 1rem 1.1rem 1rem 0;
+  border-block-end: 1px solid var(--border);
+}
+.design-area-list li:nth-child(even) {
+  padding-inline-start: 1.1rem;
+  border-inline-start: 1px solid var(--border);
+}
+.design-area-list h3,
+.design-area-list p {
+  margin-block: 0.25rem;
+}
+@media (max-width: 700px) {
+  .design-flow,
+  .design-area-list {
+    grid-template-columns: 1fr;
+  }
+  .design-area-list li,
+  .design-area-list li:nth-child(even) {
+    padding-inline: 0;
+    border-inline-start: 0;
   }
 }

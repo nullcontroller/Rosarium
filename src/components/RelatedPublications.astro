@@ -5,21 +5,23 @@ import SectionHeading from "./SectionHeading.astro";
 interface Props {
   entries: Entry[];
   summary?: string;
+  showIcons?: boolean;
 }
 const {
   entries,
   summary = "同じテーマを扱う記事・Book。設計知識とは別の公開物として参照できます。",
+  showIcons = true,
 } = Astro.props;
 ---
 
 {entries.length > 0 && (
   <section class="related-publications" data-related-publications>
-    <SectionHeading icon="articles" title="関連する記事" />
+    <SectionHeading icon={showIcons ? "articles" : undefined} title="関連する記事" />
     <p>{summary}</p>
     <div class="document-list">
       {entries.map((entry) => (
         <article>
-          <PublicationLink entry={entry} />
+          <PublicationLink entry={entry} showIcon={showIcons} />
         </article>
       ))}
     </div>

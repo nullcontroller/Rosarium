@@ -12,16 +12,17 @@ import Icon from "./Icon.astro";
 interface Props {
   entry: Entry;
   heading?: "h2" | "h3" | "p";
+  showIcon?: boolean;
 }
-const { entry, heading: Heading = "h3" } = Astro.props;
+const { entry, heading: Heading = "h3", showIcon = true } = Astro.props;
 const d = entry.data;
 const purposes = contentUseCases(entry);
 const timing = publicationTiming(entry);
 const publicationState = publicationStatus(entry);
 ---
 
-<div class="content-entry publication-entry icon-entry" data-content-id={entry.id}>
-  <Icon name={iconForEntry(entry)} size="list" />
+<div class:list={["content-entry", "publication-entry", showIcon && "icon-entry"]} data-content-id={entry.id}>
+  {showIcon && <Icon name={iconForEntry(entry)} size="list" />}
   <div>
     <Heading class="content-title">
       <a href={url(entry.id)}>{d.title}</a>

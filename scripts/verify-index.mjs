@@ -109,14 +109,14 @@ for (const secondary of ["詳細職務経歴", "Books", "連載", "Essays"])
     !top(".sidebar nav a .nav-copy > span").text().includes(secondary),
     secondary,
   );
-assert.equal(top(".sidebar .icon").length, 7);
+assert.equal(top(".sidebar .icon").length, 3);
 assert.equal(
   new Set(
     top(".sidebar .icon")
       .map((_, e) => top(e).attr("class"))
       .get(),
   ).size,
-  7,
+  3,
 );
 assert.equal(
   top('.sidebar a[href="/ai-design-foundations/career/"]').length,
@@ -132,6 +132,7 @@ assert.deepEqual(
     .get(),
   ["AI設計", "AI理論", "実践知", "実践事例"],
 );
+assert.equal(top(".sidebar .nav-children .icon").length, 0);
 assert.equal(top(".sidebar").length, 1);
 assert.equal(career(".sidebar,.toc,.global-search").length, 0);
 assert.equal(career(".career-header-links").length, 1);
@@ -148,7 +149,34 @@ assert.deepEqual(
   ),
 );
 for (const id of primaryIds(design))
-  assert.notEqual(entries.get(id).source?.type, "zenn");
+  assert.notEqual(entries.get(id).source?.type, "zenn");assert.deepEqual(
+  design(".design-flow li")
+    .map((_, e) => design(e).text().trim())
+    .get(),
+  ["価値", "業務変化", "役割分担", "システム設計", "AI実装", "安全性・責任", "評価", "運用・改善", "再設計"],
+);
+assert.deepEqual(
+  design(".design-area-list .eyebrow")
+    .map((_, e) => design(e).text().trim())
+    .get(),
+  ["700", "800", "900", "1000", "1100", "1200"],
+);
+assert.equal(top(".sidebar").text().includes("DX"), false);
+assert(
+  page("ai-design/applicability")(
+    '[data-related-publications] [data-content-id="essays/dx-and-value"]',
+  ).length,
+);
+assert(
+  page("ai-design/lifecycle-operations")(
+    '[data-related-publications] [data-content-id="essays/what-not-to-build-with-ai"]',
+  ).length,
+);
+assert(
+  page("foundations/applicability-and-delegation")("main")
+    .text()
+    .includes("価値から始める"),
+);
 for (const topic of [
   "applicability",
   "responsibility-control",
@@ -227,6 +255,7 @@ assert.deepEqual(
     "実際の課題にどう適用した？",
   ],
 );
+assert.equal(pubs(".reading-area > .icon").length, 0);
 for (const [section, href] of [
   ["ai-design", "/ai-design-foundations/ai-design/"],
   ["ai-mathematics", "/ai-design-foundations/ai-mathematics/"],
@@ -371,19 +400,42 @@ assert(
   !fs.readFileSync("dist/feed.xml", "utf8").includes("Rosarium 公開"),
   "Curated Recent Growth must remain separate from the content RSS feed",
 );
-for (const route of [
-  "career",
-  "articles",
-  "cases",
-  "ai-design",
-  "ai-mathematics",
-  "practices",
-  "reference",
-])
+for (const route of ["career", "articles", "reference"])
   assert(
     page(route)("main .icon").length,
     route + " must use the icon language",
   );
+for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
+  const $ = page(route);
+  assert.equal(
+    $(".page-heading > .icon,.section-visual,.document-list .icon,.book-list-entry .icon").length,
+    0,
+    route,
+  );
+}
+for (const topic of [
+  "applicability",
+  "responsibility-control",
+  "architecture",
+  "knowledge-context",
+  "evaluation-hitl",
+  "software-engineering",
+  "lifecycle-operations",
+]) {
+  const $ = page("ai-design/" + topic);
+  assert.equal(
+    $(".page-heading > .icon,.section-visual,.document-list .icon,.related-publications .icon").length,
+    0,
+    topic,
+  );
+}
+for (const id of [
+  "reference/glossary",
+  "reference/mathematical-reference",
+  "reference/evaluation-metrics",
+  "reference/responsibility-state-model",
+])
+  assert.equal(page(id)(".author-box").length, 0, id);
 for (const route of ["about", "search"]) {
   const $ = page(route);
   assert.match($("meta[name=robots]").attr("content") || "", /noindex/);

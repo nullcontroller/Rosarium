@@ -12,7 +12,7 @@ const themeGroups = readingNavigation(all, "cases");
 ---
 
 <Site title="実践事例" section="cases" themeGroups={themeGroups}>
-  <PageHeader icon="cases" title="実践事例" />
+  <PageHeader title="実践事例" />
   <p class="lead">実務での課題・設計判断・実装・結果を、2冊のBookで読む。</p>
   <p>各事例の課題、設計、結果を確認し、必要な章へ進めます。</p>
   <ThemeArticleIndex groups={themeGroups} />
@@ -22,7 +22,7 @@ const themeGroups = readingNavigation(all, "cases");
   </nav>
   {caseStudies.map((study) => (
     <section class="case-study-index">
-      <SeriesIndex entry={all.find((e) => e.id === study.book)!} all={all} showCover={false}>
+      <SeriesIndex entry={all.find((e) => e.id === study.book)!} all={all} showCover={false} showIcons={false}>
         <dl slot="details" class="case-outcome" aria-label="課題から結果まで">
           <div>
             <dt>課題</dt>

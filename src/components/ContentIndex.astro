@@ -3,14 +3,15 @@ import ContentLink from "./ContentLink.astro";
 import type { Entry } from "../lib/navigation";
 interface Props {
   entries: Entry[];
+  showIcons?: boolean;
 }
-const { entries } = Astro.props;
+const { entries, showIcons = true } = Astro.props;
 ---
 
 <div class="document-list" data-primary-index>
   {entries.map((entry) => (
     <article>
-      <ContentLink entry={entry} />
+      <ContentLink entry={entry} showIcon={showIcons} />
     </article>
   ))}
 </div>

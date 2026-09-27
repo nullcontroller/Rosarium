@@ -8,8 +8,9 @@ interface Props {
   entry: Entry;
   all: Entry[];
   showCover?: boolean;
+  showIcons?: boolean;
 }
-const { entry, all, showCover = true } = Astro.props;
+const { entry, all, showCover = true, showIcons = true } = Astro.props;
 const chapters = all
   .filter((e) => e.data.series === entry.data.series && (e.data.order ?? 0) > 0)
   .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
@@ -35,7 +36,7 @@ const coverDimensions = imageDimensions(
     </a>
   )}
   <div>
-    <PublicationLink entry={entry} heading="h2" />
+    <PublicationLink entry={entry} heading="h2" showIcon={showIcons} />
     <slot name="details" />
     <p class="meta">全{chapters.length}章</p>
     <p>
@@ -46,7 +47,7 @@ const coverDimensions = imageDimensions(
       <ol>
         {chapters.map((e) => (
           <li>
-            <ContentLink entry={e} heading="p" />
+            <ContentLink entry={e} heading="p" showIcon={showIcons} />
           </li>
         ))}
       </ol>

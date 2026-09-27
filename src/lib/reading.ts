@@ -29,6 +29,7 @@ export const readingGroups: Record<
         "foundations/answer-scope",
         "evaluation-hitl/responsibility-and-hitl",
         "foundations/ai-business-design",
+        "essays/dx-and-value",
       ],
     },
     {
@@ -43,10 +44,7 @@ export const readingGroups: Record<
       title: "アーキテクチャ",
       ids: [
         "architecture/reference-architecture",
-        "architecture/cost-latency-routing",
         "architecture/prompts-as-interfaces",
-        "architecture/change-and-reevaluation",
-        "architecture/observability-and-slo",
         "architecture/agents-tools-and-workflows",
       ],
     },
@@ -75,6 +73,15 @@ export const readingGroups: Record<
         "software-engineering/code-generation-boundaries",
         "software-engineering/code-maintenance-context",
         "software-engineering/multi-ai-orchestration",
+      ],
+    },
+    {
+      title: "運用・改善・再設計",
+      ids: [
+        "architecture/change-and-reevaluation",
+        "architecture/observability-and-slo",
+        "architecture/cost-latency-routing",
+        "essays/what-not-to-build-with-ai",
       ],
     },
   ],
@@ -108,6 +115,7 @@ export const readingGroups: Record<
       ids: [
         "practices/adoption-governance",
         "practices/ai-adoption-and-effective-use",
+        "essays/dx-and-value",
         "practices/education-and-capability",
         "practices/ai-education-principles",
         "practices/transferring-practices",
@@ -134,6 +142,7 @@ export const readingGroups: Record<
         "software-engineering/code-generation-and-work-design",
         "software-engineering/ai-driven-development",
         "software-engineering/ai-design-assistance",
+        "essays/what-not-to-build-with-ai",
         "cases/understanding-systems-as-capability",
       ],
     },

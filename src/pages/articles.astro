@@ -1,7 +1,6 @@
 ---
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
-import Icon from "../components/Icon.astro";
 import { url } from "../lib/site";
 import { readingCategories } from "../lib/navigation";
 ---
@@ -16,7 +15,6 @@ import { readingCategories } from "../lib/navigation";
   <div class="reading-directory">
     {readingCategories.map((category) => (
       <section class="reading-area" id={category.path}>
-        <Icon name={category.icon} size="section" />
         <div>
           <h2 class="reading-question">
             <a href={url(category.path)}>{category.question} →</a>

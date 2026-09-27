@@ -280,5 +280,5 @@ const themeGroups = readingPath
     <a href={url(primaryPath)}>{primaryLabel}へ戻る</a>
     <a href={`${url()}#recent-growth-heading`}>最近の更新を見る</a>
   </nav>
-  <AuthorBox />
+  {d.layer !== "reference" && <AuthorBox />}
 </Site>
