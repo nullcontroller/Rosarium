@@ -6,7 +6,7 @@ MarkdownをGitで管理し、レビュー・検証を経てAstroから静的HTML
 
 **[サイトを見る](https://nullcontroller.github.io/ai-design-foundations/)**
 
-[キャリア](https://nullcontroller.github.io/ai-design-foundations/career/) / [AI](https://nullcontroller.github.io/ai-design-foundations/articles/) / [DX](https://nullcontroller.github.io/ai-design-foundations/dx/)
+[キャリア](https://nullcontroller.github.io/ai-design-foundations/career/) / [AI](https://nullcontroller.github.io/ai-design-foundations/ai/) / [DX](https://nullcontroller.github.io/ai-design-foundations/dx/)
 
 中心テーマ：Applied AI / System Architecture / Knowledge・Context / Evaluation・HITL / AI-Assisted Software Engineering / AI System Lifecycle。
 既存システムの改善・モダナイゼーションは、設計原則を適用した実務事例として扱います。

@@ -111,7 +111,7 @@ export const useCases = [
     shortTitle: "キャリア・Work Design",
     description:
       "AI人材、技術職、レビュー、情報発信など、技術を取り巻く仕事とキャリアについての論考を読みます。",
-    path: "articles",
+    path: "ai",
     home: false,
     featured: ["essays/ai-career-market", "essays/ai-roles-beyond-fde"],
     publications: [

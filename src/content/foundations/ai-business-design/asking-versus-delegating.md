@@ -5,7 +5,7 @@ title: 第3章　AIに聞くことと、AIに仕事を任せることは違う
 kind: principle
 section: foundations
 status: evolving
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: business-transformation

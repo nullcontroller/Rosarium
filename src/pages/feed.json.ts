@@ -11,7 +11,7 @@ export const GET: APIRoute = async ({ site }) => {
       {
         version: "https://jsonfeed.org/version/1.1",
         title: "Rosarium | Articles",
-        home_page_url: absoluteUrl(site, "articles"),
+        home_page_url: absoluteUrl(site, "ai"),
         feed_url: feedUrl,
         description: "Applied AI、システム設計、実務事例と論考",
         language: "ja",

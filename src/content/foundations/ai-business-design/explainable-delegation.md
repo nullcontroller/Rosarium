@@ -5,7 +5,7 @@ title: 第4章　AIに任せない条件を、先に決める
 kind: principle
 section: foundations
 status: evolving
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: business-transformation

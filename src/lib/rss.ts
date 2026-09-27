@@ -16,7 +16,7 @@ const escapeXml = (value: string) =>
 
 export async function createRssResponse(site: URL) {
   const entries = await publicationFeedEntries();
-  const channelUrl = absoluteUrl(site, "articles");
+  const channelUrl = absoluteUrl(site, "ai");
   const feedUrl = absoluteUrl(site, "feed.xml");
   const items = entries
     .map((entry) => {

@@ -49,7 +49,7 @@ const pages = defineCollection({
       status: z.enum(["draft", "evolving", "stable", "archived"]),
       order: z.number().int().nonnegative().optional(),
       tags: z.array(z.string()).default([]),
-      themes: z.array(z.enum(["ai", "dx"])).min(1).default(["ai"]),
+      entry_points: z.array(z.enum(["ai", "dx"])).min(1).default(["ai"]),
       dx_topic: z
         .enum([
           "value-business",
@@ -103,17 +103,17 @@ const pages = defineCollection({
             "Keep Zenn publications in related publications, not the AI Design canonical index",
           path: ["layer"],
         });
-      if (data.themes.includes("dx") && !data.dx_topic)
+      if (data.entry_points.includes("dx") && !data.dx_topic)
         ctx.addIssue({
           code: "custom",
-          message: "DX theme requires dx_topic",
+          message: "DX entry point requires dx_topic",
           path: ["dx_topic"],
         });
-      if (data.dx_topic && !data.themes.includes("dx"))
+      if (data.dx_topic && !data.entry_points.includes("dx"))
         ctx.addIssue({
           code: "custom",
-          message: "dx_topic requires the DX theme",
-          path: ["themes"],
+          message: "dx_topic requires the DX entry point",
+          path: ["entry_points"],
         });
     }),
 });

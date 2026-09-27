@@ -6,7 +6,7 @@ title: AIは自動化できる。しかし、その出力を確定値として�
 kind: principle
 section: foundations
 status: evolving
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: business-transformation

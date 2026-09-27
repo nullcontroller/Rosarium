@@ -6,7 +6,7 @@ title: 理解できないシステムは、コストである
 kind: case
 section: cases
 status: evolving
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: case-study

@@ -6,7 +6,7 @@ title: "DXを学んで、「価値」という言葉が気になるようにな�
 kind: essay
 section: essays
 status: evolving
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: value-business

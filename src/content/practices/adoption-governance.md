@@ -6,7 +6,7 @@ kind: "guide"
 section: "practices"
 status: "evolving"
 order: 10
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: business-transformation

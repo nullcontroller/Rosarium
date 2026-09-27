@@ -5,7 +5,7 @@ title: 第1章　AIに仕事を任せても、責任は消えない
 kind: principle
 section: foundations
 status: evolving
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: business-transformation

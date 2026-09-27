@@ -6,7 +6,7 @@ title: AIは使われている。でも使いこなされていない
 kind: guide
 section: practices
 status: evolving
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: business-transformation

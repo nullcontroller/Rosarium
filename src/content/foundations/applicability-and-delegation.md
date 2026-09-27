@@ -6,7 +6,7 @@ title: AI適用可否と委任レベルの設計
 kind: principle
 section: foundations
 status: evolving
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: value-business

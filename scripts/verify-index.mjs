@@ -87,8 +87,8 @@ assert.equal(
   top(".home-introduction .lead").text(),
   "学習と実務を通じて育て続ける「庭」",
 );
-assert(top(".home-site-description").text().includes("AIを主軸に"));
-assert(top(".home-site-description").text().includes("DXなど周辺"));
+assert(top(".home-site-description").text().includes("AIを主題として"));
+assert(top(".home-site-description").text().includes("DX、システム設計、業務設計"));
 assert(!top("main").text().includes("Applied AI / System Architecture"));
 assert(!top("main").text().includes("立林 裕太朗"));
 assert.deepEqual(
@@ -239,14 +239,13 @@ for (const [route, layer, crossListed] of [
   for (const id of crossListed) assert(ids.includes(id), `${route} misses discovery path ${id}`);
   assert.equal(new Set(ids).size, ids.length, `${route} has duplicate discovery entries`);
 }
-const pubs = page("articles");
+const pubs = page("ai");
 assert.equal(top("#use-case-heading,#current-growth-heading").length, 0);
 assert.equal(pubs("h1").text(), "AI");
 assert.equal(
   pubs(".page-heading .lead").text(),
   "AIを、価値・業務・システムの文脈から考え、設計・理論・実践・事例へつなぎます。",
 );
-assert(pubs('#ai').length);
 assert.equal(pubs("#current-topics-heading").length, 0);
 assert.equal(pubs("[data-publication]").length, 0);
 assert.equal(pubs("[data-use-case-shortcut]").length, 0);
@@ -281,6 +280,7 @@ for (const [section, href] of [
 const dx = page("dx");
 assert.equal(dx("h1").text(), "DX");
 assert(dx(".page-heading .lead").text().includes("価値・業務変革・システム企画"));
+assert.deepEqual(dx("main > section > h2").map((_, element) => dx(element).text()).get(), ["DXに関連する記事"]);
 assert.equal(new Set(primaryIds(dx)).size, primaryIds(dx).length);
 for (const id of [
   "essays/dx-and-value",
@@ -295,13 +295,18 @@ for (const id of [
 ]) assert(!primaryIds(dx).includes(id), `DX discovery includes technical-only ${id}`);
 const dxEssay = page("essays/dx-and-value");
 assert.deepEqual(
-  dxEssay(".content-themes a")
+  dxEssay(".content-entry-points a")
     .map((_, element) => dxEssay(element).text())
     .get(),
   ["AI", "DX"],
 );
-assert(dxEssay('.content-themes a[href="/ai-design-foundations/articles/"]').length);
-assert(dxEssay('.content-themes a[href="/ai-design-foundations/dx/"]').length);
+assert(dxEssay('.content-entry-points a[href="/ai-design-foundations/ai/"]').length);
+assert(dxEssay('.content-entry-points a[href="/ai-design-foundations/dx/"]').length);
+const dxEssayCard = dx('[data-content-id="essays/dx-and-value"]');
+assert.deepEqual(
+  dxEssayCard.find(".entry-point-label").map((_, element) => dx(element).text()).get(),
+  ["AI", "DX"],
+);
 for (const [id, expected] of [
   ["foundations/ai-business-design", ["公開：2026年2月"]],
   ["cases/three-ai-maintenance", ["公開：2026年7月"]],
@@ -355,6 +360,7 @@ for (const id of [
   "cases",
   "essays",
   "books",
+  "ai",
   "articles",
   "search",
   "about",
@@ -410,9 +416,16 @@ const overview = page("overview");
 assert.match(overview("meta[name=robots]").attr("content") || "", /noindex/);
 assert.equal(
   overview("meta[http-equiv=refresh]").attr("content"),
-  "0;url=/ai-design-foundations/articles/",
+  "0;url=/ai-design-foundations/ai/",
 );
-assert(overview('a[href="/ai-design-foundations/articles/"]').length);
+assert(overview('a[href="/ai-design-foundations/ai/"]').length);
+const articlesCompatibility = page("articles");
+assert.match(articlesCompatibility("meta[name=robots]").attr("content") || "", /noindex/);
+assert.equal(
+  articlesCompatibility("meta[http-equiv=refresh]").attr("content"),
+  "0;url=/ai-design-foundations/ai/",
+);
+assert(articlesCompatibility('a[href="/ai-design-foundations/ai/"]').length);
 console.log(
   "Verified overview compatibility redirect, two case books, independent series and simplified navigation.",
 );
@@ -437,7 +450,7 @@ assert(
   !fs.readFileSync("dist/feed.xml", "utf8").includes("Rosarium 公開"),
   "Curated Recent Growth must remain separate from the content RSS feed",
 );
-for (const route of ["career", "articles", "reference"])
+for (const route of ["career", "ai", "reference"])
   assert(
     page(route)("main .icon").length,
     route + " must use the icon language",

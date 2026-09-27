@@ -903,7 +903,7 @@ blockquote {
   color: var(--muted);
   overflow-wrap: anywhere;
 }
-.content-themes {
+.content-entry-points {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -912,7 +912,8 @@ blockquote {
   color: var(--muted);
   font-size: 0.76rem;
 }
-.content-themes a {
+.content-entry-points a,
+.entry-point-label {
   display: inline-flex;
   min-height: 32px;
   align-items: center;
@@ -921,6 +922,11 @@ blockquote {
   border-radius: 999px;
   color: var(--accent);
   background: var(--surface);
+}
+.content-entry-meta .entry-point-label {
+  min-height: 24px;
+  padding: 0 0.4rem;
+  text-decoration: none;
 }
 .domain-cross-link a {
   display: inline-flex;

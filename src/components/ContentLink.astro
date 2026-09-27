@@ -1,8 +1,12 @@
 ---
-import { contentCategory } from "../lib/navigation";
+import { contentCategory, publicationType } from "../lib/navigation";
 import { iconForEntry } from "../lib/icons";
 import type { CollectionEntry } from "astro:content";
 import { statusLabel, url } from "../lib/site";
+import {
+  contentEntryPoints,
+  entryPointDefinitions,
+} from "../lib/entry-points";
 import Icon from "./Icon.astro";
 interface Props {
   entry: CollectionEntry<"pages">;
@@ -13,13 +17,26 @@ interface Props {
 const { entry, heading: Heading = "h2", current = false, showIcon = true } = Astro.props;
 const d = entry.data;
 const status = d.status === "stable" ? undefined : statusLabel(d.status);
+const entryPoints = contentEntryPoints(entry);
+const format = publicationType(entry);
+const category = contentCategory(entry);
+const showCategory = !(format === "Essay" && category === "Essays");
 ---
 
 <div class:list={["content-entry", showIcon && "icon-entry"]} data-content-id={entry.id}>
   {showIcon && <Icon name={iconForEntry(entry)} size="list" />}
   <div>
-    <p class="meta">
-      <span>{contentCategory(entry)}</span>
+    <p class="meta content-entry-meta">
+      {entryPoints.map((entryPoint) => (
+        <a
+          class="entry-point-label"
+          href={url(entryPointDefinitions[entryPoint].path)}
+        >
+          {entryPointDefinitions[entryPoint].label}
+        </a>
+      ))}
+      <span>{format}</span>
+      {showCategory && <span>{category}</span>}
       {status && <span>{status}</span>}
     </p>
     <Heading class="content-title">

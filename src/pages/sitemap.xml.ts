@@ -13,7 +13,7 @@ const manualRoutes = [
   "ai-design/software-engineering",
   "ai-design/lifecycle-operations",
   "ai-mathematics",
-  "articles",
+  "ai",
   "books",
   "career",
   "career/profile",

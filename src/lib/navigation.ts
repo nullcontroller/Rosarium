@@ -56,11 +56,11 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
   ],
   [
     {
-      path: "articles",
+      path: "ai",
       title: "AI",
       summary: "設計・理論・実践・事例",
       icon: iconForPath("articles"),
-      sections: ["articles", "ai-design", "ai-mathematics", "practices", "cases"],
+      sections: ["ai", "articles", "ai-design", "ai-mathematics", "practices", "cases"],
       children: readingCategories,
     },
     {
@@ -127,7 +127,7 @@ export const layerPath = (layer: string) =>
     "ai-mathematics": "ai-mathematics",
     practice: "practices",
     case: "cases",
-    publication: "articles",
+    publication: "ai",
     career: "career",
     reference: "reference",
   })[layer] || "start-here";

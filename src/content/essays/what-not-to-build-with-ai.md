@@ -6,7 +6,7 @@ title: "AIで作れる時代に、何を作らないか"
 kind: essay
 section: essays
 status: evolving
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: value-business

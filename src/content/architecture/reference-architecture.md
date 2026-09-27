@@ -6,7 +6,7 @@ title: AI業務システムの参照アーキテクチャ
 kind: architecture
 section: architecture
 status: evolving
-themes:
+entry_points:
   - ai
   - dx
 dx_topic: system-planning
