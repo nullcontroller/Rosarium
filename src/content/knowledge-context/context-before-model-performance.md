@@ -6,6 +6,7 @@ title: AIを使い分ける基準は、モデル性能よりコンテキスト�
 kind: guide
 section: knowledge-context
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - githubcopilot
   - コンテキスト

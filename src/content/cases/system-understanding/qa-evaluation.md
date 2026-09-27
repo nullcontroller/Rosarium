@@ -5,6 +5,7 @@ title: 第9章 QAシステムの評価設計 ― 信頼可能な品質の定義
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ai
   - 設計

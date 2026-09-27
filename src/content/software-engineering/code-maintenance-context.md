@@ -6,6 +6,7 @@ title: なぜAIは新規コードよりコード保守に強いのか
 kind: guide
 section: software-engineering
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - software-engineering
 published_at: null

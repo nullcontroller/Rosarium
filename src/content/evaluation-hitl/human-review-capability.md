@@ -6,6 +6,7 @@ title: AI時代において「レビューできる人」が価値を持つ理�
 kind: guide
 section: evaluation-hitl
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ai
   - キャリア

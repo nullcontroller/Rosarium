@@ -5,6 +5,7 @@ title: AIを開発工程に組み込む
 kind: guide
 section: software-engineering
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - software-engineering
 published_at: null

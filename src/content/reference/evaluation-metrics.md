@@ -5,6 +5,7 @@ layer: reference
 kind: principle
 section: evaluation-hitl
 status: stable
+last_updated: "2026-09-22"
 order: 30
 tags: [Evaluation, RAG]
 updated_at: "2026-09-22"

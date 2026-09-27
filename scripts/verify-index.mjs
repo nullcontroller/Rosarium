@@ -90,7 +90,7 @@ assert.equal(
 assert(top(".home-site-description").text().includes("AIを主題として"));
 assert(top(".home-site-description").text().includes("DX、システム設計、業務設計"));
 assert(!top("main").text().includes("Applied AI / System Architecture"));
-assert(!top("main").text().includes("立林 裕太朗"));
+assert(!top(".home-introduction").text().includes("立林 裕太朗"));
 assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
@@ -101,8 +101,10 @@ assert.deepEqual(
   top(".header-primary a")
     .map((_, e) => top(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "キャリア"],
+  ["庭", "AI", "DX"],
 );
+assert.equal(top('.header-primary a[href="/ai-design-foundations/career/"]').length, 0);
+assert.equal(top('.home-career a[href="/ai-design-foundations/career/"]').length, 1);
 assert.equal(top(".header-actions a").length, 0);
 assert.equal(top("#global-search-input").length, 1);
 assert.equal(top(".global-search-toggle").length, 1);
@@ -279,8 +281,26 @@ for (const [section, href] of [
 }
 const dx = page("dx");
 assert.equal(dx("h1").text(), "DX");
-assert(dx(".page-heading .lead").text().includes("価値・業務変革・システム企画"));
-assert.deepEqual(dx("main > section > h2").map((_, element) => dx(element).text()).get(), ["DXに関連する記事"]);
+assert(dx(".page-heading .lead").text().includes("業務・サービス・システム・組織"));
+assert.deepEqual(dx("main > section > h2").map((_, element) => dx(element).text()).get(), [
+  "価値から変革を設計する",
+  "AIとの関係",
+  "DXに関連する記事",
+]);
+assert.deepEqual(
+  dx(".dx-principle-list h3").map((_, element) => dx(element).text()).get(),
+  [
+    "Value Flowを見る",
+    "業務そのものを変える",
+    "始める・残す・変える・統合する・やめる",
+    "全体最適で考える",
+    "システムライフサイクルを見通す",
+    "継続的に変革する",
+    "成果で評価する",
+  ],
+);
+assert(dx(".dx-ai-connection").text().includes("有力な手段の一つ"));
+assert(dx('.dx-ai-connection a[href="/ai-design-foundations/ai/"]').length);
 assert.equal(new Set(primaryIds(dx)).size, primaryIds(dx).length);
 for (const id of [
   "essays/dx-and-value",
@@ -431,7 +451,7 @@ console.log(
 );
 
 assert(top("#recent-growth-heading").length);
-assert.equal(top("main > section").length, 2);
+assert.equal(top("main > section").length, 3);
 assert.equal(top(".growth-list [data-growth-entry]").length, 1);
 assert.equal(
   top(".growth-list [data-growth-entry] .content-title").text(),
@@ -450,6 +470,12 @@ assert(
   !fs.readFileSync("dist/feed.xml", "utf8").includes("Rosarium 公開"),
   "Curated Recent Growth must remain separate from the content RSS feed",
 );
+for (const route of ["ai-mathematics", "practices"]) {
+  const $ = page(route);
+  assert.equal($(".page-status").text(), "更新終了", `${route}: status`);
+  assert($(".status-note").text().includes("積極的な追加更新を終了"), `${route}: status note`);
+  assert.equal($(".site-last-updated time").attr("datetime"), "2026-09-28", `${route}: last updated`);
+}
 for (const route of ["career", "ai", "reference"])
   assert(
     page(route)("main .icon").length,

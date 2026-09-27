@@ -6,6 +6,7 @@ title: ハルシネーションの多層制御設計
 kind: principle
 section: foundations
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - foundations
 published_at: null

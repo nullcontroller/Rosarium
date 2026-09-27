@@ -6,6 +6,7 @@ title: 生成AI教育はなぜ難しいのか ― 変わらない原則と変わ
 kind: guide
 section: practices
 status: evolving
+last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx

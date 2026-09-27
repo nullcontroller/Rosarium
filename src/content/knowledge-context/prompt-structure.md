@@ -6,6 +6,7 @@ title: プロンプト設計の基本構造
 kind: guide
 section: knowledge-context
 status: evolving
+last_updated: "2026-09-22"
 tags:
   - knowledge-context
 published_at: null

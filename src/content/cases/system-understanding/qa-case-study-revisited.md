@@ -5,6 +5,7 @@ title: 第12章 実践事例 ― QAチャットによる構造理解と意思決
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ai
   - 設計

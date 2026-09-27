@@ -5,6 +5,7 @@ title: 第1章 レガシーシステムの問題検出と「理解可能な状�
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ai
   - 設計

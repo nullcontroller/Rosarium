@@ -6,15 +6,19 @@ interface Props {
   title: string;
   eyebrow?: string;
   summary?: string;
+  status?: string;
 }
-const { icon, title, eyebrow, summary } = Astro.props;
+const { icon, title, eyebrow, summary, status } = Astro.props;
 ---
 
 <header class:list={["page-heading", !icon && "text-only"]}>
   {icon && <Icon name={icon} size="page" />}
   <div>
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <h1>{title}</h1>
+    <div class="page-title-with-status">
+      <h1>{title}</h1>
+      {status && <span class="page-status">{status}</span>}
+    </div>
     {summary && <p class="lead">{summary}</p>}
   </div>
 </header>

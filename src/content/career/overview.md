@@ -3,6 +3,7 @@ title: "Career — 立林 裕太朗"
 summary: "Applied AIを軸に、価値から業務変化を考え、AI・人間・既存システムの役割を設計してきた経験と今後の方向性。"
 layer: career
 status: stable
+last_updated: "2026-09-28"
 source:
   type: repository
   url: https://github.com/nullcontroller/career-profile/blob/main/index.md

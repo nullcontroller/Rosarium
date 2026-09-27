@@ -6,6 +6,7 @@ title: AI生成コンテンツは、なぜ信頼されにくいのか
 kind: essay
 section: essays
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - レビュー
   - 生成ai

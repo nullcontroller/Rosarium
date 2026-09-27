@@ -5,6 +5,7 @@ title: 第4章 ソースコードから構造を復元する ― 役割と関係
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ai
   - 設計

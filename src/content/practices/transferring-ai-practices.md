@@ -6,6 +6,7 @@ title: 全員の業務が違うのに、AI活用事例をそのまま横展開�
 kind: guide
 section: practices
 status: evolving
+last_updated: "2026-09-22"
 entry_points:
   - ai
   - dx

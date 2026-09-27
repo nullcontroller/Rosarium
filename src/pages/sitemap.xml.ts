@@ -1,6 +1,10 @@
 import { getCollection } from "astro:content";
 import type { APIRoute } from "astro";
-import { absoluteUrl, publicEntry } from "../lib/site";
+import {
+  absoluteUrl,
+  publicEntry,
+  staticLastUpdatedForPath,
+} from "../lib/site";
 
 const manualRoutes = [
   "",
@@ -24,7 +28,6 @@ const manualRoutes = [
   "reference",
   "series",
   "start-here",
-  "updates",
 ];
 
 const escapeXml = (value: string) =>
@@ -43,11 +46,12 @@ const escapeXml = (value: string) =>
 export const GET: APIRoute = async ({ site }) => {
   const entries = await getCollection("pages", publicEntry);
   const routes = new Map<string, string | undefined>();
-  for (const route of manualRoutes) routes.set(route, undefined);
+  for (const route of manualRoutes)
+    routes.set(route, staticLastUpdatedForPath(route));
   for (const entry of entries)
     routes.set(
       entry.id,
-      entry.data.updated_at ?? entry.data.published_at ?? undefined,
+      entry.data.last_updated,
     );
 
   const body = [...routes.entries()]

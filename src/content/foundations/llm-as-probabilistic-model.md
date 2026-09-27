@@ -7,6 +7,7 @@ title: LLMを確率モデルとして設計するという立場
 kind: principle
 section: foundations
 status: evolving
+last_updated: "2026-09-22"
 tags: &a1
   - ai
   - 機械学習

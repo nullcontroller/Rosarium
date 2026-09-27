@@ -5,6 +5,7 @@ layer: "practice"
 kind: "guide"
 section: "practices"
 status: "evolving"
+last_updated: "2026-09-22"
 order: 20
 entry_points:
   - ai

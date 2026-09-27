@@ -90,7 +90,7 @@ const themeGroups = readingPath
   canonical={d.canonical}
   ogType="article"
   publishedAt={d.published_at}
-  updatedAt={d.updated_at}
+  lastUpdated={d.last_updated}
   section={primaryPath}
   headings={headings}
   breadcrumbs={[
@@ -153,11 +153,7 @@ const themeGroups = readingPath
             </span>
           </>
         )}
-        {d.updated_at && (
-          <span data-pagefind-meta="updated_at">
-            更新：<time datetime={d.updated_at}>{d.updated_at}</time>
-          </span>
-        )}
+        <span hidden data-pagefind-meta="last_updated">{d.last_updated}</span>
         {d.updated_at && (
           <span data-pagefind-meta="update_type">{updateLabels[growthType]}</span>
         )}

@@ -5,6 +5,7 @@ title: 第1章　AIに仕事を任せても、責任は消えない
 kind: principle
 section: foundations
 status: evolving
+last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx

@@ -6,6 +6,7 @@ title: AI Design Foundations — 設計体系の原点
 kind: guide
 section: foundations
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - Applied AI
   - Architecture

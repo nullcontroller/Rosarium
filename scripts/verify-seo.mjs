@@ -78,8 +78,13 @@ for (const file of htmlFiles) {
     ),
     `Rosarium WebSite JSON-LD missing: ${file}`,
   );
-  const page = graph["@graph"].find((item) => item.url === canonical);
+  const page = graph["@graph"].find(
+    (item) => item["@id"] === `${canonical}#webpage`,
+  );
   assert.ok(page, `Page JSON-LD missing: ${file}`);
+  const lastUpdated = $('meta[name="last-updated"]').attr("content");
+  assert.match(lastUpdated ?? "", /^\d{4}-\d{2}-\d{2}$/, `Missing last_updated: ${file}`);
+  assert.equal(page.dateModified, lastUpdated, `dateModified mismatch: ${file}`);
   if (page["@type"] === "TechArticle") {
     articleCount++;
     assert.ok(page.headline, `TechArticle headline missing: ${file}`);

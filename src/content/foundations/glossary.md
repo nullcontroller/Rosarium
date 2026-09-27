@@ -5,6 +5,7 @@ title: Reference索引
 kind: principle
 section: foundations
 status: evolving
+last_updated: "2026-09-22"
 tags:
   - foundations
 published_at: null

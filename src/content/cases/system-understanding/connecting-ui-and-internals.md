@@ -5,6 +5,7 @@ title: 第7章 UIと内部構造の接続 ― 利用可能な状態への変換
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ai
   - 設計

@@ -29,6 +29,8 @@ for (const file of files) {
   const { data, body } = parse(file);
   assert.ok(data.title?.trim(), `Missing title: ${file}`);
   assert.ok(data.summary?.trim(), `Missing summary: ${file}`);
+  assert.match(String(data.last_updated), /^\d{4}-\d{2}-\d{2}$/, `Invalid last_updated: ${file}`);
+  assert.ok(!/^last_updated:/m.test(body), `last_updated must remain in front matter: ${file}`);
   if (data.updated_at != null)
     assert.match(String(data.updated_at), /^\d{4}-\d{2}-\d{2}/, `Invalid updated_at: ${file}`);
 

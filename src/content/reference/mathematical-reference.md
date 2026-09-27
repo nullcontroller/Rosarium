@@ -5,6 +5,7 @@ layer: reference
 kind: principle
 section: foundations
 status: stable
+last_updated: "2026-09-22"
 order: 20
 tags: [数学, 確率]
 updated_at: "2026-09-22"

@@ -5,6 +5,7 @@ title: 生成AIの条件付き確率モデル基礎
 kind: principle
 section: foundations
 status: evolving
+last_updated: "2026-09-22"
 tags:
   - foundations
 published_at: null

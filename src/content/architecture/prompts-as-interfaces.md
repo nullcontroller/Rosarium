@@ -6,6 +6,7 @@ title: AI間インターフェースとしてのプロンプト
 kind: architecture
 section: architecture
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - architecture
 published_at: null

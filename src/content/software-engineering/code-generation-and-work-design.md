@@ -6,6 +6,7 @@ title: コード生成AIはなぜ業務を変えないのか — 設計支援と
 kind: guide
 section: software-engineering
 status: evolving
+last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx

@@ -5,6 +5,7 @@ title: 第1章　暗号方式の変更によって顕在化した異常系
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ソフトウェア設計
   - 生成ai

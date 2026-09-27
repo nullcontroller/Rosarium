@@ -6,6 +6,7 @@ title: 3つのAIをオーケストレーションしたレガシー保守
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-22"
 entry_points:
   - ai
   - dx

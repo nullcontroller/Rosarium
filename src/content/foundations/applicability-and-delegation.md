@@ -6,6 +6,7 @@ title: AI適用可否と委任レベルの設計
 kind: principle
 section: foundations
 status: evolving
+last_updated: "2026-09-27"
 entry_points:
   - ai
   - dx

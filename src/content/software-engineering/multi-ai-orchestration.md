@@ -6,6 +6,7 @@ title: 複数AIの役割分担と工程設計
 kind: guide
 section: software-engineering
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - software-engineering
 published_at: null

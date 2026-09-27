@@ -6,6 +6,7 @@ title: QAチャット評価設計思想
 kind: guide
 section: evaluation-hitl
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - evaluation-hitl
 published_at: null

@@ -5,6 +5,7 @@ title: 第4章　Microsoft 365 Copilotでレビュー可能な仕様書へ変換
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ソフトウェア設計
   - 生成ai

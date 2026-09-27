@@ -6,6 +6,7 @@ title: QA行動制約Knowledge
 kind: guide
 section: knowledge-context
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - knowledge-context
 published_at: null

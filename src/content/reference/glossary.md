@@ -5,6 +5,7 @@ layer: reference
 kind: principle
 section: foundations
 status: stable
+last_updated: "2026-09-22"
 order: 10
 tags: [用語, AI Design]
 updated_at: "2026-09-22"

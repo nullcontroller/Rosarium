@@ -5,6 +5,7 @@ layer: reference
 kind: principle
 section: evaluation-hitl
 status: stable
+last_updated: "2026-09-22"
 order: 40
 tags: [責任境界, HITL]
 updated_at: "2026-09-22"

@@ -4,7 +4,7 @@ import GrowthEntry from "../components/GrowthEntry.astro";
 import { recentGrowth } from "../data/recent-growth";
 import Icon from "../components/Icon.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import { siteDescription } from "../lib/site";
+import { siteDescription, url } from "../lib/site";
 
 const recent = recentGrowth.slice(0, 3);
 ---
@@ -30,5 +30,12 @@ const recent = recentGrowth.slice(0, 3);
     <div class="growth-list growth-list-compact">
       {recent.map((entry) => <GrowthEntry entry={entry} />)}
     </div>
+  </section>
+
+  <section class="home-section home-career" aria-labelledby="home-career-heading">
+    <p class="eyebrow">PROFILE / CAREER</p>
+    <h2 id="home-career-heading">キャリア</h2>
+    <p>Rosariumを設計・運営する立林 裕太朗の実務経験、現在できること、これから取り組みたいことを整理しています。</p>
+    <p><a class="cta-link" href={url("career")}>キャリアを見る →</a></p>
   </section>
 </Site>

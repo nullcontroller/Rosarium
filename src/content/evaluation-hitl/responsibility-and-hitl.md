@@ -6,6 +6,7 @@ title: AI出力の責任境界とHITL
 kind: guide
 section: evaluation-hitl
 status: evolving
+last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx

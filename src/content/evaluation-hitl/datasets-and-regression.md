@@ -6,6 +6,7 @@ title: AI評価データセットと回帰評価設計
 kind: guide
 section: evaluation-hitl
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - evaluation-hitl
 published_at: null

@@ -5,6 +5,7 @@ title: 第3章　GitHub Copilotと人間で実現方法を具体化する
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ソフトウェア設計
   - 生成ai

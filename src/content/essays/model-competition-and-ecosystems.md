@@ -6,6 +6,7 @@ title: AIはどこへ進化しているのか — モデル競争の裏にある
 kind: essay
 section: essays
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - chatgpt
   - llm

@@ -5,6 +5,7 @@ title: 第6章　全体像を共有しながら、コード生成と単体テス
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ソフトウェア設計
   - 生成ai

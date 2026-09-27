@@ -6,6 +6,7 @@ title: なぜ回答範囲を制限した方がよいのか
 kind: principle
 section: foundations
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - foundations
 published_at: null

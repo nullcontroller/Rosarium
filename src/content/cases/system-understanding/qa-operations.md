@@ -5,6 +5,7 @@ title: 第11章 QAシステムの運用設計 ― 品質を維持するための
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ai
   - 設計

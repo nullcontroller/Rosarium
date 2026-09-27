@@ -6,6 +6,7 @@ title: 人向け資料とAI向け資料の分離設計
 kind: guide
 section: knowledge-context
 status: evolving
+last_updated: "2026-09-28"
 tags:
   - knowledge-context
 published_at: null

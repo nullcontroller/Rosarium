@@ -5,6 +5,7 @@ title: 第5章　AI間で現在の仕様を受け渡し、Excel仕様書を修�
 kind: case
 section: cases
 status: evolving
+last_updated: "2026-09-28"
 tags: &a1
   - ソフトウェア設計
   - 生成ai

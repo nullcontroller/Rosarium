@@ -6,6 +6,7 @@ title: コード生成AIの評価と採用設計
 kind: guide
 section: evaluation-hitl
 status: evolving
+last_updated: "2026-09-22"
 tags:
   - evaluation-hitl
 published_at: null

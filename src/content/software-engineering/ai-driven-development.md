@@ -6,6 +6,7 @@ title: 私が考えるAI駆動開発 ― AI・人間・成果物をどうつな�
 kind: guide
 section: software-engineering
 status: evolving
+last_updated: "2026-09-22"
 tags: &a1
   - githubcopilot
   - 生成ai

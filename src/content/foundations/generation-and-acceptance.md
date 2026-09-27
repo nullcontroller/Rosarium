@@ -6,6 +6,7 @@ title: AIは自動化できる。しかし、その出力を確定値として�
 kind: principle
 section: foundations
 status: evolving
+last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx

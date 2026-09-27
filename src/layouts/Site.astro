@@ -1,7 +1,13 @@
 ---
 import "../styles/global.css";
 import "katex/dist/katex.min.css";
-import { assetUrl, siteDescription, url } from "../lib/site";
+import {
+  assetUrl,
+  formatDateJa,
+  siteDescription,
+  staticLastUpdatedForPath,
+  url,
+} from "../lib/site";
 import { navigation } from "../lib/navigation";
 import NavIcon from "../components/NavIcon.astro";
 import GlobalSearch from "../components/GlobalSearch.astro";
@@ -16,7 +22,7 @@ interface Props {
   headings?: { depth: number; slug: string; text: string }[];
   noindex?: boolean;
   publishedAt?: string | null;
-  updatedAt?: string | null;
+  lastUpdated?: string;
   breadcrumbs?: { name: string; path: string }[];
   themeGroups?: ReadingGroup[];
   frame?: boolean;
@@ -31,11 +37,13 @@ const {
   headings = [],
   noindex = false,
   publishedAt,
-  updatedAt,
+  lastUpdated,
   breadcrumbs = [],
   themeGroups = [],
   frame = true,
 } = Astro.props;
+const effectiveLastUpdated =
+  lastUpdated ?? staticLastUpdatedForPath(Astro.url.pathname);
 const documentTitle =
   title === "Home" ? "Rosarium | 立林 裕太朗" : `${title} | Rosarium`;
 const canonicalUrl = canonical?.startsWith(
@@ -96,7 +104,7 @@ const pageEntity = {
   author: { "@id": personId },
   primaryImageOfPage: { "@type": "ImageObject", url: ogImageUrl },
   ...(publishedAt ? { datePublished: publishedAt } : {}),
-  ...(updatedAt ? { dateModified: updatedAt } : {}),
+  ...(effectiveLastUpdated ? { dateModified: effectiveLastUpdated } : {}),
   ...(breadcrumbs.length ? { breadcrumb: { "@id": breadcrumbId } } : {}),
 };
 const structuredData = {
@@ -169,7 +177,10 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     {publishedAt && (
       <meta property="article:published_time" content={publishedAt} />
     )}
-    {updatedAt && <meta property="article:modified_time" content={updatedAt} />}
+    {effectiveLastUpdated && (
+      <meta property="article:modified_time" content={effectiveLastUpdated} />
+    )}
+    <meta name="last-updated" content={effectiveLastUpdated} />
     {googleVerification && (
       <meta name="google-site-verification" content={googleVerification} />
     )}
@@ -246,12 +257,6 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             <a href={url("dx")} aria-current={section === "dx" ? "page" : undefined}>
               DX
             </a>
-            <a
-              href={url("career")}
-              aria-current={section?.startsWith("career") ? "page" : undefined}
-            >
-              キャリア
-            </a>
           </nav>
           <div class="header-actions">
             <GlobalSearch />
@@ -265,7 +270,6 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           <a href={url()}>庭</a>
           <a href={url("ai")}>AI</a>
           <a href={url("dx")}>DX</a>
-          <a href={url("career")} aria-current="page">キャリア</a>
         </nav>
       )}
     </header>
@@ -349,6 +353,11 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         tabindex="-1"
         data-pagefind-ignore={noindex ? true : undefined}
       >
+        {!noindex && (
+          <p class="site-last-updated" data-last-updated={effectiveLastUpdated}>
+            最終更新：<time datetime={effectiveLastUpdated}>{formatDateJa(effectiveLastUpdated)}</time>
+          </p>
+        )}
         <slot />
       </main>
       {frame && headings.length > 0 && (

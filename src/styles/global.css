@@ -1393,7 +1393,7 @@ blockquote {
   }
   .header-actions {
     flex: 1 1 100%;
-    width: 100%;
+    width: auto;
     margin-left: 0;
     justify-content: flex-end;
   }
@@ -1471,6 +1471,81 @@ blockquote {
 }
 .page-heading .eyebrow {
   margin: 0 0 0.2rem;
+}
+.page-title-with-status {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.8rem;
+}
+.page-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.7rem;
+  padding: 0.05rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: var(--surface);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+}
+.status-note,
+.site-last-updated {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.status-note {
+  margin-top: -0.55rem;
+}
+.site-last-updated {
+  margin: 0 0 1rem;
+  text-align: end;
+}
+.dx-principle-list {
+  list-style: none;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.dx-principle-list li {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.7fr) minmax(0, 1.3fr);
+  gap: 1.25rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.dx-principle-list h3,
+.dx-principle-list p {
+  margin: 0;
+}
+.dx-principle-list h3 {
+  font-size: 1rem;
+}
+.dx-principle-list p {
+  color: var(--muted);
+}
+.dx-ai-connection {
+  margin-block: 3rem;
+  padding: 1.25rem;
+  border-inline-start: 3px solid var(--accent);
+  background: var(--soft);
+}
+.dx-ai-connection h2 {
+  margin-top: 0;
+}
+.secondary-reading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.4rem;
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+.secondary-reading .eyebrow {
+  flex-basis: 100%;
+  margin: 0;
 }
 .icon-heading {
   display: grid;
@@ -1730,6 +1805,13 @@ blockquote {
 }
 
 @media (max-width: 760px) {
+  .site-last-updated {
+    text-align: start;
+  }
+  .dx-principle-list li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.45rem;
+  }
   .sidebar nav {
     display: block;
   }
