@@ -373,18 +373,18 @@ blockquote {
 }
 .shell {
   display: grid;
-  grid-template-columns: 235px minmax(0, 830px);
-  justify-content: center;
+  grid-template-columns: minmax(260px, 280px) minmax(0, 1fr);
+  width: 100%;
+  justify-content: stretch;
   min-height: calc(100vh - 160px);
 }
 .shell.has-toc,
 .shell.has-theme-toc {
-  grid-template-columns: 235px minmax(0, 830px) 210px;
+  grid-template-columns: minmax(260px, 280px) minmax(0, 1fr) minmax(190px, 220px);
 }
 .career-shell {
   display: block;
-  width: min(100%, 900px);
-  margin-inline: auto;
+  width: 100%;
 }
 .sidebar {
   padding: 2.3rem 1.1rem;
@@ -966,6 +966,7 @@ blockquote {
 }
 .prose {
   overflow-wrap: anywhere;
+  max-width: 78ch;
 }
 .prose h2 {
   border-bottom: 1px solid var(--line);
@@ -1044,7 +1045,7 @@ blockquote {
   .shell,
   .shell.has-toc,
   .shell.has-theme-toc {
-    grid-template-columns: 215px minmax(0, 830px);
+    grid-template-columns: minmax(220px, 240px) minmax(0, 1fr);
   }
   .toc,
   .theme-toc {
