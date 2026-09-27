@@ -5,7 +5,8 @@ export type ReadingPath =
   | "ai-design"
   | "ai-mathematics"
   | "practices"
-  | "cases";
+  | "cases"
+  | "dx";
 
 export type ReadingGroup = {
   title: string;
@@ -29,7 +30,6 @@ export const readingGroups: Record<
         "foundations/answer-scope",
         "evaluation-hitl/responsibility-and-hitl",
         "foundations/ai-business-design",
-        "essays/dx-and-value",
       ],
     },
     {
@@ -115,7 +115,6 @@ export const readingGroups: Record<
       ids: [
         "practices/adoption-governance",
         "practices/ai-adoption-and-effective-use",
-        "essays/dx-and-value",
         "practices/education-and-capability",
         "practices/ai-education-principles",
         "practices/transferring-practices",
@@ -169,6 +168,12 @@ export const readingGroups: Record<
     {
       title: "レガシーシステムの実践",
       ids: ["cases/system-understanding", "cases/three-ai-maintenance"],
+    },
+  ],
+  dx: [
+    {
+      title: "DXと価値",
+      ids: ["essays/dx-and-value"],
     },
   ],
 };

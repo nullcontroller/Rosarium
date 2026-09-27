@@ -1,0 +1,18 @@
+---
+import { url } from "../lib/site";
+
+interface Props {
+  active?: boolean;
+}
+
+const { active = false } = Astro.props;
+---
+
+<details class="header-reading-menu" data-active={active ? true : undefined}>
+  <summary>読み物</summary>
+  <div class="header-reading-submenu" aria-label="読み物のテーマ">
+    <a href={url("articles")}>読み物トップ</a>
+    <a href={`${url("articles")}#ai`}>AI</a>
+    <a href={url("dx")}>DX</a>
+  </div>
+</details>

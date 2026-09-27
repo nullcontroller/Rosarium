@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { assetUrl, url } from "../lib/site";
+import { assetUrl, siteDescription, url } from "../lib/site";
 
 export const prerender = true;
 
@@ -8,8 +8,7 @@ export const GET: APIRoute = () =>
     JSON.stringify({
       name: "Rosarium — 立林 裕太朗",
       short_name: "Rosarium",
-      description:
-        "立林 裕太朗が趣味で構築し、Applied AI・自然言語・システム設計・AI理論・実務で得た知見を公開するサイト。",
+      description: siteDescription,
       start_url: url(),
       scope: url(),
       display: "browser",

@@ -18,6 +18,7 @@ const manualRoutes = [
   "career",
   "career/profile",
   "cases",
+  "dx",
   "essays",
   "practices",
   "reference",

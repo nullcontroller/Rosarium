@@ -162,17 +162,26 @@ blockquote {
   background: var(--bg);
   border-bottom: 1px solid var(--line);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-columns: minmax(12rem, 1fr) minmax(22rem, auto) minmax(12rem, 1fr);
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
   gap: 1rem;
 }
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
   line-height: 1.2;
   color: var(--ink);
   text-decoration: none;
   justify-self: start;
+}
+.brand-mark {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  border-radius: 0.6rem;
 }
 .brand-name {
   display: block;
@@ -191,10 +200,67 @@ blockquote {
 }
 .header-primary {
   justify-self: center;
-  gap: 2.6rem;
+  justify-content: space-between;
+  min-width: clamp(24rem, 32vw, 34rem);
+  gap: clamp(2.5rem, 4vw, 4.75rem);
   font-size: clamp(1.06rem, 1.4vw, 1.16rem);
   font-weight: 650;
   letter-spacing: 0.025em;
+}
+.header-reading-menu {
+  position: relative;
+  color: var(--ink);
+}
+.header-reading-menu > summary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  list-style: none;
+}
+.header-reading-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.header-reading-menu > summary::after {
+  content: "▾";
+  color: var(--muted);
+  font-size: 0.68em;
+}
+.header-reading-menu[data-active] > summary {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+.header-reading-submenu {
+  display: none;
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 0.25rem);
+  left: 50%;
+  width: 12.5rem;
+  padding: 0.45rem;
+  transform: translateX(-50%);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface);
+  box-shadow: 0 0.8rem 2rem color-mix(in srgb, var(--ink) 14%, transparent);
+}
+.header-reading-menu[open] > .header-reading-submenu,
+.header-reading-menu:hover > .header-reading-submenu,
+.header-reading-menu:focus-within > .header-reading-submenu {
+  display: grid;
+}
+.header-reading-submenu a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0.45rem 0.65rem;
+  border-radius: 3px;
+}
+.header-reading-submenu a:hover,
+.header-reading-submenu a:focus-visible {
+  background: var(--soft);
 }
 .header-actions {
   justify-self: end;
@@ -1047,6 +1113,13 @@ blockquote {
   background-color: var(--shiki-dark-bg) !important;
 }
 @media (max-width: 1190px) {
+  .masthead {
+    grid-template-columns: minmax(11rem, 1fr) minmax(18rem, auto) minmax(11rem, 1fr);
+  }
+  .header-primary {
+    min-width: 18rem;
+    gap: 1.5rem;
+  }
   .shell,
   .shell.has-toc,
   .shell.has-theme-toc {
@@ -1081,6 +1154,10 @@ blockquote {
   .brand-name {
     font-size: clamp(1.65rem, 7vw, 1.85rem);
   }
+  .brand-mark {
+    width: 2.15rem;
+    height: 2.15rem;
+  }
   .header-links {
     display: block;
     width: 100%;
@@ -1088,9 +1165,14 @@ blockquote {
     font-size: 0.78rem;
   }
   .header-primary {
+    min-width: 0;
     gap: clamp(0.75rem, 3vw, 1.2rem);
     flex-wrap: nowrap;
     font-size: 0.94rem;
+  }
+  .header-reading-submenu {
+    left: 0;
+    transform: none;
   }
   .header-actions {
     position: absolute;
@@ -1684,6 +1766,20 @@ blockquote {
 }
 .reading-directory {
   border-top: 1px solid var(--line);
+}
+.reading-domain {
+  margin-top: 2.25rem;
+}
+.reading-domain > h2 {
+  margin-top: 0.25rem;
+}
+.reading-domain-secondary {
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+}
+.reading-domain-secondary h2 a {
+  color: var(--ink);
+  text-decoration-color: var(--accent);
 }
 .reading-area {
   display: grid;

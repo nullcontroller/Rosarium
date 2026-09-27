@@ -9,6 +9,8 @@ export const sections = [
   ["essays", "Essays", "市場・キャリア・技術への考察"],
 ] as const;
 export const base = "/ai-design-foundations";
+export const siteDescription =
+  "Rosariumは、AIを主軸に、設計・実務・思想を考察するPersonal Technical Siteです。AIだけでなく、文脈に応じてDXなど周辺の技術・設計領域も扱います。";
 export const url = (p = "") =>
   base + "/" + p.replace(/^\/+|\/+$/g, "") + (p ? "/" : "");
 export const assetUrl = (p: string) => base + "/" + p.replace(/^\/+|\/+$/g, "");

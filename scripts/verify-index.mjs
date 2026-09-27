@@ -81,24 +81,28 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html"))) {
     0,
     `${html}: brand must not contain profile or decorative content`,
   );
+  assert.equal(brand.find('img.brand-mark[src="/ai-design-foundations/favicon.svg"]').length, 1, `${html}: shared brand mark`);
 }
 assert.equal(
   top(".home-introduction .lead").text(),
   "学習と実務を通じて育て続ける「庭」",
 );
+assert(top(".home-site-description").text().includes("AIを主軸に"));
+assert(top(".home-site-description").text().includes("DXなど周辺"));
 assert(!top("main").text().includes("Applied AI / System Architecture"));
 assert(!top("main").text().includes("立林 裕太朗"));
 assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["庭", "読み物", "AI設計", "AI理論", "実践知", "実践事例", "Reference"],
+  ["庭", "読み物", "AI", "DX", "Reference"],
 );
+assert.equal(top(".header-reading-menu > summary").text().trim(), "読み物");
 assert.deepEqual(
   top(".header-primary a")
     .map((_, e) => top(e).text().trim())
     .get(),
-  ["庭", "読み物", "キャリア"],
+  ["庭", "読み物トップ", "AI", "DX", "キャリア"],
 );
 assert.equal(top(".header-actions a").length, 0);
 assert.equal(top("#global-search-input").length, 1);
@@ -130,7 +134,7 @@ assert.deepEqual(
   top(".sidebar .nav-children a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["AI設計", "AI理論", "実践知", "実践事例"],
+  ["AI", "DX"],
 );
 assert.equal(top(".sidebar .nav-children .icon").length, 0);
 assert.equal(top(".sidebar").length, 1);
@@ -170,7 +174,7 @@ assert.deepEqual(
     .get(),
   ["700", "800", "900", "1000", "1100", "1200"],
 );
-assert.equal(top(".sidebar").text().includes("DX"), false);
+assert.equal(top(".sidebar").text().includes("DX"), true);
 assert(
   page("ai-design/applicability")(
     '[data-related-publications] [data-content-id="essays/dx-and-value"]',
@@ -241,8 +245,16 @@ assert.equal(top("#use-case-heading,#current-growth-heading").length, 0);
 assert.equal(pubs("h1").text(), "読み物");
 assert.equal(
   pubs(".page-heading .lead").text(),
-  "Rosariumで育てている知識を、テーマごとにまとめています。",
+  "AIを主軸に、文脈に応じてDXなど周辺の技術・設計領域も扱います。",
 );
+assert.deepEqual(
+  pubs(".reading-domain > h2")
+    .map((_, e) => pubs(e).text().replace("→", "").trim())
+    .get(),
+  ["AI", "DX"],
+);
+assert(pubs('#ai').length);
+assert(pubs('a[href="/ai-design-foundations/dx/"]').length);
 assert.equal(pubs("#current-topics-heading").length, 0);
 assert.equal(pubs("[data-publication]").length, 0);
 assert.equal(pubs("[data-use-case-shortcut]").length, 0);
@@ -274,6 +286,13 @@ for (const [section, href] of [
   const area = pubs(`#${section}`);
   assert(area.find(`a[href="${href}"]`).length, section);
 }
+const dx = page("dx");
+assert.equal(dx("h1").text(), "DX");
+assert(dx(".page-heading .lead").text().includes("価値・業務変革・システム企画"));
+assert.deepEqual(primaryIds(dx), ["essays/dx-and-value"]);
+const dxEssay = page("essays/dx-and-value");
+assert.equal(dxEssay(".breadcrumb a").eq(1).text(), "DX");
+assert.equal(dxEssay('[data-pagefind-meta="category"]').text(), "DX");
 for (const [id, expected] of [
   ["foundations/ai-business-design", ["公開：2026年2月"]],
   ["cases/three-ai-maintenance", ["公開：2026年7月"]],

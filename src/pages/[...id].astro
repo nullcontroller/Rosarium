@@ -35,9 +35,14 @@ export async function getStaticPaths() {
 }
 const { entry } = Astro.props;
 const d = entry.data;
-const primaryPath = d.section === "cases" ? "cases" : layerPath(d.layer);
+const isDx = d.tags.some((tag) => tag.toLowerCase() === "dx");
+const primaryPath = isDx
+  ? "dx"
+  : d.section === "cases"
+    ? "cases"
+    : layerPath(d.layer);
 const primaryLabel =
-  d.section === "cases" ? "実践事例" : layerLabel(d.layer);
+  isDx ? "DX" : d.section === "cases" ? "実践事例" : layerLabel(d.layer);
 const { headings } = await render(entry);
 const all = await getCollection("pages", publicEntry);
 const series = d.series

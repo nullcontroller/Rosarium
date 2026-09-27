@@ -4,6 +4,7 @@ import GrowthEntry from "../components/GrowthEntry.astro";
 import { recentGrowth } from "../data/recent-growth";
 import Icon from "../components/Icon.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import { siteDescription } from "../lib/site";
 
 const recent = recentGrowth.slice(0, 3);
 ---
@@ -15,6 +16,7 @@ const recent = recentGrowth.slice(0, 3);
       <h1>Rosarium</h1>
     </div>
     <p class="lead">学習と実務を通じて育て続ける「庭」</p>
+    <p class="home-site-description">{siteDescription}</p>
   </section>
 
   <section class="home-section" aria-labelledby="recent-growth-heading">

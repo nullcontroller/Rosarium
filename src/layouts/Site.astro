@@ -1,10 +1,11 @@
 ---
 import "../styles/global.css";
 import "katex/dist/katex.min.css";
-import { assetUrl, url } from "../lib/site";
+import { assetUrl, siteDescription, url } from "../lib/site";
 import { navigation } from "../lib/navigation";
 import NavIcon from "../components/NavIcon.astro";
 import GlobalSearch from "../components/GlobalSearch.astro";
+import HeaderReadingMenu from "../components/HeaderReadingMenu.astro";
 import type { ReadingGroup } from "../lib/reading";
 interface Props {
   title: string;
@@ -23,7 +24,7 @@ interface Props {
 }
 const {
   title,
-  summary = "Rosariumは、立林 裕太朗が趣味で構築しているサイトです。Applied AI、自然言語、システム設計、AI理論、実務で得た知見などを公開しています。",
+  summary = siteDescription,
   canonical,
   ogImage = "og/site.png",
   ogType = "website",
@@ -55,6 +56,7 @@ const collectionSections = new Set([
   "practices",
   "cases",
   "articles",
+  "dx",
   "books",
   "series",
   "essays",
@@ -64,6 +66,7 @@ const collectionSections = new Set([
 ]);
 const readingSections = new Set([
   "articles",
+  "dx",
   "ai-design",
   "ai-mathematics",
   "practices",
@@ -104,6 +107,7 @@ const structuredData = {
       "@id": websiteId,
       url: siteUrl,
       name: "Rosarium",
+      description: siteDescription,
       inLanguage: "ja",
       publisher: { "@id": personId },
     },
@@ -217,6 +221,14 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     </a>
     <header class:list={["masthead", !frame && "career-masthead"]}>
       <a class="brand" href={url()}>
+        <img
+          class="brand-mark"
+          src={assetUrl("favicon.svg")}
+          width="40"
+          height="40"
+          alt=""
+          aria-hidden="true"
+        />
         <span class="brand-name">Rosarium</span>
       </a>
       {frame ? (
@@ -225,12 +237,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             <a href={url()} aria-current={section === "" ? "page" : undefined}>
               庭
             </a>
-            <a
-              href={url("articles")}
-              aria-current={readingSections.has(section || "") ? "page" : undefined}
-            >
-              読み物
-            </a>
+            <HeaderReadingMenu active={readingSections.has(section || "")} />
             <a
               href={url("career")}
               aria-current={section?.startsWith("career") ? "page" : undefined}
@@ -248,7 +255,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       ) : (
         <nav class="career-header-links" aria-label="Rosariumへの導線">
           <a href={url()}>庭</a>
-          <a href={url("articles")}>読み物</a>
+          <HeaderReadingMenu />
           <a href={url("career")} aria-current="page">キャリア</a>
         </nav>
       )}
@@ -281,7 +288,9 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                         href={url(item.path)}
                         aria-current={section === item.path ? "page" : undefined}
                         data-section-active={item.children?.some(
-                          (child) => child.path === section,
+                          (child) =>
+                            child.path === section ||
+                            child.sections?.includes(section || ""),
                         )
                           ? true
                           : undefined}
@@ -299,9 +308,14 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                         >
                           {item.children.map((child) => (
                             <a
-                              href={url(child.path)}
+                              href={`${url(child.path)}${child.hash ? `#${child.hash}` : ""}`}
                               aria-current={section === child.path
                                 ? "page"
+                                : undefined}
+                              data-section-active={child.sections?.includes(
+                                section || "",
+                              )
+                                ? true
                                 : undefined}
                             >
                               <span class="nav-copy">

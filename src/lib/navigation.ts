@@ -9,6 +9,8 @@ export type NavigationItem = {
   summary: string;
   icon: ReturnType<typeof iconForPath>;
   question?: string;
+  hash?: string;
+  sections?: readonly string[];
   children?: readonly NavigationItem[];
 };
 
@@ -43,6 +45,24 @@ export const readingCategories = [
   },
 ] as const satisfies readonly NavigationItem[];
 
+export const readingDomains = [
+  {
+    path: "articles",
+    hash: "ai",
+    title: "AI",
+    summary: "Rosariumの主軸となる設計・理論・実践・事例",
+    icon: iconForPath("articles"),
+    sections: ["articles", "ai-design", "ai-mathematics", "practices", "cases"],
+  },
+  {
+    path: "dx",
+    title: "DX",
+    summary: "価値・業務変革・システム企画",
+    icon: iconForPath("articles"),
+    sections: ["dx"],
+  },
+] as const satisfies readonly NavigationItem[];
+
 export const navigation: readonly (readonly NavigationItem[])[] = [
   [
     {
@@ -58,7 +78,7 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
       title: "読み物",
       summary: "テーマから知識を選ぶ",
       icon: iconForPath("articles"),
-      children: readingCategories,
+      children: readingDomains,
     },
   ],
   [
@@ -102,7 +122,9 @@ export const designTopics = [
 export const topicLabel = (key?: string) =>
   designTopics.find((x) => x[0] === key)?.[1];
 export const contentCategory = (e: Entry) =>
-  e.data.layer === "ai-design"
+  e.data.tags.some((tag) => tag.toLowerCase() === "dx")
+    ? "DX"
+    : e.data.layer === "ai-design"
     ? topicLabel(e.data.design_topic)!
     : e.data.layer === "ai-mathematics"
       ? "モデル・確率・振る舞い"

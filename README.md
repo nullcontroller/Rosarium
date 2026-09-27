@@ -1,8 +1,8 @@
 # Rosarium
 
-Rosariumは、立林 裕太朗が趣味で構築しているサイトです。
+Rosariumは、AIを主軸に、設計・実務・思想を考察するPersonal Technical Siteです。AIだけでなく、文脈に応じてDXなど周辺の技術・設計領域も扱います。
 
-Applied AI、自然言語、システム設計、AI理論、実務で得た知見や個人的な文章を整理して公開しています。MarkdownをGitで管理し、レビュー・検証を経てAstroから静的HTMLを生成します。
+MarkdownをGitで管理し、レビュー・検証を経てAstroから静的HTMLを生成します。
 
 **[サイトを見る](https://nullcontroller.github.io/ai-design-foundations/)**
 

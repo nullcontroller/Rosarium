@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import Site from "../layouts/Site.astro";
+import PageHeader from "../components/PageHeader.astro";
+import ContentIndex from "../components/ContentIndex.astro";
+import { publicEntry } from "../lib/site";
+import { readingEntries } from "../lib/reading";
+
+const all = await getCollection("pages", publicEntry);
+const entries = readingEntries(all, "dx");
+---
+
+<Site
+  title="DX"
+  section="dx"
+  summary="AIを何のために使うのかを考えるために、価値・業務変革・システム企画を扱います。"
+>
+  <PageHeader
+    title="DX"
+    eyebrow="SURROUNDING DOMAIN"
+    summary="AIを何のために使うのかを考えるために、価値・業務変革・システム企画を扱います。"
+  />
+  <p>
+    Rosariumの主軸はAIです。DXは、技術導入を目的化せず、誰にどのような価値を生み出し、業務やサービスをどう変えるかを考える周辺領域として扱います。
+  </p>
+  <section aria-labelledby="dx-and-value">
+    <h2 id="dx-and-value">DXと価値</h2>
+    <p>価値から業務変化を考え、その実現手段としてAIやシステムの役割を決めます。</p>
+    <ContentIndex entries={entries} showIcons={false} />
+  </section>
+</Site>
