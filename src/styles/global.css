@@ -373,14 +373,14 @@ blockquote {
 }
 .shell {
   display: grid;
-  grid-template-columns: 300px minmax(0, 1fr);
+  grid-template-columns: 320px minmax(0, 1fr);
   width: 100%;
   justify-content: stretch;
   min-height: calc(100vh - 160px);
 }
 .shell.has-toc,
 .shell.has-theme-toc {
-  grid-template-columns: 300px minmax(0, 1fr) minmax(190px, 220px);
+  grid-template-columns: 320px minmax(0, 1fr) minmax(190px, 220px);
 }
 .career-shell {
   display: block;
@@ -388,8 +388,8 @@ blockquote {
 }
 .sidebar {
   padding: 2.3rem 1.1rem;
-  width: 300px;
-  min-width: 300px;
+  width: 320px;
+  min-width: 320px;
   position: sticky;
   top: 88px;
   align-self: start;
@@ -601,8 +601,8 @@ blockquote {
   border-color: var(--accent);
 }
 .nav-children {
-  margin-left: 1.15rem;
-  padding-left: 0.45rem;
+  margin-left: 0.5rem;
+  padding-left: 0.35rem;
   border-left: 1px solid var(--line);
 }
 .nav-children a {
