@@ -6,6 +6,10 @@ title: "AIで作れる時代に、何を作らないか"
 kind: essay
 section: essays
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: value-business
 tags:
   - 生成ai
   - ソフトウェア設計

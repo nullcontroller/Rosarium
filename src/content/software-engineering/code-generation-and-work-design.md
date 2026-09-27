@@ -6,6 +6,10 @@ title: コード生成AIはなぜ業務を変えないのか — 設計支援と
 kind: guide
 section: software-engineering
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: system-planning
 tags: &a1
   - ai
   - ソフトウェア設計

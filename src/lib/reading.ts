@@ -5,8 +5,7 @@ export type ReadingPath =
   | "ai-design"
   | "ai-mathematics"
   | "practices"
-  | "cases"
-  | "dx";
+  | "cases";
 
 export type ReadingGroup = {
   title: string;
@@ -168,12 +167,6 @@ export const readingGroups: Record<
     {
       title: "レガシーシステムの実践",
       ids: ["cases/system-understanding", "cases/three-ai-maintenance"],
-    },
-  ],
-  dx: [
-    {
-      title: "DXと価値",
-      ids: ["essays/dx-and-value"],
     },
   ],
 };

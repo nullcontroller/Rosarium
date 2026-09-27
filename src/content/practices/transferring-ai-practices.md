@@ -6,6 +6,10 @@ title: 全員の業務が違うのに、AI活用事例をそのまま横展開�
 kind: guide
 section: practices
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: organization-adoption
 tags: &a1
   - 生成ai
   - ai活用

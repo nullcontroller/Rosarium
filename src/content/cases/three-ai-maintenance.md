@@ -6,6 +6,10 @@ title: 3つのAIをオーケストレーションしたレガシー保守
 kind: case
 section: cases
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: case-study
 tags: &a1
   - ソフトウェア設計
   - 生成ai

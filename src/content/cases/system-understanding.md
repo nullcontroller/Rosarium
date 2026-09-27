@@ -6,6 +6,10 @@ title: レガシーシステムを「理解可能な状態」にする設計手�
 kind: case
 section: cases
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: case-study
 tags: &a1
   - ai
   - 設計

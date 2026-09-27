@@ -6,6 +6,10 @@ kind: "guide"
 section: "practices"
 status: "evolving"
 order: 30
+themes:
+  - ai
+  - dx
+dx_topic: organization-adoption
 tags:
   - AI活用
   - 業務設計

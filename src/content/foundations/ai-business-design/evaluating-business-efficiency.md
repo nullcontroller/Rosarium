@@ -5,6 +5,10 @@ title: 第2章　AI導入は効率化とは限らない
 kind: principle
 section: foundations
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: business-transformation
 tags: &a1
   - システム設計
   - 生成ai

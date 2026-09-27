@@ -6,6 +6,10 @@ title: "DXを学んで、「価値」という言葉が気になるようにな�
 kind: essay
 section: essays
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: value-business
 tags:
   - 生成ai
   - dx

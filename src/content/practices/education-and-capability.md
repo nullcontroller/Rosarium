@@ -6,6 +6,10 @@ kind: "guide"
 section: "practices"
 status: "evolving"
 order: 20
+themes:
+  - ai
+  - dx
+dx_topic: organization-adoption
 tags:
   - AI教育
   - Capability

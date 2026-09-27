@@ -6,6 +6,10 @@ title: AIは使われている。でも使いこなされていない
 kind: guide
 section: practices
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: business-transformation
 tags: &a1
   - ai
   - キャリア

@@ -6,6 +6,10 @@ title: 理解できないシステムは、コストである
 kind: case
 section: cases
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: case-study
 tags: &a1
   - ai
   - 設計

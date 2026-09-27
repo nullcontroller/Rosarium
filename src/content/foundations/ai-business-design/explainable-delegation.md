@@ -5,6 +5,10 @@ title: 第4章　AIに任せない条件を、先に決める
 kind: principle
 section: foundations
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: business-transformation
 tags: &a1
   - システム設計
   - 生成ai

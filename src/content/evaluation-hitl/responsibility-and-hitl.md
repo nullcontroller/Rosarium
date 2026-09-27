@@ -6,6 +6,10 @@ title: AI出力の責任境界とHITL
 kind: guide
 section: evaluation-hitl
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: system-planning
 tags:
   - evaluation-hitl
 published_at: null

@@ -27,6 +27,7 @@ import Icon from "../components/Icon.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import ThemeArticleIndex from "../components/ThemeArticleIndex.astro";
 import { readingNavigation, readingPathForEntry } from "../lib/reading";
+import { contentThemes, themeDefinitions } from "../lib/themes";
 export async function getStaticPaths() {
   return (await getCollection("pages", publicEntry)).map((entry) => ({
     params: { id: entry.id },
@@ -35,14 +36,9 @@ export async function getStaticPaths() {
 }
 const { entry } = Astro.props;
 const d = entry.data;
-const isDx = d.tags.some((tag) => tag.toLowerCase() === "dx");
-const primaryPath = isDx
-  ? "dx"
-  : d.section === "cases"
-    ? "cases"
-    : layerPath(d.layer);
+const primaryPath = d.section === "cases" ? "cases" : layerPath(d.layer);
 const primaryLabel =
-  isDx ? "DX" : d.section === "cases" ? "実践事例" : layerLabel(d.layer);
+  d.section === "cases" ? "実践事例" : layerLabel(d.layer);
 const { headings } = await render(entry);
 const all = await getCollection("pages", publicEntry);
 const series = d.series
@@ -78,6 +74,7 @@ const purposes = contentUseCases(entry);
 const timing = publicationTiming(entry);
 const publicationState = publicationStatus(entry);
 const growthType = updateType(entry);
+const themes = contentThemes(entry);
 const readingPath = readingPathForEntry(entry, all);
 const themeGroups = readingPath
   ? readingNavigation(all, readingPath, entry.id)
@@ -171,6 +168,13 @@ const themeGroups = readingPath
       <p class="tags" data-pagefind-meta="tags">
         {d.tags.join(" / ")}
       </p>
+      <nav class="content-themes" aria-label="この記事のテーマ">
+        <span>テーマ：</span>
+        {themes.map((theme) => (
+          <a href={url(themeDefinitions[theme].path)}>{themeDefinitions[theme].label}</a>
+        ))}
+      </nav>
+      <span hidden data-pagefind-meta="theme">{themes.join(" ")}</span>
       {purposes.length > 0 && (
         <p class="content-purpose" data-pagefind-meta="use_case">
           <span>読む目的：</span>{" "}
@@ -282,7 +286,9 @@ const themeGroups = readingPath
     </section>
   )}
   <nav class="content-end-nav" aria-label="読み終えた後のリンク">
-    <a href={url(primaryPath)}>{primaryLabel}へ戻る</a>
+    {themes.map((theme) => (
+      <a href={url(themeDefinitions[theme].path)}>{themeDefinitions[theme].label}へ戻る</a>
+    ))}
     <a href={`${url()}#recent-growth-heading`}>最近の更新を見る</a>
   </nav>
   {d.layer !== "reference" && <AuthorBox />}

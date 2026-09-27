@@ -13,7 +13,7 @@ export const GET: APIRoute = ({ site }) => {
     link("庭", ""),
     link("実践事例", "cases"),
     link("キャリア", "career"),
-    link("読み物", "articles"),
+    link("AI", "articles"),
     link("AI設計", "ai-design"),
     link("AI理論", "ai-mathematics"),
     link("実践知", "practices"),

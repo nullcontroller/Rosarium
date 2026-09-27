@@ -6,6 +6,10 @@ kind: "guide"
 section: "practices"
 status: "evolving"
 order: 10
+themes:
+  - ai
+  - dx
+dx_topic: business-transformation
 tags:
   - AI導入
   - Governance

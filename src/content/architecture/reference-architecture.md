@@ -6,6 +6,10 @@ title: AI業務システムの参照アーキテクチャ
 kind: architecture
 section: architecture
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: system-planning
 tags:
   - architecture
 published_at: null

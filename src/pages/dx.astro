@@ -3,11 +3,23 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import ContentIndex from "../components/ContentIndex.astro";
-import { publicEntry } from "../lib/site";
-import { readingEntries } from "../lib/reading";
+import { publicEntry, url } from "../lib/site";
+import { dxTopics, hasTheme } from "../lib/themes";
 
 const all = await getCollection("pages", publicEntry);
-const entries = readingEntries(all, "dx");
+const groups = dxTopics
+  .map((topic) => ({
+    ...topic,
+    entries: all
+      .filter(
+        (entry) =>
+          hasTheme(entry, "dx") &&
+          entry.data.dx_topic === topic.key &&
+          (!entry.data.series || entry.data.order === 0),
+      )
+      .sort((a, b) => a.data.title.localeCompare(b.data.title, "ja")),
+  }))
+  .filter((group) => group.entries.length > 0);
 ---
 
 <Site
@@ -23,9 +35,12 @@ const entries = readingEntries(all, "dx");
   <p>
     Rosariumの主軸はAIです。DXは、技術導入を目的化せず、誰にどのような価値を生み出し、業務やサービスをどう変えるかを考える周辺領域として扱います。
   </p>
-  <section aria-labelledby="dx-and-value">
-    <h2 id="dx-and-value">DXと価値</h2>
-    <p>価値から業務変化を考え、その実現手段としてAIやシステムの役割を決めます。</p>
-    <ContentIndex entries={entries} showIcons={false} />
-  </section>
+  <p class="domain-cross-link"><a href={url("articles")}>AIの入口を見る →</a></p>
+  {groups.map((group) => (
+    <section aria-labelledby={`dx-${group.key}`}>
+      <h2 id={`dx-${group.key}`}>{group.label}</h2>
+      <p>{group.summary}</p>
+      <ContentIndex entries={group.entries} showIcons={false} />
+    </section>
+  ))}
 </Site>

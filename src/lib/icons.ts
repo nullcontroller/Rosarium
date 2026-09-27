@@ -29,6 +29,7 @@ export const sectionIcons: Record<string, IconName> = {
   career: "career",
   overview: "overview",
   articles: "articles",
+  dx: "overview",
   books: "articles",
   series: "articles",
   essays: "articles",

@@ -5,7 +5,6 @@ import { assetUrl, siteDescription, url } from "../lib/site";
 import { navigation } from "../lib/navigation";
 import NavIcon from "../components/NavIcon.astro";
 import GlobalSearch from "../components/GlobalSearch.astro";
-import HeaderReadingMenu from "../components/HeaderReadingMenu.astro";
 import type { ReadingGroup } from "../lib/reading";
 interface Props {
   title: string;
@@ -66,7 +65,6 @@ const collectionSections = new Set([
 ]);
 const readingSections = new Set([
   "articles",
-  "dx",
   "ai-design",
   "ai-mathematics",
   "practices",
@@ -237,7 +235,15 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             <a href={url()} aria-current={section === "" ? "page" : undefined}>
               庭
             </a>
-            <HeaderReadingMenu active={readingSections.has(section || "")} />
+            <a
+              href={url("articles")}
+              aria-current={readingSections.has(section || "") ? "page" : undefined}
+            >
+              AI
+            </a>
+            <a href={url("dx")} aria-current={section === "dx" ? "page" : undefined}>
+              DX
+            </a>
             <a
               href={url("career")}
               aria-current={section?.startsWith("career") ? "page" : undefined}
@@ -255,7 +261,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       ) : (
         <nav class="career-header-links" aria-label="Rosariumへの導線">
           <a href={url()}>庭</a>
-          <HeaderReadingMenu />
+          <a href={url("articles")}>AI</a>
+          <a href={url("dx")}>DX</a>
           <a href={url("career")} aria-current="page">キャリア</a>
         </nav>
       )}
@@ -287,7 +294,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                       <a
                         href={url(item.path)}
                         aria-current={section === item.path ? "page" : undefined}
-                        data-section-active={item.children?.some(
+                        data-section-active={item.sections?.includes(section || "") ||
+                        item.children?.some(
                           (child) =>
                             child.path === section ||
                             child.sections?.includes(section || ""),
@@ -384,7 +392,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       </div>
       <nav aria-label="フッター">
         <a href={url()}>庭</a> ·{" "}
-        <a href={url("articles")}>読み物</a> ·{" "}
+        <a href={url("articles")}>AI</a> ·{" "}
+        <a href={url("dx")}>DX</a> ·{" "}
         <a href={url("cases")}>実践事例</a> ·{" "}
         <a href={url("career")}>キャリア</a> ·{" "}
         <a href={assetUrl("feed.xml")}>RSS</a> ·{" "}

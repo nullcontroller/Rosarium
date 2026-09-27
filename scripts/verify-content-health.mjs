@@ -48,10 +48,41 @@ const canonicalReferences = publicEntries.filter(
   ({ file, data }) => data.layer === "reference" && file.startsWith("src/content/reference/"),
 );
 const canonicalPractices = publicEntries.filter(({ data }) => data.layer === "practice");
+const themeEntries = publicEntries.filter(
+  ({ file, data }) =>
+    !file.includes("/career/") && data.layer !== "reference",
+);
+const themesOf = ({ data }) => data.themes ?? ["ai"];
+const aiOnly = themeEntries.filter(({ data }) => {
+  const themes = data.themes ?? ["ai"];
+  return themes.length === 1 && themes[0] === "ai";
+});
+const dxOnly = themeEntries.filter(({ data }) => {
+  const themes = data.themes ?? ["ai"];
+  return themes.length === 1 && themes[0] === "dx";
+});
+const aiAndDx = themeEntries.filter(
+  (entry) => themesOf(entry).includes("ai") && themesOf(entry).includes("dx"),
+);
+for (const entry of aiAndDx)
+  assert.ok(entry.data.dx_topic, `DX topic missing: ${entry.file}`);
+for (const id of [
+  "foundations/conditional-probability.md",
+  "foundations/temperature-design.md",
+  "knowledge-context/prompt-structure.md",
+  "evaluation-hitl/datasets-and-regression.md",
+  "architecture/agents-tools-and-workflows.md",
+]) {
+  const entry = themeEntries.find(({ file }) => file.endsWith(id));
+  assert.ok(entry && !themesOf(entry).includes("dx"), `Technical AI content must not be classified as DX: ${id}`);
+}
 assert.ok(canonicalReferences.length >= 4, "Reference needs glossary, mathematics, metrics and responsibility state");
 assert.ok(canonicalPractices.length >= 4, "Practices needs adoption, education, transfer and development workflow");
+assert.equal(aiOnly.length, 53, "AI-only content count changed");
+assert.equal(dxOnly.length, 0, "Do not invent DX-only content while all current DX content discusses AI");
+assert.equal(aiAndDx.length, 22, "AI + DX discovery content count changed");
 assert.equal(files.length, 85, "All audited content must remain traceable");
 
 console.log(
-  `Verified content health: ${files.length} audited Markdown pages, ${publicEntries.length} public pages, ${canonicalReferences.length} canonical references, ${canonicalPractices.length} canonical practices.`,
+  `Verified content health: ${files.length} audited Markdown pages, ${publicEntries.length} public pages, ${canonicalReferences.length} canonical references, ${canonicalPractices.length} canonical practices; themes AI-only=${aiOnly.length}, DX-only=${dxOnly.length}, AI+DX=${aiAndDx.length}.`,
 );

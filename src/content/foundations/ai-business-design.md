@@ -6,6 +6,10 @@ title: 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存�
 kind: principle
 section: foundations
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: business-transformation
 tags: &a1
   - システム設計
   - 生成ai

@@ -6,6 +6,10 @@ title: 第5章　AI時代、人間には「判断する力」が求められる
 kind: principle
 section: foundations
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: business-transformation
 tags: &a1
   - システム設計
   - 生成ai

@@ -2,23 +2,20 @@
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import { url } from "../lib/site";
-import { readingCategories, readingDomains } from "../lib/navigation";
-
-const aiDomain = readingDomains.find((domain) => domain.title === "AI")!;
-const dxDomain = readingDomains.find((domain) => domain.title === "DX")!;
+import { readingCategories } from "../lib/navigation";
 ---
 
-<Site title="読み物" section="articles">
+<Site title="AI" section="articles">
   <PageHeader
     icon="articles"
-    title="読み物"
-    summary="AIを主軸に、文脈に応じてDXなど周辺の技術・設計領域も扱います。"
+    title="AI"
+    summary="AIを、価値・業務・システムの文脈から考え、設計・理論・実践・事例へつなぎます。"
   />
 
   <section class="reading-domain" id="ai" aria-labelledby="ai-reading-heading">
     <p class="eyebrow">PRIMARY DOMAIN</p>
-    <h2 id="ai-reading-heading">{aiDomain.title}</h2>
-    <p>{aiDomain.summary}。知りたいことに近い問いから選べます。</p>
+    <h2 id="ai-reading-heading">AIについて何を考えているか</h2>
+    <p>AIの性質だけでなく、使う目的、責任境界、業務への組み込み方、導入後の評価と改善までを扱います。知りたいことに近い問いから選べます。</p>
     <div class="reading-directory">
       {readingCategories.map((category) => (
         <section class="reading-area" id={category.path}>
@@ -32,11 +29,5 @@ const dxDomain = readingDomains.find((domain) => domain.title === "DX")!;
         </section>
       ))}
     </div>
-  </section>
-
-  <section class="reading-domain reading-domain-secondary" id="dx" aria-labelledby="dx-reading-heading">
-    <p class="eyebrow">SURROUNDING DOMAIN</p>
-    <h2 id="dx-reading-heading"><a href={url("dx")}>{dxDomain.title} →</a></h2>
-    <p>{dxDomain.summary}。AIを何のために使うのかを考える周辺領域として整理しています。</p>
   </section>
 </Site>

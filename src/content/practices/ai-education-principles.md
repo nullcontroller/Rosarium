@@ -6,6 +6,10 @@ title: 生成AI教育はなぜ難しいのか ― 変わらない原則と変わ
 kind: guide
 section: practices
 status: evolving
+themes:
+  - ai
+  - dx
+dx_topic: organization-adoption
 tags: &a1
   - 生成ai
   - ai活用
