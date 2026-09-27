@@ -2,7 +2,7 @@
 import { contentCategory, publicationType } from "../lib/navigation";
 import { iconForEntry } from "../lib/icons";
 import type { CollectionEntry } from "astro:content";
-import { statusLabel, url } from "../lib/site";
+import { formatDateJa, url } from "../lib/site";
 import {
   contentEntryPoints,
   entryPointDefinitions,
@@ -16,7 +16,6 @@ interface Props {
 }
 const { entry, heading: Heading = "h2", current = false, showIcon = true } = Astro.props;
 const d = entry.data;
-const status = d.status === "stable" ? undefined : statusLabel(d.status);
 const entryPoints = contentEntryPoints(entry);
 const format = publicationType(entry);
 const category = contentCategory(entry);
@@ -37,7 +36,7 @@ const showCategory = !(format === "Essay" && category === "Essays");
       ))}
       <span>{format}</span>
       {showCategory && <span>{category}</span>}
-      {status && <span>{status}</span>}
+      最終更新：{formatDateJa(d.last_updated)}
     </p>
     <Heading class="content-title">
       <a href={url(entry.id)} aria-current={current ? "page" : undefined}>

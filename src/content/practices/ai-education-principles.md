@@ -5,7 +5,7 @@ layer: publication
 title: 生成AI教育はなぜ難しいのか ― 変わらない原則と変わり続ける実践を分けて設計する
 kind: guide
 section: practices
-status: evolving
+status: published
 last_updated: "2026-09-28"
 entry_points:
   - ai

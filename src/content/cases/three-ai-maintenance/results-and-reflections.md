@@ -4,7 +4,7 @@ layer: publication
 title: 第7章　成果と考察
 kind: case
 section: cases
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - ソフトウェア設計

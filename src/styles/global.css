@@ -893,11 +893,6 @@ blockquote {
   font-size: 0.72rem;
   color: var(--muted);
 }
-.status {
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  padding: 0 0.4rem;
-}
 .tags {
   font-size: 0.73rem;
   color: var(--muted);
@@ -927,6 +922,10 @@ blockquote {
   min-height: 24px;
   padding: 0 0.4rem;
   text-decoration: none;
+}
+.content-last-updated {
+  color: var(--muted);
+  font-weight: 400;
 }
 .domain-cross-link a {
   display: inline-flex;

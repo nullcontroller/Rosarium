@@ -5,7 +5,7 @@ publication_format: series
 title: 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-28"
 entry_points:
   - ai

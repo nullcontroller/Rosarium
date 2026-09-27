@@ -52,7 +52,7 @@ AI Designはdesign_topicも必須です。applicability / responsibility-control
 既存URLはlayerに合わせて移動しません。旧foundationsの文書も同じURLを維持します。新規本文の物理配置と公開URLは編集時に決め、公開後は維持します。
 
 記事一覧は出版物の横断ビューです。Zenn由来のLLM確率モデル記事のように、layerがai-mathematicsでも出版元情報を保持したまま掲載できます。出典だけでlayerを自動判定しません。
-PublicationのTypeはBook、kindがessayならEssay、それ以外はArticle。sourceの元typeは保持し、章はBookの目次から辿ります。未確認の公開日は捏造せず、判明している月だけを「YYYY年M月」と表示します。現在も更新中のBookは`publication_status: ongoing`で「連載中」と表示し、Rosariumでの更新日は`updated_at`として別に扱います。
+PublicationのTypeはBook、kindがessayならEssay、それ以外はArticle。sourceの元typeは保持し、章はBookの目次から辿ります。未確認の公開日は捏造せず、判明している月だけを「YYYY年M月」と表示します。現在も連載中のBookは`publication_status: ongoing`で「連載中」と表示し、Rosariumでの最終更新日は`last_updated`として別に扱います。
 
 AI Designの正本一覧にはZennを混在させません。Related Publicationsはsrc/lib/navigation.tsの明示的な文書ID対応表で管理します。Case Studiesも同ファイルでBook・注目章・関連原則を接続し、本文は複製しません。
 
@@ -70,8 +70,8 @@ AI Designの正本一覧にはZennを混在させません。Related Publication
 | essays               | 市場・キャリア・技術に関する論考          |
 
 `kind`: `principle`, `architecture`, `guide`, `case`, `essay`。
-`status`: `draft`（非公開）、`evolving`（更新中）、`stable`（安定）、`archived`（過去資料）。
-移行時は著者による安定性の判定を推測せず`evolving`にしています。
+`status`: `draft`（非公開）、`published`（公開）、`stable`（安定）、`archived`（過去資料）。記事の更新状態には使用せず、内容を変更した日は`last_updated`を更新します。
+移行時は著者による安定性を推測せず、公開済みContentを`published`として扱います。
 Draftはページ生成・ナビゲーション・検索対象から除外しますが、公開GitHubリポジトリのソース自体は閲覧可能です。
 機密情報の保存場所として使わないでください。
 

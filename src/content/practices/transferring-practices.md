@@ -4,7 +4,7 @@ summary: "成功事例をそのまま複製せず、目的、情報、判断、�
 layer: "practice"
 kind: "guide"
 section: "practices"
-status: "evolving"
+status: published
 last_updated: "2026-09-22"
 order: 30
 entry_points:

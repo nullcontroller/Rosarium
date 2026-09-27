@@ -5,7 +5,7 @@ public: false
 title: AI Design Foundations — Wiki概要
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags:
   - foundations

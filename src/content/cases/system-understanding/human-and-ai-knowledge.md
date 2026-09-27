@@ -4,7 +4,7 @@ layer: publication
 title: 第6章 人間用とAI用の分離設計 ― PlantUMLとMarkdownの役割分担
 kind: case
 section: cases
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - ai

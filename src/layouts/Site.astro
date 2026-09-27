@@ -23,6 +23,7 @@ interface Props {
   noindex?: boolean;
   publishedAt?: string | null;
   lastUpdated?: string;
+  showLastUpdated?: boolean;
   breadcrumbs?: { name: string; path: string }[];
   themeGroups?: ReadingGroup[];
   frame?: boolean;
@@ -38,6 +39,7 @@ const {
   noindex = false,
   publishedAt,
   lastUpdated,
+  showLastUpdated = true,
   breadcrumbs = [],
   themeGroups = [],
   frame = true,
@@ -353,7 +355,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         tabindex="-1"
         data-pagefind-ignore={noindex ? true : undefined}
       >
-        {!noindex && (
+        {!noindex && showLastUpdated && (
           <p class="site-last-updated" data-last-updated={effectiveLastUpdated}>
             最終更新：<time datetime={effectiveLastUpdated}>{formatDateJa(effectiveLastUpdated)}</time>
           </p>

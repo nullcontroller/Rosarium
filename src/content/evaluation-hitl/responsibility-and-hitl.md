@@ -5,7 +5,7 @@ design_topic: responsibility-control
 title: AI出力の責任境界とHITL
 kind: guide
 section: evaluation-hitl
-status: evolving
+status: published
 last_updated: "2026-09-28"
 entry_points:
   - ai

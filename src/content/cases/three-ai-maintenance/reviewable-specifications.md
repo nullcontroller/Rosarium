@@ -4,7 +4,7 @@ layer: publication
 title: 第4章　Microsoft 365 Copilotでレビュー可能な仕様書へ変換する
 kind: case
 section: cases
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - ソフトウェア設計

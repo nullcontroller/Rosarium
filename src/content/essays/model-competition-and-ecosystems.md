@@ -5,7 +5,7 @@ layer: publication
 title: AIはどこへ進化しているのか — モデル競争の裏にある「構造」と「エコシステム」
 kind: essay
 section: essays
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - chatgpt

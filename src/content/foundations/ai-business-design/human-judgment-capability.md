@@ -5,7 +5,7 @@ layer: publication
 title: 第5章　AI時代、人間には「判断する力」が求められる
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-28"
 entry_points:
   - ai

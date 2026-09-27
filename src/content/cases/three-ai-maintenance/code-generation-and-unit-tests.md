@@ -4,7 +4,7 @@ layer: publication
 title: 第6章　全体像を共有しながら、コード生成と単体テストを進める
 kind: case
 section: cases
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - ソフトウェア設計

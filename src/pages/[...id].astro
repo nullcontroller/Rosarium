@@ -19,9 +19,7 @@ import MarkdownBody from "../components/MarkdownBody.astro";
 import AuthorBox from "../components/AuthorBox.astro";
 import { imageDimensions } from "../lib/image-metadata";
 import { contentUseCases } from "../lib/use-cases";
-import { url, layerLabel, publicEntry } from "../lib/site";
-import { statusLabel } from "../lib/site";
-import { updateLabels, updateType } from "../lib/growth";
+import { formatDateJa, url, layerLabel, publicEntry } from "../lib/site";
 import { iconForEntry, iconForTopic } from "../lib/icons";
 import Icon from "../components/Icon.astro";
 import SectionHeading from "../components/SectionHeading.astro";
@@ -76,7 +74,6 @@ const related = all
 const purposes = contentUseCases(entry);
 const timing = publicationTiming(entry);
 const publicationState = publicationStatus(entry);
-const growthType = updateType(entry);
 const entryPoints = contentEntryPoints(entry);
 const readingPath = readingPathForEntry(entry, all);
 const themeGroups = readingPath
@@ -91,6 +88,7 @@ const themeGroups = readingPath
   ogType="article"
   publishedAt={d.published_at}
   lastUpdated={d.last_updated}
+  showLastUpdated={false}
   section={primaryPath}
   headings={headings}
   breadcrumbs={[
@@ -138,9 +136,7 @@ const themeGroups = readingPath
         </p>
       )}
       <p class="meta">
-        <span class="status" data-pagefind-meta="status">
-          {statusLabel(d.status)}
-        </span>
+        <span hidden data-pagefind-meta="status">公開</span>
         {(d.publication_format || d.layer === "publication") && (
           <>
             {publicationState && <span>状態：{publicationState}</span>}
@@ -153,10 +149,10 @@ const themeGroups = readingPath
             </span>
           </>
         )}
+        <span class="content-last-updated">
+          最終更新：<time datetime={d.last_updated}>{formatDateJa(d.last_updated)}</time>
+        </span>
         <span hidden data-pagefind-meta="last_updated">{d.last_updated}</span>
-        {d.updated_at && (
-          <span data-pagefind-meta="update_type">{updateLabels[growthType]}</span>
-        )}
       </p>
       {(d.publication_format || d.layer === "publication") && (
         <span hidden data-pagefind-meta="publication">{timing.value}</span>

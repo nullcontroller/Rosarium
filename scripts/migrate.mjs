@@ -175,7 +175,7 @@ function add(file, sourceType, category, slug, extra = {}) {
       status:
         (sourceType === "chapter" ? parent.published : d.published) === false
           ? "draft"
-          : "evolving",
+          : "published",
       tags: d.topics ?? parent?.topics ?? [],
       published_at: d.published_at ?? null,
       canonical: url,
@@ -328,7 +328,7 @@ for (const f of wikiFiles) {
             ? "architecture"
             : "guide",
       section,
-      status: "evolving",
+      status: "published",
       tags: [section],
       published_at: null,
       source: {
@@ -484,7 +484,7 @@ const meta = {
   title: "AI Design Foundations — 設計体系の原点",
   kind: "guide",
   section: "foundations",
-  status: "evolving",
+  status: "published",
   tags: ["Applied AI", "Architecture"],
   source: {
     type: "repository",

@@ -5,7 +5,7 @@ design_topic: evaluation-hitl
 title: AI評価データセットと回帰評価設計
 kind: guide
 section: evaluation-hitl
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags:
   - evaluation-hitl

@@ -4,7 +4,7 @@ layer: publication
 title: 第3章　AIに聞くことと、AIに仕事を任せることは違う
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-28"
 entry_points:
   - ai

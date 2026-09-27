@@ -5,7 +5,7 @@ layer: publication
 title: AIは使われている。でも使いこなされていない
 kind: guide
 section: practices
-status: evolving
+status: published
 last_updated: "2026-09-22"
 entry_points:
   - ai

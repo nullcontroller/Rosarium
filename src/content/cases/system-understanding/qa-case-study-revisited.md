@@ -4,7 +4,7 @@ layer: publication
 title: 第12章 実践事例 ― QAチャットによる構造理解と意思決定の高速化
 kind: case
 section: cases
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - ai

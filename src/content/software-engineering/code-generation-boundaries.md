@@ -5,7 +5,7 @@ design_topic: software-engineering
 title: コード生成を使うべき場所
 kind: guide
 section: software-engineering
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags:
   - software-engineering

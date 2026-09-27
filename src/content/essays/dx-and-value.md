@@ -5,7 +5,7 @@ layer: publication
 title: "DXを学んで、「価値」という言葉が気になるようになった"
 kind: essay
 section: essays
-status: evolving
+status: published
 last_updated: "2026-09-27"
 entry_points:
   - ai

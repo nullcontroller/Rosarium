@@ -58,6 +58,13 @@ import Icon from "./Icon.astro";
   const moduleUrl =
     import.meta.env.BASE_URL.replace(/\/$/, "") + "/pagefind/pagefind.js";
 
+  function formatLastUpdated(value?: string) {
+    const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    return match
+      ? `最終更新：${Number(match[1])}年${Number(match[2])}月${Number(match[3])}日`
+      : "";
+  }
+
   function setOpen(open: boolean, focusInput = false) {
     if (!root || !toggle || !input) return;
     root.toggleAttribute("data-open", open);
@@ -147,7 +154,11 @@ import Icon from "./Icon.astro";
           textElement("span", result.meta.summary || "", "global-search-result-summary"),
           textElement(
             "small",
-            [result.meta.category, result.meta.use_case].filter(Boolean).join(" · "),
+            [
+              result.meta.category,
+              result.meta.use_case,
+              formatLastUpdated(result.meta.last_updated),
+            ].filter(Boolean).join(" · "),
           ),
         );
         link.append(icon, copy);

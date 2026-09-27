@@ -46,7 +46,7 @@ const pages = defineCollection({
         .optional(),
       kind: z.enum(["principle", "architecture", "guide", "case", "essay"]),
       section,
-      status: z.enum(["draft", "evolving", "stable", "archived"]),
+      status: z.enum(["draft", "published", "stable", "archived"]),
       last_updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
       order: z.number().int().nonnegative().optional(),
       tags: z.array(z.string()).default([]),
@@ -124,7 +124,7 @@ const career = defineCollection({
     title: z.string().min(1),
     summary: z.string().min(1),
     layer: z.literal("career"),
-    status: z.enum(["draft", "stable", "evolving"]),
+    status: z.enum(["draft", "published", "stable"]),
     last_updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     source: z.object({
       type: z.literal("repository"),

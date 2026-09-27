@@ -5,7 +5,7 @@ design_topic: evaluation-hitl
 title: コード生成AIの評価と採用設計
 kind: guide
 section: evaluation-hitl
-status: evolving
+status: published
 last_updated: "2026-09-22"
 tags:
   - evaluation-hitl

@@ -6,7 +6,7 @@ layer: ai-mathematics
 title: LLMを確率モデルとして設計するという立場
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-22"
 tags: &a1
   - ai

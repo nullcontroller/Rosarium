@@ -5,7 +5,7 @@ layer: publication
 title: AIは自動化できる。しかし、その出力を確定値として扱ってはいけない
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-28"
 entry_points:
   - ai

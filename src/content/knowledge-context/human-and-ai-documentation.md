@@ -5,7 +5,7 @@ design_topic: knowledge-context
 title: 人向け資料とAI向け資料の分離設計
 kind: guide
 section: knowledge-context
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags:
   - knowledge-context

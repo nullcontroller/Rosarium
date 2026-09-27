@@ -4,7 +4,7 @@ layer: ai-mathematics
 title: コード生成AIの正体
 kind: guide
 section: software-engineering
-status: evolving
+status: published
 last_updated: "2026-09-22"
 tags:
   - software-engineering

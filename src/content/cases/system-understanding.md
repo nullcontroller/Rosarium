@@ -5,7 +5,7 @@ layer: publication
 title: レガシーシステムを「理解可能な状態」にする設計手法
 kind: case
 section: cases
-status: evolving
+status: published
 last_updated: "2026-09-22"
 entry_points:
   - ai

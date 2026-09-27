@@ -5,7 +5,7 @@ design_topic: lifecycle-operations
 title: QAチャット運用思想
 kind: guide
 section: knowledge-context
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags:
   - knowledge-context

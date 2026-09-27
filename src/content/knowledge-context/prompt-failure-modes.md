@@ -5,7 +5,7 @@ design_topic: knowledge-context
 title: プロンプト設計の失敗モード
 kind: guide
 section: knowledge-context
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags:
   - knowledge-context

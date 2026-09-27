@@ -5,7 +5,7 @@ layer: publication
 title: 3つのAIをオーケストレーションしたレガシー保守
 kind: case
 section: cases
-status: evolving
+status: published
 last_updated: "2026-09-22"
 entry_points:
   - ai

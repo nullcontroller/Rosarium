@@ -5,7 +5,7 @@ layer: publication
 title: 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか
 kind: guide
 section: software-engineering
-status: evolving
+status: published
 last_updated: "2026-09-22"
 tags: &a1
   - githubcopilot

@@ -4,7 +4,7 @@ layer: publication
 title: 第2章　AI導入は効率化とは限らない
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-28"
 entry_points:
   - ai

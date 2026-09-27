@@ -4,7 +4,7 @@ layer: publication
 title: 第4章　AIに任せない条件を、先に決める
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-28"
 entry_points:
   - ai

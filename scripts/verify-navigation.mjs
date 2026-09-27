@@ -24,7 +24,10 @@ for (const location of locations) {
   assert.ok(fs.existsSync(file), `Sitemap route has no HTML: ${route || "/"}`);
   const $ = load(fs.readFileSync(file, "utf8"));
   const lastUpdated = $('meta[name="last-updated"]').attr("content") ?? "";
-  const visibleLastUpdated = $(".site-last-updated time").attr("datetime") ?? "";
+  const visibleLastUpdated =
+    $(".site-last-updated time, .document-header .content-last-updated time")
+      .first()
+      .attr("datetime") ?? "";
   assert.match(lastUpdated, /^\d{4}-\d{2}-\d{2}$/, `Missing last_updated: ${route || "/"}`);
   assert.equal(visibleLastUpdated, lastUpdated, `Visible last_updated mismatch: ${route || "/"}`);
 

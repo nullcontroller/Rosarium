@@ -5,7 +5,7 @@ design_topic: applicability
 title: AI適用可否と委任レベルの設計
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-27"
 entry_points:
   - ai

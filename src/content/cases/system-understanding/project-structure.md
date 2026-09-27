@@ -4,7 +4,7 @@ layer: publication
 title: 第3章 プロジェクト構造の整理 ― 理解のための地図を作る
 kind: case
 section: cases
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - ai

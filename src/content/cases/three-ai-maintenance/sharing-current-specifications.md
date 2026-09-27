@@ -4,7 +4,7 @@ layer: publication
 title: 第5章　AI間で現在の仕様を受け渡し、Excel仕様書を修正する
 kind: case
 section: cases
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - ソフトウェア設計

@@ -4,7 +4,7 @@ summary: "AI導入をツール配布で終わらせず、業務目的、委任�
 layer: "practice"
 kind: "guide"
 section: "practices"
-status: "evolving"
+status: published
 last_updated: "2026-09-22"
 order: 10
 entry_points:

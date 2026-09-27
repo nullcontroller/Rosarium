@@ -9,6 +9,10 @@ const walk = (d) =>
     .flatMap((e) =>
       e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)],
     );
+const formatDateJa = (value) => {
+  const [year, month, day] = value.split("-");
+  return `${year}年${Number(month)}月${Number(day)}日`;
+};
 const entries = new Map(
   walk("src/content")
     .filter((p) => p.endsWith(".md"))
@@ -34,6 +38,12 @@ for (const p of walk("dist").filter((p) => p.endsWith(".html"))) {
     assert.equal(node.find(".content-summary").text(), d.summary, p);
     assert.equal(node.find(".content-title").text(), d.title, p);
     assert(node.find(".meta").text().trim(), p);
+    if (node.is(".content-entry")) {
+      assert.ok(
+        node.find(".meta").text().includes(`最終更新：${formatDateJa(d.last_updated)}`),
+        `${p}: ${node.attr("data-content-id")} last_updated`,
+      );
+    }
     links++;
   });
 }
@@ -53,6 +63,19 @@ for (const [id, d] of entries) {
         .trim(),
       id + " " + key,
     );
+  if (!id.startsWith("career/")) {
+    assert.equal(
+      $('[data-pagefind-meta="last_updated"]').text().trim(),
+      d.last_updated,
+      `${id} search last_updated`,
+    );
+    assert.equal(
+      $(".document-header .content-last-updated time").attr("datetime"),
+      d.last_updated,
+      `${id} visible last_updated`,
+    );
+    assert.equal($(".document-header .status").length, 0, `${id} status badge removed`);
+  }
 }
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 assert.equal(career("h1").text(), "キャリア — 立林 裕太朗");
@@ -518,13 +541,11 @@ for (const route of ["about", "search"]) {
   assert.equal($("meta[http-equiv=refresh]").length, 1);
 }
 assert.equal(page("practices")("[data-related-publications]").length, 1);
-for (const html of walk("dist").filter((file) => file.endsWith(".html")))
-  assert(
-    !load(fs.readFileSync(html, "utf8"))("main")
-      .text()
-      .includes("Related Publications"),
-    html,
-  );
+for (const html of walk("dist").filter((file) => file.endsWith(".html"))) {
+  const $ = load(fs.readFileSync(html, "utf8"));
+  assert(!$("main").text().includes("Related Publications"), html);
+  assert(!$.root().text().includes("\u66f4\u65b0\u4e2d"), `${html}: deprecated status remains`);
+}
 for (const [id, expected] of [
   ["foundations/ai-business-design", ["公開：2026年2月"]],
   ["cases/three-ai-maintenance", ["公開：2026年7月"]],

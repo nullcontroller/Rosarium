@@ -4,7 +4,7 @@ layer: publication
 title: 第10章 RAGの改善設計 ― 評価結果に基づく品質向上
 kind: case
 section: cases
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - ai

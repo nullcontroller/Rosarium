@@ -5,7 +5,7 @@ design_topic: knowledge-context
 title: プロンプト設計の基本構造
 kind: guide
 section: knowledge-context
-status: evolving
+status: published
 last_updated: "2026-09-22"
 tags:
   - knowledge-context

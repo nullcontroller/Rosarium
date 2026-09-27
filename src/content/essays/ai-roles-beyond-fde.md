@@ -5,7 +5,7 @@ layer: publication
 title: AI人材はFDEだけではない――これから進む専門職の細分化
 kind: essay
 section: essays
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - キャリア

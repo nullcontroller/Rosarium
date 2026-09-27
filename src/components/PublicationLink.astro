@@ -6,7 +6,7 @@ import {
   publicationTiming,
 } from "../lib/navigation";
 import { iconForEntry } from "../lib/icons";
-import { url } from "../lib/site";
+import { formatDateJa, url } from "../lib/site";
 import { contentUseCases } from "../lib/use-cases";
 import Icon from "./Icon.astro";
 interface Props {
@@ -41,6 +41,7 @@ const publicationState = publicationStatus(entry);
         timing.value
       )}</span>
       <span>{publicationType(entry)}</span>
+      最終更新：{formatDateJa(d.last_updated)}
     </p>
   </div>
 </div>

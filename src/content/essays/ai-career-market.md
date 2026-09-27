@@ -5,7 +5,7 @@ layer: publication
 title: 採用される側から見たAI人材の転職概況
 kind: essay
 section: essays
-status: evolving
+status: published
 last_updated: "2026-09-22"
 tags: &a1
   - キャリア

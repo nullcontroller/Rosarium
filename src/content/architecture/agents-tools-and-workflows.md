@@ -5,7 +5,7 @@ layer: publication
 title: 「AIエージェントを0から作る時代」は本当に来るのか？
 kind: architecture
 section: architecture
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - ai

@@ -4,7 +4,7 @@ summary: "変化しにくい設計原則、更新の速い製品知識、業務�
 layer: "practice"
 kind: "guide"
 section: "practices"
-status: "evolving"
+status: published
 last_updated: "2026-09-22"
 order: 20
 entry_points:

@@ -5,7 +5,7 @@ layer: publication
 title: コード生成AIはなぜ業務を変えないのか — 設計支援として使うべき理由
 kind: guide
 section: software-engineering
-status: evolving
+status: published
 last_updated: "2026-09-28"
 entry_points:
   - ai

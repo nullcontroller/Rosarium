@@ -4,7 +4,7 @@ layer: ai-mathematics
 title: 生成AIの条件付き確率モデル基礎
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-22"
 tags:
   - foundations

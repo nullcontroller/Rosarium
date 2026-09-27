@@ -5,7 +5,7 @@ design_topic: architecture
 title: AI間インターフェースとしてのプロンプト
 kind: architecture
 section: architecture
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags:
   - architecture

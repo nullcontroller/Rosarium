@@ -5,7 +5,7 @@ design_topic: architecture
 title: AI業務システムの参照アーキテクチャ
 kind: architecture
 section: architecture
-status: evolving
+status: published
 last_updated: "2026-09-22"
 entry_points:
   - ai

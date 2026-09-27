@@ -5,7 +5,7 @@ layer: publication
 title: "AIで作れる時代に、何を作らないか"
 kind: essay
 section: essays
-status: evolving
+status: published
 last_updated: "2026-09-27"
 entry_points:
   - ai

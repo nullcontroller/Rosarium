@@ -67,7 +67,7 @@ export const layerLabel = (layer: keyof typeof layers) => layers[layer];
 export const statusLabel = (status: string) =>
   ({
     stable: "安定版",
-    evolving: "更新中",
+    published: "公開",
     archived: "アーカイブ",
     draft: "下書き",
   })[status] ?? status;

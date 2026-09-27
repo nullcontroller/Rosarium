@@ -5,7 +5,7 @@ layer: publication
 title: AIを使い分ける基準は、モデル性能よりコンテキストではないか
 kind: guide
 section: knowledge-context
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags: &a1
   - githubcopilot

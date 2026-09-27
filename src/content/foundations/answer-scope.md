@@ -5,7 +5,7 @@ design_topic: responsibility-control
 title: なぜ回答範囲を制限した方がよいのか
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags:
   - foundations

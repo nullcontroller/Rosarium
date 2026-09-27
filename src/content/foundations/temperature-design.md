@@ -4,7 +4,7 @@ layer: ai-mathematics
 title: Temperature設計指針
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags:
   - foundations

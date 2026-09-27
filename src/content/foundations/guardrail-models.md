@@ -5,7 +5,7 @@ design_topic: responsibility-control
 title: ガードレールの数学的説明
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-28"
 tags:
   - foundations

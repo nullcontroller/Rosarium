@@ -4,7 +4,7 @@ layer: reference
 title: Reference索引
 kind: principle
 section: foundations
-status: evolving
+status: published
 last_updated: "2026-09-22"
 tags:
   - foundations
