@@ -11,6 +11,7 @@ entry_points:
   - ai
   - dx
 dx_topic: business-transformation
+dx_topics: [value-design, business-transformation]
 tags: &a1
   - システム設計
   - 生成ai

@@ -11,6 +11,7 @@ entry_points:
   - ai
   - dx
 dx_topic: system-planning
+dx_topics: [selection-retirement, system-transformation]
 tags: &a1
   - ai
   - ソフトウェア設計

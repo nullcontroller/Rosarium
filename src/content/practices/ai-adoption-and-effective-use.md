@@ -6,11 +6,12 @@ title: AIは使われている。でも使いこなされていない
 kind: guide
 section: practices
 status: published
-last_updated: "2026-09-22"
+last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx
 dx_topic: business-transformation
+dx_topics: [business-transformation]
 tags: &a1
   - ai
   - キャリア

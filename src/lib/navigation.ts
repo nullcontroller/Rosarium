@@ -1,6 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import { label } from "./site";
 import { iconForPath } from "./icons";
+import { dxCategories } from "./dx";
 export type Entry = CollectionEntry<"pages">;
 
 export type NavigationItem = {
@@ -68,7 +69,13 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
       title: "DX",
       summary: "価値・業務変革・システム企画",
       icon: iconForPath("dx"),
-      sections: ["dx"],
+      sections: ["dx", ...dxCategories.map((category) => `dx/${category.id}`)],
+      children: dxCategories.map((category) => ({
+        path: `dx/${category.id}`,
+        title: category.title,
+        summary: category.summary,
+        icon: iconForPath("dx"),
+      })),
     },
   ],
   [

@@ -26,6 +26,10 @@ interface Props {
   showLastUpdated?: boolean;
   breadcrumbs?: { name: string; path: string }[];
   themeGroups?: ReadingGroup[];
+  bookNavigation?: {
+    title: string;
+    items: { title: string; href: string; current: boolean }[];
+  };
   frame?: boolean;
 }
 const {
@@ -42,6 +46,7 @@ const {
   showLastUpdated = true,
   breadcrumbs = [],
   themeGroups = [],
+  bookNavigation,
   frame = true,
 } = Astro.props;
 const effectiveLastUpdated =
@@ -89,7 +94,7 @@ const pageType =
     ? "TechArticle"
     : ogType === "profile"
       ? "ProfilePage"
-      : collectionSections.has(section || "")
+      : collectionSections.has(section || "") || section?.startsWith("dx/")
         ? "CollectionPage"
         : "WebPage";
 const breadcrumbId = `${canonicalUrl}#breadcrumb`;
@@ -288,6 +293,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         !frame && "career-shell",
         frame && headings.length > 0 && "has-toc",
         frame && themeGroups.length > 0 && "has-theme-toc",
+        frame && bookNavigation && "has-book-toc",
       ]}
     >
       {frame && (
@@ -366,9 +372,23 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             最終更新：<time datetime={effectiveLastUpdated}>{formatDateJa(effectiveLastUpdated)}</time>
           </p>
         )}
+        {bookNavigation && (
+          <details class="book-toc-mobile">
+            <summary>このBookの目次（全{bookNavigation.items.length - 1}章）</summary>
+            <ol>
+              {bookNavigation.items.map((item) => (
+                <li class:list={[item.current && "current"]}>
+                  <a href={item.href} aria-current={item.current ? "page" : undefined}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </details>
+        )}
         <slot />
       </main>
-      {frame && headings.length > 0 && (
+      {frame && !bookNavigation && headings.length > 0 && (
         <aside class="toc" aria-label="ページ内目次">
           <>
             <p>このページ</p>
@@ -384,7 +404,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           </>
         </aside>
       )}
-      {frame && themeGroups.length > 0 && (
+      {frame && !bookNavigation && themeGroups.length > 0 && (
         <aside class="theme-toc" aria-label="このテーマの記事">
           <p>このテーマの記事</p>
           <div class="theme-nav-groups">
@@ -401,6 +421,20 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
               </details>
             ))}
           </div>
+        </aside>
+      )}
+      {frame && bookNavigation && (
+        <aside class="book-toc" aria-label="このBookの目次">
+          <p class="book-toc-title">{bookNavigation.title}</p>
+          <ol>
+            {bookNavigation.items.map((item) => (
+              <li class:list={[item.current && "current"]}>
+                <a href={item.href} aria-current={item.current ? "page" : undefined}>
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ol>
         </aside>
       )}
     </div>

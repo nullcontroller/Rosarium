@@ -35,6 +35,16 @@ order: 9
 | 同じ確認を人間が繰り返す | Handoff情報、担当者画面、要約 |
 | 新機種・版更新 | 文書の有効期間、回帰評価データ |
 
+観測値はAI Quality、System Quality、Business Qualityへ分けます。
+
+| 品質層 | 確認すること | 直す可能性がある場所 |
+|---|---|---|
+| AI Quality | 根拠との整合、Unsupported Claim、追加質問と回答の品質 | Prompt、Context構成、生成条件 |
+| System Quality | Retrieval、遅延、失敗、状態遷移、Handoff | Index、Filter、API、Workflow、監視 |
+| Business Quality | 自己解決、有人負荷、再問い合わせ、離脱、顧客体験 | 適用範囲、業務分担、UI、Knowledge運用 |
+
+一つの数値へ集約しないのは、例えば回答品質が高くても、追加質問が長く離脱が増えれば業務価値が出ないためです。逆に自己解決率だけを上げると、停止すべき問い合わせまで回答する危険があります。
+
 ```mermaid
 flowchart LR
   D[Design] --> U[Use]
@@ -58,9 +68,22 @@ flowchart LR
 
 原因によって、改善先はKnowledge、Retrieval、Dialogue、UI、業務プロセスへ分かれます。モデル変更だけで直そうとすると、失敗の所在が見えなくなります。
 
+## 変更単位と責任者を分ける
+
+| Failureの所在 | 主な変更 | 受入確認 |
+|---|---|---|
+| Knowledge不足・期限切れ | 文書追加、版・公開状態の修正 | 対象条件で正しい根拠だけを取得できるか |
+| Retrieval不良 | Filter、検索式、Ranking、Chunkの修正 | 既存の正常ケースを落とさず順位が改善したか |
+| Generation逸脱 | Context、Prompt、出力制約の修正 | 根拠外の主張がなく、引用を追跡できるか |
+| UX離脱 | 質問順序、説明、入力支援の修正 | 必要情報を得ながら負担を増やしていないか |
+| Handoff不良 | Packet、担当者画面、状態遷移の修正 | 調査を続きから再開できるか |
+| 適用範囲の誤り | 業務分担、停止条件の修正 | 自己解決と専門判断の境界が妥当か |
+
 ## 同じ条件で再評価する
 
 改善後は、失敗した問い合わせを評価データへ加え、同じ条件で再実行します。自己解決範囲を広げる場合も、既存の安全な回答が壊れていないかを回帰評価します。
+
+変更は、モデル、Prompt、Knowledge、Index、業務ルール、UIを一つの版として記録します。どの組合せで評価したかを残さなければ、改善後の差分や問題発生時の切戻しを説明できません。評価を通過した変更だけを展開し、停止漏れや高影響の回帰があれば適用範囲を戻します。
 
 Design、Use、Observe、Evaluate、Improveを循環させることで、QAシステムを導入プロジェクトから継続的な業務改善へ変えます。これは[Lifecycle / Operations](/ai-design-foundations/ai-design/lifecycle-operations/)で扱う設計思想と同じです。
 

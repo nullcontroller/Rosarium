@@ -118,7 +118,21 @@ assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["庭", "AI", "AI設計", "AI理論", "実践知", "実践事例", "DX", "Reference"],
+  [
+    "庭",
+    "AI",
+    "AI設計",
+    "AI理論",
+    "実践知",
+    "実践事例",
+    "DX",
+    "価値設計",
+    "業務変革",
+    "選択と廃止",
+    "システム変革",
+    "継続的価値創出",
+    "Reference",
+  ],
 );
 assert.deepEqual(
   top(".header-primary a")
@@ -159,7 +173,17 @@ assert.deepEqual(
   top(".sidebar .nav-children a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["AI設計", "AI理論", "実践知", "実践事例"],
+  [
+    "AI設計",
+    "AI理論",
+    "実践知",
+    "実践事例",
+    "価値設計",
+    "業務変革",
+    "選択と廃止",
+    "システム変革",
+    "継続的価値創出",
+  ],
 );
 assert.equal(top(".sidebar .nav-children .icon").length, 0);
 assert.equal(top(".sidebar").length, 1);
@@ -313,37 +337,36 @@ const dx = page("dx");
 assert.equal(dx("h1").text(), "DX");
 assert(dx(".page-heading .lead").text().includes("業務・サービス・システム・組織"));
 assert.deepEqual(dx("main > section > h2").map((_, element) => dx(element).text()).get(), [
-  "価値から変革を設計する",
-  "AIとの関係",
-  "DXに関連する記事",
+  "DXを考える5つのテーマ",
+  "AIとの接続",
 ]);
 assert.deepEqual(
-  dx(".dx-principle-list h3").map((_, element) => dx(element).text()).get(),
+  dx(".dx-category > h3").map((_, element) => dx(element).text().replace("→", "").trim()).get(),
   [
-    "Value Flowを見る",
-    "業務そのものを変える",
-    "始める・残す・変える・統合する・やめる",
-    "全体最適で考える",
-    "システムライフサイクルを見通す",
-    "継続的に変革する",
-    "成果で評価する",
+    "価値設計",
+    "業務変革",
+    "選択と廃止",
+    "システム変革",
+    "継続的価値創出",
   ],
 );
-assert(dx(".dx-ai-connection").text().includes("有力な手段の一つ"));
+assert(dx("main").text().includes("有力な手段の一つ"));
 assert(dx('.dx-ai-connection a[href="/ai-design-foundations/ai/"]').length);
-assert.equal(new Set(primaryIds(dx)).size, primaryIds(dx).length);
-for (const id of [
-  "essays/dx-and-value",
-  "foundations/applicability-and-delegation",
-  "practices/adoption-governance",
-  "architecture/reference-architecture",
-  "cases/system-understanding",
-  "cases/customer-support-ai-dx",
-]) assert(primaryIds(dx).includes(id), `DX discovery misses ${id}`);
-for (const id of [
-  "foundations/conditional-probability",
-  "knowledge-context/prompt-structure",
-]) assert(!primaryIds(dx).includes(id), `DX discovery includes technical-only ${id}`);
+for (const category of [
+  "value-design",
+  "business-transformation",
+  "selection-retirement",
+  "system-transformation",
+  "continuous-value",
+]) {
+  assert(dx(`a[href="/ai-design-foundations/dx/${category}/"]`).length, `DX category link: ${category}`);
+  const categoryPage = page(`dx/${category}`);
+  assert(categoryPage("h1").length, `DX category page: ${category}`);
+  assert(categoryPage('[aria-label="関連する入口"] a[href="/ai-design-foundations/dx/"]').length);
+}
+assert(dx('a[href="/ai-design-foundations/essays/dx-and-value/"]').length);
+assert(dx('a[href="/ai-design-foundations/cases/customer-support-ai-dx/"]').length);
+assert(!dx('a[href="/ai-design-foundations/foundations/conditional-probability/"]').length);
 const dxEssay = page("essays/dx-and-value");
 assert.deepEqual(
   dxEssay(".content-entry-points a")
@@ -353,10 +376,9 @@ assert.deepEqual(
 );
 assert(dxEssay('.content-entry-points a[href="/ai-design-foundations/ai/"]').length);
 assert(dxEssay('.content-entry-points a[href="/ai-design-foundations/dx/"]').length);
-const dxEssayCard = dx('[data-content-id="essays/dx-and-value"]');
 assert.deepEqual(
-  dxEssayCard.find(".entry-point-label").map((_, element) => dx(element).text()).get(),
-  ["AI", "DX"],
+  dxEssay(".content-dx-topics a").map((_, element) => dxEssay(element).text()).get(),
+  ["価値設計"],
 );
 for (const [id, expected] of [
   ["foundations/ai-business-design", ["公開：2026年2月"]],
@@ -593,14 +615,21 @@ assert(
     ),
 );
 const customerSupportBook = page("cases/customer-support-ai-dx");
-assert.equal(customerSupportBook(".series > ol > li").length, 12);
+assert.equal(customerSupportBook(".series").length, 0);
+assert.equal(customerSupportBook(".book-toc > ol > li").length, 12);
+assert.equal(customerSupportBook(".book-toc-mobile > ol > li").length, 12);
+assert.equal(customerSupportBook(".book-toc .content-entry").length, 0);
 assert.equal(
-  customerSupportBook(".series-position").text(),
+  customerSupportBook(".series-position-inline").text(),
   "現在位置：全体構成・全11章",
 );
 assert.equal(
-  page("cases/customer-support-ai-dx/poc-evaluation")(".series-position").text(),
+  page("cases/customer-support-ai-dx/poc-evaluation")(".series-position-inline").text(),
   "現在位置：第4章・全11章",
+);
+assert.equal(
+  page("cases/customer-support-ai-dx/poc-evaluation")('.book-toc a[aria-current="page"]').text(),
+  '03. PoCで「使えるか」をどう判断したか',
 );
 assert(
   customerSupportBook("main")

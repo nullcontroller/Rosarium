@@ -5,6 +5,7 @@ import {
   publicEntry,
   staticLastUpdatedForPath,
 } from "../lib/site";
+import { dxCategories } from "../lib/dx";
 
 const manualRoutes = [
   "",
@@ -23,6 +24,7 @@ const manualRoutes = [
   "career/profile",
   "cases",
   "dx",
+  ...dxCategories.map((category) => `dx/${category.id}`),
   "essays",
   "practices",
   "reference",

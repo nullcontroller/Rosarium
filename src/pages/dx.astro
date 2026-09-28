@@ -2,37 +2,32 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
-import ContentIndex from "../components/ContentIndex.astro";
-import { publicEntry, url } from "../lib/site";
-import { hasEntryPoint } from "../lib/entry-points";
+import { dxCategories, dxEntriesForCategory } from "../lib/dx";
+import { url } from "../lib/site";
 
-const all = await getCollection("pages", publicEntry);
-const topicOrder = new Map([
-  ["value-business", 0],
-  ["business-transformation", 1],
-  ["system-planning", 2],
-  ["organization-adoption", 3],
-  ["case-study", 4],
-]);
-const entries = all
-  .filter(
-    (entry) =>
-      hasEntryPoint(entry, "dx") &&
-      (entry.data.series !== "customer-support-ai-dx" ||
-        (entry.data.order ?? 0) === 0),
-  )
-  .sort(
-    (a, b) =>
-      (topicOrder.get(a.data.dx_topic ?? "") ?? 99) -
-        (topicOrder.get(b.data.dx_topic ?? "") ?? 99) ||
-      a.data.title.localeCompare(b.data.title, "ja"),
-  );
+const all = await getCollection("pages", ({ data }) => data.public !== false);
+const categoryGroups = dxCategories.map((category) => {
+  const entries = dxEntriesForCategory(all, category.id);
+  const byId = new Map(entries.map((entry) => [entry.id, entry]));
+  return {
+    ...category,
+    articles: category.featured.flatMap((id) => {
+      const entry = byId.get(id);
+      return entry ? [entry] : [];
+    }),
+    cases: category.featuredCases.flatMap((id) => {
+      const entry = byId.get(id);
+      return entry ? [entry] : [];
+    }),
+  };
+});
 ---
 
 <Site
   title="DX"
   section="dx"
-  summary="価値を生み出すために、業務・サービス・システム・組織をどう変えるかを考えます。"
+  summary="価値を生み出すために、業務・サービス・システム・組織をどう変えるかをテーマ別に考えます。"
+  lastUpdated="2026-09-28"
 >
   <PageHeader
     title="DX"
@@ -40,27 +35,47 @@ const entries = all
     summary="価値を生み出すために、業務・サービス・システム・組織をどう変えるかを考えます。"
   />
   <p>
-    Rosariumでは、DXをデジタル技術の導入そのものとは捉えません。顧客や利用者へ価値を届けるために、仕事の進め方、サービス、システム、組織の関係を見直し、変え続けることとして扱います。
+    Rosariumでは、DXをデジタル技術の導入そのものとは捉えません。何を、なぜ変えるのかを価値から考え、業務・システム・運用を継続して設計し直します。AIは、その変革を実現する有力な手段の一つです。
   </p>
-  <section class="dx-principles" aria-labelledby="dx-principles-heading">
-    <h2 id="dx-principles-heading">価値から変革を設計する</h2>
-    <ol class="dx-principle-list">
-      <li><h3>Value Flowを見る</h3><p>顧客・利用者へ価値が届くまでの流れを捉え、価値が生まれる場所、流れが止まる場所、人間の判断を集中させる場所、システム化する処理を考えます。</p></li>
-      <li><h3>業務そのものを変える</h3><p>同じ仕事を速くするだけでなく、その工程が必要か、なくせないか、別の提供方法へ変えられないか、人間が担う必要があるかまで問い直します。</p></li>
-      <li><h3>始める・残す・変える・統合する・やめる</h3><p>新しい仕組みを追加する判断と同時に、価値の小さい仕事、機能、システムを維持し続けるコストも評価します。</p></li>
-      <li><h3>全体最適で考える</h3><p>業務、利用者、人間、システム、データ、組織、運用、保守を一つの仕組みとして捉え、局所的な効率化が全体の複雑さを増やす状態を避けます。</p></li>
-      <li><h3>システムライフサイクルを見通す</h3><p>構想から導入、運用、継続的改善、モダナイゼーション、統合・移行、終焉までを考え、長期的に維持する価値があるかを判断します。</p></li>
-      <li><h3>継続的に変革する</h3><p>導入を完成とせず、利用と運用から得た情報を次の業務改善・システム改善へ戻します。</p></li>
-      <li><h3>成果で評価する</h3><p>導入の有無ではなく、顧客価値、売上、コスト、処理時間、品質、問い合わせ負荷、認知負荷、不要業務、新しい価値提供がどう変わったかを見ます。</p></li>
-    </ol>
+
+  <section class="dx-category-list" aria-labelledby="dx-themes-heading">
+    <h2 id="dx-themes-heading">DXを考える5つのテーマ</h2>
+    {categoryGroups.map((category) => (
+      <section class="dx-category" id={category.id}>
+        <h3><a href={url(`dx/${category.id}`)}>{category.title} →</a></h3>
+        <p>{category.summary}</p>
+        {category.articles.length > 0 && (
+          <div class="dx-category-links">
+            <p>代表記事</p>
+            <ul>
+              {category.articles.map((entry) => (
+                <li><a href={url(entry.id)}>{entry.data.title}</a></li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {category.cases.length > 0 && (
+          <div class="dx-category-links">
+            <p>関連する実践事例</p>
+            <ul>
+              {category.cases.map((entry) => (
+                <li><a href={url(entry.id)}>{entry.data.title}</a></li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </section>
+    ))}
   </section>
+
   <section class="dx-ai-connection" aria-labelledby="dx-ai-heading">
-    <h2 id="dx-ai-heading">AIとの関係</h2>
-    <p>AIは、価値を大きく引き上げ得る有力な手段の一つです。AIをどこへ適用するか、AI・人間・既存システムをどう分担するかは、AIの入口で扱っています。</p>
-    <p class="domain-cross-link"><a href={url("ai")}>AIについて読む →</a></p>
-  </section>
-  <section aria-labelledby="dx-articles-heading">
-    <h2 id="dx-articles-heading">DXに関連する記事</h2>
-    <ContentIndex entries={entries} showIcons={false} />
+    <h2 id="dx-ai-heading">AIとの接続</h2>
+    <p>
+      DXが「何を、なぜ変えるのか」を扱うのに対し、AIでは適用判断、責任境界、Knowledge、Evaluation、運用を具体的に設計します。実践事例では両者を同じ課題へ適用した過程を確認できます。
+    </p>
+    <nav class="topic-navigation" aria-label="関連する入口">
+      <a href={url("ai")}>AIについて読む</a>
+      <a href={url("cases")}>実践事例を見る</a>
+    </nav>
   </section>
 </Site>

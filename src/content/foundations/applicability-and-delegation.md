@@ -6,11 +6,12 @@ title: AI適用可否と委任レベルの設計
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-09-27"
+last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx
 dx_topic: value-business
+dx_topics: [value-design, selection-retirement]
 tags:
   - foundations
 published_at: null

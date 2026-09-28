@@ -11,6 +11,7 @@ entry_points:
   - ai
   - dx
 dx_topic: case-study
+dx_topics: [business-transformation, continuous-value]
 tags: &topics
   - Applied AI
   - DX
@@ -55,17 +56,7 @@ PoC / Knowledge / UX / HITL
 
 ## 読み方
 
-- [00. このケーススタディについて](/ai-design-foundations/cases/customer-support-ai-dx/executive-summary/)
-- [01. なぜAIを導入したのか](/ai-design-foundations/cases/customer-support-ai-dx/why-ai/)
-- [02. 何をAIに任せ、何を人間に残したか](/ai-design-foundations/cases/customer-support-ai-dx/responsibility-boundary/)
-- [03. PoCで「使えるか」をどう判断したか](/ai-design-foundations/cases/customer-support-ai-dx/poc-evaluation/)
-- [04. RAG / Knowledgeをどう設計したか](/ai-design-foundations/cases/customer-support-ai-dx/knowledge-design/)
-- [05. AIをどこで止めるか](/ai-design-foundations/cases/customer-support-ai-dx/stopping-conditions/)
-- [06. 顧客体験をどう変えたか](/ai-design-foundations/cases/customer-support-ai-dx/customer-experience/)
-- [07. AIから人間へどう引き継ぐか](/ai-design-foundations/cases/customer-support-ai-dx/human-handoff/)
-- [08. 導入後にどう育てるか](/ai-design-foundations/cases/customer-support-ai-dx/continuous-improvement/)
-- [09. 何が変わったのか](/ai-design-foundations/cases/customer-support-ai-dx/outcomes-and-evidence/)
-- [10. この事例から得た設計原則](/ai-design-foundations/cases/customer-support-ai-dx/design-principles/)
+PCでは右側のBook目次、モバイルでは折りたたみ式の目次から任意の章へ移動できます。順番に読む場合は、各章末の前後ナビゲーションを利用してください。
 
 ## 関連する入口
 

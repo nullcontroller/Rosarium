@@ -6,11 +6,12 @@ title: 理解できないシステムは、コストである
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-22"
+last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx
 dx_topic: case-study
+dx_topics: [selection-retirement, system-transformation]
 tags: &a1
   - ai
   - 設計

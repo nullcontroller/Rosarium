@@ -9,7 +9,6 @@ import {
   topicLabel,
   designTopics,
   topicPublications,
-  publicationType,
   publicationStatus,
   publicationTiming,
   mathematicsReadingIds,
@@ -29,6 +28,7 @@ import {
   contentEntryPoints,
   entryPointDefinitions,
 } from "../lib/entry-points";
+import { dxCategories, dxCategoryIdsForEntry } from "../lib/dx";
 export async function getStaticPaths() {
   return (await getCollection("pages", publicEntry)).map((entry) => ({
     params: { id: entry.id },
@@ -81,10 +81,28 @@ const purposes = contentUseCases(entry);
 const timing = publicationTiming(entry);
 const publicationState = publicationStatus(entry);
 const entryPoints = contentEntryPoints(entry);
+const dxTopics = dxCategoryIdsForEntry(entry)
+  .map((id) => dxCategories.find((category) => category.id === id))
+  .filter((category): category is (typeof dxCategories)[number] => Boolean(category));
 const readingPath = readingPathForEntry(entry, all);
 const themeGroups = readingPath
-  ? readingNavigation(all, readingPath, entry.id)
+  ? series.length
+    ? []
+    : readingNavigation(all, readingPath, entry.id)
   : [];
+const bookNavigation = series.length
+  ? {
+      title: d.series_title || series[0].data.title,
+      items: series.map((item) => ({
+        title:
+          (item.data.order ?? 0) === 0
+            ? "全体構成"
+            : item.data.title,
+        href: url(item.id),
+        current: item.id === entry.id,
+      })),
+    }
+  : undefined;
 ---
 
 <Site
@@ -111,6 +129,7 @@ const themeGroups = readingPath
     { name: d.title, path: entry.id },
   ]}
   themeGroups={themeGroups}
+  bookNavigation={bookNavigation}
 >
   <nav class="breadcrumb">
     <a href={url()}>庭</a> / <a href={url(primaryPath)}>{primaryLabel}</a>
@@ -175,6 +194,14 @@ const themeGroups = readingPath
           <a href={url(entryPointDefinitions[entryPoint].path)}>{entryPointDefinitions[entryPoint].label}</a>
         ))}
       </nav>
+      {dxTopics.length > 0 && (
+        <nav class="content-dx-topics" aria-label="関連するDXテーマ">
+          <span>DXテーマ：</span>
+          {dxTopics.map((category) => (
+            <a href={url(`dx/${category.id}`)}>{category.title}</a>
+          ))}
+        </nav>
+      )}
       <span hidden data-pagefind-meta="entry_point">{entryPoints.join(" ")}</span>
       {purposes.length > 0 && (
         <p class="content-purpose" data-pagefind-meta="use_case">
@@ -199,30 +226,7 @@ const themeGroups = readingPath
         decoding="async"
       />
     )}
-    {series.length > 0 && (
-      <nav class="series" aria-label="シリーズ目次" data-pagefind-ignore>
-        <p>
-          <a
-            href={url(
-              series[0].data.publication_format === "series"
-                ? "series"
-                : "cases",
-            )}
-          >
-            {publicationType(series[0])}一覧
-          </a>{" "}
-          / <a href={url(series[0].id)}>{d.series_title} — 全体構成</a>
-        </p>
-        <p class="series-position">{seriesPosition}</p>
-        <ol>
-          {series.map((e) => (
-            <li>
-              <ContentLink entry={e} heading="p" current={e.id === entry.id} />
-            </li>
-          ))}
-        </ol>
-      </nav>
-    )}
+    {seriesPosition && <p class="series-position-inline">{seriesPosition}</p>}
     <div class="prose">
       <MarkdownBody html={entry.rendered?.html || ""} />
     </div>

@@ -60,6 +60,18 @@ const pages = defineCollection({
           "case-study",
         ])
         .optional(),
+      dx_topics: z
+        .array(
+          z.enum([
+            "value-design",
+            "business-transformation",
+            "selection-retirement",
+            "system-transformation",
+            "continuous-value",
+          ]),
+        )
+        .min(1)
+        .optional(),
       published_at: z.string().nullable().optional(),
       updated_at: z.string().nullable().optional(),
       update_type: z
@@ -104,16 +116,23 @@ const pages = defineCollection({
             "Keep Zenn publications in related publications, not the AI Design canonical index",
           path: ["layer"],
         });
-      if (data.entry_points.includes("dx") && !data.dx_topic)
+      if (
+        data.entry_points.includes("dx") &&
+        !data.dx_topic &&
+        !data.dx_topics?.length
+      )
         ctx.addIssue({
           code: "custom",
-          message: "DX entry point requires dx_topic",
+          message: "DX entry point requires dx_topic or dx_topics",
           path: ["dx_topic"],
         });
-      if (data.dx_topic && !data.entry_points.includes("dx"))
+      if (
+        (data.dx_topic || data.dx_topics?.length) &&
+        !data.entry_points.includes("dx")
+      )
         ctx.addIssue({
           code: "custom",
-          message: "dx_topic requires the DX entry point",
+          message: "DX topics require the DX entry point",
           path: ["entry_points"],
         });
     }),

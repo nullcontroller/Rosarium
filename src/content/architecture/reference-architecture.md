@@ -6,11 +6,12 @@ title: AI業務システムの参照アーキテクチャ
 kind: architecture
 section: architecture
 status: published
-last_updated: "2026-09-22"
+last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx
 dx_topic: system-planning
+dx_topics: [system-transformation]
 tags:
   - architecture
 published_at: null

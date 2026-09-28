@@ -11,6 +11,7 @@ entry_points:
   - ai
   - dx
 dx_topic: organization-adoption
+dx_topics: [business-transformation, continuous-value]
 tags: &a1
   - 生成ai
   - ai活用

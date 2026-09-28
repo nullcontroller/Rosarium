@@ -68,7 +68,13 @@ const aiAndDx = entryPointEntries.filter(
   (entry) => entryPointsOf(entry).includes("ai") && entryPointsOf(entry).includes("dx"),
 );
 for (const entry of aiAndDx)
-  assert.ok(entry.data.dx_topic, `DX topic missing: ${entry.file}`);
+  assert.ok(entry.data.dx_topic || entry.data.dx_topics?.length, `DX topic missing: ${entry.file}`);
+for (const entry of publicEntries.filter(({ data }) => data.dx_topics?.length))
+  assert.equal(
+    new Set(entry.data.dx_topics).size,
+    entry.data.dx_topics.length,
+    `Duplicate DX topics: ${entry.file}`,
+  );
 for (const id of [
   "foundations/conditional-probability.md",
   "foundations/temperature-design.md",

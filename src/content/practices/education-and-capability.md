@@ -5,12 +5,13 @@ layer: "practice"
 kind: "guide"
 section: "practices"
 status: published
-last_updated: "2026-09-22"
+last_updated: "2026-09-28"
 order: 20
 entry_points:
   - ai
   - dx
 dx_topic: organization-adoption
+dx_topics: [business-transformation, continuous-value]
 tags:
   - AI教育
   - Capability

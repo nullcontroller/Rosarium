@@ -6,11 +6,12 @@ title: 全員の業務が違うのに、AI活用事例をそのまま横展開�
 kind: guide
 section: practices
 status: published
-last_updated: "2026-09-22"
+last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx
 dx_topic: organization-adoption
+dx_topics: [business-transformation, continuous-value]
 tags: &a1
   - 生成ai
   - ai活用
