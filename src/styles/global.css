@@ -966,6 +966,11 @@ blockquote {
   font-weight: 700;
   margin: 0;
 }
+.series .series-position {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-weight: 400;
+}
 .series [aria-current] {
   font-weight: 700;
   color: var(--ink);

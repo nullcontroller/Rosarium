@@ -594,6 +594,14 @@ assert(
 );
 const customerSupportBook = page("cases/customer-support-ai-dx");
 assert.equal(customerSupportBook(".series > ol > li").length, 12);
+assert.equal(
+  customerSupportBook(".series-position").text(),
+  "現在位置：全体構成・全11章",
+);
+assert.equal(
+  page("cases/customer-support-ai-dx/poc-evaluation")(".series-position").text(),
+  "現在位置：第4章・全11章",
+);
 assert(
   customerSupportBook("main")
     .text()
@@ -603,6 +611,11 @@ assert(
   page("cases/customer-support-ai-dx/outcomes-and-evidence")("main")
     .text()
     .includes("公開実績として未確認"),
+);
+assert(
+  page("cases/customer-support-ai-dx/outcomes-and-evidence")("main")
+    .text()
+    .includes("公開実績のBefore / Afterではなく"),
 );
 assert(
   page("career")('a[href="/ai-design-foundations/cases/customer-support-ai-dx/"]').length,
