@@ -1,6 +1,7 @@
 ---
 title: "詳細職務経歴 — 立林 裕太朗"
 summary: "2016年以降の職務経歴、Applied AI・業務設計・システム設計の経験、今後取り組みたい役割、希望条件と資格。"
+public: false
 layer: career
 status: stable
 last_updated: "2026-09-28"

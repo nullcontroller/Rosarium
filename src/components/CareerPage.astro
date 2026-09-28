@@ -6,31 +6,28 @@ import { url } from "../lib/site";
 import { statusLabel } from "../lib/site";
 import Icon from "./Icon.astro";
 interface Props {
-  id: "overview" | "profile";
+  id: "overview";
 }
 const entry = await getEntry("career", Astro.props.id);
 if (!entry) throw new Error("Career content missing");
 const { headings } = await render(entry);
 const d = entry.data;
-const displayTitle =
-  Astro.props.id === "overview" ? "キャリア — 立林 裕太朗" : d.title;
+const linkedIn =
+  "https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/";
 ---
 
 <Site
-  title={displayTitle}
+  title={d.seo_title ?? d.title}
   summary={d.summary}
   ogImage="og/career.png"
   ogType="profile"
-  section={Astro.props.id === "profile" ? "career/profile" : "career"}
+  section="career"
   lastUpdated={d.last_updated}
   headings={headings}
   frame={false}
   breadcrumbs={[
     { name: "庭", path: "" },
     { name: "キャリア", path: "career" },
-    ...(Astro.props.id === "profile"
-      ? [{ name: displayTitle, path: "career/profile" }]
-      : []),
   ]}
 >
   <nav class="breadcrumb" aria-label="現在位置">
@@ -39,21 +36,30 @@ const displayTitle =
   <article data-pagefind-body>
     <div class="document-title-row">
       <Icon name="career" size="page" />
-      <h1 data-pagefind-meta="title">{displayTitle}</h1>
+      <h1 data-pagefind-meta="title">{d.title}</h1>
     </div>
-    <span hidden data-pagefind-meta="icon">career</span>
+    <span hidden data-pagefind-meta="icon">
+      career
+    </span>
+    <p class="career-positioning">Applied AI × DX × System Architecture</p>
     <p class="lead" data-pagefind-meta="summary">
       {d.summary}
+    </p>
+    <p class="career-introduction">
+      ソフトウェア開発、プロジェクトマネジメント、生成AI /
+      RAG、レガシーシステムの経験を基盤に、「何を作るか」「AIをどこへ適用するか」「人間・AI・既存システムをどう組み合わせるか」というシステム企画・設計へ担当領域を広げています。
     </p>
     <p class="meta">
       <span data-pagefind-meta="category">キャリア</span> ·{" "}
       <span data-pagefind-meta="status">{statusLabel(d.status)}</span>
     </p>
-    <nav class="topic-navigation" aria-label="キャリア情報">
-      <a href={url("career")}>キャリア概要</a>
-      <a href={url("career/profile")}>詳しい職務経歴・希望条件を見る</a>
-      <a href={url("cases")}>実務事例を読む</a>
-      <a href={url("cases/customer-support-ai-dx")}>顧客サポートDXの事例を読む</a>
+    <nav class="career-actions" aria-label="キャリアの主要導線">
+      <a class="career-cta career-cta-primary" href={url("cases")}>
+        実践事例を見る →
+      </a>
+      <a class="career-cta career-cta-secondary" href={linkedIn}>
+        LinkedInプロフィール →
+      </a>
     </nav>
     <div class="prose">
       <MarkdownBody html={entry.rendered?.html || ""} />

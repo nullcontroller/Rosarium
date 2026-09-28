@@ -110,4 +110,6 @@ for (const entry of career.entries) {
  assert.equal(hash(body), entry.destination_body_sha256, entry.destination_file);
  assert.equal(data.source.commit, career.source_commit);
 }
-console.log("Verified 2 current Career pages, approved body checksums and source provenance.");
+assert.equal(parse(read("src/content/career/overview.md")).data.public ?? true, true);
+assert.equal(parse(read("src/content/career/profile.md")).data.public, false);
+console.log("Verified the public Career gateway, retained non-public profile source and provenance.");

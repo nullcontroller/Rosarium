@@ -1,5 +1,27 @@
 ---
-import CareerPage from "../../components/CareerPage.astro";
+import Site from "../../layouts/Site.astro";
+import { url } from "../../lib/site";
+
+const career = url("career");
+const canonical = new URL(career, Astro.site).toString();
 ---
 
-<CareerPage id="profile" />
+<Site
+  title="Careerへ統合しました"
+  summary="詳細な職務プロフィールはLinkedInへ委譲し、RosariumのCareerはPortfolio Gatewayへ統合しました。"
+  canonical={canonical}
+  noindex
+  showLastUpdated={false}
+>
+  <meta slot="head" http-equiv="refresh" content={`0;url=${career}`} />
+  <script is:inline define:vars={{ career }}>
+    location.replace(career);
+  </script>
+  <h1>Careerへ統合しました</h1>
+  <p>
+    設計思想と実践事例はCareerへ統合しました。詳細な職務プロフィールはCareerからLinkedInをご覧ください。
+  </p>
+  <p>
+    <a href={career}>Careerへ移動する</a>
+  </p>
+</Site>

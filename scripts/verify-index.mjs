@@ -78,10 +78,14 @@ for (const [id, d] of entries) {
   }
 }
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
-assert.equal(career("h1").text(), "キャリア — 立林 裕太朗");
-assert(career('a[href="/ai-design-foundations/career/profile/"]').length);
+assert.equal(career("h1").text(), "Career — 立林 裕太朗");
+assert.equal(career(".career-focus-grid > section").length, 3);
+assert.equal(career(".career-work").length, 3);
+assert.equal(career(".career-thinking-flow > li").length, 4);
+assert(career('a[href^="https://www.linkedin.com/in/"]').length >= 2);
+assert.equal(career('a[href="/ai-design-foundations/career/profile/"]').length, 0);
 console.log(
-  `Verified ${entries.size} summaries/search metadata, ${links} content links and Career profile.`,
+  `Verified ${entries.size} summaries/search metadata, ${links} content links and Career gateway.`,
 );
 
 // Phase 3 information architecture invariants.
@@ -195,7 +199,9 @@ assert.deepEqual(
     .get(),
   ["庭", "AI", "DX", "事例"],
 );
-assert(career('a[href="/ai-design-foundations/career/profile/"]').length);
+assert(career('a[href="/ai-design-foundations/ai/"]').length);
+assert(career('a[href="/ai-design-foundations/dx/"]').length);
+assert(career('a[href="/ai-design-foundations/cases/"]').length);
 const primaryIds = ($) =>
   $("[data-primary-index] [data-content-id]")
     .map((_, e) => $(e).attr("data-content-id"))
@@ -448,6 +454,17 @@ for (const id of [
   "updates",
 ])
   assert(page(id)("h1").length, id);
+const careerProfile = page("career/profile");
+assert.match(careerProfile("meta[name=robots]").attr("content") || "", /noindex/);
+assert.equal(
+  careerProfile("meta[http-equiv=refresh]").attr("content"),
+  "0;url=/ai-design-foundations/career/",
+);
+assert.equal(
+  careerProfile('link[rel="canonical"]').attr("href"),
+  "https://nullcontroller.github.io/ai-design-foundations/career/",
+);
+assert(careerProfile('a[href="/ai-design-foundations/career/"]').length);
 console.log(
   "Verified reading gateway, layer separation, related publications and existing URLs.",
 );
@@ -647,7 +664,7 @@ assert(
     .includes("公開実績のBefore / Afterではなく"),
 );
 assert(
-  page("career")('a[href="/ai-design-foundations/cases/customer-support-ai-dx/"]').length,
+  page("career")('a[href$="/cases/customer-support-ai-dx/"]').length,
 );
 console.log("Verified recent growth and exact Book publication presentation.");
 

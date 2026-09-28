@@ -91,22 +91,48 @@ assert.equal(
 );
 const homepage = load(fs.readFileSync("dist/index.html", "utf8"));
 assert.equal(homepage("h1").text(), "Rosarium");
-const profile = load(fs.readFileSync("dist/career/profile/index.html", "utf8"));
+const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 for (const text of [
-  "2016–2021",
-  "2022–2024",
-  "2024–2025",
-  "2025–2026",
-  "2026–現在",
-  "DPAPI / CNG",
-  "約7割",
-  "希望条件",
-  "資格",
-  "データサイエンス発展：2025年6月取得",
-  "価値",
+  "Applied AI × DX × System Architecture",
+  "What I Do",
+  "Selected Work",
+  "How I Think",
+  "Career Direction",
+  "Professional Profile",
+  "生成AI / RAGによる顧客サポートDX",
 ])
-  assert(profile("main").text().includes(text), text);
-assert(profile('a[href^="https://www.linkedin.com/in/"]').length, "LinkedIn profile");
+  assert(career("main").text().includes(text), text);
+for (const duplicate of [
+  "2016–2021",
+  "希望条件",
+  "年収",
+  "データサイエンス発展",
+])
+  assert(
+    !career("main").text().includes(duplicate),
+    `Career duplicate: ${duplicate}`,
+  );
+assert.equal(
+  career("h2,h3").filter(
+    (_, element) => career(element).text().trim() === "資格",
+  ).length,
+  0,
+  "Career must not duplicate the qualification list",
+);
+assert(
+  career('a[href^="https://www.linkedin.com/in/"]').length >= 2,
+  "LinkedIn CTAs",
+);
+const profile = load(fs.readFileSync("dist/career/profile/index.html", "utf8"));
+assert.match(profile('meta[name="robots"]').attr("content") || "", /noindex/);
+assert.equal(
+  profile('meta[http-equiv="refresh"]').attr("content"),
+  "0;url=/ai-design-foundations/career/",
+);
+assert(
+  !profile("main").text().includes("職務経歴"),
+  "Retired profile must not duplicate career history",
+);
 const baseline = JSON.parse(
   fs.readFileSync("migration/personal-site-baseline.json", "utf8"),
 );

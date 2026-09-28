@@ -1,6 +1,7 @@
 ---
 title: "Career — 立林 裕太朗"
-summary: "Applied AIを軸に、価値から業務変化を考え、AI・人間・既存システムの役割を設計してきた経験と今後の方向性。"
+seo_title: "Career — 立林 裕太朗 | Applied AI・DX・System Architecture"
+summary: "Applied AI、DX、システムアーキテクチャを軸に、価値から業務・システム・AIの役割を設計する考え方と実践事例をまとめています。"
 layer: career
 status: stable
 last_updated: "2026-09-28"
@@ -10,80 +11,88 @@ source:
   commit: "426338274e7bbb0b6a66bc6edf95a2161356fbdc"
 ---
 
-**Applied AI × AI業務設計・システム設計**
+## What I Do
 
-ソフトウェア開発、プロジェクトマネジメント、生成AI / RAG、AI Evaluation、既存製品の保守・改善を経験してきました。
+<div class="career-focus-grid">
+  <section>
+    <p class="eyebrow">APPLIED AI</p>
+    <h3>AIを業務システムの一部として設計する</h3>
+    <p>生成AI、RAG、Knowledge / Context、Evaluation、Human in the Loopを個別技術としてではなく、業務・人間・既存システムと接続して設計します。</p>
+  </section>
+  <section>
+    <p class="eyebrow">DX</p>
+    <h3>価値から業務とシステムを考える</h3>
+    <p>技術導入そのものを目的にせず、誰にどのような価値を届けるかを起点に、業務の変化と必要な仕組みを組み立てます。</p>
+  </section>
+  <section>
+    <p class="eyebrow">SYSTEM ARCHITECTURE</p>
+    <h3>全体を見て、残す・変える・終えるを判断する</h3>
+    <p>業務目的、既存資産、制約、変更影響を整理し、何を残し、変え、統合し、新しく作り、終えるかまでをシステム全体で判断します。</p>
+  </section>
+</div>
 
-現在は、AI技術の導入そのものではなく、誰にどのような価値を生み出すかを起点に、実現したい業務変化、AI・人間・既存システムの役割、評価、運用、継続改善までを一つのシステムとして設計することを重視しています。
+## Selected Work
 
-## キャリアの流れ
+代表的な実践事例です。Careerでは結論だけを並べず、各Bookで課題、制約、設計判断、評価、運用までを示しています。
 
-```text
-2016–2021  Software Engineering
-      ↓
-2022–2024  Project Management
-      ↓
-2024–2025  Applied AI / RAG / AI Evaluation
-      ↓
-2025–2026  Applied AI / DX / Knowledge Architecture
-      ↓
-2026–現在  Applied AI / AI業務設計 / システム設計
-```
+<div class="career-work-grid">
+  <article class="career-work career-work-primary">
+    <p class="eyebrow">APPLIED AI × DX × SYSTEM ARCHITECTURE</p>
+    <h3><a href="../cases/customer-support-ai-dx/">生成AI / RAGによる顧客サポートDX</a></h3>
+    <p>顧客価値と業務課題から出発し、AI・人間・既存システムの責任分担、PoC、Knowledge、UX、評価、継続改善までを一つのシステムとして設計した事例です。</p>
+    <p><a class="career-inline-cta" href="../cases/customer-support-ai-dx/">代表事例を読む →</a></p>
+  </article>
+  <article class="career-work">
+    <p class="eyebrow">KNOWLEDGE RECONSTRUCTION</p>
+    <h3><a href="../cases/system-understanding/">レガシーシステムを「理解可能な状態」にする設計手法</a></h3>
+    <p>散在したコードと資料から仕様理解の土台を再構築し、既存システムを安全に変更できる状態へ近づけた実践です。</p>
+    <p><a class="career-inline-cta" href="../cases/system-understanding/">事例を読む →</a></p>
+  </article>
+  <article class="career-work">
+    <p class="eyebrow">AI-ASSISTED SOFTWARE ENGINEERING</p>
+    <h3><a href="../cases/three-ai-maintenance/">3つのAIをオーケストレーションしたレガシー保守</a></h3>
+    <p>GPT、GitHub Copilot、Microsoft 365 Copilotを工程ごとに分担し、根拠確認と最終判断を人間に残した保守・改善の実践です。</p>
+    <p><a class="career-inline-cta" href="../cases/three-ai-maintenance/">事例を読む →</a></p>
+  </article>
+</div>
 
-大学では自然言語処理を扱いました。実務ではC# / .NETによる業務ソフトウェア開発から始まり、要件分析、プロジェクトマネジメント、生成AIを用いたQA、Knowledge / Context設計、既存製品の仕様理解と改善へ経験を広げています。
+<p class="career-section-link"><a href="../cases/">実践事例をすべて見る →</a></p>
 
-## 現在の設計軸
+## How I Think
 
-### 価値からAIの役割を決める
+<ol class="career-thinking-flow" aria-label="価値からAIまでの設計順序">
+  <li><strong>価値</strong><span>誰の何を変えるのか</span></li>
+  <li><strong>業務</strong><span>仕事と判断をどう組み替えるか</span></li>
+  <li><strong>システム</strong><span>既存資産と新しい仕組みをどう接続するか</span></li>
+  <li><strong>AI</strong><span>どこへ適用し、どこで止めるか</span></li>
+</ol>
 
-```text
-価値
-  ↓
-実現したい業務変化
-  ↓
-業務・システム設計
-  ↓
-AI・人間・既存システムの役割分担
-  ↓
-必要なAI技術
-  ↓
-評価・改善・再設計
-```
+AIから始めるのではなく、価値から逆算します。ルール、検索、既存機能、業務変更で十分なら、AIを使わない判断も設計に含めます。AIを使う場合は、AI・人間・既存システムの責任境界を定め、導入後の評価と改善までを閉じないことを重視します。
 
-AIを使うことを前提にせず、ルール、検索、既存機能、業務変更で解く方が適切ならAIを使わない判断も含めます。
+- [AIの設計思想を読む](/ai/)
+- [DXの考え方を読む](/dx/)
 
-### 自然言語を業務とシステムの入口にする
+## Career Direction
 
-顧客問い合わせ対応では、問い合わせ内容と対応工数を分析し、顧客が自己解決できる領域と、人間の専門判断が必要な領域を分けました。
+生成AIや自然言語インターフェースを活用したDXサービスの企画・設計を中心に、技術と業務の両方へ直接関わる仕事を志向しています。
 
-複数の既存システムに分散したマニュアル、仕様、FAQ、障害情報、問い合わせ履歴をRAGで扱い、自然言語による質問、追加質問の生成、機種・版による検索範囲の制御、根拠提示、Human in the Loop、有人対応への引き継ぎまでを設計対象としました。
+特に、自社側で一つのサービスやシステムを継続的に担当し、企画、設計、導入、利用、評価、改善、再設計の循環へ長く関わりたいと考えています。ソフトウェア開発、プロジェクトマネジメント、レガシーシステムの保守・改善で得た経験は、そのためのシステム企画とアーキテクチャを支える基盤です。
 
-誤回答や有人対応の結果を、データ、分類、検索条件、回答範囲の改善へ戻すことも含め、導入後に育て続けられる仕組みとして考えています。
+## Rosarium as Ongoing Practice
 
-### 作る・残す・変える・終えるを判断する
+Rosariumは、Applied AI、DX、System Architecture、実践事例について継続的に考察・整理し、自ら設計・開発・運営している個人技術サイトです。
 
-2026年6月以降は既存製品の保守・改善を担当し、コード・仕様調査、要件整理、影響分析、設計、実装、評価、関係者調整まで一貫して行っています。
+記事だけでなく、Information Architecture、UI、Navigation、Content Structure、Knowledge Organizationも、Codex等を活用しながら利用と検証を通じて改善しています。このサイト自体も、設計し、使い、観察し、改善する成果物の一つです。
 
-既存機能を残すか、変更・統合・移行するか、利用を終えるかをライフサイクルとして判断します。SAP DeviceTypeのサポート終了では、影響を整理して終了を提案し、関係者との合意まで進めました。
+<p class="career-section-link"><a href="../">Rosariumの庭を見る →</a></p>
 
-仕様調査ではGPT、GitHub Copilot、Microsoft 365 Copilotを役割分担して用い、根拠、影響範囲、前提を人間が確認し、最終判断を担う工程を設計しています。
+## Professional Profile
 
-## 今後取り組みたいこと
-
-生成AIや自然言語インターフェースを活用し、実際の業務価値につながるサービスを企画・設計したいと考えています。
-
-特に、自社製品・自社システムを長期的に担当し、企画、設計、導入、利用、評価、改善、再設計の循環へ継続して関わる役割を志向しています。将来的なIT戦略・IT企画は、この経験の先にある拡張先として捉えています。
-
-技術・設計・課題分析へ直接関与するIndividual Contributor寄りの役割を希望し、顧客常駐・FDE、プリセールス・営業、People Management、PMOを主責務とする役割は志向していません。
-
-## ポートフォリオ
-
-- [LinkedIn](https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/) — 最新のプロフィール、職務経歴、現在の取り組み
-- [Rosarium](/) — 技術をどう捉え、設計し、実践し、学んでいるかを継続的に整理する個人サイト
-
-
-## 詳細情報
-
-- [詳しい職務経歴・希望条件を見る](/career/profile/)
-- [価値からAIを考える](/essays/dx-and-value/)
-- [AI設計を読む](/ai-design/)
+<div class="career-linkedin-panel">
+  <div>
+    <p class="eyebrow">LINKEDIN</p>
+    <h3>詳細な職務プロフィール</h3>
+    <p>所属・職務経歴、経験年数、学歴、資格、Skills等は、LinkedInを正本として更新しています。採用・求人に関してご覧いただく場合は、LinkedInプロフィールをご確認ください。</p>
+  </div>
+  <p><a class="career-cta career-cta-secondary" href="https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/">LinkedInで職務プロフィールを見る →</a></p>
+</div>

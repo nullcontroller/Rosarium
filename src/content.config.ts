@@ -140,7 +140,9 @@ const pages = defineCollection({
 const career = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/career" }),
   schema: z.object({
+    public: z.boolean().default(true),
     title: z.string().min(1),
+    seo_title: z.string().min(1).optional(),
     summary: z.string().min(1),
     layer: z.literal("career"),
     status: z.enum(["draft", "published", "stable"]),

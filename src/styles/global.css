@@ -162,7 +162,10 @@ blockquote {
   background: var(--bg);
   border-bottom: 1px solid var(--line);
   display: grid;
-  grid-template-columns: minmax(12rem, 1fr) minmax(22rem, auto) minmax(12rem, 1fr);
+  grid-template-columns: minmax(12rem, 1fr) minmax(22rem, auto) minmax(
+      12rem,
+      1fr
+    );
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
@@ -392,10 +395,18 @@ blockquote {
 .shell.has-toc,
 .shell.has-theme-toc,
 .shell.has-book-toc {
-  grid-template-columns: clamp(280px, 18vw, 380px) minmax(0, 1fr) clamp(190px, 13vw, 260px);
+  grid-template-columns: clamp(280px, 18vw, 380px) minmax(0, 1fr) clamp(
+      190px,
+      13vw,
+      260px
+    );
 }
 .shell.has-book-toc {
-  grid-template-columns: clamp(280px, 18vw, 380px) minmax(0, 1fr) clamp(240px, 17vw, 320px);
+  grid-template-columns: clamp(280px, 18vw, 380px) minmax(0, 1fr) clamp(
+      240px,
+      17vw,
+      320px
+    );
 }
 .career-shell {
   display: block;
@@ -1155,7 +1166,10 @@ blockquote {
 }
 @media (max-width: 1190px) {
   .masthead {
-    grid-template-columns: minmax(11rem, 1fr) minmax(18rem, auto) minmax(11rem, 1fr);
+    grid-template-columns: minmax(11rem, 1fr) minmax(18rem, auto) minmax(
+        11rem,
+        1fr
+      );
   }
   .header-primary {
     min-width: 22rem;
@@ -1357,7 +1371,8 @@ blockquote {
   .global-search-label {
     display: none;
   }
-}@media print {
+}
+@media print {
   @page {
     margin: 18mm;
   }
@@ -1801,6 +1816,166 @@ blockquote {
   flex-wrap: wrap;
   gap: 0.7rem 1.5rem;
   margin: 1.5rem 0;
+}
+.career-shell > main {
+  width: min(100%, 96rem);
+  margin-inline: auto;
+}
+.career-page .prose {
+  max-width: none;
+}
+.career-page article {
+  max-width: none;
+}
+.career-positioning {
+  margin: 0.25rem 0 0.65rem;
+  color: var(--accent);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+.career-introduction {
+  max-width: 74ch;
+  color: var(--muted);
+}
+.career-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0 3rem;
+}
+.career-cta {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  font-weight: 650;
+  text-decoration: none;
+}
+.career-cta-primary {
+  color: var(--surface);
+  background: var(--accent);
+}
+.career-cta-secondary {
+  color: var(--accent);
+  background: transparent;
+}
+.career-cta:hover,
+.career-cta:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+.career-focus-grid,
+.career-work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.career-focus-grid > section,
+.career-work {
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--soft) 58%, transparent);
+}
+.career-focus-grid h3,
+.career-work h3,
+.career-linkedin-panel h3 {
+  margin: 0.35rem 0 0.65rem;
+  line-height: 1.45;
+}
+.career-focus-grid p:last-child,
+.career-work p:last-child,
+.career-linkedin-panel p:last-child {
+  margin-bottom: 0;
+}
+.career-work-primary {
+  grid-column: 1 / -1;
+  border-left: 3px solid var(--accent);
+}
+.career-work h3 a,
+.career-inline-cta,
+.career-section-link a {
+  color: var(--accent);
+  text-underline-offset: 0.22em;
+}
+.career-inline-cta,
+.career-section-link a {
+  font-weight: 650;
+}
+.career-section-link {
+  margin: 1.25rem 0 3rem;
+}
+.career-thinking-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  list-style: none;
+  margin: 1.5rem 0;
+  padding: 1px;
+  background: var(--line);
+}
+.career-thinking-flow li {
+  position: relative;
+  min-width: 0;
+  padding: 1rem;
+  background: var(--surface);
+}
+.career-thinking-flow strong,
+.career-thinking-flow span {
+  display: block;
+}
+.career-thinking-flow strong {
+  margin-bottom: 0.35rem;
+  color: var(--accent);
+}
+.career-thinking-flow span {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.career-linkedin-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 1.5rem 0 0;
+  padding: 1.4rem;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  background: var(--soft);
+}
+@media (max-width: 900px) {
+  .career-focus-grid,
+  .career-work-grid {
+    grid-template-columns: 1fr;
+  }
+  .career-work-primary {
+    grid-column: auto;
+  }
+  .career-thinking-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .career-linkedin-panel {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .career-actions,
+  .career-actions .career-cta,
+  .career-linkedin-panel .career-cta {
+    width: 100%;
+  }
+  .career-thinking-flow {
+    grid-template-columns: 1fr;
+  }
+  .career-focus-grid > section,
+  .career-work,
+  .career-linkedin-panel {
+    padding: 1rem;
+  }
 }
 .related-publications {
   margin-top: 3rem;

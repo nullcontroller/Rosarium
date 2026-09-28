@@ -42,7 +42,6 @@ npm run build
 出典と移行時の本文ハッシュはmigration台帳・source metadataで保持します。
 公開HTMLのcanonicalは自サイトを指し、GitHub・Zenn・旧Careerサイトへのリンクは公開しません。
 
-[Career](https://nullcontroller.github.io/ai-design-foundations/career/) /
-[詳細職務経歴](https://nullcontroller.github.io/ai-design-foundations/career/profile/)
+[Career](https://nullcontroller.github.io/ai-design-foundations/career/) — 設計思想と実践事例へのPortfolio Gateway。詳細な職務プロフィールはCareerからLinkedInへ案内します。
 
 開発記録はdocs/historyへ保存し、Project・Tools・Journalは公開しません。

@@ -32,6 +32,6 @@ test("career links become local and removed routes cannot remain clickable", () 
     ),
   );
   assert.equal($("a").length, 1);
-  assert.equal($("a").attr("href"), "/ai-design-foundations/career/profile/");
+  assert.equal($("a").attr("href"), "/ai-design-foundations/career/");
   assert($.text().includes("記録"));
 });

@@ -46,12 +46,7 @@ export function publicHtml(html, sourceLinks = new Map()) {
       return;
     }
     if (isCareer) {
-      a.attr(
-        "href",
-        target.pathname.includes("/profile")
-          ? "/ai-design-foundations/career/profile/"
-          : "/ai-design-foundations/career/",
-      );
+      a.attr("href", "/ai-design-foundations/career/");
     } else if (externalSource) {
       const replacement = sourceLinks.get(normalized);
       if (replacement) a.attr("href", replacement);
