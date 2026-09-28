@@ -6,7 +6,7 @@ title: AIシステムの変更・再評価設計
 kind: architecture
 section: architecture
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-09-29"
 tags:
   - architecture
 published_at: null
@@ -323,7 +323,11 @@ Incident Caseに個人情報や機密が含まれる場合は、再利用用Test
 
 ### 12. 廃止もLifecycleに含める
 
-Serviceを止めても、Model Endpoint、Index、Credential、Log、Knowledge Copyが残る場合がある。
+再評価は、次の改良版を出すためだけに行うものではありません。残っている業務価値に対して、確認・保守・障害対応の負担が大きければ、適用範囲の縮小、既存機能への統合、別方式への移行、終了も比較します。
+
+例えば回答品質を維持できていても、利用が減り、Knowledge更新と人間レビューの負担が便益を上回るなら、モデルの性能改善だけでは解決しません。誰がどの仕事を引き受け直せるかを確認し、代替手段と移行中の責任者を決めてから終了を判断します。これは終了判断の例であり、一律の数値基準ではありません。
+
+一方、停止を決めても、Model Endpoint、Index、Credential、Log、Knowledge Copyが残る場合があります。
 
 廃止時に確認する。
 
@@ -334,6 +338,8 @@ Serviceを止めても、Model Endpoint、Index、Credential、Log、Knowledge C
 - Log保持と監査要件
 - 後継Systemへの責任移管
 - 利用者への通知と代替手段
+
+継続する場合の改善先の切り分けは、[顧客サポートDXの導入後の改善設計](/cases/customer-support-ai-dx/continuous-improvement/)で具体化しています。変更管理は、その改善を安全に反映する仕組みであると同時に、維持する価値を見直す機会でもあります。
 
 ---
 
