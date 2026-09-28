@@ -80,7 +80,6 @@ const readingSections = new Set([
   "ai-design",
   "ai-mathematics",
   "practices",
-  "cases",
   "books",
   "series",
   "essays",
@@ -259,6 +258,12 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             <a href={url("dx")} aria-current={section === "dx" ? "page" : undefined}>
               DX
             </a>
+            <a
+              href={url("cases")}
+              aria-current={section === "cases" ? "page" : undefined}
+            >
+              事例
+            </a>
           </nav>
           <div class="header-actions">
             <GlobalSearch />
@@ -272,6 +277,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           <a href={url()}>庭</a>
           <a href={url("ai")}>AI</a>
           <a href={url("dx")}>DX</a>
+          <a href={url("cases")}>事例</a>
         </nav>
       )}
     </header>

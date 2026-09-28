@@ -124,8 +124,9 @@ assert.deepEqual(
   top(".header-primary a")
     .map((_, e) => top(e).text().trim())
     .get(),
-  ["庭", "AI", "DX"],
+  ["庭", "AI", "DX", "事例"],
 );
+assert.equal(top('.header-primary a[href="/ai-design-foundations/cases/"]').length, 1);
 assert.equal(top('.header-primary a[href="/ai-design-foundations/career/"]').length, 0);
 assert.equal(top('.home-career a[href="/ai-design-foundations/career/"]').length, 1);
 assert.equal(top(".header-actions a").length, 0);
@@ -164,6 +165,12 @@ assert.equal(top(".sidebar .nav-children .icon").length, 0);
 assert.equal(top(".sidebar").length, 1);
 assert.equal(career(".sidebar,.toc,.global-search").length, 0);
 assert.equal(career(".career-header-links").length, 1);
+assert.deepEqual(
+  career(".career-header-links a")
+    .map((_, e) => career(e).text().trim())
+    .get(),
+  ["庭", "AI", "DX", "事例"],
+);
 assert(career('a[href="/ai-design-foundations/career/profile/"]').length);
 const primaryIds = ($) =>
   $("[data-primary-index] [data-content-id]")
@@ -369,6 +376,7 @@ for (const [id, expected] of [
   }
 }
 const cases = page("cases");
+assert.equal(cases(".header-primary a[aria-current=page]").text().trim(), "事例");
 assert.equal(cases(".case-study-index").length, 3);
 assert.equal(cases("main img").length, 0);
 assert.equal(cases(".book-list-entry-text").length, 3);
