@@ -29,6 +29,7 @@ export const useCases = [
       "practices/ai-adoption-and-effective-use",
       "evaluation-hitl/human-review-capability",
       "essays/dx-and-value",
+      "cases/customer-support-ai-dx",
     ],
   },
   {
@@ -48,6 +49,7 @@ export const useCases = [
       "knowledge-context/context-before-model-performance",
       "cases/system-understanding",
       "architecture/agents-tools-and-workflows",
+      "cases/customer-support-ai-dx",
     ],
   },
   {
@@ -97,11 +99,12 @@ export const useCases = [
     featured: [
       "cases/system-understanding",
       "cases/three-ai-maintenance",
-      "cases/understanding-systems-as-capability",
+      "cases/customer-support-ai-dx",
     ],
     publications: [
       "cases/system-understanding",
       "cases/three-ai-maintenance",
+      "cases/customer-support-ai-dx",
       "cases/understanding-systems-as-capability",
     ],
   },

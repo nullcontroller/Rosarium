@@ -331,6 +331,7 @@ for (const id of [
   "practices/adoption-governance",
   "architecture/reference-architecture",
   "cases/system-understanding",
+  "cases/customer-support-ai-dx",
 ]) assert(primaryIds(dx).includes(id), `DX discovery misses ${id}`);
 for (const id of [
   "foundations/conditional-probability",
@@ -354,6 +355,8 @@ for (const [id, expected] of [
   ["foundations/ai-business-design", ["公開：2026年2月"]],
   ["cases/three-ai-maintenance", ["公開：2026年7月"]],
   ["cases/system-understanding", ["状態：公開", "公開：2026年2月"]],
+  ["cases/customer-support-ai-dx", ["公開：2026-09-28"]],
+  ["cases/customer-support-ai-dx", ["公開：2026-09-28"]],
 ]) {
   for (const route of [id.startsWith("cases/") ? "cases" : "series"]) {
     const $ = page(route);
@@ -366,10 +369,14 @@ for (const [id, expected] of [
   }
 }
 const cases = page("cases");
-assert.equal(cases(".case-study-index").length, 2);
+assert.equal(cases(".case-study-index").length, 3);
 assert.equal(cases("main img").length, 0);
-assert.equal(cases(".book-list-entry-text").length, 2);
-for (const id of ["cases/system-understanding", "cases/three-ai-maintenance"]) {
+assert.equal(cases(".book-list-entry-text").length, 3);
+for (const id of [
+  "cases/system-understanding",
+  "cases/three-ai-maintenance",
+  "cases/customer-support-ai-dx",
+]) {
   const study = cases(`[data-series-index="${id}"]`);
   const descendants = study.find("*").toArray();
   assert(
@@ -440,6 +447,7 @@ assert.equal(
 const expectedBooks = [
   "cases/system-understanding",
   "cases/three-ai-maintenance",
+  "cases/customer-support-ai-dx",
 ];
 for (const route of ["cases", "books"]) {
   const $ = page(route);
@@ -449,7 +457,7 @@ for (const route of ["cases", "books"]) {
       .get(),
     expectedBooks,
   );
-  assert.equal($("[data-series-index] details").length, 2);
+  assert.equal($("[data-series-index] details").length, 3);
 }
 assert.equal(
   page("series")('[data-series-index="foundations/ai-business-design"]').length,
@@ -470,7 +478,7 @@ assert.equal(
 );
 assert(articlesCompatibility('a[href="/ai-design-foundations/ai/"]').length);
 console.log(
-  "Verified overview compatibility redirect, two case books, independent series and simplified navigation.",
+  "Verified overview compatibility redirect, three case books, independent series and simplified navigation.",
 );
 
 assert(top("#recent-growth-heading").length);
@@ -575,6 +583,21 @@ assert(
     .includes(
       "GPT、GitHub Copilot、Microsoft 365 Copilotを工程ごとに役割分担して利用した。",
     ),
+);
+const customerSupportBook = page("cases/customer-support-ai-dx");
+assert.equal(customerSupportBook(".series > ol > li").length, 12);
+assert(
+  customerSupportBook("main")
+    .text()
+    .includes("公開実績として確認できない数値は成果として断定しません"),
+);
+assert(
+  page("cases/customer-support-ai-dx/outcomes-and-evidence")("main")
+    .text()
+    .includes("公開実績として未確認"),
+);
+assert(
+  page("career")('a[href="/ai-design-foundations/cases/customer-support-ai-dx/"]').length,
 );
 console.log("Verified recent growth and exact Book publication presentation.");
 

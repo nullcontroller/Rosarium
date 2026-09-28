@@ -166,12 +166,14 @@ export const topicPublications: Record<string, string[]> = {
     "foundations/ai-business-design",
     "foundations/generation-and-acceptance",
     "essays/dx-and-value",
+    "cases/customer-support-ai-dx",
   ],
   "responsibility-control": [
     "foundations/generation-and-acceptance",
     "evaluation-hitl/human-review-capability",
     "essays/trust-in-ai-generated-content",
     "foundations/ai-business-design",
+    "cases/customer-support-ai-dx",
   ],
   architecture: [
     "architecture/agents-tools-and-workflows",
@@ -181,11 +183,13 @@ export const topicPublications: Record<string, string[]> = {
   "knowledge-context": [
     "knowledge-context/context-before-model-performance",
     "cases/system-understanding",
+    "cases/customer-support-ai-dx",
   ],
   "evaluation-hitl": [
     "evaluation-hitl/human-review-capability",
     "essays/trust-in-ai-generated-content",
     "cases/system-understanding",
+    "cases/customer-support-ai-dx",
   ],
   "software-engineering": [
     "software-engineering/ai-driven-development",
@@ -196,6 +200,7 @@ export const topicPublications: Record<string, string[]> = {
   "lifecycle-operations": [
     "cases/system-understanding",
     "cases/three-ai-maintenance",
+    "cases/customer-support-ai-dx",
     "essays/what-not-to-build-with-ai",
   ],
 };
@@ -241,6 +246,27 @@ export const caseStudies = [
     design: [
       "software-engineering/multi-ai-orchestration",
       "evaluation-hitl/responsibility-and-hitl",
+    ],
+  },
+  {
+    book: "cases/customer-support-ai-dx",
+    topics: ["Applied AI / DX", "RAG / HITL / UX"],
+    challenge:
+      "すべての問い合わせへ人間が介在し、定型的な確認・検索と専門判断が同じ業務フローに混在していた。",
+    designSummary:
+      "顧客価値から業務を再設計し、AIの適用範囲、Knowledge制御、停止条件、人間への引継ぎ、評価・改善を一続きで設計した。",
+    result:
+      "自己解決と専門対応を安全につなぐ設計モデルとして整理し、試算値と公開実績を明確に分離した。",
+    chapters: [
+      "cases/customer-support-ai-dx/responsibility-boundary",
+      "cases/customer-support-ai-dx/poc-evaluation",
+      "cases/customer-support-ai-dx/knowledge-design",
+      "cases/customer-support-ai-dx/human-handoff",
+    ],
+    design: [
+      "foundations/applicability-and-delegation",
+      "evaluation-hitl/responsibility-and-hitl",
+      "knowledge-context/instruction-knowledge-evidence",
     ],
   },
 ];

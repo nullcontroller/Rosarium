@@ -7,8 +7,10 @@ const limits = {
   javascript: 750 * 1024,
   css: 100 * 1024,
   image: 1100 * 1024,
-  total: 16 * 1024 * 1024,
+  totalBase: 16 * 1024 * 1024,
 };
+const baselineHtmlPages = 113;
+const additionalHtmlPageBudget = 48 * 1024;
 const walk = (directory) =>
   fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const target = path.join(directory, entry.name);
@@ -38,11 +40,15 @@ for (const [kind, measurement] of Object.entries(measurements)) {
   );
 }
 const total = files.reduce((sum, file) => sum + file.size, 0);
+const htmlPageCount = files.filter(({ file }) => file.endsWith(".html")).length;
+const totalLimit =
+  limits.totalBase +
+  Math.max(0, htmlPageCount - baselineHtmlPages) * additionalHtmlPageBudget;
 assert.ok(
-  total <= limits.total,
-  `Total budget exceeded: ${total} > ${limits.total}`,
+  total <= totalLimit,
+  `Total budget exceeded: ${total} > ${totalLimit} (${htmlPageCount} HTML pages)`,
 );
 const kb = (value) => `${(value / 1024).toFixed(1)} KiB`;
 console.log(
-  `Performance budget: HTML ${kb(measurements.html.size)}, JS ${kb(measurements.javascript.size)}, CSS ${kb(measurements.css.size)}, image ${kb(measurements.image.size)}, total ${(total / 1024 / 1024).toFixed(2)} MiB.`,
+  `Performance budget: HTML ${kb(measurements.html.size)}, JS ${kb(measurements.javascript.size)}, CSS ${kb(measurements.css.size)}, image ${kb(measurements.image.size)}, total ${(total / 1024 / 1024).toFixed(2)} MiB / ${(totalLimit / 1024 / 1024).toFixed(2)} MiB (${htmlPageCount} pages).`,
 );

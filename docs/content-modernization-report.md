@@ -24,9 +24,10 @@
 | REWRITE | 4 |
 | MERGE | 1 |
 | SPLIT | 7 |
+| ADD | 14 |
 | ARCHIVE | 1 |
 | REMOVE_FROM_PUBLIC | 1 |
-| **Total** | **85** |
+| **Total** | **97** |
 
 ## Full Audit
 
@@ -64,6 +65,18 @@
 | `src/content/cases/three-ai-maintenance/reviewable-specifications.md` | KEEP | 審議可能な仕様化工程を保持 | — |
 | `src/content/cases/three-ai-maintenance/sharing-current-specifications.md` | KEEP | 現行仕様共有の工程を保持 | — |
 | `src/content/cases/three-ai-maintenance/structuring-failure-handling.md` | KEEP | 異常系を構造化する工程を保持 | — |
+| `src/content/cases/customer-support-ai-dx.md` | ADD | 顧客サポートDXを価値・業務・AI・人間・Knowledge・UXから統合して読める実践事例が必要 | 8資料の共通設計判断を統合し、試算と公開実績を分離した第3冊目のBookを追加 |
+| `src/content/cases/customer-support-ai-dx/executive-summary.md` | ADD | Bookの前提、対象範囲、証拠の扱いを先に示すため | Before / Afterと事実・設計モデルの境界を整理 |
+| `src/content/cases/customer-support-ai-dx/why-ai.md` | ADD | 技術導入より価値と業務変化を先に置く判断を説明するため | 価値からAIの役割を逆算する設計順序を整理 |
+| `src/content/cases/customer-support-ai-dx/responsibility-boundary.md` | ADD | AI・人間・既存システムの責任境界を明示するため | 問い合わせ分類と役割分担を整理 |
+| `src/content/cases/customer-support-ai-dx/poc-evaluation.md` | ADD | PoCの評価方法と採否判断を分離して示すため | Retrieval・対話・回答・業務効果の評価を整理 |
+| `src/content/cases/customer-support-ai-dx/knowledge-design.md` | ADD | RAGのKnowledge制御を意味類似度だけで説明しないため | 機種・版・公開範囲を含むmetadata設計を整理 |
+| `src/content/cases/customer-support-ai-dx/stopping-conditions.md` | ADD | AIが答えない条件を設計要素として示すため | 停止・確認・人間への引継ぎ条件を整理 |
+| `src/content/cases/customer-support-ai-dx/customer-experience.md` | ADD | 自然言語UIを顧客体験の変化として説明するため | 追加質問、確認情報、段階的な説明を整理 |
+| `src/content/cases/customer-support-ai-dx/human-handoff.md` | ADD | AIから人間へ文脈を失わず引き継ぐ設計を示すため | 確認済み情報と未確認事項のhandoffを整理 |
+| `src/content/cases/customer-support-ai-dx/continuous-improvement.md` | ADD | 導入後の観測をKnowledge・業務改善へ戻すため | 利用・失敗・有人対応結果の改善循環を整理 |
+| `src/content/cases/customer-support-ai-dx/outcomes-and-evidence.md` | ADD | 資料間で異なる数値の母数と位置づけを混同しないため | 設計・評価モデル、試算、未確認の公開実績を分離 |
+| `src/content/cases/customer-support-ai-dx/design-principles.md` | ADD | 事例固有の判断を再利用可能な原則へ接続するため | 価値起点、選択的自動化、停止、評価、改善の原則を整理 |
 | `src/content/cases/understanding-systems-as-capability.md` | UPDATE | 現行構造・表現との不一致 | 外部媒体名をCase Studyの現行導線へ変更 |
 | `src/content/essays/ai-career-market.md` | UPDATE | 現行構造・表現との不一致 | 公開主体を外部媒体ではなく現在のサイトへ更新 |
 | `src/content/essays/ai-roles-beyond-fde.md` | KEEP | Publicationとしての役割論を保持 | — |

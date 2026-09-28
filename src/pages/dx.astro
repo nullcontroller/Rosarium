@@ -15,7 +15,12 @@ const topicOrder = new Map([
   ["case-study", 4],
 ]);
 const entries = all
-  .filter((entry) => hasEntryPoint(entry, "dx"))
+  .filter(
+    (entry) =>
+      hasEntryPoint(entry, "dx") &&
+      (entry.data.series !== "customer-support-ai-dx" ||
+        (entry.data.order ?? 0) === 0),
+  )
   .sort(
     (a, b) =>
       (topicOrder.get(a.data.dx_topic ?? "") ?? 99) -

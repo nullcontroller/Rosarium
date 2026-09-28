@@ -83,8 +83,8 @@ assert.ok(canonicalReferences.length >= 4, "Reference needs glossary, mathematic
 assert.ok(canonicalPractices.length >= 4, "Practices needs adoption, education, transfer and development workflow");
 assert.equal(aiOnly.length, 53, "AI-only content count changed");
 assert.equal(dxOnly.length, 0, "Do not invent DX-only content while all current DX content discusses AI");
-assert.equal(aiAndDx.length, 22, "AI + DX discovery content count changed");
-assert.equal(files.length, 85, "All audited content must remain traceable");
+assert.equal(aiAndDx.length, 34, "AI + DX discovery content count changed");
+assert.equal(files.length, 97, "All audited content must remain traceable");
 
 console.log(
   `Verified content health: ${files.length} audited Markdown pages, ${publicEntries.length} public pages, ${canonicalReferences.length} canonical references, ${canonicalPractices.length} canonical practices; entry points AI-only=${aiOnly.length}, DX-only=${dxOnly.length}, AI+DX=${aiAndDx.length}.`,

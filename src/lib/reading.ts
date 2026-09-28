@@ -165,8 +165,12 @@ export const readingGroups: Record<
   ],
   cases: [
     {
-      title: "レガシーシステムの実践",
-      ids: ["cases/system-understanding", "cases/three-ai-maintenance"],
+      title: "業務・システムの実践",
+      ids: [
+        "cases/system-understanding",
+        "cases/three-ai-maintenance",
+        "cases/customer-support-ai-dx",
+      ],
     },
   ],
 };

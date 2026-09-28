@@ -1,0 +1,76 @@
+---
+summary: "顧客サポートの業務課題から、AI適用判断、PoC、RAG / Knowledge設計、Human in the Loop、UX、評価、継続改善までを一つの設計ケースとして整理する。"
+publication_format: book
+layer: publication
+title: 生成AI / RAGによる顧客サポートDX
+kind: case
+section: cases
+status: published
+last_updated: "2026-09-28"
+entry_points:
+  - ai
+  - dx
+dx_topic: case-study
+tags: &topics
+  - Applied AI
+  - DX
+  - RAG
+  - Knowledge Architecture
+  - AI Evaluation
+  - HITL
+  - UX
+  - System Architecture
+published_at: "2026-09-28"
+publication_status: published
+source:
+  type: repository
+  url: https://github.com/nullcontroller/ai-design-foundations
+  topics: *topics
+series: customer-support-ai-dx
+series_title: 生成AI / RAGによる顧客サポートDX
+order: 0
+---
+
+## このBookについて
+
+顧客サポートで生成AIやRAGを使うとき、技術を導入するだけでは業務は変わりません。誰にどのような価値を届けるのか、どの問い合わせを自己解決へ移すのか、どこでAIを止めるのか、人間へ何を引き継ぐのかまで設計する必要があります。
+
+本書は、B2B機器・ITサービス企業の顧客サポートを題材に、複数の論述資料へ分散していた設計内容を、一つのケーススタディとして再構成したものです。
+
+```text
+業務課題
+  ↓
+提供したい価値
+  ↓
+業務プロセスの再設計
+  ↓
+AI・人間・既存システムの責任分担
+  ↓
+PoC / Knowledge / UX / HITL
+  ↓
+評価・運用・継続改善
+```
+
+個別資料には、実務上の観察、設計案、PoCの評価条件、論述上の試算が含まれています。本書では設計判断として共通して確認できる内容を中心に扱い、公開実績として確認できない数値は成果として断定しません。
+
+## 読み方
+
+- [00. このケーススタディについて](/ai-design-foundations/cases/customer-support-ai-dx/executive-summary/)
+- [01. なぜAIを導入したのか](/ai-design-foundations/cases/customer-support-ai-dx/why-ai/)
+- [02. 何をAIに任せ、何を人間に残したか](/ai-design-foundations/cases/customer-support-ai-dx/responsibility-boundary/)
+- [03. PoCで「使えるか」をどう判断したか](/ai-design-foundations/cases/customer-support-ai-dx/poc-evaluation/)
+- [04. RAG / Knowledgeをどう設計したか](/ai-design-foundations/cases/customer-support-ai-dx/knowledge-design/)
+- [05. AIをどこで止めるか](/ai-design-foundations/cases/customer-support-ai-dx/stopping-conditions/)
+- [06. 顧客体験をどう変えたか](/ai-design-foundations/cases/customer-support-ai-dx/customer-experience/)
+- [07. AIから人間へどう引き継ぐか](/ai-design-foundations/cases/customer-support-ai-dx/human-handoff/)
+- [08. 導入後にどう育てるか](/ai-design-foundations/cases/customer-support-ai-dx/continuous-improvement/)
+- [09. 何が変わったのか](/ai-design-foundations/cases/customer-support-ai-dx/outcomes-and-evidence/)
+- [10. この事例から得た設計原則](/ai-design-foundations/cases/customer-support-ai-dx/design-principles/)
+
+## 関連する入口
+
+- [AI設計](/ai-design-foundations/ai-design/)
+- [DX](/ai-design-foundations/dx/)
+- [Knowledge / Context](/ai-design-foundations/ai-design/knowledge-context/)
+- [Evaluation / HITL](/ai-design-foundations/ai-design/evaluation-hitl/)
+
