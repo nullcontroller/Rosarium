@@ -206,6 +206,9 @@ blockquote {
   justify-content: space-between;
   min-width: clamp(28rem, 36vw, 39rem);
   gap: clamp(2.25rem, 3.5vw, 4.5rem);
+}
+.header-primary,
+.career-header-links {
   font-size: clamp(1.06rem, 1.4vw, 1.16rem);
   font-weight: 650;
   letter-spacing: 0.025em;
@@ -218,7 +221,6 @@ blockquote {
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  font-size: 0.82rem;
 }
 .career-header-links a {
   color: var(--ink);
@@ -1228,6 +1230,9 @@ blockquote {
     min-width: 0;
     gap: clamp(0.75rem, 3vw, 1.2rem);
     flex-wrap: nowrap;
+  }
+  .header-primary,
+  .career-header-links {
     font-size: 0.94rem;
   }
   .header-actions {
