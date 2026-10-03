@@ -19,7 +19,7 @@ export const dxCategories = [
       "現行業務を速くするだけでなく、仕事の流れと人間・AI・既存システムの役割を設計し直します。",
     scope:
       "業務プロセス再設計、全体最適、責任分担、仕事そのものを変える判断を扱います。",
-    featured: ["foundations/ai-business-design", "practices/adoption-governance"],
+    featured: ["essays/rethink-work-before-ai", "foundations/ai-business-design"],
     featuredCases: ["cases/customer-support-ai-dx"],
   },
   {
@@ -29,7 +29,7 @@ export const dxCategories = [
       "始めることと同時に、残す・変える・統合する・作らない・終えるものを判断します。",
     scope:
       "限られた資源を価値の大きい領域へ集中し、価値の小さい活動や機能を減らす判断を扱います。",
-    featured: ["essays/what-not-to-build-with-ai", "foundations/applicability-and-delegation"],
+    featured: ["essays/it-strategy-and-not-building", "essays/what-not-to-build-with-ai"],
     featuredCases: ["cases/understanding-systems-as-capability"],
   },
   {
@@ -39,7 +39,7 @@ export const dxCategories = [
       "既存資産を理解して活かしながら、システムを安全に変更・統合・移行・終結します。",
     scope:
       "Legacy Modernization、技術負債、ライフサイクル、全面刷新に限らない変革を扱います。",
-    featured: ["architecture/reference-architecture", "software-engineering/code-generation-and-work-design"],
+    featured: ["essays/legacy-change-and-retirement", "software-engineering/code-generation-and-work-design"],
     featuredCases: ["cases/system-understanding", "cases/three-ai-maintenance"],
   },
   {

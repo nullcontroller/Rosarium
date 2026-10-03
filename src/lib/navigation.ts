@@ -176,6 +176,7 @@ export const publicationStatus = (e: Entry) =>
 export const publicationDate = (e: Entry) => publicationTiming(e).value;
 export const topicPublications: Record<string, string[]> = {
   applicability: [
+    "essays/rethink-work-before-ai",
     "foundations/ai-business-design",
     "foundations/generation-and-acceptance",
     "essays/dx-and-value",
@@ -209,6 +210,8 @@ export const topicPublications: Record<string, string[]> = {
     "cases/three-ai-maintenance",
   ],
   "lifecycle-operations": [
+    "essays/it-strategy-and-not-building",
+    "essays/legacy-change-and-retirement",
     "cases/system-understanding",
     "cases/three-ai-maintenance",
     "cases/customer-support-ai-dx",

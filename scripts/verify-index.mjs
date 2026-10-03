@@ -600,7 +600,7 @@ assert.equal(top("#about-rosarium").text(), "Rosariumという名前について
 assert.equal(top(".growth-list [data-growth-entry]").length, 2);
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
-  "Rosariumの情報構造とCase表示を改善",
+  "Rosariumの記事と情報構造を更新",
 );
 assert.equal(top('a[href="/ai-design-foundations/updates/"]').length, 0);
 const updates = page("updates");
@@ -625,7 +625,7 @@ for (const route of ["ai-mathematics", "practices"]) {
   );
   assert.equal(
     $(".site-last-updated time").attr("datetime"),
-    "2026-09-28",
+    "2026-10-03",
     `${route}: last updated`,
   );
 }
@@ -799,3 +799,25 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
 console.log(
   "Verified category article indexes, Garden navigation and updates compatibility.",
 );
+
+// The imported essays have one canonical route and appear in all existing feeds.
+for (const id of [
+  "essays/it-strategy-and-not-building",
+  "essays/rethink-work-before-ai",
+  "essays/legacy-change-and-retirement",
+]) {
+  const article = page(id);
+  assert.equal(article("h1").length, 1, id);
+  assert.equal(article('meta[name="last-updated"]').attr("content"), "2026-10-03", id);
+  assert.equal(article('link[rel="canonical"]').attr("href"), `https://nullcontroller.github.io/ai-design-foundations/${id}/`, id);
+  assert.equal(article('main img[src^="http"]').length, 0, `${id}: no hotlinked image`);
+  assert(article("[data-pagefind-body]").length, `${id}: searchable body`);
+  for (const feed of ["rss.xml", "feed.json", "sitemap.xml"]) {
+    assert(fs.readFileSync(`dist/${feed}`, "utf8").includes(`/${id}/`), `${id}: ${feed}`);
+  }
+}
+assert(page("dx/selection-retirement")('a[href="/ai-design-foundations/essays/it-strategy-and-not-building/"]').length);
+assert(page("dx/business-transformation")('a[href="/ai-design-foundations/essays/rethink-work-before-ai/"]').length);
+assert(page("dx/system-transformation")('a[href="/ai-design-foundations/essays/legacy-change-and-retirement/"]').length);
+assert(page("practices")('a[href="/ai-design-foundations/practices/transferring-ai-practices/"]').length);
+console.log("Verified imported essay discovery, canonical routes, search bodies and feeds; transfer article retains its existing route.");

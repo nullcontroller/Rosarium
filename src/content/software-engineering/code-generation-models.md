@@ -5,7 +5,7 @@ title: コード生成AIの正体
 kind: guide
 section: software-engineering
 status: published
-last_updated: "2026-09-29"
+last_updated: "2026-10-03"
 tags:
   - software-engineering
 published_at: null

@@ -137,3 +137,16 @@
 - 主な負債は、Referenceの一ページ集中、Practices正本の不足、公開本文に残る旧媒体表現、Case入口の説明不足だった。
 - Zenn / Wiki由来であることは削除せず、front matterとmanifestで保持した。
 - Bookの章順、実務上の数値、製品名、暗号方式、承認工程は変更していない。
+
+## 2026-10-03 添付原稿の追加監査
+
+| 正本 | 判断 | 独立した問い・役割 | 発見経路 |
+| --- | --- | --- | --- |
+| `src/content/essays/it-strategy-and-not-building.md` | ADD | 新規開発そのものをIT戦略・維持責任から判断する。既存what-not-to-build-with-aiはAIによる生成費用低下が起点であり、問いを区別する | DXの価値設計・選択と廃止・システム変革、AI設計Lifecycle、考察一覧 |
+| `src/content/practices/transferring-ai-practices.md` | REUSE | 添付「企業内で生成AIの活用事例を共有する活動が行われています。」は既存記事と本文・構成・図が一致するため、既存URLを正本に保持。ContextとECRS記事へ関連導線を補強 | 実践知の導入・教育・定着、DX業務変革・継続的価値創出 |
+| `src/content/essays/rethink-work-before-ai.md` | ADD | ECRSで業務自体を再設計した後に実行主体を選ぶ順序を論じる。AI業務設計の一般原則を置き換えない | DX価値設計・業務変革・選択と廃止、AI適用判断、考察一覧 |
+| `src/content/essays/legacy-change-and-retirement.md` | ADD | 終焉までの変更容易性と段階的移行を論じる。既存2事例は具体的な仕様理解・保守実践であり役割が異なる | DXシステム変革・選択と廃止、AI設計Lifecycleの関連出版物、考察一覧 |
+
+原稿はUpNote_2026-10-03_17-24-23の4ファイルを使用。Markdownのエスケープ、改行用br、重複した箇条書き記号を整え、主張を保持した。新規3記事はpublication / essay / essaysに正本を置き、AI/DX入口とdx_topicsを分離した。IT戦略・ECRSはAI+DX、レガシー終了はDXのみとし、関連事例からの横断を妨げない。
+
+新規3記事に外部画像はない。横展開原稿の画像は既存正本のローカル画像とMermaidを利用し、外部Hot Linkを追加しない。既存Zenn由来の公開日・source・canonicalを維持した。公開・最終更新日は新規記事のみ2026-10-03とし、更新履歴は既存の同日1件へ統合した。
