@@ -21,37 +21,17 @@ export interface RecentGrowthItem {
 }
 
 // This is the single source of truth for the public update history.
-// Add an entry only when the change is meaningful to Rosarium's readers.
+// Add at most one entry per date, summarizing only changes meaningful to readers.
 const curatedRecentGrowth = [
   {
     date: "2026-10-03",
     type: "revised",
-    title: "Sidebar Navigationを主要カテゴリへ整理",
+    title: "Rosariumの情報構造とCase表示を改善",
     summary:
-      "左SidebarをAI・DX・実践事例の主要3カテゴリへ整理し、下位Knowledgeは各カテゴリページ内で辿る構造に変更しました。",
+      "Zenn由来Knowledgeを正本へ統合し、Case画像を横長に統一／Sidebar Navigation・実践知の分類・OTHER PATHS導線を整理しました。",
     category: "Rosarium",
     href: "",
     icon: "home",
-  },
-  {
-    date: "2026-10-03",
-    type: "revised",
-    title: "Case Studyのキービジュアルを統一",
-    summary:
-      "レガシーシステム理解と3AI保守のCase Studyについて、内容を表す横長キービジュアルへ更新しました。",
-    category: "Case Study",
-    href: "cases",
-    icon: "cases",
-  },
-  {
-    date: "2026-10-03",
-    type: "revised",
-    title: "Zenn由来Knowledgeの役割を整理",
-    summary:
-      "役割を終えた旧記事3件を現在の正本へ統合し、旧URLから後継Knowledgeへ移動できるようにしました。AI理論と実践知は、引き続き育てる領域として扱います。",
-    category: "AI Knowledge",
-    href: "ai",
-    icon: "ai-design",
   },
   {
     date: "2026-09",
@@ -64,6 +44,14 @@ const curatedRecentGrowth = [
     icon: "updates",
   },
 ] satisfies RecentGrowthItem[];
+
+const recentGrowthDates = new Set<string>();
+for (const entry of curatedRecentGrowth) {
+  if (recentGrowthDates.has(entry.date)) {
+    throw new Error(`Recent Growthには同じ日付を複数登録できません: ${entry.date}`);
+  }
+  recentGrowthDates.add(entry.date);
+}
 
 export const recentGrowth = curatedRecentGrowth.sort((a, b) =>
   b.date.localeCompare(a.date),

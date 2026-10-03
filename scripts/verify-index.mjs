@@ -362,6 +362,16 @@ for (const [section, href] of [
   const area = pubs(`#${section}`);
   assert(area.find(`a[href="${href}"]`).length, section);
 }
+assert.deepEqual(
+  pubs(".secondary-reading a")
+    .map((_, element) => pubs(element).text().trim())
+    .get(),
+  ["はじめに読む →", "Booksを見る →", "考察を見る →"],
+);
+assert.equal(
+  pubs('.secondary-reading a[href="/ai-design-foundations/essays/"]').length,
+  1,
+);
 const dx = page("dx");
 assert.equal(dx("h1").text(), "DX");
 assert(
@@ -584,10 +594,10 @@ assert.equal(top(".growth-scrollbox").attr("tabindex"), "0");
 assert.equal(top(".growth-scrollbox").attr("role"), "region");
 assert.equal(top(".growth-scrollbox").attr("aria-labelledby"), "recent-growth-heading");
 assert.equal(top("main > section").length, 3);
-assert.equal(top(".growth-list [data-growth-entry]").length, 3);
+assert.equal(top(".growth-list [data-growth-entry]").length, 2);
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
-  "Sidebar Navigationを主要カテゴリへ整理",
+  "Rosariumの情報構造とCase表示を改善",
 );
 assert.equal(top('a[href="/ai-design-foundations/updates/"]').length, 0);
 const updates = page("updates");
