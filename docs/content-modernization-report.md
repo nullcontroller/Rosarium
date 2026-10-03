@@ -150,3 +150,7 @@
 原稿はUpNote_2026-10-03_17-24-23の4ファイルを使用。Markdownのエスケープ、改行用br、重複した箇条書き記号を整え、主張を保持した。新規3記事はpublication / essay / essaysに正本を置き、AI/DX入口とdx_topicsを分離した。IT戦略・ECRSはAI+DX、レガシー終了はDXのみとし、関連事例からの横断を妨げない。
 
 新規3記事に外部画像はない。横展開原稿の画像は既存正本のローカル画像とMermaidを利用し、外部Hot Linkを追加しない。既存Zenn由来の公開日・source・canonicalを維持した。公開・最終更新日は新規記事のみ2026-10-03とし、更新履歴は既存の同日1件へ統合した。
+
+## 2026-10-03 Career入口と経験ハブ
+
+`src/content/career/overview.md` はユーザー提供原稿による設計思想の正本。`src/content/career/details.md` は従来のCareerの経験・実践事例・外部プロフィールを継承するハブ。職歴・資格・期間の詳細はLinkedInへ委譲し、非公開profileと互換URLは維持する。新規実績を追加せず、3 Caseと8つの関連テーマ・背景へ接続した。

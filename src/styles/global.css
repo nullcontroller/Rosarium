@@ -2386,3 +2386,12 @@ blockquote {
     border-inline-start: 0;
   }
 }
+
+/* Career essays retain readable paragraphs alongside the existing exploration grids. */
+.career-page .prose > p,
+.career-page .prose > ul {
+  max-width: 74ch;
+}
+.career-page .prose > h2 {
+  margin-top: 3rem;
+}

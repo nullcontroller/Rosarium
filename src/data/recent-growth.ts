@@ -28,7 +28,7 @@ const curatedRecentGrowth = [
     type: "revised",
     title: "Rosariumの記事と情報構造を更新",
     summary:
-      "Zenn由来Knowledgeを統合／Case画像を横長に統一／Navigation・実践知・導線を整理／庭に命名由来・Analytics利用説明を追加／IT戦略・業務再設計・Legacy Lifecycleの3記事を公開し、AI活用事例の関連導線を補強。",
+      "Zenn由来Knowledgeを統合／Case画像を横長に統一／Navigation・実践知・導線を整理／庭に命名由来・Analytics利用説明を追加／IT戦略・業務再設計・Legacy Lifecycleの3記事を公開し、AI活用事例の関連導線を補強／Careerを設計思想の主入口と経験・Caseへのハブに再構成。",
     category: "Rosarium",
     href: "",
     icon: "home",

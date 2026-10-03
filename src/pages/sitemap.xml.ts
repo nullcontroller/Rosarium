@@ -21,6 +21,7 @@ const manualRoutes = [
   "ai",
   "books",
   "career",
+  "career/details",
   "cases",
   "dx",
   ...dxCategories.map((category) => `dx/${category.id}`),
@@ -46,6 +47,7 @@ const escapeXml = (value: string) =>
 
 export const GET: APIRoute = async ({ site }) => {
   const entries = await getCollection("pages", publicEntry);
+  const careerEntries = await getCollection("career", publicEntry);
   const routes = new Map<string, string | undefined>();
   for (const route of manualRoutes)
     routes.set(route, staticLastUpdatedForPath(route));
@@ -54,6 +56,9 @@ export const GET: APIRoute = async ({ site }) => {
       entry.id,
       entry.data.last_updated,
     );
+
+  for (const entry of careerEntries)
+    routes.set(entry.id === "overview" ? "career" : `career/${entry.id}`, entry.data.last_updated);
 
   const body = [...routes.entries()]
     .sort(([a], [b]) => a.localeCompare(b))

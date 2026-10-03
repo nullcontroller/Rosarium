@@ -3,9 +3,9 @@
   "entries": [
     {
       "source_file": "index.md",
-      "destination_file": "src/content/career/overview.md",
+      "destination_file": "src/content/career/details.md",
       "source_sha256": "904f71cb5684d60c7a1209c48f89e71a48258baf388127303d32061381266877",
-      "destination_body_sha256": "8a2b20ba509334d083557225ef02557f4a4334dfb47381f0878fdb479cebc875"
+      "destination_body_sha256": "660d8c08cda8a75b276255e099a1a8c985324eafbeb06592ff6ad5f787f7cefb"
     },
     {
       "source_file": "profile/index.md",
@@ -14,5 +14,5 @@
       "destination_body_sha256": "9adcd3f117d2e948ee4e9f2968c21bbac49518e63551d7b8db414df97bbefcab"
     }
   ],
-  "revision_basis": "Career Portfolio Gateway and LinkedIn responsibility split, 2026-09-28"
+  "revision_basis": "Career Portfolio Gateway and LinkedIn responsibility split, 2026-09-28; 2026-10-03: approved Career entry and retained details hub"
 }

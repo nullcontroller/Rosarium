@@ -85,10 +85,14 @@ for (const [id, d] of entries) {
   }
 }
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
-assert.equal(career("h1").text(), "Career — 立林 裕太朗");
-assert.equal(career(".career-focus-grid > section").length, 3);
+assert.equal(career("h1").text(), "Career");
+assert.equal(career(".career-focus-grid > section").length, 8);
 assert.equal(career(".career-work").length, 3);
-assert.equal(career(".career-thinking-flow > li").length, 4);
+assert(career('a[href="/Rosarium/career/details/"]').length);
+const details = load(fs.readFileSync("dist/career/details/index.html", "utf8"));
+assert.equal(details(".career-work").length, 3);
+assert(details("main").text().includes("Experience Overview"));
+assert(details('a[href="/Rosarium/career/"]').length);
 assert(career('a[href^="https://www.linkedin.com/in/"]').length >= 2);
 assert.equal(
   career('a[href="/Rosarium/career/profile/"]').length,

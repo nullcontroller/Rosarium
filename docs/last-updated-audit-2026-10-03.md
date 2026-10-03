@@ -1,6 +1,6 @@
 # 最終更新日監査 — 2026-10-03
 
-記事追加後の全133 HTMLを走査し、表示・JSON-LD dateModified・sitemap lastmodを照合した。先行する全ページ日付監査で25ページを修正し、今回の新規3記事と変更した関連一覧にも2026-10-03を設定した。
+記事追加後の全134 HTMLを走査し、表示・JSON-LD dateModified・sitemap lastmodを照合した。先行する全ページ日付監査で25ページを修正し、今回の新規3記事と変更した関連一覧にも2026-10-03を設定した。
 
 ## 日付の判定根拠
 
@@ -19,6 +19,8 @@
 記事はfront matterのlast_updated、静的ページと互換ページはsrc/lib/site.tsのstaticPageLastUpdatedを実質的な変更時に更新する。一覧の内容や表示情報が変わった場合は、その一覧ページの日付も確認する。npm run buildのverify-last-updated.mjsが、全HTMLの明示的な出典、表示、JSON-LD、sitemapの整合性を検証し、dist/last-updated-audit.jsonへ全件を出力する。
 
 今回追加したIT戦略・ECRS・レガシー終了の記事、および関連出版物を追加したAI適用判断・Lifecycle、記事一覧が変化したDX価値設計・選択と廃止は2026-10-03。本文や構造を変更していないページの日付は保持した。
+
+Career再構成では、主入口と経験ハブの両方を2026-10-03に更新し、非公開profileと互換転送の日付は保持した。
 
 ## 全ページ
 
@@ -47,7 +49,8 @@
 | /architecture/security-threat-modeling | 2026-09-28 | src\content\architecture\security-threat-modeling.md |
 | /articles | 2026-09-28 | src/lib/site.ts |
 | /books | 2026-10-03 | src/lib/site.ts |
-| /career | 2026-09-28 | src\content\career\overview.md |
+| /career | 2026-10-03 | src\content\career\overview.md |
+| /career/details | 2026-10-03 | src\content\career\details.md |
 | /career/profile | 2026-09-28 | src/lib/site.ts |
 | /cases | 2026-10-03 | src/lib/site.ts |
 | /cases/customer-support-ai-dx | 2026-10-03 | src\content\cases\customer-support-ai-dx.md |

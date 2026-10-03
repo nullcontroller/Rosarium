@@ -95,10 +95,10 @@ const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 for (const text of [
   "Applied AI × DX × System Architecture",
   "What I Do",
-  "Selected Work",
-  "How I Think",
-  "Career Direction",
-  "Professional Profile",
+  "考え方の実例",
+  "AIを使う前に考えること",
+  "What I Want to Build",
+  "Explore",
   "生成AI / RAGによる顧客サポートDX",
 ])
   assert(career("main").text().includes(text), text);
@@ -142,3 +142,23 @@ console.log(
     " pages; GitHub Repository available from every footer, external Career=0, Zenn=0; removed routes absent.",
 );
 console.log("Before integration: " + JSON.stringify(baseline));
+
+// Career role separation and SEO: both real pages remain canonical, profile is compatibility only.
+for (const [route, title] of [["career", "Career"], ["career/details", "Career Details — 経験と実践"]]) {
+  const html = fs.readFileSync(`dist/${route}/index.html`, "utf8");
+  const $ = load(html);
+  const canonical = `https://nullcontroller.github.io/Rosarium/${route}/`;
+  assert.equal($("h1").text(), title);
+  assert.equal($('link[rel="canonical"]').attr("href"), canonical);
+  assert.equal($('meta[property="og:url"]').attr("content"), canonical);
+  assert.equal($('meta[property="og:type"]').attr("content"), "profile");
+  const graph = JSON.parse($('script[type="application/ld+json"]').first().text())["@graph"];
+  assert(graph.some(node => node["@type"] === "ProfilePage" && node.url === canonical));
+  assert(graph.some(node => node["@type"] === "BreadcrumbList"));
+  assert(!html.includes("ai-design-foundations"));
+  assert(!$("main").text().includes("希望条件"));
+}
+const careerDetails = load(fs.readFileSync("dist/career/details/index.html", "utf8"));
+for (const section of ["Experience Overview", "Selected Work", "Professional Profile"])
+  assert(careerDetails("main").text().includes(section));
+console.log("Verified Career entry, retained experience hub, private profile and canonical/OGP/JSON-LD separation.");
