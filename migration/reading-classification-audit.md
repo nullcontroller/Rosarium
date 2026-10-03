@@ -1,6 +1,6 @@
 # Reading Classification Audit
 
-監査日：2026-09-24
+監査日：2026-10-03
 
 ## 原則
 
@@ -13,16 +13,16 @@ Canonical classificationとDiscovery Pathを分離する。`layer`、`section`�
 | AI設計 | 23 | 23 | 変更なし |
 | AI理論 | 4 | 4 | 変更なし |
 | 実践知 | 4 | 4 | 変更なし |
-| 実践事例 | 2 Book | 2 Book | 変更なし |
+| 実践事例 | 2 Book | 3 Book | 顧客サポートDXを追加 |
 
 ## Reading Path counts
 
 | Reading Path | Before | After | 追加した発見経路 |
 |---|---:|---:|---|
-| AI設計 | 23 | 25 | AI業務設計Book、Agent / Tool / Workflow |
-| AI理論 | 4 | 7 | 多層Hallucination制御、Guardrail数理、モデル競争と構造 |
-| 実践知 | 4 | 27 | Prompt、QA運用、Knowledge、開発・保守、複数AI、評価、Human Review、関連Publication |
-| 実践事例 | 2 | 2 | 代表Book 2冊を維持 |
+| AI設計 | 23 | 26 | AI業務設計Book、Agent / Tool / Workflow、運用・再設計 |
+| AI理論 | 4 | 6 | 多層Hallucination制御、Guardrail数理、Code生成モデル |
+| 実践知 | 4 | 25 | Prompt、QA運用、Knowledge、開発・保守、複数AI、評価、関連Publication |
+| 実践事例 | 2 | 3 | 顧客サポートDXを追加 |
 
 ## Reading groups and order
 
@@ -36,19 +36,19 @@ Canonical classificationとDiscovery Pathを分離する。`layer`、`section`�
 | AI設計 | Software Engineering | 生成境界 → 保守Context → 複数AI | code-generation-boundaries, code-maintenance-context, multi-ai-orchestration |
 | AI理論 | 確率と生成 | 条件付き確率 → Temperature | conditional-probability, temperature-design |
 | AI理論 | 誤りと制御 | 発生原理 → 多層制御 → Guardrail数理 | hallucination-mechanisms, layered-hallucination-controls, guardrail-models |
-| AI理論 | 生成モデルと変化 | Code生成モデル → モデル競争の構造 | code-generation-models, model-competition-and-ecosystems |
+| AI理論 | 生成モデルと変化 | Code生成モデルをSystemとして分解 | code-generation-models |
 | 実践知 | 導入・教育・定着 | 導入 → 教育 → Capability → 横展開 | adoption-governance, ai-adoption-and-effective-use, education-and-capability, ai-education-principles, transferring-practices, transferring-ai-practices |
 | 実践知 | Prompt・Knowledge運用 | Prompt設計・失敗 → QA運用 → Context → 文書 | prompt-structure, prompt-failure-modes, qa-operations, context-before-model-performance, human-and-ai-documentation |
 | 実践知 | 開発・保守 | Workflow → 生成境界 → 保守 → 複数AI → Publication実践 | development-workflowほか8件 |
-| 実践知 | 評価・Human Review | 回帰評価 → 責任 → Review能力 → 受理 → 信頼 | datasets-and-regressionほか5件 |
-| 実践知 | 組織・キャリア | 採用市場 → Role分化 → Ecosystem | ai-career-market, ai-roles-beyond-fde, model-competition-and-ecosystems |
-| 実践事例 | レガシーシステムの実践 | 単独GPT中心 → 3 AIの役割分担 | system-understanding, three-ai-maintenance |
+| 実践知 | 評価・Human Review | 回帰評価 → 責任境界 → 受理 → 信頼 | datasets-and-regression, responsibility-and-hitl, generation-and-acceptance, trust-in-ai-generated-content |
+| 実践知 | 組織・キャリア | 採用市場 → Role分化 | ai-career-market, ai-roles-beyond-fde |
+| 実践事例 | 業務・システムの実践 | 単独GPT中心 → 3 AIの役割分担 → 顧客サポートDX | system-understanding, three-ai-maintenance, customer-support-ai-dx |
 
 順序のSingle Source of Truthは `src/lib/reading.ts`。Hub、カテゴリページ、Desktop右ペイン、Mobile Navigator、個別記事で同じデータを利用する。
 
 ## Publication reachability
 
-top-level Publication 16件はすべて少なくとも一つのReading Pathへ含めた。Series Chapter 24件は親Book / Seriesの目次から到達する。ReferenceとCareerはそれぞれ専用入口を持つ。公開コンテンツの孤児は0件。
+top-level Zenn Article 16件のうち13件を公開し、退役3件は後継Knowledgeへredirectする。Series Chapter 24件は親Book / Seriesの目次から到達する。ReferenceとCareerはそれぞれ専用入口を持つ。公開コンテンツの孤児は0件。
 
 ## Knowledge gaps
 
@@ -58,4 +58,4 @@ top-level Publication 16件はすべて少なくとも一つのReading Pathへ�
 
 ## Compatibility
 
-既存URL、canonical、layer、section、design_topic、Zenn / Wiki provenanceは変更していない。Reading Pathはリンクによる発見経路だけを追加する。
+公開を継続するContentのURL、canonical、layer、section、design_topic、Zenn / Wiki provenanceは変更していない。退役3件の旧Rosarium URLは後継Knowledgeへredirectし、Zenn canonicalと移行元metadataは非公開Content内に保持する。

@@ -2,10 +2,7 @@ import type { CollectionEntry } from "astro:content";
 import { url } from "./site";
 
 export type ReadingPath =
-  | "ai-design"
-  | "ai-mathematics"
-  | "practices"
-  | "cases";
+  "ai-design" | "ai-mathematics" | "practices" | "cases";
 
 export type ReadingGroup = {
   title: string;
@@ -102,10 +99,7 @@ export const readingGroups: Record<
     },
     {
       title: "生成モデルと変化",
-      ids: [
-        "software-engineering/code-generation-models",
-        "essays/model-competition-and-ecosystems",
-      ],
+      ids: ["software-engineering/code-generation-models"],
     },
   ],
   practices: [
@@ -139,7 +133,6 @@ export const readingGroups: Record<
         "software-engineering/multi-ai-orchestration",
         "software-engineering/code-generation-and-work-design",
         "software-engineering/ai-driven-development",
-        "software-engineering/ai-design-assistance",
         "essays/what-not-to-build-with-ai",
         "cases/understanding-systems-as-capability",
       ],
@@ -149,18 +142,13 @@ export const readingGroups: Record<
       ids: [
         "evaluation-hitl/datasets-and-regression",
         "evaluation-hitl/responsibility-and-hitl",
-        "evaluation-hitl/human-review-capability",
         "foundations/generation-and-acceptance",
         "essays/trust-in-ai-generated-content",
       ],
     },
     {
       title: "組織・キャリア",
-      ids: [
-        "essays/ai-career-market",
-        "essays/ai-roles-beyond-fde",
-        "essays/model-competition-and-ecosystems",
-      ],
+      ids: ["essays/ai-career-market", "essays/ai-roles-beyond-fde"],
     },
   ],
   cases: [

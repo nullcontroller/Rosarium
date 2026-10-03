@@ -9,9 +9,7 @@ import PageHeader from "../components/PageHeader.astro";
 import ThemeArticleIndex from "../components/ThemeArticleIndex.astro";
 import { readingEntries, readingNavigation } from "../lib/reading";
 const all = await getCollection("pages", publicEntry);
-const entries = all.filter(
-  (e) => e.data.layer === "ai-mathematics",
-);
+const entries = all.filter((e) => e.data.layer === "ai-mathematics");
 const reading = mathematicsReadingIds.map((id) => {
   const entry = entries.find((e) => e.id === id);
   if (!entry) throw new Error("Missing mathematics reading: " + id);
@@ -27,8 +25,7 @@ const discoverable = readingEntries(all, "ai-mathematics");
   ogImage="og/site.png"
   themeGroups={themeGroups}
 >
-  <PageHeader title="AI理論" status="更新終了" />
-  <p class="status-note">現時点で内容が一度まとまったため、積極的な追加更新を終了しています。</p>
+  <PageHeader title="AI理論" />
   <p class="lead">
     AIがなぜそう振る舞うのかを、数学・確率・モデルから理解する。
   </p>

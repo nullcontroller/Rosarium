@@ -40,7 +40,10 @@ for (const p of walk("dist").filter((p) => p.endsWith(".html"))) {
     assert(node.find(".meta").text().trim(), p);
     if (node.is(".content-entry")) {
       assert.ok(
-        node.find(".meta").text().includes(`最終更新：${formatDateJa(d.last_updated)}`),
+        node
+          .find(".meta")
+          .text()
+          .includes(`最終更新：${formatDateJa(d.last_updated)}`),
         `${p}: ${node.attr("data-content-id")} last_updated`,
       );
     }
@@ -74,7 +77,11 @@ for (const [id, d] of entries) {
       d.last_updated,
       `${id} visible last_updated`,
     );
-    assert.equal($(".document-header .status").length, 0, `${id} status badge removed`);
+    assert.equal(
+      $(".document-header .status").length,
+      0,
+      `${id} status badge removed`,
+    );
   }
 }
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
@@ -83,7 +90,10 @@ assert.equal(career(".career-focus-grid > section").length, 3);
 assert.equal(career(".career-work").length, 3);
 assert.equal(career(".career-thinking-flow > li").length, 4);
 assert(career('a[href^="https://www.linkedin.com/in/"]').length >= 2);
-assert.equal(career('a[href="/ai-design-foundations/career/profile/"]').length, 0);
+assert.equal(
+  career('a[href="/ai-design-foundations/career/profile/"]').length,
+  0,
+);
 console.log(
   `Verified ${entries.size} summaries/search metadata, ${links} content links and Career gateway.`,
 );
@@ -108,14 +118,21 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html"))) {
     0,
     `${html}: brand must not contain profile or decorative content`,
   );
-  assert.equal(brand.find('img.brand-mark[src="/ai-design-foundations/favicon.svg"]').length, 1, `${html}: shared brand mark`);
+  assert.equal(
+    brand.find('img.brand-mark[src="/ai-design-foundations/favicon.svg"]')
+      .length,
+    1,
+    `${html}: shared brand mark`,
+  );
 }
 assert.equal(
   top(".home-introduction .lead").text(),
   "学習と実務を通じて育て続ける「庭」",
 );
 assert(top(".home-site-description").text().includes("AIを主題として"));
-assert(top(".home-site-description").text().includes("DX、システム設計、業務設計"));
+assert(
+  top(".home-site-description").text().includes("DX、システム設計、業務設計"),
+);
 assert(!top("main").text().includes("Applied AI / System Architecture"));
 assert(!top(".home-introduction").text().includes("立林 裕太朗"));
 assert.deepEqual(
@@ -144,9 +161,18 @@ assert.deepEqual(
     .get(),
   ["庭", "AI", "DX", "事例"],
 );
-assert.equal(top('.header-primary a[href="/ai-design-foundations/cases/"]').length, 1);
-assert.equal(top('.header-primary a[href="/ai-design-foundations/career/"]').length, 0);
-assert.equal(top('.home-career a[href="/ai-design-foundations/career/"]').length, 1);
+assert.equal(
+  top('.header-primary a[href="/ai-design-foundations/cases/"]').length,
+  1,
+);
+assert.equal(
+  top('.header-primary a[href="/ai-design-foundations/career/"]').length,
+  0,
+);
+assert.equal(
+  top('.home-career a[href="/ai-design-foundations/career/"]').length,
+  1,
+);
 assert.equal(top(".header-actions a").length, 0);
 assert.equal(top("#global-search-input").length, 1);
 assert.equal(top(".global-search-toggle").length, 1);
@@ -214,7 +240,8 @@ assert.deepEqual(
   ),
 );
 for (const id of primaryIds(design))
-  assert.notEqual(entries.get(id).source?.type, "zenn");assert.deepEqual(
+  assert.notEqual(entries.get(id).source?.type, "zenn");
+assert.deepEqual(
   design(".design-flow li")
     .map((_, e) => design(e).text().trim())
     .get(),
@@ -284,12 +311,18 @@ for (const [route, layer, crossListed] of [
   [
     "ai-mathematics",
     "ai-mathematics",
-    ["foundations/guardrail-models", "foundations/layered-hallucination-controls"],
+    [
+      "foundations/guardrail-models",
+      "foundations/layered-hallucination-controls",
+    ],
   ],
   [
     "practices",
     "practice",
-    ["knowledge-context/prompt-structure", "cases/understanding-systems-as-capability"],
+    [
+      "knowledge-context/prompt-structure",
+      "cases/understanding-systems-as-capability",
+    ],
   ],
 ]) {
   const $ = page(route);
@@ -297,9 +330,15 @@ for (const [route, layer, crossListed] of [
   const canonical = [...entries]
     .filter(([, data]) => data.layer === layer && data.public !== false)
     .map(([id]) => id);
-  for (const id of canonical) assert(ids.includes(id), `${route} misses canonical ${id}`);
-  for (const id of crossListed) assert(ids.includes(id), `${route} misses discovery path ${id}`);
-  assert.equal(new Set(ids).size, ids.length, `${route} has duplicate discovery entries`);
+  for (const id of canonical)
+    assert(ids.includes(id), `${route} misses canonical ${id}`);
+  for (const id of crossListed)
+    assert(ids.includes(id), `${route} misses discovery path ${id}`);
+  assert.equal(
+    new Set(ids).size,
+    ids.length,
+    `${route} has duplicate discovery entries`,
+  );
 }
 const pubs = page("ai");
 assert.equal(top("#use-case-heading,#current-growth-heading").length, 0);
@@ -341,20 +380,20 @@ for (const [section, href] of [
 }
 const dx = page("dx");
 assert.equal(dx("h1").text(), "DX");
-assert(dx(".page-heading .lead").text().includes("業務・サービス・システム・組織"));
-assert.deepEqual(dx("main > section > h2").map((_, element) => dx(element).text()).get(), [
-  "DXを考える5つのテーマ",
-  "AIとの接続",
-]);
+assert(
+  dx(".page-heading .lead").text().includes("業務・サービス・システム・組織"),
+);
 assert.deepEqual(
-  dx(".dx-category > h3").map((_, element) => dx(element).text().replace("→", "").trim()).get(),
-  [
-    "価値設計",
-    "業務変革",
-    "選択と廃止",
-    "システム変革",
-    "継続的価値創出",
-  ],
+  dx("main > section > h2")
+    .map((_, element) => dx(element).text())
+    .get(),
+  ["DXを考える5つのテーマ", "AIとの接続"],
+);
+assert.deepEqual(
+  dx(".dx-category > h3")
+    .map((_, element) => dx(element).text().replace("→", "").trim())
+    .get(),
+  ["価値設計", "業務変革", "選択と廃止", "システム変革", "継続的価値創出"],
 );
 assert(dx("main").text().includes("有力な手段の一つ"));
 assert(dx('.dx-ai-connection a[href="/ai-design-foundations/ai/"]').length);
@@ -365,14 +404,26 @@ for (const category of [
   "system-transformation",
   "continuous-value",
 ]) {
-  assert(dx(`a[href="/ai-design-foundations/dx/${category}/"]`).length, `DX category link: ${category}`);
+  assert(
+    dx(`a[href="/ai-design-foundations/dx/${category}/"]`).length,
+    `DX category link: ${category}`,
+  );
   const categoryPage = page(`dx/${category}`);
   assert(categoryPage("h1").length, `DX category page: ${category}`);
-  assert(categoryPage('[aria-label="関連する入口"] a[href="/ai-design-foundations/dx/"]').length);
+  assert(
+    categoryPage(
+      '[aria-label="関連する入口"] a[href="/ai-design-foundations/dx/"]',
+    ).length,
+  );
 }
 assert(dx('a[href="/ai-design-foundations/essays/dx-and-value/"]').length);
-assert(dx('a[href="/ai-design-foundations/cases/customer-support-ai-dx/"]').length);
-assert(!dx('a[href="/ai-design-foundations/foundations/conditional-probability/"]').length);
+assert(
+  dx('a[href="/ai-design-foundations/cases/customer-support-ai-dx/"]').length,
+);
+assert(
+  !dx('a[href="/ai-design-foundations/foundations/conditional-probability/"]')
+    .length,
+);
 const dxEssay = page("essays/dx-and-value");
 assert.deepEqual(
   dxEssay(".content-entry-points a")
@@ -380,10 +431,16 @@ assert.deepEqual(
     .get(),
   ["AI", "DX"],
 );
-assert(dxEssay('.content-entry-points a[href="/ai-design-foundations/ai/"]').length);
-assert(dxEssay('.content-entry-points a[href="/ai-design-foundations/dx/"]').length);
+assert(
+  dxEssay('.content-entry-points a[href="/ai-design-foundations/ai/"]').length,
+);
+assert(
+  dxEssay('.content-entry-points a[href="/ai-design-foundations/dx/"]').length,
+);
 assert.deepEqual(
-  dxEssay(".content-dx-topics a").map((_, element) => dxEssay(element).text()).get(),
+  dxEssay(".content-dx-topics a")
+    .map((_, element) => dxEssay(element).text())
+    .get(),
   ["価値設計"],
 );
 for (const [id, expected] of [
@@ -404,7 +461,10 @@ for (const [id, expected] of [
   }
 }
 const cases = page("cases");
-assert.equal(cases(".header-primary a[aria-current=page]").text().trim(), "事例");
+assert.equal(
+  cases(".header-primary a[aria-current=page]").text().trim(),
+  "事例",
+);
 assert.equal(cases(".case-study-index").length, 3);
 assert.equal(cases("main img").length, 0);
 assert.equal(cases(".book-list-entry-text").length, 3);
@@ -455,7 +515,10 @@ for (const id of [
 ])
   assert(page(id)("h1").length, id);
 const careerProfile = page("career/profile");
-assert.match(careerProfile("meta[name=robots]").attr("content") || "", /noindex/);
+assert.match(
+  careerProfile("meta[name=robots]").attr("content") || "",
+  /noindex/,
+);
 assert.equal(
   careerProfile("meta[http-equiv=refresh]").attr("content"),
   "0;url=/ai-design-foundations/career/",
@@ -518,7 +581,10 @@ assert.equal(
 );
 assert(overview('a[href="/ai-design-foundations/ai/"]').length);
 const articlesCompatibility = page("articles");
-assert.match(articlesCompatibility("meta[name=robots]").attr("content") || "", /noindex/);
+assert.match(
+  articlesCompatibility("meta[name=robots]").attr("content") || "",
+  /noindex/,
+);
 assert.equal(
   articlesCompatibility("meta[http-equiv=refresh]").attr("content"),
   "0;url=/ai-design-foundations/ai/",
@@ -530,10 +596,10 @@ console.log(
 
 assert(top("#recent-growth-heading").length);
 assert.equal(top("main > section").length, 3);
-assert.equal(top(".growth-list [data-growth-entry]").length, 1);
+assert.equal(top(".growth-list [data-growth-entry]").length, 2);
 assert.equal(
-  top(".growth-list [data-growth-entry] .content-title").text(),
-  "Rosarium 公開",
+  top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
+  "Zenn由来Knowledgeの役割を整理",
 );
 assert.equal(top('a[href="/ai-design-foundations/updates/"]').length, 0);
 const updates = page("updates");
@@ -550,9 +616,17 @@ assert(
 );
 for (const route of ["ai-mathematics", "practices"]) {
   const $ = page(route);
-  assert.equal($(".page-status").text(), "更新終了", `${route}: status`);
-  assert($(".status-note").text().includes("積極的な追加更新を終了"), `${route}: status note`);
-  assert.equal($(".site-last-updated time").attr("datetime"), "2026-09-28", `${route}: last updated`);
+  assert.equal($(".page-status").length, 0, `${route}: no terminal status`);
+  assert.equal(
+    $(".status-note").length,
+    0,
+    `${route}: no terminal status note`,
+  );
+  assert.equal(
+    $(".site-last-updated time").attr("datetime"),
+    "2026-09-28",
+    `${route}: last updated`,
+  );
 }
 for (const route of ["career", "ai", "reference"])
   assert(
@@ -562,7 +636,9 @@ for (const route of ["career", "ai", "reference"])
 for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
   const $ = page(route);
   assert.equal(
-    $(".page-heading > .icon,.section-visual,.document-list .icon,.book-list-entry .icon").length,
+    $(
+      ".page-heading > .icon,.section-visual,.document-list .icon,.book-list-entry .icon",
+    ).length,
     0,
     route,
   );
@@ -578,7 +654,9 @@ for (const topic of [
 ]) {
   const $ = page("ai-design/" + topic);
   assert.equal(
-    $(".page-heading > .icon,.section-visual,.document-list .icon,.related-publications .icon").length,
+    $(
+      ".page-heading > .icon,.section-visual,.document-list .icon,.related-publications .icon",
+    ).length,
     0,
     topic,
   );
@@ -599,7 +677,10 @@ assert.equal(page("practices")("[data-related-publications]").length, 1);
 for (const html of walk("dist").filter((file) => file.endsWith(".html"))) {
   const $ = load(fs.readFileSync(html, "utf8"));
   assert(!$("main").text().includes("Related Publications"), html);
-  assert(!$.root().text().includes("\u66f4\u65b0\u4e2d"), `${html}: deprecated status remains`);
+  assert(
+    !$.root().text().includes("\u66f4\u65b0\u4e2d"),
+    `${html}: deprecated status remains`,
+  );
 }
 for (const [id, expected] of [
   ["foundations/ai-business-design", ["公開：2026年2月"]],
@@ -641,12 +722,16 @@ assert.equal(
   "現在位置：全体構成・全11章",
 );
 assert.equal(
-  page("cases/customer-support-ai-dx/poc-evaluation")(".series-position-inline").text(),
+  page("cases/customer-support-ai-dx/poc-evaluation")(
+    ".series-position-inline",
+  ).text(),
   "現在位置：第4章・全11章",
 );
 assert.equal(
-  page("cases/customer-support-ai-dx/poc-evaluation")('.book-toc a[aria-current="page"]').text(),
-  '03. PoCで「使えるか」をどう判断したか',
+  page("cases/customer-support-ai-dx/poc-evaluation")(
+    '.book-toc a[aria-current="page"]',
+  ).text(),
+  "03. PoCで「使えるか」をどう判断したか",
 );
 assert(
   customerSupportBook("main")
@@ -663,9 +748,7 @@ assert(
     .text()
     .includes("公開実績のBefore / Afterではなく"),
 );
-assert(
-  page("career")('a[href$="/cases/customer-support-ai-dx/"]').length,
-);
+assert(page("career")('a[href$="/cases/customer-support-ai-dx/"]').length);
 console.log("Verified recent growth and exact Book publication presentation.");
 
 for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
@@ -683,8 +766,14 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
     $(".theme-toc-mobile > summary").text(),
     /^このテーマの記事（\d+）$/,
   );
-  assert($(".theme-toc .theme-nav-groups > details").length, `${route}: grouped desktop index`);
-  assert($(".theme-toc-mobile .theme-nav-groups > details").length, `${route}: grouped mobile index`);
+  assert(
+    $(".theme-toc .theme-nav-groups > details").length,
+    `${route}: grouped desktop index`,
+  );
+  assert(
+    $(".theme-toc-mobile .theme-nav-groups > details").length,
+    `${route}: grouped mobile index`,
+  );
 }
 console.log(
   "Verified category article indexes, Garden navigation and updates compatibility.",

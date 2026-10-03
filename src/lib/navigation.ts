@@ -61,7 +61,14 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
       title: "AI",
       summary: "設計・理論・実践・事例",
       icon: iconForPath("articles"),
-      sections: ["ai", "articles", "ai-design", "ai-mathematics", "practices", "cases"],
+      sections: [
+        "ai",
+        "articles",
+        "ai-design",
+        "ai-mathematics",
+        "practices",
+        "cases",
+      ],
       children: readingCategories,
     },
     {
@@ -177,7 +184,6 @@ export const topicPublications: Record<string, string[]> = {
   ],
   "responsibility-control": [
     "foundations/generation-and-acceptance",
-    "evaluation-hitl/human-review-capability",
     "essays/trust-in-ai-generated-content",
     "foundations/ai-business-design",
     "cases/customer-support-ai-dx",
@@ -193,14 +199,13 @@ export const topicPublications: Record<string, string[]> = {
     "cases/customer-support-ai-dx",
   ],
   "evaluation-hitl": [
-    "evaluation-hitl/human-review-capability",
+    "foundations/generation-and-acceptance",
     "essays/trust-in-ai-generated-content",
     "cases/system-understanding",
     "cases/customer-support-ai-dx",
   ],
   "software-engineering": [
     "software-engineering/ai-driven-development",
-    "software-engineering/ai-design-assistance",
     "software-engineering/code-generation-and-work-design",
     "cases/three-ai-maintenance",
   ],

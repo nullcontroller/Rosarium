@@ -5,7 +5,8 @@ layer: publication
 title: AI時代において「レビューできる人」が価値を持つ理由
 kind: guide
 section: evaluation-hitl
-status: published
+status: archived
+public: false
 last_updated: "2026-09-28"
 tags: &a1
   - ai

@@ -27,7 +27,6 @@ export const useCases = [
       "foundations/ai-business-design",
       "foundations/generation-and-acceptance",
       "practices/ai-adoption-and-effective-use",
-      "evaluation-hitl/human-review-capability",
       "essays/dx-and-value",
       "cases/customer-support-ai-dx",
     ],
@@ -68,7 +67,6 @@ export const useCases = [
     publications: [
       "software-engineering/ai-driven-development",
       "software-engineering/code-generation-and-work-design",
-      "software-engineering/ai-design-assistance",
       "cases/three-ai-maintenance",
       "essays/what-not-to-build-with-ai",
     ],
@@ -86,7 +84,7 @@ export const useCases = [
       "foundations/temperature-design",
       "foundations/hallucination-mechanisms",
     ],
-    publications: ["essays/model-competition-and-ecosystems"],
+    publications: ["knowledge-context/context-before-model-performance"],
   },
   {
     id: "case-studies",
@@ -195,7 +193,6 @@ export function contentUseCaseIds(entry: Entry): UseCaseId[] {
 
   if (
     data.layer === "ai-mathematics" ||
-    id === "essays/model-competition-and-ecosystems" ||
     [...tags].some((tag) => ["数学", "機械学習"].includes(tag))
   )
     result.add("understand-ai");

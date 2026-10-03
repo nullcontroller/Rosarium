@@ -80,11 +80,11 @@
 | `src/content/cases/understanding-systems-as-capability.md` | UPDATE | 現行構造・表現との不一致 | 外部媒体名をCase Studyの現行導線へ変更 |
 | `src/content/essays/ai-career-market.md` | UPDATE | 現行構造・表現との不一致 | 公開主体を外部媒体ではなく現在のサイトへ更新 |
 | `src/content/essays/ai-roles-beyond-fde.md` | KEEP | Publicationとしての役割論を保持 | — |
-| `src/content/essays/model-competition-and-ecosystems.md` | KEEP | Publicationとしての市場・Ecosystem論を保持 | — |
+| `src/content/essays/model-competition-and-ecosystems.md` | RETIRE | 企業・AIを二分する説明モデルが現在のContext / Knowledge / 権限設計より粗い | 本文を非公開アーカイブとして保持し、Context基準の後継記事へredirect |
 | `src/content/essays/trust-in-ai-generated-content.md` | KEEP | Publicationとしての信頼性論を保持 | — |
 | `src/content/evaluation-hitl/code-evaluation-acceptance.md` | UPDATE | 現行構造・表現との不一致 | 旧媒体を主語にした表現を現在のサイトへ更新 |
 | `src/content/evaluation-hitl/datasets-and-regression.md` | KEEP | 評価Datasetと回帰評価を分離した現行設計 | — |
-| `src/content/evaluation-hitl/human-review-capability.md` | KEEP | 人間Reviewの能力条件を明示 | — |
+| `src/content/evaluation-hitl/human-review-capability.md` | RETIRE | 人間Reviewの論点が責任境界・状態遷移・移管条件の正本へ包含された | 本文を非公開アーカイブとして保持し、責任境界とHITLへredirect |
 | `src/content/evaluation-hitl/qa-evaluation.md` | KEEP | QA評価の指標と運用条件を整理 | — |
 | `src/content/evaluation-hitl/responsibility-and-hitl.md` | KEEP | 責任境界とHITLの現行正本 | — |
 | `src/content/foundations/ai-business-design.md` | KEEP | 独立した連載入口として役割が明確 | — |
@@ -122,7 +122,7 @@
 | `src/content/reference/glossary.md` | SPLIT | 安定して参照する責務を独立させる | サイト共通の基本用語を独立 |
 | `src/content/reference/mathematical-reference.md` | SPLIT | 安定して参照する責務を独立させる | 数学的定義・説明モデル・設計仮説の索引を独立 |
 | `src/content/reference/responsibility-state-model.md` | SPLIT | 安定して参照する責務を独立させる | Capability・Authority・Accountabilityと状態遷移を独立 |
-| `src/content/software-engineering/ai-design-assistance.md` | KEEP | AIによる設計支援の境界を保持 | — |
+| `src/content/software-engineering/ai-design-assistance.md` | RETIRE | Code生成と設計を単純な正解問題 / 非関数問題で対比しており、後発記事の方が精密 | 本文を非公開アーカイブとして保持し、Code生成と業務設計の後継記事へredirect |
 | `src/content/software-engineering/ai-driven-development.md` | UPDATE | 現行構造・表現との不一致 | 外部Bookという表現をCase Studyの現行導線へ更新 |
 | `src/content/software-engineering/code-generation-and-work-design.md` | KEEP | Code生成と作業設計を接続 | — |
 | `src/content/software-engineering/code-generation-boundaries.md` | KEEP | Code生成の委任境界を整理 | — |

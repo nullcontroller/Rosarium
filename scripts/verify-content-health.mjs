@@ -17,7 +17,10 @@ const walk = (dir) => {
 walk(root);
 
 const parse = (file) => {
-  const text = fs.readFileSync(file, "utf8").replace(/^\uFEFF/, "").replace(/\r\n/g, "\n");
+  const text = fs
+    .readFileSync(file, "utf8")
+    .replace(/^\uFEFF/, "")
+    .replace(/\r\n/g, "\n");
   const match = text.match(/^---\n([\s\S]*?)\n---\n/);
   assert.ok(match, `Missing front matter: ${file}`);
   return { data: YAML.parse(match[1]), body: text.slice(match[0].length) };
@@ -29,31 +32,56 @@ for (const file of files) {
   const { data, body } = parse(file);
   assert.ok(data.title?.trim(), `Missing title: ${file}`);
   assert.ok(data.summary?.trim(), `Missing summary: ${file}`);
-  assert.notEqual(data.status, "evolving", `Deprecated evolving status: ${file}`);
-  assert.match(String(data.last_updated), /^\d{4}-\d{2}-\d{2}$/, `Invalid last_updated: ${file}`);
-  assert.ok(!/^last_updated:/m.test(body), `last_updated must remain in front matter: ${file}`);
+  assert.notEqual(
+    data.status,
+    "evolving",
+    `Deprecated evolving status: ${file}`,
+  );
+  assert.match(
+    String(data.last_updated),
+    /^\d{4}-\d{2}-\d{2}$/,
+    `Invalid last_updated: ${file}`,
+  );
+  assert.ok(
+    !/^last_updated:/m.test(body),
+    `last_updated must remain in front matter: ${file}`,
+  );
   if (data.updated_at != null)
-    assert.match(String(data.updated_at), /^\d{4}-\d{2}-\d{2}/, `Invalid updated_at: ${file}`);
+    assert.match(
+      String(data.updated_at),
+      /^\d{4}-\d{2}-\d{2}/,
+      `Invalid updated_at: ${file}`,
+    );
 
   const duplicate = titles.get(data.title);
-  assert.ok(!duplicate, `Duplicate title: ${data.title} (${duplicate}, ${file})`);
+  assert.ok(
+    !duplicate,
+    `Duplicate title: ${data.title} (${duplicate}, ${file})`,
+  );
   titles.set(data.title, file);
   assert.ok(report.includes(`\`${file}\``), `Audit decision missing: ${file}`);
 
   if (data.public !== false) {
     publicEntries.push({ file, data, body });
-    const legacy = body.match(/このWiki|Wiki全体|公開Wiki|100[〜～-]600章|本アカウント|Zenn/);
-    assert.ok(!legacy, `Legacy publication wording '${legacy?.[0]}' remains in ${file}`);
+    const legacy = body.match(
+      /このWiki|Wiki全体|公開Wiki|100[〜～-]600章|本アカウント|Zenn/,
+    );
+    assert.ok(
+      !legacy,
+      `Legacy publication wording '${legacy?.[0]}' remains in ${file}`,
+    );
   }
 }
 
 const canonicalReferences = publicEntries.filter(
-  ({ file, data }) => data.layer === "reference" && file.startsWith("src/content/reference/"),
-);
-const canonicalPractices = publicEntries.filter(({ data }) => data.layer === "practice");
-const entryPointEntries = publicEntries.filter(
   ({ file, data }) =>
-    !file.includes("/career/") && data.layer !== "reference",
+    data.layer === "reference" && file.startsWith("src/content/reference/"),
+);
+const canonicalPractices = publicEntries.filter(
+  ({ data }) => data.layer === "practice",
+);
+const entryPointEntries = publicEntries.filter(
+  ({ file, data }) => !file.includes("/career/") && data.layer !== "reference",
 );
 const entryPointsOf = ({ data }) => data.entry_points ?? ["ai"];
 const aiOnly = entryPointEntries.filter(({ data }) => {
@@ -65,10 +93,14 @@ const dxOnly = entryPointEntries.filter(({ data }) => {
   return entryPoints.length === 1 && entryPoints[0] === "dx";
 });
 const aiAndDx = entryPointEntries.filter(
-  (entry) => entryPointsOf(entry).includes("ai") && entryPointsOf(entry).includes("dx"),
+  (entry) =>
+    entryPointsOf(entry).includes("ai") && entryPointsOf(entry).includes("dx"),
 );
 for (const entry of aiAndDx)
-  assert.ok(entry.data.dx_topic || entry.data.dx_topics?.length, `DX topic missing: ${entry.file}`);
+  assert.ok(
+    entry.data.dx_topic || entry.data.dx_topics?.length,
+    `DX topic missing: ${entry.file}`,
+  );
 for (const entry of publicEntries.filter(({ data }) => data.dx_topics?.length))
   assert.equal(
     new Set(entry.data.dx_topics).size,
@@ -83,12 +115,25 @@ for (const id of [
   "architecture/agents-tools-and-workflows.md",
 ]) {
   const entry = entryPointEntries.find(({ file }) => file.endsWith(id));
-  assert.ok(entry && !entryPointsOf(entry).includes("dx"), `Technical AI content must not be classified as DX: ${id}`);
+  assert.ok(
+    entry && !entryPointsOf(entry).includes("dx"),
+    `Technical AI content must not be classified as DX: ${id}`,
+  );
 }
-assert.ok(canonicalReferences.length >= 4, "Reference needs glossary, mathematics, metrics and responsibility state");
-assert.ok(canonicalPractices.length >= 4, "Practices needs adoption, education, transfer and development workflow");
-assert.equal(aiOnly.length, 53, "AI-only content count changed");
-assert.equal(dxOnly.length, 0, "Do not invent DX-only content while all current DX content discusses AI");
+assert.ok(
+  canonicalReferences.length >= 4,
+  "Reference needs glossary, mathematics, metrics and responsibility state",
+);
+assert.ok(
+  canonicalPractices.length >= 4,
+  "Practices needs adoption, education, transfer and development workflow",
+);
+assert.equal(aiOnly.length, 50, "AI-only content count changed");
+assert.equal(
+  dxOnly.length,
+  0,
+  "Do not invent DX-only content while all current DX content discusses AI",
+);
 assert.equal(aiAndDx.length, 34, "AI + DX discovery content count changed");
 assert.equal(files.length, 97, "All audited content must remain traceable");
 

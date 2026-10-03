@@ -127,6 +127,9 @@ entries:
     destination_slug: ai-career-market
     category: essays
     migrated: true
+    publication_state: retired
+    retired_at: 2026-10-03
+    redirect_to: /knowledge-context/context-before-model-performance/
     image_count: 0
     notes:
       - "Body: only heading levels, Wiki/internal links and image paths
@@ -211,6 +214,9 @@ entries:
     destination_slug: ai-design-assistance
     category: software-engineering
     migrated: true
+    publication_state: retired
+    retired_at: 2026-10-03
+    redirect_to: /software-engineering/code-generation-and-work-design/
     image_count: 0
     notes:
       - "Body: only heading levels, Wiki/internal links and image paths
@@ -267,6 +273,9 @@ entries:
     destination_slug: human-review-capability
     category: evaluation-hitl
     migrated: true
+    publication_state: retired
+    retired_at: 2026-10-03
+    redirect_to: /evaluation-hitl/responsibility-and-hitl/
     image_count: 0
     notes:
       - "Body: only heading levels, Wiki/internal links and image paths
