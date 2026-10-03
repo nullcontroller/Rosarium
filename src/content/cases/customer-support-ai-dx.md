@@ -25,7 +25,7 @@ published_at: "2026-09-28"
 publication_status: published
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations
+  url: https://github.com/nullcontroller/Rosarium
   topics: *topics
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
@@ -34,7 +34,7 @@ order: 0
 
 <img
   class="book-cover"
-  src="/ai-design-foundations/assets/cases/customer-support-ai-dx-overview.jpg"
+  src="/Rosarium/assets/cases/customer-support-ai-dx-overview.jpg"
   alt="顧客問い合わせからKnowledge検索、RAG、生成AI、人間レビュー、回答、評価・改善までの顧客サポートDX全体フロー"
   width="1280"
   height="720"
@@ -70,8 +70,8 @@ PCでは右側のBook目次、モバイルでは折りたたみ式の目次か�
 
 ## 関連する入口
 
-- [AI設計](/ai-design-foundations/ai-design/)
-- [DX](/ai-design-foundations/dx/)
-- [Knowledge / Context](/ai-design-foundations/ai-design/knowledge-context/)
-- [Evaluation / HITL](/ai-design-foundations/ai-design/evaluation-hitl/)
+- [AI設計](/Rosarium/ai-design/)
+- [DX](/Rosarium/dx/)
+- [Knowledge / Context](/Rosarium/ai-design/knowledge-context/)
+- [Evaluation / HITL](/Rosarium/ai-design/evaluation-hitl/)
 

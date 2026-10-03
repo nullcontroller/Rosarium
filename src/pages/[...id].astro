@@ -64,7 +64,7 @@ const seriesPosition =
       : `現在位置：第${d.order}章・全${series.length - 1}章`
     : undefined;
 const coverDimensions = imageDimensions(
-  d.cover ? "/ai-design-foundations" + d.cover : undefined,
+  d.cover ? "/Rosarium" + d.cover : undefined,
 );
 const related = all
   .filter(
@@ -218,7 +218,7 @@ const bookNavigation = series.length
     {d.cover && (
       <img
         class="book-cover"
-        src={"/ai-design-foundations" + d.cover}
+        src={"/Rosarium" + d.cover}
         alt={d.cover_alt || d.title + " 表紙"}
         width={coverDimensions?.width || 180}
         height={coverDimensions?.height}

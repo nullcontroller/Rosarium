@@ -12,7 +12,7 @@ tags:
   - Architecture
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations/blob/7f248937121b84937e402997dde4d386a0886188/README.md
+  url: https://github.com/nullcontroller/Rosarium/blob/7f248937121b84937e402997dde4d386a0886188/README.md
   topics: []
 ---
 ## AI Design Foundations
@@ -74,7 +74,7 @@ AI単体の性能ではなく、
 
 設計思想・設計原則の詳細は GitHub Wiki に整理しています。
 
-👉 [AI Design Foundations Wiki](https://github.com/nullcontroller/ai-design-foundations/wiki)
+👉 [AI Design Foundations Wiki](https://github.com/nullcontroller/Rosarium/wiki)
 
 | Section | Theme |
 | --- | --- |

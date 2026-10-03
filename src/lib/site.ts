@@ -8,7 +8,7 @@ export const sections = [
   ["cases", "実践事例", "原則を適用した実務事例"],
   ["essays", "Essays", "市場・キャリア・技術への考察"],
 ] as const;
-export const base = "/ai-design-foundations";
+export const base = "/Rosarium";
 export const siteDescription =
   "Rosariumは、AIを主題として、設計・理論・実務を考察するPersonal Technical Siteです。文脈に応じて、DX、システム設計、業務設計などの関連領域も扱います。";
 export const fallbackLastUpdated = "2026-09-28";

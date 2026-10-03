@@ -12,7 +12,7 @@ tags: [Applied AI, DX, Design Principles, System Architecture]
 published_at: "2026-09-28"
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations
+  url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
 order: 11
@@ -76,8 +76,8 @@ Knowledge / AI / UX
 
 ## 次に読む
 
-- [生成AIを業務へ組み込む設計原則](/ai-design-foundations/foundations/ai-business-design/)
-- [AI出力の責任境界とHITL](/ai-design-foundations/evaluation-hitl/responsibility-and-hitl/)
-- [AI評価データセットと回帰評価設計](/ai-design-foundations/evaluation-hitl/datasets-and-regression/)
-- [DXを価値・業務・システムの変化から考える](/ai-design-foundations/dx/)
+- [生成AIを業務へ組み込む設計原則](/Rosarium/foundations/ai-business-design/)
+- [AI出力の責任境界とHITL](/Rosarium/evaluation-hitl/responsibility-and-hitl/)
+- [AI評価データセットと回帰評価設計](/Rosarium/evaluation-hitl/datasets-and-regression/)
+- [DXを価値・業務・システムの変化から考える](/Rosarium/dx/)
 

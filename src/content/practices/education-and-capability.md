@@ -93,8 +93,8 @@ Human Judgment Capability
 
 ## 関連する設計知識
 
-- [生成AI教育はなぜ難しいのか](/ai-design-foundations/practices/ai-education-principles/)
-- [AI適用可否と委任レベルの設計](/ai-design-foundations/foundations/applicability-and-delegation/)
-- [AI出力の責任境界とHITL](/ai-design-foundations/evaluation-hitl/responsibility-and-hitl/)
-- [基本用語集](/ai-design-foundations/reference/glossary/)
-- [AI評価指標](/ai-design-foundations/reference/evaluation-metrics/)
+- [生成AI教育はなぜ難しいのか](/Rosarium/practices/ai-education-principles/)
+- [AI適用可否と委任レベルの設計](/Rosarium/foundations/applicability-and-delegation/)
+- [AI出力の責任境界とHITL](/Rosarium/evaluation-hitl/responsibility-and-hitl/)
+- [基本用語集](/Rosarium/reference/glossary/)
+- [AI評価指標](/Rosarium/reference/evaluation-metrics/)

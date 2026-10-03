@@ -127,7 +127,7 @@ AI間で会話を自動連結したのではなく、人間が成果物を確認
 
 ## Related Design Principles
 
-- [生成・受理・実行を分離する](/ai-design-foundations/foundations/generation-and-acceptance/)
-- [AI出力の責任境界とHITL](/ai-design-foundations/evaluation-hitl/responsibility-and-hitl/)
-- [責任境界と状態遷移](/ai-design-foundations/reference/responsibility-state-model/)
-- [全章を読む](/ai-design-foundations/cases/three-ai-maintenance/cryptography-and-failure-modes/)
+- [生成・受理・実行を分離する](/Rosarium/foundations/generation-and-acceptance/)
+- [AI出力の責任境界とHITL](/Rosarium/evaluation-hitl/responsibility-and-hitl/)
+- [責任境界と状態遷移](/Rosarium/reference/responsibility-state-model/)
+- [全章を読む](/Rosarium/cases/three-ai-maintenance/cryptography-and-failure-modes/)

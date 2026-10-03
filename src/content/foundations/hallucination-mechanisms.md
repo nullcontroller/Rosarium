@@ -11,7 +11,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/%E3%83%8F%E3%83%AB%E3%82%B7%E3%83%8D%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%99%BA%E7%94%9F%E5%8E%9F%E7%90%86
+  url: https://github.com/nullcontroller/Rosarium/wiki/%E3%83%8F%E3%83%AB%E3%82%B7%E3%83%8D%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E7%99%BA%E7%94%9F%E5%8E%9F%E7%90%86
   original_type: wiki
   slug: ハルシネーションの発生原理
   topics: []

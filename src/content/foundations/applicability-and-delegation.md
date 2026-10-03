@@ -20,7 +20,7 @@ update_type: expanded
 update_note: "価値と業務変化からAIの役割を逆算する設計順序と、顧客問い合わせQAの例を追加"
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/AI%E9%81%A9%E7%94%A8%E5%8F%AF%E5%90%A6%E3%81%A8%E5%A7%94%E4%BB%BB%E3%83%AC%E3%83%99%E3%83%AB%E3%81%AE%E8%A8%AD%E8%A8%88
+  url: https://github.com/nullcontroller/Rosarium/wiki/AI%E9%81%A9%E7%94%A8%E5%8F%AF%E5%90%A6%E3%81%A8%E5%A7%94%E4%BB%BB%E3%83%AC%E3%83%99%E3%83%AB%E3%81%AE%E8%A8%AD%E8%A8%88
   original_type: wiki
   slug: AI適用可否と委任レベルの設計
   topics: []

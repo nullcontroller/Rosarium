@@ -12,7 +12,7 @@ tags: [Applied AI, DX, 業務設計, 顧客価値]
 published_at: "2026-09-28"
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations
+  url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
 order: 2
@@ -66,7 +66,7 @@ flowchart TD
 
 一方、生成AIの内部知識だけで製品固有の回答を確定することはできません。回答根拠は、既存システムが保持するマニュアル、仕様書、FAQ、確認済みの障害情報から取得する必要があります。そこでRAGを組み合わせます。
 
-生成AIとRAGは目的ではなく、業務変化を実現するために選ぶ手段です。AIを使わなくても安全かつ十分に価値を出せる処理は、ルールや既存機能へ残します。この順序は、Rosariumの[AI適用判断](/ai-design-foundations/ai-design/applicability/)と同じです。
+生成AIとRAGは目的ではなく、業務変化を実現するために選ぶ手段です。AIを使わなくても安全かつ十分に価値を出せる処理は、ルールや既存機能へ残します。この順序は、Rosariumの[AI適用判断](/Rosarium/ai-design/applicability/)と同じです。
 
 次章では、この比較を「AIに任せる処理」「既存システムが確定する処理」「人間が責任を持つ判断」へ分解します。
 

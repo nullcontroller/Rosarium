@@ -12,7 +12,7 @@ tags: [Fail Safe, HITL, 責任境界, AI Governance]
 published_at: "2026-09-28"
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations
+  url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
 order: 6
@@ -68,7 +68,7 @@ Human in the Loopは、AIの回答を毎回人が承認することだけを意�
 
 重要なのは、人間へ戻すことが例外処理として後付けされていないことです。停止条件、引継ぐ情報、人間が判断を再開する位置を、通常のWorkflowとして定義します。
 
-停止は失敗ではありません。誤った回答を避け、専門性を必要な場所へ集中させるための正常な結果です。詳しい状態設計は、[責任境界と状態遷移](/ai-design-foundations/reference/responsibility-state-model/)を参照してください。
+停止は失敗ではありません。誤った回答を避け、専門性を必要な場所へ集中させるための正常な結果です。詳しい状態設計は、[責任境界と状態遷移](/Rosarium/reference/responsibility-state-model/)を参照してください。
 
 ## Confidence Scoreを単独の責任者にしない
 

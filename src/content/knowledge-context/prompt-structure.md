@@ -13,7 +13,7 @@ published_at: null
 updated_at: "2026-09-22"
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/%E3%83%97%E3%83%AD%E3%83%B3%E3%83%97%E3%83%88%E8%A8%AD%E8%A8%88%E3%81%AE%E5%9F%BA%E6%9C%AC%E6%A7%8B%E9%80%A0
+  url: https://github.com/nullcontroller/Rosarium/wiki/%E3%83%97%E3%83%AD%E3%83%B3%E3%83%97%E3%83%88%E8%A8%AD%E8%A8%88%E3%81%AE%E5%9F%BA%E6%9C%AC%E6%A7%8B%E9%80%A0
   original_type: wiki
   slug: プロンプト設計の基本構造
   topics: []
@@ -642,4 +642,4 @@ KnowledgeとRAGは同義ではありません。
 
 AIを「使う」のではなく、実務システムの中でどう設計するかを整理しています。
 
-[AI Designを読む](/ai-design-foundations/ai-design/)
+[AI Designを読む](/Rosarium/ai-design/)

@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/QA%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E8%A9%95%E4%BE%A1%E8%A8%AD%E8%A8%88%E6%80%9D%E6%83%B3
+  url: https://github.com/nullcontroller/Rosarium/wiki/QA%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E8%A9%95%E4%BE%A1%E8%A8%AD%E8%A8%88%E6%80%9D%E6%83%B3
   original_type: wiki
   slug: QAチャット評価設計思想
   topics: []

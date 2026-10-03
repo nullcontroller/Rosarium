@@ -7,7 +7,7 @@ test("publication links resolve locally while unavailable source links retain co
   const map = new Map([
     [
       normalizeSourceUrl("https://zenn.dev/nullcontroller/articles/abc"),
-      "/ai-design-foundations/essays/example/",
+      "/Rosarium/essays/example/",
     ],
   ]);
   const $ = load(
@@ -19,7 +19,7 @@ test("publication links resolve locally while unavailable source links retain co
   assert.equal($("a").length, 2);
   assert.equal(
     $("a").first().attr("href"),
-    "/ai-design-foundations/essays/example/",
+    "/Rosarium/essays/example/",
   );
   assert.equal($("em").text(), "参考資料");
   assert($.text().includes("別資料"));
@@ -28,10 +28,10 @@ test("publication links resolve locally while unavailable source links retain co
 test("career links become local and removed routes cannot remain clickable", () => {
   const $ = load(
     publicHtml(
-      '<a href="https://nullcontroller.github.io/career-profile/profile/">詳細</a><a href="/ai-design-foundations/project/journal/test/">記録</a><a href="/ai-design-foundations/foundations/wiki-overview/">概要</a>',
+      '<a href="https://nullcontroller.github.io/career-profile/profile/">詳細</a><a href="/Rosarium/project/journal/test/">記録</a><a href="/Rosarium/foundations/wiki-overview/">概要</a>',
     ),
   );
   assert.equal($("a").length, 1);
-  assert.equal($("a").attr("href"), "/ai-design-foundations/career/");
+  assert.equal($("a").attr("href"), "/Rosarium/career/");
   assert($.text().includes("記録"));
 });

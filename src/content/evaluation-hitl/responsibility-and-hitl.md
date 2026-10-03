@@ -16,7 +16,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/AI%E5%87%BA%E5%8A%9B%E3%81%AE%E8%B2%AC%E4%BB%BB%E5%A2%83%E7%95%8C%E3%81%A8HITL
+  url: https://github.com/nullcontroller/Rosarium/wiki/AI%E5%87%BA%E5%8A%9B%E3%81%AE%E8%B2%AC%E4%BB%BB%E5%A2%83%E7%95%8C%E3%81%A8HITL
   original_type: wiki
   slug: AI出力の責任境界とHITL
   topics: []

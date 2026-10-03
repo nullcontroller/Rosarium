@@ -12,7 +12,7 @@ published_at: null
 updated_at: "2026-09-22"
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/%E7%94%9F%E6%88%90AI%E3%81%AE%E6%9D%A1%E4%BB%B6%E4%BB%98%E3%81%8D%E7%A2%BA%E7%8E%87%E3%83%A2%E3%83%87%E3%83%AB%E5%9F%BA%E7%A4%8E
+  url: https://github.com/nullcontroller/Rosarium/wiki/%E7%94%9F%E6%88%90AI%E3%81%AE%E6%9D%A1%E4%BB%B6%E4%BB%98%E3%81%8D%E7%A2%BA%E7%8E%87%E3%83%A2%E3%83%87%E3%83%AB%E5%9F%BA%E7%A4%8E
   original_type: wiki
   slug: 生成AIの条件付き確率モデル基礎
   topics: []

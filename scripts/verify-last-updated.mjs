@@ -36,7 +36,7 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html"))) {
   const graph = JSON.parse($('script[type="application/ld+json"]').first().text())["@graph"];
   const entity = graph.find((item) => item["@id"]?.endsWith("#webpage"));
   assert.equal(entity.dateModified, date, `JSON-LD date mismatch: ${route}`);
-  const loc = `https://nullcontroller.github.io/ai-design-foundations/${route ? `${route}/` : ""}`;
+  const loc = `https://nullcontroller.github.io/Rosarium/${route ? `${route}/` : ""}`;
   const url = sitemap("url").filter((_, node) => sitemap(node).find("loc").text() === loc);
   if (url.length) assert.equal(url.find("lastmod").text(), date, `Sitemap date mismatch: ${route}`);
   report.push({route, title: $("title").text(), last_updated: date, source: expected.source, visible: Boolean(visible.length)});

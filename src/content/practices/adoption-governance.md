@@ -58,6 +58,6 @@ AI出力を採用できない場合の代替手段を用意する。
 
 ## 関連する設計知識
 
-- [AI適用可否と委任レベルの設計](/ai-design-foundations/foundations/applicability-and-delegation/)
-- [責任境界と状態遷移](/ai-design-foundations/reference/responsibility-state-model/)
-- [AI活用の成否はツールではなく、使う側で決まる](/ai-design-foundations/practices/ai-adoption-and-effective-use/)
+- [AI適用可否と委任レベルの設計](/Rosarium/foundations/applicability-and-delegation/)
+- [責任境界と状態遷移](/Rosarium/reference/responsibility-state-model/)
+- [AI活用の成否はツールではなく、使う側で決まる](/Rosarium/practices/ai-adoption-and-effective-use/)

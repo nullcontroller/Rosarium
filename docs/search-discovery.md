@@ -15,12 +15,12 @@ RosariumはGitHub Pages上の静的サイトです。検索エンジン向けの
 
 ## Google Search Console
 
-1. Search ConsoleでURL-prefix Property `https://nullcontroller.github.io/ai-design-foundations/`を追加する
+1. Search ConsoleでURL-prefix Property `https://nullcontroller.github.io/Rosarium/`を追加する
 2. HTML tag方式のVerification Tokenだけを取得する
 3. GitHub RepositoryのSettings → Secrets and variables → Actions → Variablesへ`PUBLIC_GOOGLE_SITE_VERIFICATION`を登録する
 4. `master`のPages Workflowを再実行する
 5. 公開HTMLの`google-site-verification` meta tagを確認してVerifyする
-6. `https://nullcontroller.github.io/ai-design-foundations/sitemap.xml`を送信する
+6. `https://nullcontroller.github.io/Rosarium/sitemap.xml`を送信する
 7. 重要ページをURL Inspectionで確認する
 
 Tokenは公開される値なのでRepository Variableを使用します。値が未設定ならmeta tagは生成しません。

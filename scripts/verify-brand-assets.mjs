@@ -26,10 +26,10 @@ for (const file of ["site.png", "career.png", "ai-design.png"])
 
 const manifest = JSON.parse(fs.readFileSync("dist/site.webmanifest", "utf8"));
 for (const icon of manifest.icons) {
-  assert(icon.src.startsWith("/ai-design-foundations/icons/"), icon.src);
-  assert(fs.existsSync("dist" + icon.src.replace("/ai-design-foundations", "")), icon.src);
+  assert(icon.src.startsWith("/Rosarium/icons/"), icon.src);
+  assert(fs.existsSync("dist" + icon.src.replace("/Rosarium", "")), icon.src);
 }
 const home = fs.readFileSync("dist/index.html", "utf8");
 for (const path of ["favicon.svg", "icons/favicon-32x32.png", "icons/apple-touch-icon.png", "site.webmanifest"])
-  assert(home.includes("/ai-design-foundations/" + path), path);
+  assert(home.includes("/Rosarium/" + path), path);
 console.log("Verified SVG favicon, 6 raster icons, 3 OGP images, manifest and HTML head assets.");

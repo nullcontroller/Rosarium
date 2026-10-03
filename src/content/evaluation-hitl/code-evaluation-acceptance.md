@@ -13,7 +13,7 @@ published_at: null
 updated_at: "2026-09-22"
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90AI%E3%81%AE%E8%A9%95%E4%BE%A1%E3%81%A8%E6%8E%A1%E7%94%A8%E8%A8%AD%E8%A8%88
+  url: https://github.com/nullcontroller/Rosarium/wiki/%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90AI%E3%81%AE%E8%A9%95%E4%BE%A1%E3%81%A8%E6%8E%A1%E7%94%A8%E8%A8%AD%E8%A8%88
   original_type: wiki
   slug: コード生成AIの評価と採用設計
   topics: []

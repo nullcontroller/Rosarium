@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/QA%E8%A1%8C%E5%8B%95%E5%88%B6%E7%B4%84Knowledge
+  url: https://github.com/nullcontroller/Rosarium/wiki/QA%E8%A1%8C%E5%8B%95%E5%88%B6%E7%B4%84Knowledge
   original_type: wiki
   slug: QA行動制約Knowledge
   topics: []

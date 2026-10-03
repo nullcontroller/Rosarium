@@ -11,7 +11,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/Temperature%E8%A8%AD%E8%A8%88%E6%8C%87%E9%87%9D
+  url: https://github.com/nullcontroller/Rosarium/wiki/Temperature%E8%A8%AD%E8%A8%88%E6%8C%87%E9%87%9D
   original_type: wiki
   slug: Temperature設計指針
   topics: []

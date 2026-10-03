@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/QA%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E9%81%8B%E7%94%A8%E6%80%9D%E6%83%B3
+  url: https://github.com/nullcontroller/Rosarium/wiki/QA%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E9%81%8B%E7%94%A8%E6%80%9D%E6%83%B3
   original_type: wiki
   slug: QAチャット運用思想
   topics: []

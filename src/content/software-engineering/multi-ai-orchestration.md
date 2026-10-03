@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/%E8%A4%87%E6%95%B0AI%E3%81%AE%E5%BD%B9%E5%89%B2%E5%88%86%E6%8B%85%E3%81%A8%E5%B7%A5%E7%A8%8B%E8%A8%AD%E8%A8%88
+  url: https://github.com/nullcontroller/Rosarium/wiki/%E8%A4%87%E6%95%B0AI%E3%81%AE%E5%BD%B9%E5%89%B2%E5%88%86%E6%8B%85%E3%81%A8%E5%B7%A5%E7%A8%8B%E8%A8%AD%E8%A8%88
   original_type: wiki
   slug: 複数AIの役割分担と工程設計
   topics: []

@@ -28,7 +28,12 @@ for (const e of [...z.entries, ...w.entries]) {
   assert.equal(data.section, e.category);
   assert.ok(e.destination_body_sha256, `Missing import checksum: ${e.destination_file}`);
   assert.equal(data.source?.type, e.source_type === "wiki" ? "wiki" : "zenn");
-  assert.equal(data.source?.url, e.original_url);
+  // Keep the immutable migration URL while verifying the renamed repository link.
+  const publicSourceUrl = e.original_url.replace(
+    "https://github.com/nullcontroller/ai-design-foundations/",
+    "https://github.com/nullcontroller/Rosarium/",
+  );
+  assert.equal(data.source?.url, publicSourceUrl);
   if (e.source_type !== "wiki") {
     assert.equal(data.canonical, e.original_url);
     assert.deepEqual(data.source.metadata, e.original_frontmatter);

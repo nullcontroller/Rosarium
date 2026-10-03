@@ -312,7 +312,7 @@ for (const f of wikiFiles) {
   wikiEntries.push({
     source_file: path.relative(wiki, f).replaceAll("\\", "/"),
     source_type: "wiki",
-    original_url: `https://github.com/nullcontroller/ai-design-foundations/wiki/${encodeURIComponent(name)}`,
+    original_url: `https://github.com/nullcontroller/Rosarium/wiki/${encodeURIComponent(name)}`,
     destination_file: `src/content/${section}/${slug}.md`,
     destination_slug: slug,
     category: section,
@@ -333,7 +333,7 @@ for (const f of wikiFiles) {
       published_at: null,
       source: {
         type: "wiki",
-        url: `https://github.com/nullcontroller/ai-design-foundations/wiki/${encodeURIComponent(name)}`,
+        url: `https://github.com/nullcontroller/Rosarium/wiki/${encodeURIComponent(name)}`,
         original_type: "wiki",
         slug: name,
         topics: [],
@@ -400,7 +400,7 @@ function transform(body) {
       if (fence) return line;
       line = line.replace(/\[\[([^\]]+)\]\]/g, (_, v) => {
         const [label, target] = v.includes("|") ? v.split("|") : [v, v];
-        return `[${label}](${names.get(target) ?? `https://github.com/nullcontroller/ai-design-foundations/wiki/${encodeURIComponent(target)}`})`;
+        return `[${label}](${names.get(target) ?? `https://github.com/nullcontroller/Rosarium/wiki/${encodeURIComponent(target)}`})`;
       });
       line = line.replace(
         /(?<!!)\[([^\]]+)\]\(([^)]+)\)/g,
@@ -489,7 +489,7 @@ const meta = {
   source: {
     type: "repository",
     url:
-      "https://github.com/nullcontroller/ai-design-foundations/blob/" +
+      "https://github.com/nullcontroller/Rosarium/blob/" +
       execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim() +
       "/README.md",
     topics: [],

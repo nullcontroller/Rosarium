@@ -111,7 +111,7 @@ LLMを確率モデルとして捉える目的は、生成を完全に予測す�
 
 ## 関連ページ
 
-- [生成AIの条件付き確率モデル基礎](/ai-design-foundations/foundations/conditional-probability/)
-- [Temperature設計指針](/ai-design-foundations/foundations/temperature-design/)
-- [ハルシネーションの発生原理](/ai-design-foundations/foundations/hallucination-mechanisms/)
-- [数式リファレンス](/ai-design-foundations/reference/mathematical-reference/)
+- [生成AIの条件付き確率モデル基礎](/Rosarium/foundations/conditional-probability/)
+- [Temperature設計指針](/Rosarium/foundations/temperature-design/)
+- [ハルシネーションの発生原理](/Rosarium/foundations/hallucination-mechanisms/)
+- [数式リファレンス](/Rosarium/reference/mathematical-reference/)

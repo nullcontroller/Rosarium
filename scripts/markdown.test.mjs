@@ -33,7 +33,7 @@ test("Mermaid fallback and base-path links survive Markdown processing", async (
   const { code } = await p.render(
     "[読書](/foundations/)\n\n```mermaid\nflowchart TD\n A --> B\n```\n\n| A | B |\n|---|---|\n| C | D |",
   );
-  assert.match(code, /href="\/ai-design-foundations\/foundations\/"/);
+  assert.match(code, /href="\/Rosarium\/foundations\/"/);
   assert.match(code, /data-mermaid/);
   assert.match(code, /<details open/);
   assert.match(code, /<table>/);

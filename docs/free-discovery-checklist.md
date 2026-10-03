@@ -18,7 +18,7 @@ Codeだけでは完了できない無料施策の確認表です。アカウン�
 
 ## GitHub Profile
 
-- [ ] Website URLを`https://nullcontroller.github.io/ai-design-foundations/`へ設定
+- [ ] Website URLを`https://nullcontroller.github.io/Rosarium/`へ設定
 - [ ] BioとPinned Repositoryが現在のPositioningと一致するか確認
 
 ## GitHub Repository

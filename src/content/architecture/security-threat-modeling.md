@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/%E7%94%9F%E6%88%90AI%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%81%A8%E8%84%85%E5%A8%81%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0
+  url: https://github.com/nullcontroller/Rosarium/wiki/%E7%94%9F%E6%88%90AI%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%81%A8%E8%84%85%E5%A8%81%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0
   original_type: wiki
   slug: 生成AIセキュリティと脅威モデリング
   topics: []
@@ -22,7 +22,7 @@ source:
 > 種別：設計原則 / セキュリティ設計
 > 適用対象：生成AI、RAG、AIエージェント、業務自動化
 > 対象工程：設計 / 実装 / 運用 / 事故対応
-> 関連ページ：[ガードレールの数学的説明](/foundations/guardrail-models/)、[QA行動制約ナレッジ](https://github.com/nullcontroller/ai-design-foundations/wiki/QA%E8%A1%8C%E5%8B%95%E5%88%B6%E7%B4%84%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8)、[AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)
+> 関連ページ：[ガードレールの数学的説明](/foundations/guardrail-models/)、[QA行動制約ナレッジ](https://github.com/nullcontroller/Rosarium/wiki/QA%E8%A1%8C%E5%8B%95%E5%88%B6%E7%B4%84%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8)、[AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)
 
 ### はじめに
 

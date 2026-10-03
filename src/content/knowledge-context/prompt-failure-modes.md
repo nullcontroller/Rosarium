@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/%E3%83%97%E3%83%AD%E3%83%B3%E3%83%97%E3%83%88%E8%A8%AD%E8%A8%88%E3%81%AE%E5%A4%B1%E6%95%97%E3%83%A2%E3%83%BC%E3%83%89
+  url: https://github.com/nullcontroller/Rosarium/wiki/%E3%83%97%E3%83%AD%E3%83%B3%E3%83%97%E3%83%88%E8%A8%AD%E8%A8%88%E3%81%AE%E5%A4%B1%E6%95%97%E3%83%A2%E3%83%BC%E3%83%89
   original_type: wiki
   slug: プロンプト設計の失敗モード
   topics: []

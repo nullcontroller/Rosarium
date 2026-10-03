@@ -4,9 +4,9 @@ Rosariumは、AIを主軸に、設計・実務・思想を考察するPersonal T
 
 MarkdownをGitで管理し、レビュー・検証を経てAstroから静的HTMLを生成します。
 
-**[サイトを見る](https://nullcontroller.github.io/ai-design-foundations/)**
+**[サイトを見る](https://nullcontroller.github.io/Rosarium/)**
 
-[キャリア](https://nullcontroller.github.io/ai-design-foundations/career/) / [AI](https://nullcontroller.github.io/ai-design-foundations/ai/) / [DX](https://nullcontroller.github.io/ai-design-foundations/dx/)
+[キャリア](https://nullcontroller.github.io/Rosarium/career/) / [AI](https://nullcontroller.github.io/Rosarium/ai/) / [DX](https://nullcontroller.github.io/Rosarium/dx/)
 
 中心テーマ：Applied AI / System Architecture / Knowledge・Context / Evaluation・HITL / AI-Assisted Software Engineering / AI System Lifecycle。
 既存システムの改善・モダナイゼーションは、設計原則を適用した実務事例として扱います。
@@ -42,6 +42,6 @@ npm run build
 出典と移行時の本文ハッシュはmigration台帳・source metadataで保持します。
 公開HTMLのcanonicalは自サイトを指し、GitHub・Zenn・旧Careerサイトへのリンクは公開しません。
 
-[Career](https://nullcontroller.github.io/ai-design-foundations/career/) — 設計思想と実践事例へのPortfolio Gateway。詳細な職務プロフィールはCareerからLinkedInへ案内します。
+[Career](https://nullcontroller.github.io/Rosarium/career/) — 設計思想と実践事例へのPortfolio Gateway。詳細な職務プロフィールはCareerからLinkedInへ案内します。
 
 開発記録はdocs/historyへ保存し、Project・Tools・Journalは公開しません。

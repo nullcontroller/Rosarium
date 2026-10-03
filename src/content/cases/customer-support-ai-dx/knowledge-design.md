@@ -12,7 +12,7 @@ tags: [RAG, Knowledge Architecture, Context, Grounding]
 published_at: "2026-09-28"
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations
+  url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
 order: 5
@@ -89,5 +89,5 @@ Rankingでは意味的類似度だけでなく、対象機種・版の完全一�
 
 また、検索に失敗した問い合わせを記録すれば、文書が存在しないのか、分類が誤っているのか、機種の対応付けが不足しているのかを切り分けられます。RAGの品質はモデルだけでなく、Knowledgeの状態と運用で決まります。
 
-この責務分離は、[Instruction・Knowledge・Evidence](/ai-design-foundations/knowledge-context/instruction-knowledge-evidence/)と[Knowledge / Context設計](/ai-design-foundations/ai-design/knowledge-context/)で詳しく扱っています。
+この責務分離は、[Instruction・Knowledge・Evidence](/Rosarium/knowledge-context/instruction-knowledge-evidence/)と[Knowledge / Context設計](/Rosarium/ai-design/knowledge-context/)で詳しく扱っています。
 

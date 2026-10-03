@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/Home
+  url: https://github.com/nullcontroller/Rosarium/wiki/Home
   original_type: wiki
   slug: Home
   topics: []
@@ -215,4 +215,4 @@ Legacy Systemへの適用では、既存Codeを正解ではなくEvidenceとし�
 ### 関連
 
 - [Zenn](https://zenn.dev/nullcontroller)
-- [Repository](https://github.com/nullcontroller/ai-design-foundations)
+- [Repository](https://github.com/nullcontroller/Rosarium)

@@ -12,7 +12,7 @@ tags: [HITL, Human Handoff, UX, Workflow]
 published_at: "2026-09-28"
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations
+  url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
 order: 8

@@ -10,7 +10,7 @@ import {
 } from "./src/lib/markdown.mjs";
 export default defineConfig({
   site: "https://nullcontroller.github.io",
-  base: "/ai-design-foundations",
+  base: "/Rosarium",
   trailingSlash: "always",
   markdown: {
     processor: unified({

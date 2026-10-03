@@ -44,6 +44,6 @@ AI活用の横展開では、成功したプロンプトやツール構成をそ
 
 ## 関連する設計知識
 
-- [AI活用事例をそのまま横展開できるのか](/ai-design-foundations/practices/transferring-ai-practices/)
-- [AI導入を業務へ定着させる](/ai-design-foundations/practices/adoption-governance/)
-- [AI業務システムの参照アーキテクチャ](/ai-design-foundations/architecture/reference-architecture/)
+- [AI活用事例をそのまま横展開できるのか](/Rosarium/practices/transferring-ai-practices/)
+- [AI導入を業務へ定着させる](/Rosarium/practices/adoption-governance/)
+- [AI業務システムの参照アーキテクチャ](/Rosarium/architecture/reference-architecture/)

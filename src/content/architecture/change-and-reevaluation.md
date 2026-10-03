@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/AI%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%A4%89%E6%9B%B4%E3%83%BB%E5%86%8D%E8%A9%95%E4%BE%A1%E8%A8%AD%E8%A8%88
+  url: https://github.com/nullcontroller/Rosarium/wiki/AI%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%A4%89%E6%9B%B4%E3%83%BB%E5%86%8D%E8%A9%95%E4%BE%A1%E8%A8%AD%E8%A8%88
   original_type: wiki
   slug: AIシステムの変更・再評価設計
   topics: []

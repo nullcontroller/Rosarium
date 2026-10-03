@@ -159,7 +159,7 @@ RAG / QAによる参照支援
 
 ## Related Design Principles
 
-- [Instruction・Knowledge・Evidenceの責務分離](/ai-design-foundations/knowledge-context/instruction-knowledge-evidence/)
-- [人間向け文書とAI向けKnowledgeを分けて設計する](/ai-design-foundations/knowledge-context/human-and-ai-documentation/)
-- [AI評価指標](/ai-design-foundations/reference/evaluation-metrics/)
-- [全章を読む](/ai-design-foundations/cases/system-understanding/system-understanding-problems/)
+- [Instruction・Knowledge・Evidenceの責務分離](/Rosarium/knowledge-context/instruction-knowledge-evidence/)
+- [人間向け文書とAI向けKnowledgeを分けて設計する](/Rosarium/knowledge-context/human-and-ai-documentation/)
+- [AI評価指標](/Rosarium/reference/evaluation-metrics/)
+- [全章を読む](/Rosarium/cases/system-understanding/system-understanding-problems/)

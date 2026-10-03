@@ -22,7 +22,7 @@ updated_at: "2026-09-27"
 update_type: new
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations/blob/master/src/content/essays/dx-and-value.md
+  url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/essays/dx-and-value.md
   topics:
     - 生成ai
     - dx

@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/%E3%83%8F%E3%83%AB%E3%82%B7%E3%83%8D%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E5%A4%9A%E5%B1%A4%E5%88%B6%E5%BE%A1%E8%A8%AD%E8%A8%88
+  url: https://github.com/nullcontroller/Rosarium/wiki/%E3%83%8F%E3%83%AB%E3%82%B7%E3%83%8D%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E5%A4%9A%E5%B1%A4%E5%88%B6%E5%BE%A1%E8%A8%AD%E8%A8%88
   original_type: wiki
   slug: ハルシネーションの多層制御設計
   topics: []

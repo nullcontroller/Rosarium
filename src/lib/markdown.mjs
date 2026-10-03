@@ -48,9 +48,9 @@ export function localUrls() {
           typeof v === "string" &&
           v.startsWith("/") &&
           !v.startsWith("//") &&
-          !v.startsWith("/ai-design-foundations/")
+          !v.startsWith("/Rosarium/")
         )
-          node.properties[key] = "/ai-design-foundations" + v;
+          node.properties[key] = "/Rosarium" + v;
       }
     });
   };

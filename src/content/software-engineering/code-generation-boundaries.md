@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90%E3%82%92%E4%BD%BF%E3%81%86%E3%81%B9%E3%81%8D%E5%A0%B4%E6%89%80
+  url: https://github.com/nullcontroller/Rosarium/wiki/%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90%E3%82%92%E4%BD%BF%E3%81%86%E3%81%B9%E3%81%8D%E5%A0%B4%E6%89%80
   original_type: wiki
   slug: コード生成を使うべき場所
   topics: []

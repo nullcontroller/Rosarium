@@ -15,7 +15,7 @@ tags: ["業務設計", "ECRS", "ai適用判断"]
 update_type: new
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations/blob/master/src/content/essays/rethink-work-before-ai.md
+  url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/essays/rethink-work-before-ai.md
 ---
 
 生成AIが広がるにつれて、

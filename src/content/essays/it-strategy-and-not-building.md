@@ -15,7 +15,7 @@ tags: ["IT戦略", "システム企画", "ライフサイクル"]
 update_type: new
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations/blob/master/src/content/essays/it-strategy-and-not-building.md
+  url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/essays/it-strategy-and-not-building.md
 ---
 
 ソフトウェア開発やDXの話では、

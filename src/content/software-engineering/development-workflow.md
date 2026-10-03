@@ -11,7 +11,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/AI%E3%82%92%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B%E3%81%AB%E7%B5%84%E3%81%BF%E8%BE%BC%E3%82%80
+  url: https://github.com/nullcontroller/Rosarium/wiki/AI%E3%82%92%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B%E3%81%AB%E7%B5%84%E3%81%BF%E8%BE%BC%E3%82%80
   original_type: wiki
   slug: AIを開発工程に組み込む
   topics: []

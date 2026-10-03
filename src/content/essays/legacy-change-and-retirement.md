@@ -15,7 +15,7 @@ tags: ["レガシーモダナイゼーション", "ライフサイクル", "変�
 update_type: new
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations/blob/master/src/content/essays/legacy-change-and-retirement.md
+  url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/essays/legacy-change-and-retirement.md
 ---
 
 最近、私はレガシーシステムについて、

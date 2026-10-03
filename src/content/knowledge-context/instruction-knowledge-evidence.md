@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/Instruction%E3%83%BBKnowledge%E3%83%BBEvidence%E3%81%AE%E8%B2%AC%E5%8B%99%E5%88%86%E9%9B%A2
+  url: https://github.com/nullcontroller/Rosarium/wiki/Instruction%E3%83%BBKnowledge%E3%83%BBEvidence%E3%81%AE%E8%B2%AC%E5%8B%99%E5%88%86%E9%9B%A2
   original_type: wiki
   slug: Instruction・Knowledge・Evidenceの責務分離
   topics: []

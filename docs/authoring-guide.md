@@ -7,7 +7,7 @@
 
 `src/content/{section}/{semantic-slug}.md`を追加します。通常ページはMDXを使いません。
 英小文字・数字・ハイフンのsemantic slugを使い、公開後はURLを安易に変更しません。
-ファイルの相対パスがURLになります。例：`foundations/acceptance-boundary.md` → `/ai-design-foundations/foundations/acceptance-boundary/`。
+ファイルの相対パスがURLになります。例：`foundations/acceptance-boundary.md` → `/Rosarium/foundations/acceptance-boundary/`。
 
 ```yaml
 ---

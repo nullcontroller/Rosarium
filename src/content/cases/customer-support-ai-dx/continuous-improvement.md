@@ -12,7 +12,7 @@ tags: [Continuous Improvement, AI Evaluation, RAG, Operations]
 published_at: "2026-09-28"
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations
+  url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
 order: 9
@@ -85,5 +85,5 @@ flowchart LR
 
 変更は、モデル、Prompt、Knowledge、Index、業務ルール、UIを一つの版として記録します。どの組合せで評価したかを残さなければ、改善後の差分や問題発生時の切戻しを説明できません。評価を通過した変更だけを展開し、停止漏れや高影響の回帰があれば適用範囲を戻します。
 
-Design、Use、Observe、Evaluate、Improveを循環させることで、QAシステムを導入プロジェクトから継続的な業務改善へ変えます。これは[Lifecycle / Operations](/ai-design-foundations/ai-design/lifecycle-operations/)で扱う設計思想と同じです。
+Design、Use、Observe、Evaluate、Improveを循環させることで、QAシステムを導入プロジェクトから継続的な業務改善へ変えます。これは[Lifecycle / Operations](/Rosarium/ai-design/lifecycle-operations/)で扱う設計思想と同じです。
 

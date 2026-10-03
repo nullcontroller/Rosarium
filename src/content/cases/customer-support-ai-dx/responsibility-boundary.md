@@ -12,7 +12,7 @@ tags: [Applied AI, HITL, 責任境界, 業務設計]
 published_at: "2026-09-28"
 source:
   type: repository
-  url: https://github.com/nullcontroller/ai-design-foundations
+  url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
 order: 3
@@ -82,7 +82,7 @@ flowchart LR
 
 同じシステムの中でも、問い合わせのリスクと不確実性に応じて委任レベルを変える設計です。これは「AIを使うか、使わないか」の二択ではありません。どこまで任せ、どこから人間が受理するかを決めることです。
 
-詳しい原則は、[AIと人間の責任境界](/ai-design-foundations/ai-design/responsibility-control/)で扱っています。
+詳しい原則は、[AIと人間の責任境界](/Rosarium/ai-design/responsibility-control/)で扱っています。
 
 この責任分担をPoCの評価単位へ落としたものが、次章のRetrieval、Generation、Business Acceptanceです。
 

@@ -34,7 +34,7 @@ export function publicHtml(html, sourceLinks = new Map()) {
       /(^|\.)github\.com$/.test(target.hostname) ||
       /(^|\.)zenn\.dev$/.test(target.hostname);
     const internalPath = target.pathname
-      .replace(/^\/ai-design-foundations/, "")
+      .replace(/^\/Rosarium/, "")
       .replace(/\/$/, "");
     const hidden =
       target.hostname === "nullcontroller.github.io" &&
@@ -46,7 +46,7 @@ export function publicHtml(html, sourceLinks = new Map()) {
       return;
     }
     if (isCareer) {
-      a.attr("href", "/ai-design-foundations/career/");
+      a.attr("href", "/Rosarium/career/");
     } else if (externalSource) {
       const replacement = sourceLinks.get(normalized);
       if (replacement) a.attr("href", replacement);

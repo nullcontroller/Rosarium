@@ -55,7 +55,7 @@ const effectiveLastUpdated =
 const documentTitle =
   title === "Home" ? "Rosarium | 立林 裕太朗" : `${title} | Rosarium`;
 const canonicalUrl = canonical?.startsWith(
-  "https://nullcontroller.github.io/ai-design-foundations/",
+  "https://nullcontroller.github.io/Rosarium/",
 )
   ? canonical
   : new URL(Astro.url.pathname, Astro.site).toString();
@@ -443,7 +443,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         <a href={url("cases")}>実践事例</a> ·{" "}
         <a href={url("career")}>キャリア</a> ·{" "}
         <a href={assetUrl("feed.xml")}>RSS</a> ·{" "}
-        <a href="https://github.com/nullcontroller/ai-design-foundations">
+        <a href="https://github.com/nullcontroller/Rosarium">
           Repository
         </a>
       </nav>

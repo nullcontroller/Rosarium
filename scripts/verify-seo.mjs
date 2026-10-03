@@ -25,7 +25,7 @@ for (const file of htmlFiles) {
   assert.ok(description, `Missing description: ${file}`);
   assert.ok(
     canonical?.startsWith(
-      "https://nullcontroller.github.io/ai-design-foundations/",
+      "https://nullcontroller.github.io/Rosarium/",
     ),
     `Invalid canonical: ${file}`,
   );
@@ -106,7 +106,7 @@ for (const canonical of indexable)
   );
 for (const route of ["about/", "search/", "overview/", "404.html"])
   assert.ok(
-    !sitemap.includes(`/ai-design-foundations/${route}`),
+    !sitemap.includes(`/Rosarium/${route}`),
     `Sitemap contains noindex route: ${route}`,
   );
 assert.ok(sitemap.startsWith('<?xml version="1.0"'), "Invalid sitemap XML");
@@ -125,7 +125,7 @@ assert.match(robotsFile, /User-agent: \*/);
 assert.match(robotsFile, /Allow: \//);
 assert.match(
   robotsFile,
-  /Sitemap: https:\/\/nullcontroller\.github\.io\/ai-design-foundations\/sitemap\.xml/,
+  /Sitemap: https:\/\/nullcontroller\.github\.io\/Rosarium\/sitemap\.xml/,
 );
 
 for (const name of ["feed.xml", "rss.xml"]) {

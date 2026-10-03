@@ -18,7 +18,7 @@ published_at: null
 updated_at: "2026-09-22"
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/AI%E6%A5%AD%E5%8B%99%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%8F%82%E7%85%A7%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3
+  url: https://github.com/nullcontroller/Rosarium/wiki/AI%E6%A5%AD%E5%8B%99%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%8F%82%E7%85%A7%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3
   original_type: wiki
   slug: AI業務システムの参照アーキテクチャ
   topics: []

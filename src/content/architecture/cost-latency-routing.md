@@ -12,7 +12,7 @@ tags:
 published_at: null
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/AI%E3%82%B3%E3%82%B9%E3%83%88%E3%83%BBLatency%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB%E3%83%AB%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E8%A8%AD%E8%A8%88
+  url: https://github.com/nullcontroller/Rosarium/wiki/AI%E3%82%B3%E3%82%B9%E3%83%88%E3%83%BBLatency%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB%E3%83%AB%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E8%A8%AD%E8%A8%88
   original_type: wiki
   slug: AIコスト・Latency・モデルルーティング設計
   topics: []
@@ -22,7 +22,7 @@ source:
 > 種別：モデル選択 / Routing設計 / 経済性評価
 > 適用対象：生成AI、QAチャット、AIエージェント、コード生成、複数Model構成
 > 対象工程：Task分類 / Model選択 / 実行 / Fallback / Cost監視 / 再評価
-> 関連ページ：[複数AIの役割分担と工程設計](/software-engineering/multi-ai-orchestration/)、[AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)、[AIシステムのObservabilityとSLO設計](https://github.com/nullcontroller/ai-design-foundations/wiki/AI%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AEObservability%E3%81%A8SLO%E8%A8%AD%E8%A8%88)
+> 関連ページ：[複数AIの役割分担と工程設計](/software-engineering/multi-ai-orchestration/)、[AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)、[AIシステムのObservabilityとSLO設計](https://github.com/nullcontroller/Rosarium/wiki/AI%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AEObservability%E3%81%A8SLO%E8%A8%AD%E8%A8%88)
 
 ### 結論
 

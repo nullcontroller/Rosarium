@@ -28,7 +28,7 @@ for (const file of walk("dist").filter((p) => p.endsWith(".html"))) {
   for (const element of $("[href]").toArray()) {
     const href = $(element).attr("href");
     const allowedRepository =
-      href === "https://github.com/nullcontroller/ai-design-foundations" &&
+      href === "https://github.com/nullcontroller/Rosarium" &&
       $(element).closest(".site-footer").length === 1;
     if (allowedRepository) repositoryLinks++;
     assert(
@@ -40,7 +40,7 @@ for (const file of walk("dist").filter((p) => p.endsWith(".html"))) {
     );
     for (const id of removed)
       assert(
-        !href.startsWith("/ai-design-foundations/" + id + "/"),
+        !href.startsWith("/Rosarium/" + id + "/"),
         file + " removed link " + href,
       );
   }
@@ -56,13 +56,13 @@ for (const file of walk("dist").filter((p) => p.endsWith(".html"))) {
   assert.equal($("header.masthead > .brand").text().trim(), "Rosarium", file);
   assert.equal(
     $("header.masthead > .brand").attr("href"),
-    "/ai-design-foundations/",
+    "/Rosarium/",
     file,
   );
   const canonical = $('link[rel="canonical"]').attr("href");
   assert(
     canonical?.startsWith(
-      "https://nullcontroller.github.io/ai-design-foundations/",
+      "https://nullcontroller.github.io/Rosarium/",
     ),
     file,
   );
@@ -127,7 +127,7 @@ const profile = load(fs.readFileSync("dist/career/profile/index.html", "utf8"));
 assert.match(profile('meta[name="robots"]').attr("content") || "", /noindex/);
 assert.equal(
   profile('meta[http-equiv="refresh"]').attr("content"),
-  "0;url=/ai-design-foundations/career/",
+  "0;url=/Rosarium/career/",
 );
 assert(
   !profile("main").text().includes("職務経歴"),

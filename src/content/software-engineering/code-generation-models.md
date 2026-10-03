@@ -12,7 +12,7 @@ published_at: null
 updated_at: "2026-09-22"
 source:
   type: wiki
-  url: https://github.com/nullcontroller/ai-design-foundations/wiki/%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90AI%E3%81%AE%E6%AD%A3%E4%BD%93
+  url: https://github.com/nullcontroller/Rosarium/wiki/%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90AI%E3%81%AE%E6%AD%A3%E4%BD%93
   original_type: wiki
   slug: コード生成AIの正体
   topics: []

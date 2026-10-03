@@ -4,7 +4,7 @@ import path from "node:path";
 import { load } from "cheerio";
 import assert from "node:assert/strict";
 const root = path.resolve("dist"),
-  base = "/ai-design-foundations";
+  base = "/Rosarium";
 const walk = (d) =>
   fs
     .readdirSync(d, { withFileTypes: true })

@@ -91,7 +91,7 @@ assert.equal(career(".career-work").length, 3);
 assert.equal(career(".career-thinking-flow > li").length, 4);
 assert(career('a[href^="https://www.linkedin.com/in/"]').length >= 2);
 assert.equal(
-  career('a[href="/ai-design-foundations/career/profile/"]').length,
+  career('a[href="/Rosarium/career/profile/"]').length,
   0,
 );
 console.log(
@@ -110,7 +110,7 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html"))) {
   assert.equal(brand.text().trim(), "Rosarium", `${html}: brand text`);
   assert.equal(
     brand.attr("href"),
-    "/ai-design-foundations/",
+    "/Rosarium/",
     `${html}: base-aware brand link`,
   );
   assert.equal(
@@ -119,7 +119,7 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html"))) {
     `${html}: brand must not contain profile or decorative content`,
   );
   assert.equal(
-    brand.find('img.brand-mark[src="/ai-design-foundations/favicon.svg"]')
+    brand.find('img.brand-mark[src="/Rosarium/favicon.svg"]')
       .length,
     1,
     `${html}: shared brand mark`,
@@ -154,15 +154,15 @@ assert.deepEqual(
   ["庭", "AI", "DX", "事例"],
 );
 assert.equal(
-  top('.header-primary a[href="/ai-design-foundations/cases/"]').length,
+  top('.header-primary a[href="/Rosarium/cases/"]').length,
   1,
 );
 assert.equal(
-  top('.header-primary a[href="/ai-design-foundations/career/"]').length,
+  top('.header-primary a[href="/Rosarium/career/"]').length,
   0,
 );
 assert.equal(
-  top('.home-career a[href="/ai-design-foundations/career/"]').length,
+  top('.home-career a[href="/Rosarium/career/"]').length,
   1,
 );
 assert.equal(top(".header-actions a").length, 0);
@@ -184,11 +184,11 @@ assert.equal(
   5,
 );
 assert.equal(
-  top('.sidebar a[href="/ai-design-foundations/career/"]').length,
+  top('.sidebar a[href="/Rosarium/career/"]').length,
   0,
 );
 assert.equal(
-  top('.sidebar a[href="/ai-design-foundations/updates/"]').length,
+  top('.sidebar a[href="/Rosarium/updates/"]').length,
   0,
 );
 assert.deepEqual(
@@ -209,9 +209,9 @@ assert.deepEqual(
     .get(),
   ["庭", "AI", "DX", "事例"],
 );
-assert(career('a[href="/ai-design-foundations/ai/"]').length);
-assert(career('a[href="/ai-design-foundations/dx/"]').length);
-assert(career('a[href="/ai-design-foundations/cases/"]').length);
+assert(career('a[href="/Rosarium/ai/"]').length);
+assert(career('a[href="/Rosarium/dx/"]').length);
+assert(career('a[href="/Rosarium/cases/"]').length);
 const primaryIds = ($) =>
   $("[data-primary-index] [data-content-id]")
     .map((_, e) => $(e).attr("data-content-id"))
@@ -354,10 +354,10 @@ assert.deepEqual(
 );
 assert.equal(pubs(".reading-area > .icon").length, 0);
 for (const [section, href] of [
-  ["ai-design", "/ai-design-foundations/ai-design/"],
-  ["ai-mathematics", "/ai-design-foundations/ai-mathematics/"],
-  ["practices", "/ai-design-foundations/practices/"],
-  ["cases", "/ai-design-foundations/cases/"],
+  ["ai-design", "/Rosarium/ai-design/"],
+  ["ai-mathematics", "/Rosarium/ai-mathematics/"],
+  ["practices", "/Rosarium/practices/"],
+  ["cases", "/Rosarium/cases/"],
 ]) {
   const area = pubs(`#${section}`);
   assert(area.find(`a[href="${href}"]`).length, section);
@@ -369,7 +369,7 @@ assert.deepEqual(
   ["はじめに読む →", "Booksを見る →", "考察を見る →"],
 );
 assert.equal(
-  pubs('.secondary-reading a[href="/ai-design-foundations/essays/"]').length,
+  pubs('.secondary-reading a[href="/Rosarium/essays/"]').length,
   1,
 );
 const dx = page("dx");
@@ -390,7 +390,7 @@ assert.deepEqual(
   ["価値設計", "業務変革", "選択と廃止", "システム変革", "継続的価値創出"],
 );
 assert(dx("main").text().includes("有力な手段の一つ"));
-assert(dx('.dx-ai-connection a[href="/ai-design-foundations/ai/"]').length);
+assert(dx('.dx-ai-connection a[href="/Rosarium/ai/"]').length);
 for (const category of [
   "value-design",
   "business-transformation",
@@ -399,23 +399,23 @@ for (const category of [
   "continuous-value",
 ]) {
   assert(
-    dx(`a[href="/ai-design-foundations/dx/${category}/"]`).length,
+    dx(`a[href="/Rosarium/dx/${category}/"]`).length,
     `DX category link: ${category}`,
   );
   const categoryPage = page(`dx/${category}`);
   assert(categoryPage("h1").length, `DX category page: ${category}`);
   assert(
     categoryPage(
-      '[aria-label="関連する入口"] a[href="/ai-design-foundations/dx/"]',
+      '[aria-label="関連する入口"] a[href="/Rosarium/dx/"]',
     ).length,
   );
 }
-assert(dx('a[href="/ai-design-foundations/essays/dx-and-value/"]').length);
+assert(dx('a[href="/Rosarium/essays/dx-and-value/"]').length);
 assert(
-  dx('a[href="/ai-design-foundations/cases/customer-support-ai-dx/"]').length,
+  dx('a[href="/Rosarium/cases/customer-support-ai-dx/"]').length,
 );
 assert(
-  !dx('a[href="/ai-design-foundations/foundations/conditional-probability/"]')
+  !dx('a[href="/Rosarium/foundations/conditional-probability/"]')
     .length,
 );
 const dxEssay = page("essays/dx-and-value");
@@ -426,10 +426,10 @@ assert.deepEqual(
   ["AI", "DX"],
 );
 assert(
-  dxEssay('.content-entry-points a[href="/ai-design-foundations/ai/"]').length,
+  dxEssay('.content-entry-points a[href="/Rosarium/ai/"]').length,
 );
 assert(
-  dxEssay('.content-entry-points a[href="/ai-design-foundations/dx/"]').length,
+  dxEssay('.content-entry-points a[href="/Rosarium/dx/"]').length,
 );
 assert.deepEqual(
   dxEssay(".content-dx-topics a")
@@ -515,13 +515,13 @@ assert.match(
 );
 assert.equal(
   careerProfile("meta[http-equiv=refresh]").attr("content"),
-  "0;url=/ai-design-foundations/career/",
+  "0;url=/Rosarium/career/",
 );
 assert.equal(
   careerProfile('link[rel="canonical"]').attr("href"),
-  "https://nullcontroller.github.io/ai-design-foundations/career/",
+  "https://nullcontroller.github.io/Rosarium/career/",
 );
-assert(careerProfile('a[href="/ai-design-foundations/career/"]').length);
+assert(careerProfile('a[href="/Rosarium/career/"]').length);
 console.log(
   "Verified reading gateway, layer separation, related publications and existing URLs.",
 );
@@ -571,9 +571,9 @@ const overview = page("overview");
 assert.match(overview("meta[name=robots]").attr("content") || "", /noindex/);
 assert.equal(
   overview("meta[http-equiv=refresh]").attr("content"),
-  "0;url=/ai-design-foundations/ai/",
+  "0;url=/Rosarium/ai/",
 );
-assert(overview('a[href="/ai-design-foundations/ai/"]').length);
+assert(overview('a[href="/Rosarium/ai/"]').length);
 const articlesCompatibility = page("articles");
 assert.match(
   articlesCompatibility("meta[name=robots]").attr("content") || "",
@@ -581,9 +581,9 @@ assert.match(
 );
 assert.equal(
   articlesCompatibility("meta[http-equiv=refresh]").attr("content"),
-  "0;url=/ai-design-foundations/ai/",
+  "0;url=/Rosarium/ai/",
 );
-assert(articlesCompatibility('a[href="/ai-design-foundations/ai/"]').length);
+assert(articlesCompatibility('a[href="/Rosarium/ai/"]').length);
 console.log(
   "Verified overview compatibility redirect, three case books, independent series and simplified navigation.",
 );
@@ -602,14 +602,14 @@ assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
   "Rosariumの記事と情報構造を更新",
 );
-assert.equal(top('a[href="/ai-design-foundations/updates/"]').length, 0);
+assert.equal(top('a[href="/Rosarium/updates/"]').length, 0);
 const updates = page("updates");
 assert.match(updates("meta[name=robots]").attr("content") || "", /noindex/);
 assert.equal(
   updates("meta[http-equiv=refresh]").attr("content"),
-  "0;url=/ai-design-foundations/",
+  "0;url=/Rosarium/",
 );
-assert(updates('a[href="/ai-design-foundations/"]').length);
+assert(updates('a[href="/Rosarium/"]').length);
 assert.equal(updates(".growth-list [data-content-id]").length, 0);
 assert(
   !fs.readFileSync("dist/feed.xml", "utf8").includes("Rosarium 公開"),
@@ -809,15 +809,15 @@ for (const id of [
   const article = page(id);
   assert.equal(article("h1").length, 1, id);
   assert.equal(article('meta[name="last-updated"]').attr("content"), "2026-10-03", id);
-  assert.equal(article('link[rel="canonical"]').attr("href"), `https://nullcontroller.github.io/ai-design-foundations/${id}/`, id);
+  assert.equal(article('link[rel="canonical"]').attr("href"), `https://nullcontroller.github.io/Rosarium/${id}/`, id);
   assert.equal(article('main img[src^="http"]').length, 0, `${id}: no hotlinked image`);
   assert(article("[data-pagefind-body]").length, `${id}: searchable body`);
   for (const feed of ["rss.xml", "feed.json", "sitemap.xml"]) {
     assert(fs.readFileSync(`dist/${feed}`, "utf8").includes(`/${id}/`), `${id}: ${feed}`);
   }
 }
-assert(page("dx/selection-retirement")('a[href="/ai-design-foundations/essays/it-strategy-and-not-building/"]').length);
-assert(page("dx/business-transformation")('a[href="/ai-design-foundations/essays/rethink-work-before-ai/"]').length);
-assert(page("dx/system-transformation")('a[href="/ai-design-foundations/essays/legacy-change-and-retirement/"]').length);
-assert(page("practices")('a[href="/ai-design-foundations/practices/transferring-ai-practices/"]').length);
+assert(page("dx/selection-retirement")('a[href="/Rosarium/essays/it-strategy-and-not-building/"]').length);
+assert(page("dx/business-transformation")('a[href="/Rosarium/essays/rethink-work-before-ai/"]').length);
+assert(page("dx/system-transformation")('a[href="/Rosarium/essays/legacy-change-and-retirement/"]').length);
+assert(page("practices")('a[href="/Rosarium/practices/transferring-ai-practices/"]').length);
 console.log("Verified imported essay discovery, canonical routes, search bodies and feeds; transfer article retains its existing route.");

@@ -105,6 +105,6 @@ AIの価値は、生成能力だけでは決まりません。必要な仕事へ
 
 ## 関連ページ
 
-- [AI導入を業務へ定着させる](/ai-design-foundations/practices/adoption-governance/)
-- [AI適用可否と委任レベルの設計](/ai-design-foundations/foundations/applicability-and-delegation/)
-- [責任境界と状態遷移](/ai-design-foundations/reference/responsibility-state-model/)
+- [AI導入を業務へ定着させる](/Rosarium/practices/adoption-governance/)
+- [AI適用可否と委任レベルの設計](/Rosarium/foundations/applicability-and-delegation/)
+- [責任境界と状態遷移](/Rosarium/reference/responsibility-state-model/)
