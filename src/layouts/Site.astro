@@ -11,6 +11,7 @@ import {
 import { navigation } from "../lib/navigation";
 import NavIcon from "../components/NavIcon.astro";
 import GlobalSearch from "../components/GlobalSearch.astro";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import type { ReadingGroup } from "../lib/reading";
 interface Props {
   title: string;
@@ -231,6 +232,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       set:html={JSON.stringify(structuredData)}
     ></script>
     <slot name="head" />
+    <GoogleAnalytics />
   </head>
   <body class:list={[section === "" && "home-page", !frame && "career-page"]}>
     <a class="skip" href="#main">
@@ -445,6 +447,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           Repository
         </a>
       </nav>
+      <p class="meta" data-pagefind-ignore>利用状況を把握し、コンテンツや導線を改善するため、Google Analytics 4を使用しています。Cookieなどを通じて閲覧・端末情報を収集します。<a href="https://policies.google.com/technologies/partner-sites?hl=ja">Googleによるデータの利用について</a></p>
     </footer>
     <script>
       const navigationViewport = matchMedia("(max-width: 760px)");
