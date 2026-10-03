@@ -2187,6 +2187,20 @@ blockquote {
   margin: 0;
 }
 
+.growth-changes {
+  padding-inline-start: 1.1rem;
+  list-style: disc;
+}
+.growth-changes li {
+  margin: 0.25rem 0;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+.growth-changes li::marker {
+  color: var(--muted);
+  font-size: 0.7em;
+}
+
 .growth-meta {
   display: flex;
   flex-wrap: wrap;

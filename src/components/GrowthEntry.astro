@@ -27,6 +27,8 @@ const { entry } = Astro.props;
     <h3 class="content-title">
       <a href={url(entry.href)}>{entry.title}</a>
     </h3>
-    <p class="content-summary">{entry.summary}</p>
+    <ul class="growth-changes content-summary" role="list">
+      {entry.changes.map((change) => <li>{change}</li>)}
+    </ul>
   </div>
 </article>

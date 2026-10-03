@@ -610,6 +610,22 @@ assert.equal(top('a[href="#about-rosarium"]').text(), "Rosariumとは？ →");
 assert.equal(top("#about-rosarium").length, 1);
 assert.equal(top("#about-rosarium").text(), "Rosariumという名前について");
 assert.equal(top(".growth-list [data-growth-entry]").length, 2);
+const growthDates = new Set();
+for (const element of top("[data-growth-entry]").toArray()) {
+  const entry = top(element);
+  assert.equal(entry.find("time").length, 1);
+  const date = entry.find("time").attr("datetime");
+  assert(!growthDates.has(date), `Duplicate Recent Growth date: ${date}`);
+  growthDates.add(date);
+  assert.equal(entry.find("p.content-summary").length, 0);
+  const changes = entry.find(".growth-changes > li");
+  assert(changes.length > 0, `${date}: changes are required`);
+  for (const change of changes.toArray()) {
+    assert(top(change).text().trim());
+    assert(!/[／/]/.test(top(change).text()), `${date}: no slash-joined changes`);
+  }
+}
+assert.equal(top("[data-growth-entry]").first().find(".growth-changes > li").length, 8);
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
   "Rosariumの記事と情報構造を更新",
