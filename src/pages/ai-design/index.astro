@@ -23,7 +23,8 @@ const appliedAreas = [
   {
     number: "700",
     title: "AI評価設計",
-    summary: "業務価値、品質、リスク、Human in the Loopを測り、採用と改善へつなぐ。",
+    summary:
+      "業務価値、品質、リスク、Human in the Loopを測り、採用と改善へつなぐ。",
     path: "ai-design/evaluation-hitl",
   },
   {
@@ -41,7 +42,8 @@ const appliedAreas = [
   {
     number: "1000",
     title: "AIエージェント設計",
-    summary: "Tool、Workflow、Context、権限を分け、実行可能な工程として接続する。",
+    summary:
+      "AIへ渡す情報、使える道具、実行権限を決め、仕事の流れへつなぐ。Tool / Workflow / Contextを分けて設計する。",
     path: "architecture/agents-tools-and-workflows",
   },
   {
@@ -66,7 +68,6 @@ const appliedAreas = [
   themeGroups={themeGroups}
 >
   <PageHeader title="AI設計" />
-  <p class="lead">価値から逆算し、AIを業務システムへどう組み込むか。</p>
   <p>
     AI技術の導入を目的にせず、実現したい業務変化からAI・人間・既存システムの役割を決めます。AIを使わない判断も、AI設計の一部です。
   </p>
@@ -74,7 +75,9 @@ const appliedAreas = [
   <section aria-labelledby="value-first-design">
     <h2 id="value-first-design">価値から始める</h2>
     <ol class="design-flow" aria-label="価値から再設計までの設計順序">
-      {designFlow.map((stage) => <li>{stage}</li>)}
+      {designFlow.map((stage) => (
+        <li>{stage}</li>
+      ))}
     </ol>
     <p>
       <a href={url("foundations/applicability-and-delegation")}>
@@ -85,12 +88,16 @@ const appliedAreas = [
 
   <section aria-labelledby="applied-ai-areas">
     <h2 id="applied-ai-areas">Applied AI設計の接続領域</h2>
-    <p>既存の設計知識を、設計・構築・評価・運用・改善の循環として接続します。</p>
+    <p>
+      既存の設計知識を、設計・構築・評価・運用・改善の循環として接続します。
+    </p>
     <ol class="design-area-list">
       {appliedAreas.map((area) => (
         <li>
           <p class="eyebrow">{area.number}</p>
-          <h3><a href={url(area.path)}>{area.title} →</a></h3>
+          <h3>
+            <a href={url(area.path)}>{area.title} →</a>
+          </h3>
           <p>{area.summary}</p>
         </li>
       ))}
@@ -106,7 +113,9 @@ const appliedAreas = [
   {designTopics.map(([key, title, summary]) => (
     <section>
       <h2>{title}</h2>
-      <p class="section-title-link"><a href={url("ai-design/" + key)}>このテーマを見る →</a></p>
+      <p class="section-title-link">
+        <a href={url("ai-design/" + key)}>このテーマを見る →</a>
+      </p>
       <p>{summary}</p>
       <ContentIndex
         showIcons={false}

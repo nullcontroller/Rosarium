@@ -1,11 +1,11 @@
 ---
-summary: "PlantUMLなど人間が全体像を理解する資料と、RAGで検索するMarkdownの知識を分ける。図や文脈を残しながら、AIが扱う情報の範囲と表現を整理する。"
+summary: "人がシステムの全体像を理解する図と、AIが必要な根拠を探す資料を分けます。PlantUMLとMarkdownを使い、文脈を残しながら、RAGが取得する情報の範囲を整理します。"
 layer: publication
 title: 第6章 人間用とAI用の分離設計 ― PlantUMLとMarkdownの役割分担
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 tags: &a1
   - ai
   - 設計

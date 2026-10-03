@@ -13,8 +13,9 @@ interface Props {
   heading?: "h2" | "h3" | "p";
   current?: boolean;
   showIcon?: boolean;
+  showEntryPoints?: boolean;
 }
-const { entry, heading: Heading = "h2", current = false, showIcon = true } = Astro.props;
+const { entry, heading: Heading = "h2", current = false, showIcon = true, showEntryPoints = true } = Astro.props;
 const d = entry.data;
 const entryPoints = contentEntryPoints(entry);
 const format = publicationType(entry);
@@ -26,7 +27,7 @@ const showCategory = !(format === "Essay" && category === "Essays");
   {showIcon && <Icon name={iconForEntry(entry)} size="list" />}
   <div>
     <p class="meta content-entry-meta">
-      {entryPoints.map((entryPoint) => (
+      {showEntryPoints && entryPoints.map((entryPoint) => (
         <a
           class="entry-point-label"
           href={url(entryPointDefinitions[entryPoint].path)}

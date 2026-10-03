@@ -1,11 +1,11 @@
 ---
-summary: "入力・Context・指示・生成条件によって出力が変わる仕組みを、条件付き確率から整理する。確率的な誘導の限界を、RAG・ガードレール・評価などの実務設計へ接続する。"
+summary: "同じAIでも、渡す情報や指示が変わると答えが変わります。その仕組みを条件付き確率から整理し、回答のばらつきと、RAG・ガードレール・評価で制御できる範囲を考えます。"
 layer: ai-mathematics
 title: 生成AIの条件付き確率モデル基礎
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-09-22"
+last_updated: "2026-10-04"
 tags:
   - foundations
 published_at: null

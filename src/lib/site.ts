@@ -1,55 +1,109 @@
 export const sections = [
   ["foundations", "AI設計原則", "新しい入口はStart Hereから"],
-  ["architecture", "Architecture", "業務システムの全体設計"],
-  ["knowledge-context", "Knowledge / Context", "知識・根拠・情報環境"],
-  ["evaluation-hitl", "Evaluation / HITL", "検証・レビュー・採否判断"],
-  ["software-engineering", "Software Engineering", "開発工程とAIの役割分担"],
+  [
+    "architecture",
+    "Architecture",
+    "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むArchitectureを設計します。",
+  ],
+  [
+    "knowledge-context",
+    "Knowledge / Context",
+    "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。Knowledge / Contextの役割と更新方法を設計します。",
+  ],
+  [
+    "evaluation-hitl",
+    "Evaluation / HITL",
+    "AIの答えをどこまで機械で評価し、どこから人間が判断するかを決めます。Evaluation / HITLで、採用と改善の基準を設計します。",
+  ],
+  [
+    "software-engineering",
+    "Software Engineering",
+    "コードを作る速さだけでなく、安全に変更を採用できるかを考えます。開発・保守の工程へAIを組み込む方法を扱います。",
+  ],
   ["practices", "実践知", "導入・教育・適用判断"],
   ["cases", "実践事例", "原則を適用した実務事例"],
   ["essays", "Essays", "市場・キャリア・技術への考察"],
 ] as const;
 export const base = "/Rosarium";
 export const siteDescription =
-  "Rosariumは、AIを主題として、設計・理論・実務を考察するPersonal Technical Siteです。文脈に応じて、DX、システム設計、業務設計などの関連領域も扱います。";
+  "AIを仕事にどう組み込み、人間とどう分担するかを考える個人の技術サイトです。DX、システム設計、業務設計も扱い、具体的な事例から設計・理論を深めます。";
+
+// Reader-facing introductions are shared by page headings and SEO descriptions.
+export const pageIntroductions: Record<string, string> = {
+  "software-engineering":
+    "コードを作る速さだけでなく、安全に変更を採用できるかを考えます。開発・保守の工程へAIを組み込む方法を扱います。",
+  "evaluation-hitl":
+    "AIの答えをどこまで機械で評価し、どこから人間が判断するかを決めます。Evaluation / HITLで、採用と改善の基準を設計します。",
+  "knowledge-context":
+    "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。Knowledge / Contextの役割と更新方法を設計します。",
+  architecture:
+    "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むArchitectureを設計します。",
+  ai: "AIに何を任せ、何を人間が判断するか。仕事へ組み込む方法を、設計・理論・実践・事例から考えます。",
+  "ai-design":
+    "AIを導入する前に、変えたい仕事と、AI・人間が担う役割を決めます。必要な情報、確認方法、運用までを設計する領域です。",
+  "ai-mathematics":
+    "AIの答えはなぜ変わるのか、どこまで制御できるのか。生成の仕組みを確率や数学から理解します。",
+  practices:
+    "AIを現場で使い続けるために、教え方、情報の渡し方、確認の手順を考えます。導入・教育・開発・組織での実践を扱います。",
+  cases:
+    "実際の業務課題に対して、何を変え、なぜその設計を選んだか。既存システムの理解、保守、問い合わせ対応を3冊の事例で読みます。",
+  books:
+    "業務の課題から、設計・確認・改善までを章ごとに追う実務事例です。3冊それぞれで、判断の理由と役割分担を確かめられます。",
+  dx: "技術を入れること自体ではなく、価値を届けるために業務・サービス・システム・組織を変えることを考えます。AIはそのための手段の一つです。",
+  reference:
+    "用語や数式、評価の基準を、設計中に確認するための資料です。本文を読む際の前提や、判断の根拠を確かめられます。",
+  essays:
+    "技術や仕事の変化に対して、何を選び、何を問い直すか。実務と学習から得た考察をまとめています。",
+  series:
+    "一つの問いを複数の記事で掘り下げる連載です。AIへ仕事を任せる判断から、品質保証や組織での使い方まで順に考えます。",
+  "start-here":
+    "何から読めばよいか迷ったときの入口です。関心のある課題から、設計原則・実践・事例へ進めます。",
+  articles:
+    "AIを仕事へ組み込む際の判断と仕組みを読む記事一覧です。知りたい課題に合わせて、設計・理論・実践を選べます。",
+};
+export const introductionForPath = (pathname: string) =>
+  pageIntroductions[
+    pathname.replace(/^\/Rosarium(?=\/|$)/, "").replace(/^\/+|\/+$/g, "")
+  ];
 export const fallbackLastUpdated = "2026-09-28";
 // Content/structure dates are explicit; shared CSS, analytics and deploys do not change them.
 export const staticPageLastUpdated: Record<string, string> = {
-  "": "2026-10-03",
-  ai: "2026-10-03",
-  "ai-design": "2026-09-28",
-  "ai-design/applicability": "2026-10-03",
-  "ai-design/responsibility-control": "2026-09-28",
-  "ai-design/architecture": "2026-09-28",
-  "ai-design/knowledge-context": "2026-09-29",
-  "ai-design/evaluation-hitl": "2026-09-28",
-  "ai-design/software-engineering": "2026-10-03",
-  "ai-design/lifecycle-operations": "2026-10-03",
-  "ai-mathematics": "2026-10-03",
-  books: "2026-10-03",
-  cases: "2026-10-03",
-  dx: "2026-10-03",
+  "": "2026-10-04",
+  ai: "2026-10-04",
+  "ai-design": "2026-10-04",
+  "ai-design/applicability": "2026-10-04",
+  "ai-design/responsibility-control": "2026-10-04",
+  "ai-design/architecture": "2026-10-04",
+  "ai-design/knowledge-context": "2026-10-04",
+  "ai-design/evaluation-hitl": "2026-10-04",
+  "ai-design/software-engineering": "2026-10-04",
+  "ai-design/lifecycle-operations": "2026-10-04",
+  "ai-mathematics": "2026-10-04",
+  books: "2026-10-04",
+  cases: "2026-10-04",
+  dx: "2026-10-04",
   "dx/value-design": "2026-10-03",
   "dx/business-transformation": "2026-10-03",
   "dx/selection-retirement": "2026-10-03",
-  "dx/system-transformation": "2026-10-03",
-  "dx/continuous-value": "2026-10-03",
-  essays: "2026-10-03",
-  practices: "2026-10-03",
-  reference: "2026-09-28",
-  series: "2026-09-28",
-  "start-here": "2026-09-28",
-  architecture: "2026-09-29",
-  "knowledge-context": "2026-09-29",
-  "software-engineering": "2026-10-03",
-  "evaluation-hitl": "2026-10-03",
+  "dx/system-transformation": "2026-10-04",
+  "dx/continuous-value": "2026-10-04",
+  essays: "2026-10-04",
+  practices: "2026-10-04",
+  reference: "2026-10-04",
+  series: "2026-10-04",
+  "start-here": "2026-10-04",
+  architecture: "2026-10-04",
+  "knowledge-context": "2026-10-04",
+  "software-engineering": "2026-10-04",
+  "evaluation-hitl": "2026-10-04",
   foundations: "2026-09-28",
   "foundations/llm-as-probabilistic-model": "2026-09-28",
-  career: "2026-10-03",
-  "career/details": "2026-10-03",
+  career: "2026-10-04",
+  "career/details": "2026-10-04",
   "career/profile": "2026-09-28",
   search: "2026-09-28",
   about: "2026-09-28",
-  articles: "2026-09-28",
+  articles: "2026-10-04",
   overview: "2026-09-28",
   updates: "2026-09-28",
   "404.html": "2026-09-28",
@@ -58,9 +112,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "software-engineering/ai-design-assistance": "2026-10-03",
 };
 export const staticLastUpdatedForPath = (pathname: string) => {
-  const route = pathname
-    .replace(base, "")
-    .replace(/^\/+|\/+$/g, "");
+  const route = pathname.replace(base, "").replace(/^\/+|\/+$/g, "");
   return staticPageLastUpdated[route] ?? fallbackLastUpdated;
 };
 export const formatDateJa = (value: string) => {

@@ -6,16 +6,14 @@ import { readingCategories } from "../lib/navigation";
 ---
 
 <Site title="AI" section="ai">
-  <PageHeader
-    icon="articles"
-    title="AI"
-    summary="AIを、価値・業務・システムの文脈から考え、設計・理論・実践・事例へつなぎます。"
-  />
+  <PageHeader icon="articles" title="AI" />
 
   <section class="reading-domain" aria-labelledby="ai-reading-heading">
     <p class="eyebrow">PRIMARY DOMAIN</p>
     <h2 id="ai-reading-heading">AIについて何を考えているか</h2>
-    <p>AIの性質だけでなく、使う目的、責任境界、業務への組み込み方、導入後の評価と改善までを扱います。知りたいことに近い問いから選べます。</p>
+    <p>
+      AIの性質だけでなく、使う目的、責任境界、業務への組み込み方、導入後の評価と改善までを扱います。知りたいことに近い問いから選べます。
+    </p>
     <div class="reading-directory">
       {readingCategories.map((category) => (
         <section class="reading-area" id={category.path}>

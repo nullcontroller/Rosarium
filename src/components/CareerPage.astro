@@ -1,6 +1,7 @@
 ---
 import { getEntry, render } from "astro:content";
 import Site from "../layouts/Site.astro";
+import { splitRelatedContent, relatedTargets } from "../lib/related-content.mjs";
 import MarkdownBody from "./MarkdownBody.astro";
 import { url } from "../lib/site";
 import { statusLabel } from "../lib/site";
@@ -12,6 +13,8 @@ const entry = await getEntry("career", Astro.props.id);
 if (!entry) throw new Error("Career content missing");
 const { headings } = await render(entry);
 const d = entry.data;
+const content = splitRelatedContent(entry.rendered?.html || "");
+const relatedLinks = relatedTargets(content.related, Astro.url.href);
 const isOverview = Astro.props.id === "overview";
 const linkedIn =
   "https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/";
@@ -58,6 +61,11 @@ const linkedIn =
       <span data-pagefind-meta="category">キャリア</span> ·{" "}
       <span data-pagefind-meta="status">{statusLabel(d.status)}</span>
     </p>
+    <div class="prose">
+      <MarkdownBody html={content.body} />
+    </div>
+  </article>
+  <section class="content-related" aria-label="関連する内容" data-related-content>
     <nav class="career-actions" aria-label="キャリアの主要導線">
       <a
         class="career-cta career-cta-primary"
@@ -65,12 +73,8 @@ const linkedIn =
       >
         {isOverview ? "経験と実践の背景を見る →" : "Careerの設計思想へ戻る →"}
       </a>
-      <a class="career-cta career-cta-secondary" href={linkedIn}>
-        LinkedInプロフィール →
-      </a>
+      {!relatedLinks.has(linkedIn) && <a class="career-cta career-cta-secondary" href={linkedIn}>LinkedInプロフィール →</a>}
     </nav>
-    <div class="prose">
-      <MarkdownBody html={entry.rendered?.html || ""} />
-    </div>
-  </article>
+    <div class="prose"><MarkdownBody html={content.related} /></div>
+  </section>
 </Site>

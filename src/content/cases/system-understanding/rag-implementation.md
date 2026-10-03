@@ -1,11 +1,11 @@
 ---
-summary: "RAGの知識粒度・検索範囲・UIとの対応・QA形式を調整し、実務で使える回答へ整える。AIによる説明生成と人間による検証・判断を分担する。"
+summary: "質問に関係する根拠を探し、実務で確認できる回答へつなぐ仕組みを整えます。RAGの検索範囲・知識の粒度・画面操作との対応を調整し、AIの生成と人間の検証を分担します。"
 layer: publication
 title: 第8章 RAGの再利用設計 ― QAチャットとして成立させる実装
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 tags: &a1
   - ai
   - 設計

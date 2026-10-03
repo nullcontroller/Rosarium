@@ -21,7 +21,6 @@ const categories = themeGroups.map((group) => ({
 
 <Site title="実践知" section="practices" themeGroups={themeGroups}>
   <PageHeader title="実践知" />
-  <p class="lead">設計原則を、AI導入・教育・横展開・開発Workflowへ適用する。</p>
   {categories.map((category) => (
     <section data-practice-category aria-label={category.title}>
       <h2>{category.title}</h2>

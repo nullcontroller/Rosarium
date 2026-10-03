@@ -120,7 +120,7 @@ assert.equal(
   "Career must not duplicate the qualification list",
 );
 assert(
-  career('a[href^="https://www.linkedin.com/in/"]').length >= 2,
+  career('a[href^="https://www.linkedin.com/in/"]').length === 1,
   "LinkedIn CTAs",
 );
 const profile = load(fs.readFileSync("dist/career/profile/index.html", "utf8"));

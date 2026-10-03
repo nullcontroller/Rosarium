@@ -1,11 +1,11 @@
 ---
-summary: "顧客サポートQAシステムの課題、業務変化、AIと人間の分担、設計範囲、事実性の扱いをExecutive Summaryとして示す。"
+summary: "問い合わせ対応の何が問題で、AIと人の仕事をどう分ける設計なのかを短くまとめます。扱う設計範囲と、確認できる事実・設計条件・試算の区別をExecutive Summaryとして示します。"
 layer: publication
 title: 00. このケーススタディについて
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 entry_points: [ai, dx]
 dx_topic: case-study
 tags: [Applied AI, DX, RAG, HITL, System Architecture]

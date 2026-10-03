@@ -1,11 +1,11 @@
 ---
-summary: "CNG API / DPAPIへの暗号方式変更を契機に、暗号APIとレジストリの未定義の異常系を整理する。発生位置、情報の重要度、後続処理への影響から、安全な動作を設計する必要性を示す。"
+summary: "暗号処理を変えるとき、失敗した場合の動作が決まっていない箇所を確認します。CNG API / DPAPIとレジストリを題材に、後続処理への影響から安全な停止・復旧を考えます。"
 layer: publication
 title: 第1章　暗号方式の変更によって顕在化した異常系
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 tags: &a1
   - ソフトウェア設計
   - 生成ai

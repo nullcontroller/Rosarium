@@ -90,7 +90,11 @@ assert.equal(career(".career-focus-grid > section").length, 7);
 assert.equal(career(".career-work").length, 3);
 assert.equal(career('a[href="/Rosarium/career/details/"]').length, 1);
 assert(career(".career-actions").text().includes("経験と実践の背景を見る"));
-for (const heading of ["Career Detail", "Career Summary", "Experience Overview"]) {
+for (const heading of [
+  "Career Detail",
+  "Career Summary",
+  "Experience Overview",
+]) {
   assert(
     !career("main h2, main h3")
       .toArray()
@@ -101,11 +105,8 @@ const details = load(fs.readFileSync("dist/career/details/index.html", "utf8"));
 assert.equal(details(".career-work").length, 3);
 assert(details("main").text().includes("Experience Overview"));
 assert(details('a[href="/Rosarium/career/"]').length);
-assert(career('a[href^="https://www.linkedin.com/in/"]').length >= 2);
-assert.equal(
-  career('a[href="/Rosarium/career/profile/"]').length,
-  0,
-);
+assert(career('a[href^="https://www.linkedin.com/in/"]').length === 1);
+assert.equal(career('a[href="/Rosarium/career/profile/"]').length, 0);
 console.log(
   `Verified ${entries.size} summaries/search metadata, ${links} content links and Career gateway.`,
 );
@@ -131,8 +132,7 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html"))) {
     `${html}: brand must not contain profile or decorative content`,
   );
   assert.equal(
-    brand.find('img.brand-mark[src="/Rosarium/favicon.svg"]')
-      .length,
+    brand.find('img.brand-mark[src="/Rosarium/favicon.svg"]').length,
     1,
     `${html}: shared brand mark`,
   );
@@ -141,23 +141,17 @@ assert.equal(
   top(".home-introduction .lead").text(),
   "学習と実務を通じて育て続ける「庭」",
 );
-assert(top(".home-site-description").text().includes("AIを主題として"));
+assert(top(".home-site-description").text().includes("AIを仕事にどう組み込み"));
 assert(
   top(".home-site-description").text().includes("DX、システム設計、業務設計"),
 );
 assert(!top("main").text().includes("Applied AI / System Architecture"));
-assert(!top(".home-introduction").text().includes("立林 裕太朗"));
+assert(top(".home-introduction").text().includes("立林 裕太朗"));
 assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  [
-    "庭",
-    "AI",
-    "DX",
-    "実践事例",
-    "Reference",
-  ],
+  ["庭", "AI", "DX", "実践事例", "Reference"],
 );
 assert.deepEqual(
   top(".header-primary a")
@@ -165,18 +159,9 @@ assert.deepEqual(
     .get(),
   ["庭", "AI", "DX", "事例"],
 );
-assert.equal(
-  top('.header-primary a[href="/Rosarium/cases/"]').length,
-  1,
-);
-assert.equal(
-  top('.header-primary a[href="/Rosarium/career/"]').length,
-  0,
-);
-assert.equal(
-  top('.home-career a[href="/Rosarium/career/"]').length,
-  1,
-);
+assert.equal(top('.header-primary a[href="/Rosarium/cases/"]').length, 1);
+assert.equal(top('.header-primary a[href="/Rosarium/career/"]').length, 0);
+assert.equal(top('.home-career a[href="/Rosarium/career/"]').length, 1);
 assert.equal(top(".header-actions a").length, 0);
 assert.equal(top("#global-search-input").length, 1);
 assert.equal(top(".global-search-toggle").length, 1);
@@ -195,14 +180,8 @@ assert.equal(
   ).size,
   5,
 );
-assert.equal(
-  top('.sidebar a[href="/Rosarium/career/"]').length,
-  0,
-);
-assert.equal(
-  top('.sidebar a[href="/Rosarium/updates/"]').length,
-  0,
-);
+assert.equal(top('.sidebar a[href="/Rosarium/career/"]').length, 0);
+assert.equal(top('.sidebar a[href="/Rosarium/updates/"]').length, 0);
 assert.deepEqual(
   top(".sidebar .nav-children a .nav-copy > span")
     .map((_, e) => top(e).text())
@@ -341,7 +320,7 @@ assert.equal(top("#use-case-heading,#current-growth-heading").length, 0);
 assert.equal(pubs("h1").text(), "AI");
 assert.equal(
   pubs(".page-heading .lead").text(),
-  "AIを、価値・業務・システムの文脈から考え、設計・理論・実践・事例へつなぎます。",
+  "AIに何を任せ、何を人間が判断するか。仕事へ組み込む方法を、設計・理論・実践・事例から考えます。",
 );
 assert.equal(pubs("#current-topics-heading").length, 0);
 assert.equal(pubs("[data-publication]").length, 0);
@@ -380,10 +359,7 @@ assert.deepEqual(
     .get(),
   ["はじめに読む →", "Booksを見る →", "考察を見る →"],
 );
-assert.equal(
-  pubs('.secondary-reading a[href="/Rosarium/essays/"]').length,
-  1,
-);
+assert.equal(pubs('.secondary-reading a[href="/Rosarium/essays/"]').length, 1);
 const dx = page("dx");
 assert.equal(dx("h1").text(), "DX");
 assert(
@@ -417,19 +393,12 @@ for (const category of [
   const categoryPage = page(`dx/${category}`);
   assert(categoryPage("h1").length, `DX category page: ${category}`);
   assert(
-    categoryPage(
-      '[aria-label="関連する入口"] a[href="/Rosarium/dx/"]',
-    ).length,
+    categoryPage('[aria-label="関連する入口"] a[href="/Rosarium/dx/"]').length,
   );
 }
 assert(dx('a[href="/Rosarium/essays/dx-and-value/"]').length);
-assert(
-  dx('a[href="/Rosarium/cases/customer-support-ai-dx/"]').length,
-);
-assert(
-  !dx('a[href="/Rosarium/foundations/conditional-probability/"]')
-    .length,
-);
+assert(dx('a[href="/Rosarium/cases/customer-support-ai-dx/"]').length);
+assert(!dx('a[href="/Rosarium/foundations/conditional-probability/"]').length);
 const dxEssay = page("essays/dx-and-value");
 assert.deepEqual(
   dxEssay(".content-entry-points a")
@@ -437,12 +406,8 @@ assert.deepEqual(
     .get(),
   ["AI", "DX"],
 );
-assert(
-  dxEssay('.content-entry-points a[href="/Rosarium/ai/"]').length,
-);
-assert(
-  dxEssay('.content-entry-points a[href="/Rosarium/dx/"]').length,
-);
+assert(dxEssay('.content-entry-points a[href="/Rosarium/ai/"]').length);
+assert(dxEssay('.content-entry-points a[href="/Rosarium/dx/"]').length);
 assert.deepEqual(
   dxEssay(".content-dx-topics a")
     .map((_, element) => dxEssay(element).text())
@@ -604,12 +569,17 @@ assert(top("#recent-growth-heading").length);
 assert.equal(top(".growth-scrollbox").length, 1);
 assert.equal(top(".growth-scrollbox").attr("tabindex"), "0");
 assert.equal(top(".growth-scrollbox").attr("role"), "region");
-assert.equal(top(".growth-scrollbox").attr("aria-labelledby"), "recent-growth-heading");
+assert.equal(
+  top(".growth-scrollbox").attr("aria-labelledby"),
+  "recent-growth-heading",
+);
 assert.equal(top("main > section").length, 4);
 assert.equal(top('a[href="#about-rosarium"]').text(), "Rosariumとは？ →");
 assert.equal(top("#about-rosarium").length, 1);
 assert.equal(top("#about-rosarium").text(), "Rosariumという名前について");
-assert.equal(top(".growth-list [data-growth-entry]").length, 2);
+assert.equal(top(".growth-list [data-growth-entry]").length, 3);
+assert.equal(top('[data-growth-entry] time[datetime="2026-10-04"]').length, 1);
+assert.equal(top('[data-growth-entry] time[datetime="2026-10-03"]').closest("[data-growth-entry]").find(".growth-changes > li").length, 8);
 const growthDates = new Set();
 for (const element of top("[data-growth-entry]").toArray()) {
   const entry = top(element);
@@ -622,13 +592,19 @@ for (const element of top("[data-growth-entry]").toArray()) {
   assert(changes.length > 0, `${date}: changes are required`);
   for (const change of changes.toArray()) {
     assert(top(change).text().trim());
-    assert(!/[／/]/.test(top(change).text()), `${date}: no slash-joined changes`);
+    assert(
+      !/[／/]/.test(top(change).text()),
+      `${date}: no slash-joined changes`,
+    );
   }
 }
-assert.equal(top("[data-growth-entry]").first().find(".growth-changes > li").length, 8);
+assert.equal(
+  top("[data-growth-entry]").first().find(".growth-changes > li").length,
+  6,
+);
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
-  "Rosariumの記事と情報構造を更新",
+  "読書画面と更新履歴を整理",
 );
 assert.equal(top('a[href="/Rosarium/updates/"]').length, 0);
 const updates = page("updates");
@@ -653,7 +629,7 @@ for (const route of ["ai-mathematics", "practices"]) {
   );
   assert.equal(
     $(".site-last-updated time").attr("datetime"),
-    "2026-10-03",
+    "2026-10-04",
     `${route}: last updated`,
   );
 }
@@ -798,11 +774,26 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
       const group = sidebarGroups.eq(index);
       assert.equal(
         $(category).children("h2").text(),
-        group.children("summary").clone().children().remove().end().text().trim(),
+        group
+          .children("summary")
+          .clone()
+          .children()
+          .remove()
+          .end()
+          .text()
+          .trim(),
       );
-      const links = $(category).find(".content-title a")
-        .map((_, e) => $(e).attr("href")).get();
-      assert.deepEqual(links, group.find("a").map((_, e) => $(e).attr("href")).get());
+      const links = $(category)
+        .find(".content-title a")
+        .map((_, e) => $(e).attr("href"))
+        .get();
+      assert.deepEqual(
+        links,
+        group
+          .find("a")
+          .map((_, e) => $(e).attr("href"))
+          .get(),
+      );
       assert.equal(new Set(links).size, links.length);
     });
     assert.equal($(".theme-toc-mobile").length, 0);
@@ -836,16 +827,98 @@ for (const id of [
 ]) {
   const article = page(id);
   assert.equal(article("h1").length, 1, id);
-  assert.equal(article('meta[name="last-updated"]').attr("content"), "2026-10-03", id);
-  assert.equal(article('link[rel="canonical"]').attr("href"), `https://nullcontroller.github.io/Rosarium/${id}/`, id);
-  assert.equal(article('main img[src^="http"]').length, 0, `${id}: no hotlinked image`);
+  assert.equal(
+    article('meta[name="last-updated"]').attr("content"),
+    id === "essays/rethink-work-before-ai" ? "2026-10-04" : "2026-10-03",
+    id,
+  );
+  assert.equal(
+    article('link[rel="canonical"]').attr("href"),
+    `https://nullcontroller.github.io/Rosarium/${id}/`,
+    id,
+  );
+  assert.equal(
+    article('main img[src^="http"]').length,
+    0,
+    `${id}: no hotlinked image`,
+  );
   assert(article("[data-pagefind-body]").length, `${id}: searchable body`);
   for (const feed of ["rss.xml", "feed.json", "sitemap.xml"]) {
-    assert(fs.readFileSync(`dist/${feed}`, "utf8").includes(`/${id}/`), `${id}: ${feed}`);
+    assert(
+      fs.readFileSync(`dist/${feed}`, "utf8").includes(`/${id}/`),
+      `${id}: ${feed}`,
+    );
   }
 }
-assert(page("dx/selection-retirement")('a[href="/Rosarium/essays/it-strategy-and-not-building/"]').length);
-assert(page("dx/business-transformation")('a[href="/Rosarium/essays/rethink-work-before-ai/"]').length);
-assert(page("dx/system-transformation")('a[href="/Rosarium/essays/legacy-change-and-retirement/"]').length);
-assert(page("practices")('a[href="/Rosarium/practices/transferring-ai-practices/"]').length);
-console.log("Verified imported essay discovery, canonical routes, search bodies and feeds; transfer article retains its existing route.");
+assert(
+  page("dx/selection-retirement")(
+    'a[href="/Rosarium/essays/it-strategy-and-not-building/"]',
+  ).length,
+);
+assert(
+  page("dx/business-transformation")(
+    'a[href="/Rosarium/essays/rethink-work-before-ai/"]',
+  ).length,
+);
+assert(
+  page("dx/system-transformation")(
+    'a[href="/Rosarium/essays/legacy-change-and-retirement/"]',
+  ).length,
+);
+assert(
+  page("practices")('a[href="/Rosarium/practices/transferring-ai-practices/"]')
+    .length,
+);
+console.log(
+  "Verified imported essay discovery, canonical routes, search bodies and feeds; transfer article retains its existing route.",
+);
+
+// Related reading must follow the article and chapter pagination.
+for (const file of walk("dist").filter((file) => file.endsWith(".html"))) {
+  const $ = load(fs.readFileSync(file, "utf8"));
+  assert(!$("h1,h2,h3,h4").text().includes("Related Design"), file);
+  const related = $("[data-related-content]");
+  if (!related.length) continue;
+  assert.equal(related.length, 1, file);
+  assert.equal(
+    $("article[data-pagefind-body] [data-related-content]").length,
+    0,
+    file,
+  );
+  const order = $("#main").html();
+  assert(
+    order.indexOf("data-related-content") > order.indexOf("data-pagefind-body"),
+    file,
+  );
+  if ($(".pagination").length) {
+    assert(
+      order.indexOf("data-related-content") >
+        order.indexOf('class="pagination"'),
+      file,
+    );
+  }
+  const links = related
+    .find("a[href]")
+    .map((_, element) => $(element).attr("href"))
+    .get();
+  assert.equal(
+    new Set(links).size,
+    links.length,
+    `${file}: duplicate related links`,
+  );
+  assert(
+    !$(
+      "article[data-pagefind-body] .prose h2, article[data-pagefind-body] .prose h3",
+    )
+      .toArray()
+      .some((element) =>
+        /^(関連する入口|関連する設計原則|Explore|Related Design)$/.test(
+          $(element).text(),
+        ),
+      ),
+    file,
+  );
+}
+console.log(
+  "Verified Japanese related headings, post-body placement and unique related links.",
+);

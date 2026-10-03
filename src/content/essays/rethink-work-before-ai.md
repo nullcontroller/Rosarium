@@ -1,6 +1,6 @@
 ---
 title: "AI化する前に、業務そのものを疑う"
-summary: "ECRSで業務をなくす・まとめる・変える・単純化してから、残った仕事を人間・既存ソフトウェア・AIのどれへ任せるか判断する。"
+summary: "AIへ任せる前に、その仕事をなくす・まとめる・変える・単純化できないか考えます。業務改善の手順（ECRS）を踏まえ、残る仕事を人間・既存ソフトウェア・AIのどれへ任せるか判断します。"
 layer: publication
 publication_format: essay
 kind: essay
@@ -8,7 +8,7 @@ section: essays
 status: published
 published_at: "2026-10-03"
 updated_at: "2026-10-03"
-last_updated: "2026-10-03"
+last_updated: "2026-10-04"
 entry_points: ["ai", "dx"]
 dx_topics: ["value-design", "business-transformation", "selection-retirement"]
 tags: ["業務設計", "ECRS", "ai適用判断"]

@@ -4,7 +4,12 @@ import Site from "../../layouts/Site.astro";
 import ContentIndex from "../../components/ContentIndex.astro";
 import RelatedPublications from "../../components/RelatedPublications.astro";
 import PublicationLink from "../../components/PublicationLink.astro";
-import { sections, publicEntry, url } from "../../lib/site";
+import {
+  sections,
+  publicEntry,
+  url,
+  introductionForPath,
+} from "../../lib/site";
 import { isPublication } from "../../lib/navigation";
 import PageHeader from "../../components/PageHeader.astro";
 import SectionHeading from "../../components/SectionHeading.astro";
@@ -17,7 +22,8 @@ export function getStaticPaths() {
       props: { title, summary },
     }));
 }
-const { title, summary } = Astro.props;
+const { title, summary: sectionSummary } = Astro.props;
+const summary = introductionForPath(Astro.url.pathname) ?? sectionSummary;
 const all = await getCollection("pages", publicEntry);
 const entries = all.filter((e) => e.data.section === Astro.params.section);
 const essays = Astro.params.section === "essays";
@@ -33,20 +39,20 @@ const oldFoundations = Astro.params.section === "foundations";
         : `${title} — コンテンツ一覧`
   }
   section={essays ? "articles" : "ai-design"}
+  summary={summary}
   noindex={!essays}
 >
-  <PageHeader icon={iconForSection(essays ? "articles" : Astro.params.section)} title={oldFoundations ? "設計資料アーカイブ" : title} summary={summary} />
+  <PageHeader
+    icon={iconForSection(essays ? "articles" : Astro.params.section)}
+    title={oldFoundations ? "設計資料アーカイブ" : title}
+    summary={summary}
+  />
   {oldFoundations ? (
     <>
       <p>
         主要な入口は<a href={url("start-here")}>Start Here</a>
         から選べます。
       </p>
-      <nav class="topic-navigation">
-        <a href={url("ai-design")}>AI設計</a>
-        <a href={url("ai-mathematics")}>AI理論</a>
-        <a href={url("reference")}>Reference</a>
-      </nav>
     </>
   ) : essays ? (
     <p>
@@ -77,7 +83,9 @@ const oldFoundations = Astro.params.section === "foundations";
       {entries.some((e) => e.data.layer === "ai-mathematics") && (
         <section>
           <SectionHeading icon="ai-mathematics" title="AI理論" />
-          <p><a href={url("ai-mathematics")}>AI理論を見る →</a></p>
+          <p>
+            <a href={url("ai-mathematics")}>AI理論を見る →</a>
+          </p>
           <ContentIndex
             entries={entries.filter((e) => e.data.layer === "ai-mathematics")}
           />
@@ -86,7 +94,9 @@ const oldFoundations = Astro.params.section === "foundations";
       {entries.some((e) => e.data.layer === "practice") && (
         <section>
           <SectionHeading icon="practices" title="実践知" />
-          <p><a href={url("practices")}>実践知を見る →</a></p>
+          <p>
+            <a href={url("practices")}>実践知を見る →</a>
+          </p>
           <ContentIndex
             entries={entries.filter((e) => e.data.layer === "practice")}
           />
@@ -94,5 +104,12 @@ const oldFoundations = Astro.params.section === "foundations";
       )}
       <RelatedPublications entries={entries.filter(isPublication)} />
     </>
+  )}
+  {Astro.params.section === "foundations" && (
+    <nav class="topic-navigation">
+      <a href={url("ai-design")}>AI設計</a>
+      <a href={url("ai-mathematics")}>AI理論</a>
+      <a href={url("reference")}>Reference</a>
+    </nav>
   )}
 </Site>

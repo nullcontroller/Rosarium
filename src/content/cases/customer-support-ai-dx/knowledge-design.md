@@ -1,11 +1,11 @@
 ---
-summary: "意味的類似性と業務上の有効性を分け、機種・版数・公開可否・分類で回答根拠として使えるKnowledgeを制御する。"
+summary: "検索で見つかった文書でも、顧客への回答根拠として使えるとは限りません。製品・機種・版数・公開可否を確認し、RAGが参照してよいKnowledgeの範囲を設計します。"
 layer: publication
 title: 04. RAG / Knowledgeをどう設計したか
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 entry_points: [ai, dx]
 dx_topic: system-planning
 tags: [RAG, Knowledge Architecture, Context, Grounding]

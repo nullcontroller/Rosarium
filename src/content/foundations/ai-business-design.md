@@ -1,12 +1,12 @@
 ---
-summary: "AIへ作業を任せる際の責任境界、業務全体の効率、必要なKnowledgeを考えるシリーズ。モデルの操作方法よりも、人間・AI・既存システムを接続する設計原則を扱う。"
+summary: "AIへ仕事を任せても、人間の判断や責任は残ります。必要な情報、確認の手間、例外対応を含めて、AI・人間・既存システムの仕事をどう分けるか考える連載です。"
 layer: publication
 publication_format: series
 title: 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 entry_points:
   - ai
   - dx

@@ -1,12 +1,12 @@
 ---
-summary: "対象・版・根拠・入力条件・行為などの境界を定め、評価可能な領域をAIへ担当させる。回答・拒否・移管を分け、範囲内の品質と境界判定を継続的に測る。"
+summary: "AIが答えてよい質問と、人へ渡すべき質問の範囲を決めます。対象・版・根拠・入力条件を明示し、回答・拒否・引き継ぎの品質を継続して測ります。"
 layer: ai-design
 design_topic: responsibility-control
 title: なぜ回答範囲を制限した方がよいのか
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 tags:
   - foundations
 published_at: null

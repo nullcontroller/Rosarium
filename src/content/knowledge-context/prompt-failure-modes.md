@@ -1,12 +1,12 @@
 ---
-summary: "プロンプトの失敗を、Context不足・情報の混在・指示の競合・検証基準の欠如などに分解する。文章の長短だけで判断せず、失敗原因と変更の影響を追跡する方法を整理する。"
+summary: "指示を長くしても、必要な情報が足りなかったり、指示同士が矛盾していたりすればAIは失敗します。Context不足・情報の混在・検証基準の欠如を分けて、直すべき箇所を判断します。"
 layer: ai-design
 design_topic: knowledge-context
 title: プロンプト設計の失敗モード
 kind: guide
 section: knowledge-context
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 tags:
   - knowledge-context
 published_at: null

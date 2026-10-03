@@ -1,11 +1,11 @@
 ---
-summary: "根拠不足、特定不能、専門判断、高影響操作、非公開情報しかない場合にAIを止め、人間へ移すFail Safeを設計する。"
+summary: "根拠がない、機種が分からない、専門判断が必要なときには、AIの回答を止めます。高影響な操作や非公開情報も停止条件として整理し、人へ引き継ぐFail Safeを設計します。"
 layer: publication
 title: 05. AIをどこで止めるか
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 entry_points: [ai, dx]
 dx_topic: system-planning
 tags: [Fail Safe, HITL, 責任境界, AI Governance]

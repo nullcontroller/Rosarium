@@ -1,11 +1,11 @@
 ---
 title: 評価指標リファレンス
-summary: "Retrieval、回答品質、安全性、運用品質、人間レビュー負荷の指標を定義する。指標を単独の点数として扱わず、対象集合・閾値・費用と合わせて読むための参照資料。"
+summary: "検索や回答、人への引き継ぎがうまく働いているかを、何で測るか確認する資料です。Retrieval・安全性・運用品質・レビュー負荷の指標を、対象集合や閾値と合わせて定義します。"
 layer: reference
 kind: principle
 section: evaluation-hitl
 status: stable
-last_updated: "2026-09-22"
+last_updated: "2026-10-04"
 order: 30
 tags: [Evaluation, RAG]
 updated_at: "2026-09-22"

@@ -14,6 +14,7 @@ const canonicals = new Map();
 const descriptions = new Map();
 let articleCount = 0;
 const indexable = [];
+const googleVerification = process.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
 
 for (const file of htmlFiles) {
   const $ = load(fs.readFileSync(file, "utf8"));
@@ -30,6 +31,13 @@ for (const file of htmlFiles) {
     `Invalid canonical: ${file}`,
   );
   assert.ok(robots, `Missing robots metadata: ${file}`);
+  const verification = $('meta[name="google-site-verification"]');
+  assert(verification.length <= 1, `Duplicate Google verification tag: ${file}`);
+  if (googleVerification) {
+    assert.equal(verification.length, 1, `Missing Google verification tag: ${file}`);
+    assert.equal(verification.attr("content"), googleVerification, `Google verification token mismatch: ${file}`);
+  }
+  assert(!fs.readFileSync(file, "utf8").includes("/ai-design-foundations/"), `Old runtime base path: ${file}`);
   assert.equal(
     $('meta[property="og:url"]').attr("content"),
     canonical,
@@ -95,6 +103,10 @@ for (const file of htmlFiles) {
   }
 }
 
+for (const route of ["index.html", "ai/index.html", "dx/index.html", "cases/index.html", "career/index.html", "books/index.html"]) {
+  const $ = load(fs.readFileSync(path.join("dist", route), "utf8"));
+  assert(!$('meta[name="robots"]').attr("content")?.includes("noindex"), `Main page is noindex: ${route}`);
+}
 const sitemap = fs.readFileSync("dist/sitemap.xml", "utf8");
 const sitemapUrls = new Set(
   [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]),

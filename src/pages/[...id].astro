@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Site from "../layouts/Site.astro";
+import { splitRelatedContent, relatedTargets } from "../lib/related-content.mjs";
 import RelatedPublications from "../components/RelatedPublications.astro";
 import {
   layerPath,
@@ -36,6 +37,9 @@ export async function getStaticPaths() {
 }
 const { entry } = Astro.props;
 const d = entry.data;
+const content = splitRelatedContent(entry.rendered?.html || "");
+const relatedLinks = relatedTargets(content.related, Astro.url.href);
+const alreadyRelated = (path: string) => relatedLinks.has(new URL(url(path), Astro.url).href);
 const primaryPath = d.section === "cases" ? "cases" : layerPath(d.layer);
 const primaryLabel =
   d.section === "cases" ? "実践事例" : layerLabel(d.layer);
@@ -69,6 +73,7 @@ const related = all
   .filter(
     (e) =>
       e.id !== entry.id &&
+      !alreadyRelated(e.id) &&
       !e.data.series &&
       e.data.layer === d.layer &&
       (d.design_topic
@@ -83,12 +88,22 @@ const entryPoints = contentEntryPoints(entry);
 const dxTopics = dxCategoryIdsForEntry(entry)
   .map((id) => dxCategories.find((category) => category.id === id))
   .filter((category): category is (typeof dxCategories)[number] => Boolean(category));
+const uniqueEntryPoints = entryPoints.filter((point) => !alreadyRelated(entryPointDefinitions[point].path));
+const uniqueDxTopics = dxTopics.filter((category) => !alreadyRelated(`dx/${category.id}`));
 const readingPath = readingPathForEntry(entry, all);
 const themeGroups = readingPath
   ? series.length
     ? []
     : readingNavigation(all, readingPath, entry.id)
   : [];
+const relatedPublicationEntries = d.layer === "ai-design"
+  ? relatedPublications(all, d.design_topic).filter((item) => !alreadyRelated(item.id))
+  : [];
+const displayedIds = new Set([...related, ...relatedPublicationEntries].map((item) => item.id));
+const endThemeGroups = themeGroups.map((group) => ({
+  ...group,
+  links: group.links.filter((link) => !displayedIds.has(link.id) && !alreadyRelated(link.id)),
+})).filter((group) => group.links.length > 0);
 const bookNavigation = series.length
   ? {
       title: d.series_title || series[0].data.title,
@@ -113,7 +128,7 @@ const bookNavigation = series.length
   lastUpdated={d.last_updated}
   showLastUpdated={false}
   section={primaryPath}
-  headings={headings}
+  headings={headings.map((heading) => ({ ...heading, text: heading.text.replace("Related Design Principles", "関連する設計原則").replace("Related Design", "関連する設計") }))}
   breadcrumbs={[
     { name: "庭", path: "" },
     { name: primaryLabel, path: primaryPath },
@@ -142,7 +157,6 @@ const bookNavigation = series.length
       </>
     )}
   </nav>
-  {themeGroups.length > 0 && <ThemeArticleIndex groups={themeGroups} />}
   <article data-pagefind-body>
     <header class="document-header">
       <p class="eyebrow">
@@ -187,20 +201,6 @@ const bookNavigation = series.length
       <p class="tags" data-pagefind-meta="tags">
         {d.tags.join(" / ")}
       </p>
-      <nav class="content-entry-points" aria-label="この記事の入口">
-        <span>入口：</span>
-        {entryPoints.map((entryPoint) => (
-          <a href={url(entryPointDefinitions[entryPoint].path)}>{entryPointDefinitions[entryPoint].label}</a>
-        ))}
-      </nav>
-      {dxTopics.length > 0 && (
-        <nav class="content-dx-topics" aria-label="関連するDXテーマ">
-          <span>DXテーマ：</span>
-          {dxTopics.map((category) => (
-            <a href={url(`dx/${category.id}`)}>{category.title}</a>
-          ))}
-        </nav>
-      )}
       <span hidden data-pagefind-meta="entry_point">{entryPoints.join(" ")}</span>
       {purposes.length > 0 && (
         <p class="content-purpose" data-pagefind-meta="use_case">
@@ -208,7 +208,7 @@ const bookNavigation = series.length
           {purposes.map((purpose, index) => (
             <>
               {index > 0 && " / "}
-              <a href={url("ai")}>{purpose.shortTitle}</a>
+              <span>{purpose.shortTitle}</span>
             </>
           ))}
         </p>
@@ -227,7 +227,7 @@ const bookNavigation = series.length
     )}
     {seriesPosition && <p class="series-position-inline">{seriesPosition}</p>}
     <div class="prose">
-      <MarkdownBody html={entry.rendered?.html || ""} />
+      <MarkdownBody html={content.body} />
     </div>
   </article>
   {readingSequence.length > 0 && (
@@ -251,23 +251,17 @@ const bookNavigation = series.length
       )}
     </nav>
   )}
-  {d.layer === "ai-design" && (
-    <RelatedPublications entries={relatedPublications(all, d.design_topic)} />
-  )}
-  {d.source?.type === "zenn" && d.section === "cases" && (
-    <p>
-      <a href={url("cases")}>実践事例 — 適用テーマ・設計原則から読む</a>
-    </p>
-  )}
+  <section class="content-related" aria-label="関連する内容" data-related-content>
+    {content.principles && <div class="prose"><MarkdownBody html={content.principles} /></div>}
   {designTopics.some(([key]) =>
-    topicPublications[key]?.includes(series[0]?.id || entry.id),
+    topicPublications[key]?.includes(series[0]?.id || entry.id) && !alreadyRelated("ai-design/" + key),
   ) && (
     <section>
       <SectionHeading icon="ai-design" title="関連する設計" />
       <ul class="related-design-list">
         {designTopics
           .filter(([key]) =>
-            topicPublications[key]?.includes(series[0]?.id || entry.id),
+            topicPublications[key]?.includes(series[0]?.id || entry.id) && !alreadyRelated("ai-design/" + key),
           )
           .map(([key, title, summary]) => (
             <li class="icon-entry">
@@ -278,22 +272,45 @@ const bookNavigation = series.length
       </ul>
     </section>
   )}
+    {content.afterDesign && <div class="prose"><MarkdownBody html={content.afterDesign} /></div>}
+  {d.layer === "ai-design" && (
+    <RelatedPublications entries={relatedPublicationEntries} />
+  )}
+  {d.source?.type === "zenn" && d.section === "cases" && (
+    <p>
+      <a href={url("cases")}>実践事例 — 適用テーマ・設計原則から読む</a>
+    </p>
+  )}
   {related.length > 0 && (
     <section class="related">
       <SectionHeading icon="arrow" title="次に読む" />
       <ul>
         {related.map((e) => (
           <li>
-            <ContentLink entry={e} heading="h3" />
+            <ContentLink entry={e} heading="h3" showEntryPoints={false} />
           </li>
         ))}
       </ul>
     </section>
   )}
+      {uniqueEntryPoints.length > 0 && <nav class="content-entry-points" aria-label="この記事の入口">
+        <span>入口：</span>
+        {uniqueEntryPoints.map((entryPoint) => (
+          <a href={url(entryPointDefinitions[entryPoint].path)}>{entryPointDefinitions[entryPoint].label}</a>
+        ))}
+      </nav>}
+      {uniqueDxTopics.length > 0 && (
+        <nav class="content-dx-topics" aria-label="関連するDXテーマ">
+          <span>DXテーマ：</span>
+          {uniqueDxTopics.map((category) => (
+            <a href={url(`dx/${category.id}`)}>{category.title}</a>
+          ))}
+        </nav>
+      )}
+
+  {endThemeGroups.length > 0 && <ThemeArticleIndex groups={endThemeGroups} />}
   <nav class="content-end-nav" aria-label="読み終えた後のリンク">
-    {entryPoints.map((entryPoint) => (
-      <a href={url(entryPointDefinitions[entryPoint].path)}>{entryPointDefinitions[entryPoint].label}へ戻る</a>
-    ))}
     <a href={`${url()}#recent-growth-heading`}>最近の更新を見る</a>
   </nav>
+  </section>
 </Site>

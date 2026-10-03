@@ -1,11 +1,11 @@
 ---
-summary: "顧客サポートQAの設計から、価値起点、責任境界、Knowledge制御、停止条件、HITL、PoC、UX、継続評価の原則を抽出する。"
+summary: "問い合わせ対応の設計から、他の業務でも使える判断原則を整理します。価値を起点に、AIと人の責任、回答根拠、停止条件、HITL、評価・改善をどう組み合わせるか考えます。"
 layer: publication
 title: 10. この事例から得た設計原則
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 entry_points: [ai, dx]
 dx_topic: case-study
 tags: [Applied AI, DX, Design Principles, System Architecture]

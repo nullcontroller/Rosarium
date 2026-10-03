@@ -26,12 +26,8 @@ const discoverable = readingEntries(all, "ai-mathematics");
   themeGroups={themeGroups}
 >
   <PageHeader title="AI理論" />
-  <p class="lead">
-    AIがなぜそう振る舞うのかを、数学・確率・モデルから理解する。
-  </p>
   <p>
-    出力の揺らぎ、条件付き確率、Temperature、Hallucination、コード生成モデルの仕組みを扱います。業務への組込みは
-    <a href={url("ai-design")}>AI設計</a>から直接読むこともできます。
+    出力の揺らぎ、条件付き確率、Temperature、Hallucination、コード生成モデルの仕組みを扱います。
   </p>
   <ThemeArticleIndex groups={themeGroups} />
   <h2>AIは数学である</h2>
@@ -60,4 +56,7 @@ const discoverable = readingEntries(all, "ai-mathematics");
   </details>
   <h2>AI理論から読めるもの</h2>
   <ContentIndex entries={discoverable} showIcons={false} />
+  <p>
+    <a href={url("ai-design")}>業務への組込みをAI設計から読む →</a>
+  </p>
 </Site>

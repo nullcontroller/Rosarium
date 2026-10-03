@@ -1,11 +1,11 @@
 ---
-summary: "Temperatureがlogitと次トークンの確率分布へ与える影響を説明する。低い値でも正確性や安全性は保証されないことを踏まえ、用途別の評価と反復実験で設定を選ぶ。"
+summary: "AIの答えの出方を変える設定は、正しさを保証する設定ではありません。Temperatureが生成の確率分布へ与える影響を説明し、用途に合う値を評価と実験で選びます。"
 layer: ai-mathematics
 title: Temperature設計指針
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 tags:
   - foundations
 published_at: null

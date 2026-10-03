@@ -1,12 +1,12 @@
 ---
-summary: "顧客サポートの業務課題から、AI適用判断、PoC、RAG / Knowledge設計、Human in the Loop、UX、評価、継続改善までを一つの設計ケースとして整理する。"
+summary: "顧客が自分で解決できる問い合わせと、人の専門判断が必要な問い合わせを分け、対応の流れを設計する事例です。RAGによる根拠検索から、人への引き継ぎ、評価・改善までを扱います。"
 publication_format: book
 layer: publication
 title: 生成AI / RAGによる顧客サポートDX
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-03"
+last_updated: "2026-10-04"
 entry_points:
   - ai
   - dx

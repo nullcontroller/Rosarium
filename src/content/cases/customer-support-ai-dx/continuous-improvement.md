@@ -1,11 +1,11 @@
 ---
-summary: "誤回答、有人移行、Knowledge不足、検索失敗、UI離脱を観測し、Knowledge・Retrieval・UI・業務へ改善を戻す。"
+summary: "誤回答や人への引き継ぎが起きた理由を調べ、次の改善へ戻す仕組みを設計します。知識不足・検索失敗・画面での離脱を分け、Knowledge・Retrieval・UI・業務のどこを直すか判断します。"
 layer: publication
 title: 08. 導入後にどう育てるか
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 entry_points: [ai, dx]
 dx_topic: business-transformation
 tags: [Continuous Improvement, AI Evaluation, RAG, Operations]

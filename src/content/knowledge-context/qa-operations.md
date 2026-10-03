@@ -1,12 +1,12 @@
 ---
-summary: "QAチャットをKnowledgeへの対話型インターフェースとして捉える。検索・回答・拒否・移管・記録・知識更新の循環を、責務と変更手順を持つ運用システムとして設計する。"
+summary: "問い合わせAIを、回答して終わる道具ではなく、知識を確認・更新し続ける仕組みとして設計します。検索・回答・拒否・人への引き継ぎ・記録を、QAとKnowledgeの運用としてつなぎます。"
 layer: ai-design
 design_topic: lifecycle-operations
 title: QAチャット運用思想
 kind: guide
 section: knowledge-context
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 tags:
   - knowledge-context
 published_at: null

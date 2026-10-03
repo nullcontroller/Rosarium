@@ -1,11 +1,11 @@
 ---
-summary: "PoCを検索・対話・回答生成へ分解し、回答の見た目ではなく根拠適合性と業務成立性から導入可否を判断する。"
+summary: "AIが一度答えられたことと、問い合わせ業務で使えることは異なります。試験導入（PoC）で検索・対話・回答を分け、根拠の適合性と人へ渡す判断から採用可否を見ます。"
 layer: publication
 title: 03. PoCで「使えるか」をどう判断したか
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 entry_points: [ai, dx]
 dx_topic: system-planning
 tags: [PoC, AI Evaluation, RAG, 業務成立性]

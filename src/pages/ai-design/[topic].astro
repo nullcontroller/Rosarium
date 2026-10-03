@@ -25,8 +25,7 @@ const all = await getCollection("pages", publicEntry);
   <nav class="breadcrumb">
     <a href={url("ai-design")}>AI設計</a> / {title}
   </nav>
-  <PageHeader title={title} />
-  <p class="lead">{summary}</p>
+  <PageHeader title={title} summary={summary} />
   <ContentIndex
     showIcons={false}
     entries={all.filter(
@@ -35,5 +34,8 @@ const all = await getCollection("pages", publicEntry);
         e.data.design_topic === Astro.params.topic,
     )}
   />
-  <RelatedPublications entries={relatedPublications(all, Astro.params.topic)} showIcons={false} />
+  <RelatedPublications
+    entries={relatedPublications(all, Astro.params.topic)}
+    showIcons={false}
+  />
 </Site>

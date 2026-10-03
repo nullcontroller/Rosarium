@@ -1,12 +1,12 @@
 ---
-summary: "FDEの役割を起点に、AIの社会実装で必要になる専門性を考察する。Architecture・Engineering・Platform・Evaluation・Governanceの責任が分化していくという見通しを述べる。"
+summary: "AIを実際の仕事へ組み込むには、モデルの操作だけでなく、設計・実装・評価を担う専門性が必要です。FDEを起点に、Architecture・Engineering・Evaluationなどの責任が分かれていく見通しを考察します。"
 publication_format: essay
 layer: publication
 title: AI人材はFDEだけではない――これから進む専門職の細分化
 kind: essay
 section: essays
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 tags: &a1
   - キャリア
   - fde

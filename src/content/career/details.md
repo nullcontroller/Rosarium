@@ -1,10 +1,10 @@
 ---
 title: "Career Details — 経験と実践"
 seo_title: "Career Details — 経験と実践 | Rosarium"
-summary: "ソフトウェア開発、プロジェクトマネジメント、Applied AIの経験が現在の設計対象へどうつながるかを、実践事例と外部プロフィールから確認できます。"
+summary: "開発や保守、プロジェクトを進めた経験が、現在の仕事の考え方へどうつながったかを紹介します。実践事例と職務プロフィールから、その背景を確認できます。"
 layer: career
 status: stable
-last_updated: "2026-10-03"
+last_updated: "2026-10-04"
 source:
   type: repository
   url: https://github.com/nullcontroller/career-profile/blob/main/index.md

@@ -1,12 +1,12 @@
 ---
-summary: "プロンプトをRole・Task・制約・Context・出力契約などの責務から設計する。モデルへ渡す情報と、権限・承認・検証などシステム側が担う制御を分離する。"
+summary: "AIへ何を頼み、何を根拠にし、どの形で返してほしいかを分けて伝えます。Role・Task・Contextなどからプロンプトを構成し、権限や承認はシステム側の制御と区別します。"
 layer: ai-design
 design_topic: knowledge-context
 title: プロンプト設計の基本構造
 kind: guide
 section: knowledge-context
 status: published
-last_updated: "2026-09-22"
+last_updated: "2026-10-04"
 tags:
   - knowledge-context
 published_at: null

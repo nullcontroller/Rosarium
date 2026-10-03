@@ -5,6 +5,7 @@ import {
   assetUrl,
   formatDateJa,
   siteDescription,
+  introductionForPath,
   staticLastUpdatedForPath,
   url,
 } from "../lib/site";
@@ -35,7 +36,7 @@ interface Props {
 }
 const {
   title,
-  summary = siteDescription,
+  summary = introductionForPath(Astro.url.pathname) ?? siteDescription,
   canonical,
   ogImage = "og/site.png",
   ogType = "website",
@@ -250,34 +251,39 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         />
         <span class="brand-name">Rosarium</span>
       </a>
-        <div class="header-links">
-          <nav class="header-primary" aria-label="主要ページ">
-            <a href={url()} aria-current={section === "" ? "page" : undefined}>
-              庭
-            </a>
-            <a
-              href={url("ai")}
-              aria-current={readingSections.has(section || "") ? "page" : undefined}
-            >
-              AI
-            </a>
-            <a href={url("dx")} aria-current={section === "dx" ? "page" : undefined}>
-              DX
-            </a>
-            <a
-              href={url("cases")}
-              aria-current={section === "cases" ? "page" : undefined}
-            >
-              事例
-            </a>
-          </nav>
-          <div class="header-actions">
-            <GlobalSearch />
-            <button id="theme" type="button" aria-label="配色を切り替える">
-              配色切替
-            </button>
-          </div>
+      <div class="header-links">
+        <nav class="header-primary" aria-label="主要ページ">
+          <a href={url()} aria-current={section === "" ? "page" : undefined}>
+            庭
+          </a>
+          <a
+            href={url("ai")}
+            aria-current={
+              readingSections.has(section || "") ? "page" : undefined
+            }
+          >
+            AI
+          </a>
+          <a
+            href={url("dx")}
+            aria-current={section === "dx" ? "page" : undefined}
+          >
+            DX
+          </a>
+          <a
+            href={url("cases")}
+            aria-current={section === "cases" ? "page" : undefined}
+          >
+            事例
+          </a>
+        </nav>
+        <div class="header-actions">
+          <GlobalSearch />
+          <button id="theme" type="button" aria-label="配色を切り替える">
+            配色切替
+          </button>
         </div>
+      </div>
     </header>
     <div
       class:list={[
@@ -303,18 +309,24 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                   ]}
                 >
                   {group.map((item) => (
-                    <div class:list={["nav-item", item.children && "nav-parent"]}>
+                    <div
+                      class:list={["nav-item", item.children && "nav-parent"]}
+                    >
                       <a
                         href={url(item.path)}
-                        aria-current={section === item.path ? "page" : undefined}
-                        data-section-active={item.sections?.includes(section || "") ||
-                        item.children?.some(
-                          (child) =>
-                            child.path === section ||
-                            child.sections?.includes(section || ""),
-                        )
-                          ? true
-                          : undefined}
+                        aria-current={
+                          section === item.path ? "page" : undefined
+                        }
+                        data-section-active={
+                          item.sections?.includes(section || "") ||
+                          item.children?.some(
+                            (child) =>
+                              child.path === section ||
+                              child.sections?.includes(section || ""),
+                          )
+                            ? true
+                            : undefined
+                        }
                       >
                         <NavIcon name={item.icon} />
                         <span class="nav-copy">
@@ -330,14 +342,14 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                           {item.children.map((child) => (
                             <a
                               href={`${url(child.path)}${child.hash ? `#${child.hash}` : ""}`}
-                              aria-current={section === child.path
-                                ? "page"
-                                : undefined}
-                              data-section-active={child.sections?.includes(
-                                section || "",
-                              )
-                                ? true
-                                : undefined}
+                              aria-current={
+                                section === child.path ? "page" : undefined
+                              }
+                              data-section-active={
+                                child.sections?.includes(section || "")
+                                  ? true
+                                  : undefined
+                              }
                             >
                               <span class="nav-copy">
                                 <span>{child.title}</span>
@@ -362,16 +374,24 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       >
         {!noindex && showLastUpdated && (
           <p class="site-last-updated" data-last-updated={effectiveLastUpdated}>
-            最終更新：<time datetime={effectiveLastUpdated}>{formatDateJa(effectiveLastUpdated)}</time>
+            最終更新：
+            <time datetime={effectiveLastUpdated}>
+              {formatDateJa(effectiveLastUpdated)}
+            </time>
           </p>
         )}
         {bookNavigation && (
           <details class="book-toc-mobile">
-            <summary>このBookの目次（全{bookNavigation.items.length - 1}章）</summary>
+            <summary>
+              このBookの目次（全{bookNavigation.items.length - 1}章）
+            </summary>
             <ol>
               {bookNavigation.items.map((item) => (
                 <li class:list={[item.current && "current"]}>
-                  <a href={item.href} aria-current={item.current ? "page" : undefined}>
+                  <a
+                    href={item.href}
+                    aria-current={item.current ? "page" : undefined}
+                  >
                     {item.title}
                   </a>
                 </li>
@@ -403,11 +423,18 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           <div class="theme-nav-groups">
             {themeGroups.map((group) => (
               <details open={group.current}>
-                <summary>{group.title} <span>{group.links.length}</span></summary>
+                <summary>
+                  {group.title} <span>{group.links.length}</span>
+                </summary>
                 <ul>
                   {group.links.map((item) => (
                     <li class:list={[item.current && "current"]}>
-                      <a href={item.href} aria-current={item.current ? "page" : undefined}>{item.title}</a>
+                      <a
+                        href={item.href}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.title}
+                      </a>
                     </li>
                   ))}
                 </ul>
@@ -422,7 +449,10 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           <ol>
             {bookNavigation.items.map((item) => (
               <li class:list={[item.current && "current"]}>
-                <a href={item.href} aria-current={item.current ? "page" : undefined}>
+                <a
+                  href={item.href}
+                  aria-current={item.current ? "page" : undefined}
+                >
                   {item.title}
                 </a>
               </li>
@@ -437,17 +467,19 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         <span>学習と実務を通じて育て続ける「庭」</span>
       </div>
       <nav aria-label="フッター">
-        <a href={url()}>庭</a> ·{" "}
-        <a href={url("ai")}>AI</a> ·{" "}
-        <a href={url("dx")}>DX</a> ·{" "}
-        <a href={url("cases")}>実践事例</a> ·{" "}
+        <a href={url()}>庭</a> · <a href={url("ai")}>AI</a> ·{" "}
+        <a href={url("dx")}>DX</a> · <a href={url("cases")}>実践事例</a> ·{" "}
         <a href={url("career")}>キャリア</a> ·{" "}
         <a href={assetUrl("feed.xml")}>RSS</a> ·{" "}
-        <a href="https://github.com/nullcontroller/Rosarium">
-          Repository
-        </a>
+        <a href="https://github.com/nullcontroller/Rosarium">Repository</a>
       </nav>
-      <p class="meta" data-pagefind-ignore>利用状況を把握し、コンテンツや導線を改善するため、Google Analytics 4を使用しています。Cookieなどを通じて閲覧・端末情報を収集します。<a href="https://policies.google.com/technologies/partner-sites?hl=ja">Googleによるデータの利用について</a></p>
+      <p class="meta" data-pagefind-ignore>
+        利用状況を把握し、コンテンツや導線を改善するため、Google Analytics
+        4を使用しています。Cookieなどを通じて閲覧・端末情報を収集します。
+        <a href="https://policies.google.com/technologies/partner-sites?hl=ja">
+          Googleによるデータの利用について
+        </a>
+      </p>
     </footer>
     <script>
       const navigationViewport = matchMedia("(max-width: 760px)");

@@ -23,16 +23,8 @@ const categoryGroups = dxCategories.map((category) => {
 });
 ---
 
-<Site
-  title="DX"
-  section="dx"
-  summary="価値を生み出すために、業務・サービス・システム・組織をどう変えるかをテーマ別に考えます。"
->
-  <PageHeader
-    title="DX"
-    eyebrow="DIGITAL TRANSFORMATION"
-    summary="価値を生み出すために、業務・サービス・システム・組織をどう変えるかを考えます。"
-  />
+<Site title="DX" section="dx">
+  <PageHeader title="DX" eyebrow="DIGITAL TRANSFORMATION" />
   <p>
     Rosariumでは、DXをデジタル技術の導入そのものとは捉えません。何を、なぜ変えるのかを価値から考え、業務・システム・運用を継続して設計し直します。AIは、その変革を実現する有力な手段の一つです。
   </p>
@@ -41,14 +33,18 @@ const categoryGroups = dxCategories.map((category) => {
     <h2 id="dx-themes-heading">DXを考える5つのテーマ</h2>
     {categoryGroups.map((category) => (
       <section class="dx-category" id={category.id}>
-        <h3><a href={url(`dx/${category.id}`)}>{category.title} →</a></h3>
+        <h3>
+          <a href={url(`dx/${category.id}`)}>{category.title} →</a>
+        </h3>
         <p>{category.summary}</p>
         {category.articles.length > 0 && (
           <div class="dx-category-links">
             <p>代表記事</p>
             <ul>
               {category.articles.map((entry) => (
-                <li><a href={url(entry.id)}>{entry.data.title}</a></li>
+                <li>
+                  <a href={url(entry.id)}>{entry.data.title}</a>
+                </li>
               ))}
             </ul>
           </div>
@@ -58,7 +54,9 @@ const categoryGroups = dxCategories.map((category) => {
             <p>関連する実践事例</p>
             <ul>
               {category.cases.map((entry) => (
-                <li><a href={url(entry.id)}>{entry.data.title}</a></li>
+                <li>
+                  <a href={url(entry.id)}>{entry.data.title}</a>
+                </li>
               ))}
             </ul>
           </div>

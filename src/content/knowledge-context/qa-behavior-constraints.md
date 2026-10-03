@@ -1,12 +1,12 @@
 ---
-summary: "QAの回答・開示・追加質問・拒否・人への移管を、行動制約Knowledgeとして管理する。規則の正本と実行時の検証・認可を分け、違反候補が業務結果へ届かない構造を考える。"
+summary: "問い合わせに何を答え、何を開示せず、どこで人へ渡すかを決めます。対応規則をKnowledgeとして管理し、指示に書くだけでなく、実行時の検証・認可で業務への流出を防ぎます。"
 layer: ai-design
 design_topic: knowledge-context
 title: QA行動制約Knowledge
 kind: guide
 section: knowledge-context
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 tags:
   - knowledge-context
 published_at: null

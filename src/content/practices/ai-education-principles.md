@@ -1,12 +1,12 @@
 ---
-summary: "AI教育を、変わりにくい責任境界・HITLの原則と、変化するツール・業務別実践に分ける。利用率ではなく業務全体の品質と工数を見ながら、実務結果を教育へ戻す構成を考える。"
+summary: "AIの操作を覚えるだけでなく、答えを確認し、使うか止めるか判断する力を育てます。責任境界・HITLの原則とツール別の実践を分け、業務の品質と工数から教育を見直します。"
 publication_format: article
 layer: publication
 title: 生成AI教育はなぜ難しいのか ― 変わらない原則と変わり続ける実践を分けて設計する
 kind: guide
 section: practices
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 entry_points:
   - ai
   - dx

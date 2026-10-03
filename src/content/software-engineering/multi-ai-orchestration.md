@@ -1,12 +1,12 @@
 ---
-summary: "複数AIの役割をTask・Context・Tool・権限・成果物・検証の組として定義する。単一AIとの比較を踏まえ、責務を分離しても工程全体の品質と費用を管理できる接続を設計する。"
+summary: "複数のAIを使うとき、誰に何を渡し、どの成果物を確認して次へ進むかを決めます。Task・Context・Tool・権限を役割ごとに整理し、工程全体の品質と費用を管理します。"
 layer: ai-design
 design_topic: software-engineering
 title: 複数AIの役割分担と工程設計
 kind: guide
 section: software-engineering
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 tags:
   - software-engineering
 published_at: null

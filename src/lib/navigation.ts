@@ -27,7 +27,8 @@ export const readingCategories = [
     path: "ai-mathematics",
     title: "AI理論",
     question: "生成AIはなぜそう振る舞う？",
-    summary: "LLMや生成AIの振る舞いを理解するための数学・理論。",
+    summary:
+      "AIの答えが変わる理由と、制御できる範囲を数学・理論から理解します。",
     icon: iconForPath("ai-mathematics"),
   },
   {
@@ -61,13 +62,7 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
       title: "AI",
       summary: "AIを業務やシステムへ組み込むための設計・理論・実践知。",
       icon: iconForPath("articles"),
-      sections: [
-        "ai",
-        "articles",
-        "ai-design",
-        "ai-mathematics",
-        "practices",
-      ],
+      sections: ["ai", "articles", "ai-design", "ai-mathematics", "practices"],
     },
     {
       path: "dx",
@@ -94,32 +89,40 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
   ],
 ];
 export const designTopics = [
-  ["applicability", "AI適用判断", "適用可否と委任レベル"],
+  [
+    "applicability",
+    "AI適用判断",
+    "AIでできるかだけでなく、任せるべきかを判断します。影響・確認のしやすさ・戻せるかから任せ方を決めます。",
+  ],
   [
     "responsibility-control",
     "責任境界・制御",
-    "生成・受理・実行の分離とGuardrail",
+    "AIの提案を誰が確認し、誰が実行を承認するかを決めます。責任の境界と、危険な処理を止めるGuardrailを設計します。",
   ],
   [
     "architecture",
     "Architecture",
-    "全体構成・Tool / Workflow・Security / Governance",
+    "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むArchitectureを設計します。",
   ],
   [
     "knowledge-context",
     "Knowledge / Context",
-    "指示・知識・根拠の責務と情報設計",
+    "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。Knowledge / Contextの役割と更新方法を設計します。",
   ],
-  ["evaluation-hitl", "Evaluation / HITL", "評価・回帰検証・採否判断"],
+  [
+    "evaluation-hitl",
+    "Evaluation / HITL",
+    "AIの答えをどこまで機械で評価し、どこから人間が判断するかを決めます。Evaluation / HITLで、採用と改善の基準を設計します。",
+  ],
   [
     "software-engineering",
     "Software Engineering",
-    "コード生成・保守・複数AIの設計",
+    "コードを作る速さだけでなく、安全に変更を採用できるかを考えます。開発・保守の工程へAIを組み込む方法を扱います。",
   ],
   [
     "lifecycle-operations",
     "Lifecycle / Operations",
-    "変更・再評価・監視・継続運用",
+    "導入後に何を監視し、変更時に何を確認し、いつ停止するかを考えます。Lifecycle / Operationsとして改善・移行・終了まで設計します。",
   ],
 ] as const;
 export const topicLabel = (key?: string) =>

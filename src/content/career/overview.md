@@ -1,10 +1,10 @@
 ---
 title: "Career"
 seo_title: "Career | Applied AI・DX・System Architecture"
-summary: "Applied AI × DX × System Architecture。業務・人間・AI・既存システムを一つの仕組みとして捉え、企画から運用・改善・終焉まで設計する。"
+summary: "業務課題を整理し、AI・人間・データ・既存システムの役割を決め、運用できる仕組みへ落とし込む仕事をしています。Applied AI × DX × System Architectureを軸に、企画から改善・終了までを考えます。"
 layer: career
 status: stable
-last_updated: "2026-10-03"
+last_updated: "2026-10-04"
 source:
   type: repository
   url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/career/overview.md

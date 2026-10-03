@@ -1,12 +1,12 @@
 ---
-summary: "生成・検証・採用・承認・実行の各段階に、権限と責任主体を定める。HITLを確認画面の追加ではなく、根拠・移管条件・記録・是正まで含む業務構造として設計する。"
+summary: "AIが答えや作業案を出した後、誰が確認し、採用し、実行を承認するかを決めます。人への引き継ぎ条件・根拠・記録まで含めてHuman in the Loopを設計します。"
 layer: ai-design
 design_topic: responsibility-control
 title: AI出力の責任境界とHITL
 kind: guide
 section: evaluation-hitl
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 entry_points:
   - ai
   - dx

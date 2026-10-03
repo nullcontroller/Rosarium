@@ -25,6 +25,22 @@ export interface RecentGrowthItem {
 // Merge same-day changes here. Do not record typo, CSS or internal refactoring.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-04",
+    type: "revised",
+    title: "読書画面と更新履歴を整理",
+    changes: [
+      "記事末尾のAuthorカードを廃止",
+      "顧客サポートDX Bookの一覧画像を整備",
+      "更新履歴を変更1件1行の形式へ改善",
+      "関連導線を本文読了後へ移動",
+      "関連設計の見出しを日本語へ統一",
+      "各ページの入口文を平易化",
+    ],
+    category: "Rosarium",
+    href: "",
+    icon: "home",
+  },
+  {
     date: "2026-10-03",
     type: "revised",
     title: "Rosariumの記事と情報構造を更新",
@@ -46,7 +62,9 @@ const curatedRecentGrowth = [
     date: "2026-09",
     type: "launch",
     title: "Rosarium 公開",
-    changes: ["Applied AI・システム設計・AI数学論・実務事例を扱うRosariumを公開"],
+    changes: [
+      "Applied AI・システム設計・AI数学論・実務事例を扱うRosariumを公開",
+    ],
     category: "Rosarium",
     href: "",
     icon: "updates",
@@ -56,7 +74,9 @@ const curatedRecentGrowth = [
 const recentGrowthDates = new Set<string>();
 for (const entry of curatedRecentGrowth) {
   if (recentGrowthDates.has(entry.date)) {
-    throw new Error(`Recent Growthには同じ日付を複数登録できません: ${entry.date}`);
+    throw new Error(
+      `Recent Growthには同じ日付を複数登録できません: ${entry.date}`,
+    );
   }
   recentGrowthDates.add(entry.date);
 }

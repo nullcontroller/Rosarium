@@ -1,11 +1,11 @@
 ---
-summary: "コード生成支援を、言語モデル・Context構築・ツール・状態・権限・検証からなるシステムとして分解する。トークン生成から編集・テスト・採用までの構造と失敗箇所を説明する。"
+summary: "コード生成AIは、文章を出すモデルだけで成り立つわけではありません。必要情報（Context）、編集ツール、権限、テストを分け、生成から採用までの仕組みと失敗箇所を説明します。"
 layer: ai-mathematics
 title: コード生成AIの正体
 kind: guide
 section: software-engineering
 status: published
-last_updated: "2026-10-03"
+last_updated: "2026-10-04"
 tags:
   - software-engineering
 published_at: null

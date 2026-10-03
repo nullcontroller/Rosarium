@@ -1,11 +1,11 @@
 ---
 title: 数式・記号リファレンス
-summary: "条件付き確率、自己回帰分解、Temperature、RAG、工程成功、期待損失を参照できる形で整理する。数学上の定義と、設計判断に使う簡略モデルを明確に分ける。"
+summary: "AIの出力の揺らぎや失敗リスクを考えるときに使う数式をまとめています。条件付き確率・Temperature・RAG・期待損失について、数学上の定義と設計用の簡略モデルを区別します。"
 layer: reference
 kind: principle
 section: foundations
 status: stable
-last_updated: "2026-09-22"
+last_updated: "2026-10-04"
 order: 20
 tags: [数学, 確率]
 updated_at: "2026-09-22"

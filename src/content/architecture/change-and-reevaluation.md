@@ -1,12 +1,12 @@
 ---
-summary: "モデル・プロンプト・Knowledge・検索・権限などの変更をVersion Bundleで管理する。影響範囲に応じた再評価、リリース条件、監視、切り戻しを整理する。"
+summary: "AIシステムを変更したとき、どこを確認し直し、問題があればどう元へ戻すかを考えます。モデル・指示・知識・権限をVersion Bundleで管理し、再評価とリリースの条件を整理します。"
 layer: ai-design
 design_topic: lifecycle-operations
 title: AIシステムの変更・再評価設計
 kind: architecture
 section: architecture
 status: published
-last_updated: "2026-09-29"
+last_updated: "2026-10-04"
 tags:
   - architecture
 published_at: null
