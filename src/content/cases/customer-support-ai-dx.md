@@ -35,15 +35,7 @@ show_cover: false
 cover_alt: 顧客問い合わせからKnowledge検索、RAG、生成AI、人間レビュー、回答、評価・改善までの顧客サポートDX全体フロー
 ---
 
-<img
-  class="book-cover"
-  src="/Rosarium/assets/cases/customer-support-ai-dx-overview.jpg"
-  alt="顧客問い合わせからKnowledge検索、RAG、生成AI、人間レビュー、回答、評価・改善までの顧客サポートDX全体フロー"
-  width="1280"
-  height="720"
-  loading="eager"
-  decoding="async"
-/>
+<div data-support-dx-diagram></div>
 
 ## このBookについて
 

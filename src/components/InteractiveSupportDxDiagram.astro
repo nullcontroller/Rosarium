@@ -1,0 +1,489 @@
+---
+/** Static links and explanations are enhanced in-place; both layouts share one model. */
+const nodes = [
+  {
+    id: "customer",
+    label: "顧客・質問",
+    sub: "自然言語で問い合わせ",
+    description:
+      "顧客の質問を受け付け、製品・機種・OS・エラーなど、検索と判断に必要な条件を追加質問で確認します。特定できない場合は、人に引き継ぎます。",
+  },
+  {
+    id: "knowledge",
+    label: "Knowledge",
+    sub: "回答に使える知識",
+    description:
+      "マニュアル・仕様・FAQ・障害情報などを管理します。検索できる文書すべてを回答根拠にはせず、対象製品・版・公開可否・有効性を確認します。",
+  },
+  {
+    id: "rag",
+    label: "RAG",
+    sub: "条件に合う根拠を検索",
+    description:
+      "特定した製品や版に検索範囲を絞り、回答に必要な根拠を取得します。異なる機種の文書、非公開情報、矛盾する根拠を、そのまま回答へ渡しません。",
+  },
+  {
+    id: "genai",
+    label: "GenAI",
+    sub: "根拠の範囲で回答案を生成",
+    description:
+      "取得した根拠と問い合わせ条件を使って回答案を生成します。自然な文章が出たこと自体を、正しさや業務で使えることの保証にはしません。",
+  },
+  {
+    id: "decision",
+    label: "回答条件の判断",
+    sub: "システム側で条件を確認",
+    description:
+      "対象・版・公開可否・根拠整合性・影響度など、確認可能な条件で回答可否を判定します。低リスクで条件を満たせば回答へ進み、根拠不足・矛盾・専門判断・高影響操作では停止します。AI自身の自信だけでは決めません。",
+  },
+  {
+    id: "human",
+    label: "Human Review",
+    sub: "専門判断・有人引継ぎ",
+    description:
+      "質問、特定済みの製品、追加質問への回答、参照根拠、停止理由を引き継ぎます。人間が個別調査・例外対応・専門判断を再開し、最終的な業務責任を持ちます。全件を後から承認するだけの工程ではありません。",
+  },
+  {
+    id: "response",
+    label: "Response",
+    sub: "顧客へ回答・案内",
+    description:
+      "条件を満たしたAIの回答、または人間が判断した案内を顧客へ届けます。確定情報・権限・取引・状態管理は既存システムの責任であり、生成文だけで業務処理を確定しません。",
+  },
+  {
+    id: "feedback",
+    label: "Feedback Loop",
+    sub: "利用・誤回答・有人対応から改善",
+    description:
+      "利用結果、誤回答、有人対応結果を分類し、Knowledge・検索条件・評価・UX・業務のどこを直すか判断します。変更後は再評価し、確認した改善を運用へ戻します。",
+  },
+];
+const layouts = [
+  {
+    name: "desktop",
+    viewBox: "0 0 840 410",
+    width: 164,
+    positions: [
+      [20, 40],
+      [230, 180],
+      [230, 40],
+      [440, 40],
+      [650, 40],
+      [650, 180],
+      [440, 300],
+      [230, 300],
+    ],
+    paths: [
+      "M184 76H230",
+      "M312 180V112",
+      "M394 76H440",
+      "M604 76H650",
+      "M710 112V140H522V300",
+      "M760 112V180",
+      "M732 252V336H604",
+      "M440 336H394",
+      "M312 300V252",
+    ],
+    labels: [
+      [530, 160, "回答条件を満たす"],
+      [765, 160, "人へ引継ぎ"],
+      [55, 285, "知識・検索・評価を改善"],
+    ],
+  },
+  {
+    name: "mobile",
+    viewBox: "0 0 320 900",
+    width: 232,
+    positions: [
+      [44, 15],
+      [44, 115],
+      [44, 215],
+      [44, 315],
+      [44, 415],
+      [8, 560],
+      [174, 560],
+      [44, 785],
+    ],
+    paths: [
+      "M160 87V115",
+      "M160 187V215",
+      "M160 287V315",
+      "M160 387V415",
+      "M160 487V520H240V560",
+      "M160 487V520H80V560",
+      "M80 632V695H240V632",
+      "M240 632V745H160V785",
+      "M44 821H4V151H44",
+    ],
+    labels: [
+      [213, 544, "条件を満たす"],
+      [25, 544, "根拠不足など"],
+      [82, 727, "利用・誤回答・有人対応結果"],
+    ],
+  },
+];
+---
+
+<figure class="support-dx" id="support-dx-flow" data-support-dx>
+  <figcaption>問い合わせ対応の分岐と改善の流れ</figcaption>
+  <p class="diagram-help">図の項目から、役割と判断条件の説明へ移動できます。</p>
+  {layouts.map((layout) => (
+    <svg
+      class={`diagram-${layout.name}`}
+      viewBox={layout.viewBox}
+      role="group"
+      aria-labelledby={`support-${layout.name}-title support-${layout.name}-desc`}
+    >
+      <title
+        id={`support-${layout.name}-title`}
+      >顧客サポートDX：AIで回答する経路と人へ引き継ぐ経路</title>
+      <desc id={`support-${layout.name}-desc`}>
+        顧客の質問に対し、KnowledgeからRAGで根拠を検索し、生成AIが回答案を作ります。システムの回答条件を満たすものは回答へ、根拠不足や専門判断が必要なものは人間へ引き継ぎます。利用結果と有人対応結果を知識・検索条件・評価の改善へ戻します。
+      </desc>
+      <defs>
+        <marker
+          id={`support-arrow-${layout.name}`}
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto-start-reverse"
+        >
+          <path d="M0 0L10 5L0 10Z" />
+        </marker>
+      </defs>
+      <g class="flow-lines" aria-hidden="true">
+        {layout.paths.map((path, index) => (
+          <path
+            class:list={[index === layout.paths.length - 1 && "feedback-path"]}
+            d={path}
+            marker-end={`url(#support-arrow-${layout.name})`}
+          />
+        ))}
+      </g>
+      <g class="flow-labels" aria-hidden="true">
+        {layout.labels.map(([x, y, text]) => (
+          <text x={x} y={y}>
+            {text}
+          </text>
+        ))}
+      </g>
+      {nodes.map((node, index) => {
+        const [x, y] = layout.positions[index];
+        const narrow =
+          layout.name === "mobile" && ["human", "response"].includes(node.id);
+        const width = narrow ? 138 : layout.width;
+        return (
+          <a
+            href={`#support-detail-${node.id}`}
+            data-node={node.id}
+            aria-label={`${node.label}：${node.sub}。説明を読む`}
+            style={`--step:${index}`}
+          >
+            <rect x={x} y={y} width={width} height="72" rx="8" />
+            <text
+              class="node-label"
+              x={x + width / 2}
+              y={y + 29}
+              text-anchor="middle"
+            >
+              {node.label}
+            </text>
+            <text
+              class="node-sub"
+              x={x + width / 2}
+              y={y + 51}
+              text-anchor="middle"
+            >
+              {narrow
+                ? node.id === "human"
+                  ? "専門判断・引継ぎ"
+                  : "顧客へ回答"
+                : node.sub}
+            </text>
+            <text
+              class="selected-mark"
+              x={x + width - 16}
+              y={y + 17}
+              aria-hidden="true"
+            >
+              ✓
+            </text>
+          </a>
+        );
+      })}
+    </svg>
+  ))}
+  <div class="diagram-details" aria-label="各工程の説明">
+    {nodes.map((node) => (
+      <div id={`support-detail-${node.id}`} data-detail={node.id}>
+        <h3>{node.label}</h3>
+        <p>{node.description}</p>
+      </div>
+    ))}
+  </div>
+  <p class="diagram-return">
+    <a href="#support-dx-flow">図に戻る ↑</a>
+  </p>
+  <p
+    class="diagram-announcement"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  ></p>
+</figure>
+<script>
+  function enhanceSupportDiagrams() {
+    document
+      .querySelectorAll<HTMLElement>("[data-support-dx]")
+      .forEach((root) => {
+        if (root.dataset.enhanced) return;
+        const links = [...root.querySelectorAll<SVGAElement>("[data-node]")];
+        const details = [
+          ...root.querySelectorAll<HTMLElement>("[data-detail]"),
+        ];
+        const status = root.querySelector<HTMLElement>('[role="status"]');
+        function select(id: string, announce = true) {
+          details.forEach((detail) => {
+            detail.hidden = detail.dataset.detail !== id;
+          });
+          links.forEach((link) =>
+            link.setAttribute("aria-pressed", String(link.dataset.node === id)),
+          );
+          const active = details.find((detail) => detail.dataset.detail === id);
+          if (status && announce)
+            status.textContent = active?.textContent?.trim() ?? "";
+        }
+        links.forEach((link) => {
+          link.setAttribute("role", "button");
+          link.setAttribute("tabindex", "0");
+          link.setAttribute(
+            "aria-controls",
+            "support-detail-" + link.dataset.node,
+          );
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            select(link.dataset.node!);
+            const detail = details.find(
+              (item) => item.dataset.detail === link.dataset.node,
+            );
+            if (detail && root.clientWidth < 760) {
+              const bounds = detail.getBoundingClientRect();
+              if (bounds.bottom > innerHeight || bounds.top < 100) {
+                detail.scrollIntoView({
+                  block: "nearest",
+                  behavior: matchMedia("(prefers-reduced-motion: reduce)")
+                    .matches
+                    ? "instant"
+                    : "smooth",
+                });
+              }
+            }
+          });
+          link.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              select(link.dataset.node!);
+            }
+          });
+        });
+        root.dataset.enhanced = "true";
+        root.querySelector(".diagram-help")!.textContent =
+          "項目を選ぶと、役割と判断条件を確認できます。";
+        select("customer", false);
+        const motion = matchMedia("(prefers-reduced-motion: reduce)");
+        if (!motion.matches && "IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              if (entries.some((entry) => entry.isIntersecting)) {
+                root.classList.add("flow-reveal");
+                observer.disconnect();
+              }
+            },
+            { threshold: 0.15 },
+          );
+          observer.observe(root);
+        }
+      });
+  }
+  enhanceSupportDiagrams();
+  document.addEventListener("astro:page-load", enhanceSupportDiagrams);
+</script>
+<style>
+  /* Widen only the explanatory figure; keep surrounding reading line lengths. */
+  :global(.prose:has(> [data-support-dx])) {
+    max-width: none;
+  }
+  :global(.prose:has(> [data-support-dx]) > :not([data-support-dx])) {
+    max-width: 78ch;
+  }
+
+  .support-dx {
+    margin: 1.5rem 0;
+    padding: clamp(0.65rem, 2vw, 1.25rem);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    min-width: 0;
+    container-type: inline-size;
+    scroll-margin-top: 7rem;
+  }
+  figcaption {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .diagram-help {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin: 0.5rem 0 1rem;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .diagram-desktop {
+    display: none;
+  }
+  .diagram-mobile {
+    display: block;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+  marker path {
+    fill: var(--accent);
+  }
+  .flow-lines path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+  .feedback-path {
+    stroke-dasharray: 5 4;
+  }
+  .flow-labels {
+    fill: var(--muted);
+    font-size: 12px;
+  }
+  [data-node] {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  [data-enhanced] [data-node] {
+    cursor: pointer;
+  }
+  rect {
+    fill: var(--surface);
+    stroke: var(--line);
+    stroke-width: 2;
+  }
+  .node-label {
+    fill: var(--ink);
+    font:
+      600 16px system-ui,
+      sans-serif;
+  }
+  .node-sub {
+    fill: var(--muted);
+    font:
+      11px system-ui,
+      sans-serif;
+  }
+  .diagram-mobile .node-label {
+    font-size: 18px;
+  }
+  .diagram-mobile .node-sub,
+  .diagram-mobile .flow-labels {
+    font-size: 14px;
+  }
+  .selected-mark {
+    display: none;
+    fill: var(--accent);
+    font-size: 14px;
+  }
+  [aria-pressed="true"] rect {
+    fill: var(--soft);
+    stroke: var(--accent);
+    stroke-width: 3;
+  }
+  [aria-pressed="true"] .selected-mark {
+    display: block;
+  }
+  [data-node]:focus-visible {
+    outline: none;
+  }
+  [data-node]:focus-visible rect {
+    stroke: var(--accent);
+    stroke-width: 4;
+    stroke-dasharray: 5 3;
+  }
+  .diagram-details {
+    min-height: 18rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+  }
+  .diagram-details [data-detail] {
+    scroll-margin-top: 7rem;
+  }
+  .diagram-details h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+  }
+  .diagram-details p {
+    margin: 0 0 1rem;
+  }
+  /* CSS anchors remain functional without JavaScript; reserve the detail panel. */
+  .diagram-details [data-detail] {
+    display: none;
+  }
+  .diagram-details [data-detail]:first-child,
+  .diagram-details [data-detail]:target {
+    display: block;
+  }
+  .diagram-details:has(:target) [data-detail]:not(:target) {
+    display: none;
+  }
+  [data-enhanced] .diagram-details [data-detail]:not([hidden]) {
+    display: block;
+  }
+  [data-enhanced] .diagram-details [data-detail][hidden] {
+    display: none;
+  }
+  .diagram-announcement {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  @keyframes flow-reveal {
+    from {
+      opacity: 0.8;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .flow-reveal [data-node] {
+    animation: flow-reveal 400ms ease-out both;
+    animation-delay: calc(var(--step) * 55ms);
+  }
+  @container (min-width: 760px) {
+    .diagram-details {
+      min-height: 9rem;
+    }
+    .diagram-desktop {
+      display: block;
+    }
+    .diagram-mobile {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .flow-reveal [data-node] {
+      animation: none;
+    }
+  }
+</style>

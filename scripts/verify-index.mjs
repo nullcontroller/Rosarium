@@ -600,7 +600,7 @@ for (const element of top("[data-growth-entry]").toArray()) {
 }
 assert.equal(
   top("[data-growth-entry]").first().find(".growth-changes > li").length,
-  6,
+  7,
 );
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
@@ -922,3 +922,21 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html"))) {
 console.log(
   "Verified Japanese related headings, post-body placement and unique related links.",
 );
+
+// The Book body uses the enhanced SVG; the same raster remains the list thumbnail.
+const supportDiagram = page("cases/customer-support-ai-dx");
+assert.equal(supportDiagram("[data-support-dx]").length, 1);
+assert.equal(supportDiagram("[data-detail]").length, 8);
+assert.equal(supportDiagram("[data-support-dx] svg").length, 2);
+for (const svg of supportDiagram("[data-support-dx] svg").toArray()) {
+  assert.equal(supportDiagram(svg).find("[data-node]").length, 8);
+  assert(supportDiagram(svg).find("title").text());
+  assert(supportDiagram(svg).find("desc").text().includes("根拠不足"));
+}
+assert.equal(supportDiagram('article img[src$="customer-support-ai-dx-overview.jpg"]').length, 0);
+assert(page("books")('img[src$="customer-support-ai-dx-overview.jpg"]').length > 0);
+assert(supportDiagram("#support-detail-decision").text().includes("AI自身の自信だけでは決めません"));
+for (const route of ["cases/system-understanding", "cases/three-ai-maintenance", "career"]) {
+  assert.equal(page(route)("[data-support-dx]").length, 0);
+}
+console.log("Verified support DX SVG, static explanation targets and preserved Book thumbnail.");

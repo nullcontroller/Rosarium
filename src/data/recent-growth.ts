@@ -35,6 +35,7 @@ const curatedRecentGrowth = [
       "関連導線を本文読了後へ移動",
       "関連設計の見出しを日本語へ統一",
       "各ページの入口文を平易化",
+      "顧客サポートDXの分岐と改善ループを操作できる図を追加",
     ],
     category: "Rosarium",
     href: "",
