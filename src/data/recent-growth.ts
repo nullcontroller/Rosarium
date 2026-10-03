@@ -26,6 +26,16 @@ const curatedRecentGrowth = [
   {
     date: "2026-10-03",
     type: "revised",
+    title: "Sidebar Navigationを主要カテゴリへ整理",
+    summary:
+      "左SidebarをAI・DX・実践事例の主要3カテゴリへ整理し、下位Knowledgeは各カテゴリページ内で辿る構造に変更しました。",
+    category: "Rosarium",
+    href: "",
+    icon: "home",
+  },
+  {
+    date: "2026-10-03",
+    type: "revised",
     title: "Case Studyのキービジュアルを統一",
     summary:
       "レガシーシステム理解と3AI保守のCase Studyについて、内容を表す横長キービジュアルへ更新しました。",

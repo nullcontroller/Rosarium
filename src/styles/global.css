@@ -2142,6 +2142,29 @@ blockquote {
   margin-block: 1.25rem;
 }
 
+.growth-scrollbox {
+  max-height: clamp(320px, 45vh, 440px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+  padding: 0.25rem 1rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) var(--surface);
+}
+@media (max-width: 760px) {
+  .growth-scrollbox {
+    max-height: clamp(240px, 45vh, 320px);
+    padding-inline: 0.75rem;
+  }
+}
+@media print {
+  .growth-scrollbox {
+    max-height: none;
+    overflow: visible;
+  }
+}
 .growth-entry {
   padding: 1rem 0;
   border-bottom: 1px solid var(--line);

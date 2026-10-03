@@ -59,7 +59,7 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
     {
       path: "ai",
       title: "AI",
-      summary: "設計・理論・実践・事例",
+      summary: "AIを業務やシステムへ組み込むための設計・理論・実践知。",
       icon: iconForPath("articles"),
       sections: [
         "ai",
@@ -67,22 +67,21 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
         "ai-design",
         "ai-mathematics",
         "practices",
-        "cases",
       ],
-      children: readingCategories,
     },
     {
       path: "dx",
       title: "DX",
-      summary: "価値・業務変革・システム企画",
+      summary: "価値・業務変革・システム企画を扱う領域。",
       icon: iconForPath("dx"),
       sections: ["dx", ...dxCategories.map((category) => `dx/${category.id}`)],
-      children: dxCategories.map((category) => ({
-        path: `dx/${category.id}`,
-        title: category.title,
-        summary: category.summary,
-        icon: iconForPath("dx"),
-      })),
+    },
+    {
+      path: "cases",
+      title: "実践事例",
+      summary: "実務での課題、設計判断、実装、結果をまとめた事例。",
+      icon: iconForPath("cases"),
+      sections: ["cases"],
     },
   ],
   [

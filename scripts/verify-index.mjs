@@ -142,16 +142,8 @@ assert.deepEqual(
   [
     "庭",
     "AI",
-    "AI設計",
-    "AI理論",
-    "実践知",
-    "実践事例",
     "DX",
-    "価値設計",
-    "業務変革",
-    "選択と廃止",
-    "システム変革",
-    "継続的価値創出",
+    "実践事例",
     "Reference",
   ],
 );
@@ -182,14 +174,14 @@ for (const secondary of ["詳細職務経歴", "Books", "連載", "Essays"])
     !top(".sidebar nav a .nav-copy > span").text().includes(secondary),
     secondary,
   );
-assert.equal(top(".sidebar .icon").length, 4);
+assert.equal(top(".sidebar .icon").length, 5);
 assert.equal(
   new Set(
     top(".sidebar .icon")
       .map((_, e) => top(e).attr("class"))
       .get(),
   ).size,
-  4,
+  5,
 );
 assert.equal(
   top('.sidebar a[href="/ai-design-foundations/career/"]').length,
@@ -203,17 +195,7 @@ assert.deepEqual(
   top(".sidebar .nav-children a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  [
-    "AI設計",
-    "AI理論",
-    "実践知",
-    "実践事例",
-    "価値設計",
-    "業務変革",
-    "選択と廃止",
-    "システム変革",
-    "継続的価値創出",
-  ],
+  [],
 );
 assert.equal(top(".sidebar .nav-children .icon").length, 0);
 assert.equal(top(".sidebar").length, 1);
@@ -597,11 +579,15 @@ console.log(
 );
 
 assert(top("#recent-growth-heading").length);
+assert.equal(top(".growth-scrollbox").length, 1);
+assert.equal(top(".growth-scrollbox").attr("tabindex"), "0");
+assert.equal(top(".growth-scrollbox").attr("role"), "region");
+assert.equal(top(".growth-scrollbox").attr("aria-labelledby"), "recent-growth-heading");
 assert.equal(top("main > section").length, 3);
 assert.equal(top(".growth-list [data-growth-entry]").length, 3);
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
-  "Case Studyのキービジュアルを統一",
+  "Sidebar Navigationを主要カテゴリへ整理",
 );
 assert.equal(top('a[href="/ai-design-foundations/updates/"]').length, 0);
 const updates = page("updates");

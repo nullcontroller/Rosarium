@@ -27,7 +27,12 @@ const recent = recentGrowth.slice(0, 3);
       id="recent-growth-heading"
     />
     <p>読者へ知らせる価値のある公開・追記・改訂を記録しています。</p>
-    <div class="growth-list growth-list-compact">
+    <div
+      class="growth-list growth-list-compact growth-scrollbox"
+      role="region"
+      aria-labelledby="recent-growth-heading"
+      tabindex="0"
+    >
       {recent.map((entry) => <GrowthEntry entry={entry} />)}
     </div>
   </section>
