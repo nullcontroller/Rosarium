@@ -2387,8 +2387,7 @@ blockquote {
   }
 }
 
-/* Career essays retain readable paragraphs alongside the existing exploration grids. */
-.career-page .prose > p,
+/* Career lists retain readable widths alongside the existing exploration grids. */
 .career-page .prose > ul {
   max-width: 74ch;
 }
