@@ -180,6 +180,10 @@ export const publicationDate = (e: Entry) => publicationTiming(e).value;
 export const topicPublications: Record<string, string[]> = {
   applicability: [
     "essays/rethink-work-before-ai",
+    "practices/transferring-practices",
+    "practices/transferring-ai-practices",
+    "practices/adoption-governance",
+    "practices/ai-adoption-and-effective-use",
     "foundations/ai-business-design",
     "foundations/generation-and-acceptance",
     "essays/dx-and-value",
@@ -310,3 +314,11 @@ export const publicationTopics = (entry: Entry) => [
     ...(entry.data.tags.includes("キャリア") ? ["キャリア"] : []),
   ]),
 ];
+
+// Use the existing topic/publication map as the authority for Case discovery.
+export const relatedCases = (all: Entry[], entry: Entry) => {
+  const topics = entry.data.design_topic ? [entry.data.design_topic] :
+    Object.entries(topicPublications).filter(([, ids]) => ids.includes(entry.id)).map(([topic]) => topic);
+  const ids = new Set(topics.flatMap((topic) => topicPublications[topic] || []));
+  return all.filter((item) => ids.has(item.id) && item.data.section === "cases" && item.data.order === 0 && item.id !== entry.id).slice(0, 2);
+};

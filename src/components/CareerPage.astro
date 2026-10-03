@@ -1,7 +1,7 @@
 ---
 import { getEntry, render } from "astro:content";
 import Site from "../layouts/Site.astro";
-import { splitRelatedContent, relatedTargets } from "../lib/related-content.mjs";
+import { splitRelatedContent, careerCaseLinks } from "../lib/related-content.mjs";
 import MarkdownBody from "./MarkdownBody.astro";
 import { url } from "../lib/site";
 import { statusLabel } from "../lib/site";
@@ -14,7 +14,7 @@ if (!entry) throw new Error("Career content missing");
 const { headings } = await render(entry);
 const d = entry.data;
 const content = splitRelatedContent(entry.rendered?.html || "");
-const relatedLinks = relatedTargets(content.related, Astro.url.href);
+const caseLinks = careerCaseLinks(content.related);
 const isOverview = Astro.props.id === "overview";
 const linkedIn =
   "https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/";
@@ -66,15 +66,20 @@ const linkedIn =
     </div>
   </article>
   <section class="content-related" aria-label="関連する内容" data-related-content>
+    <h2>関連する内容</h2>
+    <ul class="reading-exit-links career-case-links">
+      {caseLinks.map((link) => <li><a href={link.href}>{link.title} →</a><p class="meta">{link.summary}</p></li>)}
+    </ul>
     <nav class="career-actions" aria-label="キャリアの主要導線">
       <a
-        class="career-cta career-cta-primary"
+        class="action-link"
         href={url(isOverview ? "career/details" : "career")}
       >
-        {isOverview ? "経験と実践の背景を見る →" : "Careerの設計思想へ戻る →"}
+        {isOverview ? "経験と実践の背景を見る →" : "仕事の考え方へ戻る →"}
       </a>
-      {!relatedLinks.has(linkedIn) && <a class="career-cta career-cta-secondary" href={linkedIn}>LinkedInプロフィール →</a>}
+      <a class="action-link" href={linkedIn}>LinkedInで職歴・資格を見る →</a>
+      {!isOverview && <a class="action-link" data-implementation-link href="https://github.com/nullcontroller/Rosarium">サイトの実装を見る →</a>}
     </nav>
-    <div class="prose"><MarkdownBody html={content.related} /></div>
+
   </section>
 </Site>

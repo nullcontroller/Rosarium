@@ -29,8 +29,9 @@ for (const file of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith
     const href = $(element).attr("href");
     const allowedRepository =
       href === "https://github.com/nullcontroller/Rosarium" &&
-      $(element).closest(".site-footer").length === 1;
-    if (allowedRepository) repositoryLinks++;
+      ($(element).closest(".site-footer").length === 1 ||
+        (file.replaceAll("\\", "/") === "dist/career/details/index.html" && $(element).is("[data-implementation-link]")));
+    if (allowedRepository && $(element).closest(".site-footer").length === 1) repositoryLinks++;
     assert(
       allowedRepository ||
         !/github\.com|zenn\.dev|nullcontroller\.github\.io\/career-profile/i.test(
@@ -95,10 +96,10 @@ const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 for (const text of [
   "Applied AI × DX × System Architecture",
   "What I Do",
-  "考え方の実例",
+  "関連する内容",
   "AIを使う前に考えること",
   "What I Want to Build",
-  "Explore",
+  "関連する内容",
   "生成AI / RAGによる顧客サポートDX",
 ])
   assert(career("main").text().includes(text), text);
@@ -159,6 +160,6 @@ for (const [route, title] of [["career", "Career"], ["career/details", "Career D
   assert(!$("main").text().includes("希望条件"));
 }
 const careerDetails = load(fs.readFileSync("dist/career/details/index.html", "utf8"));
-for (const section of ["Experience Overview", "Selected Work", "Professional Profile"])
+for (const section of ["Experience Overview", "関連する内容", "LinkedInで職歴・資格を見る"])
   assert(careerDetails("main").text().includes(section));
 console.log("Verified Career entry, retained experience hub, private profile and canonical/OGP/JSON-LD separation.");

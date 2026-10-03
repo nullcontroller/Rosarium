@@ -1,7 +1,7 @@
 import { load } from "cheerio";
 
 // Only explicitly named navigation sections are moved. Prose links stay intact.
-const relatedHeading = /^(?:Related Design Principles|Related Design|関連する入口|関連する設計(?:原則|知識)?|関連する記事・設計|関連ページ|関連Reference|次に読む|Explore|Selected Work|Professional Profile)$/;
+const relatedHeading = /^(?:Related Design Principles|Related Design|関連する入口|関連する設計(?:原則|知識)?|関連する記事・設計|関連する内容|関連ページ|関連Reference|次に読む|Explore|Selected Work|Professional Profile)$/;
 export function splitRelatedContent(html) {
   const $ = load(html, null, false);
   const related = [];
@@ -20,6 +20,7 @@ export function splitRelatedContent(html) {
     related.push(section.map((item) => $.html(item)).join(""));
     section.forEach((item) => $(item).remove());
   }
+  if (related.length) $.root().children().last().filter("hr").remove();
   const relatedHtml = load(related.join(""), null, false);
   // Career cards used to link the same Case in both title and CTA.
   relatedHtml(".career-work").each((_, node) => {
@@ -48,4 +49,33 @@ export function splitRelatedContent(html) {
 export function relatedTargets(html, pageUrl) {
   const $ = load(html, null, false);
   return new Set($("a[href]").toArray().map((node) => new URL($(node).attr("href"), pageUrl).href));
+}
+
+// Explicit prose links are candidates; keep the reading exit small and unique.
+export function compactRelatedLinks(html, preferred, pageUrl, fallback) {
+  const $ = load(html, null, false);
+  const candidates = [
+    ...preferred,
+    ...$("a[href]").toArray().map((node) => ({ href: $(node).attr("href"), title: $(node).text().trim() })),
+    ...fallback,
+  ];
+  const seen = new Set([new URL(pageUrl).href]);
+  const links = [];
+  for (const link of candidates) {
+    const target = new URL(link.href, pageUrl);
+    if (!/^https?:$/.test(target.protocol) || seen.has(target.href) || !link.title) continue;
+    seen.add(target.href);
+    links.push({ ...link, title: link.title.replace(/\s*→$/, "").trim(), href: target.pathname.startsWith("/Rosarium/") && target.origin === new URL(pageUrl).origin ? target.pathname + target.hash : target.href });
+    if (links.length === 4) break;
+  }
+  return { links, anchors: $("[id]").toArray().map((node) => $(node).attr("id")) };
+}
+
+export function careerCaseLinks(html) {
+  const $ = load(html, null, false);
+  return $(".career-work").toArray().map((node) => ({
+    href: $(node).find("h3 a").attr("href"),
+    title: $(node).find("h3 a").text().replace(/\s*→$/, "").trim(),
+    summary: $(node).find("p:not(.eyebrow)").first().text().split("。")[0] + "。",
+  })).filter((link) => link.href).slice(0, 3);
 }

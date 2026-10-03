@@ -174,9 +174,9 @@ AIシステムそのものの一部だと考えています。
 
 ---
 
-## Explore
+## 関連する内容
 
-設計の具体例を知りたい方はCaseへ、考え方を掘り下げたい方は関連テーマへ進んでください。
+仕事の考え方を、具体的な設計判断と照らし合わせて読める事例です。
 
 ### 考え方の実例
 
@@ -193,39 +193,6 @@ AIシステムそのものの一部だと考えています。
     <h3><a href="../cases/system-understanding/">レガシーシステムを「理解可能な状態」にする設計手法 →</a></h3>
     <p>分散したコード・資料の理解を、変更と問い合わせへ再利用できるKnowledgeへ変換した例です。</p>
   </article>
-</div>
-
-### 設計・実践を読む
-
-<div class="career-focus-grid">
-  <section>
-    <h3><a href="../ai/">Applied AI →</a></h3>
-    <p>AIをどこへ適用し、どこで止めるか。AI設計・理論・実践知へ進めます。</p>
-  </section>
-  <section>
-    <h3><a href="../dx/">DX →</a></h3>
-    <p>技術導入より先に、価値・業務・システムをどう変えるかを考えます。</p>
-  </section>
-  <section>
-    <h3><a href="../ai-design/architecture/">System Architecture →</a></h3>
-    <p>業務・人間・AI・既存システムを接続する構成と境界を扱います。</p>
-  </section>
-  <section>
-    <h3><a href="../ai-design/lifecycle-operations/">Software Lifecycle →</a></h3>
-    <p>導入後の評価・運用・変更・再設計へ。終了までの判断を考えます。</p>
-  </section>
-  <section>
-    <h3><a href="../ai-design/knowledge-context/">Knowledge / Context →</a></h3>
-    <p>指示・知識・根拠を分け、AIと人間に必要な情報を設計します。</p>
-  </section>
-  <section>
-    <h3><a href="../ai-design/evaluation-hitl/">Human Review / AI Evaluation →</a></h3>
-    <p>生成結果を採用できる条件と、人間が判断を引き取る仕組みを扱います。</p>
-  </section>
-  <section>
-    <h3><a href="../practices/">Practices →</a></h3>
-    <p>AI導入・教育・横展開・開発Workflowへ設計原則を適用した実践知です。</p>
-  </section>
 </div>
 
 ### LinkedIn

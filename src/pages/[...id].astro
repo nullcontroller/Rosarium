@@ -1,12 +1,11 @@
 ---
 import { getCollection, render } from "astro:content";
 import Site from "../layouts/Site.astro";
-import { splitRelatedContent, relatedTargets } from "../lib/related-content.mjs";
-import RelatedPublications from "../components/RelatedPublications.astro";
+import { splitRelatedContent, compactRelatedLinks } from "../lib/related-content.mjs";
 import {
   layerPath,
   contentCategory,
-  relatedPublications,
+  relatedCases,
   topicLabel,
   designTopics,
   topicPublications,
@@ -19,16 +18,13 @@ import MarkdownBody from "../components/MarkdownBody.astro";
 import { imageDimensions } from "../lib/image-metadata";
 import { contentUseCases } from "../lib/use-cases";
 import { formatDateJa, url, layerLabel, publicEntry } from "../lib/site";
-import { iconForEntry, iconForTopic } from "../lib/icons";
+import { iconForEntry } from "../lib/icons";
 import Icon from "../components/Icon.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import ThemeArticleIndex from "../components/ThemeArticleIndex.astro";
 import { readingNavigation, readingPathForEntry } from "../lib/reading";
 import {
   contentEntryPoints,
-  entryPointDefinitions,
 } from "../lib/entry-points";
-import { dxCategories, dxCategoryIdsForEntry } from "../lib/dx";
 export async function getStaticPaths() {
   return (await getCollection("pages", publicEntry)).map((entry) => ({
     params: { id: entry.id },
@@ -38,8 +34,6 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const d = entry.data;
 const content = splitRelatedContent(entry.rendered?.html || "");
-const relatedLinks = relatedTargets(content.related, Astro.url.href);
-const alreadyRelated = (path: string) => relatedLinks.has(new URL(url(path), Astro.url).href);
 const primaryPath = d.section === "cases" ? "cases" : layerPath(d.layer);
 const primaryLabel =
   d.section === "cases" ? "実践事例" : layerLabel(d.layer);
@@ -69,41 +63,23 @@ const seriesPosition =
 const coverDimensions = imageDimensions(
   d.cover ? "/Rosarium" + d.cover : undefined,
 );
-const related = all
-  .filter(
-    (e) =>
-      e.id !== entry.id &&
-      !alreadyRelated(e.id) &&
-      !e.data.series &&
-      e.data.layer === d.layer &&
-      (d.design_topic
-        ? e.data.design_topic === d.design_topic
-        : e.data.section === d.section),
-  )
-  .slice(0, 3);
 const purposes = contentUseCases(entry);
 const timing = publicationTiming(entry);
 const publicationState = publicationStatus(entry);
 const entryPoints = contentEntryPoints(entry);
-const dxTopics = dxCategoryIdsForEntry(entry)
-  .map((id) => dxCategories.find((category) => category.id === id))
-  .filter((category): category is (typeof dxCategories)[number] => Boolean(category));
-const uniqueEntryPoints = entryPoints.filter((point) => !alreadyRelated(entryPointDefinitions[point].path));
-const uniqueDxTopics = dxTopics.filter((category) => !alreadyRelated(`dx/${category.id}`));
 const readingPath = readingPathForEntry(entry, all);
 const themeGroups = readingPath
   ? series.length
     ? []
     : readingNavigation(all, readingPath, entry.id)
   : [];
-const relatedPublicationEntries = d.layer === "ai-design"
-  ? relatedPublications(all, d.design_topic).filter((item) => !alreadyRelated(item.id))
-  : [];
-const displayedIds = new Set([...related, ...relatedPublicationEntries].map((item) => item.id));
-const endThemeGroups = themeGroups.map((group) => ({
-  ...group,
-  links: group.links.filter((link) => !displayedIds.has(link.id) && !alreadyRelated(link.id)),
-})).filter((group) => group.links.length > 0);
+const preferredLinks = d.section === "cases"
+  ? [{ href: url("career"), title: "設計思想・キャリアを見る" }]
+  : relatedCases(all, entry).map((item) => ({ href: url(item.id), title: `実践例：${item.data.title}` }));
+const readingExit = compactRelatedLinks(content.related, preferredLinks, Astro.url.href, [
+  ...designTopics.filter(([key]) => topicPublications[key]?.includes(series[0]?.id || entry.id)).map(([key, title]) => ({ href: url("ai-design/" + key), title: `設計を深く読む：${title}` })),
+  { href: url(primaryPath), title: `${primaryLabel}の入口へ` },
+]);
 const bookNavigation = series.length
   ? {
       title: d.series_title || series[0].data.title,
@@ -252,65 +228,10 @@ const bookNavigation = series.length
     </nav>
   )}
   <section class="content-related" aria-label="関連する内容" data-related-content>
-    {content.principles && <div class="prose"><MarkdownBody html={content.principles} /></div>}
-  {designTopics.some(([key]) =>
-    topicPublications[key]?.includes(series[0]?.id || entry.id) && !alreadyRelated("ai-design/" + key),
-  ) && (
-    <section>
-      <SectionHeading icon="ai-design" title="関連する設計" />
-      <ul class="related-design-list">
-        {designTopics
-          .filter(([key]) =>
-            topicPublications[key]?.includes(series[0]?.id || entry.id) && !alreadyRelated("ai-design/" + key),
-          )
-          .map(([key, title, summary]) => (
-            <li class="icon-entry">
-              <Icon name={iconForTopic(key)} size="list" />
-              <p><a href={url("ai-design/" + key)}>{title}</a> — {summary}</p>
-            </li>
-          ))}
-      </ul>
-    </section>
-  )}
-    {content.afterDesign && <div class="prose"><MarkdownBody html={content.afterDesign} /></div>}
-  {d.layer === "ai-design" && (
-    <RelatedPublications entries={relatedPublicationEntries} />
-  )}
-  {d.source?.type === "zenn" && d.section === "cases" && (
-    <p>
-      <a href={url("cases")}>実践事例 — 適用テーマ・設計原則から読む</a>
-    </p>
-  )}
-  {related.length > 0 && (
-    <section class="related">
-      <SectionHeading icon="arrow" title="次に読む" />
-      <ul>
-        {related.map((e) => (
-          <li>
-            <ContentLink entry={e} heading="h3" showEntryPoints={false} />
-          </li>
-        ))}
-      </ul>
-    </section>
-  )}
-      {uniqueEntryPoints.length > 0 && <nav class="content-entry-points" aria-label="この記事の入口">
-        <span>入口：</span>
-        {uniqueEntryPoints.map((entryPoint) => (
-          <a href={url(entryPointDefinitions[entryPoint].path)}>{entryPointDefinitions[entryPoint].label}</a>
-        ))}
-      </nav>}
-      {uniqueDxTopics.length > 0 && (
-        <nav class="content-dx-topics" aria-label="関連するDXテーマ">
-          <span>DXテーマ：</span>
-          {uniqueDxTopics.map((category) => (
-            <a href={url(`dx/${category.id}`)}>{category.title}</a>
-          ))}
-        </nav>
-      )}
-
-  {endThemeGroups.length > 0 && <ThemeArticleIndex groups={endThemeGroups} />}
-  <nav class="content-end-nav" aria-label="読み終えた後のリンク">
-    <a href={`${url()}#recent-growth-heading`}>最近の更新を見る</a>
-  </nav>
+    {readingExit.anchors.map((id) => <span id={id} />)}
+    <SectionHeading icon="arrow" title="次に読む" />
+    <ul class="reading-exit-links">
+      {readingExit.links.map((link) => <li><a href={link.href}>{link.title} →</a></li>)}
+    </ul>
   </section>
 </Site>

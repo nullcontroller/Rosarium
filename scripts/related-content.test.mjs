@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { load } from "cheerio";
-import { splitRelatedContent, relatedTargets } from "../src/lib/related-content.mjs";
+import { splitRelatedContent, relatedTargets, compactRelatedLinks } from "../src/lib/related-content.mjs";
 
 test("explicit related sections move while later body and inline links remain", () => {
   const source = '<p>本文<a href="/Rosarium/reference/">用語</a></p><h2 id="related">Related Design Principles</h2><ul><li><a href="/Rosarium/ai-design/">原則</a></li></ul><h2 id="later">次の本題</h2><p>後半本文</p>';
@@ -23,4 +23,14 @@ test("ordinary related-word headings are not extracted and headings keep their b
   assert(result.body.includes("最後の本題"));
   assert(result.related.includes("関連する設計"));
   assert(!result.related.includes("最後の本題"));
+});
+
+test("reading exits prioritize evidence and person, deduplicate and cap at four", () => {
+  const result = compactRelatedLinks('<h2 id="related">関連する内容</h2><a href="/Rosarium/career/">重複</a><a href="/Rosarium/ai/">AI</a><a href="/Rosarium/dx/">DX</a><a href="/Rosarium/reference/">用語</a>',
+    [{ href: "/Rosarium/career/", title: "設計思想・キャリアを見る" }],
+    "https://nullcontroller.github.io/Rosarium/cases/example/", [{ href: "/Rosarium/cases/", title: "事例" }]);
+  assert.equal(result.links.length, 4);
+  assert.equal(result.links[0].title, "設計思想・キャリアを見る");
+  assert.equal(new Set(result.links.map((link) => link.href)).size, 4);
+  assert.deepEqual(result.anchors, ["related"]);
 });

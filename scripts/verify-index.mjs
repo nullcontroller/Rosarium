@@ -86,8 +86,8 @@ for (const [id, d] of entries) {
 }
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 assert.equal(career("h1").text(), "Career");
-assert.equal(career(".career-focus-grid > section").length, 7);
-assert.equal(career(".career-work").length, 3);
+assert.equal(career(".career-focus-grid > section").length, 0);
+assert.equal(career(".career-case-links li").length, 3);
 assert.equal(career('a[href="/Rosarium/career/details/"]').length, 1);
 assert(career(".career-actions").text().includes("経験と実践の背景を見る"));
 for (const heading of [
@@ -102,7 +102,7 @@ for (const heading of [
   );
 }
 const details = load(fs.readFileSync("dist/career/details/index.html", "utf8"));
-assert.equal(details(".career-work").length, 3);
+assert.equal(details(".career-case-links li").length, 3);
 assert(details("main").text().includes("Experience Overview"));
 assert(details('a[href="/Rosarium/career/"]').length);
 assert(career('a[href^="https://www.linkedin.com/in/"]').length === 1);
@@ -273,7 +273,7 @@ for (const topic of [
 for (const [id, d] of entries) {
   if (d.layer === "ai-design")
     assert(
-      page(id)("[data-related-publications] .publication-entry").length,
+      page(id)('[data-related-content] a[href*="/cases/"]').length,
       id,
     );
 }
@@ -400,20 +400,8 @@ assert(dx('a[href="/Rosarium/essays/dx-and-value/"]').length);
 assert(dx('a[href="/Rosarium/cases/customer-support-ai-dx/"]').length);
 assert(!dx('a[href="/Rosarium/foundations/conditional-probability/"]').length);
 const dxEssay = page("essays/dx-and-value");
-assert.deepEqual(
-  dxEssay(".content-entry-points a")
-    .map((_, element) => dxEssay(element).text())
-    .get(),
-  ["AI", "DX"],
-);
-assert(dxEssay('.content-entry-points a[href="/Rosarium/ai/"]').length);
-assert(dxEssay('.content-entry-points a[href="/Rosarium/dx/"]').length);
-assert.deepEqual(
-  dxEssay(".content-dx-topics a")
-    .map((_, element) => dxEssay(element).text())
-    .get(),
-  ["価値設計"],
-);
+assert(dxEssay('[data-related-content] a[href="/Rosarium/cases/customer-support-ai-dx/"]').length);
+assert(dxEssay('[data-related-content] a').length <= 4);
 for (const [id, expected] of [
   ["foundations/ai-business-design", ["公開：2026年2月"]],
   ["cases/three-ai-maintenance", ["公開：2026年7月"]],
@@ -943,3 +931,17 @@ for (const label of compactDiagram.find(".node-label").toArray()) {
 }
 assert(compactDiagram.find('[data-node="feedback"]').text().includes("次回の検索・回答へ反映"));
 assert.equal(supportDiagram(".diagram-desktop [data-node]").length, 8);
+
+for (const id of ["cases/system-understanding", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"]) {
+  const $ = page(id);
+  assert.equal($('[data-related-content] a[href="/Rosarium/career/"]').length, 1);
+}
+for (const id of ["foundations/ai-business-design", "practices/transferring-practices", "knowledge-context/instruction-knowledge-evidence"]) {
+  assert(page(id)('[data-related-content] a[href*="/cases/"]').length, `${id}: meaningful Case discovery`);
+}
+for (const file of walk("dist").filter((file) => file.endsWith("index.html"))) {
+  const $ = load(fs.readFileSync(file, "utf8"));
+  if ($('.reading-exit-links').length) assert($('.reading-exit-links a').length <= 4, `${file}: compact exits`);
+  if ($('.career-actions').length) assert($('.career-actions a').length <= 3, `${file}: compact profile paths`);
+}
+console.log("Verified compact reading exits, Case/Career reciprocity and Practice discovery.");

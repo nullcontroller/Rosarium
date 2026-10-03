@@ -2402,3 +2402,9 @@ blockquote {
 }
 .content-related > .prose > h2:first-child { margin-top: 0; }
 .content-related h2 { font-size: 1.15rem; }
+
+.reading-exit-links { margin: 0; padding-left: 1.2rem; }
+.reading-exit-links li { padding-block: 0.4rem; overflow-wrap: anywhere; }
+
+.pagination + .content-related { border-top: 0; margin-top: 0.75rem; }
+.career-case-links .meta { margin-block: 0.3rem 0.6rem; }
