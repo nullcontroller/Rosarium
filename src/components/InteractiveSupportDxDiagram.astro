@@ -4,58 +4,58 @@ const nodes = [
   {
     id: "customer",
     label: "顧客・質問",
-    sub: "自然言語で問い合わせ",
+    sub: "必要な条件を確認",
     description:
-      "顧客の質問を受け付け、製品・機種・OS・エラーなど、検索と判断に必要な条件を追加質問で確認します。特定できない場合は、人に引き継ぎます。",
+      "顧客の質問から、製品・機種・OS・エラーなどの条件を確認します。条件を特定できない場合は人へ引き継ぎます。",
   },
   {
     id: "knowledge",
-    label: "Knowledge",
-    sub: "回答に使える知識",
+    label: "回答の知識",
+    sub: "Knowledge",
     description:
-      "マニュアル・仕様・FAQ・障害情報などを管理します。検索できる文書すべてを回答根拠にはせず、対象製品・版・公開可否・有効性を確認します。",
+      "製品・版・公開可否・有効性を確認した知識を管理します。検索できる文書すべてを、顧客への回答根拠にしてよいわけではありません。",
   },
   {
     id: "rag",
-    label: "RAG",
-    sub: "条件に合う根拠を検索",
+    label: "根拠を検索",
+    sub: "RAG",
     description:
-      "特定した製品や版に検索範囲を絞り、回答に必要な根拠を取得します。異なる機種の文書、非公開情報、矛盾する根拠を、そのまま回答へ渡しません。",
+      "機種・OS・エラーなどの条件で、公開可能なKnowledgeから回答根拠を検索します。対象や版が異なる根拠は使いません。",
   },
   {
     id: "genai",
-    label: "GenAI",
-    sub: "根拠の範囲で回答案を生成",
+    label: "生成AI",
+    sub: "根拠から回答案を生成",
     description:
-      "取得した根拠と問い合わせ条件を使って回答案を生成します。自然な文章が出たこと自体を、正しさや業務で使えることの保証にはしません。",
+      "取得した根拠の範囲で回答案を生成します。流暢な文章が出たこと自体は、正しさの保証になりません。",
   },
   {
     id: "decision",
-    label: "回答条件の判断",
-    sub: "システム側で条件を確認",
+    label: "回答条件の判定",
+    sub: "システムで条件を確認",
     description:
-      "対象・版・公開可否・根拠整合性・影響度など、確認可能な条件で回答可否を判定します。低リスクで条件を満たせば回答へ進み、根拠不足・矛盾・専門判断・高影響操作では停止します。AI自身の自信だけでは決めません。",
+      "根拠・対象・公開可否・影響度をシステムで確認します。不足・矛盾・専門判断があれば人へ渡し、AI自身の自信だけでは決めません。",
   },
   {
     id: "human",
-    label: "Human Review",
+    label: "人による確認",
     sub: "専門判断・有人引継ぎ",
     description:
-      "質問、特定済みの製品、追加質問への回答、参照根拠、停止理由を引き継ぎます。人間が個別調査・例外対応・専門判断を再開し、最終的な業務責任を持ちます。全件を後から承認するだけの工程ではありません。",
+      "根拠が足りない、または専門判断が必要な場合に人へ引き継ぎます。質問・条件・根拠・停止理由を受け取り、人が最終的な業務責任を持ちます。",
   },
   {
     id: "response",
-    label: "Response",
-    sub: "顧客へ回答・案内",
+    label: "顧客へ回答",
+    sub: "条件を満たす場合",
     description:
-      "条件を満たしたAIの回答、または人間が判断した案内を顧客へ届けます。確定情報・権限・取引・状態管理は既存システムの責任であり、生成文だけで業務処理を確定しません。",
+      "条件を満たしたAIの回答、または人が判断した案内を顧客へ届けます。権限や取引などの確定処理は既存システムが担います。",
   },
   {
     id: "feedback",
-    label: "Feedback Loop",
-    sub: "利用・誤回答・有人対応から改善",
+    label: "改善",
+    sub: "利用結果を次回へ反映",
     description:
-      "利用結果、誤回答、有人対応結果を分類し、Knowledge・検索条件・評価・UX・業務のどこを直すか判断します。変更後は再評価し、確認した改善を運用へ戻します。",
+      "誤回答や有人対応結果を確認し、Knowledge・検索条件・評価方法を改善します。変更後は再評価し、次回の検索・回答へ反映します。",
   },
 ];
 const layouts = [
@@ -92,33 +92,43 @@ const layouts = [
   },
   {
     name: "mobile",
-    viewBox: "0 0 320 900",
+    viewBox: "0 0 320 560",
     width: 232,
     positions: [
-      [44, 15],
-      [44, 115],
-      [44, 215],
-      [44, 315],
-      [44, 415],
-      [8, 560],
-      [174, 560],
-      [44, 785],
+      [44, 10],
+      [8, 90],
+      [174, 90],
+      [44, 182],
+      [44, 258],
+      [8, 362],
+      [174, 362],
+      [12, 464],
+    ],
+    // Flow, split and improvement are separate blocks, not equal-sized steps.
+    sizes: [
+      [232, 56],
+      [138, 64],
+      [138, 64],
+      [232, 56],
+      [232, 60],
+      [138, 72],
+      [138, 72],
+      [296, 86],
     ],
     paths: [
-      "M160 87V115",
-      "M160 187V215",
-      "M160 287V315",
-      "M160 387V415",
-      "M160 487V520H240V560",
-      "M160 487V520H80V560",
-      "M80 632V695H240V632",
-      "M240 632V745H160V785",
-      "M44 821H4V151H44",
+      "M160 66V78H243V90",
+      "M146 122H174",
+      "M243 154V168H160V182",
+      "M160 238V258",
+      "M160 318V338H243V362",
+      "M160 318V338H77V362",
+      "M146 398H174",
+      "M243 434V452H160V464",
     ],
     labels: [
-      [213, 544, "条件を満たす"],
-      [25, 544, "根拠不足など"],
-      [82, 727, "利用・誤回答・有人対応結果"],
+      [14, 82, "知識と検索"],
+      [12, 354, "有人対応"],
+      [247, 354, "AIで完結"],
     ],
   },
 ];
@@ -156,7 +166,11 @@ const layouts = [
       <g class="flow-lines" aria-hidden="true">
         {layout.paths.map((path, index) => (
           <path
-            class:list={[index === layout.paths.length - 1 && "feedback-path"]}
+            class:list={[
+              layout.name === "desktop" &&
+                index === layout.paths.length - 1 &&
+                "feedback-path",
+            ]}
             d={path}
             marker-end={`url(#support-arrow-${layout.name})`}
           />
@@ -171,37 +185,61 @@ const layouts = [
       </g>
       {nodes.map((node, index) => {
         const [x, y] = layout.positions[index];
-        const narrow =
-          layout.name === "mobile" && ["human", "response"].includes(node.id);
-        const width = narrow ? 138 : layout.width;
+        const [width, height] =
+          layout.name === "mobile" && layout.sizes
+            ? layout.sizes[index]
+            : [layout.width, 72];
+        const mobile = layout.name === "mobile";
+        const feedback = mobile && node.id === "feedback";
+        const nodeLabel =
+          mobile && node.id === "customer" ? "質問" : node.label;
+        const nodeSub =
+          mobile && node.id === "human" ? "専門判断・引継ぎ" : node.sub;
         return (
           <a
             href={`#support-detail-${node.id}`}
             data-node={node.id}
+            data-kind={node.id}
             aria-label={`${node.label}：${node.sub}。説明を読む`}
             style={`--step:${index}`}
           >
-            <rect x={x} y={y} width={width} height="72" rx="8" />
+            <rect
+              x={x}
+              y={y}
+              width={width}
+              height={height}
+              rx={node.id === "decision" ? 22 : 8}
+            />
             <text
               class="node-label"
               x={x + width / 2}
-              y={y + 29}
+              y={y + (height === 56 ? 23 : 27)}
               text-anchor="middle"
             >
-              {node.label}
+              {nodeLabel}
             </text>
-            <text
-              class="node-sub"
-              x={x + width / 2}
-              y={y + 51}
-              text-anchor="middle"
-            >
-              {narrow
-                ? node.id === "human"
-                  ? "専門判断・引継ぎ"
-                  : "顧客へ回答"
-                : node.sub}
-            </text>
+            {feedback ? (
+              <text class="node-sub" x={x + width / 2} text-anchor="middle">
+                <tspan x={x + width / 2} y={y + 47}>
+                  利用結果・誤回答・有人対応結果
+                </tspan>
+                <tspan x={x + width / 2} y={y + 65}>
+                  知識・検索条件・評価を改善
+                </tspan>
+                <tspan x={x + width / 2} y={y + 82}>
+                  次回の検索・回答へ反映
+                </tspan>
+              </text>
+            ) : (
+              <text
+                class="node-sub"
+                x={x + width / 2}
+                y={y + (height === 56 ? 43 : 49)}
+                text-anchor="middle"
+              >
+                {nodeSub}
+              </text>
+            )}
             <text
               class="selected-mark"
               x={x + width - 16}
@@ -268,7 +306,7 @@ const layouts = [
             const detail = details.find(
               (item) => item.dataset.detail === link.dataset.node,
             );
-            if (detail && root.clientWidth < 760) {
+            if (detail && root.clientWidth < 640) {
               const bounds = detail.getBoundingClientRect();
               if (bounds.bottom > innerHeight || bounds.top < 100) {
                 detail.scrollIntoView({
@@ -379,10 +417,30 @@ const layouts = [
     stroke: var(--line);
     stroke-width: 2;
   }
+  [data-kind="knowledge"] rect,
+  [data-kind="rag"] rect {
+    fill: var(--soft);
+  }
+  [data-kind="genai"] rect {
+    stroke-width: 3;
+  }
+  [data-kind="decision"] rect {
+    stroke: var(--accent);
+  }
+  [data-kind="human"] rect {
+    stroke-dasharray: 4 3;
+  }
+  [data-kind="response"] rect {
+    fill: var(--soft);
+    stroke: var(--accent);
+  }
+  [data-kind="feedback"] rect {
+    fill: var(--bg);
+  }
   .node-label {
     fill: var(--ink);
     font:
-      600 16px system-ui,
+      600 18px system-ui,
       sans-serif;
   }
   .node-sub {
@@ -420,7 +478,7 @@ const layouts = [
     stroke-dasharray: 5 3;
   }
   .diagram-details {
-    min-height: 18rem;
+    min-height: 11rem;
     border-top: 1px solid var(--line);
     padding-top: 1rem;
   }
@@ -470,9 +528,9 @@ const layouts = [
     animation: flow-reveal 400ms ease-out both;
     animation-delay: calc(var(--step) * 55ms);
   }
-  @container (min-width: 760px) {
+  @container (min-width: 640px) {
     .diagram-details {
-      min-height: 9rem;
+      min-height: 7rem;
     }
     .diagram-desktop {
       display: block;

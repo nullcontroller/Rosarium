@@ -940,3 +940,11 @@ for (const route of ["cases/system-understanding", "cases/three-ai-maintenance",
   assert.equal(page(route)("[data-support-dx]").length, 0);
 }
 console.log("Verified support DX SVG, static explanation targets and preserved Book thumbnail.");
+
+const compactDiagram = supportDiagram(".diagram-mobile");
+assert.equal(compactDiagram.find(".feedback-path").length, 0, "No edge-spanning Mobile feedback loop");
+for (const label of compactDiagram.find(".node-label").toArray()) {
+  assert(/[ぁ-んァ-ヶ一-龯]/.test(supportDiagram(label).text()), "Main diagram labels explain their role in Japanese");
+}
+assert(compactDiagram.find('[data-node="feedback"]').text().includes("次回の検索・回答へ反映"));
+assert.equal(supportDiagram(".diagram-desktop [data-node]").length, 8);
