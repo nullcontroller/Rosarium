@@ -10,7 +10,7 @@ const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entr
   const file = path.join(dir, entry.name);
   return entry.isDirectory() ? walk(file) : [file];
 });
-const pages = walk("dist").filter((file) => file.endsWith(".html"));
+const pages = walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"));
 for (const file of pages) {
   const $ = load(fs.readFileSync(file, "utf8"));
   const loaders = $('script[src*="googletagmanager.com/gtag/js"]');

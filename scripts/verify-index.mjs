@@ -29,7 +29,7 @@ const entries = new Map(
     }),
 );
 let links = 0;
-for (const p of walk("dist").filter((p) => p.endsWith(".html"))) {
+for (const p of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(p, "utf8"));
   $("[data-content-id]").each((_, el) => {
     const node = $(el),
@@ -116,7 +116,7 @@ const page = (id) =>
   load(fs.readFileSync("dist/" + id + "/index.html", "utf8"));
 const top = page("");
 assert.equal(top("main h1").first().text(), "Rosarium");
-for (const html of walk("dist").filter((file) => file.endsWith(".html"))) {
+for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(html, "utf8"));
   const brand = $("header.masthead > a.brand");
   assert.equal(brand.length, 1, `${html}: shared header brand`);
@@ -679,7 +679,7 @@ for (const route of ["about", "search"]) {
   assert.equal($("meta[http-equiv=refresh]").length, 1);
 }
 assert.equal(page("practices")("[data-related-publications]").length, 1);
-for (const html of walk("dist").filter((file) => file.endsWith(".html"))) {
+for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(html, "utf8"));
   assert(!$("main").text().includes("Related Publications"), html);
   assert(
@@ -869,7 +869,7 @@ console.log(
 );
 
 // Related reading must follow the article and chapter pagination.
-for (const file of walk("dist").filter((file) => file.endsWith(".html"))) {
+for (const file of walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(file, "utf8"));
   assert(!$("h1,h2,h3,h4").text().includes("Related Design"), file);
   const related = $("[data-related-content]");

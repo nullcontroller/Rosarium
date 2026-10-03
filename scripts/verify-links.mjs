@@ -27,7 +27,7 @@ for (const name of ["zenn", "wiki"]) {
     );
   }
 }
-const files = walk(root).filter((f) => f.endsWith(".html"));
+const files = walk(root).filter((f) => f.endsWith(".html") && !f.endsWith("google57af630fc0ce16af.html"));
 const errors = [],
   cache = new Map();
 let links = 0;

@@ -8,13 +8,18 @@ const walk = (directory) =>
     const target = path.join(directory, entry.name);
     return entry.isDirectory() ? walk(target) : [target];
   });
-const htmlFiles = walk("dist").filter((name) => name.endsWith(".html"));
+const htmlFiles = walk("dist").filter((name) => name.endsWith(".html") && !name.endsWith("google57af630fc0ce16af.html"));
 const titles = new Map();
 const canonicals = new Map();
 const descriptions = new Map();
 let articleCount = 0;
 const indexable = [];
-const googleVerification = process.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+const verificationFile = "google57af630fc0ce16af.html";
+assert.deepEqual(
+  fs.readFileSync(path.join("dist", verificationFile)),
+  fs.readFileSync(path.join("public", verificationFile)),
+  "Google ownership verification file must be copied unchanged",
+);
 
 for (const file of htmlFiles) {
   const $ = load(fs.readFileSync(file, "utf8"));
@@ -33,10 +38,7 @@ for (const file of htmlFiles) {
   assert.ok(robots, `Missing robots metadata: ${file}`);
   const verification = $('meta[name="google-site-verification"]');
   assert(verification.length <= 1, `Duplicate Google verification tag: ${file}`);
-  if (googleVerification) {
-    assert.equal(verification.length, 1, `Missing Google verification tag: ${file}`);
-    assert.equal(verification.attr("content"), googleVerification, `Google verification token mismatch: ${file}`);
-  }
+
   assert(!fs.readFileSync(file, "utf8").includes("/ai-design-foundations/"), `Old runtime base path: ${file}`);
   assert.equal(
     $('meta[property="og:url"]').attr("content"),

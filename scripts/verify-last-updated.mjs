@@ -23,7 +23,7 @@ for (const [, quoted, bare, date] of registry.matchAll(/(?:"([^"]*)"|([a-z-]+)):
 }
 const sitemap = load(fs.readFileSync("dist/sitemap.xml", "utf8"), {xmlMode: true});
 const report = [];
-for (const file of walk("dist").filter((file) => file.endsWith(".html"))) {
+for (const file of walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"))) {
   const route = file.replaceAll("\\", "/").replace(/^dist\//, "").replace(/\/index\.html$/, "").replace(/^index\.html$/, "");
   const expected = dates.get(route);
   assert(expected, `No explicit content date source: ${route}`);

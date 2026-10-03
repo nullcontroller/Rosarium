@@ -22,7 +22,7 @@ for (const id of removed)
   );
 let htmlCount = 0;
 let repositoryLinks = 0;
-for (const file of walk("dist").filter((p) => p.endsWith(".html"))) {
+for (const file of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(file, "utf8"));
   htmlCount++;
   for (const element of $("[href]").toArray()) {
