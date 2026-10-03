@@ -30,6 +30,8 @@ source:
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
 order: 0
+cover: /assets/cases/customer-support-ai-dx-overview.jpg
+cover_alt: 顧客問い合わせからKnowledge検索、RAG、生成AI、人間レビュー、回答、評価・改善までの顧客サポートDX全体フロー
 ---
 
 <img

@@ -1067,20 +1067,6 @@ blockquote {
   font-size: 0.75rem;
   color: var(--muted);
 }
-.author-box {
-  margin-top: 3rem;
-  padding: 1.2rem 1.4rem;
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
-  background: var(--bg);
-}
-.author-box p {
-  margin: 0.2rem 0;
-}
-.author-box a {
-  display: inline-block;
-  margin-top: 0.65rem;
-}
 .related {
   font-size: 0.85rem;
 }
@@ -1410,8 +1396,7 @@ blockquote {
   figure,
   table,
   pre,
-  .semantic-block,
-  .author-box {
+  .semantic-block {
     break-inside: avoid;
   }
   h1,

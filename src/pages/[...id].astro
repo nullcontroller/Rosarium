@@ -15,7 +15,6 @@ import {
 } from "../lib/navigation";
 import ContentLink from "../components/ContentLink.astro";
 import MarkdownBody from "../components/MarkdownBody.astro";
-import AuthorBox from "../components/AuthorBox.astro";
 import { imageDimensions } from "../lib/image-metadata";
 import { contentUseCases } from "../lib/use-cases";
 import { formatDateJa, url, layerLabel, publicEntry } from "../lib/site";
@@ -297,5 +296,4 @@ const bookNavigation = series.length
     ))}
     <a href={`${url()}#recent-growth-heading`}>最近の更新を見る</a>
   </nav>
-  {d.layer !== "reference" && <AuthorBox />}
 </Site>
