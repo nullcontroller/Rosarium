@@ -593,7 +593,10 @@ assert.equal(top(".growth-scrollbox").length, 1);
 assert.equal(top(".growth-scrollbox").attr("tabindex"), "0");
 assert.equal(top(".growth-scrollbox").attr("role"), "region");
 assert.equal(top(".growth-scrollbox").attr("aria-labelledby"), "recent-growth-heading");
-assert.equal(top("main > section").length, 3);
+assert.equal(top("main > section").length, 4);
+assert.equal(top('a[href="#about-rosarium"]').text(), "Rosariumとは？ →");
+assert.equal(top("#about-rosarium").length, 1);
+assert.equal(top("#about-rosarium").text(), "Rosariumという名前について");
 assert.equal(top(".growth-list [data-growth-entry]").length, 2);
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),

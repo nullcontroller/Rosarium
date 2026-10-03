@@ -28,7 +28,7 @@ const curatedRecentGrowth = [
     type: "revised",
     title: "Rosariumの情報構造とCase表示を改善",
     summary:
-      "Zenn由来Knowledgeを正本へ統合し、Case画像を横長に統一／Sidebar Navigation・実践知の分類・OTHER PATHS導線を整理しました。",
+      "Zenn由来Knowledgeを正本へ統合し、Case画像を横長に統一／Sidebar Navigation・実践知の分類・OTHER PATHS導線を整理し、庭に命名由来とその導線を追加しました。",
     category: "Rosarium",
     href: "",
     icon: "home",
