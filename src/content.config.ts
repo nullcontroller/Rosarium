@@ -86,6 +86,7 @@ const pages = defineCollection({
         .optional(),
       series_title: z.string().optional(),
       cover: z.string().optional(),
+      show_cover: z.boolean().default(true),
       cover_alt: z.string().trim().min(1).optional(),
       source: z
         .object({
