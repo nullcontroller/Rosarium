@@ -719,18 +719,18 @@ assert(
 );
 const customerSupportBook = page("cases/customer-support-ai-dx");
 assert.equal(customerSupportBook(".series").length, 0);
-assert.equal(customerSupportBook(".book-toc > ol > li").length, 12);
-assert.equal(customerSupportBook(".book-toc-mobile > ol > li").length, 12);
+assert.equal(customerSupportBook(".book-toc > ol > li").length, 11);
+assert.equal(customerSupportBook(".book-toc-mobile > ol > li").length, 11);
 assert.equal(customerSupportBook(".book-toc .content-entry").length, 0);
 assert.equal(
   customerSupportBook(".series-position-inline").text(),
-  "現在位置：全体構成・全11章",
+  "現在位置：全体構成・全10章",
 );
 assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
     ".series-position-inline",
   ).text(),
-  "現在位置：第4章・全11章",
+  "現在位置：第4章・全10章",
 );
 assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
@@ -743,16 +743,11 @@ assert(
     .text()
     .includes("公開実績として確認できない数値は成果として断定しません"),
 );
-assert(
-  page("cases/customer-support-ai-dx/outcomes-and-evidence")("main")
-    .text()
-    .includes("公開実績として未確認"),
+assert.equal(
+  page("cases/customer-support-ai-dx/design-principles")(".series-position-inline").text(),
+  "現在位置：第10章・全10章",
 );
-assert(
-  page("cases/customer-support-ai-dx/outcomes-and-evidence")("main")
-    .text()
-    .includes("公開実績のBefore / Afterではなく"),
-);
+assert.equal(customerSupportBook('a[href*="outcomes-and-evidence"]').length, 0);
 assert(page("career")('a[href$="/cases/customer-support-ai-dx/"]').length);
 console.log("Verified recent growth and exact Book publication presentation.");
 

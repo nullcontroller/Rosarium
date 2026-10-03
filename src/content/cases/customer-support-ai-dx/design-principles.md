@@ -1,7 +1,7 @@
 ---
 summary: "問い合わせ対応の設計から、他の業務でも使える判断原則を整理します。価値を起点に、AIと人の責任、回答根拠、停止条件、HITL、評価・改善をどう組み合わせるか考えます。"
 layer: publication
-title: 10. この事例から得た設計原則
+title: 09. この事例から得た設計原則
 kind: case
 section: cases
 status: published
@@ -15,7 +15,7 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 11
+order: 10
 ---
 
 ## 1. AIから始めず、価値と業務課題から始める
