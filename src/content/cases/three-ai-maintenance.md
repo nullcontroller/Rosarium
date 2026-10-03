@@ -6,7 +6,7 @@ title: 3つのAIをオーケストレーションしたレガシー保守
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-03"
 entry_points:
   - ai
   - dx
@@ -67,7 +67,8 @@ source:
 series: three-ai-maintenance
 series_title: 3つのAIをオーケストレーションしたレガシー保守
 order: 0
-cover: /assets/imported/zenn/b9a9feaefb4001-cover.jpg
+cover: /assets/cases/three-ai-maintenance-hero.jpg
+cover_alt: 複数AIを仕様調査・コード探索・実装支援へ分担し、人間がレビューと最終判断を行う保守フロー
 ---
 ## Context
 

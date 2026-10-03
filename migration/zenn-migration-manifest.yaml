@@ -1201,14 +1201,6 @@ assets:
     destination: /assets/imported/zenn/76ed12dcc7e5d7-cover.jpg
     downloaded: true
     sha256: 6cf012158762a1986d33b9484676ab40329a47acc52d591b6c5e773a5fb91db0
-  - source_file: books/b9a9feaefb4001/cover.jpg
-    destination: /assets/imported/zenn/b9a9feaefb4001-cover.jpg
-    downloaded: true
-    sha256: 20745ad6c145adaeb11ebe84c0bc777fa7aaadf4c84080e47657c537b78639fe
-  - source_file: books/db491398459cbc/cover.jpg
-    destination: /assets/imported/zenn/db491398459cbc-cover.jpg
-    downloaded: true
-    sha256: 248121baf3a0141198b65d841a2412a43c96a183d7657fc0d6508d30b2a7c722
   - original_url: https://static.zenn.studio/user-upload/3d78c494f1fe-20260827.jpg
     destination: /assets/imported/zenn/f24cf28353b8f906.jpg
     downloaded: true

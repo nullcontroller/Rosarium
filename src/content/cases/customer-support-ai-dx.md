@@ -32,6 +32,16 @@ series_title: 生成AI / RAGによる顧客サポートDX
 order: 0
 ---
 
+<img
+  class="book-cover"
+  src="/ai-design-foundations/assets/cases/customer-support-ai-dx-overview.jpg"
+  alt="顧客問い合わせからKnowledge検索、RAG、生成AI、人間レビュー、回答、評価・改善までの顧客サポートDX全体フロー"
+  width="1280"
+  height="720"
+  loading="eager"
+  decoding="async"
+/>
+
 ## このBookについて
 
 顧客サポートで生成AIやRAGを使うとき、技術を導入するだけでは業務は変わりません。誰にどのような価値を届けるのか、どの問い合わせを自己解決へ移すのか、どこでAIを止めるのか、人間へ何を引き継ぐのかまで設計する必要があります。

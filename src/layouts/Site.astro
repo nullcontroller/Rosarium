@@ -248,7 +248,6 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         />
         <span class="brand-name">Rosarium</span>
       </a>
-      {frame ? (
         <div class="header-links">
           <nav class="header-primary" aria-label="主要ページ">
             <a href={url()} aria-current={section === "" ? "page" : undefined}>
@@ -277,14 +276,6 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             </button>
           </div>
         </div>
-      ) : (
-        <nav class="career-header-links" aria-label="Rosariumへの導線">
-          <a href={url()}>庭</a>
-          <a href={url("ai")}>AI</a>
-          <a href={url("dx")}>DX</a>
-          <a href={url("cases")}>事例</a>
-        </nav>
-      )}
     </header>
     <div
       class:list={[

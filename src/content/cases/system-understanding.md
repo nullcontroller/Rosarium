@@ -6,7 +6,7 @@ title: レガシーシステムを「理解可能な状態」にする設計手�
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-03"
 entry_points:
   - ai
   - dx
@@ -90,7 +90,8 @@ source:
 series: system-understanding
 series_title: レガシーシステムを「理解可能な状態」にする設計手法
 order: 0
-cover: /assets/imported/zenn/db491398459cbc-cover.jpg
+cover: /assets/cases/system-understanding-hero.jpg
+cover_alt: 分散したコード・資料・既存システムを解析し、構造化されたKnowledgeへ再構築する流れ
 ---
 ## Context
 

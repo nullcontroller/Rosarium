@@ -26,6 +26,16 @@ const curatedRecentGrowth = [
   {
     date: "2026-10-03",
     type: "revised",
+    title: "Case Studyのキービジュアルを統一",
+    summary:
+      "レガシーシステム理解と3AI保守のCase Studyについて、内容を表す横長キービジュアルへ更新しました。",
+    category: "Case Study",
+    href: "cases",
+    icon: "cases",
+  },
+  {
+    date: "2026-10-03",
+    type: "revised",
     title: "Zenn由来Knowledgeの役割を整理",
     summary:
       "役割を終えた旧記事3件を現在の正本へ統合し、旧URLから後継Knowledgeへ移動できるようにしました。AI理論と実践知は、引き続き育てる領域として扱います。",

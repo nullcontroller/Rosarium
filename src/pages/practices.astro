@@ -5,19 +5,29 @@ import ContentIndex from "../components/ContentIndex.astro";
 import RelatedPublications from "../components/RelatedPublications.astro";
 import { publicEntry } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
-import ThemeArticleIndex from "../components/ThemeArticleIndex.astro";
-import { readingEntries, readingNavigation } from "../lib/reading";
+import { readingNavigation } from "../lib/reading";
 const all = await getCollection("pages", publicEntry);
 const themeGroups = readingNavigation(all, "practices");
-const discoverable = readingEntries(all, "practices");
+const byId = new Map(all.map((entry) => [entry.id, entry]));
+const categories = themeGroups.map((group) => ({
+  title: group.title,
+  entries: [...new Set(group.links.map((link) => link.id))].map((id) => {
+    const entry = byId.get(id);
+    if (!entry) throw new Error(`Missing practice entry: ${id}`);
+    return entry;
+  }),
+}));
 ---
 
 <Site title="実践知" section="practices" themeGroups={themeGroups}>
   <PageHeader title="実践知" />
   <p class="lead">設計原則を、AI導入・教育・横展開・開発Workflowへ適用する。</p>
-  <ThemeArticleIndex groups={themeGroups} />
-  <h2>業務・開発プロセスへの組込み</h2>
-  <ContentIndex entries={discoverable} showIcons={false} />
+  {categories.map((category) => (
+    <section data-practice-category aria-label={category.title}>
+      <h2>{category.title}</h2>
+      <ContentIndex entries={category.entries} showIcons={false} />
+    </section>
+  ))}
   <RelatedPublications
     summary="設計判断の背景や、個別の問題意識を扱った公開記事です。"
     showIcons={false}

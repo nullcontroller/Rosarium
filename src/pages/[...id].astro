@@ -219,7 +219,7 @@ const bookNavigation = series.length
       <img
         class="book-cover"
         src={"/ai-design-foundations" + d.cover}
-        alt={d.title + " 表紙"}
+        alt={d.cover_alt || d.title + " 表紙"}
         width={coverDimensions?.width || 180}
         height={coverDimensions?.height}
         loading="lazy"

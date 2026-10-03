@@ -217,10 +217,12 @@ assert.deepEqual(
 );
 assert.equal(top(".sidebar .nav-children .icon").length, 0);
 assert.equal(top(".sidebar").length, 1);
-assert.equal(career(".sidebar,.toc,.global-search").length, 0);
-assert.equal(career(".career-header-links").length, 1);
+assert.equal(career(".sidebar,.toc").length, 0);
+assert.equal(career(".global-search").length, 1);
+assert.equal(career(".header-primary").length, 1);
+assert.equal(career("#theme").length, 1);
 assert.deepEqual(
-  career(".career-header-links a")
+  career(".header-primary a")
     .map((_, e) => career(e).text().trim())
     .get(),
   ["庭", "AI", "DX", "事例"],
@@ -596,10 +598,10 @@ console.log(
 
 assert(top("#recent-growth-heading").length);
 assert.equal(top("main > section").length, 3);
-assert.equal(top(".growth-list [data-growth-entry]").length, 2);
+assert.equal(top(".growth-list [data-growth-entry]").length, 3);
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
-  "Zenn由来Knowledgeの役割を整理",
+  "Case Studyのキービジュアルを統一",
 );
 assert.equal(top('a[href="/ai-design-foundations/updates/"]').length, 0);
 const updates = page("updates");
@@ -760,6 +762,26 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
     .map((_, e) => $(e).attr("href"))
     .get();
   assert(desktop.length, `${route}: desktop article index`);
+  if (route === "practices") {
+    const categories = $("main [data-practice-category]");
+    const sidebarGroups = $(".theme-toc .theme-nav-groups > details");
+    assert.equal(categories.length, 5);
+    assert.equal(categories.length, sidebarGroups.length);
+    categories.each((index, category) => {
+      const group = sidebarGroups.eq(index);
+      assert.equal(
+        $(category).children("h2").text(),
+        group.children("summary").clone().children().remove().end().text().trim(),
+      );
+      const links = $(category).find(".content-title a")
+        .map((_, e) => $(e).attr("href")).get();
+      assert.deepEqual(links, group.find("a").map((_, e) => $(e).attr("href")).get());
+      assert.equal(new Set(links).size, links.length);
+    });
+    assert.equal($(".theme-toc-mobile").length, 0);
+    assert(!$("main").text().includes("業務・開発プロセスへの組込み"));
+    continue;
+  }
   assert.deepEqual(mobile, desktop, `${route}: mobile article index`);
   assert.equal($(".theme-toc > p").text(), "このテーマの記事");
   assert.match(

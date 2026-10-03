@@ -207,8 +207,7 @@ blockquote {
   min-width: clamp(28rem, 36vw, 39rem);
   gap: clamp(2.25rem, 3.5vw, 4.5rem);
 }
-.header-primary,
-.career-header-links {
+.header-primary {
   font-size: clamp(1.06rem, 1.4vw, 1.16rem);
   font-weight: 650;
   letter-spacing: 0.025em;
@@ -216,14 +215,6 @@ blockquote {
 .header-actions {
   justify-self: end;
   gap: 1.35rem;
-}
-.career-header-links {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-.career-header-links a {
-  color: var(--ink);
 }
 .global-search {
   position: relative;
@@ -1030,6 +1021,13 @@ blockquote {
   margin: 1.5rem auto;
   border: 1px solid var(--line);
 }
+/* Case opening visuals use landscape assets (around 16:9), without cropping.
+   This does not constrain diagrams or other figures inside articles. */
+.book-cover[src$="/system-understanding-hero.jpg"],
+.book-cover[src$="/three-ai-maintenance-hero.jpg"] {
+  width: 100%;
+  height: auto;
+}
 .series {
   padding: 1.2rem;
   background: var(--soft);
@@ -1231,8 +1229,7 @@ blockquote {
     gap: clamp(0.75rem, 3vw, 1.2rem);
     flex-wrap: nowrap;
   }
-  .header-primary,
-  .career-header-links {
+  .header-primary {
     font-size: 0.94rem;
   }
   .header-actions {
