@@ -195,7 +195,7 @@ AIシステムそのものの一部だと考えています。
   </article>
 </div>
 
-### 設計・実践・背景を読む
+### 設計・実践を読む
 
 <div class="career-focus-grid">
   <section>
@@ -225,10 +225,6 @@ AIシステムそのものの一部だと考えています。
   <section>
     <h3><a href="../practices/">Practices →</a></h3>
     <p>AI導入・教育・横展開・開発Workflowへ設計原則を適用した実践知です。</p>
-  </section>
-  <section>
-    <h3><a href="../career/details/">経験と実践の背景 →</a></h3>
-    <p>現在の設計対象につながる経験、代表Caseと外部プロフィールへの導線をまとめています。</p>
   </section>
 </div>
 

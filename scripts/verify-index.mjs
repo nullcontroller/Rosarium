@@ -86,9 +86,17 @@ for (const [id, d] of entries) {
 }
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 assert.equal(career("h1").text(), "Career");
-assert.equal(career(".career-focus-grid > section").length, 8);
+assert.equal(career(".career-focus-grid > section").length, 7);
 assert.equal(career(".career-work").length, 3);
-assert(career('a[href="/Rosarium/career/details/"]').length);
+assert.equal(career('a[href="/Rosarium/career/details/"]').length, 1);
+assert(career(".career-actions").text().includes("経験と実践の背景を見る"));
+for (const heading of ["Career Detail", "Career Summary", "Experience Overview"]) {
+  assert(
+    !career("main h2, main h3")
+      .toArray()
+      .some((element) => career(element).text().includes(heading)),
+  );
+}
 const details = load(fs.readFileSync("dist/career/details/index.html", "utf8"));
 assert.equal(details(".career-work").length, 3);
 assert(details("main").text().includes("Experience Overview"));
