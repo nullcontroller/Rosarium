@@ -11,6 +11,13 @@ const section = z.enum([
   "cases",
   "essays",
 ]);
+const dxCategory = z.enum([
+  "value-design",
+  "business-transformation",
+  "selection-retirement",
+  "system-transformation",
+  "continuous-value",
+]);
 const pages = defineCollection({
   loader: glob({
     pattern: ["**/*.md", "!career/**/*.md"],
@@ -50,32 +57,24 @@ const pages = defineCollection({
       last_updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
       order: z.number().int().nonnegative().optional(),
       tags: z.array(z.string()).default([]),
-      entry_points: z.array(z.enum(["ai", "dx"])).min(1).default(["ai"]),
-      dx_topic: z
-        .enum([
-          "value-business",
-          "business-transformation",
-          "system-planning",
-          "organization-adoption",
-          "case-study",
-        ])
-        .optional(),
-      dx_topics: z
-        .array(
-          z.enum([
-            "value-design",
-            "business-transformation",
-            "selection-retirement",
-            "system-transformation",
-            "continuous-value",
-          ]),
-        )
+      entry_points: z
+        .array(z.enum(["ai", "dx"]))
         .min(1)
-        .optional(),
+        .default(["ai"]),
+      primaryCategory: dxCategory.optional(),
+      secondaryCategories: z.array(dxCategory).default([]),
+      featuredInCategory: z.boolean().default(false),
       published_at: z.string().nullable().optional(),
       updated_at: z.string().nullable().optional(),
       update_type: z
-        .enum(["new", "updated", "expanded", "revised", "connected", "reframed"])
+        .enum([
+          "new",
+          "updated",
+          "expanded",
+          "revised",
+          "connected",
+          "reframed",
+        ])
         .optional(),
       update_note: z.string().trim().min(1).optional(),
       publication_status: z.enum(["ongoing", "published"]).optional(),
@@ -118,24 +117,43 @@ const pages = defineCollection({
             "Keep Zenn publications in related publications, not the AI Design canonical index",
           path: ["layer"],
         });
-      if (
-        data.entry_points.includes("dx") &&
-        !data.dx_topic &&
-        !data.dx_topics?.length
-      )
+      if (data.entry_points.includes("dx") && !data.primaryCategory)
         ctx.addIssue({
           code: "custom",
-          message: "DX entry point requires dx_topic or dx_topics",
-          path: ["dx_topic"],
+          message: "DX entry point requires exactly one primaryCategory",
+          path: ["primaryCategory"],
         });
       if (
-        (data.dx_topic || data.dx_topics?.length) &&
+        (data.primaryCategory ||
+          data.secondaryCategories.length ||
+          data.featuredInCategory) &&
         !data.entry_points.includes("dx")
       )
         ctx.addIssue({
           code: "custom",
           message: "DX topics require the DX entry point",
           path: ["entry_points"],
+        });
+      if (data.secondaryCategories.includes(data.primaryCategory!))
+        ctx.addIssue({
+          code: "custom",
+          message: "Primary category must not be repeated as secondary",
+          path: ["secondaryCategories"],
+        });
+      if (
+        new Set(data.secondaryCategories).size !==
+        data.secondaryCategories.length
+      )
+        ctx.addIssue({
+          code: "custom",
+          message: "Secondary categories must be unique",
+          path: ["secondaryCategories"],
+        });
+      if (data.featuredInCategory && data.section === "cases")
+        ctx.addIssue({
+          code: "custom",
+          message: "DX featured articles cannot be Cases",
+          path: ["featuredInCategory"],
         });
     }),
 });

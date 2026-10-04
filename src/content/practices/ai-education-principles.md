@@ -10,8 +10,8 @@ last_updated: "2026-10-04"
 entry_points:
   - ai
   - dx
-dx_topic: organization-adoption
-dx_topics: [business-transformation, continuous-value]
+primaryCategory: continuous-value
+secondaryCategories: [business-transformation]
 tags: &a1
   - 生成ai
   - ai活用

@@ -6,11 +6,13 @@ publication_format: essay
 kind: essay
 section: essays
 status: published
+primaryCategory: business-transformation
+secondaryCategories: [value-design, selection-retirement]
+featuredInCategory: true
 published_at: "2026-10-03"
 updated_at: "2026-10-03"
 last_updated: "2026-10-04"
 entry_points: ["ai", "dx"]
-dx_topics: ["value-design", "business-transformation", "selection-retirement"]
 tags: ["業務設計", "ECRS", "ai適用判断"]
 update_type: new
 source:

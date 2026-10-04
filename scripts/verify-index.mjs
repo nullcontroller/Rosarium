@@ -362,22 +362,25 @@ assert.equal(pubs('.secondary-reading a[href="/Rosarium/essays/"]').length, 1);
 const dx = page("dx");
 assert.equal(dx("h1").text(), "DX");
 assert(
-  dx(".page-heading .lead").text().includes("業務・サービス・システム・組織"),
+  dx(".page-heading .lead").text().includes("業務・サービス・システムの変化"),
 );
 assert.deepEqual(
   dx("main > section > h2")
     .map((_, element) => dx(element).text())
     .get(),
-  ["DXを考える5つのテーマ", "AIとの接続"],
+  ["DXを考える5つのテーマ"],
 );
 assert.deepEqual(
-  dx(".dx-category > h3")
+  dx(".dx-category .dx-theme-introduction h2")
     .map((_, element) => dx(element).text().replace("→", "").trim())
     .get(),
   ["価値設計", "業務変革", "選択と廃止", "システム変革", "継続的価値創出"],
 );
-assert(dx("main").text().includes("有力な手段の一つ"));
-assert(dx('.dx-ai-connection a[href="/Rosarium/ai/"]').length);
+assert.equal(dx(".dx-ai-connection").length, 0);
+assert.equal(dx('main a[href^="/Rosarium/cases/"]').length, 0);
+assert.equal(dx('main a[href="/Rosarium/ai/"]').length, 0);
+const dxFeaturedIds = dx("[data-dx-featured]").map((_, element) => dx(element).attr("data-dx-featured")).get();
+assert.equal(new Set(dxFeaturedIds).size, dxFeaturedIds.length, "DX featured articles must appear once");
 for (const category of [
   "value-design",
   "business-transformation",
@@ -391,12 +394,25 @@ for (const category of [
   );
   const categoryPage = page(`dx/${category}`);
   assert(categoryPage("h1").length, `DX category page: ${category}`);
+  const theme = dx(`#${category}`);
+  assert.equal(theme.find(".dx-theme-questions li").length, 3);
+  assert(theme.find(".dx-theme-introduction p").text().length >= 70);
+  const featured = theme.find("[data-dx-featured]");
+  assert(featured.length >= 1 && featured.length <= 2);
+  featured.each((_, element) => {
+    const id = dx(element).attr("data-dx-featured");
+    assert.equal(entries.get(id).primaryCategory, category);
+    assert.equal(entries.get(id).featuredInCategory, true);
+    assert.notEqual(entries.get(id).section, "cases");
+    assert(dx(element).find("p").text().trim().length > 20);
+  });
+  for (const id of primaryIds(categoryPage)) assert.equal(entries.get(id).primaryCategory, category, `${id}: DX category pages use primary only`);
   assert(
     categoryPage('[aria-label="関連する入口"] a[href="/Rosarium/dx/"]').length,
   );
 }
 assert(dx('a[href="/Rosarium/essays/dx-and-value/"]').length);
-assert(dx('a[href="/Rosarium/cases/customer-support-ai-dx/"]').length);
+assert.equal(dx('main a[href="/Rosarium/cases/customer-support-ai-dx/"]').length, 0);
 assert(!dx('a[href="/Rosarium/foundations/conditional-probability/"]').length);
 const dxEssay = page("essays/dx-and-value");
 assert(dxEssay('[data-related-content] a[href="/Rosarium/cases/customer-support-ai-dx/"]').length);
@@ -842,7 +858,7 @@ for (const id of [
   assert.equal(article("h1").length, 1, id);
   assert.equal(
     article('meta[name="last-updated"]').attr("content"),
-    id === "essays/rethink-work-before-ai" ? "2026-10-04" : "2026-10-03",
+    "2026-10-04",
     id,
   );
   assert.equal(

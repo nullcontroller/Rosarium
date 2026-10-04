@@ -7,7 +7,8 @@ section: cases
 status: published
 last_updated: "2026-10-04"
 entry_points: [ai, dx]
-dx_topic: system-planning
+primaryCategory: continuous-value
+secondaryCategories: [system-transformation]
 tags: [PoC, AI Evaluation, RAG, 業務成立性]
 published_at: "2026-09-28"
 source:

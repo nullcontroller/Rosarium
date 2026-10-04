@@ -1,16 +1,18 @@
 ---
 title: "レガシーシステムは、変えやすくしながら終わらせる"
-summary: "廃止を決めても変更要求は続く。依存と変更箇所を減らし、役割を段階的に移すことで、終焉までの変更容易性と安全な終了を設計する。"
+summary: "廃止予定でも変更要求が続く既存システムを、どう保守しながら終わらせるか考えます。依存や変更箇所を減らし、役割を段階的に移す判断を整理します。"
 layer: publication
 publication_format: essay
 kind: essay
 section: essays
 status: published
+primaryCategory: system-transformation
+secondaryCategories: [selection-retirement]
+featuredInCategory: true
 published_at: "2026-10-03"
 updated_at: "2026-10-03"
-last_updated: "2026-10-03"
+last_updated: "2026-10-04"
 entry_points: ["dx"]
-dx_topics: ["system-transformation", "selection-retirement"]
 tags: ["レガシーモダナイゼーション", "ライフサイクル", "変更容易性"]
 update_type: new
 source:

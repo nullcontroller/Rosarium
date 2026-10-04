@@ -10,7 +10,8 @@ last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx
-dx_topic: business-transformation
+primaryCategory: business-transformation
+secondaryCategories: []
 tags: &a1
   - ai
   - 業務改善

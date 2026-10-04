@@ -98,15 +98,16 @@ const aiAndDx = entryPointEntries.filter(
 );
 for (const entry of aiAndDx)
   assert.ok(
-    entry.data.dx_topic || entry.data.dx_topics?.length,
+    entry.data.primaryCategory,
     `DX topic missing: ${entry.file}`,
   );
-for (const entry of publicEntries.filter(({ data }) => data.dx_topics?.length))
-  assert.equal(
-    new Set(entry.data.dx_topics).size,
-    entry.data.dx_topics.length,
-    `Duplicate DX topics: ${entry.file}`,
-  );
+for (const entry of publicEntries.filter((entry) => entryPointsOf(entry).includes("dx"))) {
+  assert(entry.data.primaryCategory, `DX primary category missing: ${entry.file}`);
+  const secondary = entry.data.secondaryCategories ?? [];
+  assert.equal(new Set(secondary).size, secondary.length, `Duplicate secondary categories: ${entry.file}`);
+  assert(!secondary.includes(entry.data.primaryCategory), `Primary repeated as secondary: ${entry.file}`);
+  assert(!entry.data.dx_topic && !entry.data.dx_topics, `Legacy DX classification remains: ${entry.file}`);
+}
 for (const id of [
   "foundations/conditional-probability.md",
   "foundations/temperature-design.md",

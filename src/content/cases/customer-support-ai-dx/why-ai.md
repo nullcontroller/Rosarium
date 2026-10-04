@@ -7,7 +7,8 @@ section: cases
 status: published
 last_updated: "2026-09-28"
 entry_points: [ai, dx]
-dx_topic: business-transformation
+primaryCategory: business-transformation
+secondaryCategories: []
 tags: [Applied AI, DX, 業務設計, 顧客価値]
 published_at: "2026-09-28"
 source:

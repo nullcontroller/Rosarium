@@ -10,8 +10,8 @@ last_updated: "2026-09-29"
 entry_points:
   - ai
   - dx
-dx_topic: business-transformation
-dx_topics: [business-transformation]
+primaryCategory: business-transformation
+secondaryCategories: []
 tags: &a1
   - ai
   - キャリア

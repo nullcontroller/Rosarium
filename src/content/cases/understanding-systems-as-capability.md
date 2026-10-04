@@ -10,8 +10,8 @@ last_updated: "2026-10-04"
 entry_points:
   - ai
   - dx
-dx_topic: case-study
-dx_topics: [selection-retirement, system-transformation]
+primaryCategory: system-transformation
+secondaryCategories: [selection-retirement]
 tags: &a1
   - ai
   - 設計

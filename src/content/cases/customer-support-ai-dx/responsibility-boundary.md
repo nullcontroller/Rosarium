@@ -7,7 +7,8 @@ section: cases
 status: published
 last_updated: "2026-09-28"
 entry_points: [ai, dx]
-dx_topic: system-planning
+primaryCategory: business-transformation
+secondaryCategories: [system-transformation]
 tags: [Applied AI, HITL, 責任境界, 業務設計]
 published_at: "2026-09-28"
 source:

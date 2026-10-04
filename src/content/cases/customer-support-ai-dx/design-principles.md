@@ -7,7 +7,8 @@ section: cases
 status: published
 last_updated: "2026-10-04"
 entry_points: [ai, dx]
-dx_topic: case-study
+primaryCategory: business-transformation
+secondaryCategories: []
 tags: [Applied AI, DX, Design Principles, System Architecture]
 published_at: "2026-09-28"
 source:

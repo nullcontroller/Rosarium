@@ -10,8 +10,8 @@ order: 30
 entry_points:
   - ai
   - dx
-dx_topic: organization-adoption
-dx_topics: [business-transformation, continuous-value]
+primaryCategory: continuous-value
+secondaryCategories: [business-transformation]
 tags:
   - AI活用
   - 業務設計

@@ -10,8 +10,8 @@ last_updated: "2026-10-04"
 entry_points:
   - ai
   - dx
-dx_topic: case-study
-dx_topics: [business-transformation, continuous-value]
+primaryCategory: business-transformation
+secondaryCategories: [continuous-value]
 tags: &topics
   - Applied AI
   - DX

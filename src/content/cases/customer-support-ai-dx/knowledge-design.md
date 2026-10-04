@@ -7,7 +7,8 @@ section: cases
 status: published
 last_updated: "2026-10-04"
 entry_points: [ai, dx]
-dx_topic: system-planning
+primaryCategory: system-transformation
+secondaryCategories: []
 tags: [RAG, Knowledge Architecture, Context, Grounding]
 published_at: "2026-09-28"
 source:

@@ -10,8 +10,8 @@ order: 20
 entry_points:
   - ai
   - dx
-dx_topic: organization-adoption
-dx_topics: [business-transformation, continuous-value]
+primaryCategory: continuous-value
+secondaryCategories: [business-transformation]
 tags:
   - AI教育
   - Capability

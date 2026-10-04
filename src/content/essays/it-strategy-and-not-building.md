@@ -1,16 +1,18 @@
 ---
 title: "IT戦略では「何を作らないか」も設計する"
-summary: "新規開発を当然の答えにせず、保守・変更・移行・廃止までの維持責任から、作るものと作らないものを判断する。"
+summary: "システムを新しく作る前に、保守・変更・移行・廃止までの負担を考えます。既存の仕組みを使う選択も含め、作るものと作らないものを判断します。"
 layer: publication
 publication_format: essay
 kind: essay
 section: essays
 status: published
+primaryCategory: selection-retirement
+secondaryCategories: [value-design, system-transformation]
+featuredInCategory: true
 published_at: "2026-10-03"
 updated_at: "2026-10-03"
-last_updated: "2026-10-03"
+last_updated: "2026-10-04"
 entry_points: ["ai", "dx"]
-dx_topics: ["value-design", "selection-retirement", "system-transformation"]
 tags: ["IT戦略", "システム企画", "ライフサイクル"]
 update_type: new
 source:

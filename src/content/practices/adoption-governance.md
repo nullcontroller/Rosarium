@@ -1,17 +1,18 @@
 ---
 title: "AI導入を業務へ定着させる"
-summary: "AI導入をツール配布で終わらせず、業務目的、委任範囲、検証、例外処理、改善サイクルまで含む運用として設計する。"
+summary: "AIツールを配るだけでなく、日々の仕事で使い続けられる条件を考えます。人が確認する場面、失敗時の対応、運用結果を改善へ戻す方法を整理します。"
 layer: "practice"
 kind: "guide"
 section: "practices"
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 order: 10
 entry_points:
   - ai
   - dx
-dx_topic: business-transformation
-dx_topics: [business-transformation, continuous-value]
+primaryCategory: continuous-value
+secondaryCategories: [business-transformation]
+featuredInCategory: true
 tags:
   - AI導入
   - Governance

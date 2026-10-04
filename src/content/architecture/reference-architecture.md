@@ -10,8 +10,8 @@ last_updated: "2026-10-04"
 entry_points:
   - ai
   - dx
-dx_topic: system-planning
-dx_topics: [system-transformation]
+primaryCategory: system-transformation
+secondaryCategories: []
 tags:
   - architecture
 published_at: null

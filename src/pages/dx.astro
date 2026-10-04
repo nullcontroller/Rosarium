@@ -2,77 +2,65 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
-import { dxCategories, dxEntriesForCategory } from "../lib/dx";
-import { url } from "../lib/site";
-
-const all = await getCollection("pages", ({ data }) => data.public !== false);
-const categoryGroups = dxCategories.map((category) => {
-  const entries = dxEntriesForCategory(all, category.id);
-  const byId = new Map(entries.map((entry) => [entry.id, entry]));
-  return {
-    ...category,
-    articles: category.featured.flatMap((id) => {
-      const entry = byId.get(id);
-      return entry ? [entry] : [];
-    }),
-    cases: category.featuredCases.flatMap((id) => {
-      const entry = byId.get(id);
-      return entry ? [entry] : [];
-    }),
-  };
-});
+import { dxCategories, dxFeaturedArticles } from "../lib/dx";
+import { publicEntry, url } from "../lib/site";
+const all = await getCollection("pages", publicEntry);
+const categoryGroups = dxCategories.map((category) => ({
+  ...category,
+  articles: dxFeaturedArticles(all, category.id),
+}));
+const headings = dxCategories.map((category) => ({
+  depth: 2,
+  slug: category.id,
+  text: category.title,
+}));
 ---
 
-<Site title="DX" section="dx">
+<Site title="DX" section="dx" headings={headings}>
   <PageHeader title="DX" eyebrow="DIGITAL TRANSFORMATION" />
   <p>
-    Rosariumでは、DXをデジタル技術の導入そのものとは捉えません。何を、なぜ変えるのかを価値から考え、業務・システム・運用を継続して設計し直します。AIは、その変革を実現する有力な手段の一つです。
+    技術を選ぶ前に、何を、なぜ変えるのかを考えます。価値から始め、仕事の流れ、既存システム、維持や終了、導入後の改善を見渡すための地図です。
   </p>
-
   <section class="dx-category-list" aria-labelledby="dx-themes-heading">
-    <h2 id="dx-themes-heading">DXを考える5つのテーマ</h2>
+    <p class="eyebrow">DXを考えるための地図</p>
+    <h2 id="dx-themes-heading">DXを考える{dxCategories.length}つのテーマ</h2>
     {categoryGroups.map((category) => (
-      <section class="dx-category" id={category.id}>
-        <h3>
-          <a href={url(`dx/${category.id}`)}>{category.title}</a>
-        </h3>
-        <p>{category.summary}</p>
-        {category.articles.length > 0 && (
-          <div class="dx-category-links">
-            <p>代表記事</p>
-            <ul>
-              {category.articles.map((entry) => (
-                <li>
+      <section
+        class="dx-category"
+        id={category.id}
+        aria-labelledby={`${category.id}-heading`}
+      >
+        <header class="dx-theme-introduction">
+          <h2 id={`${category.id}-heading`}>
+            <a href={url(`dx/${category.id}`)}>{category.title}</a>
+          </h2>
+          <p>{category.summary}</p>
+        </header>
+        <div class="dx-theme-detail">
+          <h3>このテーマで考えること</h3>
+          <ul class="dx-theme-questions">
+            {category.questions.map((question) => (
+              <li>{question}</li>
+            ))}
+          </ul>
+          <h3>最初に読む</h3>
+          <ul class="dx-featured-articles">
+            {category.articles.map((entry) => (
+              <li data-dx-featured={entry.id}>
+                <h4>
                   <a href={url(entry.id)}>{entry.data.title}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {category.cases.length > 0 && (
-          <div class="dx-category-links">
-            <p>関連する実践事例</p>
-            <ul>
-              {category.cases.map((entry) => (
-                <li>
-                  <a href={url(entry.id)}>{entry.data.title}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+                </h4>
+                <p>{entry.data.summary}</p>
+              </li>
+            ))}
+          </ul>
+          <p class="dx-theme-all">
+            <a href={url(`dx/${category.id}`)}>
+              {category.title}の記事をすべて見る
+            </a>
+          </p>
+        </div>
       </section>
     ))}
-  </section>
-
-  <section class="dx-ai-connection" aria-labelledby="dx-ai-heading">
-    <h2 id="dx-ai-heading">AIとの接続</h2>
-    <p>
-      DXが「何を、なぜ変えるのか」を扱うのに対し、AIでは適用判断、責任境界、Knowledge、Evaluation、運用を具体的に設計します。実践事例では両者を同じ課題へ適用した過程を確認できます。
-    </p>
-    <nav class="topic-navigation" aria-label="関連する入口">
-      <a href={url("ai")}>AIについて読む</a>
-      <a href={url("cases")}>実践事例を見る</a>
-    </nav>
   </section>
 </Site>

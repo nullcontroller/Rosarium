@@ -10,8 +10,8 @@ last_updated: "2026-09-28"
 entry_points:
   - ai
   - dx
-dx_topic: value-business
-dx_topics: [value-design, selection-retirement]
+primaryCategory: selection-retirement
+secondaryCategories: [value-design]
 tags:
   - 生成ai
   - ソフトウェア設計

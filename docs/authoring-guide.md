@@ -199,6 +199,12 @@ Project・Tools・Project Journalは公開しません。開発記録は docs/hi
 
 ## Bookと連載の表示分類
 
+DX入口を持つコンテンツには、`primaryCategory`を必ず1つ指定します。「この記事を1つだけ棚に置くならどこか」を本文の中心的な問いから判断します。`secondaryCategories`には、他に関係する論点を0件以上指定できます。主カテゴリと同じ値や重複値は指定しません。
+
+カテゴリIDは`value-design`（価値設計）、`business-transformation`（業務変革）、`selection-retirement`（選択と廃止）、`system-transformation`（システム変革）、`continuous-value`（継続的価値創出）です。DXトップとカテゴリ一覧は主カテゴリだけで分類します。副カテゴリは記事の横断導線に使用でき、同じ記事を複数の主カテゴリへ重複表示するためには使いません。
+
+各テーマの入口として最適な記事1件（必要なら最大2件）に`featuredInCategory: true`を指定します。CaseはDXトップの代表記事にはしません。旧`dx_topic`・`dx_topics`は使用せず、記事本文・既存URL・sourceの来歴情報は維持します。
+
 publication_format（article / book / series / essay）で公開形式を指定します。
 source.original_typeは元の形式として保持し、サイト上の分類には使用しません。
 実務BookはCase Studies、連載は /series/、横断索引は /overview/ から参照します。
