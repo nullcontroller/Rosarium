@@ -298,15 +298,10 @@ AIへプロンプトを渡すだけでは、仕事を任せたことにはなり
 
 必要な情報がAIから見えないなら、その部分までAIだけに任せることはできません。
 
-```mermaid
-flowchart TD
-    A["仕事に必要なKnowledgeを確認"] --> B{"AIが利用できるか"}
-    B -->|利用できる| C["AIが処理する"]
-    B -->|不足している| D{"外部から取得できるか"}
-    D -->|取得できる| E["RAG・Tool・人から追加"]
-    E --> C
-    D -->|取得できない| F["人間へ戻す"]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/foundations--ai-business-design--asking-versus-delegating-1-light.svg" alt="AIを広く使いながら、業務では境界を作るの構造図" width="531.453125" height="843.265625" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/foundations--ai-business-design--asking-versus-delegating-1-dark.svg" alt="AIを広く使いながら、業務では境界を作るの構造図" width="531.453125" height="843.265625" loading="lazy" />
+</figure>
 
 > **AIに聞くことと、AIに仕事を任せることは違う。**
 

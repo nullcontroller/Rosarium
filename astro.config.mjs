@@ -6,7 +6,6 @@ import katex from "rehype-katex";
 import {
   semanticDirectives,
   localUrls,
-  mermaidBlocks,
 } from "./src/lib/markdown.mjs";
 export default defineConfig({
   site: "https://nullcontroller.github.io",
@@ -15,7 +14,7 @@ export default defineConfig({
   markdown: {
     processor: unified({
       remarkPlugins: [directive, semanticDirectives, math],
-      rehypePlugins: [mermaidBlocks, localUrls, katex],
+      rehypePlugins: [localUrls, katex],
       syntaxHighlight: "shiki",
       shikiConfig: { themes: { light: "github-light", dark: "github-dark" } },
     }),

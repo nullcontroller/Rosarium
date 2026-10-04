@@ -55,17 +55,10 @@ $$
 
 工程全体は次のように捉えます。
 
-```mermaid
-flowchart TD
-    A[要求と既存仕様] --> B[関連コードと影響範囲の特定]
-    B --> C[変更候補の生成]
-    C --> D[Build・Test・解析]
-    D --> E{受入条件を満たすか}
-    E -->|満たす| F[人間または責任主体が承認]
-    E -->|不足| G[修正・拒否・移管]
-    F --> H[反映と運用監視]
-    G --> B
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/evaluation-hitl--code-evaluation-acceptance-1-light.svg" alt="このページの主張の構造図" width="506" height="886" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/evaluation-hitl--code-evaluation-acceptance-1-dark.svg" alt="このページの主張の構造図" width="506" height="886" loading="lazy" />
+</figure>
 
 このうち、AIがCodeを生成するのは一工程にすぎません。
 

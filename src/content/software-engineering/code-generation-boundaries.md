@@ -200,17 +200,10 @@ Context、可逆性、観測可能性、Verification Costを追加します。
 
 ### 判断Flow
 
-```mermaid
-flowchart TD
-    A[Taskを定義] --> B{完了条件を検証できるか}
-    B -->|できない| C[調査・候補提示に限定]
-    B -->|できる| D{失敗影響は高いか}
-    D -->|高い| E[AI生成＋強制Gate＋人間承認]
-    D -->|低い| F{安全にRollbackできるか}
-    F -->|できない| G[人間Reviewを必須化]
-    F -->|できる| H[限定自動化を実験]
-    H --> I[実績を測り範囲を再評価]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/software-engineering--code-generation-boundaries-1-light.svg" alt="判断Flowの構造図" width="765.02734375" height="1137.375" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/software-engineering--code-generation-boundaries-1-dark.svg" alt="判断Flowの構造図" width="765.02734375" height="1137.375" loading="lazy" />
+</figure>
 
 検証不能なTaskでAIを完全に禁止するとは限りません。
 
@@ -476,17 +469,10 @@ AI、自動検証、人間Reviewが同じ受入条件を共有するためのInt
 
 最初から開発工程全体へ広げません。
 
-```mermaid
-flowchart TD
-    A[過去Taskを収集] --> B[低影響・検証可能Taskを選ぶ]
-    B --> C[AIあり・なしを比較]
-    C --> D[時間・品質・Review Costを測る]
-    D --> E{期待効用は正か}
-    E -->|はい| F[同種Taskへ限定展開]
-    E -->|いいえ| G[用途縮小・工程修正]
-    F --> H[失敗例を評価Datasetへ追加]
-    G --> H
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/software-engineering--code-generation-boundaries-2-light.svg" alt="導入は小さなTask集合から始めるの構造図" width="472.25" height="878" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/software-engineering--code-generation-boundaries-2-dark.svg" alt="導入は小さなTask集合から始めるの構造図" width="472.25" height="878" loading="lazy" />
+</figure>
 
 比較対象には、人間だけで実施したBaselineを置きます。
 

@@ -137,23 +137,10 @@ AI / Human責任分界して活用
 
 私は、AI活用を次のように整理しています。
 
-```mermaid
-flowchart BT
-    A["目的・問題設定"]
-    B["業務理解"]
-    C["判断基準"]
-    D["必要情報・コンテキストの確認"]
-    E["AI・既存手段を比較"]
-    F["対象業務に適用"]
-    G["成果・成功事例"]
-
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/practices--transferring-ai-practices-1-light.svg" alt="AI活用を積み木として考えるの構造図" width="276" height="718" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/practices--transferring-ai-practices-1-dark.svg" alt="AI活用を積み木として考えるの構造図" width="276" height="718" loading="lazy" />
+</figure>
 
 一般的な事例共有で見えやすいのは、一番上です。
 

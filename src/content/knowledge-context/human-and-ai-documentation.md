@@ -112,17 +112,10 @@ Knowledgeに正しい記述が存在しても、検索されなければ、そ�
 | Human View | 人が理解・合意・判断する表現 | 解説、背景、図、例、手順書 |
 | AI Access Layer | AIが検索・選択・検証する構造 | Chunk、metadata、索引、Knowledge Graph |
 
-```mermaid
-flowchart TD
-    A[Canonical Knowledge<br/>正本] --> B[Human View<br/>人向けの説明・図・例]
-    A --> C[AI Access Layer<br/>Chunk・metadata・索引]
-    B --> D[人が理解・合意・判断]
-    C --> E[AIが検索・統合・回答]
-    E --> F[根拠IDで正本へ戻る]
-    D --> G[変更・例外・不足を発見]
-    F --> G
-    G --> A
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/knowledge-context--human-and-ai-documentation-1-light.svg" alt="二つの資料ではなく、三つの層へ分けるの構造図" width="548.2969970703125" height="558" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/knowledge-context--human-and-ai-documentation-1-dark.svg" alt="二つの資料ではなく、三つの層へ分けるの構造図" width="548.2969970703125" height="558" loading="lazy" />
+</figure>
 
 人向け資料とAI向け構造は、目的に応じて異なる形を取ります。
 
@@ -361,13 +354,10 @@ Knowledge ID: AUDIT-LOG-003
 - ノードと関係に安定した名称を付ける
 - 図だけに重要な条件を閉じ込めない
 
-```mermaid
-flowchart LR
-    A[画面操作] --> B[スキャン実行]
-    B --> C{保存成功か}
-    C -->|成功| D[完了イベントを記録]
-    C -->|失敗| E[記録せずエラー表示]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/knowledge-context--human-and-ai-documentation-2-light.svg" alt="図は捨てず、意味をテキストでも保持するの構造図" width="816" height="174" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/knowledge-context--human-and-ai-documentation-2-dark.svg" alt="図は捨てず、意味をテキストでも保持するの構造図" width="816" height="174" loading="lazy" />
+</figure>
 
 この図に加えて、「保存成功時だけ完了イベントを記録する」と文章でも保持します。
 

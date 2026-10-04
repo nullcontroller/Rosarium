@@ -54,19 +54,10 @@ AI業務システムは、モデルへ入力を渡して回答を受け取るだ
 
 ### 1. 全体構造
 
-```mermaid
-flowchart TD
-    X["入力・要求"] --> S["範囲・Risk判定"]
-    S --> C["Context Assembly"]
-    C --> M["AI生成・推論"]
-    M --> V["検証・Decision Gate"]
-    V -->|拒否・追加質問・移管| H["人間・例外処理"]
-    V -->|承認可能| A["承認・実行境界"]
-    H --> A
-    A --> E["業務System・外部作用"]
-    E --> O["監視・評価・変更管理"]
-    O --> C
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/architecture--reference-architecture-1-light.svg" alt="1. 全体構造の構造図" width="337.3160095214844" height="926" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/architecture--reference-architecture-1-dark.svg" alt="1. 全体構造の構造図" width="337.3160095214844" height="926" loading="lazy" />
+</figure>
 
 この図のLoopは、AIが自己判断で改善・本番反映することを意味しない。監視結果を、責任主体がKnowledge、Prompt、Model、閾値、Workflowの変更判断へ戻す経路である。
 

@@ -418,17 +418,10 @@ Task選定時に、情報利得だけでなくContext取得Costと依存複雑�
 
 工程を分けます。
 
-```mermaid
-flowchart TD
-    A[要求・障害情報] --> B[Evidence収集]
-    B --> C[影響範囲候補]
-    C --> D[変更案と保持条件]
-    D --> E[局所Patch候補]
-    E --> F[Build・Test・解析]
-    F --> G{受入判断}
-    G -->|不足| B
-    G -->|承認| H[反映・監視]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/software-engineering--code-maintenance-context-1-light.svg" alt="AIへ任せる単位は「保守」ではなく検証可能なSubtaskの構造図" width="261.1328125" height="910" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/software-engineering--code-maintenance-context-1-dark.svg" alt="AIへ任せる単位は「保守」ではなく検証可能なSubtaskの構造図" width="261.1328125" height="910" loading="lazy" />
+</figure>
 
 各Subtaskに入力、出力、検証者、停止条件を定義します。
 

@@ -242,17 +242,10 @@ AIが大量に成果物を生成し、そのすべてを人間が最初から精
 
 現在は、次のような流れで考えています。
 
-```mermaid
-flowchart TD
-    A["要件を整理する"] --> B["AIで構造化する"]
-    B --> C["自分で内容と設計意図を確認する"]
-    C --> D["図表・比較・関係へ変換する"]
-    D --> E["他人がレビューできる形式へ整える"]
-    E --> F{"自分の言葉で説明できるか"}
-    F -->|できない| C
-    F -->|できる| G["レビュー・審議"]
-    G --> H["合意・確定"]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/foundations--ai-business-design--evaluating-business-efficiency-1-light.svg" alt="失敗後に変えた業務プロセスの構造図" width="358.5" height="1109.6875" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/foundations--ai-business-design--evaluating-business-efficiency-1-dark.svg" alt="失敗後に変えた業務プロセスの構造図" width="358.5" height="1109.6875" loading="lazy" />
+</figure>
 
 文章だけでは把握しにくい場合は、必要に応じて次の形式へ変換します。
 

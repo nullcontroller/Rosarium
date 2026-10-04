@@ -439,16 +439,10 @@ TaskとCriteriaが明確なら、Roleを置かない設計も成立します。
 | User Input | 今回の依頼・質問 | 毎回 |
 | Runtime State | 利用者属性、製品版、ツール結果 | 毎回 |
 
-```mermaid
-flowchart TD
-    A[System Policy] --> F[Prompt Assembly]
-    B[Task Template] --> F
-    C[Retrieved Context] --> F
-    D[User Input] --> F
-    E[Runtime State] --> F
-    F --> G[LLM]
-    G --> H[Validation]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/knowledge-context--prompt-structure-1-light.svg" alt="一つの長文ではなく、実行時に組み立てるの構造図" width="1019.578125" height="382" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/knowledge-context--prompt-structure-1-dark.svg" alt="一つの長文ではなく、実行時に組み立てるの構造図" width="1019.578125" height="382" loading="lazy" />
+</figure>
 
 この構成には、次の利点があります。
 

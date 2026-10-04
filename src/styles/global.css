@@ -1095,13 +1095,14 @@ blockquote {
   border: 1px solid var(--line);
   padding: 1rem;
 }
-.diagram-output {
-  text-align: center;
-}
-.diagram summary {
-  font-size: 0.75rem;
-  color: var(--muted);
-  cursor: pointer;
+.diagram-static { text-align: center; }
+.diagram-static img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.diagram-static .diagram-dark { display: none; }
+[data-theme="dark"] .diagram-static .diagram-light { display: none; }
+[data-theme="dark"] .diagram-static .diagram-dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .diagram-static .diagram-light { display: none; }
+  :root:not([data-theme="light"]) .diagram-static .diagram-dark { display: block; }
 }
 .semantic-block {
   margin: 1.8rem 0;

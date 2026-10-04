@@ -73,18 +73,10 @@ AIの利用には、少なくとも二つの段階がある。
 
 開発工程は、AIが自由に移動する一つの長い会話ではない。各工程が成果物を作り、ゲートを通過した成果物だけが次工程へ進む状態機械として設計する。
 
-```mermaid
-flowchart TD
-    A["要求・目的"] --> B["既存実装の調査"]
-    B --> C["影響分析・設計"]
-    C --> D["実装・テスト生成"]
-    D --> E["レビュー・検証"]
-    E -->|承認| F["リリース"]
-    E -->|差し戻し| B
-    E -->|判断不能| G["人への移管"]
-    F --> H["監視・評価"]
-    H --> A
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/software-engineering--development-workflow-1-light.svg" alt="2. 開発工程を成果物とゲートで接続するの構造図" width="378.3009948730469" height="742" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/software-engineering--development-workflow-1-dark.svg" alt="2. 開発工程を成果物とゲートで接続するの構造図" width="378.3009948730469" height="742" loading="lazy" />
+</figure>
 
 実際には工程をさらに細分化してよい。重要なのは、工程数ではなく、次の問いに答えられることである。
 

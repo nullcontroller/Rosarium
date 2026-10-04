@@ -87,21 +87,10 @@ Model単体のBenchmark結果から、製品全体のRepository理解、修正�
 
 ### 全体構造
 
-```mermaid
-flowchart TD
-    A[要求・質問] --> B[Context Builder]
-    B --> C[言語Model]
-    C --> D{次の出力}
-    D -->|説明・Patch| E[候補成果物]
-    D -->|Tool呼出候補| F[Tool実行]
-    F --> G[実行結果・新しいEvidence]
-    G --> B
-    E --> H[Build・Test・Review]
-    H --> I{採否判断}
-    I -->|修正| B
-    I -->|承認| J[反映]
-    I -->|拒否| K[終了・移管]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/software-engineering--code-generation-models-1-light.svg" alt="全体構造の構造図" width="643.94921875" height="974" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/software-engineering--code-generation-models-1-dark.svg" alt="全体構造の構造図" width="643.94921875" height="974" loading="lazy" />
+</figure>
 
 図のうち、言語Modelは中央の一構成要素です。
 

@@ -1004,13 +1004,11 @@ for (const id of ["system-understanding", "three-ai-maintenance"]) {
  assert.equal($("[data-case-flow] svg").length, 2);
  assert($("[data-case-flow] title").text());
  assert($("[data-case-flow] desc").text());
- assert.equal($("[data-mermaid]").length, 0);
  for(const link of $("[data-case-flow] [data-node]").toArray()) assert($( $(link).attr("href") ).length);
 }
 for (const slug of ["why-ai", "responsibility-boundary", "poc-evaluation", "knowledge-design", "stopping-conditions", "human-handoff", "continuous-improvement", "executive-summary"]) {
  const $ = page("cases/customer-support-ai-dx/" + slug);
  assert.equal($("[data-case-flow]").length, 1);
- assert.equal($("[data-mermaid]").length, 0);
  for(const link of $("[data-case-flow] [data-node]").toArray()) assert($( $(link).attr("href") ).length);
 }
 assert.equal(page("about")('meta[http-equiv="refresh"]').length, 0);

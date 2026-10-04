@@ -323,15 +323,10 @@ AIが生成した文章を、自動的に`verified`や`approved`へしません�
 
 状態遷移には、検証者と条件を定義します。
 
-```mermaid
-flowchart TD
-    A[observed・retrieved] --> B[inferred・proposed]
-    B --> C{Quality Gate}
-    C -->|合格| D[verified]
-    C -->|不足| E[repair・retrieve]
-    C -->|高影響| F[Human Review]
-    F -->|承認| G[approved]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/architecture--prompts-as-interfaces-1-light.svg" alt="AI出力を確定事実へ昇格させる条件を決めるの構造図" width="572.765625" height="624.59375" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/architecture--prompts-as-interfaces-1-dark.svg" alt="AI出力を確定事実へ昇格させる条件を決めるの構造図" width="572.765625" height="624.59375" loading="lazy" />
+</figure>
 
 ---
 

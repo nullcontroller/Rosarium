@@ -516,43 +516,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         try {
           localStorage.setItem("adf-theme", next);
         } catch {}
-        void drawDiagrams();
       });
-      const figures = [
-        ...document.querySelectorAll<HTMLElement>("[data-mermaid]"),
-      ];
-      let generation = 0;
-      async function drawDiagrams() {
-        if (!figures.length) return;
-        const run = ++generation;
-        const { default: mermaid } = await import("mermaid");
-        if (run !== generation) return;
-        const dark =
-          document.documentElement.dataset.theme === "dark" ||
-          (!document.documentElement.dataset.theme &&
-            matchMedia("(prefers-color-scheme: dark)").matches);
-        mermaid.initialize({
-          startOnLoad: false,
-          securityLevel: "strict",
-          theme: dark ? "dark" : "default",
-        });
-        for (const [i, fig] of figures.entries()) {
-          try {
-            const { svg } = await mermaid.render(
-              "diagram-" + run + "-" + i,
-              fig.dataset.mermaid || "",
-            );
-            if (run !== generation) return;
-            fig.querySelector(".diagram-output")!.innerHTML = svg;
-            fig.querySelector("details")?.removeAttribute("open");
-            delete fig.dataset.error;
-          } catch {
-            fig.dataset.error = "true";
-            fig.querySelector("details")?.setAttribute("open", "");
-          }
-        }
-      }
-      void drawDiagrams();
     </script>
   </body>
 </html>

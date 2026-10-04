@@ -5,7 +5,6 @@ import directive from "remark-directive";
 import {
   semanticDirectives,
   localUrls,
-  mermaidBlocks,
   labels,
 } from "../src/lib/markdown.mjs";
 test("seven semantic directives preserve body and escape attributes", async () => {
@@ -26,15 +25,15 @@ test("unsupported directive is rejected", async () => {
   });
   await assert.rejects(() => p.render(":::unknown\ntext\n:::"));
 });
-test("Mermaid fallback and base-path links survive Markdown processing", async () => {
+test("Static SVG and base-path links survive Markdown processing", async () => {
   const p = await createMarkdownProcessor({
-    rehypePlugins: [mermaidBlocks, localUrls],
+    rehypePlugins: [localUrls],
   });
   const { code } = await p.render(
-    "[読書](/foundations/)\n\n```mermaid\nflowchart TD\n A --> B\n```\n\n| A | B |\n|---|---|\n| C | D |",
+    "[読書](/foundations/)\n\n<figure class=\"diagram-static\"><img src=\"/Rosarium/diagrams/static/example.svg\" alt=\"流れ\" /></figure>\n\n| A | B |\n|---|---|\n| C | D |",
   );
   assert.match(code, /href="\/Rosarium\/foundations\/"/);
-  assert.match(code, /data-mermaid/);
-  assert.match(code, /<details open/);
+  assert.match(code, /class="diagram-static"/);
+  assert.match(code, /src="\/Rosarium\/diagrams\/static\/example.svg"/);
   assert.match(code, /<table>/);
 });

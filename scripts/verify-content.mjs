@@ -115,11 +115,12 @@ console.log(
 
 // Career pages preserve their integrated source provenance and verify the current approved revision.
 const career = JSON.parse(read("migration/career-integration-manifest.json"));
-for (const entry of career.entries) {
+for (const entry of career.entries.filter(entry => entry.destination_file)) {
  const { body, data } = parse(read(entry.destination_file));
  assert.equal(hash(body), entry.destination_body_sha256, entry.destination_file);
  assert.equal(data.source.commit, career.source_commit);
 }
 assert.equal(parse(read("src/content/career/overview.md")).data.public ?? true, true);
-assert.equal(parse(read("src/content/career/profile.md")).data.public, false);
-console.log("Verified the public Career gateway, retained non-public profile source and provenance.");
+assert(!fs.existsSync("src/content/career/profile.md"));
+assert.deepEqual(fs.readdirSync("src/content/career").sort(), ["overview.md"]);
+console.log("Verified the public Career gateway, retired private profile and provenance.");

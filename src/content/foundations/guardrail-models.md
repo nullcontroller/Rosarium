@@ -79,16 +79,10 @@ $S$は、利用者権限、対象資源、業務状態、Policy版などの実�
 
 この式は実装そのものではなく、責務を分けるための説明モデルです。
 
-```mermaid
-flowchart TD
-    A[入力・Context] --> B[生成時制御]
-    B --> C[モデル出力]
-    C --> D[出力検証]
-    D --> E{受理可能か}
-    E -->|Yes| F[権限・状態検査]
-    E -->|No| G[拒否・修復・人へ移管]
-    F --> H[回答・実行]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/foundations--guardrail-models-1-light.svg" alt="生成AIシステムを処理段階へ分けるの構造図" width="458" height="798" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/foundations--guardrail-models-1-dark.svg" alt="生成AIシステムを処理段階へ分けるの構造図" width="458" height="798" loading="lazy" />
+</figure>
 
 ガードレールは、この流れの一か所ではなく、複数箇所へ配置されます。
 

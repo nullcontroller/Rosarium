@@ -160,16 +160,10 @@ Router自身にも誤りとDriftがあるため、評価、版管理、Fallback�
 
 安価な経路から開始し、条件を満たさない場合だけ強い経路へEscalateする。
 
-```mermaid
-flowchart TD
-    A[Task] --> B[低費用経路]
-    B --> C{品質Gate}
-    C -->|通過| D[採用]
-    C -->|不通過| E[高性能Model]
-    E --> F{検証}
-    F -->|通過| D
-    F -->|不通過| G[人間・拒否]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/architecture--cost-latency-routing-1-light.svg" alt="Cascadeの構造図" width="300.07421875" height="760.296875" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/architecture--cost-latency-routing-1-dark.svg" alt="Cascadeの構造図" width="300.07421875" height="760.296875" loading="lazy" />
+</figure>
 
 品質Gateが弱いと、誤答を安価に大量採用する構成になる。
 

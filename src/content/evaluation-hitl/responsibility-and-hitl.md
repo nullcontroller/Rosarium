@@ -89,18 +89,10 @@ $$
 
 状態遷移は一方向とは限らない。
 
-```mermaid
-stateDiagram-v2
-    [*] --> Generated
-    Generated --> Validated: 根拠・形式を検証
-    Generated --> Rejected: 条件不成立
-    Validated --> Reviewed: 人間・独立検証
-    Reviewed --> Approved: 権限者が確定
-    Reviewed --> Escalated: 判断不能
-    Approved --> Executed: 許可された実行
-    Executed --> Monitored: 結果を観測
-    Monitored --> RolledBack: 異常・影響発生
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/evaluation-hitl--responsibility-and-hitl-1-light.svg" alt="1. AI出力は最初から確定値ではないの構造図" width="310.5234375" height="804" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/evaluation-hitl--responsibility-and-hitl-1-dark.svg" alt="1. AI出力は最初から確定値ではないの構造図" width="310.5234375" height="804" loading="lazy" />
+</figure>
 
 重要なのは、`Generated`を自動的に`Approved`へ昇格させないことである。
 
@@ -553,15 +545,10 @@ $$
 
 承認時点では観測できない影響があるため、責任境界は実行で終わらない。
 
-```mermaid
-flowchart TD
-    A["AIが候補生成"] --> B["検証・承認"]
-    B --> C["限定された実行"]
-    C --> D["結果監視"]
-    D -->|正常| E["継続"]
-    D -->|異常| F["停止・Rollback"]
-    F --> G["Incident Review"]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/evaluation-hitl--responsibility-and-hitl-2-light.svg" alt="16. 実行後の監視と回復まで責任に含めるの構造図" width="328.828125" height="614" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/evaluation-hitl--responsibility-and-hitl-2-dark.svg" alt="16. 実行後の監視と回復まで責任に含めるの構造図" width="328.828125" height="614" loading="lazy" />
+</figure>
 
 定義するもの：
 
@@ -730,14 +717,10 @@ AI精度だけでなく、人間Review、業務遅延、運用、事故対応ま
 
 責任、権限、検証、停止、回復を設計することで、安全に自動化できる範囲を広げる。
 
-```mermaid
-flowchart LR
-    A["Riskを分類"] --> B["制御を設計"]
-    B --> C["限定導入"]
-    C --> D["評価・監視"]
-    D --> E["自動化範囲を調整"]
-    E --> B
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/evaluation-hitl--responsibility-and-hitl-3-light.svg" alt="22. ガバナンスを停止理由にしないの構造図" width="944.421875" height="105" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/evaluation-hitl--responsibility-and-hitl-3-dark.svg" alt="22. ガバナンスを停止理由にしないの構造図" width="944.421875" height="105" loading="lazy" />
+</figure>
 
 低Risk処理まで全件承認にすると、Review能力を消費し、高Risk処理の確認が薄くなる。
 

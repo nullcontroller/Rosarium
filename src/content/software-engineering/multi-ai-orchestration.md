@@ -128,17 +128,10 @@ $$
 
 すべてをAIへ割り当てる必要はない。
 
-```mermaid
-flowchart TD
-    O["Workflow Controller"] --> A["コード調査AI"]
-    O --> B["業務資料調査AI"]
-    A --> G["根拠検証ゲート"]
-    B --> G
-    G --> C["設計統合AI"]
-    C --> H["人間の方針判断"]
-    H --> D["実装AI"]
-    D --> V["テスト・レビュー"]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/software-engineering--multi-ai-orchestration-1-light.svg" alt="3. Taskを有向グラフとして設計するの構造図" width="389.78125" height="694" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/software-engineering--multi-ai-orchestration-1-dark.svg" alt="3. Taskを有向グラフとして設計するの構造図" width="389.78125" height="694" loading="lazy" />
+</figure>
 
 この図で中心にあるのはAI同士の会話ではなく、Workflow Controller、成果物、検証ゲートである。
 
@@ -245,10 +238,10 @@ $$
 
 #### 7.1 決定論的Pipeline
 
-```mermaid
-flowchart LR
-    A["調査"] --> B["検証"] --> C["設計"] --> D["承認"]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/software-engineering--multi-ai-orchestration-2-light.svg" alt="7.1 決定論的Pipelineの構造図" width="534" height="70" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/software-engineering--multi-ai-orchestration-2-dark.svg" alt="7.1 決定論的Pipelineの構造図" width="534" height="70" loading="lazy" />
+</figure>
 
 工程順と分岐をプログラムで定義する。
 
@@ -476,13 +469,10 @@ Context最小化は、単なるToken削減ではない。権限最小化と同�
 - Shared State：工程が共有する状態
 - Canonical State：正式に確定した唯一の状態
 
-```mermaid
-flowchart TD
-    A["AI A Local State"] --> G["検証ゲート"]
-    B["AI B Local State"] --> G
-    G --> C["Canonical State"]
-    C --> D["次工程のContext"]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/software-engineering--multi-ai-orchestration-3-light.svg" alt="12. Canonical Stateを一つにするの構造図" width="409.9375" height="382" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/software-engineering--multi-ai-orchestration-3-dark.svg" alt="12. Canonical Stateを一つにするの構造図" width="409.9375" height="382" loading="lazy" />
+</figure>
 
 Canonical Stateへ昇格できるのは、定義した検証・承認を通過した情報だけである。
 

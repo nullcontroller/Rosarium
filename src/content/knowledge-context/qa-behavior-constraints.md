@@ -141,14 +141,10 @@ $$
 | Model Decision | 規則を参照して行動候補を作る | `abstain`を提案する |
 | System Enforcement | 許可されない結果を遮断する | 権限外APIを呼び出さない |
 
-```mermaid
-flowchart TD
-    A[質問・利用者・環境] --> B[適用規則を選択]
-    B --> C[LLMが回答・行動候補を生成]
-    C --> D[形式・根拠・権限を検証]
-    D -->|許可| E[回答または実行]
-    D -->|不許可・不明| F[拒否・追加質問・人へ移管]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/knowledge-context--qa-behavior-constraints-1-light.svg" alt="三つの層を混ぜないの構造図" width="490" height="534" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/knowledge-context--qa-behavior-constraints-1-dark.svg" alt="三つの層を混ぜないの構造図" width="490" height="534" loading="lazy" />
+</figure>
 
 LLMへ「権限のない操作をしないでください」と指示しても、ツール自体に強い権限が付いていれば、設計としては弱いままです。
 

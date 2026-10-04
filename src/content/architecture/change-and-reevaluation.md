@@ -99,14 +99,10 @@ $$
 
 例：
 
-```mermaid
-flowchart TD
-    K["Knowledge変更"] --> R["検索・順位"]
-    R --> C["Context"]
-    C --> Y["生成出力"]
-    Y --> V["検証・承認"]
-    V --> E["業務実行"]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/architecture--change-and-reevaluation-1-light.svg" alt="3. 変更の影響範囲をDependency Graphで追うの構造図" width="185.0625" height="590" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/architecture--change-and-reevaluation-1-dark.svg" alt="3. 変更の影響範囲をDependency Graphで追うの構造図" width="185.0625" height="590" loading="lazy" />
+</figure>
 
 このGraphは、全挙動を数学的に予測するものではない。Test範囲の抜けを減らすための構成管理Modelである。
 
@@ -229,13 +225,10 @@ $$
 
 ### 8. 段階的にReleaseする
 
-```mermaid
-flowchart LR
-    O["Offline評価"] --> S["Shadow"]
-    S --> C["Canary"]
-    C --> L["限定Release"]
-    L --> F["Full Release"]
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/architecture--change-and-reevaluation-2-light.svg" alt="8. 段階的にReleaseするの構造図" width="873.140625" height="70" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/architecture--change-and-reevaluation-2-dark.svg" alt="8. 段階的にReleaseするの構造図" width="873.140625" height="70" loading="lazy" />
+</figure>
 
 | 段階 | 外部影響 | 主な確認 |
 |---|---|---|

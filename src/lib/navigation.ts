@@ -339,14 +339,6 @@ export const publicationTopics = (entry: Entry) => [
   ]),
 ];
 
-// Use the existing topic/publication map as the authority for Case discovery.
-export const relatedCases = (all: Entry[], entry: Entry) => {
-  const topics = entry.data.design_topic ? [entry.data.design_topic] :
-    Object.entries(topicPublications).filter(([, ids]) => ids.includes(entry.id)).map(([topic]) => topic);
-  const ids = new Set(topics.flatMap((topic) => topicPublications[topic] || []));
-  return all.filter((item) => ids.has(item.id) && item.data.section === "cases" && item.data.order === 0 && item.id !== entry.id).slice(0, 2);
-};
-
 // Displayed 00 is an introduction; order remains the sequence for navigation.
 export const bookChapterNumber = (entry: Entry) => {
   const number = entry.data.title.match(/^(\d{2})\.\s/);

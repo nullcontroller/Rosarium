@@ -145,18 +145,10 @@ AIの能力が上がれば、自動化できる作業や判断の範囲は広が
 
 例えば、AIの出力を既存システムへ反映する場合、次のような制御が考えられます。
 
-```mermaid
-flowchart TD
-    A["AIが候補を生成"] --> B{"自動処理条件を満たすか"}
-    B -->|満たす| C["許可された範囲で実行"]
-    B -->|満たさない| D["人間へ確認を依頼"]
-    D --> E{"承認できるか"}
-    E -->|承認| F["確定して実行"]
-    E -->|不可| G["修正・差し戻し"]
-    C --> H["根拠と結果を記録"]
-    F --> H
-    G --> H
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/foundations--ai-business-design--delegation-and-responsibility-1-light.svg" alt="Human in the Loopは「最後に人が見ること」ではないの構造図" width="663.53125" height="933.6875" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/foundations--ai-business-design--delegation-and-responsibility-1-dark.svg" alt="Human in the Loopは「最後に人が見ること」ではないの構造図" width="663.53125" height="933.6875" loading="lazy" />
+</figure>
 
 ここでいう自動処理条件は、AIが自分で「自信がある」と判断することだけを意味しません。
 
@@ -176,13 +168,10 @@ AIは単体で業務価値を生むわけではありません。
 
 AIが候補を生成し、人間が必要な判断を行い、既存システムが確定した処理を実行し、その結果を次の判断へ戻します。
 
-```mermaid
-flowchart LR
-    A["AI<br/>検索・生成・候補提示"] --> B["人間<br/>確認・判断・承認"]
-    B --> C["既存システム<br/>実行・記録"]
-    C --> D["業務結果"]
-    D -. "評価・改善" .-> A
-```
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/Rosarium/diagrams/static/foundations--ai-business-design--delegation-and-responsibility-2-light.svg" alt="AI・人間・既存システムを一つの系として設計するの構造図" width="933.53125" height="141" loading="lazy" />
+  <img class="diagram-dark" src="/Rosarium/diagrams/static/foundations--ai-business-design--delegation-and-responsibility-2-dark.svg" alt="AI・人間・既存システムを一つの系として設計するの構造図" width="933.53125" height="141" loading="lazy" />
+</figure>
 
 この中で設計すべきなのは、AIの精度だけではありません。
 
