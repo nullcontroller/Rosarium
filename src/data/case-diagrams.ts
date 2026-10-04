@@ -2,6 +2,7 @@ export type CaseNodeKind =
   "human" | "ai" | "knowledge" | "system" | "decision" | "feedback";
 export interface CaseDiagramModel {
   title: string;
+  intro?: string;
   description: string;
   nodes: {
     id: string;
@@ -2194,108 +2195,267 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     ],
   },
   "three-ai-maintenance": {
-    title: "人が判断を担い、調査・実装・文書化を分担する",
+    title: "人が判断し、AIが調査を手伝う流れ",
+    intro: "どこでAIを使い、どこで人が判断するかを示しています。",
     description:
-      "問いに必要なContextでAIを選び、人間が成果物を確認して次工程へ渡します。役割は固定ではなく、AI間の会話を自動連結した事例でもありません。",
+      "人が調べることを決め、AIを使って仕様・コード・過去の資料を調べます。調査した内容をまとめ、人が確認して直し、最後は人が決めて実装を進めます。",
     nodes: [
       {
         id: "human",
-        label: "問いと必要Contextを判断",
+        label: "問い合わせを見て何を調べるか決める",
         kind: "human",
-        description:
-          "人間が制約・要件・安全性の判断基準を定め、問いに必要なコード・設計・過去背景のContextに応じてAIを選びます。",
+        description: "人が問い合わせを確認し、調べることを決めます。",
       },
       {
         id: "spec",
-        label: "設計情報：仕様を検討",
+        label: "仕様を調べる",
         kind: "ai",
-        description:
-          "GPTで制約条件・要件案・異常系の選択肢を整理し、処理構造の図で動的構造を補います。方針の採否は人間が決めます。",
+        description: "AIを使って、どのように動くべきかを調べます。",
       },
       {
         id: "code",
-        label: "コード情報：影響を調査",
+        label: "コードを調べる",
         kind: "ai",
-        description:
-          "GitHub Copilotで関連コードを調べ、実現方法を具体化し、承認済み仕様に基づく関数単位のコード修正と単体テストを支援します。",
+        description: "AIを使って、現在の動きと変更する場所を調べます。",
       },
       {
         id: "docs",
-        label: "過去資料：背景を確認",
+        label: "過去の資料を調べる",
         kind: "ai",
-        description:
-          "Microsoft 365 CopilotでOffice文書・過去資料・メール等の背景を確認し、検討結果をExcel仕様書へ集約します。人間が確認して次工程へ渡します。",
+        description: "AIを使って、過去の資料やメールを調べます。",
       },
       {
         id: "artifacts",
-        label: "仕様案・コード調査・文書",
+        label: "調べた内容をまとめる",
         kind: "knowledge",
-        description:
-          "自然言語、コード、処理構造の図、Excelを工程に応じて使い分けます。AIの出力は確定事項ではなく、確認する成果物として受け渡します。",
+        description: "調査した内容をまとめ、人が確認できる形にします。",
       },
       {
         id: "review",
-        label: "確認・修正して次のAIへ",
-        kind: "decision",
-        description:
-          "人間が前提・要件・コードとの整合を確認し、必要なら修正してから次のAIへ渡します。自動連携せず、誤った前提の連鎖を防ぎます。最終的には組織の審議・承認を経て仕様を確定します。",
+        label: "人が内容を確認して直す",
+        kind: "human",
+        description: "人が調べた内容を確認し、必要なところを直します。",
       },
       {
         id: "implement",
-        label: "最終判断・実装確認",
+        label: "最後は人が決めて進める",
         kind: "human",
-        description:
-          "承認済み仕様を基に関数単位で実装と単体テストを進めます。変更範囲と既存動作を人間が確認し、AIへ判断責任を移しません。",
+        description: "最後は人が決め、実装・確認・試験を進めます。",
       },
     ],
-    rows: [
-      ["human"],
-      ["spec", "code", "docs"],
-      ["artifacts"],
-      ["review"],
-      ["implement"],
+    groups: [
+      {
+        title: "人",
+        ids: ["human"],
+      },
+      {
+        title: "AIが手伝う",
+        ids: ["spec", "code", "docs"],
+      },
+      {
+        title: "まとめ",
+        ids: ["artifacts"],
+      },
+      {
+        title: "人が確認",
+        ids: ["review"],
+      },
+      {
+        title: "人が最終判断",
+        ids: ["implement"],
+      },
     ],
     edges: [
       {
-        from: "human",
         to: "spec",
         label: "",
+        from: "human",
       },
       {
-        from: "human",
         to: "code",
         label: "",
+        from: "human",
       },
       {
-        from: "human",
         to: "docs",
         label: "",
+        from: "human",
       },
       {
+        to: "artifacts",
+        label: "",
         from: "spec",
-        to: "artifacts",
-        label: "",
       },
       {
+        to: "artifacts",
+        label: "",
         from: "code",
-        to: "artifacts",
-        label: "",
       },
       {
+        to: "artifacts",
+        label: "",
         from: "docs",
-        to: "artifacts",
-        label: "",
       },
       {
-        from: "artifacts",
         to: "review",
-        label: "確認",
+        label: "",
+        from: "artifacts",
       },
       {
-        from: "review",
         to: "implement",
-        label: "承認済み仕様",
+        label: "",
+        from: "review",
       },
     ],
+    layouts: {
+      desktop: {
+        width: 1080,
+        height: 452,
+        nodes: {
+          human: {
+            x: 12,
+            y: 172,
+            w: 176,
+            h: 108,
+          },
+          spec: {
+            x: 232,
+            y: 12,
+            w: 176,
+            h: 108,
+          },
+          code: {
+            x: 232,
+            y: 172,
+            w: 176,
+            h: 108,
+          },
+          docs: {
+            x: 232,
+            y: 332,
+            w: 176,
+            h: 108,
+          },
+          artifacts: {
+            x: 452,
+            y: 172,
+            w: 176,
+            h: 108,
+          },
+          review: {
+            x: 672,
+            y: 172,
+            w: 176,
+            h: 108,
+          },
+          implement: {
+            x: 892,
+            y: 172,
+            w: 176,
+            h: 108,
+          },
+        },
+        edges: {
+          "human:spec": {
+            path: "M188 226.0H210.0V66.0H232",
+          },
+          "human:code": {
+            path: "M188 226.0H210.0V226.0H232",
+          },
+          "human:docs": {
+            path: "M188 226.0H210.0V386.0H232",
+          },
+          "spec:artifacts": {
+            path: "M408 66.0H430.0V226.0H452",
+          },
+          "code:artifacts": {
+            path: "M408 226.0H430.0V226.0H452",
+          },
+          "docs:artifacts": {
+            path: "M408 386.0H430.0V226.0H452",
+          },
+          "artifacts:review": {
+            path: "M628 226.0H650.0V226.0H672",
+          },
+          "review:implement": {
+            path: "M848 226.0H870.0V226.0H892",
+          },
+        },
+      },
+      mobile: {
+        width: 320,
+        height: 638,
+        nodes: {
+          human: {
+            x: 30,
+            y: 8,
+            w: 260,
+            h: 92,
+          },
+          artifacts: {
+            x: 30,
+            y: 282,
+            w: 260,
+            h: 92,
+          },
+          review: {
+            x: 30,
+            y: 408,
+            w: 260,
+            h: 92,
+          },
+          implement: {
+            x: 30,
+            y: 534,
+            w: 260,
+            h: 92,
+          },
+          spec: {
+            x: 8,
+            y: 146,
+            w: 96,
+            h: 94,
+          },
+          code: {
+            x: 112,
+            y: 146,
+            w: 96,
+            h: 94,
+          },
+          docs: {
+            x: 216,
+            y: 146,
+            w: 96,
+            h: 94,
+          },
+        },
+        edges: {
+          "human:spec": {
+            path: "M160.0 100V123.0H56.0V146",
+          },
+          "human:code": {
+            path: "M160.0 100V123.0H160.0V146",
+          },
+          "human:docs": {
+            path: "M160.0 100V123.0H264.0V146",
+          },
+          "spec:artifacts": {
+            path: "M56.0 240V261.0H160.0V282",
+          },
+          "code:artifacts": {
+            path: "M160.0 240V261.0H160.0V282",
+          },
+          "docs:artifacts": {
+            path: "M264.0 240V261.0H160.0V282",
+          },
+          "artifacts:review": {
+            path: "M160.0 374V391.0H160.0V408",
+          },
+          "review:implement": {
+            path: "M160.0 500V517.0H160.0V534",
+          },
+        },
+      },
+    },
   },
 };

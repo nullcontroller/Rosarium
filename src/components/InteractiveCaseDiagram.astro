@@ -135,7 +135,8 @@ const layouts = ["mobile", "desktop"].map((name) => {
   data-structured-flow={model.layouts ? "" : undefined}
 >
   <figcaption>{model.title}</figcaption>
-  {showDetails && (
+  {model.intro && <p class="case-diagram-help">{model.intro}</p>}
+  {showDetails && !model.intro && (
     <p class="case-diagram-help">
       項目を選ぶと、役割と判断の説明を確認できます。
     </p>
