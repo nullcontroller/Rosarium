@@ -31,6 +31,12 @@ import Icon from "./Icon.astro";
       />
     </div>
     <div class="global-search-results-panel" hidden>
+      <fieldset class="search-lifecycle-controls">
+        <legend>検索対象</legend>
+        <label><input type="checkbox" value="active" checked />現役</label>
+        <label><input type="checkbox" value="obsolete" checked />旧記事</label>
+        <label><input type="checkbox" value="retired" />退役記事</label>
+      </fieldset>
       <p class="global-search-status" role="status" aria-live="polite"></p>
       <ol id="global-search-results" class="global-search-results" role="listbox"></ol>
     </div>
@@ -38,10 +44,11 @@ import Icon from "./Icon.astro";
 </div>
 
 <script>
+  import { parseSearchLifecycles, lifecycleSearchOptions, type SearchLifecycle } from "../lib/search-lifecycle";
   type SearchResult = { url: string; meta: Record<string, string> };
   type SearchHit = { data: () => Promise<SearchResult> };
   type PagefindIndex = {
-    search: (query: string) => Promise<{ results: SearchHit[] }>;
+    search: (query: string | null, options: ReturnType<typeof lifecycleSearchOptions>) => Promise<{ results: SearchHit[] }>;
   };
 
   const root = document.querySelector<HTMLElement>("[data-global-search]");
@@ -50,6 +57,7 @@ import Icon from "./Icon.astro";
   const panel = root?.querySelector<HTMLElement>(".global-search-results-panel");
   const results = root?.querySelector<HTMLOListElement>("#global-search-results");
   const status = root?.querySelector<HTMLElement>(".global-search-status");
+  const controls = [...(root?.querySelectorAll<HTMLInputElement>(".search-lifecycle-controls input") ?? [])];
   let pagefind: Promise<PagefindIndex> | undefined;
   let timer: ReturnType<typeof setTimeout>;
   let generation = 0;
@@ -111,32 +119,39 @@ import Icon from "./Icon.astro";
     return element;
   }
 
-  async function search() {
+  async function search(updateUrl = true) {
     if (!input || !panel || !results || !status) return;
     const query = input.value.trim();
+    const selected = controls.filter((control) => control.checked).map((control) => control.value as SearchLifecycle);
+    if (updateUrl) {
+      const state = new URL(location.href);
+      if (query) state.searchParams.set("q", query); else state.searchParams.delete("q");
+      state.searchParams.set("lifecycle", selected.join(","));
+      state.searchParams.set("search", "1");
+      history.replaceState(null, "", state);
+    }
     const run = ++generation;
     results.replaceChildren();
     activeIndex = -1;
     input.removeAttribute("aria-activedescendant");
-    if (!query) {
-      closeSearch();
-      return;
-    }
     setOpen(true);
     panel.hidden = false;
     input.setAttribute("aria-expanded", "true");
+    if (!selected.length) { status.textContent = "表示対象を選択してください"; return; }
     status.textContent = "検索中…";
     try {
       pagefind ??= import(/* @vite-ignore */ moduleUrl) as Promise<PagefindIndex>;
-      const response = await (await pagefind).search(query);
+      const response = await (await pagefind).search(query || null, lifecycleSearchOptions(selected));
       if (run !== generation) return;
       const data = await Promise.all(response.results.slice(0, 8).map((hit) => hit.data()));
       if (run !== generation) return;
       status.textContent = data.length
         ? `検索結果：${response.results.length}件（上位${data.length}件）`
-        : "一致するページはありません";
+        : "条件に一致する記事がありません";
       data.forEach((result, index) => {
         const item = document.createElement("li");
+        const lifecycle = result.meta.lifecycle || "active";
+        item.dataset.lifecycle = lifecycle;
         const link = document.createElement("a");
         link.href = result.url;
         link.id = `global-search-result-${index}`;
@@ -149,6 +164,9 @@ import Icon from "./Icon.astro";
         );
         icon.setAttribute("aria-hidden", "true");
         const copy = textElement("span", "", "global-search-result-copy");
+        if (lifecycle !== "active") {
+          copy.append(textElement("span", lifecycle === "obsolete" ? "OBSOLETE · 現在の推奨ではない参考記事" : "RETIRED · 過去の記録", "search-lifecycle-badge"));
+        }
         copy.append(
           textElement("strong", result.meta.title || "無題"),
           textElement("span", result.meta.summary || "", "global-search-result-summary"),
@@ -174,13 +192,15 @@ import Icon from "./Icon.astro";
 
   toggle?.addEventListener("click", () => {
     const open = !root?.hasAttribute("data-open");
-    if (open) setOpen(true, true);
+    if (open) { setOpen(true, true); void search(); }
     else closeSearch(true);
   });
   input?.addEventListener("input", () => {
     clearTimeout(timer);
     timer = setTimeout(() => void search(), 180);
   });
+  controls.forEach((control) => control.addEventListener("change", () => { clearTimeout(timer); void search(); }));
+  input?.addEventListener("focus", () => { if (panel?.hidden) void search(false); });
   input?.addEventListener("keydown", (event) => {
     const options = resultOptions();
     if (event.key === "ArrowDown" && options.length) {
@@ -207,11 +227,21 @@ import Icon from "./Icon.astro";
   });
 
   const initial = new URLSearchParams(location.search);
+  const initialLifecycles = parseSearchLifecycles(initial.get("lifecycle"));
+  controls.forEach((control) => { control.checked = initialLifecycles.includes(control.value as SearchLifecycle); });
   if (initial.has("search") || initial.has("q")) {
     setOpen(true, true);
     if (input && initial.get("q")) {
       input.value = initial.get("q")!;
-      void search();
+      void search(false);
     }
+    else void search(false);
   }
+  window.addEventListener("popstate", () => {
+    const state = new URLSearchParams(location.search);
+    if (input) input.value = state.get("q") ?? "";
+    const selected = parseSearchLifecycles(state.get("lifecycle"));
+    controls.forEach((control) => { control.checked = selected.includes(control.value as SearchLifecycle); });
+    if (state.has("search") || state.has("q")) void search(false); else closeSearch();
+  });
 </script>

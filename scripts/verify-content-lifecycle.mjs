@@ -65,8 +65,9 @@ for (const record of report.entries) {
     assert.equal(item.find("time").attr("datetime"), data.published_at.slice(0, 10));
     assert.equal(publicEntry({ data }), false);
     assert.match($('meta[name="robots"]').attr("content"), /noindex/);
-    assert.equal($("[data-pagefind-body]").length, 0);
-    assert.equal($("article[data-pagefind-ignore]").length, 1);
+    assert.equal($("[data-pagefind-body]").length, 1);
+    assert.equal($("main[data-pagefind-ignore], article[data-pagefind-ignore]").length, 0);
+    assert.equal($('[data-pagefind-filter="lifecycle[content]"]').attr("content"), "retired");
     assert.equal($('meta[http-equiv="refresh"]').length, 0);
     assert(!sitemap.includes(canonical));
     for (const feed of feeds) assert(!feed.includes(canonical));
@@ -82,4 +83,4 @@ for (const record of report.entries) {
 }
 assert.deepEqual(counts, { ACTIVE: 9, OBSOLETE: 3, RETIRED: 4, DELETE: 1 });
 assert.equal(report.unrecoverable.length, 0);
-console.log("Lifecycle audit: 16 original snapshots, publication dates, stable URLs; ACTIVE=9, OBSOLETE=3, RETIRED=4; one deleted test excluded. Retired content is readable, noindex, absent from search/discovery/sitemap/feed.");
+console.log("Lifecycle audit: original snapshots, publication dates and stable URLs preserved; retired articles internally searchable with lifecycle filters, noindex and absent from ordinary discovery/sitemap/feed.");

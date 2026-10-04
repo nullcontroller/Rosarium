@@ -26,6 +26,8 @@ interface Props {
   section?: string;
   headings?: { depth: number; slug: string; text: string }[];
   noindex?: boolean;
+  internalSearch?: boolean;
+  searchLifecycle?: "active" | "obsolete" | "retired";
   publishedAt?: string | null;
   lastUpdated?: string;
   showLastUpdated?: boolean;
@@ -47,6 +49,8 @@ const {
   section,
   headings = [],
   noindex = false,
+  internalSearch = !noindex,
+  searchLifecycle = "active",
   publishedAt,
   lastUpdated,
   showLastUpdated = true,
@@ -168,6 +172,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={summary} />
+    <meta name="content-lifecycle" content={searchLifecycle} data-pagefind-meta="lifecycle[content]" data-pagefind-filter="lifecycle[content]" />
     <meta
       name="robots"
       content={noindex ? "noindex, follow" : "index, follow"}
@@ -372,7 +377,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       <main
         id="main"
         tabindex="-1"
-        data-pagefind-ignore={noindex ? true : undefined}
+        data-pagefind-ignore={!internalSearch ? true : undefined}
       >
         {!noindex && showLastUpdated && (
           <p class="site-last-updated" data-last-updated={effectiveLastUpdated}>

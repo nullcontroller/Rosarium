@@ -529,6 +529,23 @@ blockquote {
   --nav-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='black' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M4 8h16v12H4zM3 4h18v4H3zM9 12h6'/%3E%3C/g%3E%3C/svg%3E");
   color: var(--obsolete-muted);
 }
+.search-lifecycle-controls { display: flex; flex-wrap: wrap; gap: .25rem .75rem; margin: 0 0 .5rem; padding: .4rem .5rem; border: 1px solid var(--line); }
+.search-lifecycle-controls legend { font-size: .85rem; }
+.search-lifecycle-controls label { display: inline-flex; align-items: center; gap: .3rem; min-height: 44px; font-size: .875rem; cursor: pointer; }
+.search-lifecycle-controls input { width: 1rem; height: 1rem; accent-color: var(--obsolete-ink); }
+.search-lifecycle-controls input:focus-visible { outline: 2px solid var(--obsolete-line); outline-offset: 3px; }
+.global-search-results li[data-lifecycle="obsolete"], .global-search-results li[data-lifecycle="retired"] { background: var(--obsolete-bg); }
+.global-search-results li[data-lifecycle="obsolete"] a, .global-search-results li[data-lifecycle="retired"] a { color: var(--obsolete-ink); }
+.global-search-results li[data-lifecycle="obsolete"] .icon, .global-search-results li[data-lifecycle="retired"] .icon { color: var(--obsolete-muted); border-color: var(--obsolete-line); }
+.global-search-results li[data-lifecycle="retired"] { border: 1px dashed var(--obsolete-line); }
+.global-search-results li[data-lifecycle="obsolete"] a:hover, .global-search-results li[data-lifecycle="retired"] a:hover, .global-search-results li[data-lifecycle="obsolete"] a:focus-visible, .global-search-results li[data-lifecycle="retired"] a:focus-visible { background: var(--obsolete-badge); }
+.search-lifecycle-badge { color: var(--obsolete-muted); font-size: .8rem; line-height: 1.6; margin-bottom: .3rem; }
+.global-search-results li:is([data-lifecycle="obsolete"], [data-lifecycle="retired"]) strong { color: var(--obsolete-link); }
+.global-search-results li:is([data-lifecycle="obsolete"], [data-lifecycle="retired"]) a[data-active] { background: var(--obsolete-badge); }
+.global-search-results li:is([data-lifecycle="obsolete"], [data-lifecycle="retired"]) a:focus-visible { outline-color: var(--obsolete-line); }
+@media (max-width: 1200px) {
+  .global-search[data-open] .global-search-panel { position: fixed; top: 4.5rem; right: 1rem; width: min(27rem, calc(100vw - 2rem)); }
+}
 .sidebar nav a[href$="/retired/"] { color: var(--obsolete-ink); }
 .sidebar nav a[href$="/retired/"] small { color: var(--obsolete-muted); }
 .sidebar nav a[href$="/retired/"]:is(:hover, [aria-current], :focus-visible) { background: var(--obsolete-bg); color: var(--obsolete-hover); border-color: var(--obsolete-line); }

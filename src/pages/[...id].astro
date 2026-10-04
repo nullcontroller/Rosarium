@@ -78,6 +78,8 @@ const bookNavigation = series.length
   canonical={d.canonical}
   ogType="article"
   noindex={d.lifecycle === "retired"}
+  internalSearch
+  searchLifecycle={d.lifecycle}
   publishedAt={d.published_at}
   lastUpdated={d.last_updated}
   showLastUpdated={false}
@@ -110,7 +112,7 @@ const bookNavigation = series.length
       </>
     )}
   </nav>
-  <article data-lifecycle={d.lifecycle} data-pagefind-body={d.lifecycle !== "retired" || undefined} data-pagefind-ignore={d.lifecycle === "retired" || undefined}>
+  <article data-lifecycle={d.lifecycle} data-pagefind-body>
     <header class="document-header">
       <p class="eyebrow">
         <span data-pagefind-meta="category">{contentCategory(entry)}</span> /{" "}

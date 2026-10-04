@@ -20,6 +20,7 @@ const canonical = new URL(home, Astro.site).toString();
     target.searchParams.set("search", "1");
     const query = current.searchParams.get("q");
     if (query) target.searchParams.set("q", query);
+    if (current.searchParams.has("lifecycle")) target.searchParams.set("lifecycle", current.searchParams.get("lifecycle"));
     location.replace(target);
   </script>
   <h1>検索</h1>

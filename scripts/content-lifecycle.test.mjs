@@ -1,6 +1,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { publicEntry, publishedEntry } from "../src/lib/site.ts";
+import { parseSearchLifecycles, lifecycleSearchOptions } from "../src/lib/search-lifecycle.ts";
+
+test("search lifecycle defaults, URL state and OR filters preserve explicit retirement opt-in", () => {
+  assert.deepEqual(parseSearchLifecycles(null), ["active", "obsolete"]);
+  assert.deepEqual(parseSearchLifecycles(""), []);
+  assert.deepEqual(parseSearchLifecycles("retired,invalid,retired"), ["retired"]);
+  for (const selected of [["active"], ["obsolete"], ["retired"], ["active", "obsolete"], ["active", "obsolete", "retired"]]) {
+    assert.deepEqual(lifecycleSearchOptions(selected), { filters: { lifecycle: { any: selected } } });
+  }
+});
 
 test("retired records remain routable but are excluded from normal discovery", () => {
   for (const lifecycle of ["active", "obsolete", "retired"]) {
