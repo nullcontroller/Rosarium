@@ -32,7 +32,7 @@ for (const entry of historical) {
 }
 const nav = retiredIndex(".sidebar .nav-group").last();
 assert.deepEqual(nav.find(".nav-copy > span").map((_, element) => nav.find(element).text()).get(), ["Reference", "退役記事"]);
-assert.equal(retiredIndex('.header-primary a[href="/Rosarium/retired/"]').length, 0);
+assert.equal(retiredIndex('.header-primary a.mobile-retired-link[href="/Rosarium/retired/"]').length, 1);
 for (const record of report.entries) {
   counts[record.lifecycle] = (counts[record.lifecycle] ?? 0) + 1;
   if (record.lifecycle === "DELETE") { assert.equal(record.original_slug, "test"); assert.equal(record.recovered, true); continue; }

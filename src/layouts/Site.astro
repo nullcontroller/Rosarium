@@ -11,6 +11,7 @@ import {
   publicEntry,
 } from "../lib/site";
 import { navigation } from "../lib/navigation";
+const retiredNavigation = navigation.flat().find((item) => item.path === "retired")!;
 import NavIcon from "../components/NavIcon.astro";
 import GlobalSearch from "../components/GlobalSearch.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
@@ -283,6 +284,9 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             aria-current={section === "cases" ? "page" : undefined}
           >
             事例
+          </a>
+          <a class="mobile-retired-link" href={url(retiredNavigation.path)} aria-current={section === retiredNavigation.path ? "page" : undefined}>
+            {retiredNavigation.title}
           </a>
         </nav>
         <div class="header-actions">
