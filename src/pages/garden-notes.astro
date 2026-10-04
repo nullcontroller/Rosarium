@@ -13,7 +13,7 @@ const months = [...new Set(recentGrowth.map((entry) => entry.date.slice(0, 7)))]
 const description = "Rosariumで行った主な公開・改訂・統合・剪定の記録。AI・DX・システム設計に関する知識や事例がどう変化したかをまとめています。";
 ---
 
-<Site title="Garden Notes" summary={description} section="garden-notes" lastUpdated="2026-10-04"
+<Site title="Garden Notes" summary={description} section="garden-notes" lastUpdated={recentGrowth[0].date}
   breadcrumbs={[{ name: "Rosarium", path: "" }, { name: "Garden Notes", path: "garden-notes" }]}>
   <PageHeader title="Garden Notes" />
   <div class="garden-notes-page">

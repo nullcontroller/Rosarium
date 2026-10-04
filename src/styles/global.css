@@ -2088,6 +2088,11 @@ blockquote {
 .case-group > h2 { font-size: 1.5rem; }
 .case-group-description { color: var(--muted); }
 .case-group-obsolete,
+.obsolete-content-group,
+.content-lifecycle-note,
+.content-entry[data-lifecycle="obsolete"],
+article[data-lifecycle="obsolete"],
+article[data-lifecycle="retired"],
 [data-series-index="cases/system-understanding"],
 .prose .case-position-note {
   --ink: var(--obsolete-ink);
@@ -2097,7 +2102,25 @@ blockquote {
   --accent: var(--obsolete-link);
   color: var(--ink);
 }
-.case-group-obsolete > h2 { color: var(--obsolete-muted); }
+.case-group-obsolete > h2,
+.obsolete-content-group > :is(h2, h3) { color: var(--obsolete-muted); }
+.obsolete-content-group { margin-top: 1.5rem; }
+.content-lifecycle-note {
+  margin: 0 0 1.5rem;
+  padding: clamp(.8rem, 2vw, 1.1rem);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--soft);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.content-lifecycle-note p { margin: 0 0 .75rem; }
+.content-lifecycle-note p:last-child { margin-bottom: 0; }
+.content-lifecycle-note[data-lifecycle="retired"] { border-style: dashed; }
+.obsolete-content-group a:hover,
+.obsolete-content-group a:focus-visible,
+.content-entry[data-lifecycle="obsolete"] a:hover,
+.content-entry[data-lifecycle="obsolete"] a:focus-visible,
 .case-group-obsolete a:hover,
 .case-group-obsolete a:focus-visible,
 [data-series-index="cases/system-understanding"] a:hover,
@@ -2105,6 +2128,7 @@ blockquote {
   color: var(--obsolete-hover);
 }
 .case-group-obsolete .case-reference-note span,
+.content-entry[data-lifecycle="obsolete"] .case-reference-note span,
 [data-series-index="cases/system-understanding"] .case-reference-note span {
   background: var(--obsolete-badge);
   color: var(--obsolete-ink);

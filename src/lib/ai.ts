@@ -53,7 +53,7 @@ export const aiThemeGroups = (entries: CollectionEntry<"pages">[]) => {
   const ids = new Set<string>();
   return aiThemes.map((theme) => {
     const entry = entries.find((entry) => entry.id === theme.article);
-    if (!entry || entry.data.section === "cases" || entry.data.layer !== theme.layer ||
+    if (!entry || entry.data.lifecycle !== "active" || entry.data.section === "cases" || entry.data.layer !== theme.layer ||
         ("topic" in theme && entry.data.design_topic !== theme.topic) || ids.has(entry.id)) {
       throw new Error(`${theme.id}: representative article must be unique and match its primary classification`);
     }

@@ -6,6 +6,7 @@ title: AIは使われている。でも使いこなされていない
 kind: guide
 section: practices
 status: published
+lifecycle: active
 last_updated: "2026-09-29"
 entry_points:
   - ai

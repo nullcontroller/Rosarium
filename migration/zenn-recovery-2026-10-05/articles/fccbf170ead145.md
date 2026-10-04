@@ -1,43 +1,18 @@
 ---
-summary: "要件整理・既存仕様調査・設計・仕様化・実装・テストを一つのAI活用工程として考える。3つのAIを役割分担させた経験と、成果物を通じた受け渡しを紹介する。"
-publication_format: article
-layer: publication
-title: 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか
-kind: guide
-section: software-engineering
-status: published
-lifecycle: active
-last_updated: "2026-10-04"
-tags: &a1
-  - githubcopilot
-  - 生成ai
-  - ai駆動開発
-  - hitl
-  - aiガバナンス
-published_at: 2026-08-15 08:42
-updated_at: "2026-09-22"
-canonical: https://zenn.dev/nullcontroller/articles/fccbf170ead145
-source:
-  type: zenn
-  original_type: article
-  slug: fccbf170ead145
-  book_slug: null
-  chapter_slug: null
-  url: https://zenn.dev/nullcontroller/articles/fccbf170ead145
-  published_at: 2026-08-15 08:42
-  publication_month: null
-  topics: *a1
-  zenn_type: idea
-  metadata:
-    title: 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか
-    emoji: 🔗
-    type: idea
-    topics: *a1
-    published: true
-    published_at: 2026-08-15 08:42
+title: "私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか"
+emoji: "🔗"
+type: "idea"
+topics:
+  - "githubcopilot"
+  - "生成ai"
+  - "ai駆動開発"
+  - "hitl"
+  - "aiガバナンス"
+published: true
+published_at: "2026-08-15 08:42"
 ---
 
-## 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか
+# 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか
 
 AI駆動開発という言葉から、コード生成を中心とした開発を想像することがあります。
 
@@ -64,7 +39,7 @@ AI駆動開発という言葉から、コード生成を中心とした開発を
 
 ---
 
-### AIごとに役割を分ける
+## AIごとに役割を分ける
 
 私が実務で試した事例では、
 
@@ -74,19 +49,19 @@ AI駆動開発という言葉から、コード生成を中心とした開発を
 
 を目的に応じて使い分けました。
 
-#### GPT
+### GPT
 
-要件や制約条件の整理、設計方針の検討、図による構造整理などを担当。
+要件や制約条件の整理、設計方針の検討、PlantUMLによる構造整理などを担当。
 
 曖昧な情報を整理し、次の工程で扱える形にする役割です。
 
-#### GitHub Copilot
+### GitHub Copilot
 
 既存コードの調査、実装方法の具体化、コード修正、単体テストなどを担当。
 
 コードベースに近い場所で、調査と実装を支援する役割です。
 
-#### Microsoft 365 Copilot
+### Microsoft 365 Copilot
 
 検討結果をExcelなどのレビュー可能な成果物へ変換する役割を担当。
 
@@ -106,7 +81,7 @@ AI駆動開発という言葉から、コード生成を中心とした開発を
 
 ---
 
-### AIとAIの間に「成果物」を置く
+## AIとAIの間に「成果物」を置く
 
 複数AIを利用するとき、同じ質問を別々のAIに投げるだけでは、開発プロセスにはなりません。
 
@@ -145,7 +120,7 @@ AI同士が自由に会話を続けるのではなく、
 
 ---
 
-### 人間は判断基準と承認を持つ
+## 人間は判断基準と承認を持つ
 
 AI駆動開発でも、人間の役割がなくなるわけではありません。
 
@@ -186,7 +161,7 @@ AIには、
 
 ---
 
-### コード生成だけを高速化しても、開発全体は速くならない
+## コード生成だけを高速化しても、開発全体は速くならない
 
 AIによってコード生成速度は大きく向上します。
 
@@ -213,11 +188,11 @@ AIによってコード生成速度は大きく向上します。
 ---
 
 
-### 今回の実務事例
+## 今回の実務事例
 
-詳細はCase Studyとして整理しています。
+詳細はZenn Bookで整理しています。
 
-Case Studyでは、実際の工程に沿って次の内容を整理しています。
+Bookでは、実際の工程に沿って次の内容を整理しています。
 
 1. 暗号方式の変更によって顕在化した異常系
 2. 異常系の構造整理と設計方針
@@ -227,4 +202,4 @@ Case Studyでは、実際の工程に沿って次の内容を整理していま�
 6. コード生成と単体テスト
 7. 成果と考察
 
-👉 **[仕様調査から実装まで、複数AIを役割分担したレガシー保守](/cases/three-ai-maintenance/)**
+👉 **[3つのAIをオーケストレーションしたレガシー保守](https://zenn.dev/nullcontroller/books/b9a9feaefb4001)**

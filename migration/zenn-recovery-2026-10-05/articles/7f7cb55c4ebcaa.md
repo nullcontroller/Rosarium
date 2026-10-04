@@ -1,40 +1,14 @@
 ---
-summary: "AIの出力に対して、根拠を確認し、採否を判断し、責任を持てる人の役割を論じる。単にAIを操作することと、組織で安全に使える状態を作ることを区別する。"
-publication_format: article
-layer: publication
-title: AI時代において「レビューできる人」が価値を持つ理由
-kind: guide
-section: evaluation-hitl
-status: archived
-lifecycle: retired
-public: true
-last_updated: "2026-10-05"
-tags: &a1
-  - ai
-  - キャリア
-  - 品質管理
-  - 生成ai
-published_at: 2026-03-28 14:46
-canonical: https://zenn.dev/nullcontroller/articles/7f7cb55c4ebcaa
-source:
-  type: zenn
-  original_type: article
-  slug: 7f7cb55c4ebcaa
-  book_slug: null
-  chapter_slug: null
-  url: https://zenn.dev/nullcontroller/articles/7f7cb55c4ebcaa
-  published_at: 2026-03-28 14:46
-  publication_month: null
-  topics: *a1
-  zenn_type: idea
-  metadata:
-    title: AI時代において「レビューできる人」が価値を持つ理由
-    emoji: 🤖
-    type: idea
-    topics: *a1
-    published: true
-    published_at: 2026-03-28 14:46
-lifecycle_reason: "人によるレビューの価値は、現在の責任境界とHITLの設計に統合されています。この内容は独立した記事としての役割を終えています。"
+title: "AI時代において「レビューできる人」が価値を持つ理由"
+emoji: "🤖"
+type: "idea"
+topics:
+  - "ai"
+  - "キャリア"
+  - "品質管理"
+  - "生成ai"
+published: true
+published_at: "2026-03-28 14:46"
 ---
 
 AIは誰でも使える時代になった。

@@ -31,6 +31,14 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-05",
+    type: "integrated",
+    title: "過去のZenn記事をライフサイクル管理へ移行",
+    changes: ["過去のZenn記事を確認・復元し、ACTIVE・OBSOLETE・RETIREDに分類"],
+    category: "Rosarium",
+    icon: "updates",
+  },
+  {
     date: "2026-10-04",
     type: "revised",
     title: "主要事例とCareerを更新",

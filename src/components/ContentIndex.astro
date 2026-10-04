@@ -6,12 +6,23 @@ interface Props {
   showIcons?: boolean;
 }
 const { entries, showIcons = true } = Astro.props;
+const active = entries.filter((entry) => entry.data.lifecycle === "active");
+const obsolete = entries.filter((entry) => entry.data.lifecycle === "obsolete");
 ---
 
 <div class="document-list" data-primary-index>
-  {entries.map((entry) => (
+  {active.map((entry) => (
     <article>
       <ContentLink entry={entry} showIcon={showIcons} />
     </article>
   ))}
 </div>
+{obsolete.length > 0 && (
+  <section class="obsolete-content-group" aria-label="旧記事">
+    <h3>旧記事</h3>
+    <p>現在の推奨内容ではなく、当時の前提や判断を残した参考記事です。</p>
+    <div class="document-list" data-primary-index>
+      {obsolete.map((entry) => <article><ContentLink entry={entry} showIcon={showIcons} /></article>)}
+    </div>
+  </section>
+)}

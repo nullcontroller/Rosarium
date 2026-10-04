@@ -54,6 +54,9 @@ const pages = defineCollection({
       kind: z.enum(["principle", "architecture", "guide", "case", "essay"]),
       section,
       status: z.enum(["draft", "published", "stable", "archived"]),
+      // Publication state and content lifecycle are separate: RETIRED remains readable.
+      lifecycle: z.enum(["active", "obsolete", "retired"]).default("active"),
+      lifecycle_reason: z.string().trim().min(1).optional(),
       last_updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
       order: z.number().int().nonnegative().optional(),
       tags: z.array(z.string()).default([]),
@@ -104,6 +107,8 @@ const pages = defineCollection({
         .optional(),
     })
     .superRefine((data, ctx) => {
+      if (data.lifecycle !== "active" && !data.lifecycle_reason)
+        ctx.addIssue({ code: "custom", message: "Inactive content requires an article-specific reason", path: ["lifecycle_reason"] });
       if (data.layer === "ai-design" && !data.design_topic)
         ctx.addIssue({
           code: "custom",

@@ -20,7 +20,7 @@ const inTheme = /\/(?:ai|ai-design|dx)(?:\/|$)/.test(Astro.url.pathname);
 const showCategory = !inTheme && !(format === "Essay" && category === "Essays");
 ---
 
-<div class:list={["content-entry", showIcon && "icon-entry"]} data-content-id={entry.id}>
+<div class:list={["content-entry", showIcon && "icon-entry"]} data-content-id={entry.id} data-lifecycle={d.lifecycle}>
   {showIcon && <Icon name={iconForEntry(entry)} size="list" />}
   <div>
     <p class="meta content-entry-meta">
@@ -33,6 +33,7 @@ const showCategory = !inTheme && !(format === "Essay" && category === "Essays");
         {d.title}
       </a>
     </Heading>
+    {d.lifecycle === "obsolete" && <p class="case-reference-note"><span>OBSOLETE</span> 当時の前提に基づく参考記事</p>}
     <p class="content-summary">{d.summary}</p>
   </div>
 </div>

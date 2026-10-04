@@ -23,7 +23,7 @@ const publicationState = publicationStatus(entry);
 const caseStudy = caseStudies.find((study) => study.book === entry.id);
 ---
 
-<div class:list={["content-entry", "publication-entry", showIcon && "icon-entry"]} data-content-id={entry.id}>
+<div class:list={["content-entry", "publication-entry", showIcon && "icon-entry"]} data-content-id={entry.id} data-lifecycle={d.lifecycle}>
   {showIcon && <Icon name={iconForEntry(entry)} size="list" />}
   <div>
     <Heading class="content-title">
@@ -32,6 +32,7 @@ const caseStudy = caseStudies.find((study) => study.book === entry.id);
     {caseStudy?.lifecycle === "obsolete" && (
       <p class="case-reference-note"><span>OBSOLETE</span> {caseStudy.referenceNote}</p>
     )}
+    {d.lifecycle === "obsolete" && <p class="case-reference-note"><span>OBSOLETE</span> 当時の前提に基づく参考記事</p>}
     <p class="content-summary">{d.summary}</p>
     {purposes.length > 0 && (
       <p class="meta publication-purpose publication-topics">

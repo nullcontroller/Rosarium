@@ -67,7 +67,7 @@ for (const file of files) {
       /このWiki|Wiki全体|公開Wiki|100[〜～-]600章|本アカウント|Zenn/,
     );
     assert.ok(
-      !legacy,
+      data.lifecycle === "retired" || !legacy,
       `Legacy publication wording '${legacy?.[0]}' remains in ${file}`,
     );
   }
@@ -129,7 +129,7 @@ assert.ok(
   canonicalPractices.length >= 4,
   "Practices needs adoption, education, transfer and development workflow",
 );
-assert.equal(aiOnly.length, 50, "AI-only content count changed");
+assert.equal(aiOnly.length, 54, "AI-only content includes four restored retired records");
 assert.equal(
   dxOnly.length,
   1,

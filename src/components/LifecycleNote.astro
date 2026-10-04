@@ -1,0 +1,14 @@
+---
+interface Props {
+  lifecycle: "active" | "obsolete" | "retired";
+  reason?: string;
+}
+const { lifecycle, reason } = Astro.props;
+---
+{lifecycle !== "active" && (
+  <aside class="content-lifecycle-note" data-lifecycle={lifecycle} aria-label={lifecycle === "obsolete" ? "旧記事の位置づけ" : "退役記事の位置づけ"}>
+    <p><strong>{lifecycle.toUpperCase()}</strong> — {lifecycle === "obsolete" ? "現在の推奨内容ではない参考記事" : "独立した記事としての役割を終えた記録"}</p>
+    <p>{reason}</p>
+    <p>{lifecycle === "obsolete" ? "当時の前提や判断を示す記録として掲載しています。" : "現在の推奨内容としてではなく、過去の記録として公開しています。"}</p>
+  </aside>
+)}

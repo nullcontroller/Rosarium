@@ -70,7 +70,7 @@ export const fallbackLastUpdated = "2026-09-28";
 export const staticPageLastUpdated: Record<string, string> = {
   // Retired Details compatibility redirect; excluded from the sitemap.
   "career/details": "2026-10-04",
-  "": "2026-10-04",
+  "": "2026-10-05",
   ai: "2026-10-04",
   "ai-design": "2026-10-04",
   "ai-design/applicability": "2026-10-04",
@@ -89,8 +89,8 @@ export const staticPageLastUpdated: Record<string, string> = {
   "dx/selection-retirement": "2026-10-03",
   "dx/system-transformation": "2026-10-04",
   "dx/continuous-value": "2026-10-04",
-  essays: "2026-10-04",
-  practices: "2026-10-04",
+  essays: "2026-10-05",
+  practices: "2026-10-05",
   reference: "2026-10-04",
   series: "2026-10-04",
   "start-here": "2026-10-04",
@@ -104,7 +104,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "career/profile": "2026-09-28",
   search: "2026-09-28",
   about: "2026-10-04",
-  "garden-notes": "2026-10-04",
+  "garden-notes": "2026-10-05",
   articles: "2026-10-04",
   overview: "2026-09-28",
   updates: "2026-09-28",
@@ -127,9 +127,13 @@ export const assetUrl = (p: string) => base + "/" + p.replace(/^\/+|\/+$/g, "");
 export const absoluteUrl = (site: URL, p = "") =>
   new URL(/\.[a-z0-9]+$/i.test(p) ? assetUrl(p) : url(p), site).toString();
 export const label = (s: string) => sections.find((x) => x[0] === s)?.[1] ?? s;
-export const publicEntry = (e: {
+export const publishedEntry = (e: {
   data: { status: string; public?: boolean };
 }) => e.data.status !== "draft" && e.data.public !== false;
+// RETIRED stays available at its URL, but is absent from ordinary discovery/feed/sitemap.
+export const publicEntry = (e: {
+  data: { status: string; public?: boolean; lifecycle?: string };
+}) => publishedEntry(e) && e.data.lifecycle !== "retired";
 
 export const layers = {
   "ai-mathematics": "AI理論",

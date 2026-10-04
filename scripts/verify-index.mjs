@@ -293,7 +293,7 @@ for (const [route, layer, crossListed] of [
   const $ = page(route);
   const ids = primaryIds($);
   const canonical = [...entries]
-    .filter(([, data]) => data.layer === layer && data.section !== "cases" && data.public !== false)
+    .filter(([, data]) => data.layer === layer && data.section !== "cases" && data.public !== false && data.lifecycle !== "retired")
     .map(([id]) => id);
   for (const id of canonical)
     assert(ids.includes(id), `${route} misses canonical ${id}`);
@@ -566,7 +566,7 @@ for (const entry of recentGrowth) {
 }
 
 assert.equal(top(".growth-list [data-growth-entry]").length, 1);
-assert.equal(top('[data-growth-entry] time[datetime="2026-10-04"]').length, 1);
+assert.equal(top(`[data-growth-entry] time[datetime="${recentGrowth[0].date}"]`).length, 1);
 assert.equal(new Set(recentGrowth.map(entry => entry.date)).size, recentGrowth.length);
 assert.equal(recentGrowth.find(entry => entry.date === "2026-10-03").changes.length, 4);
 assert(recentGrowth.every(entry => !entry.changes.some(change => /表示・導線を整理|UI.?UXを改善/.test(change))));
@@ -592,11 +592,11 @@ for (const element of top("[data-growth-entry]").toArray()) {
 }
 assert.equal(
   top("[data-growth-entry]").first().find(".growth-changes > li").length,
-  4,
+  Math.min(4, recentGrowth[0].changes.length),
 );
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
-  "主要事例とCareerを更新",
+  recentGrowth[0].title,
 );
 assert.equal(top('a[href="/Rosarium/updates/"]').length, 0);
 const updates = page("updates");
@@ -621,7 +621,7 @@ for (const route of ["ai-mathematics", "practices"]) {
   );
   assert.equal(
     $(".site-last-updated time").attr("datetime"),
-    "2026-10-04",
+    route === "practices" ? "2026-10-05" : "2026-10-04",
     `${route}: last updated`,
   );
 }

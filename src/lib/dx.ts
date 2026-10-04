@@ -92,6 +92,7 @@ export const dxEntriesForCategory = (
     .filter(
       (entry) =>
         hasEntryPoint(entry, "dx") &&
+        entry.data.lifecycle !== "retired" &&
         entry.data.primaryCategory === categoryId &&
         (!entry.data.series || (entry.data.order ?? 0) === 0),
     )
@@ -106,7 +107,7 @@ export const dxFeaturedArticles = (
   categoryId: DxCategoryId,
 ) => {
   const featured = dxEntriesForCategory(entries, categoryId).filter(
-    (entry) => entry.data.section !== "cases" && entry.data.featuredInCategory,
+    (entry) => entry.data.section !== "cases" && entry.data.lifecycle === "active" && entry.data.featuredInCategory,
   );
   if (!featured.length || featured.length > 2)
     throw new Error(
