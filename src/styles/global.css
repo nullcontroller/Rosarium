@@ -6,6 +6,13 @@
   --line: #d4ddda;
   --accent: #17675a;
   --soft: #e8f0ec;
+  --obsolete-bg: #f0f1f3;
+  --obsolete-badge: #e3e5e8;
+  --obsolete-ink: #414b57;
+  --obsolete-muted: #596575;
+  --obsolete-line: #8a949f;
+  --obsolete-link: #465566;
+  --obsolete-hover: #24313f;
   color-scheme: light;
   font-family: "Yu Gothic UI", "Yu Gothic", system-ui, sans-serif;
 }
@@ -18,6 +25,13 @@
     --line: #3c5052;
     --accent: #92d5c1;
     --soft: #263c38;
+    --obsolete-bg: #242a32;
+    --obsolete-badge: #343d48;
+    --obsolete-ink: #d1d5dc;
+    --obsolete-muted: #adb6c2;
+    --obsolete-line: #697585;
+    --obsolete-link: #bdc5d0;
+    --obsolete-hover: #eef1f5;
     color-scheme: dark;
   }
 }
@@ -29,6 +43,13 @@
   --line: #3c5052;
   --accent: #92d5c1;
   --soft: #263c38;
+  --obsolete-bg: #242a32;
+  --obsolete-badge: #343d48;
+  --obsolete-ink: #d1d5dc;
+  --obsolete-muted: #adb6c2;
+  --obsolete-line: #697585;
+  --obsolete-link: #bdc5d0;
+  --obsolete-hover: #eef1f5;
   color-scheme: dark;
 }
 * {
@@ -2066,7 +2087,28 @@ blockquote {
 .case-group { margin-top: 2rem; }
 .case-group > h2 { font-size: 1.5rem; }
 .case-group-description { color: var(--muted); }
-.case-group-obsolete > h2 { color: var(--muted); }
+.case-group-obsolete,
+[data-series-index="cases/system-understanding"],
+.prose .case-position-note {
+  --ink: var(--obsolete-ink);
+  --muted: var(--obsolete-muted);
+  --line: var(--obsolete-line);
+  --soft: var(--obsolete-bg);
+  --accent: var(--obsolete-link);
+  color: var(--ink);
+}
+.case-group-obsolete > h2 { color: var(--obsolete-muted); }
+.case-group-obsolete a:hover,
+.case-group-obsolete a:focus-visible,
+[data-series-index="cases/system-understanding"] a:hover,
+[data-series-index="cases/system-understanding"] a:focus-visible {
+  color: var(--obsolete-hover);
+}
+.case-group-obsolete .case-reference-note span,
+[data-series-index="cases/system-understanding"] .case-reference-note span {
+  background: var(--obsolete-badge);
+  color: var(--obsolete-ink);
+}
 .case-group-obsolete .book-list-entry {
   background: var(--soft);
   border: 1px solid var(--line);
