@@ -6,63 +6,87 @@ const nodes = [
     id: "customer",
     label: "顧客・質問",
     sub: "必要な条件を確認",
-    description:
-      "顧客の質問から、製品・機種・OS・エラーなどの条件を確認します。条件を特定できない場合は人へ引き継ぎます。",
+    paragraphs: [
+      "問い合わせ内容から、製品・機種・OS・エラーなど、回答に必要な条件を確認します。",
+      "条件を特定できないままAIへ渡すと、誤った情報を検索・回答する可能性があります。",
+      "必要な条件が揃わない場合は、AIだけで回答せず、人へ引き継ぎます。",
+    ],
   },
   {
     id: "knowledge",
     label: "回答の知識",
     sub: "Knowledge",
-    description:
-      "製品・版・公開可否・有効性を確認した知識を管理します。検索できる文書すべてを、顧客への回答根拠にしてよいわけではありません。",
+    paragraphs: [
+      "マニュアルやFAQなどの知識について、対象の製品・版、公開可否、現在も有効な情報かを確認します。",
+      "検索できる文書でも、古い仕様や調査中の情報をそのまま顧客への回答に使うことはできません。",
+      "確認した条件を知識とともに管理し、次の検索で回答に使える情報を選べるようにします。",
+    ],
   },
   {
     id: "rag",
     label: "根拠を検索",
     sub: "RAG",
-    description:
-      "機種・OS・エラーなどの条件で、公開可能なKnowledgeから回答根拠を検索します。対象や版が異なる根拠は使いません。",
+    paragraphs: [
+      "機種・OS・エラーなどの条件を使い、公開可能な知識から回答の根拠を検索します。",
+      "文章が似ていても、対象の製品や版が違う情報を使うと、誤った案内につながります。",
+      "条件に合う情報を生成AIへ渡し、回答後も参照した文書や箇所を確認できるようにします。",
+    ],
   },
   {
     id: "genai",
     label: "生成AI",
     sub: "根拠から回答案を生成",
-    description:
-      "取得した根拠の範囲で回答案を生成します。流暢な文章が出たこと自体は、正しさの保証になりません。",
+    paragraphs: [
+      "生成AIは、検索で取得した根拠の範囲で、顧客の質問に対する回答案を作ります。",
+      "読みやすい文章が出ても、正しさが保証されたわけではなく、根拠にない内容を補っていないか確認が必要です。",
+      "回答案をそのまま送らず、対象や公開可否などの条件を確認する次の判定へ渡します。",
+    ],
   },
   {
     id: "decision",
     label: "回答条件の判定",
     sub: "システムで条件を確認",
-    description:
-      "根拠・対象・公開可否・影響度をシステムで確認します。不足・矛盾・専門判断があれば人へ渡し、AI自身の自信だけでは決めません。",
+    paragraphs: [
+      "回答の根拠、対象の製品・版、公開可否、案内が業務へ与える影響をシステムで確認します。",
+      "AI自身の自信だけでは決めません。",
+      "条件を満たした回答は顧客へ届け、不足や矛盾がある場合、または専門判断が必要な場合は人へ引き継ぎます。",
+    ],
   },
   {
     id: "human",
     label: "人による確認",
     sub: "専門判断・有人引継ぎ",
-    description:
-      "根拠が足りない、または専門判断が必要な場合に人へ引き継ぎます。質問・条件・根拠・停止理由を受け取り、人が最終的な業務責任を持ちます。",
+    paragraphs: [
+      "根拠が足りない場合や専門判断が必要な場合は、人が質問・条件・参照情報・AIが回答を止めた理由を確認します。",
+      "回答案だけを受け取ると判断の経緯が分からないため、元の質問や文書までたどれる形で引き継ぎます。",
+      "人が必要な調査と判断を行い、最終的な業務責任を持って顧客への案内につなげます。",
+    ],
   },
   {
     id: "response",
     label: "顧客へ回答",
     sub: "条件を満たす場合",
-    description:
-      "条件を満たしたAIの回答、または人が判断した案内を顧客へ届けます。権限や取引などの確定処理は既存システムが担います。",
+    paragraphs: [
+      "回答条件を満たしたAIの回答、または人が判断した案内を顧客へ届けます。",
+      "案内を生成することと業務を確定することは分け、権限や取引などの確定処理は既存システムが担います。",
+      "回答の利用結果や有人対応の結果は、知識・検索条件・評価を見直すための情報として次の改善へつなげます。",
+    ],
   },
   {
     id: "feedback",
     label: "改善",
     sub: "利用結果を次回へ反映",
-    description:
-      "誤回答や有人対応結果を確認し、Knowledge・検索条件・評価方法を改善します。変更後は再評価し、次回の検索・回答へ反映します。",
+    paragraphs: [
+      "利用結果、誤回答、有人対応の結果から、どこで回答や引き継ぎがうまくいかなかったかを確認します。",
+      "知識の不足だけを原因とせず、検索条件、回答の生成、判定や人への引き継ぎのどこを見直すべきか分けて考えます。",
+      "知識・検索条件・評価方法を改善した後は再評価し、次回の検索・回答へ反映します。",
+    ],
   },
 ];
 const layouts = [
   {
     name: "desktop",
-    viewBox: "0 0 840 410",
+    viewBox: "0 0 840 390",
     width: 164,
     positions: [
       [20, 40],
@@ -264,13 +288,14 @@ const layouts = [
   ))}
   <div class="diagram-details" aria-label="各工程の説明">
     <section data-diagram-empty>
-      <h3>詳しい説明</h3>
-      <p>気になる項目を選ぶと、その役割や判断理由を確認できます。</p>
+      <h3>図の見方</h3>
+      <p>＋の付いた項目を選ぶと、その処理で何を確認しているかを表示します。</p>
+      <p>なぜ必要なのか、次の処理へどうつながるのかを、選んだ項目ごとに確認できます。</p>
     </section>
     {nodes.map((node) => (
       <div id={`support-detail-${node.id}`} data-detail={node.id}>
         <h3>{node.label}</h3>
-        <p>{node.description}</p>
+        {node.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
       </div>
     ))}
   </div>
@@ -429,22 +454,38 @@ const layouts = [
     stroke-dasharray: 5 3;
   }
   .diagram-details {
-    min-height: 8rem;
+    min-height: 12rem;
     box-sizing: border-box;
     border: 1px solid var(--line);
+    border-top-width: 3px;
     border-radius: 6px;
     padding: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+  }
+  [data-enhanced] .diagram-details:has([data-detail]:not([hidden])),
+  .diagram-details:has([data-detail]:target) {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+  }
+  .diagram-details > div,
+  .diagram-details > section {
+    max-width: 74ch;
   }
   .diagram-details [data-detail] {
     scroll-margin-top: 7rem;
   }
   .diagram-details h3 {
     margin: 0 0 0.5rem;
-    font-size: 1rem;
+    font-size: 1.1875rem;
+    line-height: 1.5;
   }
   .diagram-details p {
     margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+  .diagram-details p + p {
+    margin-top: 0.6em;
   }
   /* CSS anchors remain functional without JavaScript; reserve the detail panel. */
   .diagram-details [data-detail] {
@@ -487,7 +528,10 @@ const layouts = [
   }
   @container (min-width: 640px) {
     .diagram-details {
-      min-height: 8rem;
+      min-height: 12rem;
+    }
+    .diagram-details p {
+      font-size: 1rem;
     }
     .diagram-desktop {
       display: block;
