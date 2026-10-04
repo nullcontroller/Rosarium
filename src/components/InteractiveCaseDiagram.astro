@@ -8,6 +8,7 @@ const { id } = Astro.props;
 const model = caseDiagrams[id];
 if (!model) throw new Error(`Unknown case diagram: ${id}`);
 const prefix = `case-${id}`;
+const compactInteractive = id === "system-understanding";
 // This chapter explains each flow in the surrounding prose; no duplicate detail panel.
 const showDetails = ![
   "maintenance-password-flow",
@@ -120,7 +121,10 @@ const layouts = ["mobile", "desktop"].map((name) => {
     height,
     positions,
     canvasWidth,
-    canvasHeight,
+    canvasHeight:
+      compactInteractive && !mobile && !model.messages
+        ? Math.max(...[...positions.values()].map((p) => p.y + p.h)) + 32
+        : canvasHeight,
     edgeLabels: undefined as
       Record<string, { path: string; x?: number; y?: number }> | undefined,
     path,
@@ -132,13 +136,16 @@ const layouts = ["mobile", "desktop"].map((name) => {
   class="case-diagram"
   id={prefix}
   data-case-flow={showDetails ? "" : undefined}
+  data-compact-interactive={compactInteractive ? "" : undefined}
   data-structured-flow={model.layouts ? "" : undefined}
 >
   <figcaption>{model.title}</figcaption>
   {model.intro && <p class="case-diagram-help">{model.intro}</p>}
   {showDetails && !model.intro && (
     <p class="case-diagram-help">
-      項目を選ぶと、役割と判断の説明を確認できます。
+      {compactInteractive
+        ? "＋の項目を選ぶと、詳しい説明を確認できます。●は選択中です。"
+        : "項目を選ぶと、役割と判断の説明を確認できます。"}
     </p>
   )}
   {layouts.map((layout) => (
@@ -345,13 +352,23 @@ const layouts = ["mobile", "desktop"].map((name) => {
                 >
                   {group?.title || kinds[node.kind]}
                 </text>
+                {compactInteractive && (
+                  <text
+                    class="case-action-mark"
+                    x={p.x + p.w - 15}
+                    y={p.y + 16}
+                    aria-hidden="true"
+                  >
+                    ＋
+                  </text>
+                )}
                 <text
                   class="case-selected-mark"
                   x={p.x + p.w - 15}
                   y={p.y + 16}
                   aria-hidden="true"
                 >
-                  ✓
+                  {compactInteractive ? "●" : "✓"}
                 </text>
               </a>
             );

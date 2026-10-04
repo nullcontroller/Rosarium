@@ -170,3 +170,29 @@
     transition: none;
   }
 }
+
+/* Only the legacy overview starts with a compact, unselected diagram. */
+.case-diagram[data-compact-interactive] .case-diagram-details {
+  min-height: 0;
+}
+.case-diagram[data-compact-interactive] .case-diagram-details[hidden],
+.case-diagram[data-compact-interactive] .case-diagram-return[hidden] {
+  display: none;
+}
+.case-diagram[data-compact-interactive] [data-node] {
+  cursor: pointer;
+}
+.case-diagram[data-compact-interactive] .case-action-mark {
+  fill: var(--accent);
+  font-size: 14px;
+}
+.case-diagram[data-compact-interactive] [aria-pressed="true"] .case-action-mark {
+  display: none;
+}
+@media (hover: hover) {
+  .case-diagram[data-compact-interactive] [data-node]:hover rect {
+    fill: var(--soft);
+    stroke: var(--accent);
+    stroke-width: 3;
+  }
+}

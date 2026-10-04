@@ -6,8 +6,15 @@ export function enhanceCaseDiagrams() {
       if (root.dataset.enhanced) return;
       const links = [...root.querySelectorAll<SVGAElement>("[data-node]")];
       const details = [...root.querySelectorAll<HTMLElement>("[data-detail]")];
+      const compact = root.hasAttribute("data-compact-interactive");
+      const panel = root.querySelector<HTMLElement>(".case-diagram-details");
+      const returnLink = root.querySelector<HTMLElement>(
+        ".case-diagram-return",
+      );
       const status = root.querySelector<HTMLElement>('[role="status"]');
       function select(id: string, announce = true) {
+        if (compact && panel) panel.hidden = false;
+        if (compact && returnLink) returnLink.hidden = false;
         details.forEach(
           (detail) => (detail.hidden = detail.dataset.detail !== id),
         );
@@ -48,6 +55,11 @@ export function enhanceCaseDiagrams() {
         });
       });
       root.dataset.enhanced = "true";
-      select(links[0].dataset.node!, false);
+      if (compact) {
+        details.forEach((detail) => (detail.hidden = true));
+        links.forEach((link) => link.setAttribute("aria-pressed", "false"));
+        if (panel) panel.hidden = true;
+        if (returnLink) returnLink.hidden = true;
+      } else select(links[0].dataset.node!, false);
     });
 }
