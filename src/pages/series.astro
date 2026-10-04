@@ -2,9 +2,9 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
-import { publicEntry } from "../lib/site";
+import { activeEntry } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
-const all = await getCollection("pages", publicEntry);
+const all = await getCollection("pages", activeEntry);
 ---
 
 <Site title="連載" section="articles">

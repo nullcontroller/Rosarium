@@ -3,9 +3,9 @@ import { getCollection } from "astro:content";
 import Site from "../../layouts/Site.astro";
 import ContentIndex from "../../components/ContentIndex.astro";
 import { designTopics } from "../../lib/navigation";
-import { publicEntry, url } from "../../lib/site";
+import { activeEntry, url } from "../../lib/site";
 import PageHeader from "../../components/PageHeader.astro";
-const all = await getCollection("pages", publicEntry);
+const all = await getCollection("pages", activeEntry);
 const designFlow = [
   "価値",
   "実現したい業務変化",

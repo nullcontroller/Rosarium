@@ -9,29 +9,52 @@ const digest = (raw) => crypto.createHash("sha256").update(raw).digest("hex");
 const sitemap = fs.readFileSync("dist/sitemap.xml", "utf8");
 const feeds = ["feed.xml", "feed.json", "rss.xml"].map((name) => fs.readFileSync(`dist/${name}`, "utf8"));
 const counts = {};
-const retiredIndex = load(fs.readFileSync("dist/retired/index.html", "utf8"));
+const archiveTop = load(fs.readFileSync("dist/retired/index.html", "utf8"));
+const obsoleteIndex = load(fs.readFileSync("dist/retired/obsolete/index.html", "utf8"));
+const retiredIndex = load(fs.readFileSync("dist/retired/retired/index.html", "utf8"));
+for (const [route, index] of [["retired", archiveTop], ["retired/obsolete", obsoleteIndex], ["retired/retired", retiredIndex]]) {
+  const canonical = `https://nullcontroller.github.io/Rosarium/${route}/`;
+  assert.match(index('meta[name="robots"]').attr("content"), /noindex/);
+  assert.equal(index('link[rel="canonical"]').attr("href"), canonical);
+  assert.equal(index("[data-pagefind-body]").length, 0);
+  assert.equal(index("main[data-pagefind-ignore]").length, 1);
+  assert(!sitemap.includes(canonical));
+  for (const feed of feeds) assert(!feed.includes(canonical));
+}
 assert.match(retiredIndex('meta[name="robots"]').attr("content"), /noindex/);
-assert.equal(retiredIndex('link[rel="canonical"]').attr("href"), "https://nullcontroller.github.io/Rosarium/retired/");
+assert.equal(retiredIndex('link[rel="canonical"]').attr("href"), "https://nullcontroller.github.io/Rosarium/retired/retired/");
 assert.equal(retiredIndex("[data-pagefind-body]").length, 0);
 assert.equal(retiredIndex("main[data-pagefind-ignore]").length, 1);
-assert(!sitemap.includes("https://nullcontroller.github.io/Rosarium/retired/"));
-for (const feed of feeds) assert(!feed.includes("https://nullcontroller.github.io/Rosarium/retired/"));
+assert(!sitemap.includes("https://nullcontroller.github.io/Rosarium/retired/retired/"));
+for (const feed of feeds) assert(!feed.includes("https://nullcontroller.github.io/Rosarium/retired/retired/"));
 assert.equal(retiredIndex("[data-retired-id]").length, report.entries.filter((record) => record.lifecycle === "RETIRED").length);
 const about = load(fs.readFileSync("dist/about/index.html", "utf8"));
 assert.equal(about('main a[href="/Rosarium/retired/"]').length, 1);
 const historical = fs.readdirSync("src/content", { recursive: true })
   .filter((file) => file.endsWith(".md"))
   .map((file) => ({ id: file.replaceAll("\\", "/").replace(/\.md$/, ""), data: YAML.parse(fs.readFileSync(`src/content/${file}`, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]) }))
-  .filter((entry) => publishedEntry(entry) && ["obsolete", "retired"].includes(entry.data.lifecycle));
-assert.equal(retiredIndex("[data-history-id]").length, historical.length);
+  .filter((entry) => publishedEntry(entry) && !entry.data.source?.chapter_slug && ["obsolete", "retired"].includes(entry.data.lifecycle));
+assert.equal(archiveTop("[data-history-id]").length, 0);
+assert.equal(archiveTop("[data-archive-entrance]").length, 2);
+assert.equal(retiredIndex("[data-history-id]").length + obsoleteIndex("[data-history-id]").length, historical.length);
 for (const entry of historical) {
-  const item = retiredIndex(`[data-history-group="${entry.data.lifecycle}"] [data-history-id="${entry.id}"]`);
+  const item = (entry.data.lifecycle === "obsolete" ? obsoleteIndex : retiredIndex)(`[data-history-group="${entry.data.lifecycle}"] [data-history-id="${entry.id}"]`);
   assert.equal(item.length, 1);
+  assert(item.closest("[data-archive-category]").length === 1);
+  for (const route of ["cases", "books", "ai", "dx", "practices", "essays"]) {
+    const index = load(fs.readFileSync(`dist/${route}/index.html`, "utf8"));
+    assert.equal(index(`[data-content-id="${entry.id}"]`).length, 0);
+  }
   assert(item.text().includes(entry.data.lifecycle_reason));
   assert.equal(item.find("time").last().attr("datetime"), entry.data.last_updated);
 }
+for (const lifecycle of ["obsolete", "retired"]) {
+  assert.equal(archiveTop(`[data-archive-entrance="${lifecycle}"] small`).text(), `${historical.filter((entry) => entry.data.lifecycle === lifecycle).length}件`);
+}
 const nav = retiredIndex(".sidebar .nav-group").last();
-assert.deepEqual(nav.find(".nav-copy > span").map((_, element) => nav.find(element).text()).get(), ["Reference", "退役記事"]);
+assert.equal(retiredIndex('.sidebar [role="group"][aria-label="Reference"] a').attr("href"), "/Rosarium/reference/");
+assert.equal(retiredIndex('.sidebar [role="group"][aria-label="Knowledge Lifecycle"] a').attr("href"), "/Rosarium/retired/");
+assert.deepEqual(nav.find(".nav-copy > span").map((_, element) => nav.find(element).text()).get(), ["退役記事"]);
 assert.equal(retiredIndex('.header-primary a.mobile-retired-link[href="/Rosarium/retired/"]').length, 1);
 for (const record of report.entries) {
   counts[record.lifecycle] = (counts[record.lifecycle] ?? 0) + 1;

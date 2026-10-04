@@ -4,8 +4,8 @@ import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import DomainThemeSection from "../components/DomainThemeSection.astro";
 import { dxCategories, dxFeaturedArticles, dxIntroductionParagraphs } from "../lib/dx";
-import { publicEntry } from "../lib/site";
-const all = await getCollection("pages", publicEntry);
+import { activeEntry } from "../lib/site";
+const all = await getCollection("pages", activeEntry);
 const categoryGroups = dxCategories.map((category) => ({
   ...category,
   articles: dxFeaturedArticles(all, category.id),

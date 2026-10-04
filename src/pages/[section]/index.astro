@@ -5,7 +5,7 @@ import ContentIndex from "../../components/ContentIndex.astro";
 import PublicationLink from "../../components/PublicationLink.astro";
 import {
   sections,
-  publicEntry,
+  activeEntry,
   url,
   introductionForPath,
 } from "../../lib/site";
@@ -23,9 +23,8 @@ export function getStaticPaths() {
 }
 const { title, summary: sectionSummary } = Astro.props;
 const summary = introductionForPath(Astro.url.pathname) ?? sectionSummary;
-const all = await getCollection("pages", publicEntry);
+const all = await getCollection("pages", activeEntry);
 const entries = all.filter((e) => e.data.section === Astro.params.section);
-const oldArticles = entries.filter((e) => isPublication(e) && e.data.lifecycle === "obsolete");
 const essays = Astro.params.section === "essays";
 const oldFoundations = Astro.params.section === "foundations";
 ---
@@ -75,11 +74,6 @@ const oldFoundations = Astro.params.section === "foundations";
         </article>
       ))}
     </div>
-    {oldArticles.length > 0 && <section class="obsolete-content-group" aria-label="旧記事">
-      <h2>旧記事</h2>
-      <p>現在の推奨内容ではなく、当時の前提や判断を残した参考記事です。</p>
-      <div class="document-list">{oldArticles.map((entry) => <article><PublicationLink entry={entry} heading="h3" /></article>)}</div>
-    </section>}
     </>
   ) : (
     <>

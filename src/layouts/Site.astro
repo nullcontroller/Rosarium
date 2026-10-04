@@ -316,9 +316,12 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                   class:list={[
                     "nav-group",
                     i === 1 && "nav-spacing",
-                    i === 2 && "nav-divider",
-                    i === 2 ? "nav-auxiliary" : "nav-main",
+                    i === 3 && "nav-lifecycle",
+                    i >= 2 && "nav-divider",
+                    i >= 2 ? "nav-auxiliary" : "nav-main",
                   ]}
+                  role="group"
+                  aria-label={i === 2 ? "Reference" : i === 3 ? "Knowledge Lifecycle" : "主要ナビ"}
                 >
                   {group.map((item) => (
                     <div

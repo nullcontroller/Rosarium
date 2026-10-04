@@ -15,6 +15,8 @@ const routeFromUrl = (value) => {
 };
 const htmlForRoute = (route) =>
   path.join("dist", ...(route ? route.split("/") : []), "index.html");
+// Archive pages are noindex bridges to indexed obsolete content.
+for (const route of ["retired", "retired/obsolete", "retired/retired"]) locations.push(`https://nullcontroller.github.io/Rosarium/${route}/`);
 const routes = new Set(locations.map(routeFromUrl));
 const pages = new Map();
 
@@ -29,7 +31,7 @@ for (const location of locations) {
       .first()
       .attr("datetime") ?? "";
   assert.match(lastUpdated, /^\d{4}-\d{2}-\d{2}$/, `Missing last_updated: ${route || "/"}`);
-  assert.equal(visibleLastUpdated, lastUpdated, `Visible last_updated mismatch: ${route || "/"}`);
+  if (!$('meta[name="robots"]').attr("content")?.includes("noindex")) assert.equal(visibleLastUpdated, lastUpdated, `Visible last_updated mismatch: ${route || "/"}`);
 
   const links = new Set();
   $("a[href]").each((_, element) => {
@@ -87,7 +89,7 @@ const routePath = (route) => {
   while (result.at(-1) !== "") result.push(previous.get(result.at(-1)));
   return result.reverse();
 };
-const reportPages = [...pages].map(([route, page]) => ({
+const reportPages = [...pages].filter(([route]) => !["retired", "retired/obsolete", "retired/retired"].includes(route)).map(([route, page]) => ({
   url: page.url,
   title: page.title,
   entryPoint: page.entryPoint,

@@ -1,0 +1,42 @@
+---
+import type { Entry } from "../lib/navigation";
+import { formatDateJa, url } from "../lib/site";
+import { getArchiveCategory } from "../lib/archive";
+interface Props { entries: Entry[]; lifecycle: "obsolete" | "retired"; }
+const { entries, lifecycle } = Astro.props;
+const categories = ["AI", "DX", "実践事例", "考察", "その他"].filter((category) => entries.some((entry) => getArchiveCategory(entry) === category));
+---
+<div class="retired-page" data-history-group={lifecycle}>
+{categories.map((category) => <section data-archive-category={category}>
+  <h2>{category} <small>{entries.filter((entry) => getArchiveCategory(entry) === category).length}件</small></h2>
+  <ul class="retired-list">
+  {entries.filter((entry) => getArchiveCategory(entry) === category).map((entry) => <li data-history-id={entry.id} data-retired-id={lifecycle === "retired" ? entry.id : undefined}>
+    <span class="retired-badge">{lifecycle.toUpperCase()}</span> <small>{entry.data.kind === "case" ? "Case" : "Article"}</small>
+    <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>
+    <p>{entry.data.summary}</p>
+    <p class="retired-reason">{entry.data.lifecycle_reason}</p>
+    {entry.data.published_at ? <p class="retired-date">元の公開日：<time datetime={entry.data.published_at.slice(0, 10)}>{formatDateJa(entry.data.published_at)}</time></p> : <p class="retired-date">元の公開時期：{entry.data.source?.publication_month ?? "未確認"}</p>}
+    <p class="retired-date">最終更新：<time datetime={entry.data.last_updated}>{formatDateJa(entry.data.last_updated)}</time></p>
+  </li>)}
+  </ul>
+</section>)}
+</div>
+<style>
+  .retired-page { max-width: 56rem; color: var(--obsolete-ink); overflow-wrap: anywhere; }
+  .retired-page :global(h1) { color: var(--obsolete-ink); }
+  .retired-list { list-style: none; padding: 0; margin-top: 1.5rem; display: grid; gap: 1rem; }
+  .retired-list > li { padding: 1rem 1.25rem; border: 1px dashed var(--obsolete-line); background: var(--obsolete-bg); }
+  .retired-page section { margin-top: 2rem; }
+  .retired-page h2 { color: var(--obsolete-ink); font-size: 1.4rem; }
+  .retired-page h2 small { color: var(--obsolete-muted); font-size: .8rem; }
+  [data-history-group="obsolete"] .retired-list > li { border-style: solid; }
+  [data-history-group="retired"] h2 { color: var(--obsolete-muted); }
+  .retired-list h3 { font-size: 1.25rem; line-height: 1.6; margin: .5rem 0; color: var(--obsolete-ink); }
+  .retired-list a { color: var(--obsolete-link); text-decoration: underline; text-underline-offset: .2em; }
+  .retired-list a:hover, .retired-list a:focus-visible { color: var(--obsolete-hover); }
+  .retired-list a:focus-visible { outline: 2px solid var(--obsolete-line); outline-offset: 3px; }
+  .retired-list p { margin: .75em 0; line-height: 1.75; }
+  .retired-date, .retired-reason { color: var(--obsolete-muted); }
+  .retired-badge { padding: .2em .5em; border: 1px solid var(--obsolete-line); color: var(--obsolete-muted); font-size: .8125rem; letter-spacing: .06em; }
+  @media (max-width: 480px) { .retired-list > li { padding: 1rem; } }
+</style>

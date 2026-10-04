@@ -5,6 +5,8 @@ title: 第8章 復元したKnowledgeを、根拠を確認できるQAへつなぐ
 kind: case
 section: cases
 status: published
+lifecycle: obsolete
+lifecycle_reason: "旧AI環境下のレガシーシステム理解事例の一章です。当時はGPT-4のみを利用しており、コードベース全体を十分に参照できない制約がありました。現在の推奨手順ではなく、当時の設計判断の記録として残しています。"
 last_updated: "2026-10-04"
 tags: &a1
   - ai

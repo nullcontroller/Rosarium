@@ -32,6 +32,6 @@ export function analyticsMetadata(pathname: string, title: string, entry?: Colle
         root === "dx" ? slug.split("/")[1] ?? "dx" :
         root === "ai-design" ? slug.split("/")[1] ?? "ai-design" : root || "home"),
     ...(entry ? { article_slug: entry.id } : {}),
-    ...(study ? { obsolete_status: study.lifecycle === "obsolete" ? "obsolete" : "active" } : {}),
+    ...(study ? { obsolete_status: data?.lifecycle ?? "active" } : {}),
   };
 }

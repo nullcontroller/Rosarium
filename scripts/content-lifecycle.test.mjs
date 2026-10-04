@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { publicEntry, publishedEntry } from "../src/lib/site.ts";
+import { activeEntry, publicEntry, publishedEntry } from "../src/lib/site.ts";
 import { parseSearchLifecycles, lifecycleSearchOptions } from "../src/lib/search-lifecycle.ts";
 
 test("search lifecycle defaults, URL state and OR filters preserve explicit retirement opt-in", () => {
@@ -27,4 +27,27 @@ test("lifecycle never makes drafts or explicitly private content public", () => 
     }
   }
   assert.equal(publicEntry({ data: { status: "published" } }), true);
+});
+
+
+test("ordinary indexes show only active metadata while history URLs remain published", () => {
+  for (const lifecycle of ["active", "obsolete", "retired"]) {
+    const entry = { data: { status: "published", public: true, lifecycle } };
+    assert.equal(activeEntry(entry), lifecycle === "active");
+    assert.equal(publishedEntry(entry), true);
+  }
+});
+
+
+test("archive categories follow metadata rather than titles and omit individual book chapters", async () => {
+  const { getArchiveCategory, isArchiveEntry } = await import("../src/lib/archive.ts");
+  const entry = (data) => ({ data: { title: "DX AI Case", entry_points: [], lifecycle: "obsolete", ...data } });
+  assert.equal(getArchiveCategory(entry({ section: "cases", primaryCategory: "system-transformation" })), "実践事例");
+  assert.equal(getArchiveCategory(entry({ section: "essays", entry_points: ["ai"] })), "考察");
+  assert.equal(getArchiveCategory(entry({ primaryCategory: "value-design" })), "DX");
+  assert.equal(getArchiveCategory(entry({ layer: "ai-design" })), "AI");
+  assert.equal(getArchiveCategory(entry({})), "その他");
+  assert.equal(isArchiveEntry(entry({ lifecycle: "active" })), false);
+  assert.equal(isArchiveEntry(entry({ lifecycle: "retired" })), true);
+  assert.equal(isArchiveEntry(entry({ source: { chapter_slug: "chapter" } })), false);
 });

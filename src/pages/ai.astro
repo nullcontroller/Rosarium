@@ -4,8 +4,8 @@ import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import DomainThemeSection from "../components/DomainThemeSection.astro";
 import { aiThemeGroups } from "../lib/ai";
-import { publicEntry, url } from "../lib/site";
-const groups = aiThemeGroups(await getCollection("pages", publicEntry));
+import { activeEntry, url } from "../lib/site";
+const groups = aiThemeGroups(await getCollection("pages", activeEntry));
 const headings = groups.map((theme) => ({ depth: 2, slug: theme.id, text: theme.title }));
 ---
 

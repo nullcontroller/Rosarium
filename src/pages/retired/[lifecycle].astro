@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import Site from "../../layouts/Site.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import ArchiveList from "../../components/ArchiveList.astro";
+import { publishedEntry } from "../../lib/site";
+import { archiveLifecycles, isArchiveEntry } from "../../lib/archive";
+export function getStaticPaths() {
+  return archiveLifecycles.map((group) => ({ params: { lifecycle: group.lifecycle }, props: { group } }));
+}
+const { group } = Astro.props;
+const entries = (await getCollection("pages", (entry) => publishedEntry(entry) && isArchiveEntry(entry) && entry.data.lifecycle === group.lifecycle))
+  .sort((a, b) => (b.data.published_at ?? b.data.last_updated).localeCompare(a.data.published_at ?? a.data.last_updated) || a.id.localeCompare(b.id));
+---
+<Site title={`${group.title} — ${group.lifecycle.toUpperCase()}`} summary={group.description} section="retired" noindex lastUpdated="2026-10-05" breadcrumbs={[{ name: "Rosarium", path: "" }, { name: "退役記事", path: "retired" }, { name: group.title, path: `retired/${group.lifecycle}` }]}>
+  <div class="archive-page">
+  <PageHeader title={group.title} summary={group.description} />
+  <p>{group.lifecycle.toUpperCase()} · {entries.length}件</p>
+  <ArchiveList entries={entries} lifecycle={group.lifecycle} />
+  </div>
+</Site>
+
+<style>
+.archive-page :global(h1) { color: var(--obsolete-ink); }
+</style>

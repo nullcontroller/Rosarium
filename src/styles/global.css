@@ -2387,3 +2387,7 @@ article[data-lifecycle="retired"],
   color: var(--accent);
   text-decoration: underline;
 }
+
+/* Reference and Knowledge Lifecycle are independent navigation regions. */
+.sidebar .nav-lifecycle { margin-top: 1.5rem; padding-top: 1.25rem; }
+@media (max-width: 760px) { .sidebar .nav-lifecycle { display: none; } }

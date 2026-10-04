@@ -295,7 +295,7 @@ for (const [route, layer, crossListed] of [
   const $ = page(route);
   const ids = primaryIds($);
   const canonical = [...entries]
-    .filter(([, data]) => data.layer === layer && data.section !== "cases" && data.public !== false && data.lifecycle !== "retired")
+    .filter(([, data]) => data.layer === layer && data.section !== "cases" && data.public !== false && (!data.lifecycle || data.lifecycle === "active"))
     .map(([id]) => id);
   for (const id of canonical)
     assert(ids.includes(id), `${route} misses canonical ${id}`);
@@ -393,7 +393,6 @@ assert(dxEssay('[data-related-content] a').length <= 4);
 for (const [id, expected] of [
   ["foundations/ai-business-design", ["公開：2026年2月"]],
   ["cases/three-ai-maintenance", ["公開：2026年7月"]],
-  ["cases/system-understanding", ["状態：公開", "公開：2026年2月"]],
   ["cases/customer-support-ai-dx", ["公開：2026-09-28"]],
   ["cases/customer-support-ai-dx", ["公開：2026-09-28"]],
 ]) {
@@ -410,26 +409,25 @@ for (const [id, expected] of [
 const cases = page("cases");
 assert.deepEqual(
   cases("[data-series-index]").map((_, element) => cases(element).attr("data-series-index")).get(),
-  ["cases/three-ai-maintenance", "cases/customer-support-ai-dx", "cases/system-understanding"],
+  ["cases/three-ai-maintenance", "cases/customer-support-ai-dx"],
 );
-assert.equal(cases(".case-reference-note span").text().trim(), "OBSOLETE");
+assert.equal(cases(".case-reference-note").length, 0);
 assert.equal(cases("#active-cases .case-study-index").length, 2);
-assert.equal(cases("#obsolete-cases .case-study-index").length, 1);
+assert.equal(cases("#obsolete-cases").length, 0);
 assert.equal(cases("#active-cases > h2").text(), "主要事例");
-assert.equal(cases("#obsolete-cases > h2").text(), "旧事例");
-assert.equal(cases('#obsolete-cases [data-series-index="cases/system-understanding"]').length, 1);
-assert(cases(".case-reference-note").text().includes("旧AI環境を前提とした参考事例"));
+
+
+
 assert(!cases("main a").text().includes("→"));
 assert(page("cases/system-understanding")(".case-position-note").text().includes("現在の推奨構成ではありません"));
 assert.equal(
   cases(".header-primary a[aria-current=page]").text().trim(),
   "事例",
 );
-assert.equal(cases(".case-study-index").length, 3);
+assert.equal(cases(".case-study-index").length, 2);
 assert.equal(cases("main img").length, 0);
-assert.equal(cases(".book-list-entry-text").length, 3);
+assert.equal(cases(".book-list-entry-text").length, 2);
 for (const id of [
-  "cases/system-understanding",
   "cases/three-ai-maintenance",
   "cases/customer-support-ai-dx",
 ]) {
@@ -452,7 +450,7 @@ assert.equal(
   cases('[data-content-id="cases/system-understanding"] .publication-topics')
     .text()
     .trim(),
-  "自然言語サービス・RAG・Knowledge / AI × Software Engineering / Case・実務",
+  "",
 );
 for (const id of [
   "career",
@@ -511,7 +509,6 @@ assert.equal(
 const expectedBooks = [
   "cases/three-ai-maintenance",
   "cases/customer-support-ai-dx",
-  "cases/system-understanding",
 ];
 for (const route of ["cases", "books"]) {
   const $ = page(route);
@@ -523,7 +520,7 @@ for (const route of ["cases", "books"]) {
   );
   assert.equal($("[data-series-index] details, [data-series-index] summary").length, 0);
   assert(!$("[data-series-index]").text().includes("概要・全体構成を読む"));
-  assert.equal($("[data-series-index] .content-title").length, 3);
+  assert.equal($("[data-series-index] .content-title").length, 2);
 }
 assert.equal(
   page("series")('[data-series-index="foundations/ai-business-design"]').length,
@@ -750,9 +747,9 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
   assert.equal($(".theme-toc,.theme-toc-mobile").length, 0, `${route}: no duplicated recommendations`);
   if (route === "practices") {
     const categories = $("main [data-practice-category]");
-    assert.equal(categories.length, 5);
+    assert.equal(categories.length, 4);
     assert.deepEqual(categories.map((_, node) => $(node).children("h2").text()).get(), [
-      "導入・教育・定着", "Prompt・Knowledge運用", "開発・保守", "評価・Human Review", "組織・キャリア",
+      "導入・教育・定着", "Prompt・Knowledge運用", "開発・保守", "評価・Human Review",
     ]);
     categories.each((_, category) => {
       const links = $(category).find(".content-title a").map((_, e) => $(e).attr("href")).get();
@@ -761,7 +758,7 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
     });
     assert(!$("main").text().includes("業務・開発プロセスへの組込み"));
   } else if (route === "cases") {
-    assert.equal($("[data-series-index]").length, 3);
+    assert.equal($("[data-series-index]").length, 2);
     assert(!$("body").text().includes("業務・システムの実践"));
   } else {
     assert(primaryIds($).length, `${route}: actual article index remains`);

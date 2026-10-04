@@ -169,7 +169,7 @@ export function readingNavigation(
   return readingGroups[path].map((group) => ({
     title: group.title,
     current: group.ids.includes(currentId || ""),
-    links: group.ids.filter((id) => path === "cases" || byId.get(id)?.data.section !== "cases").map((id) => {
+    links: group.ids.filter((id) => byId.has(id) && byId.get(id)?.data.lifecycle === "active" && (path === "cases" || byId.get(id)?.data.section !== "cases")).map((id) => {
       const entry = byId.get(id);
       if (!entry) throw new Error(`Missing reading navigation entry: ${id}`);
       return {
@@ -184,7 +184,7 @@ export function readingNavigation(
 
 export function readingEntries(entries: Entry[], path: ReadingPath): Entry[] {
   const byId = new Map(entries.map((entry) => [entry.id, entry]));
-  return [...new Set(readingGroups[path].flatMap((group) => group.ids))].map(
+  return [...new Set(readingGroups[path].flatMap((group) => group.ids))].filter((id) => byId.has(id) && byId.get(id)?.data.lifecycle === "active").map(
     (id) => {
       const entry = byId.get(id);
       if (!entry) throw new Error(`Missing reading entry: ${id}`);

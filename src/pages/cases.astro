@@ -3,28 +3,10 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
 import { caseStudies } from "../lib/navigation";
-import { publicEntry, url } from "../lib/site";
+import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
-const all = await getCollection("pages", publicEntry);
-const caseGroups = [
-  {
-    id: "active-cases",
-    title: "主要事例",
-    description: "",
-    studies: caseStudies.filter((study) =>
-      ["recommended", "active"].includes(study.lifecycle),
-    ),
-  },
-  {
-    id: "obsolete-cases",
-    title: "旧事例",
-    description:
-      "現在の推奨構成ではありませんが、当時の制約下での設計判断を参考として残しています。",
-    studies: caseStudies.filter((study) =>
-      ["reference", "obsolete"].includes(study.lifecycle),
-    ),
-  },
-];
+const all = await getCollection("pages", activeEntry);
+const caseGroups = [{ id: "active-cases", title: "主要事例", description: "", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
 ---
 
 <Site title="実践事例" section="cases">
@@ -37,7 +19,7 @@ const caseGroups = [
         id={group.id}
         class:list={[
           "case-group",
-          group.id === "obsolete-cases" && "case-group-obsolete",
+
         ]}
         aria-labelledby={`${group.id}-heading`}
       >

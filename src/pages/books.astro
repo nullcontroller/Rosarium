@@ -3,14 +3,14 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
 import { caseStudies } from "../lib/navigation";
-import { publicEntry, url } from "../lib/site";
+import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
-const all = await getCollection("pages", publicEntry);
+const all = await getCollection("pages", activeEntry);
 ---
 
 <Site title="Books — 実務事例" section="cases">
   <PageHeader icon="cases" title="Books — 実務事例" />
-  {caseStudies.map((study) => (
+  {caseStudies.filter((study) => all.some((entry) => entry.id === study.book)).map((study) => (
     <SeriesIndex entry={all.find((e) => e.id === study.book)!} all={all} />
   ))}
   <p>

@@ -86,6 +86,8 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
       summary: "用語・数式・参照資料",
       icon: iconForPath("reference"),
     },
+  ],
+  [
     {
       path: "retired",
       title: "退役記事",
@@ -237,13 +239,8 @@ export const relatedPublications = (all: Entry[], topic?: string) =>
     .filter((e): e is Entry => !!e && isPublication(e));
 // OBSOLETE retains reference value but is no longer the recommended configuration.
 // RETIRED has ended its role and is excluded from normal discovery paths.
-export type CaseLifecycle = "recommended" | "active" | "reference" | "obsolete" | "retired";
-const caseLifecyclePriority: Record<CaseLifecycle, number> = {
-  recommended: 0, active: 1, reference: 2, obsolete: 3, retired: 4,
-};
 type CaseStudy = {
   book: string;
-  lifecycle: CaseLifecycle;
   referenceNote?: string;
   topics: string[];
   challenge: string;
@@ -255,7 +252,6 @@ type CaseStudy = {
 const caseStudyEntries: CaseStudy[] = [
   {
     book: "cases/system-understanding",
-    lifecycle: "obsolete",
     referenceNote: "旧AI環境を前提とした参考事例",
     topics: ["QA / RAG", "Knowledge再構築"],
     challenge:
@@ -277,7 +273,6 @@ const caseStudyEntries: CaseStudy[] = [
   },
   {
     book: "cases/three-ai-maintenance",
-    lifecycle: "active",
     topics: ["AIオーケストレーション", "既存ソフトウェア開発・改善"],
     challenge:
       "コード、過去資料、仕様検討に必要な情報が分散し、一つのAIだけでは保守判断に必要な情報が揃わなかった。",
@@ -297,7 +292,6 @@ const caseStudyEntries: CaseStudy[] = [
   },
   {
     book: "cases/customer-support-ai-dx",
-    lifecycle: "active",
     topics: ["Applied AI / DX", "RAG / HITL / UX"],
     challenge:
       "定型的な確認や検索にも人手が掛かり、専門判断が必要な問い合わせと同じ流れで対応していた。",
@@ -318,9 +312,7 @@ const caseStudyEntries: CaseStudy[] = [
     ],
   },
 ];
-export const caseStudies = caseStudyEntries
-  .filter((study) => study.lifecycle !== "retired")
-  .sort((a, b) => caseLifecyclePriority[a.lifecycle] - caseLifecyclePriority[b.lifecycle]);
+export const caseStudies = caseStudyEntries;
 
 export const mathematicsReadingIds = [
   "foundations/conditional-probability",

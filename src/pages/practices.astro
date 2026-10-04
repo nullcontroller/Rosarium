@@ -2,10 +2,10 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import ContentIndex from "../components/ContentIndex.astro";
-import { publicEntry } from "../lib/site";
+import { activeEntry } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 import { readingNavigation } from "../lib/reading";
-const all = await getCollection("pages", publicEntry);
+const all = await getCollection("pages", activeEntry);
 const themeGroups = readingNavigation(all, "practices");
 const byId = new Map(all.map((entry) => [entry.id, entry]));
 const categories = themeGroups.map((group) => ({

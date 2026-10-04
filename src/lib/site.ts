@@ -46,9 +46,9 @@ export const pageIntroductions: Record<string, string> = {
   practices:
     "AIを現場で使い続けるために、教え方、情報の渡し方、確認の手順を考えます。導入・教育・開発・組織での実践を扱います。",
   cases:
-    "実際の業務課題に対して、何を変え、なぜその設計を選んだかをまとめています。現在の主要事例と、当時の制約下での設計を残した旧事例を分けて掲載しています。",
+    "実際の業務課題に対して、何を変え、なぜその設計を選んだかをまとめています。現在の主要事例を掲載しています。",
   books:
-    "業務の課題から、設計・確認・改善までを章ごとに追う実務事例です。現在の主要事例と旧AI環境の参考事例から、判断の理由と役割分担を確かめられます。",
+    "業務の課題から、設計・確認・改善までを章ごとに追う実務事例です。現在の主要事例から、判断の理由と役割分担を確かめられます。",
   dx: "価値設計、業務変革、選択と廃止、システム変革、継続的価値創出。DXを技術導入ではなく、業務・サービス・システムの変化として考えるための記事を整理しています。",
   reference:
     "用語や数式、評価の基準を、設計中に確認するための資料です。本文を読む際の前提や、判断の根拠を確かめられます。",
@@ -81,8 +81,8 @@ export const staticPageLastUpdated: Record<string, string> = {
   "ai-design/software-engineering": "2026-10-04",
   "ai-design/lifecycle-operations": "2026-10-04",
   "ai-mathematics": "2026-10-04",
-  books: "2026-10-04",
-  cases: "2026-10-04",
+  books: "2026-10-05",
+  cases: "2026-10-05",
   dx: "2026-10-04",
   "dx/value-design": "2026-10-03",
   "dx/business-transformation": "2026-10-03",
@@ -105,6 +105,8 @@ export const staticPageLastUpdated: Record<string, string> = {
   search: "2026-09-28",
   about: "2026-10-05",
   retired: "2026-10-05",
+  "retired/obsolete": "2026-10-05",
+  "retired/retired": "2026-10-05",
   "garden-notes": "2026-10-05",
   articles: "2026-10-04",
   overview: "2026-09-28",
@@ -136,6 +138,9 @@ export const publishedEntry = (e: {
 export const publicEntry = (e: {
   data: { status: string; public?: boolean; lifecycle?: string };
 }) => publishedEntry(e) && e.data.lifecycle !== "retired";
+// Ordinary category discovery is ACTIVE-only; historical records use the archive.
+export const activeEntry = (e: { data: { status: string; public?: boolean; lifecycle?: string } }) =>
+  publishedEntry(e) && (!e.data.lifecycle || e.data.lifecycle === "active");
 
 export const layers = {
   "ai-mathematics": "AI理論",
