@@ -6,11 +6,27 @@ export interface CaseDiagramModel {
   nodes: {
     id: string;
     label: string;
+    mobileLabel?: string;
     kind: CaseNodeKind;
     description: string;
   }[];
+  layouts?: Record<
+    "mobile" | "desktop",
+    {
+      width: number;
+      height: number;
+      nodes: Record<string, { x: number; y: number; w: number; h: number }>;
+      edges: Record<string, { path: string; x?: number; y?: number }>;
+    }
+  >;
   rows?: string[][];
-  edges?: { from: string; to: string; label: string; dashed?: boolean }[];
+  edges?: {
+    from: string;
+    to: string;
+    label: string;
+    mobileLabel?: string;
+    dashed?: boolean;
+  }[];
   groups?: { title: string; ids: string[] }[];
   messages?: { from: string; to: string; label: string; dashed: boolean }[];
 }
@@ -742,88 +758,320 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   },
   "maintenance-delivery-flow": {
     title: "保守の調査から実装までを、人間の責任でつなぐ",
-    description: "仕様の認識違いがあればコードへ戻り、承認後に実装します。",
+    description:
+      "主フローは前提設定、コード探索、人間の仕様レビュー、認識差分の確認、実装・試験の順に左から右へ進みます。差分があれば仕様レビューへ戻り、差分がなければ実装へ進みます。下段は判断・実装時に参照する情報です。",
     nodes: [
       {
         id: "premise",
         label: "前提設定・論点整理",
+        mobileLabel: "1前提",
         kind: "human",
         description:
-          "人間が前提を設定し、GPTの要件整理を上司レビューで確認します。",
+          "人間が保守の前提を設定し、GPTで整理した要件・論点を上司レビューで確認します。",
       },
       {
         id: "investigate",
-        label: "コード探索・実現方法",
+        label: "コード探索・実現案整理",
+        mobileLabel: "2探索",
         kind: "ai",
         description:
-          "GitHub Copilotで調査し、M365 CopilotでExcel仕様書へ集約します。",
+          "GitHub Copilotで関連コードを調べ、変更影響と実現案を整理し、M365 Copilotで仕様書へ集約します。",
       },
       {
         id: "review",
-        label: "人間が仕様をレビュー",
+        label: "人間が仕様レビュー",
+        mobileLabel: "3レビュー",
         kind: "human",
-        description: "誤認がなければ審議へ、誤認があれば確認し直します。",
+        description:
+          "コード上の事実、処理構造、仕様書を照合します。審議・承認済み仕様を参照し、必要な確認・修正を行います。",
       },
       {
         id: "correct",
-        label: "認識違いをコードへ照合",
+        label: "認識差分を確認",
+        mobileLabel: "4差分",
         kind: "decision",
         description:
-          "GPTで論点整理、GitHub CopilotとGPTで現行仕様を構造化、人間が照合し、M365 CopilotでExcelへ反映して再レビューします。",
-      },
-      {
-        id: "approve",
-        label: "審議・承認済み仕様",
-        kind: "decision",
-        description: "組織の承認を実装の前提にします。",
+          "コード・処理構造・仕様書の認識差分を確認します。差分があれば、GPTで論点整理、コード調査、文書への反映を行い、人間の仕様レビューへ戻ります。差分がなければ、組織の承認済み仕様を前提に実装へ進みます。",
       },
       {
         id: "implement",
         label: "コード生成・レビュー・試験",
+        mobileLabel: "5実装",
         kind: "system",
         description:
-          "GitHub Copilotで生成し、人間がレビュー・単体テストを行います。",
+          "承認済み仕様に基づきGitHub Copilotで関数単位のコードを生成し、人間がレビュー・単体テストを行います。既存動作と変更範囲を確認します。",
+      },
+      {
+        id: "approve",
+        label: "審議・承認済み仕様",
+        mobileLabel: "審議・承認済み仕様",
+        kind: "knowledge",
+        description:
+          "組織の審議・承認を経た仕様です。レビューと差分確認の判断材料であり、この図では直列工程として配置していません。承認の必要性を省略するものではありません。",
+      },
+      {
+        id: "existing",
+        label: "既存システム・工程",
+        mobileLabel: "既存システム・工程",
+        kind: "knowledge",
+        description:
+          "実装が影響する既存コード、正常動作、処理の呼出し関係を確認するための補助情報です。新しい工程を追加するものではありません。",
       },
     ],
     rows: [
       ["premise"],
       ["investigate"],
       ["review"],
-      ["correct", "approve"],
+      ["correct"],
       ["implement"],
+    ],
+    groups: [
+      {
+        title: "工程",
+        ids: ["premise", "investigate", "review", "implement"],
+      },
+      {
+        title: "判断",
+        ids: ["correct"],
+      },
+      {
+        title: "参照情報",
+        ids: ["approve", "existing"],
+      },
     ],
     edges: [
       {
         from: "premise",
         to: "investigate",
         label: "",
+        dashed: false,
       },
       {
         from: "investigate",
         to: "review",
         label: "",
+        dashed: false,
       },
       {
         from: "review",
         to: "correct",
-        label: "認識違いあり",
+        label: "",
+        dashed: false,
+      },
+      {
+        from: "correct",
+        to: "implement",
+        label: "差分なし",
+        mobileLabel: "なし",
+        dashed: false,
+      },
+      {
+        from: "correct",
+        to: "review",
+        label: "差分あり",
+        dashed: false,
       },
       {
         from: "review",
         to: "approve",
-        label: "認識違いなし",
+        label: "参照",
+        dashed: true,
       },
       {
         from: "correct",
         to: "approve",
-        label: "再レビュー後",
+        label: "参照",
+        dashed: true,
       },
       {
-        from: "approve",
-        to: "implement",
-        label: "",
+        from: "implement",
+        to: "existing",
+        label: "補助",
+        dashed: true,
       },
     ],
+    layouts: {
+      desktop: {
+        width: 1064,
+        height: 398,
+        nodes: {
+          premise: {
+            x: 16,
+            y: 104,
+            w: 152,
+            h: 112,
+          },
+          investigate: {
+            x: 236,
+            y: 104,
+            w: 152,
+            h: 112,
+          },
+          review: {
+            x: 456,
+            y: 104,
+            w: 152,
+            h: 112,
+          },
+          correct: {
+            x: 676,
+            y: 104,
+            w: 152,
+            h: 112,
+          },
+          implement: {
+            x: 896,
+            y: 104,
+            w: 152,
+            h: 112,
+          },
+          approve: {
+            x: 456,
+            y: 290,
+            w: 372,
+            h: 88,
+          },
+          existing: {
+            x: 896,
+            y: 290,
+            w: 152,
+            h: 88,
+          },
+        },
+        edges: {
+          "premise:investigate": {
+            path: "M168 160.0H236",
+            x: 202.0,
+            y: 148.0,
+          },
+          "investigate:review": {
+            path: "M388 160.0H456",
+            x: 422.0,
+            y: 148.0,
+          },
+          "review:correct": {
+            path: "M608 160.0H676",
+            x: 642.0,
+            y: 148.0,
+          },
+          "correct:implement": {
+            path: "M828 160.0H896",
+            x: 862.0,
+            y: 148.0,
+          },
+          "correct:review": {
+            path: "M752 104V52Q752 40 740 40H544Q532 40 532 52V104",
+            x: 642,
+            y: 30,
+          },
+          "review:approve": {
+            path: "M532 216V264H520V290",
+            x: 506,
+            y: 252,
+          },
+          "correct:approve": {
+            path: "M752 216V290",
+            x: 776,
+            y: 258,
+          },
+          "implement:existing": {
+            path: "M972 216V290",
+            x: 998,
+            y: 258,
+          },
+        },
+      },
+      mobile: {
+        width: 320,
+        height: 354,
+        nodes: {
+          premise: {
+            x: 8,
+            y: 80,
+            w: 48,
+            h: 106,
+          },
+          investigate: {
+            x: 72,
+            y: 80,
+            w: 48,
+            h: 106,
+          },
+          review: {
+            x: 136,
+            y: 80,
+            w: 48,
+            h: 106,
+          },
+          correct: {
+            x: 200,
+            y: 80,
+            w: 48,
+            h: 106,
+          },
+          implement: {
+            x: 264,
+            y: 80,
+            w: 48,
+            h: 106,
+          },
+          approve: {
+            x: 8,
+            y: 250,
+            w: 144,
+            h: 88,
+          },
+          existing: {
+            x: 168,
+            y: 250,
+            w: 144,
+            h: 88,
+          },
+        },
+        edges: {
+          "premise:investigate": {
+            path: "M56 133.0H72",
+            x: 64.0,
+            y: 121.0,
+          },
+          "investigate:review": {
+            path: "M120 133.0H136",
+            x: 128.0,
+            y: 121.0,
+          },
+          "review:correct": {
+            path: "M184 133.0H200",
+            x: 192.0,
+            y: 121.0,
+          },
+          "correct:implement": {
+            path: "M248 133.0H264",
+            x: 256,
+            y: 124,
+          },
+          "correct:review": {
+            path: "M224 80V36Q224 28 216 28H168Q160 28 160 36V80",
+            x: 192,
+            y: 16,
+          },
+          "review:approve": {
+            path: "M160 186V212H80V250",
+            x: 82,
+            y: 205,
+          },
+          "correct:approve": {
+            path: "M224 186V228H136V250",
+            x: 164,
+            y: 224,
+          },
+          "implement:existing": {
+            path: "M288 186V236H240V250",
+            x: 285,
+            y: 231,
+          },
+        },
+      },
+    },
   },
   "legacy-ui-internals": {
     title: "UIから処理と結果をつないで調べる",

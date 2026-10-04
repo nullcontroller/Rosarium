@@ -36,6 +36,17 @@ function wrap(text: string, count: number): string[] {
 }
 const layouts = ["mobile", "desktop"].map((name) => {
   const mobile = name === "mobile";
+  const geometry = model.layouts?.[name as "mobile" | "desktop"];
+  if (geometry)
+    return {
+      name,
+      mobile,
+      positions: new Map(Object.entries(geometry.nodes)),
+      canvasWidth: geometry.width,
+      canvasHeight: geometry.height,
+      edgeLabels: geometry.edges,
+      path: (from: string, to: string) => geometry.edges[`${from}:${to}`].path,
+    };
   const rows = (model.rows || []).flatMap((row) =>
     mobile && row.length > 2 ? [row.slice(0, 2), row.slice(2)] : [row],
   );
@@ -103,12 +114,19 @@ const layouts = ["mobile", "desktop"].map((name) => {
     positions,
     canvasWidth,
     canvasHeight,
+    edgeLabels: undefined as
+      Record<string, { path: string; x?: number; y?: number }> | undefined,
     path,
   };
 });
 ---
 
-<figure class="case-diagram" id={prefix} data-case-flow>
+<figure
+  class="case-diagram"
+  id={prefix}
+  data-case-flow
+  data-structured-flow={model.layouts ? "" : undefined}
+>
   <figcaption>{model.title}</figcaption>
   <p class="case-diagram-help">
     項目を選ぶと、役割と判断の説明を確認できます。
@@ -205,6 +223,7 @@ const layouts = ["mobile", "desktop"].map((name) => {
             {model.edges?.map((edge) => {
               const a = layout.positions.get(edge.from)!,
                 b = layout.positions.get(edge.to)!;
+              const placement = layout.edgeLabels?.[`${edge.from}:${edge.to}`];
               return (
                 <g>
                   <path
@@ -219,23 +238,35 @@ const layouts = ["mobile", "desktop"].map((name) => {
                     <text
                       class="case-edge-label"
                       x={
-                        layout.mobile
+                        placement?.x ??
+                        (layout.mobile
                           ? (a.x + b.x) / 2 + 50
-                          : (a.x + a.w + b.x) / 2
+                          : (a.x + a.w + b.x) / 2)
                       }
                       y={
-                        layout.mobile
+                        placement?.y ??
+                        (layout.mobile
                           ? (a.y + a.h + b.y) / 2 - 3
-                          : Math.min(a.y, b.y) - 8
+                          : Math.min(a.y, b.y) - 8)
                       }
                       text-anchor="middle"
                     >
-                      {wrap(edge.label, layout.mobile ? 8 : 12).map((s, i) => (
+                      {wrap(
+                        layout.mobile
+                          ? edge.mobileLabel || edge.label
+                          : edge.label,
+                        layout.mobile && edge.mobileLabel
+                          ? 1
+                          : layout.mobile
+                            ? 8
+                            : 12,
+                      ).map((s, i) => (
                         <tspan
                           x={
-                            layout.mobile
+                            placement?.x ??
+                            (layout.mobile
                               ? (a.x + b.x) / 2 + 50
-                              : (a.x + a.w + b.x) / 2
+                              : (a.x + a.w + b.x) / 2)
                           }
                           dy={i ? 16 : 0}
                         >
@@ -250,7 +281,13 @@ const layouts = ["mobile", "desktop"].map((name) => {
           </g>
           {model.nodes.map((node) => {
             const p = layout.positions.get(node.id)!;
-            const lines = wrap(node.label, 8);
+            const label = layout.mobile
+              ? node.mobileLabel || node.label
+              : node.label;
+            const lines = wrap(
+              label,
+              Math.min(8, Math.max(2, Math.floor((p.w - 12) / 16))),
+            );
             const group = model.groups?.find((g) => g.ids.includes(node.id));
             return (
               <a
@@ -266,6 +303,15 @@ const layouts = ["mobile", "desktop"].map((name) => {
                   height={p.h}
                   rx={node.kind === "decision" ? 22 : 8}
                 />
+                {model.layouts && layout.mobile && p.w < 56 && (
+                  <rect
+                    x={p.x - 4}
+                    y={p.y}
+                    width={p.w + 8}
+                    height={p.h}
+                    style="fill:transparent;stroke:none;"
+                  />
+                )}
                 <text class="case-node-label" text-anchor="middle">
                   {lines.map((s, i) => (
                     <tspan x={p.x + p.w / 2} y={p.y + 26 + i * 18}>

@@ -1075,7 +1075,7 @@ blockquote {
 }
 .prose {
   overflow-wrap: anywhere;
-  max-width: 78ch;
+  max-width: 70rem;
 }
 .prose h2 {
   border-bottom: 1px solid var(--line);

@@ -1,9 +1,3 @@
-.prose:has(> [data-case-flow]) {
-  max-width: none;
-}
-.prose:has(> [data-case-flow]) > :not([data-case-flow]) {
-  max-width: 78ch;
-}
 .case-diagram {
   margin: 1.5rem 0;
   padding: clamp(0.65rem, 2vw, 1.25rem);
