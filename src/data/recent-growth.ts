@@ -22,21 +22,19 @@ export interface RecentGrowthItem {
 
 // This is the single source of truth for the public update history.
 // Keep one entry per date; add each reader-facing change as a short changes item.
-// Merge same-day changes here. Do not record typo, CSS or internal refactoring.
+// Prioritize new articles/Cases/Books, substantive revisions and content integration.
+// Merge same-day UI/UX work into one final reader-facing line.
+// Do not record typo, CSS or internal refactoring separately.
 const curatedRecentGrowth = [
   {
     date: "2026-10-04",
     type: "revised",
-    title: "読書画面と更新履歴を整理",
+    title: "顧客サポートDXとCareerを更新",
     changes: [
-      "実務事例一覧から概要・目次導線を削除し、3事例タイトルを強調表示",
-      "記事末尾のAuthorカードを廃止",
-      "顧客サポートDX Bookの一覧画像を整備",
-      "更新履歴を変更1件1行の形式へ改善",
-      "関連導線を本文読了後へ移動",
-      "関連設計の見出しを日本語へ統一",
-      "各ページの入口文を平易化",
-      "顧客サポートDXの分岐と改善ループを操作できる図を追加",
+      "顧客サポートDXにインタラクティブ図を追加",
+      "CareerとCareer Detailsの役割分担を整理",
+      "各ページの入口説明を平易化",
+      "サイトの見た目・導線を整理",
     ],
     category: "Rosarium",
     href: "",
@@ -47,14 +45,12 @@ const curatedRecentGrowth = [
     type: "revised",
     title: "Rosariumの記事と情報構造を更新",
     changes: [
+      "IT戦略・業務再設計・Legacy Lifecycleの3記事を公開",
       "Zenn由来Knowledgeを統合",
-      "Case画像を横長に統一",
-      "Navigation・実践知・導線を整理",
+      "Careerを設計思想の入口と経験・Caseへのハブに再構成",
       "庭に命名由来を追加",
       "Analytics利用説明を追加",
-      "IT戦略・業務再設計・Legacy Lifecycleの3記事を公開",
-      "AI活用事例の関連導線を補強",
-      "Careerを設計思想の主入口と経験・Caseへのハブに再構成",
+      "サイトの見た目・導線を整理",
     ],
     category: "Rosarium",
     href: "",

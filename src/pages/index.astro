@@ -4,7 +4,7 @@ import GrowthEntry from "../components/GrowthEntry.astro";
 import { recentGrowth } from "../data/recent-growth";
 import Icon from "../components/Icon.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import { siteDescription, url } from "../lib/site";
+import { url } from "../lib/site";
 
 const recent = recentGrowth.slice(0, 3);
 ---
@@ -15,14 +15,7 @@ const recent = recentGrowth.slice(0, 3);
       <Icon name="home" size="page" />
       <h1>Rosarium</h1>
     </div>
-    <p class="lead">学習と実務を通じて育て続ける「庭」</p>
-    <p class="home-site-description">{siteDescription}</p>
-    <p>立林 裕太朗が、学習と実務から得た設計判断を整理しています。</p>
-    <nav class="secondary-reading" aria-label="関心から読む">
-      <a href={url("career")}>考え方を見る →</a>
-      <a href={url("cases")}>実践を見る →</a>
-      <a href={url("books")}>Bookで深く読む →</a>
-    </nav>
+    <p class="home-site-description">AIを主軸に、DX・システム設計を考える個人の技術サイトです。学習と実務で得た実践例・設計判断を整理しています。</p>
     <p class="meta">
       <a class="action-link" href="#about-rosarium">
         Rosariumとは？ →
@@ -37,7 +30,6 @@ const recent = recentGrowth.slice(0, 3);
       title="最近育ったもの"
       id="recent-growth-heading"
     />
-    <p>読者へ知らせる価値のある公開・追記・改訂を記録しています。</p>
     <div
       class="growth-list growth-list-compact growth-scrollbox"
       role="region"

@@ -2182,7 +2182,8 @@ blockquote {
   list-style: disc;
 }
 .growth-changes li {
-  margin: 0.25rem 0;
+  margin: 0.45rem 0;
+  line-height: 1.7;
   word-break: normal;
   overflow-wrap: break-word;
 }
@@ -2408,3 +2409,9 @@ blockquote {
 }
 
 .book-list-entry + .book-list-entry { margin-top: 2.5rem; }
+
+/* Keep the Garden introduction short so readers see content updates first. */
+.home-introduction .document-title-row { margin-bottom: 0.75rem; }
+.home-introduction h1 { margin-block: 0.25rem; }
+.home-introduction p { margin-block: 0.5rem; }
+.home-page .home-introduction + .home-section { margin-top: 1rem; }

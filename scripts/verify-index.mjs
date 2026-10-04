@@ -137,16 +137,14 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file
     `${html}: shared brand mark`,
   );
 }
-assert.equal(
-  top(".home-introduction .lead").text(),
-  "学習と実務を通じて育て続ける「庭」",
-);
-assert(top(".home-site-description").text().includes("AIを仕事にどう組み込み"));
+assert.equal(top(".home-introduction a").length, 1);
+assert.equal(top('.home-introduction a[href="#about-rosarium"]').length, 1);
+assert(top(".home-site-description").text().includes("AIを主軸に"));
 assert(
-  top(".home-site-description").text().includes("DX、システム設計、業務設計"),
+  top(".home-site-description").text().includes("DX・システム設計"),
 );
 assert(!top("main").text().includes("Applied AI / System Architecture"));
-assert(top(".home-introduction").text().includes("立林 裕太朗"));
+assert(top(".home-site-description").text().includes("実践例・設計判断"));
 assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
@@ -569,7 +567,7 @@ assert.equal(top("#about-rosarium").length, 1);
 assert.equal(top("#about-rosarium").text(), "Rosariumという名前について");
 assert.equal(top(".growth-list [data-growth-entry]").length, 3);
 assert.equal(top('[data-growth-entry] time[datetime="2026-10-04"]').length, 1);
-assert.equal(top('[data-growth-entry] time[datetime="2026-10-03"]').closest("[data-growth-entry]").find(".growth-changes > li").length, 8);
+assert.equal(top('[data-growth-entry] time[datetime="2026-10-03"]').closest("[data-growth-entry]").find(".growth-changes > li").length, 6);
 const growthDates = new Set();
 for (const element of top("[data-growth-entry]").toArray()) {
   const entry = top(element);
@@ -590,11 +588,11 @@ for (const element of top("[data-growth-entry]").toArray()) {
 }
 assert.equal(
   top("[data-growth-entry]").first().find(".growth-changes > li").length,
-  8,
+  4,
 );
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
-  "読書画面と更新履歴を整理",
+  "顧客サポートDXとCareerを更新",
 );
 assert.equal(top('a[href="/Rosarium/updates/"]').length, 0);
 const updates = page("updates");
