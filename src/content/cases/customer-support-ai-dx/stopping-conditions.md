@@ -49,18 +49,7 @@ order: 6
 
 理由コードは顧客へ機械的に露出するためではありません。有人引継ぎ、失敗分類、再評価で同じ停止を追跡するために使います。顧客には「情報が不足している」「専門担当者の判断が必要」など、次の行動が分かる表現へ変換します。
 
-```mermaid
-stateDiagram-v2
-  [*] --> Collecting: 問い合わせ受付
-  Collecting --> Retrieving: 必要情報がそろう
-  Collecting --> Human: 情報を特定できない
-  Retrieving --> Answering: 適合する公開可能な根拠
-  Retrieving --> Human: 根拠不足 / 矛盾 / 非公開
-  Answering --> Completed: 低リスクで回答可能
-  Answering --> Human: 専門判断 / 高影響
-  Human --> [*]
-  Completed --> [*]
-```
+<div data-case-diagram="support-stopping-conditions"></div>
 
 ## Fail SafeとしてのHITL
 

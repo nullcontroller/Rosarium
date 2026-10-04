@@ -1,0 +1,321 @@
+---
+import { caseDiagrams } from "../data/case-diagrams";
+import "../styles/case-diagrams.css";
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+const model = caseDiagrams[id];
+if (!model) throw new Error(`Unknown case diagram: ${id}`);
+const prefix = `case-${id}`;
+const kinds = {
+  human: "人間",
+  ai: "AI支援",
+  knowledge: "知識・根拠",
+  system: "既存システム・工程",
+  decision: "判断・確認",
+  feedback: "評価・再利用",
+};
+function wrap(text: string, count: number): string[] {
+  const tokens = text.match(/[A-Za-z0-9]+|[^A-Za-z0-9]/gu) || [];
+  const lines: string[] = [];
+  let line = "",
+    length = 0;
+  for (const token of tokens) {
+    const size = /^[A-Za-z0-9]+$/.test(token) ? token.length * 0.55 : 1;
+    if (line && length + size > count) {
+      lines.push(line);
+      line = "";
+      length = 0;
+    }
+    line += token;
+    length += size;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+const layouts = ["mobile", "desktop"].map((name) => {
+  const mobile = name === "mobile";
+  const rows = (model.rows || []).flatMap((row) =>
+    mobile && row.length > 2 ? [row.slice(0, 2), row.slice(2)] : [row],
+  );
+  const vertical = mobile || rows.length > 5;
+  const height = mobile ? 88 : 108;
+  const width = mobile ? 140 : 182;
+  const positions = new Map<
+    string,
+    { x: number; y: number; w: number; h: number }
+  >();
+  const canvasWidth = mobile
+    ? 320
+    : vertical
+      ? 620
+      : Math.max(620, rows.length * 216 + 28);
+  const canvasHeight = model.messages
+    ? 100 + model.messages.length * (mobile ? 96 : 68)
+    : vertical
+      ? rows.length * (mobile ? 124 : 144) + 18
+      : 400;
+  rows.forEach((row, r) =>
+    row.forEach((node, c) =>
+      positions.set(node, {
+        x: vertical
+          ? mobile
+            ? row.length === 1
+              ? 90
+              : 16 + c * 164
+            : row.length === 1
+              ? 219
+              : row.length === 2
+                ? 119 + c * 200
+                : 18 + c * 200
+          : 28 + r * 216,
+        y: vertical ? 18 + r * (mobile ? 124 : 144) : 30 + c * 124,
+        w: mobile && row.length === 1 ? 140 : width,
+        h: height,
+      }),
+    ),
+  );
+  const path = (from: string, to: string) => {
+    const a = positions.get(from)!;
+    const b = positions.get(to)!;
+    if (vertical) {
+      if (b.y > a.y) {
+        const mid =
+          b.y - a.y > (mobile ? 124 : 144) ? b.y - 24 : (a.y + a.h + b.y) / 2;
+        return `M${a.x + a.w / 2} ${a.y + a.h}V${mid}H${b.x + b.w / 2}V${b.y}`;
+      }
+      if (b.y === a.y) return `M${a.x + a.w} ${a.y + a.h / 2}H${b.x}`;
+      return `M${a.x} ${a.y + a.h / 2}H6V${b.y + b.h / 2}H${b.x}`;
+    }
+    if (b.x > a.x) {
+      const mid = (a.x + a.w + b.x) / 2;
+      return `M${a.x + a.w} ${a.y + a.h / 2}H${mid}V${b.y + b.h / 2}H${b.x}`;
+    }
+    return `M${a.x + a.w / 2} ${a.y + a.h}V390H${b.x + b.w / 2}V${b.y + b.h}`;
+  };
+  return {
+    name,
+    mobile,
+    vertical,
+    width,
+    height,
+    positions,
+    canvasWidth,
+    canvasHeight,
+    path,
+  };
+});
+---
+
+<figure class="case-diagram" id={prefix} data-case-flow>
+  <figcaption>{model.title}</figcaption>
+  <p class="case-diagram-help">
+    項目を選ぶと、役割と判断の説明を確認できます。
+  </p>
+  {layouts.map((layout) => (
+    <svg
+      class={`case-layout-${layout.name}`}
+      viewBox={`0 0 ${layout.canvasWidth} ${layout.canvasHeight}`}
+      role="group"
+      aria-labelledby={`${prefix}-${layout.name}-title ${prefix}-${layout.name}-desc`}
+    >
+      <title id={`${prefix}-${layout.name}-title`}>{model.title}</title>
+      <desc id={`${prefix}-${layout.name}-desc`}>{model.description}</desc>
+      <defs>
+        <marker
+          id={`${prefix}-${layout.name}-arrow`}
+          viewBox="0 0 10 10"
+          refX="9"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto"
+        >
+          <path d="M0 0L10 5L0 10Z" />
+        </marker>
+      </defs>
+      {model.messages ? (
+        <>
+          {model.nodes.map((node, index) => {
+            const x =
+              40 +
+              (index * (layout.canvasWidth - 80)) / (model.nodes.length - 1);
+            return (
+              <g>
+                <line
+                  class="case-lifeline"
+                  x1={x}
+                  x2={x}
+                  y1="70"
+                  y2={layout.canvasHeight - 10}
+                />
+                <a
+                  href={`#${prefix}-detail-${node.id}`}
+                  data-node={node.id}
+                  data-kind={node.kind}
+                  aria-label={`${node.label}の役割を読む`}
+                >
+                  <rect x={x - 36} y="8" width="72" height="60" rx="7" />
+                  <text class="case-node-label" text-anchor="middle">
+                    {wrap(node.label, layout.mobile ? 4 : 8).map((s, i) => (
+                      <tspan x={x} y={29 + i * 18}>
+                        {s}
+                      </tspan>
+                    ))}
+                  </text>
+                </a>
+              </g>
+            );
+          })}
+          {model.messages.map((message, index) => {
+            const a = model.nodes.findIndex((n) => n.id === message.from);
+            const b = model.nodes.findIndex((n) => n.id === message.to);
+            const x1 =
+                40 + (a * (layout.canvasWidth - 80)) / (model.nodes.length - 1),
+              x2 =
+                40 + (b * (layout.canvasWidth - 80)) / (model.nodes.length - 1);
+            const y = 100 + index * (layout.mobile ? 96 : 68);
+            return (
+              <g>
+                <path
+                  class:list={[
+                    "case-edge",
+                    message.dashed && "case-edge-dashed",
+                  ]}
+                  d={a === b ? `M${x1} ${y}h30v22h-30` : `M${x1} ${y}H${x2}`}
+                  marker-end={`url(#${prefix}-${layout.name}-arrow)`}
+                />
+                <text class="case-edge-label" text-anchor="middle">
+                  {wrap(message.label, layout.mobile ? 20 : 48).map((s, i) => (
+                    <tspan x={layout.canvasWidth / 2} y={y - 27 + i * 17}>
+                      {index + 1}
+                      {i === 0 ? ". " : ""}
+                      {s}
+                    </tspan>
+                  ))}
+                </text>
+              </g>
+            );
+          })}
+        </>
+      ) : (
+        <>
+          <g aria-hidden="true">
+            {model.edges?.map((edge) => {
+              const a = layout.positions.get(edge.from)!,
+                b = layout.positions.get(edge.to)!;
+              return (
+                <g>
+                  <path
+                    class:list={[
+                      "case-edge",
+                      edge.dashed && "case-edge-dashed",
+                    ]}
+                    d={layout.path(edge.from, edge.to)}
+                    marker-end={`url(#${prefix}-${layout.name}-arrow)`}
+                  />
+                  {edge.label && (
+                    <text
+                      class="case-edge-label"
+                      x={
+                        layout.mobile
+                          ? (a.x + b.x) / 2 + 50
+                          : (a.x + a.w + b.x) / 2
+                      }
+                      y={
+                        layout.mobile
+                          ? (a.y + a.h + b.y) / 2 - 3
+                          : (a.y + b.y) / 2 + 38
+                      }
+                      text-anchor="middle"
+                    >
+                      {wrap(edge.label, layout.mobile ? 8 : 12).map((s, i) => (
+                        <tspan
+                          x={
+                            layout.mobile
+                              ? (a.x + b.x) / 2 + 50
+                              : (a.x + a.w + b.x) / 2
+                          }
+                          dy={i ? 16 : 0}
+                        >
+                          {s}
+                        </tspan>
+                      ))}
+                    </text>
+                  )}
+                </g>
+              );
+            })}
+          </g>
+          {model.nodes.map((node) => {
+            const p = layout.positions.get(node.id)!;
+            const lines = wrap(node.label, layout.mobile ? 8 : 12);
+            const group = model.groups?.find((g) => g.ids.includes(node.id));
+            return (
+              <a
+                href={`#${prefix}-detail-${node.id}`}
+                data-node={node.id}
+                data-kind={node.kind}
+                aria-label={`${node.label}：${kinds[node.kind]}。説明を読む`}
+              >
+                <rect
+                  x={p.x}
+                  y={p.y}
+                  width={p.w}
+                  height={p.h}
+                  rx={node.kind === "decision" ? 22 : 8}
+                />
+                <text class="case-node-label" text-anchor="middle">
+                  {lines.map((s, i) => (
+                    <tspan x={p.x + p.w / 2} y={p.y + 26 + i * 18}>
+                      {s}
+                    </tspan>
+                  ))}
+                </text>
+                <text
+                  class="case-node-kind"
+                  x={p.x + p.w / 2}
+                  y={p.y + p.h - 10}
+                  text-anchor="middle"
+                >
+                  {group?.title || kinds[node.kind]}
+                </text>
+                <text
+                  class="case-selected-mark"
+                  x={p.x + p.w - 15}
+                  y={p.y + 16}
+                  aria-hidden="true"
+                >
+                  ✓
+                </text>
+              </a>
+            );
+          })}
+        </>
+      )}
+    </svg>
+  ))}
+  <div class="case-diagram-details" aria-label="各工程の説明">
+    {model.nodes.map((node) => (
+      <section id={`${prefix}-detail-${node.id}`} data-detail={node.id}>
+        <h3>{node.label}</h3>
+        <p>{node.description}</p>
+      </section>
+    ))}
+  </div>
+  <p class="case-diagram-return">
+    <a href={`#${prefix}`}>図に戻る ↑</a>
+  </p>
+  <p
+    class="case-diagram-announcement"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  ></p>
+</figure>
+<script>
+  import { enhanceCaseDiagrams } from "../lib/interactive-diagrams";
+  enhanceCaseDiagrams();
+  document.addEventListener("astro:page-load", enhanceCaseDiagrams);
+</script>

@@ -208,3 +208,11 @@ source.original_typeは元の形式として保持し、サイト上の分類に
 Homeと `/articles/` は、出版形式ではなく読者の目的を入口にします。現在の目的分類は `src/lib/use-cases.ts` で管理し、既存の `layer`、`design_topic`、`section`、`tags` から導出します。1つのページは複数の目的に所属できます。
 
 `AI Design`、`AI数学論`、`Practices`、`Case Studies` は知識体系の分類として維持します。`Article`、`Book`、`Series`、`Essay` は `publication_format` で保持しますが、一覧では補助情報として表示します。同じ意味の分類をfront matterへ重複して追加せず、新しい目的が必要になった場合は既存メタデータで安定して判定できるかを先に確認してください。
+
+## 主要事例の理解支援図
+
+主要3事例の読者向け可視化は、SVGとTypeScriptで実装します。`src/data/case-diagrams.ts`でノード・役割・分岐・説明を管理し、本文では`<div data-case-diagram="system-understanding"></div>`のように共通コンポーネントを呼び出します。顧客サポートDXの全体図は既存の専用レイアウトを維持し、選択操作を共通化しています。
+
+人間は破線、AI支援は太線、知識は淡い背景、判断は丸みと強調線、評価・再利用は別背景で表します。色だけに依存しません。JavaScript無効時も静的SVGと説明へのアンカーが残ります。
+
+実務で使用したPlantUMLや作業画面はEvidenceとして残します。新しい説明用の図を過去の実物として掲載しません。主要事例でMermaidを新設せず、その他の記事の既存Mermaidには影響させません。

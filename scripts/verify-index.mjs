@@ -1,3 +1,4 @@
+import { recentGrowth } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
@@ -138,7 +139,7 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file
   );
 }
 assert.equal(top(".home-introduction a").length, 1);
-assert.equal(top('.home-introduction a[href="#about-rosarium"]').length, 1);
+assert.equal(top('.home-introduction a[href="/Rosarium/about/"]').length, 1);
 assert(top(".home-site-description").text().includes("AIを主軸に"));
 assert(
   top(".home-site-description").text().includes("DX・システム設計"),
@@ -554,20 +555,15 @@ console.log(
 );
 
 assert(top("#recent-growth-heading").length);
-assert.equal(top(".growth-scrollbox").length, 1);
-assert.equal(top(".growth-scrollbox").attr("tabindex"), "0");
-assert.equal(top(".growth-scrollbox").attr("role"), "region");
-assert.equal(
-  top(".growth-scrollbox").attr("aria-labelledby"),
-  "recent-growth-heading",
-);
-assert.equal(top("main > section").length, 4);
-assert.equal(top('a[href="#about-rosarium"]').text(), "Rosariumとは？ →");
-assert.equal(top("#about-rosarium").length, 1);
-assert.equal(top("#about-rosarium").text(), "Rosariumという名前について");
-assert.equal(top(".growth-list [data-growth-entry]").length, 3);
+assert.equal(top(".growth-scrollbox").length, 0);
+assert.equal(top(".home-primary-panels > section").length, 2);
+assert.equal(top('a[href="/Rosarium/about/"]').text().trim(), "Rosariumとは？ →");
+assert.equal(top("#about-rosarium").length, 0);
+assert.equal(top(".growth-list [data-growth-entry]").length, 1);
 assert.equal(top('[data-growth-entry] time[datetime="2026-10-04"]').length, 1);
-assert.equal(top('[data-growth-entry] time[datetime="2026-10-03"]').closest("[data-growth-entry]").find(".growth-changes > li").length, 5);
+assert.equal(new Set(recentGrowth.map(entry => entry.date)).size, recentGrowth.length);
+assert.equal(recentGrowth.find(entry => entry.date === "2026-10-03").changes.length, 4);
+assert(recentGrowth.every(entry => !entry.changes.some(change => /表示・導線を整理|UI.?UXを改善/.test(change))));
 const growthDates = new Set();
 for (const element of top("[data-growth-entry]").toArray()) {
   const entry = top(element);
@@ -663,7 +659,7 @@ for (const id of [
   "reference/responsibility-state-model",
 ])
   assert.equal(page(id)(".author-box").length, 0, id);
-for (const route of ["about", "search"]) {
+for (const route of ["search"]) {
   const $ = page(route);
   assert.match($("meta[name=robots]").attr("content") || "", /noindex/);
   assert.equal($("meta[http-equiv=refresh]").length, 1);
@@ -962,3 +958,23 @@ assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".series-pos
 const lastSupportChapter = page("cases/customer-support-ai-dx/design-principles");
 assert(!lastSupportChapter(".pagination").text().includes("次のページ"));
 assert(lastSupportChapter('.pagination a[href="/Rosarium/cases/customer-support-ai-dx/continuous-improvement/"]').length);
+
+// Portfolio explanation diagrams are static first and keep meaningful reading exits.
+for (const id of ["system-understanding", "three-ai-maintenance"]) {
+ const $ = page("cases/" + id);
+ assert.equal($("[data-case-flow]").length, 1);
+ assert.equal($("[data-case-flow] svg").length, 2);
+ assert($("[data-case-flow] title").text());
+ assert($("[data-case-flow] desc").text());
+ assert.equal($("[data-mermaid]").length, 0);
+ for(const link of $("[data-case-flow] [data-node]").toArray()) assert($( $(link).attr("href") ).length);
+}
+for (const slug of ["why-ai", "responsibility-boundary", "poc-evaluation", "knowledge-design", "stopping-conditions", "human-handoff", "continuous-improvement", "executive-summary"]) {
+ const $ = page("cases/customer-support-ai-dx/" + slug);
+ assert.equal($("[data-case-flow]").length, 1);
+ assert.equal($("[data-mermaid]").length, 0);
+ for(const link of $("[data-case-flow] [data-node]").toArray()) assert($( $(link).attr("href") ).length);
+}
+assert.equal(page("about")('meta[http-equiv="refresh"]').length, 0);
+assert(!page("about")('meta[name="robots"]').attr("content")?.includes("noindex"));
+console.log("Verified Portfolio SVG explanations, compact Home and indexable About page.");

@@ -68,8 +68,11 @@ series: three-ai-maintenance
 series_title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
 order: 0
 cover: /assets/cases/three-ai-maintenance-hero.jpg
+show_cover: false
 cover_alt: 複数AIを仕様調査・コード探索・実装支援へ分担し、人間がレビューと最終判断を行う保守フロー
 ---
+<div data-case-diagram="three-ai-maintenance"></div>
+
 ## Context
 
 CRA対応に伴うセキュリティ要件の強化を契機として、既存システムの暗号処理と異常系を見直した。

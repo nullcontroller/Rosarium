@@ -30,28 +30,7 @@ AIの主な対象は1です。2と3まで自動化率を上げるためにAIへ�
 
 ## Responsibility Boundary
 
-```mermaid
-flowchart LR
-  Q[問い合わせ] --> A[AI]
-  A --> K[既存システム / Knowledge]
-  K --> J{回答条件を満たすか}
-  J -->|満たす| R[根拠に基づく回答]
-  J -->|満たさない| H[人間へ引継ぎ]
-
-  subgraph AIの役割
-    A1[自然な表現の理解]
-    A2[不足情報の追加質問]
-    A3[Knowledge検索]
-    A4[根拠に沿った回答案]
-  end
-
-  subgraph 人間の役割
-    H1[専門判断]
-    H2[個別調査]
-    H3[影響の大きい判断]
-    H4[例外対応]
-  end
-```
+<div data-case-diagram="support-responsibility-boundary"></div>
 
 | 担当 | 保持する役割 |
 |---|---|

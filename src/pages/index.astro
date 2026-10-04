@@ -6,7 +6,7 @@ import Icon from "../components/Icon.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { url } from "../lib/site";
 
-const recent = recentGrowth.slice(0, 3);
+const recent = recentGrowth.slice(0, 1);
 ---
 
 <Site title="Home" section="">
@@ -15,59 +15,53 @@ const recent = recentGrowth.slice(0, 3);
       <Icon name="home" size="page" />
       <h1>Rosarium</h1>
     </div>
-    <p class="home-site-description">AIを主軸に、DX・システム設計を考える個人の技術サイトです。学習と実務で得た実践例・設計判断を整理しています。</p>
+    <p class="home-site-description">
+      AIを主軸に、DX・システム設計を考える個人の技術サイトです。学習と実務で得た実践例・設計判断を整理しています。
+    </p>
     <p class="meta">
-      <a class="action-link" href="#about-rosarium">
+      <a class="action-link" href={url("about")}>
         Rosariumとは？ →
       </a>
     </p>
   </section>
 
-  <section class="home-section" aria-labelledby="recent-growth-heading">
-    <SectionHeading
-      icon="updates"
-      eyebrow="GARDEN NOTES"
-      title="最近の手入れ"
-      id="recent-growth-heading"
-    />
-    <p class="meta">記事や事例の公開・改訂・統合・整理など、主な手入れを記録しています。</p>
-    <div
-      class="growth-list growth-list-compact growth-scrollbox"
-      role="region"
-      aria-labelledby="recent-growth-heading"
-      tabindex="0"
-    >
-      {recent.map((entry) => (
-        <GrowthEntry entry={entry} />
-      ))}
-    </div>
-  </section>
+  <div class="home-primary-panels">
+    <section class="home-section" aria-labelledby="recent-growth-heading">
+      <SectionHeading
+        icon="updates"
+        eyebrow="GARDEN NOTES"
+        title="最近の手入れ"
+        id="recent-growth-heading"
+      />
+      <p class="meta">
+        記事や事例の公開・改訂・統合・整理など、主な手入れを記録しています。
+      </p>
+      <div class="growth-list growth-list-compact">
+        {recent.map((entry) => (
+          <GrowthEntry entry={entry} />
+        ))}
+      </div>
+    </section>
 
-  <section
-    class="home-section home-career"
-    aria-labelledby="home-career-heading"
-  >
-    <p class="eyebrow">PROFILE / CAREER</p>
-    <h2 id="home-career-heading">キャリア</h2>
-    <p>
-      立林
-      裕太朗は、業務課題を整理し、AI・人間・既存システムの役割を決め、運用できる仕組みを設計しています。仕事の考え方と、その背景を紹介します。
-    </p>
-    <p>
-      <a class="cta-link" href={url("career")}>
-        キャリアを見る →
-      </a>
-    </p>
-  </section>
-  <section class="home-section" aria-labelledby="about-rosarium">
-    <h2 id="about-rosarium">Rosariumという名前について</h2>
-    <p>Rosariumは「薔薇園」「薔薇の庭」を意味する言葉です。</p>
-    <p>
-      記事をただ増やすのではなく、知識を育て、手入れし、剪定し、植え替える場所として運営しています。必要なら、役目を終えたものを取り除くこともあります。
-    </p>
-    <p>
-      残すだけでなく、変える・統合する・終わらせることも、Knowledge
-      Lifecycleの一部として扱います。
-    </p>
-  </section>
+    <section
+      class="home-section home-career"
+      aria-labelledby="home-career-heading"
+    >
+      <SectionHeading
+        icon="career"
+        eyebrow="PROFILE / CAREER"
+        title="キャリア"
+        id="home-career-heading"
+      />
+      <p>
+        立林
+        裕太朗は、業務課題を整理し、AI・人間・既存システムの役割を決め、運用できる仕組みを設計しています。仕事の考え方と、その背景を紹介します。
+      </p>
+      <p>
+        <a class="cta-link" href={url("career")}>
+          キャリアを見る →
+        </a>
+      </p>
+    </section>
+  </div>
 </Site>

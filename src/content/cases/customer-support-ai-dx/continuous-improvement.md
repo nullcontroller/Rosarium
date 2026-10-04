@@ -45,15 +45,7 @@ order: 9
 
 一つの数値へ集約しないのは、例えば回答品質が高くても、追加質問が長く離脱が増えれば業務価値が出ないためです。逆に自己解決率だけを上げると、停止すべき問い合わせまで回答する危険があります。
 
-```mermaid
-flowchart LR
-  D[Design] --> U[Use]
-  U --> O[Observe]
-  O --> E[Evaluate]
-  E --> F[Find Failure]
-  F --> I[Knowledge / Retrieval / UI / Processを改善]
-  I --> D
-```
+<div data-case-diagram="support-continuous-improvement"></div>
 
 ## 失敗を分類して改善する
 

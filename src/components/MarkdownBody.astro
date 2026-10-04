@@ -14,6 +14,7 @@ for (const entry of await getCollection("pages", publicEntry)) {
     if (source) sourceLinks.set(normalizeSourceUrl(source), url(entry.id));
   }
 }
+import InteractiveCaseDiagram from "./InteractiveCaseDiagram.astro";
 import InteractiveSupportDxDiagram from "./InteractiveSupportDxDiagram.astro";
 import Principle from "./Principle.astro";
 import Decision from "./Decision.astro";
@@ -54,6 +55,8 @@ const nodes = $.root().contents().toArray();
   const Block = components[kind];
   return el.is("[data-support-dx-diagram]") ? (
     <InteractiveSupportDxDiagram />
+  ) : el.is("[data-case-diagram]") ? (
+    <InteractiveCaseDiagram id={el.attr("data-case-diagram")!} />
   ) : Block ? (
     <Block title={el.attr("data-title")}>
       <Astro.self html={el.html() || ""} />

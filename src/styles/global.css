@@ -389,9 +389,9 @@ blockquote {
 .shell.has-theme-toc,
 .shell.has-book-toc {
   grid-template-columns: clamp(280px, 18vw, 380px) minmax(0, 1fr) clamp(
-      190px,
-      13vw,
-      260px
+      260px,
+      17vw,
+      320px
     );
 }
 .shell.has-book-toc {
@@ -2117,29 +2117,6 @@ blockquote {
   margin-block: 1.25rem;
 }
 
-.growth-scrollbox {
-  max-height: clamp(320px, 45vh, 440px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  min-width: 0;
-  padding: 0.25rem 1rem;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  scrollbar-width: thin;
-  scrollbar-color: var(--muted) var(--surface);
-}
-@media (max-width: 760px) {
-  .growth-scrollbox {
-    max-height: clamp(240px, 45vh, 320px);
-    padding-inline: 0.75rem;
-  }
-}
-@media print {
-  .growth-scrollbox {
-    max-height: none;
-    overflow: visible;
-  }
-}
 .growth-entry {
   padding: 1rem 0;
   border-bottom: 1px solid var(--line);
@@ -2425,4 +2402,61 @@ blockquote {
 }
 .home-page [aria-labelledby="recent-growth-heading"] > p.meta {
   margin-block: 0.4rem 0.75rem;
+}
+
+/* Two peer entry panels; history remains in the document flow. */
+.home-primary-panels { display:grid; gap:1.5rem; margin-top:1rem; }
+.home-primary-panels > .home-section { margin:0; min-width:0; padding:1rem; border:1px solid var(--line); }
+.home-primary-panels #home-career-heading { font-size:1.1rem; font-weight:600; line-height:1.4; margin:.2rem 0 .6rem; }
+.home-primary-panels .growth-list { margin:.75rem 0 0; border:0; }
+.home-primary-panels .growth-entry { border:0; padding:.5rem 0; }
+.home-primary-panels .content-title { font-size:1rem; }
+@media (min-width:1100px) { .home-primary-panels { grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:stretch; } }
+
+/* Home density: keep the two gateways visible without changing reading pages. */
+.home-page .hero.home-introduction { padding-block:.75rem; margin-bottom:.75rem; }
+.home-introduction .document-title-row { margin-bottom:.35rem; }
+.home-primary-panels { gap:1rem; margin-top:.5rem; }
+.home-primary-panels > .home-section { padding:.9rem; }
+.home-primary-panels .section-heading { margin-bottom:.5rem; }
+.home-primary-panels p { margin-block:.55rem; line-height:1.65; }
+.home-primary-panels .growth-changes li { margin-block:.3rem; line-height:1.65; }
+.home-primary-panels .document-title-row { margin-bottom:.5rem; }
+.home-primary-panels .home-career .cta-link { display:inline-flex; align-items:center; min-height:44px; }
+
+.home-primary-panels > .home-section > .section-heading { padding-top:0; border-top:0; }
+
+/* Shared auxiliary navigation: readable titles without changing article typography. */
+.toc, .theme-toc, .book-toc {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+.toc > p, .theme-toc > p, .book-toc-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+.theme-nav-groups summary {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  min-height: 44px;
+}
+.theme-nav-groups summary span {
+  font-size: 0.8125rem;
+}
+.toc a, .theme-nav-groups a, .book-toc a, .book-toc-mobile a {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+  line-break: strict;
+}
+.theme-nav-groups li, .book-toc li {
+  padding-block: 0.5rem;
+}
+.toc a:hover, .book-toc a:hover,
+.toc a:focus-visible, .book-toc a:focus-visible,
+.theme-toc-mobile a:hover, .theme-toc-mobile a:focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
 }

@@ -58,16 +58,7 @@ Semantic Similarity ≠ Business Validity
 
 ## Retrievalを段階化する
 
-```mermaid
-flowchart TD
-  Q[問い合わせと対話で得たContext] --> F1[対象機種で絞る]
-  F1 --> F2[有効な版で絞る]
-  F2 --> F3[顧客へ公開可能な情報へ絞る]
-  F3 --> S[意味検索 / キーワード検索]
-  S --> V{回答根拠として十分か}
-  V -->|Yes| G[生成AIへGrounding Contextを渡す]
-  V -->|No| H[人間へ引き継ぐ]
-```
+<div data-case-diagram="support-knowledge-design"></div>
 
 メタデータによる絞込みは、Vector Searchの結果を補う後処理ではありません。検索してよい母集団を先に決めるGuardrailです。その上で意味検索やキーワード検索を使います。
 

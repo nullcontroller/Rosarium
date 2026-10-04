@@ -272,81 +272,9 @@ const layouts = [
   ></p>
 </figure>
 <script>
-  function enhanceSupportDiagrams() {
-    document
-      .querySelectorAll<HTMLElement>("[data-support-dx]")
-      .forEach((root) => {
-        if (root.dataset.enhanced) return;
-        const links = [...root.querySelectorAll<SVGAElement>("[data-node]")];
-        const details = [
-          ...root.querySelectorAll<HTMLElement>("[data-detail]"),
-        ];
-        const status = root.querySelector<HTMLElement>('[role="status"]');
-        function select(id: string, announce = true) {
-          details.forEach((detail) => {
-            detail.hidden = detail.dataset.detail !== id;
-          });
-          links.forEach((link) =>
-            link.setAttribute("aria-pressed", String(link.dataset.node === id)),
-          );
-          const active = details.find((detail) => detail.dataset.detail === id);
-          if (status && announce)
-            status.textContent = active?.textContent?.trim() ?? "";
-        }
-        links.forEach((link) => {
-          link.setAttribute("role", "button");
-          link.setAttribute("tabindex", "0");
-          link.setAttribute(
-            "aria-controls",
-            "support-detail-" + link.dataset.node,
-          );
-          link.addEventListener("click", (event) => {
-            event.preventDefault();
-            select(link.dataset.node!);
-            const detail = details.find(
-              (item) => item.dataset.detail === link.dataset.node,
-            );
-            if (detail && root.clientWidth < 640) {
-              const bounds = detail.getBoundingClientRect();
-              if (bounds.bottom > innerHeight || bounds.top < 100) {
-                detail.scrollIntoView({
-                  block: "nearest",
-                  behavior: matchMedia("(prefers-reduced-motion: reduce)")
-                    .matches
-                    ? "instant"
-                    : "smooth",
-                });
-              }
-            }
-          });
-          link.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              select(link.dataset.node!);
-            }
-          });
-        });
-        root.dataset.enhanced = "true";
-        root.querySelector(".diagram-help")!.textContent =
-          "項目を選ぶと、役割と判断条件を確認できます。";
-        select("customer", false);
-        const motion = matchMedia("(prefers-reduced-motion: reduce)");
-        if (!motion.matches && "IntersectionObserver" in window) {
-          const observer = new IntersectionObserver(
-            (entries) => {
-              if (entries.some((entry) => entry.isIntersecting)) {
-                root.classList.add("flow-reveal");
-                observer.disconnect();
-              }
-            },
-            { threshold: 0.15 },
-          );
-          observer.observe(root);
-        }
-      });
-  }
-  enhanceSupportDiagrams();
-  document.addEventListener("astro:page-load", enhanceSupportDiagrams);
+  import { enhanceCaseDiagrams } from "../lib/interactive-diagrams";
+  enhanceCaseDiagrams();
+  document.addEventListener("astro:page-load", enhanceCaseDiagrams);
 </script>
 <style>
   /* Widen only the explanatory figure; keep surrounding reading line lengths. */

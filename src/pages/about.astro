@@ -1,22 +1,89 @@
 ---
 import Site from "../layouts/Site.astro";
+import PageHeader from "../components/PageHeader.astro";
 import { url } from "../lib/site";
-
-const home = url();
-const canonical = new URL(home, Astro.site).toString();
 ---
 
 <Site
-  title="Rosariumについて"
-  summary="Rosariumの概要は庭へ統合しました。"
-  canonical={canonical}
-  noindex
+  title="Rosariumとは？"
+  summary="AI・DX・システム設計の学習と実践から得た知識を、公開・改訂・統合・剪定しながら育てる個人技術サイトです。"
+  section="about"
+  lastUpdated="2026-10-04"
+  breadcrumbs={[
+    { name: "Rosarium", path: "" },
+    { name: "Rosariumとは？", path: "about" },
+  ]}
 >
-  <meta slot="head" http-equiv="refresh" content={`0;url=${home}`} />
-  <script is:inline define:vars={{ home }}>
-    location.replace(home);
-  </script>
-  <h1>Rosariumについて</h1>
-  <p>Rosariumの説明は庭へ統合しました。</p>
-  <p><a href={home}>Rosariumの庭へ移動する</a></p>
+  <PageHeader title="Rosariumとは？" />
+  <article class="prose">
+    <h2>学習と実践から、設計判断を整理する場所</h2>
+    <p>
+      Rosariumは、立林裕太朗が運営する個人技術サイトです。AIをどこで使うか、人間が何を判断するか、既存システムとどう組み合わせるかを、学習と実務で得た知識・事例から考えています。
+    </p>
+    <p>
+      記事を読むだけでなく、設計判断の背景や実践へのつながりを辿れるように整理しています。
+    </p>
+    <h2>なぜ個人サイトなのか</h2>
+    <p>
+      記事を公開した後にも、前提が変わり、説明が重複し、まとめ直した方がよくなることがあります。特にAIの領域では、知識を追加するだけでは整理が追いつきません。
+    </p>
+    <p>
+      自分で情報構造を変え、記事を改訂・統合し、必要なら役目を終えた内容を取り除ける場所としてRosariumを運営しています。
+    </p>
+    <h2>Rosariumという名前について</h2>
+    <p>Rosariumは「薔薇園」「薔薇の庭」を意味する言葉です。</p>
+    <p>
+      記事をただ増やすのではなく、知識を育て、手入れし、剪定し、植え替える場所として運営しています。必要なら、役目を終えたものを取り除くこともあります。
+    </p>
+    <p>
+      残すだけでなく、変える・統合する・終わらせることも、Knowledge
+      Lifecycleの一部として扱います。
+    </p>
+    <h2>公開した知識にも手を入れる</h2>
+    <p>
+      知識のライフサイクル（Knowledge
+      Lifecycle）は、決まった順番で一度進めて終わるものではありません。学習や利用から得た情報を、次の見直しへ戻します。
+    </p>
+    <ol>
+      <li>公開する（Publish）：考え方と、その根拠・前提を読める形にする。</li>
+      <li>学ぶ（Learn）：実践や新しい情報から、不足や変化を見つける。</li>
+      <li>改訂する（Revise）：説明と設計判断を見直す。</li>
+      <li>統合する（Integrate）：重複をまとめ、関連する知識をつなぐ。</li>
+      <li>役目を終える（Retire）：現在の体系で不要になった内容を取り除く。</li>
+    </ol>
+    <h2>何を扱うか</h2>
+    <p>
+      業務や利用者の課題を起点に、AI・人間・データ・既存システムの役割を決め、運用・改善・終了までを考えます。AIを業務へ適用する設計（Applied
+      AI）、業務やサービスのあり方を変えるDX、仕組み全体を組み立てるSystem
+      Architectureを、一続きの設計問題として扱います。
+    </p>
+    <p>
+      回答に使う知識とその場の条件（Knowledge /
+      Context）、結果の評価と人間の判断（Evaluation / Human in the
+      Loop）、システムの維持・変更・終了（Software
+      Lifecycle）、既存資産の理解と改善（Legacy
+      Modernization）を、実践事例と合わせて整理しています。
+    </p>
+    <h2>Rosariumで重視すること</h2>
+    <p>
+      AIを使うこと自体を目的にせず、誰にどんな価値が届くかを先に考えます。AIの出力をそのまま業務上の確定事項にせず、根拠を確認できること、評価できること、人間が責任を持つ範囲を明らかにすることを重視しています。
+    </p>
+    <p>
+      仕組みを作った後の運用と改善も設計対象です。新しく作ることだけでなく、何を残し、変え、統合し、終わらせるかまで考えます。
+    </p>
+  </article>
+  <section class="content-related" aria-label="関連する内容">
+    <h2>次に読む</h2>
+    <ul class="reading-exit-links">
+      <li>
+        <a href={url("cases")}>実践事例を見る →</a>
+      </li>
+      <li>
+        <a href={url("career")}>設計思想・キャリアを見る →</a>
+      </li>
+      <li>
+        <a href={url()}>庭へ戻る →</a>
+      </li>
+    </ul>
+  </section>
 </Site>

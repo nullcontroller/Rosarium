@@ -102,7 +102,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "career/details": "2026-10-04",
   "career/profile": "2026-09-28",
   search: "2026-09-28",
-  about: "2026-09-28",
+  about: "2026-10-04",
   articles: "2026-10-04",
   overview: "2026-09-28",
   updates: "2026-09-28",

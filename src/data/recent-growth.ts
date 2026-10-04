@@ -23,18 +23,20 @@ export interface RecentGrowthItem {
 // This is the single source of truth for the public update history.
 // Keep one entry per date; add each reader-facing change as a short changes item.
 // Prioritize new articles/Cases/Books, substantive revisions and content integration.
-// Merge same-day UI/UX work into one final reader-facing line.
-// Do not record typo, CSS or internal refactoring separately.
+// Record content retirement, meaningful page restructuring and new reader-facing features.
+// Do not record content-preserving UI/UX, CSS, layout, navigation placement,
+// typo, internal refactoring or internal SEO settings.
+// Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
     date: "2026-10-04",
     type: "revised",
     title: "顧客サポートDXとCareerを更新",
     changes: [
-      "顧客サポートDXにインタラクティブ図を追加",
+      "主要事例の可視化を強化",
       "CareerとCareer Detailsの役割分担を整理",
       "各ページの入口説明を平易化",
-      "表示・導線を整理",
+      "Rosariumの目的と運営思想を説明するページを追加",
     ],
     category: "Rosarium",
     icon: "home",
@@ -48,7 +50,6 @@ const curatedRecentGrowth = [
       "Careerを設計思想の入口と経験・Caseへのハブに再構成",
       "庭に命名由来を追加",
       "Analytics利用説明を追加",
-      "表示・導線を整理",
     ],
     category: "Rosarium",
     icon: "home",

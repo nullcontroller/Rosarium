@@ -24,23 +24,7 @@ order: 1
 
 このケースで目指したのは、検索だけを速くすることではありません。既存文書を根拠に安全に回答できる問い合わせは顧客の自己解決へ移し、専門判断や個別調査が必要な問い合わせへ人間を集中させることです。
 
-```mermaid
-flowchart LR
-  subgraph Before[Before]
-    B1[顧客] --> B2[サポート担当者]
-    B2 --> B3[追加質問]
-    B3 --> B4[複数資料を検索]
-    B4 --> B5[原因判断]
-    B5 --> B6[回答]
-  end
-  subgraph After[After]
-    A1[顧客] --> A2[AIとの対話]
-    A2 --> A3[RAG / Knowledge]
-    A3 --> A4{根拠と判断条件}
-    A4 -->|回答可能| A5[自己解決]
-    A4 -->|専門判断が必要| A6[情報を保ったまま人間へ]
-  end
-```
+<div data-case-diagram="support-executive-summary"></div>
 
 ## 何を設計したケースか
 

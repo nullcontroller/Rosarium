@@ -24,18 +24,7 @@ order: 4
 
 このケースでは、PoCの評価をRetrieval、Generation、Business Acceptanceへ分けて設計します。対話はGenerationの前提となるContext収集として独立に観測します。
 
-```mermaid
-flowchart TD
-  I[問い合わせ] --> RE[Retrieval Evaluation]
-  RE --> DE[Dialogue / Context Evaluation]
-  DE --> AE[Generation Evaluation]
-  AE --> BA[Business Acceptance]
-
-  RE -.-> RQ[対象・版・公開範囲に適合した根拠か]
-  DE -.-> DQ[不足情報を確認できるか]
-  AE -.-> AQ[根拠から逸脱せず提示可能か]
-  BA -.-> BQ[自己解決と人間への移行が業務として成立するか]
-```
+<div data-case-diagram="support-poc-evaluation"></div>
 
 ## 1. Retrieval
 

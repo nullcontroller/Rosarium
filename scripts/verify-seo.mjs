@@ -118,7 +118,7 @@ for (const canonical of indexable)
     sitemapUrls.has(canonical),
     `Indexable canonical missing from sitemap: ${canonical}`,
   );
-for (const route of ["about/", "search/", "overview/", "404.html"])
+for (const route of ["search/", "overview/", "404.html"])
   assert.ok(
     !sitemap.includes(`/Rosarium/${route}`),
     `Sitemap contains noindex route: ${route}`,
@@ -130,7 +130,9 @@ const about = load(fs.readFileSync("dist/about/index.html", "utf8"));
 const overview = load(fs.readFileSync("dist/overview/index.html", "utf8"));
 const notFound = load(fs.readFileSync("dist/404.html", "utf8"));
 assert.match(search('meta[name="robots"]').attr("content") || "", /noindex/);
-assert.match(about('meta[name="robots"]').attr("content") || "", /noindex/);
+assert(!about('meta[name="robots"]').attr("content")?.includes("noindex"));
+assert.equal(about('link[rel="canonical"]').attr("href"), "https://nullcontroller.github.io/Rosarium/about/");
+assert.equal(about('meta[http-equiv="refresh"]').length, 0);
 assert.match(overview('meta[name="robots"]').attr("content") || "", /noindex/);
 assert.match(notFound('meta[name="robots"]').attr("content") || "", /noindex/);
 

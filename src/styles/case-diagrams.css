@@ -1,0 +1,178 @@
+.prose:has(> [data-case-flow]) {
+  max-width: none;
+}
+.prose:has(> [data-case-flow]) > :not([data-case-flow]) {
+  max-width: 78ch;
+}
+.case-diagram {
+  margin: 1.5rem 0;
+  padding: clamp(0.65rem, 2vw, 1.25rem);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  min-width: 0;
+  container-type: inline-size;
+  scroll-margin-top: 7rem;
+}
+.case-diagram figcaption {
+  font-weight: 600;
+  color: var(--ink);
+}
+.case-diagram-help {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin: 0.5rem 0 1rem;
+}
+.case-diagram svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.case-diagram .case-layout-desktop {
+  display: none;
+}
+.case-diagram .case-layout-mobile {
+  max-width: 420px;
+  margin-inline: auto;
+}
+.case-diagram marker path {
+  fill: var(--accent);
+}
+.case-edge {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.case-edge-dashed,
+.case-lifeline {
+  stroke-dasharray: 4 3;
+}
+.case-lifeline {
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.case-edge-label {
+  fill: var(--ink);
+  font:
+    14px system-ui,
+    sans-serif;
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.case-diagram [data-node] {
+  color: var(--ink);
+  text-decoration: none;
+}
+.case-diagram [data-enhanced] [data-node],
+.case-diagram[data-enhanced] [data-node] {
+  cursor: pointer;
+}
+.case-diagram rect {
+  fill: var(--surface);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.case-diagram [data-kind="knowledge"] rect {
+  fill: var(--soft);
+}
+.case-diagram [data-kind="ai"] rect {
+  stroke-width: 3;
+}
+.case-diagram [data-kind="human"] rect {
+  stroke-dasharray: 4 3;
+}
+.case-diagram [data-kind="decision"] rect {
+  stroke: var(--accent);
+}
+.case-diagram [data-kind="feedback"] rect {
+  fill: var(--bg);
+}
+.case-node-label {
+  fill: var(--ink);
+  font:
+    600 16px system-ui,
+    sans-serif;
+}
+.case-node-kind {
+  fill: var(--muted);
+  font:
+    12px system-ui,
+    sans-serif;
+}
+.case-selected-mark {
+  display: none;
+  fill: var(--accent);
+  font-size: 14px;
+}
+.case-diagram [aria-pressed="true"] rect {
+  fill: var(--soft);
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+.case-diagram [aria-pressed="true"] .case-selected-mark {
+  display: block;
+}
+.case-diagram [data-node]:focus-visible {
+  outline: none;
+}
+.case-diagram [data-node]:focus-visible rect {
+  stroke: var(--accent);
+  stroke-width: 4;
+  stroke-dasharray: 5 3;
+}
+.case-diagram-details {
+  min-height: 11rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+.case-diagram-details [data-detail] {
+  display: none;
+  scroll-margin-top: 7rem;
+}
+.case-diagram-details [data-detail]:first-child,
+.case-diagram-details [data-detail]:target {
+  display: block;
+}
+.case-diagram-details:has(:target) [data-detail]:not(:target) {
+  display: none;
+}
+[data-enhanced] .case-diagram-details [data-detail]:not([hidden]) {
+  display: block;
+}
+[data-enhanced] .case-diagram-details [data-detail][hidden] {
+  display: none;
+}
+.case-diagram-details h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+.case-diagram-details p {
+  margin: 0 0 1rem;
+}
+.case-diagram-announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+@container (min-width:640px) {
+  .case-diagram .case-layout-desktop {
+    display: block;
+  }
+  .case-diagram .case-layout-mobile {
+    display: none;
+  }
+  .case-diagram-details {
+    min-height: 8rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-diagram * {
+    animation: none;
+    transition: none;
+  }
+}

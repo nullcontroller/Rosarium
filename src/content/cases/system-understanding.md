@@ -91,8 +91,11 @@ series: system-understanding
 series_title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 order: 0
 cover: /assets/cases/system-understanding-hero.jpg
+show_cover: false
 cover_alt: 分散したコード・資料・既存システムを解析し、構造化されたKnowledgeへ再構築する流れ
 ---
+<div data-case-diagram="system-understanding"></div>
+
 ## Context
 
 長期間運用されたシステムでは、仕様書が不足し、当時の担当者や設計判断の記録が残っていないことがある。一方で、稼働中のソースコードには現在の処理、分岐、依存関係が残っている。

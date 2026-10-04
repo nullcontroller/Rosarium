@@ -51,21 +51,7 @@ AIが回答できないときに有人窓口を案内するだけでは、顧客
 
 Handoff PacketはAIが作る要約だけでは成立しません。機種ID、文書ID、版、停止理由のような構造化項目はシステムが保持し、要約はそれらを読む補助として生成します。
 
-```mermaid
-sequenceDiagram
-  participant C as 顧客
-  participant A as AI / QA
-  participant K as Knowledge
-  participant H as サポート担当者
-  C->>A: 自然な言葉で問い合わせ
-  A->>C: 不足情報を一つずつ確認
-  A->>K: 機種・版・公開範囲を付けて検索
-  K-->>A: 根拠候補
-  A->>A: 停止条件を判定
-  A-->>H: 確認済み情報・根拠・停止理由
-  A-->>C: 確認内容を担当者へ引継ぎ済みと表示
-  H->>C: 続きから専門対応
-```
+<div data-case-diagram="support-human-handoff"></div>
 
 ## 担当者向け画面
 
