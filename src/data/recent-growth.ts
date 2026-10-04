@@ -29,6 +29,7 @@ const curatedRecentGrowth = [
     type: "revised",
     title: "読書画面と更新履歴を整理",
     changes: [
+      "実務事例一覧から概要・目次導線を削除し、3事例タイトルを強調表示",
       "記事末尾のAuthorカードを廃止",
       "顧客サポートDX Bookの一覧画像を整備",
       "更新履歴を変更1件1行の形式へ改善",

@@ -1,7 +1,6 @@
 ---
 import type { Entry } from "../lib/navigation";
 import PublicationLink from "./PublicationLink.astro";
-import ContentLink from "./ContentLink.astro";
 import { url, base } from "../lib/site";
 import { imageDimensions } from "../lib/image-metadata";
 interface Props {
@@ -10,11 +9,8 @@ interface Props {
   showCover?: boolean;
   showIcons?: boolean;
 }
-const { entry, all, showCover = true, showIcons = true } = Astro.props;
+const { entry, showCover = true, showIcons = true } = Astro.props;
 const hasCover = showCover && Boolean(entry.data.cover);
-const chapters = all
-  .filter((e) => e.data.series === entry.data.series && (e.data.order ?? 0) > 0)
-  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 const coverDimensions = imageDimensions(
   entry.data.cover ? base + entry.data.cover : undefined,
 );
@@ -37,21 +33,8 @@ const coverDimensions = imageDimensions(
     </a>
   )}
   <div>
-    <PublicationLink entry={entry} heading="h2" showIcon={showIcons} />
+    <PublicationLink entry={entry} heading="h2" showIcon={showIcons && !hasCover} />
     <slot name="details" />
-    <p class="meta">全{chapters.length}章</p>
-    <p>
-      <a class="action-link" href={url(entry.id)}>概要・全体構成を読む →</a>
-    </p>
-    <details>
-      <summary>全{chapters.length}章の目次を見る</summary>
-      <ol>
-        {chapters.map((e) => (
-          <li>
-            <ContentLink entry={e} heading="p" showIcon={showIcons} />
-          </li>
-        ))}
-      </ol>
-    </details>
+
   </div>
 </article>

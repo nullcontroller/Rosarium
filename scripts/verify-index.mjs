@@ -526,7 +526,9 @@ for (const route of ["cases", "books"]) {
       .get(),
     expectedBooks,
   );
-  assert.equal($("[data-series-index] details").length, 3);
+  assert.equal($("[data-series-index] details, [data-series-index] summary").length, 0);
+  assert(!$("[data-series-index]").text().includes("概要・全体構成を読む"));
+  assert.equal($("[data-series-index] h2.content-title").length, 3);
 }
 assert.equal(
   page("series")('[data-series-index="foundations/ai-business-design"]').length,
@@ -588,7 +590,7 @@ for (const element of top("[data-growth-entry]").toArray()) {
 }
 assert.equal(
   top("[data-growth-entry]").first().find(".growth-changes > li").length,
-  7,
+  8,
 );
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
