@@ -45,7 +45,6 @@ const curatedRecentGrowth = [
     type: "revised",
     title: "Rosariumの記事と情報構造を更新",
     changes: [
-      "IT戦略・業務再設計・Legacy Lifecycleの3記事を公開",
       "Zenn由来Knowledgeを統合",
       "Careerを設計思想の入口と経験・Caseへのハブに再構成",
       "庭に命名由来を追加",

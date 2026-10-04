@@ -567,7 +567,7 @@ assert.equal(top("#about-rosarium").length, 1);
 assert.equal(top("#about-rosarium").text(), "Rosariumという名前について");
 assert.equal(top(".growth-list [data-growth-entry]").length, 3);
 assert.equal(top('[data-growth-entry] time[datetime="2026-10-04"]').length, 1);
-assert.equal(top('[data-growth-entry] time[datetime="2026-10-03"]').closest("[data-growth-entry]").find(".growth-changes > li").length, 6);
+assert.equal(top('[data-growth-entry] time[datetime="2026-10-03"]').closest("[data-growth-entry]").find(".growth-changes > li").length, 5);
 const growthDates = new Set();
 for (const element of top("[data-growth-entry]").toArray()) {
   const entry = top(element);
