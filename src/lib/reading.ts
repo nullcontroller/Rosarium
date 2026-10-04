@@ -1,5 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import { url } from "./site";
+import { caseStudies } from "./navigation";
 
 export type ReadingPath =
   "ai-design" | "ai-mathematics" | "practices" | "cases";
@@ -154,11 +155,7 @@ export const readingGroups: Record<
   cases: [
     {
       title: "",
-      ids: [
-        "cases/system-understanding",
-        "cases/three-ai-maintenance",
-        "cases/customer-support-ai-dx",
-      ],
+      ids: caseStudies.map((study) => study.book),
     },
   ],
 };

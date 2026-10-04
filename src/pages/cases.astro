@@ -23,7 +23,8 @@ const themeGroups = readingNavigation(all, "cases");
         showCover={false}
         showIcons={false}
       >
-        <dl slot="details" class="case-outcome" aria-label="課題から結果まで">
+        <div slot="details">
+        <dl class="case-outcome" aria-label="課題から結果まで">
           <div>
             <dt>課題</dt>
             <dd>{study.challenge}</dd>
@@ -37,6 +38,7 @@ const themeGroups = readingNavigation(all, "cases");
             <dd>{study.result}</dd>
           </div>
         </dl>
+        </div>
       </SeriesIndex>
     </section>
   ))}

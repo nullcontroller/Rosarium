@@ -19,7 +19,7 @@ import { readingCategories } from "../lib/navigation";
         <section class="reading-area" id={category.path}>
           <div>
             <h3 class="reading-question">
-              <a href={url(category.path)}>{category.question} →</a>
+              <a href={url(category.path)}>{category.question}</a>
             </h3>
             <p class="reading-category">{category.title}</p>
             <p>{category.summary}</p>
@@ -31,8 +31,8 @@ import { readingCategories } from "../lib/navigation";
 
   <nav class="secondary-reading" aria-label="AIコンテンツの補助的な入口">
     <p class="eyebrow">OTHER PATHS</p>
-    <a href={url("start-here")}>はじめに読む →</a>
-    <a href={url("books")}>Booksを見る →</a>
-    <a href={url("essays")}>考察を見る →</a>
+    <a href={url("start-here")}>はじめに読む</a>
+    <a href={url("books")}>Booksを見る</a>
+    <a href={url("essays")}>考察を見る</a>
   </nav>
 </Site>

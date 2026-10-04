@@ -229,9 +229,28 @@ export const relatedPublications = (all: Entry[], topic?: string) =>
   (topicPublications[topic || ""] || [])
     .map((id) => all.find((e) => e.id === id))
     .filter((e): e is Entry => !!e && isPublication(e));
-export const caseStudies = [
+// OBSOLETE retains reference value but is no longer the recommended configuration.
+// RETIRED has ended its role and is excluded from normal discovery paths.
+export type CaseLifecycle = "recommended" | "active" | "reference" | "obsolete" | "retired";
+const caseLifecyclePriority: Record<CaseLifecycle, number> = {
+  recommended: 0, active: 1, reference: 2, obsolete: 3, retired: 4,
+};
+type CaseStudy = {
+  book: string;
+  lifecycle: CaseLifecycle;
+  referenceNote?: string;
+  topics: string[];
+  challenge: string;
+  designSummary: string;
+  result: string;
+  chapters: string[];
+  design: string[];
+};
+const caseStudyEntries: CaseStudy[] = [
   {
     book: "cases/system-understanding",
+    lifecycle: "obsolete",
+    referenceNote: "旧AI環境を前提とした参考事例",
     topics: ["QA / RAG", "Knowledge再構築"],
     challenge:
       "仕様書だけでは内部仕様を追えず、知識が長期担当者に依存していた。",
@@ -252,12 +271,13 @@ export const caseStudies = [
   },
   {
     book: "cases/three-ai-maintenance",
+    lifecycle: "active",
     topics: ["AIオーケストレーション", "既存ソフトウェア開発・改善"],
     challenge:
-      "既存ソフトウェアの暗号方式変更で、仕様理解・影響調査・異常系設計を同時に進める必要があった。",
+      "コード、過去資料、仕様検討に必要な情報が分散し、一つのAIだけでは保守判断に必要な情報が揃わなかった。",
     designSummary:
-      "問いに必要なContextでAIを選び、人間レビューを挟んで仕様・コード・背景情報を統合した。",
-    result: "外部委託を不要にし、従来想定比で工期を約7割短縮した。",
+      "コードはGitHub Copilot、過去資料はMicrosoft 365 Copilot、仕様検討はGPTを中心に使い分け、人が確認して結果をつないだ。",
+    result: "コード調査から影響確認、背景調査、仕様検討、実装支援まで、AIを使える範囲を広げた。",
     chapters: [
       "cases/three-ai-maintenance/cryptography-and-failure-modes",
       "cases/three-ai-maintenance/structuring-failure-handling",
@@ -271,13 +291,14 @@ export const caseStudies = [
   },
   {
     book: "cases/customer-support-ai-dx",
+    lifecycle: "active",
     topics: ["Applied AI / DX", "RAG / HITL / UX"],
     challenge:
-      "すべての問い合わせへ人間が介在し、定型的な確認・検索と専門判断が同じ業務フローに混在していた。",
+      "定型的な確認や検索にも人手が掛かり、専門判断が必要な問い合わせと同じ流れで対応していた。",
     designSummary:
-      "顧客価値から業務を再設計し、AIの適用範囲、Knowledge制御、停止条件、人間への引継ぎ、評価・改善を一続きで設計した。",
+      "Knowledge / RAGと生成AIを組み合わせ、回答条件を満たさない場合は人へ引き継ぐ構成にした。",
     result:
-      "自己解決と専門対応を安全につなぐ設計モデルとして整理し、試算値と公開実績を明確に分離した。",
+      "AIで回答できる問い合わせと、人が判断すべき問い合わせを分けて運用できるように設計した。",
     chapters: [
       "cases/customer-support-ai-dx/responsibility-boundary",
       "cases/customer-support-ai-dx/poc-evaluation",
@@ -291,6 +312,9 @@ export const caseStudies = [
     ],
   },
 ];
+export const caseStudies = caseStudyEntries
+  .filter((study) => study.lifecycle !== "retired")
+  .sort((a, b) => caseLifecyclePriority[a.lifecycle] - caseLifecyclePriority[b.lifecycle]);
 
 export const mathematicsReadingIds = [
   "foundations/conditional-probability",

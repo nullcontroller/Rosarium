@@ -182,15 +182,15 @@ AIシステムそのものの一部だと考えています。
 
 <div class="career-work-grid">
   <article class="career-work">
-    <h3><a href="../cases/customer-support-ai-dx/">生成AI / RAGによる顧客サポートDX →</a></h3>
+    <h3><a href="../cases/customer-support-ai-dx/">生成AI / RAGによる顧客サポートDX</a></h3>
     <p>業務・AI・人間・Knowledgeを一体で設計した例。価値と責任分担から、評価・運用・改善までを追えます。</p>
   </article>
   <article class="career-work">
-    <h3><a href="../cases/three-ai-maintenance/">仕様調査から実装まで、複数AIを役割分担したレガシー保守 →</a></h3>
+    <h3><a href="../cases/three-ai-maintenance/">仕様調査から実装まで、複数AIを役割分担したレガシー保守</a></h3>
     <p>AIを判断主体ではなく設計支援として組み込み、人間がレビューと最終判断を引き取った例です。</p>
   </article>
   <article class="career-work">
-    <h3><a href="../cases/system-understanding/">理解しにくいレガシーシステムを、変更判断できる状態へ変える →</a></h3>
+    <h3><a href="../cases/system-understanding/">理解しにくいレガシーシステムを、変更判断できる状態へ変える</a></h3>
     <p>分散したコード・資料の理解を、変更と問い合わせへ再利用できるKnowledgeへ変換した例です。</p>
   </article>
 </div>
@@ -199,4 +199,4 @@ AIシステムそのものの一部だと考えています。
 
 職歴・肩書き・在籍期間・資格・経歴の詳細はLinkedInを正本として更新しています。Rosariumでは設計思想と実践事例を示しています。
 
-[LinkedInで職務プロフィールを見る →](https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/)
+[LinkedInで職務プロフィールを見る](https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/)

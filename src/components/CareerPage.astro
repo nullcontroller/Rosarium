@@ -68,17 +68,17 @@ const linkedIn =
   <section class="content-related" aria-label="関連する内容" data-related-content>
     <h2>関連する内容</h2>
     <ul class="reading-exit-links career-case-links">
-      {caseLinks.map((link) => <li><a href={link.href}>{link.title} →</a><p class="meta">{link.summary}</p></li>)}
+      {caseLinks.map((link) => <li><a href={link.href}>{link.title}</a><p class="meta">{link.summary}</p></li>)}
     </ul>
     <nav class="career-actions" aria-label="キャリアの主要導線">
       <a
         class="action-link"
         href={url(isOverview ? "career/details" : "career")}
       >
-        {isOverview ? "経験と実践の背景を見る →" : "仕事の考え方へ戻る →"}
+        {isOverview ? "経験と実践の背景を見る" : "仕事の考え方へ戻る"}
       </a>
-      <a class="action-link" href={linkedIn}>LinkedInで職歴・資格を見る →</a>
-      {!isOverview && <a class="action-link" data-implementation-link href="https://github.com/nullcontroller/Rosarium">サイトの実装を見る →</a>}
+      <a class="action-link" href={linkedIn}>LinkedInで職歴・資格を見る</a>
+      {!isOverview && <a class="action-link" data-implementation-link href="https://github.com/nullcontroller/Rosarium">サイトの実装を見る</a>}
     </nav>
 
   </section>

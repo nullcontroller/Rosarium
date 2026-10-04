@@ -34,7 +34,7 @@ const categoryGroups = dxCategories.map((category) => {
     {categoryGroups.map((category) => (
       <section class="dx-category" id={category.id}>
         <h3>
-          <a href={url(`dx/${category.id}`)}>{category.title} →</a>
+          <a href={url(`dx/${category.id}`)}>{category.title}</a>
         </h3>
         <p>{category.summary}</p>
         {category.articles.length > 0 && (

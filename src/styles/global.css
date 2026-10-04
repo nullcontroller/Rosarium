@@ -1516,12 +1516,6 @@ blockquote {
   text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
   text-underline-offset: 0.25em;
 }
-.content-title a::after,
-.current-growth-list .content-title a::after {
-  content: " →";
-  white-space: nowrap;
-  text-decoration: none;
-}
 .content-title a:hover,
 .content-title a:focus-visible,
 .current-growth-list .content-title a:hover,
@@ -2229,13 +2223,19 @@ blockquote {
   position: relative;
   padding: 0.85rem 0;
 }
-.case-outcome > div:not(:last-child)::after {
-  content: "→";
-  position: absolute;
-  inset-inline-end: -0.95rem;
-  inset-block-start: 50%;
+.case-reference-note {
   color: var(--muted);
-  transform: translateY(-50%);
+  font-size: .875rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+.case-reference-note span {
+  display: inline-block;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: .1rem .45rem;
+  margin-inline-end: .35rem;
+  background: var(--soft);
 }
 .case-outcome dt {
   color: var(--accent);
@@ -2293,14 +2293,6 @@ blockquote {
   }
   .case-outcome > div:last-child {
     border-bottom: 0;
-  }
-  .case-outcome > div:not(:last-child)::after {
-    content: "↓";
-    inset-inline-start: 0;
-    inset-inline-end: auto;
-    inset-block-start: auto;
-    inset-block-end: 0.15rem;
-    transform: none;
   }
 }
 

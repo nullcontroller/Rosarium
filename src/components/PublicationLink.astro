@@ -4,6 +4,7 @@ import {
   publicationType,
   publicationStatus,
   publicationTiming,
+  caseStudies,
 } from "../lib/navigation";
 import { iconForEntry } from "../lib/icons";
 import { formatDateJa, url } from "../lib/site";
@@ -19,6 +20,7 @@ const d = entry.data;
 const purposes = contentUseCases(entry);
 const timing = publicationTiming(entry);
 const publicationState = publicationStatus(entry);
+const caseStudy = caseStudies.find((study) => study.book === entry.id);
 ---
 
 <div class:list={["content-entry", "publication-entry", showIcon && "icon-entry"]} data-content-id={entry.id}>
@@ -28,6 +30,9 @@ const publicationState = publicationStatus(entry);
       <a href={url(entry.id)}>{d.title}</a>
     </Heading>
     <p class="content-summary">{d.summary}</p>
+    {caseStudy?.lifecycle === "obsolete" && (
+      <p class="case-reference-note"><span>OBSOLETE</span> {caseStudy.referenceNote}</p>
+    )}
     {purposes.length > 0 && (
       <p class="meta publication-purpose publication-topics">
         {purposes.map((purpose) => purpose.shortTitle).join(" / ")}

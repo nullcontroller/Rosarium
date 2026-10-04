@@ -222,7 +222,7 @@ const bookNavigation = series.length
       )}
       {next && (
         <div>
-          <p>次のページ →</p>
+          <p>次のページ</p>
           <ContentLink entry={next} heading="p" />
         </div>
       )}
@@ -232,7 +232,7 @@ const bookNavigation = series.length
     {readingExit.anchors.map((id) => <span id={id} />)}
     <SectionHeading icon="arrow" title="次に読む" />
     <ul class="reading-exit-links">
-      {readingExit.links.map((link) => <li><a href={link.href}>{link.title} →</a></li>)}
+      {readingExit.links.map((link) => <li><a href={link.href}>{link.title}</a></li>)}
     </ul>
   </section>
 </Site>

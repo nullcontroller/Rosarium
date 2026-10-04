@@ -44,23 +44,23 @@ source:
     <p class="eyebrow">APPLIED AI × DX × SYSTEM ARCHITECTURE</p>
     <h3><a href="../../cases/customer-support-ai-dx/">生成AI / RAGによる顧客サポートDX</a></h3>
     <p>顧客価値と業務課題から出発し、AI・人間・既存システムの責任分担、PoC、Knowledge、UX、評価、継続改善までを一つのシステムとして設計した事例です。</p>
-    <p><a class="career-inline-cta" href="../../cases/customer-support-ai-dx/">代表事例を読む →</a></p>
+    <p><a class="career-inline-cta" href="../../cases/customer-support-ai-dx/">代表事例を読む</a></p>
   </article>
   <article class="career-work">
     <p class="eyebrow">KNOWLEDGE RECONSTRUCTION</p>
     <h3><a href="../../cases/system-understanding/">理解しにくいレガシーシステムを、変更判断できる状態へ変える</a></h3>
     <p>散在したコードと資料から仕様理解の土台を再構築し、既存システムを安全に変更できる状態へ近づけた実践です。</p>
-    <p><a class="career-inline-cta" href="../../cases/system-understanding/">事例を読む →</a></p>
+    <p><a class="career-inline-cta" href="../../cases/system-understanding/">事例を読む</a></p>
   </article>
   <article class="career-work">
     <p class="eyebrow">AI-ASSISTED SOFTWARE ENGINEERING</p>
     <h3><a href="../../cases/three-ai-maintenance/">仕様調査から実装まで、複数AIを役割分担したレガシー保守</a></h3>
     <p>GPT、GitHub Copilot、Microsoft 365 Copilotを工程ごとに分担し、根拠確認と最終判断を人間に残した保守・改善の実践です。</p>
-    <p><a class="career-inline-cta" href="../../cases/three-ai-maintenance/">事例を読む →</a></p>
+    <p><a class="career-inline-cta" href="../../cases/three-ai-maintenance/">事例を読む</a></p>
   </article>
 </div>
 
-<p class="career-section-link"><a href="../../cases/">実践事例をすべて見る →</a></p>
+<p class="career-section-link"><a href="../../cases/">実践事例をすべて見る</a></p>
 
 ## Design Perspective
 
@@ -78,7 +78,7 @@ Rosariumは、Applied AI、DX、System Architecture、実践事例について�
 
 記事だけでなく、Information Architecture、UI、Navigation、Content Structure、Knowledge Organizationも、Codex等を活用しながら利用と検証を通じて改善しています。このサイト自体も、設計し、使い、観察し、改善する成果物の一つです。
 
-<p class="career-section-link"><a href="../../">Rosariumの庭を見る →</a></p>
+<p class="career-section-link"><a href="../../">Rosariumの庭を見る</a></p>
 
 ## Professional Profile
 
@@ -88,5 +88,5 @@ Rosariumは、Applied AI、DX、System Architecture、実践事例について�
     <h3>詳細な職務プロフィール</h3>
     <p>所属・職務経歴、経験年数、学歴、資格、Skills等は、LinkedInを正本として更新しています。採用・求人に関してご覧いただく場合は、LinkedInプロフィールをご確認ください。</p>
   </div>
-  <p><a class="career-cta career-cta-secondary" href="https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/">LinkedInで職務プロフィールを見る →</a></p>
+  <p><a class="career-cta career-cta-secondary" href="https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/">LinkedInで職務プロフィールを見る</a></p>
 </div>

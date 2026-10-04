@@ -356,7 +356,7 @@ assert.deepEqual(
   pubs(".secondary-reading a")
     .map((_, element) => pubs(element).text().trim())
     .get(),
-  ["はじめに読む →", "Booksを見る →", "考察を見る →"],
+  ["はじめに読む", "Booksを見る", "考察を見る"],
 );
 assert.equal(pubs('.secondary-reading a[href="/Rosarium/essays/"]').length, 1);
 const dx = page("dx");
@@ -419,6 +419,14 @@ for (const [id, expected] of [
   }
 }
 const cases = page("cases");
+assert.deepEqual(
+  cases("[data-series-index]").map((_, element) => cases(element).attr("data-series-index")).get(),
+  ["cases/three-ai-maintenance", "cases/customer-support-ai-dx", "cases/system-understanding"],
+);
+assert.equal(cases(".case-reference-note span").text().trim(), "OBSOLETE");
+assert(cases(".case-reference-note").text().includes("旧AI環境を前提とした参考事例"));
+assert(!cases("main a").text().includes("→"));
+assert(page("cases/system-understanding")(".case-position-note").text().includes("現在の推奨構成ではありません"));
 assert.equal(
   cases(".header-primary a[aria-current=page]").text().trim(),
   "事例",
@@ -513,9 +521,9 @@ assert.equal(
   0,
 );
 const expectedBooks = [
-  "cases/system-understanding",
   "cases/three-ai-maintenance",
   "cases/customer-support-ai-dx",
+  "cases/system-understanding",
 ];
 for (const route of ["cases", "books"]) {
   const $ = page(route);
@@ -557,9 +565,9 @@ console.log(
 assert(top("#recent-growth-heading").length);
 assert.equal(top(".growth-scrollbox").length, 0);
 assert.equal(top(".home-primary-panels > section").length, 2);
-assert.equal(top('a[href="/Rosarium/about/"]').text().trim(), "Rosariumとは？ →");
+assert.equal(top('a[href="/Rosarium/about/"]').text().trim(), "Rosariumとは？");
 assert.equal(top("#about-rosarium").length, 0);
-assert.equal(top('a[href="/Rosarium/garden-notes/"]').text().trim(), "Garden Notesを見る →");
+assert.equal(top('a[href="/Rosarium/garden-notes/"]').text().trim(), "Garden Notesを見る");
 const gardenNotes = page("garden-notes");
 assert.equal(gardenNotes("[data-growth-entry]").length, recentGrowth.length);
 assert.equal(gardenNotes("#notes-2026-10").length, 1);
