@@ -576,6 +576,8 @@ for (const element of top("[data-growth-entry]").toArray()) {
   assert(!growthDates.has(date), `Duplicate Recent Growth date: ${date}`);
   growthDates.add(date);
   assert.equal(entry.find("p.content-summary").length, 0);
+  assert.equal(entry.find("a").length, 0, `${date}: plain text only`);
+  assert(!entry.text().includes("→"), `${date}: no navigation arrows`);
   const changes = entry.find(".growth-changes > li");
   assert(changes.length > 0, `${date}: changes are required`);
   for (const change of changes.toArray()) {

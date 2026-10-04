@@ -4,7 +4,6 @@ import {
   recentGrowthDateLabel,
   recentGrowthLabels,
 } from "../data/recent-growth";
-import { url } from "../lib/site";
 import Icon from "./Icon.astro";
 
 interface Props {
@@ -25,7 +24,7 @@ const { entry } = Astro.props;
       <span>{entry.category}</span>
     </p>
     <h3 class="content-title">
-      <a href={url(entry.href)}>{entry.title}</a>
+      {entry.title}
     </h3>
     <ul class="growth-changes content-summary" role="list">
       {entry.changes.map((change) => <li>{change}</li>)}

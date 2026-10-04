@@ -16,10 +16,10 @@ export interface RecentGrowthItem {
   title: string;
   changes: string[];
   category: string;
-  href: string;
   icon?: IconName;
 }
 
+// Garden Notes summarizes changes as plain text, without navigation links.
 // This is the single source of truth for the public update history.
 // Keep one entry per date; add each reader-facing change as a short changes item.
 // Prioritize new articles/Cases/Books, substantive revisions and content integration.
@@ -34,10 +34,9 @@ const curatedRecentGrowth = [
       "顧客サポートDXにインタラクティブ図を追加",
       "CareerとCareer Detailsの役割分担を整理",
       "各ページの入口説明を平易化",
-      "サイトの見た目・導線を整理",
+      "表示・導線を整理",
     ],
     category: "Rosarium",
-    href: "",
     icon: "home",
   },
   {
@@ -49,10 +48,9 @@ const curatedRecentGrowth = [
       "Careerを設計思想の入口と経験・Caseへのハブに再構成",
       "庭に命名由来を追加",
       "Analytics利用説明を追加",
-      "サイトの見た目・導線を整理",
+      "表示・導線を整理",
     ],
     category: "Rosarium",
-    href: "",
     icon: "home",
   },
   {
@@ -63,7 +61,6 @@ const curatedRecentGrowth = [
       "Applied AI・システム設計・AI数学論・実務事例を扱うRosariumを公開",
     ],
     category: "Rosarium",
-    href: "",
     icon: "updates",
   },
 ] satisfies RecentGrowthItem[];
