@@ -150,7 +150,7 @@ assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["庭", "AI", "DX", "実践事例", "Reference"],
+  ["庭", "AI", "DX", "実践事例", "Reference", "退役記事"],
 );
 assert.deepEqual(
   top(".header-primary a")
@@ -170,14 +170,14 @@ for (const secondary of ["詳細職務経歴", "Books", "連載", "Essays"])
     !top(".sidebar nav a .nav-copy > span").text().includes(secondary),
     secondary,
   );
-assert.equal(top(".sidebar .icon").length, 5);
+assert.equal(top(".sidebar .icon").length, 6);
 assert.equal(
   new Set(
     top(".sidebar .icon")
       .map((_, e) => top(e).attr("class"))
       .get(),
   ).size,
-  5,
+  6,
 );
 assert.equal(top('.sidebar a[href="/Rosarium/career/"]').length, 0);
 assert.equal(top('.sidebar a[href="/Rosarium/updates/"]').length, 0);

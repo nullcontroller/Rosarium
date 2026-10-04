@@ -18,7 +18,21 @@ assert(!sitemap.includes("https://nullcontroller.github.io/Rosarium/retired/"));
 for (const feed of feeds) assert(!feed.includes("https://nullcontroller.github.io/Rosarium/retired/"));
 assert.equal(retiredIndex("[data-retired-id]").length, report.entries.filter((record) => record.lifecycle === "RETIRED").length);
 const about = load(fs.readFileSync("dist/about/index.html", "utf8"));
-assert.equal(about('a[href="/Rosarium/retired/"]').length, 1);
+assert.equal(about('main a[href="/Rosarium/retired/"]').length, 1);
+const historical = fs.readdirSync("src/content", { recursive: true })
+  .filter((file) => file.endsWith(".md"))
+  .map((file) => ({ id: file.replaceAll("\\", "/").replace(/\.md$/, ""), data: YAML.parse(fs.readFileSync(`src/content/${file}`, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]) }))
+  .filter((entry) => publishedEntry(entry) && ["obsolete", "retired"].includes(entry.data.lifecycle));
+assert.equal(retiredIndex("[data-history-id]").length, historical.length);
+for (const entry of historical) {
+  const item = retiredIndex(`[data-history-group="${entry.data.lifecycle}"] [data-history-id="${entry.id}"]`);
+  assert.equal(item.length, 1);
+  assert(item.text().includes(entry.data.lifecycle_reason));
+  assert.equal(item.find("time").last().attr("datetime"), entry.data.last_updated);
+}
+const nav = retiredIndex(".sidebar .nav-group").last();
+assert.deepEqual(nav.find(".nav-copy > span").map((_, element) => nav.find(element).text()).get(), ["Reference", "退役記事"]);
+assert.equal(retiredIndex('.header-primary a[href="/Rosarium/retired/"]').length, 0);
 for (const record of report.entries) {
   counts[record.lifecycle] = (counts[record.lifecycle] ?? 0) + 1;
   if (record.lifecycle === "DELETE") { assert.equal(record.original_slug, "test"); assert.equal(record.recovered, true); continue; }
@@ -45,7 +59,7 @@ for (const record of report.entries) {
   if (record.lifecycle === "RETIRED") {
     const item = retiredIndex(`[data-retired-id="${record.destination}"]`);
     assert.equal(item.length, 1);
-    assert.equal(item.find("h2 a").attr("href"), `/Rosarium/${record.destination}/`);
+    assert.equal(item.find("h3 a").attr("href"), `/Rosarium/${record.destination}/`);
     assert(item.text().includes(data.summary));
     assert(item.text().includes(data.lifecycle_reason));
     assert.equal(item.find("time").attr("datetime"), data.published_at.slice(0, 10));

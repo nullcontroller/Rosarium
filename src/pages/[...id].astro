@@ -167,7 +167,7 @@ const bookNavigation = series.length
         </p>
       )}
     </header>
-    <LifecycleNote lifecycle={d.lifecycle} reason={d.lifecycle_reason} />
+    {entry.id !== "cases/system-understanding" && <LifecycleNote lifecycle={d.lifecycle} reason={d.lifecycle_reason} />}
     {d.cover && d.show_cover && (
       <img
         class="book-cover"

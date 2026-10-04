@@ -11,6 +11,7 @@ export type IconName =
   | "ai-mathematics"
   | "practices"
   | "reference"
+  | "archive"
   | "updates"
   | "search"
   | "applicability"
@@ -38,6 +39,7 @@ export const sectionIcons: Record<string, IconName> = {
   "ai-mathematics": "ai-mathematics",
   practices: "practices",
   reference: "reference",
+  retired: "archive",
   updates: "updates",
   search: "search",
 };

@@ -6,6 +6,8 @@ title: 理解しにくいレガシーシステムを、変更判断できる状�
 kind: case
 section: cases
 status: published
+lifecycle: obsolete
+lifecycle_reason: "当時はGPT-4のみを利用しており、コードベース全体を十分に参照できない制約がありました。現在はGitHub Copilotで実装関係を追えるため、当時の仕様復元手順を現在の推奨構成とはせず、制約下での設計判断を残しています。"
 last_updated: "2026-10-04"
 entry_points:
   - ai

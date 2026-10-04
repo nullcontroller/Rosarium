@@ -86,6 +86,12 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
       summary: "用語・数式・参照資料",
       icon: iconForPath("reference"),
     },
+    {
+      path: "retired",
+      title: "退役記事",
+      summary: "旧記事・役割を終えた記事",
+      icon: iconForPath("retired"),
+    },
   ],
 ];
 export const designTopics = [

@@ -4,30 +4,40 @@ import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import { publishedEntry, formatDateJa, url } from "../lib/site";
 
-// RETIRED is publicly preserved history, accessible only through this dedicated index.
+// Lifecycle metadata is the source of truth for both historical groups.
 const entries = (await getCollection("pages", (entry) =>
-  publishedEntry(entry) && entry.data.lifecycle === "retired"
+  publishedEntry(entry) && ["obsolete", "retired"].includes(entry.data.lifecycle)
 )).sort((a, b) => (b.data.published_at ?? "").localeCompare(a.data.published_at ?? "") || a.id.localeCompare(b.id));
-const summary = "独立した記事としての役割を終えたコンテンツを、過去の思考や設計判断の記録として残しています。";
+const groups = [
+  { lifecycle: "obsolete", title: "旧記事", description: "現在の推奨内容ではありませんが、当時の前提や設計判断に参考価値がある記事です。" },
+  { lifecycle: "retired", title: "退役記事", description: "独立した記事としての役割を終えたコンテンツです。現在の推奨内容ではなく、過去の思考や設計判断の記録として公開を維持しています。" },
+];
+const summary = "現在は非推奨の旧記事と、独立した役割を終えた退役記事を、過去の思考や設計判断の記録として残しています。";
 ---
 
 <Site title="退役記事" summary={summary} section="retired" noindex lastUpdated="2026-10-05"
   breadcrumbs={[{ name: "Rosarium", path: "" }, { name: "退役記事", path: "retired" }]}>
   <div class="retired-page">
     <PageHeader title="退役記事" />
-    <p>ここには、現在は独立した記事としての役割を終えたコンテンツを残しています。</p>
-    <p>現在の推奨内容としてではなく、過去の思考や設計判断の記録として公開を維持しています。</p>
+    <p>旧記事（OBSOLETE）は現在は非推奨ですが、当時の前提や判断に参考価値があります。</p>
+    <p>退役記事（RETIRED）は独立した役割を終え、過去の記録として保存しています。</p>
+    {groups.map((group) => <section data-history-group={group.lifecycle} aria-labelledby={`history-${group.lifecycle}`}>
+    <h2 id={`history-${group.lifecycle}`}>{group.title} <small>{group.lifecycle.toUpperCase()}</small></h2>
+    <p>{group.description}</p>
     <ul class="retired-list">
-      {entries.map((entry) => (
-        <li data-retired-id={entry.id}>
-          <span class="retired-badge">RETIRED</span>
-          <h2><a href={url(entry.id)}>{entry.data.title}</a></h2>
+      {entries.filter((entry) => entry.data.lifecycle === group.lifecycle).map((entry) => (
+        <li data-retired-id={entry.data.lifecycle === "retired" ? entry.id : undefined} data-history-id={entry.id}>
+          <span class="retired-badge">{group.lifecycle.toUpperCase()}</span>
+          <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>
           {entry.data.published_at && <p class="retired-date">元の公開日：<time datetime={entry.data.published_at.slice(0, 10)}>{formatDateJa(entry.data.published_at)}</time></p>}
+          {!entry.data.published_at && <p class="retired-date">元の公開時期：{entry.data.source?.publication_month ?? "未確認"}</p>}
+          <p class="retired-date">最終更新：<time datetime={entry.data.last_updated}>{formatDateJa(entry.data.last_updated)}</time></p>
           <p>{entry.data.summary}</p>
-          <p class="retired-reason">退役理由：{entry.data.lifecycle_reason}</p>
+          <p class="retired-reason">{group.lifecycle === "retired" ? "退役理由" : "旧記事として残す理由"}：{entry.data.lifecycle_reason}</p>
         </li>
       ))}
     </ul>
+    </section>)}
   </div>
 </Site>
 
@@ -36,7 +46,12 @@ const summary = "独立した記事としての役割を終えたコンテンツ
   .retired-page :global(h1) { color: var(--obsolete-ink); }
   .retired-list { list-style: none; padding: 0; margin-top: 1.5rem; display: grid; gap: 1rem; }
   .retired-list > li { padding: 1rem 1.25rem; border: 1px dashed var(--obsolete-line); background: var(--obsolete-bg); }
-  .retired-list h2 { font-size: 1.25rem; line-height: 1.6; margin: .5rem 0; color: var(--obsolete-ink); }
+  .retired-page section { margin-top: 2rem; }
+  .retired-page h2 { color: var(--obsolete-ink); font-size: 1.4rem; }
+  .retired-page h2 small { color: var(--obsolete-muted); font-size: .8rem; }
+  [data-history-group="obsolete"] .retired-list > li { border-style: solid; }
+  [data-history-group="retired"] h2 { color: var(--obsolete-muted); }
+  .retired-list h3 { font-size: 1.25rem; line-height: 1.6; margin: .5rem 0; color: var(--obsolete-ink); }
   .retired-list a { color: var(--obsolete-link); text-decoration: underline; text-underline-offset: .2em; }
   .retired-list a:hover, .retired-list a:focus-visible { color: var(--obsolete-hover); }
   .retired-list a:focus-visible { outline: 2px solid var(--obsolete-line); outline-offset: 3px; }

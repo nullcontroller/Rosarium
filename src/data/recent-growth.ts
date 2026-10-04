@@ -36,7 +36,7 @@ const curatedRecentGrowth = [
     title: "過去のZenn記事をライフサイクル管理へ移行",
     changes: [
       "過去のZenn記事を確認・復元し、ACTIVE・OBSOLETE・RETIREDに分類",
-      "退役記事を確認できる専用ページを追加",
+      "旧記事・退役記事を確認できる専用ページを追加",
     ],
     category: "Rosarium",
     icon: "updates",
