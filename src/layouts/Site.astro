@@ -30,6 +30,7 @@ interface Props {
   themeGroups?: ReadingGroup[];
   bookNavigation?: {
     title: string;
+    chapterCount: number;
     items: { title: string; href: string; current: boolean }[];
   };
   frame?: boolean;
@@ -379,7 +380,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         {bookNavigation && (
           <details class="book-toc-mobile">
             <summary>
-              このBookの目次（全{bookNavigation.items.length - 1}章）
+              このBookの目次（全{bookNavigation.chapterCount}章）
             </summary>
             <ol>
               {bookNavigation.items.map((item) => (

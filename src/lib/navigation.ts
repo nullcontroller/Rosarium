@@ -322,3 +322,9 @@ export const relatedCases = (all: Entry[], entry: Entry) => {
   const ids = new Set(topics.flatMap((topic) => topicPublications[topic] || []));
   return all.filter((item) => ids.has(item.id) && item.data.section === "cases" && item.data.order === 0 && item.id !== entry.id).slice(0, 2);
 };
+
+// Displayed 00 is an introduction; order remains the sequence for navigation.
+export const bookChapterNumber = (entry: Entry) => {
+  const number = entry.data.title.match(/^(\d{2})\.\s/);
+  return number ? Number(number[1]) : (entry.data.order ?? 0);
+};

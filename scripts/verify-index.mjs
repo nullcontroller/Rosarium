@@ -712,13 +712,13 @@ assert.equal(customerSupportBook(".book-toc-mobile > ol > li").length, 11);
 assert.equal(customerSupportBook(".book-toc .content-entry").length, 0);
 assert.equal(
   customerSupportBook(".series-position-inline").text(),
-  "現在位置：全体構成・全10章",
+  "現在位置：全体構成・全9章",
 );
 assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
     ".series-position-inline",
   ).text(),
-  "現在位置：第4章・全10章",
+  "現在位置：第3章・全9章",
 );
 assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
@@ -733,7 +733,7 @@ assert(
 );
 assert.equal(
   page("cases/customer-support-ai-dx/design-principles")(".series-position-inline").text(),
-  "現在位置：第10章・全10章",
+  "現在位置：第9章・全9章",
 );
 assert.equal(customerSupportBook('a[href*="outcomes-and-evidence"]').length, 0);
 assert(page("career")('a[href$="/cases/customer-support-ai-dx/"]').length);
@@ -945,3 +945,11 @@ for (const file of walk("dist").filter((file) => file.endsWith("index.html"))) {
   if ($('.career-actions').length) assert($('.career-actions a').length <= 3, `${file}: compact profile paths`);
 }
 console.log("Verified compact reading exits, Case/Career reciprocity and Practice discovery.");
+
+const supportTitles = customerSupportBook(".book-toc a").map((_, node) => customerSupportBook(node).text().trim()).get();
+assert.deepEqual(supportTitles.slice(2).map((title) => title.slice(0, 2)), ["01", "02", "03", "04", "05", "06", "07", "08", "09"]);
+assert(customerSupportBook(".book-toc-mobile summary").text().includes("全9章"));
+assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".series-position-inline").text(), "現在位置：導入・全9章");
+const lastSupportChapter = page("cases/customer-support-ai-dx/design-principles");
+assert(!lastSupportChapter(".pagination").text().includes("次のページ"));
+assert(lastSupportChapter('.pagination a[href="/Rosarium/cases/customer-support-ai-dx/continuous-improvement/"]').length);
