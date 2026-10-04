@@ -1,8 +1,8 @@
 ---
-summary: "既存ソフトウェアの暗号処理を安全に変更するため、仕様調査・実装・確認を3つのAIで分担した事例です。GPT・GitHub Copilot・Microsoft 365 Copilotを使い、人間が判断責任を保持した工程を示します。"
+summary: "既存ソフトウェアの暗号処理と異常系を見直すため、仕様調査・仕様化・実装を複数AIで分担した事例です。人間が採否と承認を担い、各工程の成果物を確認して次の工程へつなぎます。"
 publication_format: book
 layer: publication
-title: 3つのAIをオーケストレーションしたレガシー保守
+title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
 kind: case
 section: cases
 status: published
@@ -65,7 +65,7 @@ source:
       - 147fb6
       - c8af5c
 series: three-ai-maintenance
-series_title: 3つのAIをオーケストレーションしたレガシー保守
+series_title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
 order: 0
 cover: /assets/cases/three-ai-maintenance-hero.jpg
 cover_alt: 複数AIを仕様調査・コード探索・実装支援へ分担し、人間がレビューと最終判断を行う保守フロー

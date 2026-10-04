@@ -1,7 +1,7 @@
 ---
 summary: "暗号処理の保守を内製化し、当初想定の開発期間を約7割短縮した結果を振り返る。3つのAIの役割、成果物の受け渡し、人間の判断、方法が成立した条件と限界を整理する。"
 layer: publication
-title: 第7章　成果と考察
+title: 第7章 内製化と期間短縮を振り返り、役割分担の成立条件を整理する
 kind: case
 section: cases
 status: published
@@ -29,11 +29,11 @@ source:
     title: 第7章　成果と考察
     free: false
 series: three-ai-maintenance
-series_title: 3つのAIをオーケストレーションしたレガシー保守
+series_title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
 order: 7
 ---
 
-## 第7章　成果と考察
+## 第7章 内製化と期間短縮を振り返り、役割分担の成立条件を整理する
 
 今回の取り組みでは、CRA対応に伴うセキュリティ要件の強化を契機として、レガシーシステムの暗号処理と異常系を見直した。
 

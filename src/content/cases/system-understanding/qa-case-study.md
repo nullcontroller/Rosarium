@@ -1,7 +1,7 @@
 ---
 summary: "対象となる約3万行のC#業務アプリケーションの状況を整理する。不要コード・連携責務・処理フロー・設計意図が分かりにくい問題から、仕様と知識を復元する必要性を示す。"
 layer: publication
-title: 第2章 実践事例 ― QAチャットによる構造理解と意思決定の高速化
+title: 第2章 対象システムの変更を妨げる構造と知識の不足を整理する
 kind: case
 section: cases
 status: published
@@ -29,7 +29,7 @@ source:
     title: 第2章 実践事例 ― QAチャットによる構造理解と意思決定の高速化
     free: false
 series: system-understanding
-series_title: レガシーシステムを「理解可能な状態」にする設計手法
+series_title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 order: 2
 ---
 

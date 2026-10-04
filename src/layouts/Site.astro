@@ -418,11 +418,26 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         <aside class="theme-toc" aria-label="このテーマの記事">
           <p>このテーマの記事</p>
           <div class="theme-nav-groups">
-            {themeGroups.map((group) => (
-              <details open={group.current}>
-                <summary>
-                  {group.title} <span>{group.links.length}</span>
-                </summary>
+            {themeGroups.map((group) =>
+              group.title ? (
+                <details open={group.current}>
+                  <summary>
+                    {group.title} <span>{group.links.length}</span>
+                  </summary>
+                  <ul>
+                    {group.links.map((item) => (
+                      <li class:list={[item.current && "current"]}>
+                        <a
+                          href={item.href}
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {item.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ) : (
                 <ul>
                   {group.links.map((item) => (
                     <li class:list={[item.current && "current"]}>
@@ -435,8 +450,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                     </li>
                   ))}
                 </ul>
-              </details>
-            ))}
+              ),
+            )}
           </div>
         </aside>
       )}

@@ -1,8 +1,8 @@
 ---
-summary: "仕様書が不足する既存システムを、まず人間が理解し、変更できる状態へ整える事例です。コードから仕様を復元し、PlantUMLで可視化した知識をRAG / QAへつなぎます。"
+summary: "仕様や依存関係が分かりにくい既存システムを、変更判断に使える情報へ整理した事例です。コードから復元した仕様を人間が確認し、PlantUMLによる可視化とRAG / QAで再利用できるKnowledgeへつなぎます。"
 publication_format: book
 layer: publication
-title: レガシーシステムを「理解可能な状態」にする設計手法
+title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 kind: case
 section: cases
 status: published
@@ -88,7 +88,7 @@ source:
       - 6dcbe1
       - a490bc
 series: system-understanding
-series_title: レガシーシステムを「理解可能な状態」にする設計手法
+series_title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 order: 0
 cover: /assets/cases/system-understanding-hero.jpg
 cover_alt: 分散したコード・資料・既存システムを解析し、構造化されたKnowledgeへ再構築する流れ

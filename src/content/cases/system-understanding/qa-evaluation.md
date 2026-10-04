@@ -1,7 +1,7 @@
 ---
 summary: "構築したQAを、正しさ・出典・一貫性・耐誘導性などの観点で評価する。誤情報、粒度、根拠不足、推測による回答を見つけ、改善対象を明確にする。"
 layer: publication
-title: 第9章 QAシステムの評価設計 ― 信頼可能な品質の定義
+title: 第9章 正しさ・出典・回答拒否から、QAの利用可否を評価する
 kind: case
 section: cases
 status: published
@@ -29,7 +29,7 @@ source:
     title: 第9章 QAシステムの評価設計 ― 信頼可能な品質の定義
     free: false
 series: system-understanding
-series_title: レガシーシステムを「理解可能な状態」にする設計手法
+series_title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 order: 9
 ---
 

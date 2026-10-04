@@ -1,7 +1,7 @@
 ---
 summary: "人がシステムの全体像を理解する図と、AIが必要な根拠を探す資料を分けます。PlantUMLとMarkdownを使い、文脈を残しながら、RAGが取得する情報の範囲を整理します。"
 layer: publication
-title: 第6章 人間用とAI用の分離設計 ― PlantUMLとMarkdownの役割分担
+title: 第6章 人が読む仕様とAIが使うKnowledgeを分ける
 kind: case
 section: cases
 status: published
@@ -29,7 +29,7 @@ source:
     title: 第6章 人間用とAI用の分離設計 ― PlantUMLとMarkdownの役割分担
     free: false
 series: system-understanding
-series_title: レガシーシステムを「理解可能な状態」にする設計手法
+series_title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 order: 6
 ---
 

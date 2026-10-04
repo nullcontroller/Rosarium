@@ -1,7 +1,7 @@
 ---
 summary: "安全側へ停止する設計方針を、既存コードのどこへ組み込むか具体化する。GitHub Copilotによる関連箇所の探索と人間の確認を通じ、変更対象と影響範囲を絞る。"
 layer: publication
-title: 第3章　GitHub Copilotと人間で実現方法を具体化する
+title: 第3章 コード探索と人間の確認で、変更箇所と実現方法を絞る
 kind: case
 section: cases
 status: published
@@ -29,11 +29,11 @@ source:
     title: 第3章　GitHub Copilotと人間で実現方法を具体化する
     free: false
 series: three-ai-maintenance
-series_title: 3つのAIをオーケストレーションしたレガシー保守
+series_title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
 order: 3
 ---
 
-## 第3章　GitHub Copilotと人間で実現方法を具体化する
+## 第3章 コード探索と人間の確認で、変更箇所と実現方法を絞る
 
 第2章では、異常時は安全側へ倒し、正常性を確認できない場合は後続処理を停止するという設計方針を確定した。
 

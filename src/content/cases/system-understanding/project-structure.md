@@ -1,7 +1,7 @@
 ---
 summary: "フォルダ・ファイル・クラスの役割をMarkdownで整理し、調査のための地図を作る。AIが構造の仮説を出し、人間がコードで検証する初動の進め方を示す。"
 layer: publication
-title: 第3章 プロジェクト構造の整理 ― 理解のための地図を作る
+title: 第3章 調査の起点を作るため、ファイルとクラスの役割を整理する
 kind: case
 section: cases
 status: published
@@ -29,7 +29,7 @@ source:
     title: 第3章 プロジェクト構造の整理 ― 理解のための地図を作る
     free: false
 series: system-understanding
-series_title: レガシーシステムを「理解可能な状態」にする設計手法
+series_title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 order: 3
 ---
 

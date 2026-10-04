@@ -1,7 +1,7 @@
 ---
 summary: "暗号処理を変えるとき、失敗した場合の動作が決まっていない箇所を確認します。CNG API / DPAPIとレジストリを題材に、後続処理への影響から安全な停止・復旧を考えます。"
 layer: publication
-title: 第1章　暗号方式の変更によって顕在化した異常系
+title: 第1章 暗号方式の変更で見直すべき異常系を特定する
 kind: case
 section: cases
 status: published
@@ -29,7 +29,7 @@ source:
     title: 第1章　暗号方式の変更によって顕在化した異常系
     free: false
 series: three-ai-maintenance
-series_title: 3つのAIをオーケストレーションしたレガシー保守
+series_title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
 order: 1
 ---
 

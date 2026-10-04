@@ -249,8 +249,8 @@ Model、Prompt、Knowledge、Retrieval、Tool、Validator、Workflowのいずれ
 👉 [Zenn - nullcontroller](https://zenn.dev/nullcontroller)
 
 - [生成AIを業務へ組み込む設計原則](/foundations/ai-business-design/)：AI・人間・既存システムの責任分界、HITL、評価を業務設計として整理
-- [3つのAIをオーケストレーションしたレガシー保守](/cases/three-ai-maintenance/)：要件整理、既存Code調査、仕様化、実装、Reviewを役割分担した事例
-- [レガシーシステムを「理解可能な状態」にする設計手法](/cases/system-understanding/)：Reverse EngineeringからKnowledge化、RAG / QAへ接続する設計事例
+- [仕様調査から実装まで、複数AIを役割分担したレガシー保守](/cases/three-ai-maintenance/)：要件整理、既存Code調査、仕様化、実装、Reviewを役割分担した事例
+- [理解しにくいレガシーシステムを、変更判断できる状態へ変える](/cases/system-understanding/)：Reverse EngineeringからKnowledge化、RAG / QAへ接続する設計事例
 
 ---
 

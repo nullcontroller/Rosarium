@@ -1,7 +1,7 @@
 ---
 summary: "セキュリティ要件の強化に際し、QAチャットで既存方式と処理位置を調べ、変更の検討につなげた事例。AIの調査支援と、人間による組織条件・将来影響の判断を分けて振り返る。"
 layer: publication
-title: 第12章 実践事例 ― QAチャットによる構造理解と意思決定の高速化
+title: 第12章 QAで暗号処理を調査し、人間の変更判断へつなぐ
 kind: case
 section: cases
 status: published
@@ -29,7 +29,7 @@ source:
     title: 第12章 実践事例 ― QAチャットによる構造理解と意思決定の高速化
     free: false
 series: system-understanding
-series_title: レガシーシステムを「理解可能な状態」にする設計手法
+series_title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 order: 12
 ---
 

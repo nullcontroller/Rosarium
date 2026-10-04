@@ -791,6 +791,12 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
     $(".theme-toc-mobile > summary").text(),
     /^このテーマの記事（\d+）$/,
   );
+  if (route === "cases") {
+    assert.equal($(".theme-toc .theme-nav-groups > ul > li").length, 3);
+    assert.equal($(".theme-toc-mobile .theme-nav-groups > ul > li").length, 3);
+    assert.equal($(".theme-nav-groups > details").length, 0);
+    assert(!$("body").text().includes("業務・システムの実践"));
+  } else {
   assert(
     $(".theme-toc .theme-nav-groups > details").length,
     `${route}: grouped desktop index`,
@@ -799,6 +805,7 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
     $(".theme-toc-mobile .theme-nav-groups > details").length,
     `${route}: grouped mobile index`,
   );
+  }
 }
 console.log(
   "Verified category article indexes, Garden navigation and updates compatibility.",

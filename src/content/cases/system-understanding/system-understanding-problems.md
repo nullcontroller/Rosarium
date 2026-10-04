@@ -1,7 +1,7 @@
 ---
 summary: "仕様問い合わせへすぐ答えられなかった経験から、操作説明だけでは内部構造を理解できない問題を示す。ソースコードから仕様を復元し、調査・理解・判断の時間を減らす目的を整理する。"
 layer: publication
-title: 第1章 レガシーシステムの問題検出と「理解可能な状態」にする設計の必要性
+title: 第1章 仕様を答えられない状態から、復元すべき情報を決める
 kind: case
 section: cases
 status: published
@@ -29,7 +29,7 @@ source:
     title: 第1章 レガシーシステムの問題検出と「理解可能な状態」にする設計の必要性
     free: false
 series: system-understanding
-series_title: レガシーシステムを「理解可能な状態」にする設計手法
+series_title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 order: 1
 ---
 

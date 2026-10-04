@@ -1,7 +1,9 @@
 ---
 import type { ReadingGroup } from "../lib/reading";
 
-interface Props { groups: ReadingGroup[]; }
+interface Props {
+  groups: ReadingGroup[];
+}
 
 const { groups } = Astro.props;
 const count = groups.reduce((total, group) => total + group.links.length, 0);
@@ -10,17 +12,39 @@ const count = groups.reduce((total, group) => total + group.links.length, 0);
 <details class="theme-toc-mobile">
   <summary>このテーマの記事（{count}）</summary>
   <div class="theme-nav-groups">
-    {groups.map((group) => (
-      <details open={group.current}>
-        <summary>{group.title} <span>{group.links.length}</span></summary>
+    {groups.map((group) =>
+      group.title ? (
+        <details open={group.current}>
+          <summary>
+            {group.title} <span>{group.links.length}</span>
+          </summary>
+          <ul>
+            {group.links.map((item) => (
+              <li class:list={[item.current && "current"]}>
+                <a
+                  href={item.href}
+                  aria-current={item.current ? "page" : undefined}
+                >
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : (
         <ul>
           {group.links.map((item) => (
             <li class:list={[item.current && "current"]}>
-              <a href={item.href} aria-current={item.current ? "page" : undefined}>{item.title}</a>
+              <a
+                href={item.href}
+                aria-current={item.current ? "page" : undefined}
+              >
+                {item.title}
+              </a>
             </li>
           ))}
         </ul>
-      </details>
-    ))}
+      ),
+    )}
   </div>
 </details>

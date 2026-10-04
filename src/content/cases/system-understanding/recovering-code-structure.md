@@ -1,7 +1,7 @@
 ---
 summary: "ソースコードからクラス・ファイルの役割と連携を読み解き、仕様と構造を整理する。実行フローや不要コードも確認し、人間が理解して変更できる基盤を作る。"
 layer: publication
-title: 第4章 ソースコードから構造を復元する ― 役割と関係の特定
+title: 第4章 コードから仕様と依存関係を復元する
 kind: case
 section: cases
 status: published
@@ -29,7 +29,7 @@ source:
     title: 第4章 ソースコードから構造を復元する ― 役割と関係の特定
     free: false
 series: system-understanding
-series_title: レガシーシステムを「理解可能な状態」にする設計手法
+series_title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 order: 4
 ---
 

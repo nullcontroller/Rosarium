@@ -111,4 +111,4 @@ source:
 
 については、以下のCase Studyで詳しく整理しています。
 
-👉 [レガシーシステムを「理解可能な状態」にする設計手法](/cases/system-understanding/)
+👉 [理解しにくいレガシーシステムを、変更判断できる状態へ変える](/cases/system-understanding/)

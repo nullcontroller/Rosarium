@@ -1,7 +1,7 @@
 ---
 summary: "質問に関係する根拠を探し、実務で確認できる回答へつなぐ仕組みを整えます。RAGの検索範囲・知識の粒度・画面操作との対応を調整し、AIの生成と人間の検証を分担します。"
 layer: publication
-title: 第8章 RAGの再利用設計 ― QAチャットとして成立させる実装
+title: 第8章 復元したKnowledgeを、根拠を確認できるQAへつなぐ
 kind: case
 section: cases
 status: published
@@ -29,11 +29,11 @@ source:
     title: 第8章 RAGの再利用設計 ― QAチャットとして成立させる実装
     free: false
 series: system-understanding
-series_title: レガシーシステムを「理解可能な状態」にする設計手法
+series_title: 理解しにくいレガシーシステムを、変更判断できる状態へ変える
 order: 8
 ---
 
-## 第8章 RAGの再利用設計 ― QAチャットとして成立させるための具体実装
+## 第8章 復元したKnowledgeを、根拠を確認できるQAへつなぐ
 
 ### 8.1 本章の位置づけ
 

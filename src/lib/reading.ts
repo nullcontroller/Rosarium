@@ -153,7 +153,7 @@ export const readingGroups: Record<
   ],
   cases: [
     {
-      title: "業務・システムの実践",
+      title: "",
       ids: [
         "cases/system-understanding",
         "cases/three-ai-maintenance",
