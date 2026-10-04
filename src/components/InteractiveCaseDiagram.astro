@@ -9,13 +9,7 @@ const model = caseDiagrams[id];
 if (!model) throw new Error(`Unknown case diagram: ${id}`);
 const prefix = `case-${id}`;
 const compactInteractive = id === "system-understanding";
-// This chapter explains each flow in the surrounding prose; no duplicate detail panel.
-const showDetails = ![
-  "maintenance-password-flow",
-  "maintenance-error-points",
-  "maintenance-data-criticality",
-  "maintenance-call-timings",
-].includes(id);
+const showDetails = true;
 const kinds = {
   human: "人間",
   ai: "AI支援",
@@ -380,6 +374,10 @@ const layouts = ["mobile", "desktop"].map((name) => {
   {showDetails && (
     <>
       <div class="case-diagram-details" aria-label="各工程の説明">
+        <section data-diagram-empty>
+          <h3>詳しい説明</h3>
+          <p>気になる項目を選ぶと、その役割や判断理由を確認できます。</p>
+        </section>
         {model.nodes.map((node) => (
           <section id={`${prefix}-detail-${node.id}`} data-detail={node.id}>
             <h3>{node.label}</h3>
@@ -387,9 +385,6 @@ const layouts = ["mobile", "desktop"].map((name) => {
           </section>
         ))}
       </div>
-      <p class="case-diagram-return">
-        <a href={`#${prefix}`}>図に戻る ↑</a>
-      </p>
       <p
         class="case-diagram-announcement"
         role="status"

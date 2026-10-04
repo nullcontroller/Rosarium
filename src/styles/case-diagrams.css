@@ -118,15 +118,17 @@
   stroke-dasharray: 5 3;
 }
 .case-diagram-details {
-  min-height: 11rem;
-  border-top: 1px solid var(--line);
-  padding-top: 1rem;
+  min-height: 8rem;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 .case-diagram-details [data-detail] {
   display: none;
   scroll-margin-top: 7rem;
 }
-.case-diagram-details [data-detail]:first-child,
 .case-diagram-details [data-detail]:target {
   display: block;
 }
@@ -144,7 +146,11 @@
   font-size: 1rem;
 }
 .case-diagram-details p {
-  margin: 0 0 1rem;
+  margin: 0;
+}
+.case-diagram-details:has(:target) [data-diagram-empty],
+.case-diagram-details [data-diagram-empty][hidden] {
+  display: none;
 }
 .case-diagram-announcement {
   position: absolute;
@@ -172,13 +178,6 @@
 }
 
 /* Only the legacy overview starts with a compact, unselected diagram. */
-.case-diagram[data-compact-interactive] .case-diagram-details {
-  min-height: 0;
-}
-.case-diagram[data-compact-interactive] .case-diagram-details[hidden],
-.case-diagram[data-compact-interactive] .case-diagram-return[hidden] {
-  display: none;
-}
 .case-diagram[data-compact-interactive] [data-node] {
   cursor: pointer;
 }

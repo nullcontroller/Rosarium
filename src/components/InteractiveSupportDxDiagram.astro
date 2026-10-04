@@ -254,6 +254,10 @@ const layouts = [
     </svg>
   ))}
   <div class="diagram-details" aria-label="各工程の説明">
+        <section data-diagram-empty>
+          <h3>詳しい説明</h3>
+          <p>気になる項目を選ぶと、その役割や判断理由を確認できます。</p>
+        </section>
     {nodes.map((node) => (
       <div id={`support-detail-${node.id}`} data-detail={node.id}>
         <h3>{node.label}</h3>
@@ -261,9 +265,6 @@ const layouts = [
       </div>
     ))}
   </div>
-  <p class="diagram-return">
-    <a href="#support-dx-flow">図に戻る ↑</a>
-  </p>
   <p
     class="diagram-announcement"
     role="status"
@@ -406,9 +407,12 @@ const layouts = [
     stroke-dasharray: 5 3;
   }
   .diagram-details {
-    min-height: 11rem;
-    border-top: 1px solid var(--line);
-    padding-top: 1rem;
+    min-height: 8rem;
+    box-sizing: border-box;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-top: 1rem;
   }
   .diagram-details [data-detail] {
     scroll-margin-top: 7rem;
@@ -418,17 +422,20 @@ const layouts = [
     font-size: 1rem;
   }
   .diagram-details p {
-    margin: 0 0 1rem;
+    margin: 0;
   }
   /* CSS anchors remain functional without JavaScript; reserve the detail panel. */
   .diagram-details [data-detail] {
     display: none;
   }
-  .diagram-details [data-detail]:first-child,
   .diagram-details [data-detail]:target {
     display: block;
   }
   .diagram-details:has(:target) [data-detail]:not(:target) {
+    display: none;
+  }
+  .diagram-details:has(:target) [data-diagram-empty],
+  .diagram-details [data-diagram-empty][hidden] {
     display: none;
   }
   [data-enhanced] .diagram-details [data-detail]:not([hidden]) {
@@ -458,7 +465,7 @@ const layouts = [
   }
   @container (min-width: 640px) {
     .diagram-details {
-      min-height: 7rem;
+      min-height: 8rem;
     }
     .diagram-desktop {
       display: block;
