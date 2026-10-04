@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import Site from "../layouts/Site.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { publishedEntry, formatDateJa, url } from "../lib/site";
+
+// RETIRED is publicly preserved history, accessible only through this dedicated index.
+const entries = (await getCollection("pages", (entry) =>
+  publishedEntry(entry) && entry.data.lifecycle === "retired"
+)).sort((a, b) => (b.data.published_at ?? "").localeCompare(a.data.published_at ?? "") || a.id.localeCompare(b.id));
+const summary = "独立した記事としての役割を終えたコンテンツを、過去の思考や設計判断の記録として残しています。";
+---
+
+<Site title="退役記事" summary={summary} section="retired" noindex lastUpdated="2026-10-05"
+  breadcrumbs={[{ name: "Rosarium", path: "" }, { name: "退役記事", path: "retired" }]}>
+  <div class="retired-page">
+    <PageHeader title="退役記事" />
+    <p>ここには、現在は独立した記事としての役割を終えたコンテンツを残しています。</p>
+    <p>現在の推奨内容としてではなく、過去の思考や設計判断の記録として公開を維持しています。</p>
+    <ul class="retired-list">
+      {entries.map((entry) => (
+        <li data-retired-id={entry.id}>
+          <span class="retired-badge">RETIRED</span>
+          <h2><a href={url(entry.id)}>{entry.data.title}</a></h2>
+          {entry.data.published_at && <p class="retired-date">元の公開日：<time datetime={entry.data.published_at.slice(0, 10)}>{formatDateJa(entry.data.published_at)}</time></p>}
+          <p>{entry.data.summary}</p>
+          <p class="retired-reason">退役理由：{entry.data.lifecycle_reason}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Site>
+
+<style>
+  .retired-page { max-width: 56rem; color: var(--obsolete-ink); overflow-wrap: anywhere; }
+  .retired-page :global(h1) { color: var(--obsolete-ink); }
+  .retired-list { list-style: none; padding: 0; margin-top: 1.5rem; display: grid; gap: 1rem; }
+  .retired-list > li { padding: 1rem 1.25rem; border: 1px dashed var(--obsolete-line); background: var(--obsolete-bg); }
+  .retired-list h2 { font-size: 1.25rem; line-height: 1.6; margin: .5rem 0; color: var(--obsolete-ink); }
+  .retired-list a { color: var(--obsolete-link); text-decoration: underline; text-underline-offset: .2em; }
+  .retired-list a:hover, .retired-list a:focus-visible { color: var(--obsolete-hover); }
+  .retired-list a:focus-visible { outline: 2px solid var(--obsolete-line); outline-offset: 3px; }
+  .retired-list p { margin: .75em 0; line-height: 1.75; }
+  .retired-date, .retired-reason { color: var(--obsolete-muted); }
+  .retired-badge { padding: .2em .5em; border: 1px solid var(--obsolete-line); color: var(--obsolete-muted); font-size: .8125rem; letter-spacing: .06em; }
+  @media (max-width: 480px) { .retired-list > li { padding: 1rem; } }
+</style>

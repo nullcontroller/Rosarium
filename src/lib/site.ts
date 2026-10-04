@@ -103,7 +103,8 @@ export const staticPageLastUpdated: Record<string, string> = {
   career: "2026-10-04",
   "career/profile": "2026-09-28",
   search: "2026-09-28",
-  about: "2026-10-04",
+  about: "2026-10-05",
+  retired: "2026-10-05",
   "garden-notes": "2026-10-05",
   articles: "2026-10-04",
   overview: "2026-09-28",
@@ -130,7 +131,8 @@ export const label = (s: string) => sections.find((x) => x[0] === s)?.[1] ?? s;
 export const publishedEntry = (e: {
   data: { status: string; public?: boolean };
 }) => e.data.status !== "draft" && e.data.public !== false;
-// RETIRED stays available at its URL, but is absent from ordinary discovery/feed/sitemap.
+// RETIRED stays available at its URL and the dedicated retired index,
+// but is absent from ordinary discovery/feed/sitemap. DELETE is for valueless records only.
 export const publicEntry = (e: {
   data: { status: string; public?: boolean; lifecycle?: string };
 }) => publishedEntry(e) && e.data.lifecycle !== "retired";

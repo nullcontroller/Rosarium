@@ -9,6 +9,16 @@ const digest = (raw) => crypto.createHash("sha256").update(raw).digest("hex");
 const sitemap = fs.readFileSync("dist/sitemap.xml", "utf8");
 const feeds = ["feed.xml", "feed.json", "rss.xml"].map((name) => fs.readFileSync(`dist/${name}`, "utf8"));
 const counts = {};
+const retiredIndex = load(fs.readFileSync("dist/retired/index.html", "utf8"));
+assert.match(retiredIndex('meta[name="robots"]').attr("content"), /noindex/);
+assert.equal(retiredIndex('link[rel="canonical"]').attr("href"), "https://nullcontroller.github.io/Rosarium/retired/");
+assert.equal(retiredIndex("[data-pagefind-body]").length, 0);
+assert.equal(retiredIndex("main[data-pagefind-ignore]").length, 1);
+assert(!sitemap.includes("https://nullcontroller.github.io/Rosarium/retired/"));
+for (const feed of feeds) assert(!feed.includes("https://nullcontroller.github.io/Rosarium/retired/"));
+assert.equal(retiredIndex("[data-retired-id]").length, report.entries.filter((record) => record.lifecycle === "RETIRED").length);
+const about = load(fs.readFileSync("dist/about/index.html", "utf8"));
+assert.equal(about('a[href="/Rosarium/retired/"]').length, 1);
 for (const record of report.entries) {
   counts[record.lifecycle] = (counts[record.lifecycle] ?? 0) + 1;
   if (record.lifecycle === "DELETE") { assert.equal(record.original_slug, "test"); assert.equal(record.recovered, true); continue; }
@@ -33,6 +43,12 @@ for (const record of report.entries) {
     assert.equal(note.attr("data-lifecycle"), data.lifecycle);
   }
   if (record.lifecycle === "RETIRED") {
+    const item = retiredIndex(`[data-retired-id="${record.destination}"]`);
+    assert.equal(item.length, 1);
+    assert.equal(item.find("h2 a").attr("href"), `/Rosarium/${record.destination}/`);
+    assert(item.text().includes(data.summary));
+    assert(item.text().includes(data.lifecycle_reason));
+    assert.equal(item.find("time").attr("datetime"), data.published_at.slice(0, 10));
     assert.equal(publicEntry({ data }), false);
     assert.match($('meta[name="robots"]').attr("content"), /noindex/);
     assert.equal($("[data-pagefind-body]").length, 0);
