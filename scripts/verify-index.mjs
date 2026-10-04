@@ -705,14 +705,14 @@ assert(
   page("cases/system-understanding")("main")
     .text()
     .includes(
-      "GPTにGitHub Copilotを組み合わせることで、より高い生産性を期待できる。",
+      "仕様書が存在することと、仕様が管理されていることは同じではなかった。",
     ),
 );
 assert(
   page("cases/three-ai-maintenance")("main")
     .text()
     .includes(
-      "GPT、GitHub Copilot、Microsoft 365 CopilotがアクセスできるContextの違いに応じて使い分けた。",
+      "AIが案を作る工程と、組織として確定・実行する工程の間には、人間の確認を残した。",
     ),
 );
 const customerSupportBook = page("cases/customer-support-ai-dx");

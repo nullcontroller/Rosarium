@@ -6,7 +6,7 @@ title: 理解できないシステムは、コストである
 kind: case
 section: cases
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-04"
 entry_points:
   - ai
   - dx
@@ -75,7 +75,7 @@ source:
 
 そこで、まずソースコードや実際の操作から情報を収集し、システム構造や処理フローを整理しました。
 
-処理の関係はPlantUMLなどで可視化し、仕様や運用知識はMarkdownなどの再利用可能な形へ構造化します。
+処理の関係は構造図で可視化し、仕様や運用知識はMarkdownなどの再利用可能な形へ構造化します。
 
 その上でRAGを利用し、整理した知識へ自然言語からアクセスできるようにしました。
 

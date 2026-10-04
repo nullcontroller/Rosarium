@@ -53,8 +53,13 @@ for (const book of z.entries.filter((e) => e.source_type === "book")) {
     assert.equal(parse(read(e.destination_file)).data.order, i + 1),
   );
 }
-for (const a of z.assets.filter((a) => a.downloaded)) {
+for (const a of z.assets.filter((a) => a.downloaded && !a.retired)) {
   assert.equal(hash(fs.readFileSync("public" + a.destination)), a.sha256);
+}
+for (const asset of z.assets.filter((asset) => asset.retired)) {
+  assert(!fs.existsSync("public" + asset.destination), `Retired diagram remains: ${asset.destination}`);
+  assert.ok(asset.replacement_diagram, `Replacement missing: ${asset.destination}`);
+  assert(read("src/data/case-diagrams.ts").includes(`"${asset.replacement_diagram}":`));
 }
 const completeness = read("migration/content-completeness-audit.md");
 const bookCoverage = read("migration/book-knowledge-coverage.md");

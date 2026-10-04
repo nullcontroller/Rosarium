@@ -1,3 +1,4 @@
+# 表示に不要な技術固有名は一般化。移行元のURL・ハッシュは取得時の記録を維持。
 version: 1
 source_commit: 9c1ffe67773dfe91a55d0389606eedcabeb17e18
 supplemental_source_snapshot: zenn-20260923-8d36c9ed76ae1ef9389b6310016341
@@ -669,11 +670,11 @@ entries:
 
         そこで、GitHub Copilot、GPT、Microsoft 365 Copilotを役割分担させた。
 
-        GPT：制約条件と要件案の整理、PlantUML作成
+        GPT：制約条件と要件案の整理、処理構造の図作成
         GitHub Copilot：コード調査、実現方法の具体化、コード修正
         Microsoft 365 Copilot：検討結果のExcel仕様書化
 
-        時には、PlantUMLで動的構造を補完するなど、AIの特性を生かした補完を用いた。
+        時には、処理構造の図で動的構造を補完するなど、AIの特性を生かした補完を用いた。
         サブ審議で承認を得た後、関数単位で実装と単体テストを進めた。
 
         その結果、開発工数の兼ね合いから従来委託していた外部委託を不要とし、
@@ -1037,7 +1038,7 @@ entries:
         mechanically converted."
     source_sha256: 4447213ee203979e9c5937c41dafc39274cad5f6edb4cf513f90175fb5be8b7a
     original_frontmatter:
-      title: 第5章 処理フローの可視化 ― PlantUMLによる動きの再構築
+      title: 第5章 処理フローの可視化 ― 処理構造の図による動きの再構築
       free: false
     original_published_at: null
     original_publication_month: 2026-03
@@ -1059,7 +1060,7 @@ entries:
         mechanically converted."
     source_sha256: 06b687e752c0c33c5b4b99f3da4cadcdc1877f10a4145becd594b4a2361078f8
     original_frontmatter:
-      title: 第6章 人間用とAI用の分離設計 ― PlantUMLとMarkdownの役割分担
+      title: 第6章 人間用とAI用の分離設計 ― 図とMarkdownの役割分担
       free: false
     original_published_at: null
     original_publication_month: 2026-03
@@ -1216,44 +1217,66 @@ assets:
   - original_url: https://static.zenn.studio/user-upload/fc148deb6ec6-20260807.png
     destination: /assets/imported/zenn/9264e8adcc142981.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-password-flow
     sha256: 14c93e0373a90e07d8806a5ef9a8861c5619a5cdc5eadfbcf4ed39aa27039e5e
   - original_url: https://static.zenn.studio/user-upload/04a328965ccf-20260807.png
     destination: /assets/imported/zenn/6f1acc44fe749a1a.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-error-points
     sha256: af6588892cc7855db2f0bcb1a7356832f6d52c98c46fdd7b7480b409d3033c6d
   - original_url: https://static.zenn.studio/user-upload/f34b63fac31c-20260807.png
     destination: /assets/imported/zenn/44a88545ca21be3a.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-data-criticality
     sha256: 1ff5e8167c7783e45b568491b6ae6f59731d4111f9a9cf6b18f986f364d31e38
   - original_url: https://static.zenn.studio/user-upload/7be6fade2583-20260807.png
     destination: /assets/imported/zenn/b326da60f854a97a.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-call-timings
     sha256: 2a8cb2487c49057cb2af29ebe7e238a25a3609962146b0f2471af63675039f0d
   - original_url: https://static.zenn.studio/user-upload/87ca896ece3f-20260807.png
     destination: /assets/imported/zenn/2728ea73e309755b.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-policy-choice
     sha256: 714ef5fca8bfcbcde0d84beaccf64ff8739cdae42c3ea5eb7155bf675f39e7ee
   - original_url: https://static.zenn.studio/user-upload/3d9e67fbe847-20260807.png
     destination: /assets/imported/zenn/d876e5e906671969.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-code-investigation
     sha256: f3aa409adf2c5352d7407c73ac49024314e7d72fbdb7048e82737ce0e08a6214
   - original_url: https://static.zenn.studio/user-upload/d73f9d3e0a02-20260807.png
     destination: /assets/imported/zenn/07d394723ec449d0.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-change-scope
     sha256: cacf8ea105a259bd15644b69ac5f9a41ae4f984e6521fe4b7d766959d1411bd3
   - original_url: https://static.zenn.studio/user-upload/cfba9dba3f65-20260807.png
     destination: /assets/imported/zenn/75f482ba78c7e207.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-specification-review
     sha256: cdab3184072febc29913751dcff9d734a214057b7b44655edb903a1225ccd71b
   - original_url: https://static.zenn.studio/user-upload/1b7ebbf508c5-20260807.png
     destination: /assets/imported/zenn/e806d1825a4f8ef7.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-reviewed-handoff
     sha256: 1f036db43067e453b3a6045e4e5ab48165fcef23170da1f807c0fe3ea05be68d
   - original_url: https://static.zenn.studio/user-upload/2f87b89dc0fc-20260807.png
     destination: /assets/imported/zenn/31c01dca387ca115.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-implementation-cycle
     sha256: 3d4837f6a7445de2f64fdc7141f30f26eb44df39d785776c8b17d7664fb9699a
   - original_url: https://static.zenn.studio/user-upload/c8bd299ee13f-20260807.png
     destination: /assets/imported/zenn/50d50e92bdbef060.png
     downloaded: true
+    retired: true
+    replacement_diagram: maintenance-delivery-flow
     sha256: 4527a92f09ae43c02f97e302c2cece0cc3e2f81114e35465b04fb43ed9a3018a

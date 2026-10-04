@@ -9,7 +9,7 @@
 - `career/overview`：業務課題を整理し、AI・人間・データ・既存システムの役割を決め、運用できる仕組みへ落とし込む仕事をしています。Applied AI × DX × System Architectureを軸に、企画から改善・終了までを考えます。
 - `career/details`：開発や保守、プロジェクトを進めた経験が、現在の仕事の考え方へどうつながったかを紹介します。実践事例と職務プロフィールから、その背景を確認できます。
 - `cases/customer-support-ai-dx`：顧客が自分で解決できる問い合わせと、人の専門判断が必要な問い合わせを分け、対応の流れを設計する事例です。RAGによる根拠検索から、人への引き継ぎ、評価・改善までを扱います。
-- `cases/system-understanding`：仕様書が不足する既存システムを、まず人間が理解し、変更できる状態へ整える事例です。コードから仕様を復元し、PlantUMLで可視化した知識をRAG / QAへつなぎます。
+- `cases/system-understanding`：仕様書が不足する既存システムを、まず人間が理解し、変更できる状態へ整える事例です。コードから仕様を復元し、図で可視化した知識をRAG / QAへつなぎます。
 - `cases/three-ai-maintenance`：既存ソフトウェアの暗号処理を安全に変更するため、仕様調査・実装・確認を3つのAIで分担した事例です。GPT・GitHub Copilot・Microsoft 365 Copilotを使い、人間が判断責任を保持した工程を示します。
 - `architecture/change-and-reevaluation`：AIシステムを変更したとき、どこを確認し直し、問題があればどう元へ戻すかを考えます。モデル・指示・知識・権限をVersion Bundleで管理し、再評価とリリースの条件を整理します。
 - `architecture/cost-latency-routing`：回答の速さやモデルの価格だけでなく、やり直しと人間の確認を含めて処理方法を選びます。品質・待ち時間（Latency）・リスクから、使うモデルや処理経路を評価します。
@@ -43,7 +43,7 @@
 - `cases/customer-support-ai-dx/knowledge-design`：検索で見つかった文書でも、顧客への回答根拠として使えるとは限りません。製品・機種・版数・公開可否を確認し、RAGが参照してよいKnowledgeの範囲を設計します。
 - `cases/customer-support-ai-dx/poc-evaluation`：AIが一度答えられたことと、問い合わせ業務で使えることは異なります。試験導入（PoC）で検索・対話・回答を分け、根拠の適合性と人へ渡す判断から採用可否を見ます。
 - `cases/customer-support-ai-dx/stopping-conditions`：根拠がない、機種が分からない、専門判断が必要なときには、AIの回答を止めます。高影響な操作や非公開情報も停止条件として整理し、人へ引き継ぐFail Safeを設計します。
-- `cases/system-understanding/human-and-ai-knowledge`：人がシステムの全体像を理解する図と、AIが必要な根拠を探す資料を分けます。PlantUMLとMarkdownを使い、文脈を残しながら、RAGが取得する情報の範囲を整理します。
+- `cases/system-understanding/human-and-ai-knowledge`：人がシステムの全体像を理解する図と、AIが必要な根拠を探す資料を分けます。図とMarkdownを使い、文脈を残しながら、RAGが取得する情報の範囲を整理します。
 - `cases/system-understanding/rag-implementation`：質問に関係する根拠を探し、実務で確認できる回答へつなぐ仕組みを整えます。RAGの検索範囲・知識の粒度・画面操作との対応を調整し、AIの生成と人間の検証を分担します。
 - `cases/three-ai-maintenance/cryptography-and-failure-modes`：暗号処理を変えるとき、失敗した場合の動作が決まっていない箇所を確認します。CNG API / DPAPIとレジストリを題材に、後続処理への影響から安全な停止・復旧を考えます。
 

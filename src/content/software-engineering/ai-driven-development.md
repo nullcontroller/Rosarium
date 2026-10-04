@@ -6,7 +6,7 @@ title: 私が考えるAI駆動開発 ― AI・人間・成果物をどうつな�
 kind: guide
 section: software-engineering
 status: published
-last_updated: "2026-09-22"
+last_updated: "2026-10-04"
 tags: &a1
   - githubcopilot
   - 生成ai
@@ -75,7 +75,7 @@ AI駆動開発という言葉から、コード生成を中心とした開発を
 
 #### GPT
 
-要件や制約条件の整理、設計方針の検討、PlantUMLによる構造整理などを担当。
+要件や制約条件の整理、設計方針の検討、図による構造整理などを担当。
 
 曖昧な情報を整理し、次の工程で扱える形にする役割です。
 

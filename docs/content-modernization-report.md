@@ -56,7 +56,7 @@
 | `src/content/cases/system-understanding/rag-improvement.md` | KEEP | RAG改善の事実と手順を保持 | — |
 | `src/content/cases/system-understanding/recovering-code-structure.md` | KEEP | Codeから構造を復元する工程を保持 | — |
 | `src/content/cases/system-understanding/system-understanding-problems.md` | KEEP | 仕様不足時の問題設定を保持 | — |
-| `src/content/cases/system-understanding/visualizing-process-flows.md` | KEEP | PlantUMLによる可視化工程を保持 | — |
+| `src/content/cases/system-understanding/visualizing-process-flows.md` | KEEP | 処理構造の図による可視化工程を保持 | — |
 | `src/content/cases/three-ai-maintenance.md` | REWRITE | 主題と事実は有効だが、現在の説明構造が必要 | 実績値を保持し、責任境界とWorkflowを明示 |
 | `src/content/cases/three-ai-maintenance/code-generation-and-unit-tests.md` | KEEP | 実装・単体テスト工程を保持 | — |
 | `src/content/cases/three-ai-maintenance/cryptography-and-failure-modes.md` | KEEP | CNG / DPAPIと異常系の事実を保持 | — |
