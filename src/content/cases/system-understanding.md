@@ -151,7 +151,7 @@ QAによる参照支援を、変更の自動承認にはつなげなかった。
 
 ## 一回の調査を、後続の保守へ使える知識に変えた
 
-既存仕様書だけでは説明できなかった処理と依存関係を、確認・参照できる情報へ整理した。調査結果をその場限りにせず、人向け資料と検索用Knowledgeとして残し、仕様確認、QA、継続的な保守へ再利用した。
+既存仕様書だけでは説明できなかった処理と依存関係を、確認・参照できる情報へ整理した。[調査結果をその場限りにせず](/Rosarium/cases/understanding-systems-as-capability/)、人向け資料と検索用Knowledgeとして残し、仕様確認、QA、継続的な保守へ再利用した。
 
 詳細章では、コードの調査、処理フローの復元、QAの評価、Knowledgeの修正と更新を扱う。
 
@@ -165,9 +165,3 @@ QAによる参照支援を、変更の自動承認にはつなげなかった。
 
 判断材料をKnowledge化することは、最終決定を自動化することでもない。背景と制約を参照できるようにしても、変更の採否は現在の状況を踏まえて人間が決める。この境界が、知識の再利用と判断責任を両立させた。
 
-## 関連する設計原則
-
-- [Instruction・Knowledge・Evidenceの責務分離](/Rosarium/knowledge-context/instruction-knowledge-evidence/)
-- [人間向け文書とAI向けKnowledgeを分けて設計する](/Rosarium/knowledge-context/human-and-ai-documentation/)
-- [AI評価指標](/Rosarium/reference/evaluation-metrics/)
-- [詳細を第1章から読む](/Rosarium/cases/system-understanding/system-understanding-problems/)

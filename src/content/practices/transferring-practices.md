@@ -42,8 +42,3 @@ AI活用の横展開では、成功したプロンプトやツール構成をそ
 
 元の業務と横展開先で、品質、時間、コスト、レビュー負荷、例外率を比較する。差が生じた理由をKnowledge、Context、Workflow、権限の違いから確認し、再利用可能な原則を更新する。
 
-## 関連する設計知識
-
-- [AI活用事例をそのまま横展開できるのか](/Rosarium/practices/transferring-ai-practices/)
-- [AI導入を業務へ定着させる](/Rosarium/practices/adoption-governance/)
-- [AI業務システムの参照アーキテクチャ](/Rosarium/architecture/reference-architecture/)

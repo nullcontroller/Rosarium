@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import ContentIndex from "../components/ContentIndex.astro";
-import RelatedPublications from "../components/RelatedPublications.astro";
 import { publicEntry } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 import { readingNavigation } from "../lib/reading";
@@ -19,7 +18,7 @@ const categories = themeGroups.map((group) => ({
 }));
 ---
 
-<Site title="実践知" section="practices" themeGroups={themeGroups}>
+<Site title="実践知" section="practices">
   <PageHeader title="実践知" />
   {categories.map((category) => (
     <section data-practice-category aria-label={category.title}>
@@ -27,13 +26,4 @@ const categories = themeGroups.map((group) => ({
       <ContentIndex entries={category.entries} showIcons={false} />
     </section>
   ))}
-  <RelatedPublications
-    summary="設計判断の背景や、個別の問題意識を扱った公開記事です。"
-    showIcons={false}
-    entries={all.filter(
-      (e) =>
-        e.data.section === "practices" &&
-        e.data.source?.original_type === "article",
-    )}
-  />
 </Site>

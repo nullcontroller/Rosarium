@@ -414,7 +414,3 @@ AI活用の横展開とは、成功事例をそのままコピーすることで
 
 実際に横展開を検討するときの手順は、[AI活用を別の業務へ横展開する](/practices/transferring-practices/)に整理しています。本記事で問いかけた「なぜ成立したのか」を、対象業務で小さく確かめるためのガイドです。
 
-## 関連する記事・設計
-
-- [AI化する前に、業務そのものを疑う](/essays/rethink-work-before-ai/)
-- [モデル性能より先に、必要なContextを整える](/knowledge-context/context-before-model-performance/)

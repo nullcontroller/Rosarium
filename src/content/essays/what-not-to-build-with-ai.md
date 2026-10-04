@@ -104,9 +104,3 @@ AIによって実装の入口が広がったからこそ、出口まで含めて
 
 この役割分担があって初めて、AIはシステムを増やす道具ではなく、価値のある変化を選ぶための手段になる。
 
-## 関連する設計
-
-- [AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)
-- [AIシステムの変更・再評価設計](/architecture/change-and-reevaluation/)
-- [コード生成AIの評価と採用設計](/evaluation-hitl/code-evaluation-acceptance/)
-- [AI時代の開発プロセス設計](/software-engineering/development-workflow/)

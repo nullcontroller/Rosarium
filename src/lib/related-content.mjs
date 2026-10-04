@@ -1,6 +1,7 @@
 import { load } from "cheerio";
 
-// Only explicitly named navigation sections are moved. Prose links stay intact.
+// Exclude explicitly named navigation sections from the rendered body.
+// Ordinary prose references remain intact; excluded links are never reinserted.
 const relatedHeading = /^(?:Related Design Principles|Related Design|今回の実務事例|Case Studies|関連する実践事例|関連事例|関連Case|関連する入口|関連する設計(?:原則|知識)?|関連する記事・設計|関連する内容|関連ページ|関連Reference|次に読む|Explore|Selected Work|Professional Profile)$/;
 export function splitRelatedContent(html) {
   const $ = load(html, null, false);
@@ -43,23 +44,3 @@ export function relatedTargets(html, pageUrl) {
   return new Set($("a[href]").toArray().map((node) => new URL($(node).attr("href"), pageUrl).href));
 }
 
-// Explicit prose links are candidates; keep the reading exit small and unique.
-export function compactRelatedLinks(html, preferred, pageUrl, fallback, { excludeCases = false } = {}) {
-  const $ = load(html, null, false);
-  const candidates = [
-    ...preferred,
-    ...$("a[href]").toArray().map((node) => ({ href: $(node).attr("href"), title: $(node).text().trim() })),
-    ...fallback,
-  ];
-  const seen = new Set([new URL(pageUrl).href]);
-  const links = [];
-  for (const link of candidates) {
-    const target = new URL(link.href, pageUrl);
-    if (excludeCases && /\/cases(?:\/|$)/.test(target.pathname)) continue;
-    if (!/^https?:$/.test(target.protocol) || seen.has(target.href) || !link.title) continue;
-    seen.add(target.href);
-    links.push({ ...link, title: link.title.replace(/\s*→$/, "").trim(), href: target.pathname.startsWith("/Rosarium/") && target.origin === new URL(pageUrl).origin ? target.pathname + target.hash : target.href });
-    if (links.length === 4) break;
-  }
-  return { links, anchors: $("[id]").toArray().map((node) => $(node).attr("id")) };
-}

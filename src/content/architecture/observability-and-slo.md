@@ -22,7 +22,6 @@ source:
 > 種別：運用設計 / 監視設計
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント
 > 対象工程：運用 / 監視 / 事故調査 / 改善
-> 関連ページ：[AI業務システムの参照アーキテクチャ](/architecture/reference-architecture/)、[AIシステムの変更・再評価設計](/architecture/change-and-reevaluation/)、[AI評価データセットと回帰評価設計](/evaluation-hitl/datasets-and-regression/)
 
 ### はじめに
 

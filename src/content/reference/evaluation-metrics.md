@@ -60,8 +60,3 @@ $$
 | Override率 | 人間がAI候補を修正・却下した割合と理由 |
 | Incident / Near miss | 誤受理、誤実行、検出された未遂と影響 |
 
-### 関連ページ
-
-- [AI評価データセットと回帰評価設計](/evaluation-hitl/datasets-and-regression/)
-- [QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)
-- [AIシステムのオブザーバビリティとSLO設計](/architecture/observability-and-slo/)

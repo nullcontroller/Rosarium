@@ -145,9 +145,3 @@ AIの選択と回答の扱いは、製品への固定的な信頼順位では決
 
 ただし、今回の対象は変更範囲を限定できる完全化保守だった。広範なアーキテクチャ変更でも同じ進め方が成立するとは限らない。詳しい実装手順と成立条件は各章で扱う。
 
-## 関連する設計原則
-
-- [生成・受理・実行を分離する](/Rosarium/foundations/generation-and-acceptance/)
-- [AI出力の責任境界とHITL](/Rosarium/evaluation-hitl/responsibility-and-hitl/)
-- [責任境界と状態遷移](/Rosarium/reference/responsibility-state-model/)
-- [詳細を第1章から読む](/Rosarium/cases/three-ai-maintenance/cryptography-and-failure-modes/)

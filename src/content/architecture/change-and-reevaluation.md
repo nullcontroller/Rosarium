@@ -22,7 +22,6 @@ source:
 > 種別：Lifecycle設計 / 変更管理 / 評価設計  
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント、コード生成、業務自動化  
 > 対象工程：変更 / Test / Release / 監視 / Incident / 廃止  
-> 関連ページ：[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)、[AI業務システムの参照アーキテクチャ](/architecture/reference-architecture/)、[AI出力の責任境界とHITL](/evaluation-hitl/responsibility-and-hitl/)
 
 ### 結論
 

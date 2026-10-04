@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import Site from "../../layouts/Site.astro";
 import ContentIndex from "../../components/ContentIndex.astro";
-import RelatedPublications from "../../components/RelatedPublications.astro";
 import PublicationLink from "../../components/PublicationLink.astro";
 import {
   sections,
@@ -83,9 +82,6 @@ const oldFoundations = Astro.params.section === "foundations";
       {entries.some((e) => e.data.layer === "ai-mathematics") && (
         <section>
           <SectionHeading icon="ai-mathematics" title="AI理論" />
-          <p>
-            <a href={url("ai-mathematics")}>AI理論を見る</a>
-          </p>
           <ContentIndex
             entries={entries.filter((e) => e.data.layer === "ai-mathematics")}
           />
@@ -94,22 +90,11 @@ const oldFoundations = Astro.params.section === "foundations";
       {entries.some((e) => e.data.layer === "practice") && (
         <section>
           <SectionHeading icon="practices" title="実践知" />
-          <p>
-            <a href={url("practices")}>実践知を見る</a>
-          </p>
           <ContentIndex
             entries={entries.filter((e) => e.data.layer === "practice")}
           />
         </section>
       )}
-      <RelatedPublications entries={entries.filter(isPublication)} />
     </>
-  )}
-  {Astro.params.section === "foundations" && (
-    <nav class="topic-navigation">
-      <a href={url("ai-design")}>AI設計</a>
-      <a href={url("ai-mathematics")}>AI理論</a>
-      <a href={url("reference")}>Reference</a>
-    </nav>
   )}
 </Site>

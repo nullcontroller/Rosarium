@@ -22,7 +22,6 @@ source:
 > 種別：Policy Knowledge / 行動制御 / ガバナンス
 > 適用対象：RAG、QAチャット、AIエージェント
 > 対象工程：範囲判定 / 生成 / 拒否 / 移管 / 監査
-> 関連ページ：[Instruction・Knowledge・Evidenceの責務分離](/knowledge-context/instruction-knowledge-evidence/)、[ハルシネーションの多層制御設計](/foundations/layered-hallucination-controls/)、[人向け資料とAI向け資料の分離設計](/knowledge-context/human-and-ai-documentation/)
 
 前ページでは、正本となるKnowledgeを一つに保ち、人向けの表示とAI向けのAccess Layerを分ける設計を整理しました。
 

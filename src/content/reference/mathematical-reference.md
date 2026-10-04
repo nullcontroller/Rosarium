@@ -85,8 +85,3 @@ $$
 3. 独立性を仮定した簡略式を、実測値へ直結させない。
 4. 数式の精密さを、主張の正しさの代わりにしない。
 
-### 関連ページ
-
-- [生成AIの条件付き確率モデル基礎](/foundations/conditional-probability/)
-- [Temperature設計指針](/foundations/temperature-design/)
-- [ハルシネーションの発生原理](/foundations/hallucination-mechanisms/)

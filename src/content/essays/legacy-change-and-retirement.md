@@ -302,9 +302,3 @@ source:
 
 が、IT戦略の重要な役割の一つだと考えています。
 
-## 関連する記事・設計
-
-- [理解しにくいレガシーシステムを、変更判断できる状態へ変える](/cases/system-understanding/)
-- [仕様調査から実装まで、複数AIを役割分担したレガシー保守](/cases/three-ai-maintenance/)
-- [AIシステムの変更・再評価設計](/architecture/change-and-reevaluation/)
-- [IT戦略では「何を作らないか」も設計する](/essays/it-strategy-and-not-building/)

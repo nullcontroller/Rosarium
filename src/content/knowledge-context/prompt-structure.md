@@ -23,7 +23,6 @@ source:
 > 種別：設計原則 / インターフェース設計 / 出力契約
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント、コード生成
 > 対象工程：Prompt設計 / Context構築 / 生成 / 検証
-> 関連ページ：[ガードレールの数学的説明](/foundations/guardrail-models/)、[プロンプト設計の失敗モード](/knowledge-context/prompt-failure-modes/)、[AI間インターフェースとしてのプロンプト](/architecture/prompts-as-interfaces/)
 
 前章では、QAチャットのKnowledge、回答制約、評価、運用を整理しました。
 

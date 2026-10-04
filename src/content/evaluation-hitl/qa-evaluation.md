@@ -22,7 +22,6 @@ source:
 > 種別：評価設計 / 統計評価 / リスク評価
 > 適用対象：RAG、社内QA、顧客向けQA、Knowledge検索
 > 対象工程：Test / Release判定 / 監視 / 再評価
-> 関連ページ：[QAチャット運用思想](/knowledge-context/qa-operations/)、[ハルシネーションの多層制御設計](/foundations/layered-hallucination-controls/)、[なぜ回答範囲を制限した方がよいのか](/foundations/answer-scope/)
 
 前ページでは、QAチャットを、検索・生成・根拠提示・回答拒否・人への移管まで含む運用システムとして整理しました。
 

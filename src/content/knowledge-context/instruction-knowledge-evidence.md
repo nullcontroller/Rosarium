@@ -22,7 +22,6 @@ source:
 > 種別：設計原則 / 責務分離 / Context設計
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント
 > 対象工程：Instruction設計 / Knowledge管理 / 検索 / 生成 / 検証
-> 関連ページ：[生成AIの条件付き確率モデル基礎](/foundations/conditional-probability/)、[人向け資料とAI向け資料の分離設計](/knowledge-context/human-and-ai-documentation/)、[QA行動制約Knowledge](/knowledge-context/qa-behavior-constraints/)
 
 AIへ渡す情報は、すべて最終的にはモデルが読み取るコンテキストになります。
 

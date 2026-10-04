@@ -22,7 +22,6 @@ source:
 > 種別：運用原則 / 参照Workflow / 責任設計
 > 適用対象：RAG、社内QA、顧客向けQA、Knowledge検索
 > 対象工程：設計 / 運用 / 監視 / 障害対応 / Knowledge更新
-> 関連ページ：[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)、[QA行動制約Knowledge](/knowledge-context/qa-behavior-constraints/)、[人向け資料とAI向け資料の分離設計](/knowledge-context/human-and-ai-documentation/)
 
 前章では、AIの確率的な出力、回答範囲、Temperatureを扱いました。
 

@@ -14,7 +14,6 @@ const all = await getCollection("pages", publicEntry);
     <SeriesIndex entry={all.find((e) => e.id === study.book)!} all={all} />
   ))}
   <p>
-    <a href={url("cases")}>実践事例</a> ·{" "}
-    <a href={url("series")}>設計原則の連載</a> · <a href={url("ai")}>AI</a>
+    <a href={url("series")}>設計原則の連載</a>
   </p>
 </Site>

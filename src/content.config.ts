@@ -114,7 +114,7 @@ const pages = defineCollection({
         ctx.addIssue({
           code: "custom",
           message:
-            "Keep Zenn publications in related publications, not the AI Design canonical index",
+            "Keep imported publications in their publication layer, not the AI Design canonical index",
           path: ["layer"],
         });
       if (data.entry_points.includes("dx") && !data.primaryCategory)

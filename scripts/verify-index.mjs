@@ -237,16 +237,8 @@ assert.deepEqual(
   ["700", "800", "900", "1000", "1100", "1200"],
 );
 assert.equal(top(".sidebar").text().includes("DX"), true);
-assert(
-  page("ai-design/applicability")(
-    '[data-related-publications] [data-content-id="essays/dx-and-value"]',
-  ).length,
-);
-assert(
-  page("ai-design/lifecycle-operations")(
-    '[data-related-publications] [data-content-id="essays/what-not-to-build-with-ai"]',
-  ).length,
-);
+assert.equal(page("ai-design/applicability")("[data-related-publications]").length, 0);
+assert.equal(page("ai-design/lifecycle-operations")("[data-related-publications]").length, 0);
 assert(
   page("foundations/applicability-and-delegation")("main")
     .text()
@@ -267,7 +259,7 @@ for (const topic of [
     assert.equal(entries.get(id).layer, "ai-design");
     assert.equal(entries.get(id).design_topic, topic);
   }
-  assert($("[data-related-publications] .publication-entry").length);
+  assert.equal($("[data-related-publications]").length, 0);
 }
 for (const [id, d] of entries) {
   if (d.layer === "ai-design")
@@ -353,7 +345,7 @@ assert.deepEqual(
   pubs(".secondary-reading a")
     .map((_, element) => pubs(element).text().trim())
     .get(),
-  ["はじめに読む", "考察を見る"],
+  ["はじめに", "考察"],
 );
 assert.equal(pubs('.secondary-reading a[href="/Rosarium/essays/"]').length, 1);
 const dx = page("dx");
@@ -404,9 +396,7 @@ for (const category of [
     assert(dx(element).find("p").text().trim().length > 20);
   });
   for (const id of primaryIds(categoryPage)) assert.equal(entries.get(id).primaryCategory, category, `${id}: DX category pages use primary only`);
-  assert(
-    categoryPage('[aria-label="関連する入口"] a[href="/Rosarium/dx/"]').length,
-  );
+  assert.equal(categoryPage('[aria-label="関連する入口"]').length, 0);
 }
 assert(dx('a[href="/Rosarium/essays/dx-and-value/"]').length);
 assert.equal(dx('main a[href="/Rosarium/cases/customer-support-ai-dx/"]').length, 0);
@@ -513,23 +503,17 @@ assert.equal(
 );
 assert(careerProfile('a[href="/Rosarium/career/"]').length);
 console.log(
-  "Verified reading gateway, layer separation, related publications and existing URLs.",
+  "Verified reading gateway, layer separation and existing URLs without related publications.",
 );
 
 // Phase 4: journal order, preserved summaries, reading route and secondary archives.
 assert.equal(design("[data-related-publications]").length, 0);
 const mathematics = page("ai-mathematics");
-assert.deepEqual(
-  mathematics("[data-mathematics-reading] [data-content-id]")
-    .map((_, e) => mathematics(e).attr("data-content-id"))
-    .get(),
-  [
-    "foundations/conditional-probability",
-    "foundations/temperature-design",
-    "foundations/hallucination-mechanisms",
-    "software-engineering/code-generation-models",
-  ],
-);
+assert.equal(mathematics("[data-mathematics-reading]").length, 0);
+for (const id of ["foundations/conditional-probability", "foundations/temperature-design", "foundations/hallucination-mechanisms", "software-engineering/code-generation-models"]) {
+  assert(primaryIds(mathematics).includes(id), `${id}: actual theory index remains`);
+  assert.equal(page(id)(".pagination").length, 0, `${id}: standalone article has no recommended sequence`);
+}
 const reference = page("reference");
 assert.equal(reference("[data-reference-archive]").length, 0);
 assert.equal(reference(".site-implementation").length, 0);
@@ -585,7 +569,7 @@ assert.equal(top(".growth-scrollbox").length, 0);
 assert.equal(top(".home-primary-panels > section").length, 2);
 assert.equal(top('a[href="/Rosarium/about/"]').text().trim(), "Rosariumとは？");
 assert.equal(top("#about-rosarium").length, 0);
-assert.equal(top('a[href="/Rosarium/garden-notes/"]').text().trim(), "Garden Notesを見る");
+assert.equal(top('a[href="/Rosarium/garden-notes/"]').text().trim(), "Garden Notes");
 const gardenNotes = page("garden-notes");
 assert.equal(gardenNotes("[data-growth-entry]").length, recentGrowth.length);
 assert.equal(gardenNotes("#notes-2026-10").length, 1);
@@ -702,7 +686,7 @@ for (const route of ["search"]) {
   assert.match($("meta[name=robots]").attr("content") || "", /noindex/);
   assert.equal($("meta[http-equiv=refresh]").length, 1);
 }
-assert.equal(page("practices")("[data-related-publications]").length, 1);
+assert.equal(page("practices")("[data-related-publications]").length, 0);
 for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(html, "utf8"));
   assert(!$("main").text().includes("Related Publications"), html);
@@ -777,73 +761,27 @@ console.log("Verified recent growth and exact Book publication presentation.");
 
 for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
   const $ = page(route);
-  const desktop = $(".theme-toc a")
-    .map((_, e) => $(e).attr("href"))
-    .get();
-  const mobile = $(".theme-toc-mobile a")
-    .map((_, e) => $(e).attr("href"))
-    .get();
-  assert(desktop.length, `${route}: desktop article index`);
+  assert.equal($(".theme-toc,.theme-toc-mobile").length, 0, `${route}: no duplicated recommendations`);
   if (route === "practices") {
     const categories = $("main [data-practice-category]");
-    const sidebarGroups = $(".theme-toc .theme-nav-groups > details");
     assert.equal(categories.length, 5);
-    assert.equal(categories.length, sidebarGroups.length);
-    categories.each((index, category) => {
-      const group = sidebarGroups.eq(index);
-      assert.equal(
-        $(category).children("h2").text(),
-        group
-          .children("summary")
-          .clone()
-          .children()
-          .remove()
-          .end()
-          .text()
-          .trim(),
-      );
-      const links = $(category)
-        .find(".content-title a")
-        .map((_, e) => $(e).attr("href"))
-        .get();
-      assert.deepEqual(
-        links,
-        group
-          .find("a")
-          .map((_, e) => $(e).attr("href"))
-          .get(),
-      );
+    assert.deepEqual(categories.map((_, node) => $(node).children("h2").text()).get(), [
+      "導入・教育・定着", "Prompt・Knowledge運用", "開発・保守", "評価・Human Review", "組織・キャリア",
+    ]);
+    categories.each((_, category) => {
+      const links = $(category).find(".content-title a").map((_, e) => $(e).attr("href")).get();
+      assert(links.length, "Actual Practice index remains");
       assert.equal(new Set(links).size, links.length);
     });
-    assert.equal($(".theme-toc-mobile").length, 0);
     assert(!$("main").text().includes("業務・開発プロセスへの組込み"));
-    continue;
-  }
-  assert.deepEqual(mobile, desktop, `${route}: mobile article index`);
-  assert.equal($(".theme-toc > p").text(), "このテーマの記事");
-  assert.match(
-    $(".theme-toc-mobile > summary").text(),
-    /^このテーマの記事（\d+）$/,
-  );
-  if (route === "cases") {
-    assert.equal($(".theme-toc .theme-nav-groups > ul > li").length, 3);
-    assert.equal($(".theme-toc-mobile .theme-nav-groups > ul > li").length, 3);
-    assert.equal($(".theme-nav-groups > details").length, 0);
+  } else if (route === "cases") {
+    assert.equal($("[data-series-index]").length, 3);
     assert(!$("body").text().includes("業務・システムの実践"));
   } else {
-  assert(
-    $(".theme-toc .theme-nav-groups > details").length,
-    `${route}: grouped desktop index`,
-  );
-  assert(
-    $(".theme-toc-mobile .theme-nav-groups > details").length,
-    `${route}: grouped mobile index`,
-  );
+    assert(primaryIds($).length, `${route}: actual article index remains`);
   }
 }
-console.log(
-  "Verified category article indexes, Garden navigation and updates compatibility.",
-);
+console.log("Verified actual category indexes without duplicated recommendation UI.");
 
 // The imported essays have one canonical route and appear in all existing feeds.
 for (const id of [
@@ -899,54 +837,24 @@ console.log(
   "Verified imported essay discovery, canonical routes, search bodies and feeds; transfer article retains its existing route.",
 );
 
-// Related reading must follow the article and chapter pagination.
+// No recommendations are reinserted after the article or chapter navigation.
 for (const file of walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(file, "utf8"));
   assert(!$("h1,h2,h3,h4").text().includes("Related Design"), file);
   const related = $("[data-related-content]");
-  if (!related.length) continue;
-  assert.equal(related.length, 1, file);
-  assert.equal(
-    $("article[data-pagefind-body] [data-related-content]").length,
-    0,
-    file,
-  );
-  const order = $("#main").html();
+  assert.equal(related.length, 0, `${file}: no automatic related reading`);
+  assert.equal($("[data-related-publications],.theme-toc,.theme-toc-mobile").length, 0, file);
+  assert(!$("h2,h3").toArray().some((node) => $(node).text().trim() === "次に読む"), file);
   assert(
-    order.indexOf("data-related-content") > order.indexOf("data-pagefind-body"),
-    file,
-  );
-  if ($(".pagination").length) {
-    assert(
-      order.indexOf("data-related-content") >
-        order.indexOf('class="pagination"'),
-      file,
-    );
-  }
-  const links = related
-    .find("a[href]")
-    .map((_, element) => $(element).attr("href"))
-    .get();
-  assert.equal(
-    new Set(links).size,
-    links.length,
-    `${file}: duplicate related links`,
-  );
-  assert(
-    !$(
-      "article[data-pagefind-body] .prose h2, article[data-pagefind-body] .prose h3",
-    )
+    !$("article[data-pagefind-body] .prose h2, article[data-pagefind-body] .prose h3")
       .toArray()
-      .some((element) =>
-        /^(関連する入口|関連する設計原則|Explore|Related Design)$/.test(
-          $(element).text(),
-        ),
-      ),
+      .some((node) => /^(関連する入口|関連する設計(?:原則|知識)?|関連する記事・設計|関連記事|関連テーマ|Next|Related|Explore)$/.test($(node).text().trim())),
     file,
   );
+  assert(!$("main a[href]").toArray().some((node) => /→\s*$/.test($(node).text().trim())), `${file}: no arrow CTA`);
 }
 console.log(
-  "Verified Japanese related headings, post-body placement and unique related links.",
+  "Verified absence of automatic related sections and next-reading headings.",
 );
 
 // The Book body uses the enhanced SVG; the same raster remains the list thumbnail.
@@ -977,17 +885,17 @@ assert.equal(supportDiagram(".diagram-desktop [data-node]").length, 8);
 
 for (const id of ["cases/system-understanding", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"]) {
   const $ = page(id);
-  assert.equal($('[data-related-content] a[href="/Rosarium/career/"]').length, 1);
+  assert.equal($('[data-related-content] a[href="/Rosarium/career/"]').length, 0);
 }
 for (const id of ["foundations/ai-business-design", "practices/transferring-practices", "knowledge-context/instruction-knowledge-evidence"]) {
   assert.equal(page(id)('[data-related-content] a[href*="/cases/"]').length, 0, `${id}: knowledge exits exclude Cases`);
 }
 for (const file of walk("dist").filter((file) => file.endsWith("index.html"))) {
   const $ = load(fs.readFileSync(file, "utf8"));
-  if ($('.reading-exit-links').length) assert($('.reading-exit-links a').length <= 4, `${file}: compact exits`);
+  assert.equal($('.reading-exit-links').length, 0, `${file}: no reading exits`);
   if ($('.career-actions').length) assert($('.career-actions a').length <= 3, `${file}: compact profile paths`);
 }
-console.log("Verified compact reading exits, Case/Career reciprocity and Practice discovery.");
+console.log("Verified quiet Case endings and preserved Practice discovery.");
 
 const supportTitles = customerSupportBook(".book-toc a").map((_, node) => customerSupportBook(node).text().trim()).get();
 assert.deepEqual(supportTitles.slice(2).map((title) => title.slice(0, 2)), ["01", "02", "03", "04", "05", "06", "07", "08", "09"]);

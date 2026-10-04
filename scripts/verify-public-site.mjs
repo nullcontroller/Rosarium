@@ -21,18 +21,12 @@ for (const id of removed)
     "Unwanted public route " + id,
   );
 let htmlCount = 0;
-let repositoryLinks = 0;
 for (const file of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(file, "utf8"));
   htmlCount++;
   for (const element of $("[href]").toArray()) {
     const href = $(element).attr("href");
-    const allowedRepository =
-      href === "https://github.com/nullcontroller/Rosarium" &&
-      $(element).closest(".site-footer").length === 1;
-    if (allowedRepository && $(element).closest(".site-footer").length === 1) repositoryLinks++;
     assert(
-      allowedRepository ||
         !/github\.com|zenn\.dev|nullcontroller\.github\.io\/career-profile/i.test(
           href,
         ),
@@ -84,11 +78,6 @@ for (const file of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith
     file,
   );
 }
-assert.equal(
-  repositoryLinks,
-  htmlCount,
-  "Every page must expose the Repository from the footer",
-);
 const homepage = load(fs.readFileSync("dist/index.html", "utf8"));
 assert.equal(homepage("h1").text(), "Rosarium");
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
@@ -138,7 +127,7 @@ const baseline = JSON.parse(
 console.log(
   "Public HTML audit: " +
     htmlCount +
-    " pages; GitHub Repository available from every footer, external Career=0, Zenn=0; removed routes absent.",
+    " pages; public GitHub/Zenn links=0, external Career=0; removed routes absent.",
 );
 console.log("Before integration: " + JSON.stringify(baseline));
 

@@ -1790,12 +1790,6 @@ blockquote {
 .career-page article {
   max-width: none;
 }
-.related-publications {
-  margin-top: 3rem;
-  border-top: 1px solid var(--line);
-  padding-top: 1rem;
-}
-.related-publications > p,
 .publication-date {
   color: var(--muted);
   font-size: 0.85rem;
@@ -2204,20 +2198,6 @@ blockquote {
 .career-page .prose > h2 {
   margin-top: 3rem;
 }
-
-.content-related {
-  margin-top: 2rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--line);
-  min-width: 0;
-}
-.content-related > .prose > h2:first-child { margin-top: 0; }
-.content-related h2 { font-size: 1.15rem; }
-
-.reading-exit-links { margin: 0; padding-left: 1.2rem; }
-.reading-exit-links li { padding-block: 0.4rem; overflow-wrap: anywhere; }
-
-.pagination + .content-related { border-top: 0; margin-top: 0.75rem; }
 
 /* Case/Book indexes: titles lead; chapter navigation belongs to the Book. */
 .book-list-entry .content-title {

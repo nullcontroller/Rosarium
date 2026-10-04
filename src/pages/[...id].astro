@@ -1,17 +1,14 @@
 ---
 import { getCollection, render } from "astro:content";
 import Site from "../layouts/Site.astro";
-import { splitRelatedContent, compactRelatedLinks } from "../lib/related-content.mjs";
+import { splitRelatedContent } from "../lib/related-content.mjs";
 import {
   layerPath,
   bookChapterNumber,
   contentCategory,
   topicLabel,
-  designTopics,
-  topicPublications,
   publicationStatus,
   publicationTiming,
-  mathematicsReadingIds,
 } from "../lib/navigation";
 import ContentLink from "../components/ContentLink.astro";
 import MarkdownBody from "../components/MarkdownBody.astro";
@@ -20,8 +17,6 @@ import { contentUseCases } from "../lib/use-cases";
 import { formatDateJa, url, layerLabel, publicEntry } from "../lib/site";
 import { iconForEntry } from "../lib/icons";
 import Icon from "../components/Icon.astro";
-import SectionHeading from "../components/SectionHeading.astro";
-import { readingNavigation, readingPathForEntry } from "../lib/reading";
 import {
   contentEntryPoints,
 } from "../lib/entry-points";
@@ -44,13 +39,7 @@ const series = d.series
       .filter((e) => e.data.series === d.series)
       .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
   : [];
-const readingSequence = series.length
-  ? series
-  : d.layer === "ai-mathematics"
-    ? mathematicsReadingIds
-        .map((id) => all.find((item) => item.id === id))
-        .filter((item): item is (typeof all)[number] => Boolean(item))
-    : [];
+const readingSequence = series;
 const position = readingSequence.findIndex((e) => e.id === entry.id);
 const previous = readingSequence[position - 1],
   next = readingSequence[position + 1];
@@ -66,22 +55,6 @@ const purposes = contentUseCases(entry);
 const timing = publicationTiming(entry);
 const publicationState = publicationStatus(entry);
 const entryPoints = contentEntryPoints(entry);
-const readingPath = readingPathForEntry(entry, all);
-const themeGroups = readingPath
-  ? series.length
-    ? []
-    : readingNavigation(all, readingPath, entry.id)
-  : [];
-const preferredLinks = d.section === "cases"
-  ? [
-      { href: url("career"), title: "設計思想・キャリアを見る" },
-      ...(entry.id === "cases/system-understanding" ? [{ href: url("cases/understanding-systems-as-capability"), title: "既存システム理解を、再利用できる能力として考える" }] : []),
-    ]
-  : [];
-const readingExit = compactRelatedLinks(content.related, preferredLinks, Astro.url.href, [
-  ...designTopics.filter(([key]) => topicPublications[key]?.includes(series[0]?.id || entry.id)).map(([key, title]) => ({ href: url("ai-design/" + key), title: `設計を深く読む：${title}` })),
-  { href: url(primaryPath), title: `${primaryLabel}の入口へ` },
-], { excludeCases: d.section !== "cases" });
 const bookNavigation = series.length
   ? {
       title: d.series_title || series[0].data.title,
@@ -121,7 +94,6 @@ const bookNavigation = series.length
       : []),
     { name: d.title, path: entry.id },
   ]}
-  themeGroups={themeGroups}
   bookNavigation={bookNavigation}
 >
   <nav class="breadcrumb">
@@ -216,7 +188,7 @@ const bookNavigation = series.length
     >
       {previous ? (
         <div>
-          <p>← 前のページ</p>
+          <p>前のページ</p>
           <ContentLink entry={previous} heading="p" />
         </div>
       ) : (
@@ -230,11 +202,4 @@ const bookNavigation = series.length
       )}
     </nav>
   )}
-  <section class="content-related" aria-label="関連する内容" data-related-content>
-    {readingExit.anchors.map((id) => <span id={id} />)}
-    <SectionHeading icon="arrow" title="次に読む" />
-    <ul class="reading-exit-links">
-      {readingExit.links.map((link) => <li><a href={link.href}>{link.title}</a></li>)}
-    </ul>
-  </section>
 </Site>

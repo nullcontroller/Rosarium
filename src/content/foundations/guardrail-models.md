@@ -22,7 +22,6 @@ source:
 > 種別：設計原則 / リスク制御 / 決定論的制御
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント
 > 対象工程：予防 / 検出 / 拒否 / 認可 / 実行
-> 関連ページ：[プロンプト設計の基本構造](/knowledge-context/prompt-structure/)、[プロンプト設計の失敗モード](/knowledge-context/prompt-failure-modes/)、[ハルシネーションの多層制御設計](/foundations/layered-hallucination-controls/)
 
 固定条件を一度設計しても、実行時には実行基盤が各ターンのContextへ再構成する必要があります。
 

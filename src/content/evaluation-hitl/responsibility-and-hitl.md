@@ -27,7 +27,6 @@ source:
 > 種別：設計原則 / 実務上の仮説 / ガバナンス設計  
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント、コード生成、業務自動化  
 > 対象工程：生成 / 検証 / 採用 / 承認 / 実行 / 監視 / 事故対応  
-> 関連ページ：[ハルシネーションの多層制御設計](/foundations/layered-hallucination-controls/)、[QAチャット運用思想](/knowledge-context/qa-operations/)、[AIを開発工程に組み込む](/software-engineering/development-workflow/)、[複数AIの役割分担と工程設計](/software-engineering/multi-ai-orchestration/)
 
 ### 結論
 

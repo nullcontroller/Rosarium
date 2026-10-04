@@ -22,7 +22,6 @@ source:
 > 種別：一般理論・製品構成の概念モデル・設計仮説  
 > 適用対象：コード補完、コード説明、影響分析、Patch生成、Coding Agent  
 > 対象工程：既存Code調査、Context構成、生成、Tool実行、検証、Review  
-> 関連ページ：[生成AIの条件付き確率モデル基礎](/foundations/conditional-probability/)、[コード生成AIの評価と採用設計](/evaluation-hitl/code-evaluation-acceptance/)、[AI間インターフェースとしてのプロンプト](/architecture/prompts-as-interfaces/)
 
 ---
 

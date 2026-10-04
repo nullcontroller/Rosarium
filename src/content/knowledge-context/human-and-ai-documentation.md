@@ -22,7 +22,6 @@ source:
 > 種別：Knowledge設計 / 情報アーキテクチャ / 運用原則
 > 適用対象：RAG、QAチャット、Knowledge Base、社内文書
 > 対象工程：Knowledge作成 / 表現変換 / 索引化 / 版管理
-> 関連ページ：[Instruction・Knowledge・Evidenceの責務分離](/knowledge-context/instruction-knowledge-evidence/)、[QA行動制約Knowledge](/knowledge-context/qa-behavior-constraints/)、[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)
 
 前ページでは、QAチャットの品質を、検索・根拠利用・回答拒否・業務効果へ分けて評価しました。
 

@@ -109,9 +109,3 @@ Temperatureは候補Token間の確率差を変える。低くすれば常に正�
 
 LLMを確率モデルとして捉える目的は、生成を完全に予測することではない。不確実性の存在を前提に、入力、Context、検証、承認、実行を分離して設計することにある。
 
-## 関連ページ
-
-- [生成AIの条件付き確率モデル基礎](/Rosarium/foundations/conditional-probability/)
-- [Temperature設計指針](/Rosarium/foundations/temperature-design/)
-- [ハルシネーションの発生原理](/Rosarium/foundations/hallucination-mechanisms/)
-- [数式リファレンス](/Rosarium/reference/mathematical-reference/)

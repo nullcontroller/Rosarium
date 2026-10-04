@@ -75,10 +75,4 @@ Knowledge / AI / UX
 
 この順序を保つことで、利用するモデルや検索技術が変わっても、設計判断を再利用できます。
 
-## 次に読む
-
-- [生成AIを業務へ組み込む設計原則](/Rosarium/foundations/ai-business-design/)
-- [AI出力の責任境界とHITL](/Rosarium/evaluation-hitl/responsibility-and-hitl/)
-- [AI評価データセットと回帰評価設計](/Rosarium/evaluation-hitl/datasets-and-regression/)
-- [DXを価値・業務・システムの変化から考える](/Rosarium/dx/)
 

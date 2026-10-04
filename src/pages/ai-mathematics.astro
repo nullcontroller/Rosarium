@@ -1,21 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
-import ContentLink from "../components/ContentLink.astro";
 import ContentIndex from "../components/ContentIndex.astro";
-import { publicEntry, url } from "../lib/site";
-import { mathematicsReadingIds } from "../lib/navigation";
+import { publicEntry } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
-import ThemeArticleIndex from "../components/ThemeArticleIndex.astro";
-import { readingEntries, readingNavigation } from "../lib/reading";
+import { readingEntries } from "../lib/reading";
 const all = await getCollection("pages", publicEntry);
-const entries = all.filter((e) => e.data.layer === "ai-mathematics");
-const reading = mathematicsReadingIds.map((id) => {
-  const entry = entries.find((e) => e.id === id);
-  if (!entry) throw new Error("Missing mathematics reading: " + id);
-  return entry;
-});
-const themeGroups = readingNavigation(all, "ai-mathematics");
 const discoverable = readingEntries(all, "ai-mathematics");
 ---
 
@@ -23,13 +13,11 @@ const discoverable = readingEntries(all, "ai-mathematics");
   title="AI理論"
   section="ai-mathematics"
   ogImage="og/site.png"
-  themeGroups={themeGroups}
 >
   <PageHeader title="AI理論" />
   <p>
     出力の揺らぎ、条件付き確率、Temperature、Hallucination、コード生成モデルの仕組みを扱います。
   </p>
-  <ThemeArticleIndex groups={themeGroups} />
   <h2>AIは数学である</h2>
   <p>
     生成AIやLLMは言葉を理解しているように見えますが、内部では数値・ベクトル・確率分布・行列演算として処理されています。AI理論では、AIを人格や直感で説明せず、数学的な対象として分解して考えます。
@@ -37,26 +25,6 @@ const discoverable = readingEntries(all, "ai-mathematics");
   <p>
     確率、条件付き確率、分布、Sampling、Temperature、Optimization、Representationを手掛かりに、「なぜ答えが揺らぐのか」「なぜHallucinationが起こるのか」「生成条件が出力をどう変えるのか」を理解し、設計上の含意へつなげます。
   </p>
-  <details class="recommended-reading">
-    <summary>推奨する読み順</summary>
-    <div class="recommended-reading-body">
-      <p>
-        数学 → 出力制御 → エラー特性 →
-        応用モデルの順に読み進めます。必要なページから直接参照しても構いません。
-      </p>
-      <ol class="reading-route" data-mathematics-reading>
-        {reading.map((entry, i) => (
-          <li>
-            <span>{String(i + 1).padStart(2, "0")}</span>
-            <ContentLink entry={entry} heading="h3" showIcon={false} />
-          </li>
-        ))}
-      </ol>
-    </div>
-  </details>
   <h2>AI理論から読めるもの</h2>
   <ContentIndex entries={discoverable} showIcons={false} />
-  <p>
-    <a href={url("ai-design")}>業務への組込みをAI設計から読む</a>
-  </p>
 </Site>

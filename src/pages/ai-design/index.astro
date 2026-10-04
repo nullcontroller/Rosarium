@@ -5,10 +5,7 @@ import ContentIndex from "../../components/ContentIndex.astro";
 import { designTopics } from "../../lib/navigation";
 import { publicEntry, url } from "../../lib/site";
 import PageHeader from "../../components/PageHeader.astro";
-import ThemeArticleIndex from "../../components/ThemeArticleIndex.astro";
-import { readingNavigation } from "../../lib/reading";
 const all = await getCollection("pages", publicEntry);
-const themeGroups = readingNavigation(all, "ai-design");
 const designFlow = [
   "価値",
   "実現したい業務変化",
@@ -65,7 +62,6 @@ const appliedAreas = [
   title="AI設計"
   section="ai-design"
   ogImage="og/ai-design.png"
-  themeGroups={themeGroups}
 >
   <PageHeader title="AI設計" />
   <p>
@@ -96,7 +92,9 @@ const appliedAreas = [
         <li>
           <p class="eyebrow">{area.number}</p>
           <h3>
-            <a href={url(area.path)}>{area.title}</a>
+            {area.path === "architecture/agents-tools-and-workflows"
+              ? <a href={url(area.path)}>{area.title}</a>
+              : area.title}
           </h3>
           <p>{area.summary}</p>
         </li>
@@ -104,18 +102,9 @@ const appliedAreas = [
     </ol>
   </section>
 
-  <ThemeArticleIndex groups={themeGroups} />
-  <nav class="topic-navigation" aria-label="AI設計のテーマ">
-    {designTopics.map(([key, title]) => (
-      <a href={url("ai-design/" + key)}>{title}</a>
-    ))}
-  </nav>
   {designTopics.map(([key, title, summary]) => (
     <section>
-      <h2>{title}</h2>
-      <p class="section-title-link">
-        <a href={url("ai-design/" + key)}>このテーマを見る</a>
-      </p>
+      <h2><a href={url("ai-design/" + key)}>{title}</a></h2>
       <p>{summary}</p>
       <ContentIndex
         showIcons={false}

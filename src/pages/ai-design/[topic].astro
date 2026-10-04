@@ -2,8 +2,7 @@
 import { getCollection } from "astro:content";
 import Site from "../../layouts/Site.astro";
 import ContentIndex from "../../components/ContentIndex.astro";
-import RelatedPublications from "../../components/RelatedPublications.astro";
-import { designTopics, relatedPublications } from "../../lib/navigation";
+import { designTopics } from "../../lib/navigation";
 import { publicEntry, url } from "../../lib/site";
 import PageHeader from "../../components/PageHeader.astro";
 export function getStaticPaths() {
@@ -33,9 +32,5 @@ const all = await getCollection("pages", publicEntry);
         e.data.layer === "ai-design" &&
         e.data.design_topic === Astro.params.topic,
     )}
-  />
-  <RelatedPublications
-    entries={relatedPublications(all, Astro.params.topic)}
-    showIcons={false}
   />
 </Site>

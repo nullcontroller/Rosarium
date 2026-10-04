@@ -377,9 +377,3 @@ IT戦略は「何をAI化するか」から始めるのではなく、
 
 私は、その先に初めて意味のあるAI活用があると考えています。
 
-## 関連する記事・設計
-
-- [『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』](/foundations/ai-business-design/)
-- [AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)
-- [生成AI / RAGによる顧客サポートDX](/cases/customer-support-ai-dx/)
-- [全員の業務が違うのに、AI活用事例をそのまま横展開できるのか](/practices/transferring-ai-practices/)

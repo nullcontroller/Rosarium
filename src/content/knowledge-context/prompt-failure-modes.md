@@ -22,7 +22,6 @@ source:
 > 種別：設計原則 / 診断手順 / 評価方法  
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント、コード生成  
 > 対象工程：Prompt設計 / Context構築 / 検証 / 運用改善  
-> 関連ページ：[プロンプト設計の基本構造](/knowledge-context/prompt-structure/)、[ガードレールの数学的説明](/foundations/guardrail-models/)、[AI間インターフェースとしてのプロンプト](/architecture/prompts-as-interfaces/)
 
 ### 結論
 

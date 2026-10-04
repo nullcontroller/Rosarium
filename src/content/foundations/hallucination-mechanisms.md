@@ -21,7 +21,6 @@ source:
 > 種別：一般理論 / 失敗分析 / 簡略モデル
 > 適用対象：生成AI、RAG、QAチャット、コード生成
 > 対象工程：入力 / 検索 / 生成 / 検証
-> 関連ページ：[生成AIの条件付き確率モデル基礎](/foundations/conditional-probability/)、[ハルシネーションの多層制御設計](/foundations/layered-hallucination-controls/)、[なぜ回答範囲を制限した方がよいのか](/foundations/answer-scope/)
 
 生成AIは、流暢で一貫した文章を作れます。
 

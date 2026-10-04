@@ -63,10 +63,4 @@ PoC / Knowledge / UX / HITL
 
 PCでは右側のBook目次、モバイルでは折りたたみ式の目次から任意の章へ移動できます。順番に読む場合は、各章末の前後ナビゲーションを利用してください。
 
-## 関連する入口
-
-- [AI設計](/Rosarium/ai-design/)
-- [DX](/Rosarium/dx/)
-- [Knowledge / Context](/Rosarium/ai-design/knowledge-context/)
-- [Evaluation / HITL](/Rosarium/ai-design/evaluation-hitl/)
 

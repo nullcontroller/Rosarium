@@ -22,7 +22,6 @@ source:
 > 種別：基礎理論 / 簡略モデル / 設計原則
 > 適用対象：生成AI、RAG、QAチャット、コード生成、AIエージェント
 > 対象工程：モデル理解 / Context設計 / 生成条件 / 評価
-> 関連ページ：[Instruction・Knowledge・Evidenceの責務分離](/knowledge-context/instruction-knowledge-evidence/)、[ハルシネーションの発生原理](/foundations/hallucination-mechanisms/)、[Temperature設計指針](/foundations/temperature-design/)
 
 ### 目的
 

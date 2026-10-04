@@ -111,9 +111,3 @@ AIの性能や新機能は、これからも速く変わる。そのたびに新
 
 今では、それがAIを考えるときの出発点になっている。
 
-## 関連する設計
-
-- [AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)
-- [AI業務システムの参照アーキテクチャ](/architecture/reference-architecture/)
-- [AI出力の責任境界とHITL](/evaluation-hitl/responsibility-and-hitl/)
-- [QAチャット運用思想](/knowledge-context/qa-operations/)

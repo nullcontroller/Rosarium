@@ -21,7 +21,6 @@ source:
 > 種別：設計原則 / 実務上の仮説 / 運用設計  
 > 適用対象：ソフトウェア開発、保守、改修、コード生成AI、AIエージェント  
 > 対象工程：要求整理 / 調査 / 設計 / 実装 / レビュー / テスト / リリース / 運用  
-> 関連ページ：[QAチャット運用思想](/knowledge-context/qa-operations/)、[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)、[人向け資料とAI向け資料の分離設計](/knowledge-context/human-and-ai-documentation/)
 
 ### 結論
 

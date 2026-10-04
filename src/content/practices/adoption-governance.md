@@ -57,8 +57,3 @@ AI出力を採用できない場合の代替手段を用意する。
 
 導入後は、品質、時間、コスト、レビュー負荷、差し戻し理由を確認する。結果に応じてKnowledge、Context、評価基準、委任範囲を更新する。
 
-## 関連する設計知識
-
-- [AI適用可否と委任レベルの設計](/Rosarium/foundations/applicability-and-delegation/)
-- [責任境界と状態遷移](/Rosarium/reference/responsibility-state-model/)
-- [AI活用の成否はツールではなく、使う側で決まる](/Rosarium/practices/ai-adoption-and-effective-use/)

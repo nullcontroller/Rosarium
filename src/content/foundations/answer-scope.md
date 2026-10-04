@@ -22,7 +22,6 @@ source:
 > 種別：設計原則 / 選択的予測 / 評価方法
 > 適用対象：RAG、QAチャット、コード生成、AIエージェント
 > 対象工程：範囲判定 / 生成 / 回答拒否 / 移管 / 評価
-> 関連ページ：[ハルシネーションの多層制御設計](/foundations/layered-hallucination-controls/)、[QA行動制約Knowledge](/knowledge-context/qa-behavior-constraints/)、[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)
 
 前ページでは、ハルシネーションを次の三段階で制御しました。
 

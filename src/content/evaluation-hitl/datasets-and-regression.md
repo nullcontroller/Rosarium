@@ -22,7 +22,6 @@ source:
 > 種別：評価設計 / 変更管理
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント
 > 対象工程：評価 / リリース / 変更 / 再評価
-> 関連ページ：[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)、[AIシステムの変更・再評価設計](/architecture/change-and-reevaluation/)、[AIシステムのオブザーバビリティとSLO設計](/architecture/observability-and-slo/)
 
 ### はじめに
 

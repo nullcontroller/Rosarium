@@ -212,7 +212,3 @@ Legacy Systemへの適用では、既存Codeを正解ではなくEvidenceとし�
 
 ---
 
-### 関連
-
-- [Zenn](https://zenn.dev/nullcontroller)
-- [Repository](https://github.com/nullcontroller/Rosarium)

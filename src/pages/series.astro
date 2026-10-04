@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
-import { publicEntry, url } from "../lib/site";
+import { publicEntry } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 const all = await getCollection("pages", publicEntry);
 ---
@@ -14,7 +14,4 @@ const all = await getCollection("pages", publicEntry);
     .map((entry) => (
       <SeriesIndex entry={entry} all={all} />
     ))}
-  <p>
-    <a href={url("ai")}>AI</a>
-  </p>
 </Site>

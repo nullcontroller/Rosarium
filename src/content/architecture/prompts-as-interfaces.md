@@ -22,7 +22,6 @@ source:
 > 種別：インターフェース設計 / オーケストレーション / 出力契約
 > 適用対象：複数AI、AIエージェント、業務Workflow
 > 対象工程：Task分割 / 受渡し / 検証 / 状態管理
-> 関連ページ：[プロンプト設計の基本構造](/knowledge-context/prompt-structure/)、[複数AIの役割分担と工程設計](/software-engineering/multi-ai-orchestration/)、[AI出力の責任境界とHITL](/evaluation-hitl/responsibility-and-hitl/)
 
 プロンプトは、Request、Template、Context Assembly、Runtime Interfaceとして機能します。
 

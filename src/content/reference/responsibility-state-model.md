@@ -55,8 +55,3 @@ AIへCapabilityを与えても、AuthorityとAccountabilityが自動的に移る
 
 人間へ戻す場合は、元入力、AI候補、根拠、検証結果、未解決点を一緒に渡す。
 
-### 関連ページ
-
-- [AI出力の責任境界とHITL](/evaluation-hitl/responsibility-and-hitl/)
-- [AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)
-- [AI業務システムの参照アーキテクチャ](/architecture/reference-architecture/)

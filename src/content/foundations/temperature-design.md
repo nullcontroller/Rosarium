@@ -21,7 +21,6 @@ source:
 > 種別：生成条件 / 実験設計 / 評価方法
 > 適用対象：文章生成、QAチャット、コード生成、AIエージェント
 > 対象工程：Decoding設定 / 評価 / 運用
-> 関連ページ：[生成AIの条件付き確率モデル基礎](/foundations/conditional-probability/)、[なぜ回答範囲を制限した方がよいのか](/foundations/answer-scope/)、[ハルシネーションの発生原理](/foundations/hallucination-mechanisms/)
 
 前ページでは、AIが回答してよい領域と、回答を止める条件を定義しました。
 

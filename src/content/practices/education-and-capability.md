@@ -99,10 +99,3 @@ Human Judgment Capability
 
 実務で発生した失敗やレビュー結果を教材へ戻し、原則、事例、操作手順のどこを更新すべきか判断する。教育も一度作って終わる資料ではなく、運用から改善する知識基盤として扱う。
 
-## 関連する設計知識
-
-- [生成AI教育はなぜ難しいのか](/Rosarium/practices/ai-education-principles/)
-- [AI適用可否と委任レベルの設計](/Rosarium/foundations/applicability-and-delegation/)
-- [AI出力の責任境界とHITL](/Rosarium/evaluation-hitl/responsibility-and-hitl/)
-- [基本用語集](/Rosarium/reference/glossary/)
-- [AI評価指標](/Rosarium/reference/evaluation-metrics/)

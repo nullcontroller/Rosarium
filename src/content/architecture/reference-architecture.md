@@ -28,7 +28,6 @@ source:
 > 種別：参照アーキテクチャ / 設計原則 / 実務上の仮説  
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント、コード生成、業務自動化  
 > 対象工程：入力 / Context構築 / 生成 / 検証 / 承認 / 実行 / 監視  
-> 関連ページ：[Instruction・Knowledge・Evidenceの責務分離](/knowledge-context/instruction-knowledge-evidence/)、[複数AIの役割分担と工程設計](/software-engineering/multi-ai-orchestration/)、[AI出力の責任境界とHITL](/evaluation-hitl/responsibility-and-hitl/)
 
 ### 結論
 

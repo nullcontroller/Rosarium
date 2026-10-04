@@ -54,8 +54,3 @@ Knowledgeが存在しても、今回のContextへ正しく組み込まれなけ�
 | Human in the Loop（HITL） | 条件に応じてAIから人間へ判断・承認・例外処理を戻す設計 |
 | Rollback | 実行後の変更を、安全が確認された状態へ戻す処理 |
 
-### 関連Reference
-
-- [数式・記号リファレンス](/reference/mathematical-reference/)
-- [評価指標リファレンス](/reference/evaluation-metrics/)
-- [責任境界・状態モデル](/reference/responsibility-state-model/)

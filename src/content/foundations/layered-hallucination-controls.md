@@ -22,7 +22,6 @@ source:
 > 種別：設計原則 / リスク制御 / 評価方法
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント、コード生成
 > 対象工程：予防 / 検出 / 拒否 / 採用 / 実行
-> 関連ページ：[ハルシネーションの発生原理](/foundations/hallucination-mechanisms/)、[なぜ回答範囲を制限した方がよいのか](/foundations/answer-scope/)、[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)
 
 前ページでは、ハルシネーションを次のように整理しました。
 

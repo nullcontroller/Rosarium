@@ -465,8 +465,3 @@ AIも同じです。
 
 それもIT戦略の重要な役割なのではないかと考えています。
 
-## 関連する記事・設計
-
-- [AIで作れる時代に、何を作らないか](/essays/what-not-to-build-with-ai/)
-- [レガシーシステムは、変えやすくしながら終わらせる](/essays/legacy-change-and-retirement/)
-- [AIシステムの変更・再評価設計](/architecture/change-and-reevaluation/)

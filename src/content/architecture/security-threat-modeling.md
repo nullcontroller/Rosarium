@@ -22,7 +22,6 @@ source:
 > 種別：設計原則 / セキュリティ設計
 > 適用対象：生成AI、RAG、AIエージェント、業務自動化
 > 対象工程：設計 / 実装 / 運用 / 事故対応
-> 関連ページ：[ガードレールの数学的説明](/foundations/guardrail-models/)、[QA行動制約ナレッジ](https://github.com/nullcontroller/Rosarium/wiki/QA%E8%A1%8C%E5%8B%95%E5%88%B6%E7%B4%84%E3%83%8A%E3%83%AC%E3%83%83%E3%82%B8)、[AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)
 
 ### はじめに
 

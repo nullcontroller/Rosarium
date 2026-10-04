@@ -105,8 +105,3 @@ AIの価値は、生成能力だけでは決まりません。必要な仕事へ
 
 この判断を具体的に追うには、[顧客サポートDXでのAI適用判断](/cases/customer-support-ai-dx/why-ai/)が参考になります。個人のツール利用とは異なる、業務分担を変えるための設計ケースです。
 
-## 関連ページ
-
-- [AI導入を業務へ定着させる](/Rosarium/practices/adoption-governance/)
-- [AI適用可否と委任レベルの設計](/Rosarium/foundations/applicability-and-delegation/)
-- [責任境界と状態遷移](/Rosarium/reference/responsibility-state-model/)

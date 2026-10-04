@@ -13,7 +13,6 @@ import { navigation } from "../lib/navigation";
 import NavIcon from "../components/NavIcon.astro";
 import GlobalSearch from "../components/GlobalSearch.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
-import type { ReadingGroup } from "../lib/reading";
 interface Props {
   title: string;
   summary?: string;
@@ -27,7 +26,6 @@ interface Props {
   lastUpdated?: string;
   showLastUpdated?: boolean;
   breadcrumbs?: { name: string; path: string }[];
-  themeGroups?: ReadingGroup[];
   bookNavigation?: {
     title: string;
     chapterCount: number;
@@ -48,7 +46,6 @@ const {
   lastUpdated,
   showLastUpdated = true,
   breadcrumbs = [],
-  themeGroups = [],
   bookNavigation,
   frame = true,
 } = Astro.props;
@@ -288,7 +285,6 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         frame && "global-frame",
         !frame && "career-shell",
         frame && headings.length > 0 && "has-toc",
-        frame && themeGroups.length > 0 && "has-theme-toc",
         frame && bookNavigation && "has-book-toc",
       ]}
     >
@@ -414,47 +410,6 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           </>
         </aside>
       )}
-      {frame && !bookNavigation && themeGroups.length > 0 && (
-        <aside class="theme-toc" aria-label="このテーマの記事">
-          <p>このテーマの記事</p>
-          <div class="theme-nav-groups">
-            {themeGroups.map((group) =>
-              group.title ? (
-                <details open={group.current}>
-                  <summary>
-                    {group.title} <span>{group.links.length}</span>
-                  </summary>
-                  <ul>
-                    {group.links.map((item) => (
-                      <li class:list={[item.current && "current"]}>
-                        <a
-                          href={item.href}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          {item.title}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              ) : (
-                <ul>
-                  {group.links.map((item) => (
-                    <li class:list={[item.current && "current"]}>
-                      <a
-                        href={item.href}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              ),
-            )}
-          </div>
-        </aside>
-      )}
       {frame && bookNavigation && (
         <aside class="book-toc" aria-label="このBookの目次">
           <p class="book-toc-title">{bookNavigation.title}</p>
@@ -482,8 +437,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         <a href={url()}>庭</a> · <a href={url("ai")}>AI</a> ·{" "}
         <a href={url("dx")}>DX</a> · <a href={url("cases")}>実践事例</a> ·{" "}
         <a href={url("career")}>キャリア</a> ·{" "}
-        <a href={assetUrl("feed.xml")}>RSS</a> ·{" "}
-        <a href="https://github.com/nullcontroller/Rosarium">Repository</a>
+        <a href={assetUrl("feed.xml")}>RSS</a>
       </nav>
       <p class="meta" data-pagefind-ignore>
         利用状況を把握し、コンテンツや導線を改善するため、Google Analytics

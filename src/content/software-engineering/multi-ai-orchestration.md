@@ -22,7 +22,6 @@ source:
 > 種別：設計原則 / 実務上の仮説 / オーケストレーション設計  
 > 適用対象：複数AI、AIエージェント、コード生成、調査、RAG、業務支援  
 > 対象工程：分解 / 配置 / 実行 / 受渡し / 検証 / 統合 / 停止  
-> 関連ページ：[AI間インターフェースとしてのプロンプト](/architecture/prompts-as-interfaces/)、[AIを開発工程に組み込む](/software-engineering/development-workflow/)、[AI出力の責任境界とHITL](/evaluation-hitl/responsibility-and-hitl/)
 
 ### 結論
 

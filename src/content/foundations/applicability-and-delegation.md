@@ -30,7 +30,6 @@ source:
 > 種別：設計原則 / ガバナンス設計
 > 適用対象：生成AI、AIエージェント、業務自動化
 > 対象工程：企画 / 設計 / 承認 / 運用
-> 関連ページ：[AI出力の責任境界とHITL](/evaluation-hitl/responsibility-and-hitl/)、[複数AIの役割分担と工程設計](/software-engineering/multi-ai-orchestration/)、[生成AIセキュリティと脅威モデリング](/architecture/security-threat-modeling/)
 
 ### はじめに
 
