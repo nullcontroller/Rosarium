@@ -2415,3 +2415,14 @@ blockquote {
 .home-introduction h1 { margin-block: 0.25rem; }
 .home-introduction p { margin-block: 0.5rem; }
 .home-page .home-introduction + .home-section { margin-top: 1rem; }
+
+/* Garden Notes: the changes, rather than the heading, carry the emphasis. */
+.home-page #recent-growth-heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-block: 0.2rem 0.6rem;
+}
+.home-page [aria-labelledby="recent-growth-heading"] > p.meta {
+  margin-block: 0.4rem 0.75rem;
+}
