@@ -982,8 +982,7 @@ blockquote {
   color: var(--muted);
   font-size: 0.76rem;
 }
-.content-entry-points a,
-.entry-point-label {
+.content-entry-points a {
   display: inline-flex;
   min-height: 32px;
   align-items: center;
@@ -992,11 +991,6 @@ blockquote {
   border-radius: 999px;
   color: var(--accent);
   background: var(--surface);
-}
-.content-entry-meta .entry-point-label {
-  min-height: 24px;
-  padding: 0 0.4rem;
-  text-decoration: none;
 }
 .content-last-updated {
   color: var(--muted);
