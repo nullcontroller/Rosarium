@@ -4,12 +4,26 @@ const measurementId = "G-W5ZR0NKWGB";
 
 {import.meta.env.PROD && (
   <>
-    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
-    <script is:inline define:vars={{ measurementId }}>
+    <script is:inline data-analytics-init define:vars={{ measurementId }}>
+      function shouldLoadAnalytics() {
+        // This is a conservative pre-load guard, not complete bot detection.
+        const automatedAgent = /\b(?:bot|crawler|spider|headless(?:chrome)?|lighthouse|pagespeed|googlebot|bingbot|applebot|slackbot|facebookexternalhit|linkpreview)\b|\b[a-z0-9_-]*(?:bot|crawler|spider|preview)\//i;
+        return window.location.hostname === 'nullcontroller.github.io' &&
+          window.location.protocol === 'https:' &&
+          window.location.pathname.startsWith('/Rosarium/') &&
+          navigator.webdriver !== true &&
+          !automatedAgent.test(navigator.userAgent);
+      }
+      if (shouldLoadAnalytics()) {
       window.dataLayer = window.dataLayer || [];
-      function gtag() { window.dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', measurementId);
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', measurementId);
+      const loader = document.createElement('script');
+      loader.async = true;
+      loader.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+      document.head.appendChild(loader);
+      }
     </script>
   </>
 )}

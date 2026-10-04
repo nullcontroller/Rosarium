@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { load } from "cheerio";
+import { runAnalytics } from "./analytics-runtime.mjs";
 
 const source = fs.readFileSync("src/components/GoogleAnalytics.astro", "utf8");
 const measurementId = source.match(/const measurementId = "(G-[A-Z0-9]+)";/)?.[1];
@@ -14,11 +15,21 @@ const pages = walk("dist").filter((file) => file.endsWith(".html") && !file.ends
 for (const file of pages) {
   const $ = load(fs.readFileSync(file, "utf8"));
   const loaders = $('script[src*="googletagmanager.com/gtag/js"]');
-  assert.equal(loaders.length, 1, `${file}: exactly one Google tag loader`);
-  assert.equal(new URL(loaders.attr("src")).searchParams.get("id"), measurementId);
-  assert(loaders.is("[async]"), `${file}: async Google tag loader`);
-  const configs = $("script:not([src])").toArray().filter((el) => /gtag\(['"]config['"]/.test($(el).text()));
-  assert.equal(configs.length, 1, `${file}: exactly one GA4 config`);
-  assert($(configs[0]).text().includes(measurementId), `${file}: matching GA4 config ID`);
+  assert.equal(loaders.length, 0, `${file}: no unconditional Google tag loader`);
+  const initializers = $("script[data-analytics-init]");
+  assert.equal(initializers.length, 1, `${file}: exactly one guarded initialization`);
+  const script = initializers.text();
+  const normal = runAnalytics(script);
+  assert.equal(normal.loaders.length, 1, `${file}: production reader loads GA4`);
+  assert.equal(normal.loaders[0].async, true);
+  assert.equal(new URL(normal.loaders[0].src).searchParams.get("id"), measurementId);
+  assert.equal(normal.events.length, 2, `${file}: one js and one config command`);
+  assert.equal(normal.events[1][0], "config");
+  assert.equal(normal.events[1][1], measurementId);
+  for (const overrides of [{ navigator: { webdriver: true } }, { navigator: { userAgent: "Googlebot/2.1" } }, { location: { hostname: "localhost" } }]) {
+    const excluded = runAnalytics(script, overrides);
+    assert.equal(excluded.loaders.length, 0, `${file}: excluded clients do not load GA4`);
+    assert.equal(excluded.events.length, 0, `${file}: excluded clients do not queue events`);
+  }
 }
-console.log(`Analytics audit: ${pages.length} HTML pages, one loader and config per page.`);
+console.log(`Analytics audit: ${pages.length} HTML pages, guarded production loader/config; automation and localhost excluded.`);
