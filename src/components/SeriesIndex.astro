@@ -8,8 +8,14 @@ interface Props {
   all: Entry[];
   showCover?: boolean;
   showIcons?: boolean;
+  heading?: "h2" | "h3";
 }
-const { entry, showCover = true, showIcons = true } = Astro.props;
+const {
+  entry,
+  showCover = true,
+  showIcons = true,
+  heading = "h2",
+} = Astro.props;
 const hasCover = showCover && Boolean(entry.data.cover);
 const coverDimensions = imageDimensions(
   entry.data.cover ? base + entry.data.cover : undefined,
@@ -33,8 +39,11 @@ const coverDimensions = imageDimensions(
     </a>
   )}
   <div>
-    <PublicationLink entry={entry} heading="h2" showIcon={showIcons && !hasCover} />
+    <PublicationLink
+      entry={entry}
+      heading={heading}
+      showIcon={showIcons && !hasCover}
+    />
     <slot name="details" />
-
   </div>
 </article>

@@ -424,6 +424,11 @@ assert.deepEqual(
   ["cases/three-ai-maintenance", "cases/customer-support-ai-dx", "cases/system-understanding"],
 );
 assert.equal(cases(".case-reference-note span").text().trim(), "OBSOLETE");
+assert.equal(cases("#active-cases .case-study-index").length, 2);
+assert.equal(cases("#obsolete-cases .case-study-index").length, 1);
+assert.equal(cases("#active-cases > h2").text(), "主要事例");
+assert.equal(cases("#obsolete-cases > h2").text(), "旧事例");
+assert.equal(cases('#obsolete-cases [data-series-index="cases/system-understanding"]').length, 1);
 assert(cases(".case-reference-note").text().includes("旧AI環境を前提とした参考事例"));
 assert(!cases("main a").text().includes("→"));
 assert(page("cases/system-understanding")(".case-position-note").text().includes("現在の推奨構成ではありません"));
@@ -535,7 +540,7 @@ for (const route of ["cases", "books"]) {
   );
   assert.equal($("[data-series-index] details, [data-series-index] summary").length, 0);
   assert(!$("[data-series-index]").text().includes("概要・全体構成を読む"));
-  assert.equal($("[data-series-index] h2.content-title").length, 3);
+  assert.equal($("[data-series-index] .content-title").length, 3);
 }
 assert.equal(
   page("series")('[data-series-index="foundations/ai-business-design"]').length,

@@ -29,10 +29,10 @@ const caseStudy = caseStudies.find((study) => study.book === entry.id);
     <Heading class="content-title">
       <a href={url(entry.id)}>{d.title}</a>
     </Heading>
-    <p class="content-summary">{d.summary}</p>
     {caseStudy?.lifecycle === "obsolete" && (
       <p class="case-reference-note"><span>OBSOLETE</span> {caseStudy.referenceNote}</p>
     )}
+    <p class="content-summary">{d.summary}</p>
     {purposes.length > 0 && (
       <p class="meta publication-purpose publication-topics">
         {purposes.map((purpose) => purpose.shortTitle).join(" / ")}

@@ -37,7 +37,7 @@ const curatedRecentGrowth = [
     changes: [
       "主要事例の可視化をSVGベースに統一",
       "レガシーシステム理解と複数AI保守の事例を全面改訂",
-      "旧AI環境のレガシー事例をOBSOLETEとして整理",
+      "旧AI環境の事例をOBSOLETEとして分離",
       "CareerとCareer Detailsの役割分担を整理",
       "各ページの入口説明を平易化",
       "Rosariumの目的と運営思想を説明するページを追加",

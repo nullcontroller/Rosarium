@@ -9,39 +9,76 @@ import ThemeArticleIndex from "../components/ThemeArticleIndex.astro";
 import { readingNavigation } from "../lib/reading";
 const all = await getCollection("pages", publicEntry);
 const themeGroups = readingNavigation(all, "cases");
+const caseGroups = [
+  {
+    id: "active-cases",
+    title: "主要事例",
+    description: "",
+    studies: caseStudies.filter((study) =>
+      ["recommended", "active"].includes(study.lifecycle),
+    ),
+  },
+  {
+    id: "obsolete-cases",
+    title: "旧事例",
+    description:
+      "現在の推奨構成ではありませんが、当時の制約下での設計判断を参考として残しています。",
+    studies: caseStudies.filter((study) =>
+      ["reference", "obsolete"].includes(study.lifecycle),
+    ),
+  },
+];
 ---
 
 <Site title="実践事例" section="cases" themeGroups={themeGroups}>
   <PageHeader title="実践事例" />
   <p>各事例が扱う課題、設計、到達点を確認し、必要な章へ進めます。</p>
   <ThemeArticleIndex groups={themeGroups} />
-  {caseStudies.map((study) => (
-    <section class="case-study-index">
-      <SeriesIndex
-        entry={all.find((e) => e.id === study.book)!}
-        all={all}
-        showCover={false}
-        showIcons={false}
+  {caseGroups
+    .filter((group) => group.studies.length > 0)
+    .map((group) => (
+      <section
+        id={group.id}
+        class:list={[
+          "case-group",
+          group.id === "obsolete-cases" && "case-group-obsolete",
+        ]}
+        aria-labelledby={`${group.id}-heading`}
       >
-        <div slot="details">
-        <dl class="case-outcome" aria-label="課題から結果まで">
-          <div>
-            <dt>課題</dt>
-            <dd>{study.challenge}</dd>
+        <h2 id={`${group.id}-heading`}>{group.title}</h2>
+        {group.description && (
+          <p class="case-group-description">{group.description}</p>
+        )}
+        {group.studies.map((study) => (
+          <div class="case-study-index">
+            <SeriesIndex
+              entry={all.find((e) => e.id === study.book)!}
+              all={all}
+              showCover={false}
+              showIcons={false}
+              heading="h3"
+            >
+              <div slot="details">
+                <dl class="case-outcome" aria-label="課題から結果まで">
+                  <div>
+                    <dt>課題</dt>
+                    <dd>{study.challenge}</dd>
+                  </div>
+                  <div>
+                    <dt>設計</dt>
+                    <dd>{study.designSummary}</dd>
+                  </div>
+                  <div>
+                    <dt>結果</dt>
+                    <dd>{study.result}</dd>
+                  </div>
+                </dl>
+              </div>
+            </SeriesIndex>
           </div>
-          <div>
-            <dt>設計</dt>
-            <dd>{study.designSummary}</dd>
-          </div>
-          <div>
-            <dt>結果</dt>
-            <dd>{study.result}</dd>
-          </div>
-        </dl>
-        </div>
-      </SeriesIndex>
-    </section>
-  ))}
+        ))}
+      </section>
+    ))}
   <nav class="topic-navigation" aria-label="全体と公開物への入口">
     <a href={url("ai")}>AI</a>
     <a href={url("series")}>設計原則の連載</a>

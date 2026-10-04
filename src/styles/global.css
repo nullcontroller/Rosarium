@@ -2233,9 +2233,21 @@ blockquote {
   display: inline-block;
   border: 1px solid var(--line);
   border-radius: 4px;
-  padding: .1rem .45rem;
   margin-inline-end: .35rem;
   background: var(--soft);
+  font-size: .9375rem;
+  font-weight: 600;
+  padding: .25rem .6rem;
+}
+.case-group { margin-top: 2rem; }
+.case-group > h2 { font-size: 1.5rem; }
+.case-group-description { color: var(--muted); }
+.case-group-obsolete > h2 { color: var(--muted); }
+.case-group-obsolete .book-list-entry {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: clamp(.85rem, 2vw, 1.25rem);
 }
 .case-outcome dt {
   color: var(--accent);
