@@ -446,12 +446,12 @@ blockquote {
   overflow: auto;
   border-right: 1px solid var(--line);
 }
-.sidebar summary {
+.sidebar-label {
   font-size: 0.72rem;
   color: var(--muted);
   letter-spacing: 0.1em;
   margin: 0 0 1rem;
-  cursor: pointer;
+  cursor: default;
 }
 .sidebar nav a {
   display: grid;
@@ -1321,7 +1321,7 @@ blockquote {
   }
   .header-links a,
   .header-links button,
-  .sidebar summary {
+  .sidebar-label {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
@@ -1339,7 +1339,7 @@ blockquote {
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
-  .sidebar summary {
+  .sidebar-label {
     margin: 0;
   }
   .sidebar nav {
@@ -1923,12 +1923,18 @@ blockquote {
   color: var(--muted);
 }
 @media (min-width: 761px) {
-  .sidebar > details > summary {
+  .sidebar-label {
     display: none;
   }
 }
 
 @media (max-width: 760px) {
+  .sidebar nav .nav-main { display: none; }
+  .sidebar .nav-auxiliary { border-top: 0; margin-top: 0; padding-top: .25rem; }
+  .sidebar .nav-auxiliary a { min-height: 44px; padding: .65rem .45rem; }
+  .sidebar .nav-auxiliary small { display: block; font-size: .8125rem; line-height: 1.5; }
+  .sidebar .nav-auxiliary a:focus-visible { outline: 2px solid var(--line); outline-offset: 2px; }
+  .sidebar-label { font-size: .8125rem; letter-spacing: .04em; margin: 0 0 .25rem; }
   .site-last-updated {
     text-align: start;
   }

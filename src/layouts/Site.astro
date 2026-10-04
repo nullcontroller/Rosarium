@@ -304,8 +304,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     >
       {frame && (
         <aside class="sidebar" aria-label="主要ナビゲーション">
-          <details open>
-            <summary>ナビゲーション</summary>
+          <div class="sidebar-navigation">
+            <p class="sidebar-label">ナビゲーション</p>
             <nav>
               {navigation.map((group, i) => (
                 <div
@@ -313,6 +313,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                     "nav-group",
                     i === 1 && "nav-spacing",
                     i === 2 && "nav-divider",
+                    i === 2 ? "nav-auxiliary" : "nav-main",
                   ]}
                 >
                   {group.map((item) => (
@@ -371,7 +372,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                 </div>
               ))}
             </nav>
-          </details>
+          </div>
         </aside>
       )}
       <main
@@ -462,13 +463,6 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       </p>
     </footer>
     <script>
-      const navigationViewport = matchMedia("(max-width: 760px)");
-      const syncNavigation = () =>
-        document
-          .querySelector(".sidebar details")
-          ?.toggleAttribute("open", !navigationViewport.matches);
-      syncNavigation();
-      navigationViewport.addEventListener("change", syncNavigation);
       const theme = document.querySelector("#theme");
       try {
         const saved = localStorage.getItem("adf-theme");

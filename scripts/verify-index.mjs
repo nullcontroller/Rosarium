@@ -164,7 +164,9 @@ assert.equal(top('.home-career a[href="/Rosarium/career/"]').length, 1);
 assert.equal(top(".header-actions a").length, 0);
 assert.equal(top("#global-search-input").length, 1);
 assert.equal(top(".global-search-toggle").length, 1);
-assert(!top(".sidebar summary").text().includes("設計体系"));
+assert(!top(".sidebar-label").text().includes("設計体系"));
+assert.equal(top(".sidebar details").length, 0);
+assert.deepEqual(top(".sidebar .nav-auxiliary .nav-copy > span").map((_, e) => top(e).text()).get(), ["Reference", "退役記事"]);
 for (const secondary of ["詳細職務経歴", "Books", "連載", "Essays"])
   assert(
     !top(".sidebar nav a .nav-copy > span").text().includes(secondary),
