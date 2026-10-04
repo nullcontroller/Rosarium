@@ -8,13 +8,17 @@ import {
   introductionForPath,
   staticLastUpdatedForPath,
   url,
+  publicEntry,
 } from "../lib/site";
 import { navigation } from "../lib/navigation";
 import NavIcon from "../components/NavIcon.astro";
 import GlobalSearch from "../components/GlobalSearch.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+import { getCollection } from "astro:content";
+import { analyticsMetadata } from "../lib/analytics";
 interface Props {
   title: string;
+  analyticsTitle?: string;
   summary?: string;
   canonical?: string;
   ogImage?: string;
@@ -35,6 +39,7 @@ interface Props {
 }
 const {
   title,
+  analyticsTitle = title,
   summary = introductionForPath(Astro.url.pathname) ?? siteDescription,
   canonical,
   ogImage = "og/site.png",
@@ -51,6 +56,10 @@ const {
 } = Astro.props;
 const effectiveLastUpdated =
   lastUpdated ?? staticLastUpdatedForPath(Astro.url.pathname);
+const analyticsEntry = (await getCollection("pages", publicEntry)).find(
+  (entry) => url(entry.id) === Astro.url.pathname,
+);
+const analyticsPage = analyticsMetadata(Astro.url.pathname, analyticsTitle, analyticsEntry);
 const documentTitle =
   title === "Home" ? "Rosarium | 立林 裕太朗" : `${title} | Rosarium`;
 const canonicalUrl = canonical?.startsWith(
@@ -227,7 +236,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       set:html={JSON.stringify(structuredData)}
     ></script>
     <slot name="head" />
-    <GoogleAnalytics />
+    <GoogleAnalytics page={analyticsPage} enabled={!noindex && title !== "404"} />
   </head>
   <body class:list={[section === "" && "home-page", !frame && "career-page"]}>
     <a class="skip" href="#main">

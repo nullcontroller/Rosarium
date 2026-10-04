@@ -26,6 +26,7 @@ const articles = entries.filter((entry) => entry.data.section !== "cases");
 
 <Site
   title={`${category.title} — DX`}
+  analyticsTitle={category.title}
   section={`dx/${category.id}`}
   summary={category.summary}
   breadcrumbs={[

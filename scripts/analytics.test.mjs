@@ -15,7 +15,24 @@ test("ordinary production readers initialize GA4 immediately, including mobile a
     assert.equal(new URL(result.loaders[0].src).searchParams.get("id"), "G-W5ZR0NKWGB");
     assert.equal(result.events[1][0], "config");
     assert.equal(result.events[1][1], "G-W5ZR0NKWGB");
+    assert.equal(result.events[1][2].send_page_view, false);
+    assert.equal(result.events.length, 3);
+    assert.equal(result.events[2][1], "page_view");
   }
+});
+
+test("page_view retains safe campaign attribution while removing arbitrary queries and referrer details", () => {
+  const result = runAnalytics(script, { location: { search: "?utm_source=linkedin&utm_medium=social&utm_campaign=rosarium&email=reader%40example.com&q=private#secret" }, referrer: "https://www.linkedin.com/profile/private?email=reader%40example.com" });
+  const parameters = result.events[2][2];
+  assert.equal(parameters.page_title, "Rosarium");
+  assert.equal(parameters.page_path, "/Rosarium/");
+  assert.equal(parameters.content_type, "home");
+  assert.equal(parameters.page_referrer, "https://www.linkedin.com/");
+  assert.equal(parameters.page_location, "https://nullcontroller.github.io/Rosarium/?utm_source=linkedin&utm_medium=social&utm_campaign=rosarium");
+  assert.equal(result.events.filter((event) => event[1] === "page_view").length, 1);
+  const unsafe = runAnalytics(script, { location: { search: "?utm_source=reader%40example.com" } });
+  assert.equal(unsafe.events[2][2].page_location, "https://nullcontroller.github.io/Rosarium/");
+  assert.equal(runAnalytics(script, { enabled: false }).events.length, 0);
 });
 
 test("obvious automated clients do not load or initialize analytics", () => {

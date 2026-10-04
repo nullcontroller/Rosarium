@@ -8,6 +8,7 @@ export function runAnalytics(script, overrides = {}) {
       hostname: "nullcontroller.github.io",
       protocol: "https:",
       pathname: "/Rosarium/",
+      search: "",
       ...overrides.location,
     },
   };
@@ -15,7 +16,11 @@ export function runAnalytics(script, overrides = {}) {
     window,
     navigator: { webdriver: false, userAgent: "Mozilla/5.0 Chrome/140.0 Safari/537.36", ...overrides.navigator },
     measurementId: "G-W5ZR0NKWGB",
-    document: { createElement: () => ({}), head: { appendChild: (loader) => loaders.push(loader) } },
+    page: { page_title: "Rosarium", page_path: "/Rosarium/", content_type: "home", primary_category: "home" },
+    enabled: overrides.enabled ?? true,
+    URL,
+    URLSearchParams,
+    document: { referrer: overrides.referrer ?? "", createElement: () => ({}), head: { appendChild: (loader) => loaders.push(loader) } },
   };
   vm.runInNewContext(script, context, { timeout: 1000 });
   return { loaders, events: window.dataLayer ?? [], initialized: typeof window.gtag === "function" };
