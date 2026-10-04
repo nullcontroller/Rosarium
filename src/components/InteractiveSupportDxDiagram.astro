@@ -1,4 +1,5 @@
 ---
+import DiagramOperationGuide from "./DiagramOperationGuide.astro";
 /** Static links and explanations are enhanced in-place; both layouts share one model. */
 const nodes = [
   {
@@ -136,7 +137,7 @@ const layouts = [
 
 <figure class="support-dx" id="support-dx-flow" data-support-dx>
   <figcaption>問い合わせ対応の分岐と改善の流れ</figcaption>
-  <p class="diagram-help">図の項目から、役割と判断条件の説明へ移動できます。</p>
+  <DiagramOperationGuide />
   {layouts.map((layout) => (
     <svg
       class={`diagram-${layout.name}`}
@@ -241,6 +242,14 @@ const layouts = [
               </text>
             )}
             <text
+              class="action-mark"
+              x={x + width - 16}
+              y={y + 17}
+              aria-hidden="true"
+            >
+              ＋
+            </text>
+            <text
               class="selected-mark"
               x={x + width - 16}
               y={y + 17}
@@ -254,10 +263,10 @@ const layouts = [
     </svg>
   ))}
   <div class="diagram-details" aria-label="各工程の説明">
-        <section data-diagram-empty>
-          <h3>詳しい説明</h3>
-          <p>気になる項目を選ぶと、その役割や判断理由を確認できます。</p>
-        </section>
+    <section data-diagram-empty>
+      <h3>詳しい説明</h3>
+      <p>気になる項目を選ぶと、その役割や判断理由を確認できます。</p>
+    </section>
     {nodes.map((node) => (
       <div id={`support-detail-${node.id}`} data-detail={node.id}>
         <h3>{node.label}</h3>
@@ -299,11 +308,6 @@ const layouts = [
   figcaption {
     font-weight: 600;
     color: var(--ink);
-  }
-  .diagram-help {
-    font-size: 0.875rem;
-    color: var(--muted);
-    margin: 0.5rem 0 1rem;
   }
   svg {
     display: block;
@@ -389,6 +393,24 @@ const layouts = [
     display: none;
     fill: var(--accent);
     font-size: 14px;
+  }
+  .action-mark {
+    fill: var(--accent);
+    font-size: 17px;
+    font-weight: 700;
+  }
+  [aria-pressed="true"] .action-mark {
+    display: none;
+  }
+  @media (hover: hover) {
+    [data-node]:hover rect {
+      fill: var(--soft);
+      stroke: var(--accent);
+      stroke-width: 3;
+    }
+    [data-node]:hover .action-mark {
+      font-weight: 900;
+    }
   }
   [aria-pressed="true"] rect {
     fill: var(--soft);

@@ -184,17 +184,19 @@
 .case-diagram[data-compact-interactive] [data-node] {
   cursor: pointer;
 }
-.case-diagram[data-compact-interactive] .case-action-mark {
+.case-diagram .case-action-mark {
   fill: var(--accent);
-  font-size: 14px;
+  font-size: 17px;
+  font-weight: 700;
 }
-.case-diagram[data-compact-interactive] [aria-pressed="true"] .case-action-mark {
+.case-diagram [aria-pressed="true"] .case-action-mark {
   display: none;
 }
 @media (hover: hover) {
-  .case-diagram[data-compact-interactive] [data-node]:hover rect {
+  .case-diagram [data-node]:hover rect {
     fill: var(--soft);
     stroke: var(--accent);
     stroke-width: 3;
   }
+  .case-diagram [data-node]:hover .case-action-mark { font-weight: 900; }
 }

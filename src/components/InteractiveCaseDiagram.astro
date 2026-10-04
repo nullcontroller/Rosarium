@@ -1,5 +1,6 @@
 ---
 import { caseDiagrams } from "../data/case-diagrams";
+import DiagramOperationGuide from "./DiagramOperationGuide.astro";
 import "../styles/case-diagrams.css";
 interface Props {
   id: string;
@@ -145,14 +146,8 @@ const layouts = ["mobile", "desktop"].map((name) => {
   data-structured-flow={model.layouts ? "" : undefined}
 >
   <figcaption>{model.title}</figcaption>
+  <DiagramOperationGuide />
   {model.intro && <p class="case-diagram-help">{model.intro}</p>}
-  {showDetails && !model.intro && (
-    <p class="case-diagram-help">
-      {compactInteractive
-        ? "＋の項目を選ぶと、詳しい説明を確認できます。●は選択中です。"
-        : "項目を選ぶと、役割と判断の説明を確認できます。"}
-    </p>
-  )}
   {layouts.map((layout) => (
     <svg
       class={`case-layout-${layout.name}`}
@@ -201,6 +196,22 @@ const layouts = ["mobile", "desktop"].map((name) => {
                   }
                 >
                   <rect x={x - 36} y="8" width="72" height="60" rx="7" />
+                  <text
+                    class="case-action-mark"
+                    x={x + 24}
+                    y="24"
+                    aria-hidden="true"
+                  >
+                    ＋
+                  </text>
+                  <text
+                    class="case-selected-mark"
+                    x={x + 24}
+                    y="24"
+                    aria-hidden="true"
+                  >
+                    ✓
+                  </text>
                   <text class="case-node-label" text-anchor="middle">
                     {wrap(node.label, 4).map((s, i) => (
                       <tspan x={x} y={29 + i * 18}>
@@ -357,7 +368,7 @@ const layouts = ["mobile", "desktop"].map((name) => {
                 >
                   {group?.title || kinds[node.kind]}
                 </text>
-                {compactInteractive && (
+                {showDetails && (
                   <text
                     class="case-action-mark"
                     x={p.x + p.w - 15}
@@ -373,7 +384,7 @@ const layouts = ["mobile", "desktop"].map((name) => {
                   y={p.y + 16}
                   aria-hidden="true"
                 >
-                  {compactInteractive ? "●" : "✓"}
+                  ✓
                 </text>
               </a>
             );

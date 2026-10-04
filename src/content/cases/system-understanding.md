@@ -94,6 +94,13 @@ cover: /assets/cases/system-understanding-hero.jpg
 show_cover: false
 cover_alt: 分散したコード・資料・既存システムを解析し、構造化されたKnowledgeへ再構築する流れ
 ---
+<aside class="case-position-note" aria-labelledby="system-understanding-note">
+  <p><strong id="system-understanding-note">注記</strong></p>
+  <p>本ユースケースは、当時利用可能だったAI環境を前提にした事例です。現在であれば、コードベース全体を参照できる GitHub Copilot を中心に構成する方が適しています。</p>
+  <p>当時は主に GPT-4o を利用していたため、本ページのような運用・分担となっています。現在では一部の内容が古くなっていますが、当時どのように制約下で設計したかを示す参考事例として掲載しています。</p>
+  <p>今後、内容の価値が薄れたと判断した場合は、統合または削除する可能性があります。</p>
+</aside>
+
 ## 使い続けるために、まず現行仕様へ到達できるようにする
 
 対象は約20年前に当社の中心的なソフトウェアとして開発された、多機能なシステムだった。終了を検討したこともあったが、長年の利用者・愛用者が多く、単純には廃止できなかった。

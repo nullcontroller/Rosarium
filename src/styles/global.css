@@ -134,6 +134,15 @@ td {
 th {
   background: var(--soft);
 }
+.prose .case-position-note {
+  margin: 0 0 1.5rem;
+  padding: clamp(0.8rem, 2vw, 1.1rem);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--soft);
+}
+.prose .case-position-note p { margin: 0 0 0.75rem; }
+.prose .case-position-note p:last-child { margin-bottom: 0; }
 blockquote {
   margin: 1.5rem 0;
   padding: 0.2rem 1.3rem;
