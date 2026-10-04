@@ -2,8 +2,9 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
+import DomainThemeSection from "../components/DomainThemeSection.astro";
 import { dxCategories, dxFeaturedArticles, dxIntroductionParagraphs } from "../lib/dx";
-import { publicEntry, url } from "../lib/site";
+import { publicEntry } from "../lib/site";
 const all = await getCollection("pages", publicEntry);
 const categoryGroups = dxCategories.map((category) => ({
   ...category,
@@ -28,42 +29,12 @@ const headings = dxCategories.map((category) => ({
     <p class="eyebrow">DXを考えるための地図</p>
     <h2 id="dx-themes-heading">DXを考える{dxCategories.length}つのテーマ</h2>
     {categoryGroups.map((category) => (
-      <section
-        class="dx-category"
-        id={category.id}
-        aria-labelledby={`${category.id}-heading`}
-      >
-        <header class="dx-theme-introduction">
-          <h2 id={`${category.id}-heading`}>
-            <a href={url(`dx/${category.id}`)}>{category.title}</a>
-          </h2>
-          {dxIntroductionParagraphs(category.summary).map((paragraph) => <p>{paragraph}</p>)}
-        </header>
-        <div class="dx-theme-detail">
-          <h3>このテーマで考えること</h3>
-          <ul class="dx-theme-questions">
-            {category.questions.map((question) => (
-              <li>{question}</li>
-            ))}
-          </ul>
-          <h3>最初に読む</h3>
-          <ul class="dx-featured-articles">
-            {category.articles.map((entry) => (
-              <li data-dx-featured={entry.id}>
-                <h4>
-                  <a href={url(entry.id)}>{entry.data.title}</a>
-                </h4>
-                <p>{entry.data.summary}</p>
-              </li>
-            ))}
-          </ul>
-          <p class="dx-theme-all">
-            <a href={url(`dx/${category.id}`)}>
-              {category.title}
-            </a>
-          </p>
-        </div>
-      </section>
+      <DomainThemeSection
+        {...category}
+        path={`dx/${category.id}`}
+        paragraphs={dxIntroductionParagraphs(category.summary)}
+        domain="dx"
+      />
     ))}
   </section>
 </Site>

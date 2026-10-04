@@ -1,40 +1,22 @@
 ---
+import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
-import { url } from "../lib/site";
-import { readingCategories } from "../lib/navigation";
+import DomainThemeSection from "../components/DomainThemeSection.astro";
+import { aiThemeGroups } from "../lib/ai";
+import { publicEntry, url } from "../lib/site";
+const groups = aiThemeGroups(await getCollection("pages", publicEntry));
+const headings = groups.map((theme) => ({ depth: 2, slug: theme.id, text: theme.title }));
 ---
 
-<Site title="AI" section="ai">
+<Site title="AI" section="ai" headings={headings}>
   <PageHeader icon="articles" title="AI" />
-
-  <section class="reading-domain" aria-labelledby="ai-reading-heading">
-    <p class="eyebrow">PRIMARY DOMAIN</p>
-    <h2 id="ai-reading-heading">AIについて何を考えているか</h2>
-    <p>
-      AIの性質だけでなく、使う目的、責任境界、業務への組み込み方、導入後の評価と改善までを扱います。
-    </p>
-    <p>
-      知りたいことに近い問いから選べます。
-    </p>
-    <div class="reading-directory">
-      {readingCategories.filter((category) => category.path !== "cases").map((category) => (
-        <section class="reading-area" id={category.path}>
-          <div>
-            <h3 class="reading-question">
-              <a href={url(category.path)}>{category.question}</a>
-            </h3>
-            <p class="reading-category">{category.title}</p>
-            <p>{category.summary}</p>
-          </div>
-        </section>
-      ))}
-    </div>
+  <p>AIは、使うこと自体が目的ではありません。何をAIに任せ、何を人が判断し、どの条件で仕事やシステムへ組み込むかを考えます。</p>
+  <p>AIの性質、回答に使う知識とその場の条件、人による確認、評価、運用までを設計の視点から整理しています。</p>
+  <p>設計・理論・実践の読み方は<a href={url("start-here")}>はじめに</a>、領域を横断した議論は<a href={url("essays")}>考察</a>に整理しています。</p>
+  <section class="dx-category-list" aria-labelledby="ai-themes-heading">
+    <p class="eyebrow">AIを考えるための地図</p>
+    <h2 id="ai-themes-heading">AIを考える{groups.length}つのテーマ</h2>
+    {groups.map((theme) => <DomainThemeSection {...theme} domain="ai" />)}
   </section>
-
-  <nav class="secondary-reading" aria-label="AIコンテンツの補助的な入口">
-    <p class="eyebrow">OTHER PATHS</p>
-    <a href={url("start-here")}>はじめに</a>
-    <a href={url("essays")}>考察</a>
-  </nav>
 </Site>

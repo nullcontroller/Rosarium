@@ -310,44 +310,28 @@ assert.equal(top("#use-case-heading,#current-growth-heading").length, 0);
 assert.equal(pubs("h1").text(), "AI");
 assert.equal(
   pubs(".page-heading .lead").text(),
-  "AIに何を任せ、何を人間が判断するか。仕事へ組み込む方法を、設計・理論・実践・事例から考えます。",
+  "AIを仕事やシステムへ組み込むために、人とAIの役割、知識と条件、評価、理論、実践を設計の視点から考えます。",
 );
 assert.equal(pubs("#current-topics-heading").length, 0);
 assert.equal(pubs("[data-publication]").length, 0);
 assert.equal(pubs("[data-use-case-shortcut]").length, 0);
 assert.equal(pubs("[data-content-id]").length, 0);
-assert.deepEqual(
-  pubs(".reading-area .reading-category")
-    .map((_, e) => pubs(e).text().trim())
-    .get(),
-  ["AI設計", "AI理論", "実践知"],
-);
-assert.deepEqual(
-  pubs(".reading-area .reading-question")
-    .map((_, e) => pubs(e).text().replace("→", "").trim())
-    .get(),
-  [
-    "AIを仕事やシステムにどう組み込む？",
-    "生成AIはなぜそう振る舞う？",
-    "AIを仕事や開発でどう使う？",
-  ],
-);
-assert.equal(pubs(".reading-area > .icon").length, 0);
-for (const [section, href] of [
-  ["ai-design", "/Rosarium/ai-design/"],
-  ["ai-mathematics", "/Rosarium/ai-mathematics/"],
-  ["practices", "/Rosarium/practices/"],
-]) {
-  const area = pubs(`#${section}`);
-  assert(area.find(`a[href="${href}"]`).length, section);
+assert.equal(pubs("#ai-themes-heading").text(), "AIを考える5つのテーマ");
+const aiSections = pubs('[data-domain-theme="ai"]');
+assert.equal(aiSections.length, 5);
+assert.deepEqual(aiSections.find(".dx-theme-introduction h2").map((_, el) => pubs(el).text()).get(),
+  ["AI設計", "AIの性質・理論", "Knowledge / Context", "評価・人による確認", "実践・開発"]);
+const aiFeatured = pubs("[data-ai-featured]").map((_, el) => pubs(el).attr("data-ai-featured")).get();
+assert.equal(aiFeatured.length, 5);
+assert.equal(new Set(aiFeatured).size, 5);
+for (const element of aiSections.toArray()) {
+  const theme = pubs(element);
+  assert.equal(theme.find(".dx-theme-questions li").length, 3);
+  assert.equal(theme.find("[data-ai-featured]").length, 1);
+  assert.equal(theme.find(".dx-theme-introduction p").length, 2);
 }
-assert.deepEqual(
-  pubs(".secondary-reading a")
-    .map((_, element) => pubs(element).text().trim())
-    .get(),
-  ["はじめに", "考察"],
-);
-assert.equal(pubs('.secondary-reading a[href="/Rosarium/essays/"]').length, 1);
+assert.equal(pubs(".secondary-reading").length, 0);
+assert.equal(pubs('main a[href^="/Rosarium/cases/"]').length, 0);
 const dx = page("dx");
 assert.equal(dx("h1").text(), "DX");
 assert(
