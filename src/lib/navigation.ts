@@ -234,11 +234,11 @@ export const caseStudies = [
     book: "cases/system-understanding",
     topics: ["QA / RAG", "Knowledge再構築"],
     challenge:
-      "仕様書はUI説明中心で古く、内部仕様や担当者の知識を共有できていなかった。",
+      "仕様書だけでは内部仕様を追えず、知識が長期担当者に依存していた。",
     designSummary:
-      "コード・UI・実動作から現行仕様を再構成し、人向けの図とAI向けKnowledgeを分けた。",
+      "コード・UI・実動作を突き合わせて仕様を復元し、人とAIがそれぞれ使いやすい形に整理した。",
     result:
-      "問い合わせ・仕様確認と、安全な変更に再利用できる理解基盤として整理した。",
+      "問い合わせ対応、仕様確認、変更判断に再利用できる状態へ変えた。",
     chapters: [
       "cases/system-understanding/recovering-code-structure",
       "cases/system-understanding/human-and-ai-knowledge",
