@@ -3,9 +3,11 @@
   "entries": [
     {
       "source_file": "index.md",
-      "destination_file": "src/content/career/details.md",
+      "destination_file": "docs/history/career-details-2026-10-04.md",
       "source_sha256": "904f71cb5684d60c7a1209c48f89e71a48258baf388127303d32061381266877",
-      "destination_body_sha256": "c9978496d5ac66da22a090d3449a2ddf493225db8ec5a8701da12243afe75120"
+      "destination_body_sha256": "c9978496d5ac66da22a090d3449a2ddf493225db8ec5a8701da12243afe75120",
+      "retired_at": "2026-10-04",
+      "redirect_to": "career"
     },
     {
       "source_file": "profile/index.md",
@@ -14,5 +16,5 @@
       "destination_body_sha256": "9adcd3f117d2e948ee4e9f2968c21bbac49518e63551d7b8db414df97bbefcab"
     }
   ],
-  "revision_basis": "Career Portfolio Gateway and LinkedIn responsibility split, 2026-09-28; 2026-10-03: approved Career entry and retained details hub; 2026-10-04: remove CTA arrow suffixes without changing link destinations or body facts"
+  "revision_basis": "Career Portfolio Gateway and LinkedIn responsibility split, 2026-09-28; 2026-10-03: approved Career entry and retained details hub; 2026-10-04: remove CTA arrow suffixes without changing link destinations or body facts; 2026-10-04: merge selected experience context into Career and archive the retired Details source"
 }

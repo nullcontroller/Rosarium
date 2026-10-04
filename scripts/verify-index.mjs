@@ -88,9 +88,9 @@ for (const [id, d] of entries) {
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 assert.equal(career("h1").text(), "Career");
 assert.equal(career(".career-focus-grid > section").length, 0);
-assert.equal(career(".career-case-links li").length, 3);
-assert.equal(career('a[href="/Rosarium/career/details/"]').length, 1);
-assert(career(".career-actions").text().includes("経験と実践の背景を見る"));
+assert.equal(career(".career-case-links li").length, 0);
+assert.equal(career('a[href="/Rosarium/career/details/"]').length, 0);
+assert.equal(career(".content-related").length, 0);
 for (const heading of [
   "Career Detail",
   "Career Summary",
@@ -103,8 +103,8 @@ for (const heading of [
   );
 }
 const details = load(fs.readFileSync("dist/career/details/index.html", "utf8"));
-assert.equal(details(".career-case-links li").length, 3);
-assert(details("main").text().includes("Experience Overview"));
+assert.equal(details(".career-case-links li").length, 0);
+assert.equal(details('meta[http-equiv="refresh"]').attr("content"), "0;url=/Rosarium/career/");
 assert(details('a[href="/Rosarium/career/"]').length);
 assert(career('a[href^="https://www.linkedin.com/in/"]').length === 1);
 assert.equal(career('a[href="/Rosarium/career/profile/"]').length, 0);
@@ -772,7 +772,7 @@ assert.equal(
   "現在位置：第9章・全9章",
 );
 assert.equal(customerSupportBook('a[href*="outcomes-and-evidence"]').length, 0);
-assert(page("career")('a[href$="/cases/customer-support-ai-dx/"]').length);
+assert.equal(page("career")('main a[href*="/cases/"]').length, 0);
 console.log("Verified recent growth and exact Book publication presentation.");
 
 for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {

@@ -39,7 +39,7 @@ const curatedRecentGrowth = [
       "レガシーシステム理解と複数AI保守の事例を全面改訂",
       "旧AI環境の事例をOBSOLETEとして分離",
       "DXのテーマ構成と記事分類を再整理",
-      "CareerとCareer Detailsの役割分担を整理",
+      "Career DetailsをCareerへ統合し、キャリア情報を整理",
       "各ページの入口説明を平易化",
       "Rosariumの目的と運営思想を説明するページを追加",
       "Garden Notesの詳細ページを追加",

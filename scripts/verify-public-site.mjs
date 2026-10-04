@@ -29,8 +29,7 @@ for (const file of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith
     const href = $(element).attr("href");
     const allowedRepository =
       href === "https://github.com/nullcontroller/Rosarium" &&
-      ($(element).closest(".site-footer").length === 1 ||
-        (file.replaceAll("\\", "/") === "dist/career/details/index.html" && $(element).is("[data-implementation-link]")));
+      $(element).closest(".site-footer").length === 1;
     if (allowedRepository && $(element).closest(".site-footer").length === 1) repositoryLinks++;
     assert(
       allowedRepository ||
@@ -95,12 +94,11 @@ assert.equal(homepage("h1").text(), "Rosarium");
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 for (const text of [
   "Applied AI × DX × System Architecture",
-  "What I Do",
-  "関連する内容",
-  "AIを使う前に考えること",
-  "What I Want to Build",
-  "関連する内容",
-  "生成AI / RAGによる顧客サポートDX",
+  "何をする人か",
+  "仕事で重視すること",
+  "経験と現在の仕事のつながり",
+  "今後取り組みたい仕事",
+  "職歴・資格の詳細",
 ])
   assert(career("main").text().includes(text), text);
 for (const duplicate of [
@@ -144,8 +142,8 @@ console.log(
 );
 console.log("Before integration: " + JSON.stringify(baseline));
 
-// Career role separation and SEO: both real pages remain canonical, profile is compatibility only.
-for (const [route, title] of [["career", "Career"], ["career/details", "Career Details — 経験と実践"]]) {
+// Career is the canonical profile; retired Details is a compatibility redirect.
+for (const [route, title] of [["career", "Career"]]) {
   const html = fs.readFileSync(`dist/${route}/index.html`, "utf8");
   const $ = load(html);
   const canonical = `https://nullcontroller.github.io/Rosarium/${route}/`;
@@ -160,6 +158,13 @@ for (const [route, title] of [["career", "Career"], ["career/details", "Career D
   assert(!$("main").text().includes("希望条件"));
 }
 const careerDetails = load(fs.readFileSync("dist/career/details/index.html", "utf8"));
-for (const section of ["Experience Overview", "関連する内容", "LinkedInで職歴・資格を見る"])
-  assert(careerDetails("main").text().includes(section));
-console.log("Verified Career entry, retained experience hub, private profile and canonical/OGP/JSON-LD separation.");
+assert.equal(careerDetails('link[rel="canonical"]').attr("href"), "https://nullcontroller.github.io/Rosarium/career/");
+assert(careerDetails('meta[name="robots"]').attr("content").includes("noindex"));
+assert.equal(careerDetails('meta[http-equiv="refresh"]').attr("content"), "0;url=/Rosarium/career/");
+assert.equal(career(".content-related").length, 0);
+for (const file of walk("dist").filter(p => p.endsWith(".html"))) {
+  const $ = load(fs.readFileSync(file, "utf8"));
+  assert.equal($('a[href="/Rosarium/career/details/"]').length, 0, file);
+}
+assert(!fs.readFileSync("dist/sitemap.xml", "utf8").includes("/career/details/"));
+console.log("Verified consolidated Career, retired Details redirect and canonical/OGP/JSON-LD.");

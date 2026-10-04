@@ -22,14 +22,6 @@ export function splitRelatedContent(html) {
   }
   if (related.length) $.root().children().last().filter("hr").remove();
   const relatedHtml = load(related.join(""), null, false);
-  // Career cards used to link the same Case in both title and CTA.
-  relatedHtml(".career-work").each((_, node) => {
-    const card = relatedHtml(node);
-    const titleTarget = card.find("h3 a").attr("href");
-    card.find("p > a.career-inline-cta").each((_, link) => {
-      if (relatedHtml(link).attr("href") === titleTarget) relatedHtml(link).parent().remove();
-    });
-  });
   const principleSections = [];
   relatedHtml("h2,h3").each((_, node) => {
     const heading = relatedHtml(node);
@@ -70,13 +62,4 @@ export function compactRelatedLinks(html, preferred, pageUrl, fallback, { exclud
     if (links.length === 4) break;
   }
   return { links, anchors: $("[id]").toArray().map((node) => $(node).attr("id")) };
-}
-
-export function careerCaseLinks(html) {
-  const $ = load(html, null, false);
-  return $(".career-work").toArray().map((node) => ({
-    href: $(node).find("h3 a").attr("href"),
-    title: $(node).find("h3 a").text().replace(/\s*→$/, "").trim(),
-    summary: $(node).find("p:not(.eyebrow)").first().text().split("。")[0] + "。",
-  })).filter((link) => link.href).slice(0, 3);
 }

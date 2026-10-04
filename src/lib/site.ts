@@ -68,6 +68,8 @@ export const introductionForPath = (pathname: string) =>
 export const fallbackLastUpdated = "2026-09-28";
 // Content/structure dates are explicit; shared CSS, analytics and deploys do not change them.
 export const staticPageLastUpdated: Record<string, string> = {
+  // Retired Details compatibility redirect; excluded from the sitemap.
+  "career/details": "2026-10-04",
   "": "2026-10-04",
   ai: "2026-10-04",
   "ai-design": "2026-10-04",
@@ -99,7 +101,6 @@ export const staticPageLastUpdated: Record<string, string> = {
   foundations: "2026-09-28",
   "foundations/llm-as-probabilistic-model": "2026-09-28",
   career: "2026-10-04",
-  "career/details": "2026-10-04",
   "career/profile": "2026-09-28",
   search: "2026-09-28",
   about: "2026-10-04",

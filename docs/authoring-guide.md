@@ -187,7 +187,7 @@ catalogは分類根拠、templatesは参考資料として扱い、公開記事�
 ## 個人統合サイトの公開方針
 
 サイトブランドは「Rosarium」。Authorである立林 裕太朗のCareerと、技術知識・公開物を同じサイト内で閲覧できる構成です。
-Careerは src/content/career の専用Content Collectionで管理します。職歴・条件の事実変更は依頼に基づいて行います。
+Careerは src/content/career/overview.md の1ページで人物・仕事観・今後の志向を扱います。実践内容はCases、客観的な職歴・資格はLinkedInを正本とし、Career Detailsは旧URLの転送だけを維持します。職歴・条件の事実変更は依頼に基づいて行います。
 
 sourceとcanonicalの移行元情報は内部資料として保持します。公開ページのcanonicalは自サイトです。
 公開UIにはSource表示を追加せず、GitHub・Zenn・旧Careerサイトへのリンクを出しません。
