@@ -8,6 +8,13 @@ const { id } = Astro.props;
 const model = caseDiagrams[id];
 if (!model) throw new Error(`Unknown case diagram: ${id}`);
 const prefix = `case-${id}`;
+// This chapter explains each flow in the surrounding prose; no duplicate detail panel.
+const showDetails = ![
+  "maintenance-password-flow",
+  "maintenance-error-points",
+  "maintenance-data-criticality",
+  "maintenance-call-timings",
+].includes(id);
 const kinds = {
   human: "人間",
   ai: "AI支援",
@@ -124,13 +131,15 @@ const layouts = ["mobile", "desktop"].map((name) => {
 <figure
   class="case-diagram"
   id={prefix}
-  data-case-flow
+  data-case-flow={showDetails ? "" : undefined}
   data-structured-flow={model.layouts ? "" : undefined}
 >
   <figcaption>{model.title}</figcaption>
-  <p class="case-diagram-help">
-    項目を選ぶと、役割と判断の説明を確認できます。
-  </p>
+  {showDetails && (
+    <p class="case-diagram-help">
+      項目を選ぶと、役割と判断の説明を確認できます。
+    </p>
+  )}
   {layouts.map((layout) => (
     <svg
       class={`case-layout-${layout.name}`}
@@ -169,10 +178,14 @@ const layouts = ["mobile", "desktop"].map((name) => {
                   y2={layout.canvasHeight - 10}
                 />
                 <a
-                  href={`#${prefix}-detail-${node.id}`}
+                  href={
+                    showDetails ? `#${prefix}-detail-${node.id}` : undefined
+                  }
                   data-node={node.id}
                   data-kind={node.kind}
-                  aria-label={`${node.label}の役割を読む`}
+                  aria-label={
+                    showDetails ? `${node.label}の役割を読む` : node.label
+                  }
                 >
                   <rect x={x - 36} y="8" width="72" height="60" rx="7" />
                   <text class="case-node-label" text-anchor="middle">
@@ -291,10 +304,14 @@ const layouts = ["mobile", "desktop"].map((name) => {
             const group = model.groups?.find((g) => g.ids.includes(node.id));
             return (
               <a
-                href={`#${prefix}-detail-${node.id}`}
+                href={showDetails ? `#${prefix}-detail-${node.id}` : undefined}
                 data-node={node.id}
                 data-kind={node.kind}
-                aria-label={`${node.label}：${kinds[node.kind]}。説明を読む`}
+                aria-label={
+                  showDetails
+                    ? `${node.label}：${kinds[node.kind]}。説明を読む`
+                    : `${node.label}：${kinds[node.kind]}`
+                }
               >
                 <rect
                   x={p.x}
@@ -342,23 +359,27 @@ const layouts = ["mobile", "desktop"].map((name) => {
       )}
     </svg>
   ))}
-  <div class="case-diagram-details" aria-label="各工程の説明">
-    {model.nodes.map((node) => (
-      <section id={`${prefix}-detail-${node.id}`} data-detail={node.id}>
-        <h3>{node.label}</h3>
-        <p>{node.description}</p>
-      </section>
-    ))}
-  </div>
-  <p class="case-diagram-return">
-    <a href={`#${prefix}`}>図に戻る ↑</a>
-  </p>
-  <p
-    class="case-diagram-announcement"
-    role="status"
-    aria-live="polite"
-    aria-atomic="true"
-  ></p>
+  {showDetails && (
+    <>
+      <div class="case-diagram-details" aria-label="各工程の説明">
+        {model.nodes.map((node) => (
+          <section id={`${prefix}-detail-${node.id}`} data-detail={node.id}>
+            <h3>{node.label}</h3>
+            <p>{node.description}</p>
+          </section>
+        ))}
+      </div>
+      <p class="case-diagram-return">
+        <a href={`#${prefix}`}>図に戻る ↑</a>
+      </p>
+      <p
+        class="case-diagram-announcement"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      ></p>
+    </>
+  )}
 </figure>
 <script>
   import { enhanceCaseDiagrams } from "../lib/interactive-diagrams";
