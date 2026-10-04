@@ -2,6 +2,8 @@ import type { IconName } from "../lib/icons";
 
 export const recentGrowthLabels = {
   launch: "LAUNCH",
+  integrated: "INTEGRATED",
+  retired: "RETIRED",
   new: "NEW",
   updated: "UPDATED",
   expanded: "EXPANDED",
@@ -31,12 +33,14 @@ const curatedRecentGrowth = [
   {
     date: "2026-10-04",
     type: "revised",
-    title: "顧客サポートDXとCareerを更新",
+    title: "主要事例とCareerを更新",
     changes: [
       "主要事例の可視化を強化",
+      "レガシーシステム理解と複数AI保守の事例に設計判断を追加",
       "CareerとCareer Detailsの役割分担を整理",
       "各ページの入口説明を平易化",
       "Rosariumの目的と運営思想を説明するページを追加",
+      "Garden Notesの詳細ページを追加",
     ],
     category: "Rosarium",
     icon: "home",

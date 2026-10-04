@@ -947,7 +947,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         label: "理解しにくい既存システム",
         kind: "system",
         description:
-          "仕様書や設計判断の記録が不足し、処理と依存関係を俯瞰しにくい状態が出発点です。",
+          "UI中心の古い仕様書だけでは内部仕様を説明できず、現行動作の確認や担当者の知識に依存する状態が出発点です。",
       },
       {
         id: "investigate",
@@ -1028,14 +1028,14 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   "three-ai-maintenance": {
     title: "人が判断を担い、調査・実装・文書化を分担する",
     description:
-      "人間が前提と判断基準を定め、複数AIの成果物を確認して次工程へ渡します。AI間の会話を自動連結した事例ではありません。",
+      "問いに必要なContextでAIを選び、人間が成果物を確認して次工程へ渡します。役割は固定ではなく、AI間の会話を自動連結した事例でもありません。",
     nodes: [
       {
         id: "human",
-        label: "人間が課題と判断基準を設定",
+        label: "問いと必要Contextを判断",
         kind: "human",
         description:
-          "暗号処理と異常系の見直しに対し、人間が制約・要件・安全性の判断基準を定めます。",
+          "人間が制約・要件・安全性の判断基準を定め、問いに必要なコード・設計・過去背景のContextに応じてAIを選びます。",
       },
       {
         id: "spec",
@@ -1056,7 +1056,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         label: "文書・成果物を整理",
         kind: "ai",
         description:
-          "Microsoft 365 Copilotで検討結果をExcel仕様書へ集約します。人間が内容を確認し、必要に応じてコードとPlantUMLに照合して修正します。",
+          "Microsoft 365 CopilotでOffice文書・過去資料・メール等の背景を確認し、検討結果をExcel仕様書へ集約します。人間が確認して次工程へ渡します。",
       },
       {
         id: "artifacts",

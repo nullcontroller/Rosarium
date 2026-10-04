@@ -10,6 +10,7 @@ import { dxCategories } from "../lib/dx";
 const manualRoutes = [
   "",
   "about",
+  "garden-notes",
   "ai-design",
   "ai-design/applicability",
   "ai-design/responsibility-control",

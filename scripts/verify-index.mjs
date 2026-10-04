@@ -559,6 +559,18 @@ assert.equal(top(".growth-scrollbox").length, 0);
 assert.equal(top(".home-primary-panels > section").length, 2);
 assert.equal(top('a[href="/Rosarium/about/"]').text().trim(), "Rosariumとは？ →");
 assert.equal(top("#about-rosarium").length, 0);
+assert.equal(top('a[href="/Rosarium/garden-notes/"]').text().trim(), "Garden Notesを見る →");
+const gardenNotes = page("garden-notes");
+assert.equal(gardenNotes("[data-growth-entry]").length, recentGrowth.length);
+assert.equal(gardenNotes("#notes-2026-10").length, 1);
+assert.equal(gardenNotes("#notes-2026-09").length, 1);
+for (const entry of recentGrowth) {
+  const row = gardenNotes(`[data-growth-entry]:has(time[datetime="${entry.date}"])`);
+  assert.equal(row.length, 1);
+  assert.deepEqual(row.find(".growth-changes > li").toArray().map(li => gardenNotes(li).text()), entry.changes);
+  assert.equal(row.find("a").length, 0);
+}
+
 assert.equal(top(".growth-list [data-growth-entry]").length, 1);
 assert.equal(top('[data-growth-entry] time[datetime="2026-10-04"]').length, 1);
 assert.equal(new Set(recentGrowth.map(entry => entry.date)).size, recentGrowth.length);
@@ -590,7 +602,7 @@ assert.equal(
 );
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
-  "顧客サポートDXとCareerを更新",
+  "主要事例とCareerを更新",
 );
 assert.equal(top('a[href="/Rosarium/updates/"]').length, 0);
 const updates = page("updates");
@@ -700,7 +712,7 @@ assert(
   page("cases/three-ai-maintenance")("main")
     .text()
     .includes(
-      "GPT、GitHub Copilot、Microsoft 365 Copilotを工程ごとに役割分担して利用した。",
+      "GPT、GitHub Copilot、Microsoft 365 CopilotがアクセスできるContextの違いに応じて使い分けた。",
     ),
 );
 const customerSupportBook = page("cases/customer-support-ai-dx");

@@ -234,9 +234,9 @@ export const caseStudies = [
     book: "cases/system-understanding",
     topics: ["QA / RAG", "Knowledge再構築"],
     challenge:
-      "仕様書が不足し、UI・ソースコード・既存資料へ知識が分散していた。",
+      "仕様書はUI説明中心で古く、内部仕様や担当者の知識を共有できていなかった。",
     designSummary:
-      "仕様と操作を再構築し、人向けの可視化とRAGで検索できるKnowledgeを分けて設計した。",
+      "コード・UI・実動作から現行仕様を再構成し、人向けの図とAI向けKnowledgeを分けた。",
     result:
       "問い合わせ・仕様確認と、安全な変更に再利用できる理解基盤として整理した。",
     chapters: [
@@ -256,7 +256,7 @@ export const caseStudies = [
     challenge:
       "既存ソフトウェアの暗号方式変更で、仕様理解・影響調査・異常系設計を同時に進める必要があった。",
     designSummary:
-      "複数AIを仕様調査、コード探索、実装支援へ分担し、生成物を人間がレビューできる中間成果物として扱った。",
+      "問いに必要なContextでAIを選び、人間レビューを挟んで仕様・コード・背景情報を統合した。",
     result: "外部委託を不要にし、従来想定比で工期を約7割短縮した。",
     chapters: [
       "cases/three-ai-maintenance/cryptography-and-failure-modes",

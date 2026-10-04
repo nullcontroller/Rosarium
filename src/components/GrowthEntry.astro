@@ -8,9 +8,11 @@ import Icon from "./Icon.astro";
 
 interface Props {
   entry: RecentGrowthItem;
+  maxChanges?: number;
 }
 
-const { entry } = Astro.props;
+const { entry, maxChanges } = Astro.props;
+const changes = maxChanges === undefined ? entry.changes : entry.changes.slice(0, maxChanges);
 ---
 
 <article class="growth-entry icon-entry" data-growth-entry>
@@ -27,7 +29,7 @@ const { entry } = Astro.props;
       {entry.title}
     </h3>
     <ul class="growth-changes content-summary" role="list">
-      {entry.changes.map((change) => <li>{change}</li>)}
+      {changes.map((change) => <li>{change}</li>)}
     </ul>
   </div>
 </article>
