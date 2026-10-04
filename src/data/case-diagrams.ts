@@ -42,40 +42,60 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         id: "start",
         label: "起動方法・開始条件",
         kind: "human",
-        description: "利用するユースケースの開始条件を確認します。",
+        description:
+          "利用する機能や起動方法ごとに、処理が始まる条件を確認しました。一つの巨大な図へまとめず、利用場面ごとに流れを分ける起点にしました。",
       },
       {
         id: "before",
         label: "条件ごとの前処理",
         kind: "system",
-        description: "起動方法によって異なる処理を分離します。",
+        description:
+          "起動方法によって異なる前処理を、共通処理から切り分けました。同じ処理に入る前の違いを残し、開始条件によって動作が変わる箇所を追えるようにしました。",
       },
       {
         id: "core",
         label: "共通のコア処理",
         kind: "system",
-        description: "共通処理の呼出し順序と入出力を調べます。",
+        description:
+          "共通して呼ばれる処理の順序と、渡される値・返される値をコードから調べました。個々のクラスの説明を、実際に動く順序へつなぐためです。",
       },
       {
         id: "branch",
         label: "分岐・例外の確認",
         kind: "decision",
         description:
-          "コードと実動作を照合し、条件・例外・呼出し先を確認します。",
+          "条件によって変わる呼出し先や例外処理を確認しました。コードから復元した流れを人が確認し、通常の順序だけでは見えない変更影響も調べられる形にしました。",
       },
       {
         id: "output",
         label: "出力と変更影響",
         kind: "knowledge",
-        description: "出力処理を切り分け、変更がどの処理に及ぶかを追います。",
+        description:
+          "前処理・共通処理から出力までを分け、どの変更がどの結果へ影響するかを追えるようにしました。その場限りの説明ではなく、後の仕様変更に合わせて更新する情報として残しました。",
       },
     ],
     rows: [["start"], ["before"], ["core"], ["branch"], ["output"]],
     edges: [
-      { from: "start", to: "before", label: "" },
-      { from: "before", to: "core", label: "" },
-      { from: "core", to: "branch", label: "" },
-      { from: "branch", to: "output", label: "" },
+      {
+        from: "start",
+        to: "before",
+        label: "",
+      },
+      {
+        from: "before",
+        to: "core",
+        label: "",
+      },
+      {
+        from: "core",
+        to: "branch",
+        label: "",
+      },
+      {
+        from: "branch",
+        to: "output",
+        label: "",
+      },
     ],
   },
   "maintenance-password-flow": {
@@ -86,65 +106,71 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         id: "input",
         label: "平文パスワード",
         kind: "system",
-        description: "保存する資格情報を入力します。",
+        description:
+          "設定したパスワードは、保存前には平文の状態です。暗号方式の変更ではAPIだけでなく、この値が保存・利用されるまでの流れを調べ、失敗後の影響を確認しました。",
       },
       {
         id: "encrypt",
         label: "暗号化",
         kind: "system",
-        description: "平文を暗号化します。",
+        description:
+          "平文を暗号化してから保存します。新しい暗号化APIは失敗を返すため、戻り値を確認し、不正な状態で後続へ進ませない処理を検討しました。",
       },
       {
         id: "store",
-        label: "レジストリへ保存",
+        label: "保存",
         kind: "knowledge",
-        description: "暗号化した値を保存します。",
-      },
-      {
-        id: "start",
-        label: "利用処理の開始",
-        kind: "system",
-        description: "パスワードを必要とする処理を開始します。",
+        description:
+          "暗号化した値をレジストリへ保存します。暗号化の成功と保存の成功を分けて考え、保存失敗や後の値の欠落・破損も調査対象にしました。",
       },
       {
         id: "read",
-        label: "レジストリから読出し",
+        label: "読出し",
         kind: "knowledge",
-        description: "暗号化した値を取得します。",
+        description:
+          "利用時は、保存した暗号化済みの値を読み出します。起動時だけでなく特定機能や外部連携の前にも呼ばれるため、読出し位置と値の利用先をコードで確認しました。",
       },
       {
         id: "decrypt",
-        label: "復号して利用",
+        label: "復号",
         kind: "system",
         description:
-          "復号した平文を利用します。失敗時の扱いは次の図で確認します。",
+          "読み出した暗号化済みの値を復号します。失敗した値を平文パスワードとして使わないよう、APIの戻り値と後続処理の停止位置を検討しました。",
+      },
+      {
+        id: "use",
+        label: "外部処理で利用",
+        kind: "system",
+        description:
+          "復号した値を必要とする外部処理へ渡します。不正な値を使えば誤った処理や課金につながるリスクがあるため、安全に利用できない場合は停止する方針にしました。これは事故の発生実績を示すものではありません。",
       },
     ],
-    rows: [
-      ["input", "start"],
-      ["encrypt", "read"],
-      ["store", "decrypt"],
-    ],
+    rows: [["input"], ["encrypt"], ["store"], ["read"], ["decrypt"], ["use"]],
     edges: [
       {
-        from: "input",
         to: "encrypt",
         label: "",
+        from: "input",
       },
       {
-        from: "encrypt",
         to: "store",
         label: "",
+        from: "encrypt",
       },
       {
-        from: "start",
         to: "read",
         label: "",
+        from: "store",
       },
       {
-        from: "read",
         to: "decrypt",
         label: "",
+        from: "read",
+      },
+      {
+        to: "use",
+        label: "",
+        from: "decrypt",
       },
     ],
   },
@@ -156,41 +182,46 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         id: "plain",
         label: "平文パスワード",
         kind: "system",
-        description: "保存する値が処理の起点です。",
+        description:
+          "保存するパスワードを起点に、暗号化・保存・読出し・復号・利用を追いました。どの時点で値が不正になったかによって後続の影響が異なるため、失敗を一括で扱いませんでした。",
       },
       {
         id: "encrypt",
         label: "暗号化",
         kind: "system",
-        description: "暗号化APIのエラーを確認します。",
+        description:
+          "暗号化APIが失敗を返す条件を確認しました。正常な保存処理を大きく変えるのではなく、失敗した結果を保存や後続処理へ渡さないことを検討しました。",
       },
       {
         id: "store",
         label: "保存",
         kind: "knowledge",
-        description: "レジストリへの保存失敗を確認します。",
+        description:
+          "暗号化済みの値を保存できない場合を確認しました。暗号化処理そのものの失敗と区別し、どこで異常を検出するかを整理しました。",
       },
       {
         id: "read",
         label: "読出し",
         kind: "knowledge",
-        description: "値の欠落・破損・読出し失敗を確認します。",
+        description:
+          "保存値の欠落・破損・読出し失敗を区別しました。保存場所だけで対応を決めず、読み出した値がその後どこで使われるかまで調べました。",
       },
       {
         id: "decrypt",
         label: "復号",
         kind: "system",
-        description: "復号APIのエラーを確認します。",
+        description:
+          "復号APIの失敗と、その後の値の扱いを確認しました。正常性を確かめられない場合は、外部処理へ進ませない停止位置を検討しました。",
       },
       {
         id: "use",
         label: "外部処理で利用",
         kind: "system",
         description:
-          "不正な値が利用されれば誤課金等へつながるリスクがあります。発生実績ではありません。",
+          "不正な値が外部連携で使われると、誤った処理や課金へつながるリスクがあります。実際に発生した事故の記録ではなく、変更前に後続への影響を検討したものです。",
       },
     ],
-    rows: [["plain"], ["encrypt", "store"], ["read", "decrypt"], ["use"]],
+    rows: [["plain"], ["encrypt"], ["store"], ["read"], ["decrypt"], ["use"]],
     edges: [
       {
         from: "plain",
@@ -227,31 +258,36 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         id: "registry",
         label: "レジストリ情報",
         kind: "knowledge",
-        description: "保存場所だけでは重要度を決められません。",
+        description:
+          "レジストリには資格情報とUIの設定など、用途の異なる値があります。同じ保存場所でも影響は同じではないため、値が使われる先を基準に対応を分けました。",
       },
       {
         id: "password",
         label: "暗号化パスワード",
         kind: "knowledge",
-        description: "外部システム連携に使う重要度の高い値です。",
+        description:
+          "暗号化パスワードは外部システムとの連携に使います。不正な値を推測で補って進めることはできないため、安全性を優先して停止・復旧方法を検討しました。",
       },
       {
         id: "ui",
         label: "UIの表示位置",
         kind: "system",
-        description: "業務処理への影響が小さい値です。",
+        description:
+          "UIの表示位置は、資格情報とは業務への影響が異なります。低影響の値では初期値へ戻せる場合があることを踏まえ、一律の復旧処理にはしませんでした。",
       },
       {
         id: "stop",
         label: "異常時は処理停止",
         kind: "decision",
-        description: "不正な資格情報で後続処理へ進ませません。",
+        description:
+          "資格情報の正常性を確認できない場合は処理を止めます。利用者には再インストールを案内し、OSやユーザープロファイルまでアプリケーションで修復する範囲には広げませんでした。",
       },
       {
         id: "reset",
         label: "初期値へ復帰可能",
         kind: "feedback",
-        description: "UI表示位置は初期値への復帰を選べる場合があります。",
+        description:
+          "UIの表示位置は初期値へ戻す選択ができる場合があります。同じ対応を資格情報へ適用せず、用途と影響を見て復旧の条件を判断しました。",
       },
     ],
     rows: [["registry"], ["password", "ui"], ["stop", "reset"]],
@@ -284,40 +320,45 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     nodes: [
       {
         id: "startup",
-        label: "起動・特定機能の実行",
+        label: "起動・機能実行",
         kind: "system",
-        description: "起動時と特定機能の実行時に値の読出しを確認します。",
+        description:
+          "起動時だけでなく、特定機能の実行や外部連携の前にも値が読み出されます。APIの呼出し箇所と、その後の処理まで調べて異常を検出する位置を確認しました。",
       },
       {
         id: "setting",
         label: "設定変更",
         kind: "human",
-        description: "値の変更では暗号化して保存します。",
+        description:
+          "設定変更時には、変更した値を暗号化して保存します。利用時の読出し・復号とは呼出しの目的が異なるため、両者の経路を区別して調べました。",
       },
       {
         id: "read",
-        label: "レジストリ読出し",
+        label: "読出し",
         kind: "knowledge",
-        description: "外部連携までの呼出し経路を追います。",
+        description:
+          "利用する値をレジストリから読み出す処理を確認しました。値がない場合や読出し失敗を含め、復号と外部連携へどう渡るかを追いました。",
       },
       {
         id: "encrypt",
         label: "暗号化・保存",
         kind: "system",
-        description: "設定変更時のAPIとレジストリ保存を確認します。",
+        description:
+          "設定変更に伴う暗号化APIとレジストリへの保存を確認しました。正常処理を維持しながら、失敗を検出して危険な後続処理を止める位置を検討しました。",
       },
       {
         id: "decrypt",
         label: "復号",
         kind: "system",
-        description: "読出した値を復号します。",
+        description:
+          "読み出した暗号化済みの値を復号する処理です。失敗した値を利用しないよう、戻り値と外部連携までの処理を照合しました。",
       },
       {
         id: "external",
-        label: "外部システム連携",
+        label: "外部連携",
         kind: "system",
         description:
-          "読出しから直接連携する経路と、復号を経る経路を確認します。",
+          "復号した値が外部処理で使われるまでを確認しました。コードの呼出し箇所だけでなく値の用途を追い、誤った値で進ませない停止条件へつなげました。",
       },
     ],
     rows: [
@@ -343,11 +384,6 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         label: "",
       },
       {
-        from: "read",
-        to: "external",
-        label: "利用先を確認",
-      },
-      {
         from: "decrypt",
         to: "external",
         label: "",
@@ -360,34 +396,38 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     nodes: [
       {
         id: "premise",
-        label: "人間が前提を設定",
+        label: "人が前提を決める",
         kind: "human",
         description:
-          "発生頻度・工数・正常系への影響・安全性・責務範囲を定めます。",
+          "発生頻度、工数、安全性、正常動作への影響、保守性、アプリケーションの責務を前提として整理しました。暗号方式の変更が目的であり、正常処理の全面刷新には広げない基準を先に置きました。",
       },
       {
         id: "options",
-        label: "GPTで選択肢を整理",
+        label: "選択肢を整理",
         kind: "ai",
-        description: "復旧方法や停止条件の論点を整理します。",
+        description:
+          "GPTで異常時の復旧方法や停止条件の選択肢を検討しました。コードの影響や過去背景は別のAIが参照できる情報も確認し、一つの回答だけでは仕様を決めませんでした。",
       },
       {
         id: "compare",
-        label: "安全性・工数・保守性を比較",
+        label: "安全性・工数を比較",
         kind: "decision",
-        description: "必要な処理と増やさない処理を比較します。",
+        description:
+          "個別の自動修復を増やす案と、安全に停止させる案を比較しました。低頻度の異常に対して修復処理を増やすと、検証・保守の対象も増えることを考慮しました。",
       },
       {
         id: "choice",
-        label: "人間が方針を決定",
+        label: "人が方針を決める",
         kind: "human",
-        description: "AIの回答をそのまま確定事項にしません。",
+        description:
+          "人が安全性・工数・保守性を比較し、不正な資格情報で処理を進めない方針を選びました。AIは比較材料を整理する役割であり、採否をAIの回答へ委ねませんでした。",
       },
       {
         id: "approve",
-        label: "上司レビュー・組織承認",
+        label: "上司・組織が確認",
         kind: "decision",
-        description: "上司に方針を確認し、組織の設計方針として扱います。",
+        description:
+          "上司のレビューを受け、組織の設計方針として確認しました。その方針を前提に、正常動作を維持しながら必要な停止処理をコードのどこへ入れるか調べました。",
       },
     ],
     rows: [["premise"], ["options"], ["compare"], ["choice"], ["approve"]],
@@ -420,34 +460,38 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     nodes: [
       {
         id: "policy",
-        label: "確認した設計方針",
+        label: "決めた方針",
         kind: "knowledge",
-        description: "安全に止める条件と責務を起点にします。",
+        description:
+          "安全に止める条件と、アプリケーションが担う範囲を確認した方針です。調査対象を暗号方式の変更に絞り、OS側の修復や関係のない改修へ広げない基準にしました。",
       },
       {
         id: "search",
-        label: "コードを意味から探索",
+        label: "コード探索",
         kind: "ai",
         description:
-          "GitHub Copilotが関連コード、呼出し関係、変更影響の候補を提示します。",
+          "GitHub Copilotで暗号化・復号、保存・読出し、値の利用先を意味から探索しました。文字列の一致だけでなく、呼出し関係と変更影響の候補を調べました。",
       },
       {
         id: "check",
-        label: "人間がコード・運用を確認",
+        label: "人が確認",
         kind: "human",
-        description: "前後の処理と実際の利用条件を照合します。",
+        description:
+          "AIが挙げた箇所について、前後の処理、到達条件、実行順序、値の用途を人が確認しました。コード上で問題に見えても実運用で影響するとは限らないため、候補のまま採用しませんでした。",
       },
       {
         id: "scope",
-        label: "真の課題と見かけを区別",
+        label: "変更対象を絞る",
         kind: "decision",
-        description: "AIの指摘をすべて改修対象にしません。",
+        description:
+          "前段の処理や運用条件で問題を回避できている箇所と、今回対応すべき箇所を区別しました。AIの指摘を全部取り込まず、目的に関係する影響があるかで絞りました。",
       },
       {
         id: "implement",
-        label: "最小変更の方法を確定",
+        label: "修正方法を決める",
         kind: "system",
-        description: "確認した必要箇所へエラー処理を追加します。",
+        description:
+          "APIの戻り値を確認し、必要な位置で後続処理を停止する方法を具体化しました。正常系への変更は最小限にし、利用者への復旧案内と責務分界を先に確認した方針へ合わせました。",
       },
     ],
     rows: [["policy"], ["search"], ["check"], ["scope"], ["implement"]],
@@ -480,40 +524,45 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     nodes: [
       {
         id: "candidate",
-        label: "コード上の指摘",
+        label: "AIの指摘",
         kind: "ai",
         description:
-          "設計上の粗さは調査候補であり、実運用の問題とは限りません。",
+          "AIの指摘は、関連コードと変更影響の調査候補として扱いました。設計上の粗さがあっても実際の問題とは限らないため、そのまま改修対象にはしませんでした。",
       },
       {
         id: "check",
-        label: "人間が前提と運用を確認",
+        label: "人が条件を確認",
         kind: "human",
-        description: "到達条件、前後の処理、値の用途、実行順序を調べます。",
+        description:
+          "到達条件、前後の処理、値の用途、実行順序、運用条件を人が調べました。今回の変更によって実際に影響が生じるかを判断するための確認です。",
       },
       {
         id: "problem",
-        label: "実運用で問題あり",
+        label: "問題あり",
         kind: "decision",
-        description: "今回の変更に関係する影響がある場合です。",
+        description:
+          "今回の変更に関係する影響が、実運用で生じると確認した場合です。必要なエラー処理や停止条件を、改修対象に含める判断へつなぎました。",
       },
       {
         id: "safe",
-        label: "実運用では問題なし",
+        label: "問題なし",
         kind: "decision",
-        description: "前段の処理や運用条件によって問題にならない場合です。",
+        description:
+          "前段の処理や運用条件によって、実際には問題にならない場合です。コードの見た目だけで問題と決めず、今回の修正範囲から外す判断につなぎました。",
       },
       {
         id: "include",
-        label: "改修対象に含める",
+        label: "改修する",
         kind: "system",
-        description: "必要な対応を行います。",
+        description:
+          "確認した必要箇所へ対応を追加しました。正常系を維持し、不正な値で進ませないことを基準に、変更範囲を限定しました。",
       },
       {
         id: "exclude",
-        label: "改修対象から外す",
+        label: "対象から外す",
         kind: "system",
-        description: "関係のない修正へ広げません。",
+        description:
+          "今回の目的に関係しない整理や改修は対象から外しました。AIが改善案を提示できることと、この変更で採用すべきことを分けました。",
       },
     ],
     rows: [
@@ -531,12 +580,12 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       {
         from: "check",
         to: "problem",
-        label: "",
+        label: "問題あり",
       },
       {
         from: "check",
         to: "safe",
-        label: "",
+        label: "問題なし",
       },
       {
         from: "problem",
@@ -556,29 +605,31 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     nodes: [
       {
         id: "inputs",
-        label: "前提・方針・コード調査",
+        label: "確認した調査結果",
         kind: "knowledge",
         description:
-          "保守の前提、GPTとの対話、承認済み方針、Copilotのコード調査、人間が確認した実装事実、採用方法を集約します。",
+          "保守の前提、GPTとの検討、承認した方針、コード調査、人が確認した事実を集めました。別々の場所にある情報を、同じ項目でレビューできる形にするためです。",
       },
       {
         id: "document",
-        label: "M365 Copilotで文書化",
+        label: "文書に整理",
         kind: "ai",
-        description: "確認した材料をExcelへ整理します。",
+        description:
+          "Microsoft 365 Copilotへ確認した材料と採用する実現方法を渡し、Excel仕様書へ集約しました。AIに整形させても、その表が正しい仕様であるとは扱いませんでした。",
       },
       {
         id: "excel",
-        label: "現行・変更後のExcel仕様",
+        label: "Excel仕様書",
         kind: "knowledge",
         description:
-          "正常系・異常系、エラー条件、処理内容、影響範囲、判断理由、試験範囲・観点を管理します。",
+          "現行・変更後の正常系と異常系、停止条件、変更範囲、判断理由、試験観点を整理しました。処理順序や読出し・復号のタイミングも確認できる形にし、認識の違いを見つける材料にしました。",
       },
       {
         id: "review",
-        label: "人間が整合をレビュー",
+        label: "人がレビュー",
         kind: "human",
-        description: "コードと承認した方針へ照合し、過不足を確認します。",
+        description:
+          "コード上の事実、設計方針、承認した内容との整合を人が確認しました。認識違いがあれば表の一行だけを直すのではなく、現行コードと処理全体へ戻って確認しました。",
       },
     ],
     rows: [["inputs"], ["document"], ["excel"], ["review"]],
@@ -606,43 +657,45 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     nodes: [
       {
         id: "code",
-        label: "コードから現行仕様を抽出",
+        label: "コード調査",
         kind: "ai",
         description:
-          "GitHub Copilotでコードを参照し、構造を伝える情報を整理します。",
+          "Excel仕様書の認識違いを確認するため、GitHub Copilotで現行コードの情報を取り出しました。次のAIへ渡すプロンプトも人が確認し、未確認の回答を自動で連結しませんでした。",
       },
       {
         id: "structure",
-        label: "GPTで処理構造を表現",
+        label: "処理を図に整理",
         kind: "ai",
         description:
-          "呼出し、分岐、入出力、エラー後の停止位置を構造として表します。",
+          "GPTで呼出し順序、分岐、入出力、エラー後の停止位置を処理構造として整理しました。表の各行を全体のどこへ位置付けるか、確認できるようにするためです。",
       },
       {
         id: "verify",
-        label: "人間が実コードと照合",
+        label: "人がコードと照合",
         kind: "human",
         description:
-          "情報を渡す前にもプロンプトを確認し、生成した構造の誤りを必要に応じて修正します。",
+          "生成した処理構造を人が実コードと照合し、誤りがあれば修正しました。コードを参照できないAIの説明を、コード上の事実として確定しないための確認です。",
       },
       {
         id: "excel",
-        label: "確認済み仕様をExcelへ",
+        label: "Excelへ反映",
         kind: "ai",
         description:
-          "Microsoft 365 Copilotへ確認した情報を渡し、仕様書へ反映します。",
+          "確認した処理構造をMicrosoft 365 Copilotへ渡し、Excel仕様書へ反映しました。読出し・復号のタイミング、分岐、停止位置、外部連携の条件を修正しました。",
       },
       {
         id: "review",
-        label: "人間が再レビュー",
+        label: "人が再確認",
         kind: "human",
-        description: "コード・構造・方針との整合を確認します。",
+        description:
+          "修正後の仕様書を、コード・処理構造・設計方針と再度照合しました。AI間で形式を変えることと、人が仕様の正しさを確認することを分けました。",
       },
       {
         id: "approve",
-        label: "審議・仕様承認",
+        label: "組織で仕様承認",
         kind: "decision",
-        description: "サブ審議を経て承認済み仕様を実装の前提にします。",
+        description:
+          "仕様書を組織のサブ審議へ提出し、承認を受けました。AIの出力を組織の決定と混同せず、レビュー・承認を経た仕様を実装と単体テストの前提にしました。",
       },
     ],
     rows: [
@@ -650,7 +703,8 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       ["structure"],
       ["verify"],
       ["excel"],
-      ["review", "approve"],
+      ["review"],
+      ["approve"],
     ],
     edges: [
       {
@@ -686,40 +740,45 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     nodes: [
       {
         id: "whole",
-        label: "処理全体の構造を共有",
+        label: "全体像を共有",
         kind: "knowledge",
-        description: "関数間の関係とUI情報を先に共有します。",
+        description:
+          "承認済み仕様と、処理全体の構造・関数間の関係・必要なUI情報をGitHub Copilotへ共有しました。関数だけを切り出すと入力の前提や後続への影響が抜けやすいためです。",
       },
       {
         id: "function",
-        label: "対象関数・エラー条件を確認",
+        label: "対象関数を確認",
         kind: "human",
-        description: "対象関数の役割と追加する条件を定めます。",
+        description:
+          "対象関数の役割と追加するエラー条件を確認しました。正常動作を維持し、関係のない名前変更や依存関係の変更へ広げない基準を置きました。",
       },
       {
         id: "generate",
-        label: "最小限の修正案を生成",
+        label: "修正案を生成",
         kind: "ai",
-        description: "GitHub Copilotが承認済み仕様からコードを生成します。",
+        description:
+          "GitHub Copilotで関数単位の修正案を生成しました。承認済み仕様を前提に必要な異常系対応へ絞り、生成できたことだけで採用を決めませんでした。",
       },
       {
         id: "review",
-        label: "人間レビュー・単体テスト",
+        label: "レビュー・試験",
         kind: "human",
-        description: "ビルドと試験で、コードと期待結果を確認します。",
+        description:
+          "人がコードをレビューし、ビルドと単体テストで確認しました。APIの成功・失敗、レジストリ値がない場合、既存の正常動作を見て、期待結果も仕様から人が確かめました。",
       },
       {
         id: "retry",
-        label: "問題あり：修正・再試験",
+        label: "修正・再試験",
         kind: "feedback",
         description:
-          "修正案の見直し、再生成、レビュー、ビルド・単体テストを繰り返します。",
+          "問題があれば修正案を見直し、再生成したコードもレビュー・ビルド・単体テストで確認しました。修正後の確認を省略せず、既存動作への影響と修正範囲を確かめました。",
       },
       {
         id: "next",
-        label: "問題なし：次の関数へ",
+        label: "次の関数へ",
         kind: "system",
-        description: "対象関数が残れば同じ確認を続け、残らなければ終了します。",
+        description:
+          "確認した関数から次の対象関数へ進めました。対象が残っていれば同じ確認を繰り返し、生成したコードの採否と期待結果の判断は人に残しました。",
       },
     ],
     rows: [
@@ -755,6 +814,12 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         to: "next",
         label: "問題なし",
       },
+      {
+        from: "retry",
+        to: "generate",
+        label: "再生成",
+        dashed: true,
+      },
     ],
   },
   "maintenance-delivery-flow": {
@@ -768,7 +833,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         mobileLabel: "1前提",
         kind: "human",
         description:
-          "人間が保守の前提を設定し、GPTで整理した要件・論点を上司レビューで確認します。",
+          "人が正常系への影響、安全性、工数、保守性、責務の範囲を前提として整理しました。GPTで選択肢や論点を検討し、コードや過去資料も必要に応じて確認しました。",
       },
       {
         id: "investigate",
@@ -776,7 +841,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         mobileLabel: "2探索",
         kind: "ai",
         description:
-          "GitHub Copilotで関連コードを調べ、変更影響と実現案を整理し、M365 Copilotで仕様書へ集約します。",
+          "GitHub Copilotで関連コードと呼出し関係、変更影響の候補を調べました。人が前後の処理や運用条件を照合し、今回必要な変更箇所と実現方法を絞りました。",
       },
       {
         id: "review",
@@ -784,7 +849,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         mobileLabel: "3レビュー",
         kind: "human",
         description:
-          "コード上の事実、処理構造、仕様書を照合します。審議・承認済み仕様を参照し、必要な確認・修正を行います。",
+          "コード上の事実、処理構造、Excel仕様書の整合を人がレビューしました。表が整っていることだけで正しいとは扱わず、承認した方針と正常動作への影響を確認しました。",
       },
       {
         id: "correct",
@@ -792,7 +857,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         mobileLabel: "4差分",
         kind: "decision",
         description:
-          "コード・処理構造・仕様書の認識差分を確認します。差分があれば、GPTで論点整理、コード調査、文書への反映を行い、人間の仕様レビューへ戻ります。差分がなければ、組織の承認済み仕様を前提に実装へ進みます。",
+          "コード・処理構造・仕様書の認識差分を確認しました。差分があれば調査と文書反映をやり直し、人の仕様レビューへ戻しました。差分がなければ承認済み仕様を前提に実装へ進みました。",
       },
       {
         id: "implement",
@@ -800,7 +865,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         mobileLabel: "5実装",
         kind: "system",
         description:
-          "承認済み仕様に基づきGitHub Copilotで関数単位のコードを生成し、人間がレビュー・単体テストを行います。既存動作と変更範囲を確認します。",
+          "GitHub Copilotで関数単位の修正案を生成し、人がレビュー・ビルド・単体テストを行いました。正常動作と変更範囲を確認し、問題があれば修正と再確認を行いました。",
       },
       {
         id: "approve",
@@ -808,7 +873,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         mobileLabel: "審議・承認済み仕様",
         kind: "knowledge",
         description:
-          "組織の審議・承認を経た仕様です。レビューと差分確認の判断材料であり、この図では直列工程として配置していません。承認の必要性を省略するものではありません。",
+          "組織の審議・承認を経た仕様を、レビューと実装の前提として参照しました。AI間で情報を整理・受け渡す工程とは別に、組織として仕様を確定する工程を置きました。",
       },
       {
         id: "existing",
@@ -816,7 +881,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         mobileLabel: "既存システム・工程",
         kind: "knowledge",
         description:
-          "実装が影響する既存コード、正常動作、処理の呼出し関係を確認するための補助情報です。新しい工程を追加するものではありません。",
+          "既存動作と処理全体、関数間の関係を実装時の確認材料にしました。関数単体の生成に閉じず、入力の前提と後続処理への影響も人が確認しました。",
       },
     ],
     rows: [
@@ -942,23 +1007,23 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         edges: {
           "premise:investigate": {
             path: "M168 160.0H236",
-            x: 202.0,
-            y: 148.0,
+            x: 202,
+            y: 148,
           },
           "investigate:review": {
             path: "M388 160.0H456",
-            x: 422.0,
-            y: 148.0,
+            x: 422,
+            y: 148,
           },
           "review:correct": {
             path: "M608 160.0H676",
-            x: 642.0,
-            y: 148.0,
+            x: 642,
+            y: 148,
           },
           "correct:implement": {
             path: "M828 160.0H896",
-            x: 862.0,
-            y: 148.0,
+            x: 862,
+            y: 148,
           },
           "correct:review": {
             path: "M752 104V52Q752 40 740 40H544Q532 40 532 52V104",
@@ -1032,18 +1097,18 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         edges: {
           "premise:investigate": {
             path: "M56 133.0H72",
-            x: 64.0,
-            y: 121.0,
+            x: 64,
+            y: 121,
           },
           "investigate:review": {
             path: "M120 133.0H136",
-            x: 128.0,
-            y: 121.0,
+            x: 128,
+            y: 121,
           },
           "review:correct": {
             path: "M184 133.0H200",
-            x: 192.0,
-            y: 121.0,
+            x: 192,
+            y: 121,
           },
           "correct:implement": {
             path: "M248 133.0H264",
@@ -1080,27 +1145,31 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     nodes: [
       {
         id: "ui",
-        label: "UI操作・表示",
+        label: "UI操作",
         kind: "human",
-        description: "操作と表示から、利用者が何を確認するかを把握します。",
+        description:
+          "利用者が画面で行う操作と、表示される内容を確認しました。内部のクラス名だけでは利用者の質問に答えにくいため、画面から見た動作を調査の起点にしました。",
       },
       {
         id: "call",
-        label: "呼出し関係",
+        label: "呼出し",
         kind: "system",
-        description: "イベントや関数の呼出しをコードで追います。",
+        description:
+          "画面操作から、どのイベント・関数・クラスへ処理が渡るかをコードで追いました。UIと内部処理を結び付け、操作に関する質問から必要な仕様へ到達できるようにしました。",
       },
       {
         id: "process",
-        label: "内部処理・分岐",
+        label: "内部処理",
         kind: "system",
-        description: "処理順序や条件を確認し、AIの説明と実コードを照合します。",
+        description:
+          "呼び出された先の処理順序と条件分岐を確認しました。UI中心の仕様書では不足していた内部ルールを実装から復元し、操作と結果の対応へつなぎました。",
       },
       {
         id: "result",
-        label: "実動作・表示結果",
+        label: "実動作",
         kind: "decision",
-        description: "実際のソフトウェアの動作と合うかを人間が確認します。",
+        description:
+          "コードから読み取った内容を実際のソフトウェアの動作と照合しました。AIの説明をそのまま確定せず、人が確認した操作・処理・結果の対応をKnowledgeへ組み込みました。",
       },
     ],
     rows: [["ui"], ["call"], ["process"], ["result"]],
@@ -1131,34 +1200,35 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         label: "確認した現行仕様",
         kind: "knowledge",
         description:
-          "コード・UI・実動作・資料・担当者知識を照合した情報が共通の土台です。",
+          "コード、UI、実動作、既存資料、担当者の知識を照合した情報を起点にしました。古い仕様書やAIの推測だけを、そのまま現行仕様として扱わないためです。",
       },
       {
         id: "human",
-        label: "人向けの構造・フロー",
+        label: "人向けの図",
         kind: "human",
         description:
-          "処理の流れや関係性を俯瞰し、ノードを選んで役割を確認できます。",
+          "人が全体像を理解できるよう、処理の流れと関係を図に整理しました。仕様確認や保守時に、順序と影響範囲を俯瞰するために使いました。",
       },
       {
         id: "ai",
-        label: "AI向けの文書Knowledge",
+        label: "AI向けの文書",
         kind: "knowledge",
         description:
-          "根拠を意味単位で検索できるように、文章と構造化テキストを整理します。",
+          "AIが質問に必要な情報を検索できるよう、条件・例外・詳細をMarkdown中心に整理しました。人向けの図とは用途を分けますが、別々の仕様を作るのではなく同じ確認済み情報を使いました。",
       },
       {
         id: "judge",
-        label: "人間の変更判断",
+        label: "人の変更判断",
         kind: "decision",
-        description: "背景や制約を参照し、現在の状況から採否を決めます。",
+        description:
+          "背景や制約、現在の状況を踏まえ、変更するか・どの方針を採るかは人が判断しました。AIには判断材料を探させ、最終決定を自動化しない責任分担を維持しました。",
       },
       {
         id: "qa",
-        label: "根拠を探すQA / RAG",
+        label: "QAで情報を探す",
         kind: "ai",
         description:
-          "知識を検索して判断材料を返します。最終決定を自動化しません。",
+          "質問に関係する確認済みKnowledgeを検索し、回答の根拠へ戻れるようにしました。AIの回答だけで確定せず、仕様確認・QA・継続保守で調査結果を再利用するための構成です。",
       },
     ],
     rows: [["facts"], ["human", "ai"], ["judge", "qa"]],
@@ -2113,45 +2183,45 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     nodes: [
       {
         id: "legacy",
-        label: "理解しにくい既存システム",
+        label: "現行仕様が分からない",
         kind: "system",
         description:
-          "UI中心の古い仕様書だけでは内部仕様を説明できず、現行動作の確認や担当者の知識に依存する状態が出発点です。",
+          "約20年前に開発された多機能なシステムで、長年の利用者がおり単純には廃止できませんでした。仕様書はUI説明中心で古く、問い合わせのたびに実機確認が必要でした。知識が長期担当者へ偏る状態を、仕様情報の不足として捉えました。",
       },
       {
         id: "investigate",
-        label: "コード・UI・実動作を調査",
+        label: "コード・動作を調査",
         kind: "ai",
         description:
-          "当時使用したGPTで仕様や構造の抽出を支援します。既存文書・担当者知識も含め、コード位置・処理・関係を人間が照合し、AIの説明を確定した仕様として扱いません。",
+          "ソースコードを起点に、UI、実動作、既存文書、担当者の知識を組み合わせて調べました。GPTにはコードの説明や構造の仮説を出させ、人が実コードと実行結果を照合しました。AIのもっともらしい説明を、そのまま仕様として確定しませんでした。",
       },
       {
         id: "restore",
-        label: "仕様・構造を復元し確認",
+        label: "現行仕様を復元",
         kind: "decision",
         description:
-          "コードから処理・分岐・入出力・依存関係を抽出し、図で可視化します。AI生成と人間が確認した事実を区別します。",
+          "処理・分岐・入出力・依存関係をコードから復元し、現行の動作として確認しました。全面刷新を先に進めるのではなく、廃止できないシステムを理解・変更判断できる状態へ戻すことを優先しました。",
       },
       {
         id: "human",
-        label: "人が読む設計情報",
+        label: "人向けの図",
         kind: "human",
         description:
-          "構造や処理を俯瞰できる説明と図を使い、人が仕様・変更影響を確認できる状態へ整えます。",
+          "処理フローや要素間の関係を、人が俯瞰できる図と説明へ整理しました。文章だけでは組み立てにくい全体像を見える形にし、仕様確認や変更影響の調査に使いました。",
       },
       {
         id: "knowledge",
-        label: "AIが使うKnowledge",
+        label: "AI向けの文書",
         kind: "knowledge",
         description:
-          "確認済みの仕様を検索・参照できる構造へ整理します。人が読む図とAIが利用する情報の役割を分けます。",
+          "確認した仕様の条件・例外・詳細を、検索しやすい文書中心のKnowledgeへ整理しました。人向けの図と表現は分けますが、情報の土台は同じです。利用者の操作に関する質問からも関連情報を探せる構成にしました。",
       },
       {
         id: "reuse",
-        label: "変更判断・QA・保守へ再利用",
+        label: "QA・変更判断へ",
         kind: "feedback",
         description:
-          "一回限りの調査資料にせず、仕様確認やQA、継続的な保守で再利用します。変更の採否や組織への影響は人間が判断します。",
+          "調査結果を一回限りにせず、仕様確認・QA・継続保守へ再利用しました。AIは関連情報や判断材料を提供しますが、変更の採否は人が現在の状況を踏まえて決めます。理解を蓄積し、次の変更判断に使える状態を目指しました。",
       },
     ],
     rows: [
@@ -2202,45 +2272,52 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     nodes: [
       {
         id: "human",
-        label: "問い合わせを見て何を調べるか決める",
+        label: "調べることを決める",
         kind: "human",
-        description: "人が問い合わせを確認し、調べることを決めます。",
+        description:
+          "人が問い合わせや変更の課題を整理し、何を調べるか決めました。コード・仕様の検討・過去背景など、必要な情報へどのAIがアクセスできるかを基準に使い分けました。",
       },
       {
         id: "spec",
         label: "仕様を調べる",
         kind: "ai",
-        description: "AIを使って、どのように動くべきかを調べます。",
+        description:
+          "GPTで制約、要件、異常時の選択肢を整理しました。仕様の検討では他のAIから得たコード上の事実や過去背景も必要に応じて合わせ、一つのAIの回答だけで方針を決めませんでした。",
       },
       {
         id: "code",
         label: "コードを調べる",
         kind: "ai",
-        description: "AIを使って、現在の動きと変更する場所を調べます。",
+        description:
+          "GitHub Copilotで関連コード、呼出し関係、変更影響を調べました。AIが挙げた候補は人が実際の処理と運用条件を確認し、今回の変更へ含めるかを判断しました。",
       },
       {
         id: "docs",
-        label: "過去の資料を調べる",
+        label: "過去資料を調べる",
         kind: "ai",
-        description: "AIを使って、過去の資料やメールを調べます。",
+        description:
+          "Microsoft 365 Copilotで過去資料やOffice文書・メールの背景を確認しました。コードだけでは分からない経緯を補い、検討結果をExcel仕様書へ集約する際にも利用しました。",
       },
       {
         id: "artifacts",
-        label: "調べた内容をまとめる",
+        label: "調査結果をまとめる",
         kind: "knowledge",
-        description: "調査した内容をまとめ、人が確認できる形にします。",
+        description:
+          "仕様の検討、コード調査、過去背景を組み合わせ、レビューできる形へ整理しました。複数AIの結果を人が確認して次へ渡し、誤った前提がそのまま連鎖しないようにしました。",
       },
       {
         id: "review",
-        label: "人が内容を確認して直す",
+        label: "人が確認して直す",
         kind: "human",
-        description: "人が調べた内容を確認し、必要なところを直します。",
+        description:
+          "人がコード・処理構造・仕様書の整合を確認し、必要なら修正しました。AIの回答が食い違った場合は、その問いに必要な情報を参照できるAIの材料を重視し、採否は人が決めました。",
       },
       {
         id: "implement",
-        label: "最後は人が決めて進める",
+        label: "人が決めて進める",
         kind: "human",
-        description: "最後は人が決め、実装・確認・試験を進めます。",
+        description:
+          "人のレビューと組織の承認を経た仕様を基に、実装・確認・単体テストを進めました。AIへ判断責任を移さず、コード調査だけでなく仕様検討や過去背景の確認まで支援範囲を広げました。",
       },
     ],
     groups: [

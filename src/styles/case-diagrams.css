@@ -177,7 +177,10 @@
   }
 }
 
-/* Only the legacy overview starts with a compact, unselected diagram. */
+/* Legacy case diagrams share compact spacing and selection cues. */
+.case-diagram[data-compact-interactive] .case-diagram-details {
+  margin-top: 1.5rem;
+}
 .case-diagram[data-compact-interactive] [data-node] {
   cursor: pointer;
 }

@@ -8,7 +8,11 @@ const { id } = Astro.props;
 const model = caseDiagrams[id];
 if (!model) throw new Error(`Unknown case diagram: ${id}`);
 const prefix = `case-${id}`;
-const compactInteractive = id === "system-understanding";
+const compactInteractive =
+  id === "system-understanding" ||
+  id === "three-ai-maintenance" ||
+  id.startsWith("legacy-") ||
+  id.startsWith("maintenance-");
 const showDetails = true;
 const kinds = {
   human: "人間",
@@ -52,7 +56,7 @@ const layouts = ["mobile", "desktop"].map((name) => {
   const rows = (model.rows || []).flatMap((row) =>
     mobile && row.length > 2 ? [row.slice(0, 2), row.slice(2)] : [row],
   );
-  const vertical = mobile || rows.length > 5;
+  const vertical = mobile || (!compactInteractive && rows.length > 5);
   const height = mobile ? 88 : 108;
   const width = 140;
   const positions = new Map<
@@ -83,7 +87,9 @@ const layouts = ["mobile", "desktop"].map((name) => {
                 ? 119 + c * 200
                 : 18 + c * 200
           : 28 + r * 160,
-        y: vertical ? 18 + r * (mobile ? 124 : 144) : 30 + c * 124,
+        y: vertical
+          ? 18 + r * (mobile ? 124 : 144)
+          : (compactInteractive ? 32 : 30) + c * 124,
         w: mobile && row.length === 1 ? 140 : width,
         h: height,
       }),
@@ -101,10 +107,15 @@ const layouts = ["mobile", "desktop"].map((name) => {
       if (b.y === a.y) return `M${a.x + a.w} ${a.y + a.h / 2}H${b.x}`;
       return `M${a.x} ${a.y + a.h / 2}H6V${b.y + b.h / 2}H${b.x}`;
     }
+    if (compactInteractive && b.x === a.x && b.y > a.y) {
+      return `M${a.x + a.w / 2} ${a.y + a.h}V${b.y}`;
+    }
     if (b.x > a.x) {
       const mid = (a.x + a.w + b.x) / 2;
       return `M${a.x + a.w} ${a.y + a.h / 2}H${mid}V${b.y + b.h / 2}H${b.x}`;
     }
+    if (compactInteractive)
+      return `M${a.x + a.w / 2} ${a.y}V8H${b.x + b.w / 2}V${b.y}`;
     return `M${a.x + a.w / 2} ${a.y + a.h}V390H${b.x + b.w / 2}V${b.y + b.h}`;
   };
   return {
@@ -116,8 +127,8 @@ const layouts = ["mobile", "desktop"].map((name) => {
     positions,
     canvasWidth,
     canvasHeight:
-      compactInteractive && !mobile && !model.messages
-        ? Math.max(...[...positions.values()].map((p) => p.y + p.h)) + 32
+      compactInteractive && !model.messages
+        ? Math.max(...[...positions.values()].map((p) => p.y + p.h)) + 12
         : canvasHeight,
     edgeLabels: undefined as
       Record<string, { path: string; x?: number; y?: number }> | undefined,
