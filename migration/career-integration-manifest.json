@@ -5,7 +5,7 @@
       "source_file": "index.md",
       "destination_file": "src/content/career/details.md",
       "source_sha256": "904f71cb5684d60c7a1209c48f89e71a48258baf388127303d32061381266877",
-      "destination_body_sha256": "8e29b5b76cc51e6bee9fc6478b03ccc573e71512be64ba6026e66c9dc64e84e3"
+      "destination_body_sha256": "c9978496d5ac66da22a090d3449a2ddf493225db8ec5a8701da12243afe75120"
     },
     {
       "source_file": "profile/index.md",

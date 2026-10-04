@@ -36,6 +36,14 @@ const components = {
   note: Note,
 };
 const $ = load(publicHtml(Astro.props.html, sourceLinks), null, false);
+// Case discovery belongs to Cases/Career, not to knowledge article bodies.
+// Keep the reference wording and source metadata, but remove its navigation.
+if (!/\/(?:cases|career)(?:\/|$)/.test(Astro.url.pathname)) {
+  $("a[href]").each((_, element) => {
+    const link = $(element);
+    if (/\/cases(?:\/|$)/.test(link.attr("href") || "")) link.replaceWith(link.contents());
+  });
+}
 $("img").each((_, element) => {
   const image = $(element);
   image.attr("loading", "lazy");

@@ -6,7 +6,6 @@ import {
   layerPath,
   bookChapterNumber,
   contentCategory,
-  relatedCases,
   topicLabel,
   designTopics,
   topicPublications,
@@ -74,12 +73,15 @@ const themeGroups = readingPath
     : readingNavigation(all, readingPath, entry.id)
   : [];
 const preferredLinks = d.section === "cases"
-  ? [{ href: url("career"), title: "設計思想・キャリアを見る" }]
-  : relatedCases(all, entry).map((item) => ({ href: url(item.id), title: `実践例：${item.data.title}` }));
+  ? [
+      { href: url("career"), title: "設計思想・キャリアを見る" },
+      ...(entry.id === "cases/system-understanding" ? [{ href: url("cases/understanding-systems-as-capability"), title: "既存システム理解を、再利用できる能力として考える" }] : []),
+    ]
+  : [];
 const readingExit = compactRelatedLinks(content.related, preferredLinks, Astro.url.href, [
   ...designTopics.filter(([key]) => topicPublications[key]?.includes(series[0]?.id || entry.id)).map(([key, title]) => ({ href: url("ai-design/" + key), title: `設計を深く読む：${title}` })),
   { href: url(primaryPath), title: `${primaryLabel}の入口へ` },
-]);
+], { excludeCases: d.section !== "cases" });
 const bookNavigation = series.length
   ? {
       title: d.series_title || series[0].data.title,
@@ -105,7 +107,7 @@ const bookNavigation = series.length
   lastUpdated={d.last_updated}
   showLastUpdated={false}
   section={primaryPath}
-  headings={headings.map((heading) => ({ ...heading, text: heading.text.replace("Related Design Principles", "関連する設計原則").replace("Related Design", "関連する設計") }))}
+  headings={headings.filter((heading) => content.body.includes(`id="${heading.slug}"`)).map((heading) => ({ ...heading, text: heading.text.replace("Related Design Principles", "関連する設計原則").replace("Related Design", "関連する設計") }))}
   breadcrumbs={[
     { name: "庭", path: "" },
     { name: primaryLabel, path: primaryPath },

@@ -1080,6 +1080,10 @@ blockquote {
   overflow-wrap: anywhere;
   max-width: 70rem;
 }
+.prose p {
+  margin-block: 0.95em;
+  text-wrap: pretty;
+}
 .prose h2 {
   border-bottom: 1px solid var(--line);
   padding-bottom: 0.6rem;
@@ -1582,6 +1586,7 @@ blockquote {
 .dx-category:first-of-type { border-top: 1px solid var(--line); }
 .dx-theme-introduction h2 { margin: 0 0 .75rem; font-size: 1.5rem; }
 .dx-theme-introduction p { margin: 0; line-height: 1.8; }
+.dx-theme-introduction p + p { margin-top: 0.85em; }
 .dx-theme-detail h3 { margin: 0 0 .65rem; font-size: 1rem; color: var(--muted); }
 .dx-theme-detail h3:not(:first-child) { margin-top: 1.5rem; }
 .dx-theme-questions { margin: 0; padding-inline-start: 1.25rem; }
@@ -1779,7 +1784,7 @@ blockquote {
   margin-inline: auto;
 }
 .career-page .prose {
-  max-width: none;
+  max-width: 70rem;
 }
 .career-page article {
   max-width: none;

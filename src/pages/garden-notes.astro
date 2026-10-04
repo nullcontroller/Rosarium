@@ -17,7 +17,8 @@ const description = "Rosariumで行った主な公開・改訂・統合・剪定
   breadcrumbs={[{ name: "Rosarium", path: "" }, { name: "Garden Notes", path: "garden-notes" }]}>
   <PageHeader title="Garden Notes" />
   <div class="garden-notes-page">
-    <p>Rosariumで行った主な公開・改訂・統合・剪定を記録しています。細かなUI調整ではなく、知識や事例の内容がどう変わったかを中心に残しています。</p>
+    <p>Rosariumで行った主な公開・改訂・統合・剪定を記録しています。</p>
+    <p>細かなUI調整ではなく、知識や事例の内容がどう変わったかを中心に残しています。</p>
     {months.map(({ month, entries }) => (
       <section aria-labelledby={`notes-${month}`}>
         <h2 id={`notes-${month}`}>{recentGrowthDateLabel(month)}</h2>

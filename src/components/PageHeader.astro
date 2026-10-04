@@ -7,6 +7,7 @@ interface Props {
   title: string;
   eyebrow?: string;
   summary?: string;
+  summaryParagraphs?: string[];
   status?: string;
 }
 const {
@@ -14,6 +15,7 @@ const {
   title,
   eyebrow,
   summary = introductionForPath(Astro.url.pathname),
+  summaryParagraphs,
   status,
 } = Astro.props;
 ---
@@ -26,6 +28,6 @@ const {
       <h1>{title}</h1>
       {status && <span class="page-status">{status}</span>}
     </div>
-    {summary && <p class="lead">{summary}</p>}
+    {(summaryParagraphs ?? (summary ? [summary] : [])).map((paragraph) => <p class="lead">{paragraph}</p>)}
   </div>
 </header>

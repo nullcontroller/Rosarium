@@ -271,8 +271,8 @@ for (const topic of [
 }
 for (const [id, d] of entries) {
   if (d.layer === "ai-design")
-    assert(
-      page(id)('[data-related-content] a[href*="/cases/"]').length,
+    assert.equal(
+      page(id)('[data-related-content] a[href*="/cases/"]').length, 0,
       id,
     );
 }
@@ -295,14 +295,13 @@ for (const [route, layer, crossListed] of [
     "practice",
     [
       "knowledge-context/prompt-structure",
-      "cases/understanding-systems-as-capability",
     ],
   ],
 ]) {
   const $ = page(route);
   const ids = primaryIds($);
   const canonical = [...entries]
-    .filter(([, data]) => data.layer === layer && data.public !== false)
+    .filter(([, data]) => data.layer === layer && data.section !== "cases" && data.public !== false)
     .map(([id]) => id);
   for (const id of canonical)
     assert(ids.includes(id), `${route} misses canonical ${id}`);
@@ -329,7 +328,7 @@ assert.deepEqual(
   pubs(".reading-area .reading-category")
     .map((_, e) => pubs(e).text().trim())
     .get(),
-  ["AI設計", "AI理論", "実践知", "実践事例"],
+  ["AI設計", "AI理論", "実践知"],
 );
 assert.deepEqual(
   pubs(".reading-area .reading-question")
@@ -339,7 +338,6 @@ assert.deepEqual(
     "AIを仕事やシステムにどう組み込む？",
     "生成AIはなぜそう振る舞う？",
     "AIを仕事や開発でどう使う？",
-    "実際の課題にどう適用した？",
   ],
 );
 assert.equal(pubs(".reading-area > .icon").length, 0);
@@ -347,7 +345,6 @@ for (const [section, href] of [
   ["ai-design", "/Rosarium/ai-design/"],
   ["ai-mathematics", "/Rosarium/ai-mathematics/"],
   ["practices", "/Rosarium/practices/"],
-  ["cases", "/Rosarium/cases/"],
 ]) {
   const area = pubs(`#${section}`);
   assert(area.find(`a[href="${href}"]`).length, section);
@@ -356,7 +353,7 @@ assert.deepEqual(
   pubs(".secondary-reading a")
     .map((_, element) => pubs(element).text().trim())
     .get(),
-  ["はじめに読む", "Booksを見る", "考察を見る"],
+  ["はじめに読む", "考察を見る"],
 );
 assert.equal(pubs('.secondary-reading a[href="/Rosarium/essays/"]').length, 1);
 const dx = page("dx");
@@ -415,7 +412,7 @@ assert(dx('a[href="/Rosarium/essays/dx-and-value/"]').length);
 assert.equal(dx('main a[href="/Rosarium/cases/customer-support-ai-dx/"]').length, 0);
 assert(!dx('a[href="/Rosarium/foundations/conditional-probability/"]').length);
 const dxEssay = page("essays/dx-and-value");
-assert(dxEssay('[data-related-content] a[href="/Rosarium/cases/customer-support-ai-dx/"]').length);
+assert.equal(dxEssay('[data-related-content] a[href="/Rosarium/cases/customer-support-ai-dx/"]').length, 0);
 assert(dxEssay('[data-related-content] a').length <= 4);
 for (const [id, expected] of [
   ["foundations/ai-business-design", ["公開：2026年2月"]],
@@ -983,7 +980,7 @@ for (const id of ["cases/system-understanding", "cases/three-ai-maintenance", "c
   assert.equal($('[data-related-content] a[href="/Rosarium/career/"]').length, 1);
 }
 for (const id of ["foundations/ai-business-design", "practices/transferring-practices", "knowledge-context/instruction-knowledge-evidence"]) {
-  assert(page(id)('[data-related-content] a[href*="/cases/"]').length, `${id}: meaningful Case discovery`);
+  assert.equal(page(id)('[data-related-content] a[href*="/cases/"]').length, 0, `${id}: knowledge exits exclude Cases`);
 }
 for (const file of walk("dist").filter((file) => file.endsWith("index.html"))) {
   const $ = load(fs.readFileSync(file, "utf8"));
@@ -1019,3 +1016,19 @@ for (const slug of ["why-ai", "responsibility-boundary", "poc-evaluation", "know
 assert.equal(page("about")('meta[http-equiv="refresh"]').length, 0);
 assert(!page("about")('meta[name="robots"]').attr("content")?.includes("noindex"));
 console.log("Verified Portfolio SVG explanations, compact Home and indexable About page.");
+
+// Knowledge gateways and reading exits do not recommend Case content.
+for (const [id, data] of entries) {
+  if (data.section !== "cases" && !id.startsWith("career/") && data.public !== false) {
+    assert.equal(page(id)('[data-related-content] a[href*="/cases/"]').length, 0, id);
+    assert.equal(page(id)('main .prose a[href*="/cases/"]').length, 0, `${id}: no Case navigation in knowledge prose`);
+  }
+}
+for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "business-transformation", "selection-retirement", "system-transformation", "continuous-value"].map((id) => "dx/" + id)]) {
+  const $ = page(route);
+  assert.equal($('main a[href^="/Rosarium/cases/"]').length, 0, route);
+  assert.equal($('main [data-content-id^="cases/"]').length, 0, route);
+}
+assert.equal(page("about")('main h2').filter((_, node) => page("about")(node).text() === "次に読む").length, 0);
+assert.equal(page("about")('main a[href="/Rosarium/"]').text(), "庭に戻る");
+assert(page("")('.home-career p br').length, "Career introduction has an explicit sentence break");

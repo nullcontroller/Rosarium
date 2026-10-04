@@ -6,6 +6,7 @@ import ContentIndex from "../../components/ContentIndex.astro";
 import {
   dxCategories,
   dxEntriesForCategory,
+  dxIntroductionParagraphs,
   type DxCategoryId,
 } from "../../lib/dx";
 import { publicEntry, url } from "../../lib/site";
@@ -21,7 +22,6 @@ const { category } = Astro.props;
 const all = await getCollection("pages", publicEntry);
 const entries = dxEntriesForCategory(all, category.id as DxCategoryId);
 const articles = entries.filter((entry) => entry.data.section !== "cases");
-const cases = entries.filter((entry) => entry.data.section === "cases");
 ---
 
 <Site
@@ -41,6 +41,7 @@ const cases = entries.filter((entry) => entry.data.section === "cases");
     title={category.title}
     eyebrow="DX THEME"
     summary={category.summary}
+    summaryParagraphs={dxIntroductionParagraphs(category.summary)}
   />
   <p>{category.scope}</p>
 
@@ -51,16 +52,9 @@ const cases = entries.filter((entry) => entry.data.section === "cases");
     </section>
   )}
 
-  {cases.length > 0 && (
-    <section aria-labelledby="dx-theme-cases">
-      <h2 id="dx-theme-cases">関連する実践事例</h2>
-      <ContentIndex entries={cases} showIcons={false} />
-    </section>
-  )}
 
   <nav class="topic-navigation" aria-label="関連する入口">
     <a href={url("dx")}>DXの全テーマを見る</a>
     <a href={url("ai")}>AIについて読む</a>
-    <a href={url("cases")}>実践事例を見る</a>
   </nav>
 </Site>

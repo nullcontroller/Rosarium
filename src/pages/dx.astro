@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
-import { dxCategories, dxFeaturedArticles } from "../lib/dx";
+import { dxCategories, dxFeaturedArticles, dxIntroductionParagraphs } from "../lib/dx";
 import { publicEntry, url } from "../lib/site";
 const all = await getCollection("pages", publicEntry);
 const categoryGroups = dxCategories.map((category) => ({
@@ -19,7 +19,10 @@ const headings = dxCategories.map((category) => ({
 <Site title="DX" section="dx" headings={headings}>
   <PageHeader title="DX" eyebrow="DIGITAL TRANSFORMATION" />
   <p>
-    技術を選ぶ前に、何を、なぜ変えるのかを考えます。価値から始め、仕事の流れ、既存システム、維持や終了、導入後の改善を見渡すための地図です。
+    技術を選ぶ前に、何を、なぜ変えるのかを考えます。
+  </p>
+  <p>
+    価値から始め、仕事の流れ、既存システム、維持や終了、導入後の改善を見渡すための地図です。
   </p>
   <section class="dx-category-list" aria-labelledby="dx-themes-heading">
     <p class="eyebrow">DXを考えるための地図</p>
@@ -34,7 +37,7 @@ const headings = dxCategories.map((category) => ({
           <h2 id={`${category.id}-heading`}>
             <a href={url(`dx/${category.id}`)}>{category.title}</a>
           </h2>
-          <p>{category.summary}</p>
+          {dxIntroductionParagraphs(category.summary).map((paragraph) => <p>{paragraph}</p>)}
         </header>
         <div class="dx-theme-detail">
           <h3>このテーマで考えること</h3>

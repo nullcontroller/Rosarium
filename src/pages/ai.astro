@@ -12,10 +12,13 @@ import { readingCategories } from "../lib/navigation";
     <p class="eyebrow">PRIMARY DOMAIN</p>
     <h2 id="ai-reading-heading">AIについて何を考えているか</h2>
     <p>
-      AIの性質だけでなく、使う目的、責任境界、業務への組み込み方、導入後の評価と改善までを扱います。知りたいことに近い問いから選べます。
+      AIの性質だけでなく、使う目的、責任境界、業務への組み込み方、導入後の評価と改善までを扱います。
+    </p>
+    <p>
+      知りたいことに近い問いから選べます。
     </p>
     <div class="reading-directory">
-      {readingCategories.map((category) => (
+      {readingCategories.filter((category) => category.path !== "cases").map((category) => (
         <section class="reading-area" id={category.path}>
           <div>
             <h3 class="reading-question">
@@ -32,7 +35,6 @@ import { readingCategories } from "../lib/navigation";
   <nav class="secondary-reading" aria-label="AIコンテンツの補助的な入口">
     <p class="eyebrow">OTHER PATHS</p>
     <a href={url("start-here")}>はじめに読む</a>
-    <a href={url("books")}>Booksを見る</a>
     <a href={url("essays")}>考察を見る</a>
   </nav>
 </Site>

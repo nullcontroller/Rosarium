@@ -169,7 +169,7 @@ export function readingNavigation(
   return readingGroups[path].map((group) => ({
     title: group.title,
     current: group.ids.includes(currentId || ""),
-    links: group.ids.map((id) => {
+    links: group.ids.filter((id) => path === "cases" || byId.get(id)?.data.section !== "cases").map((id) => {
       const entry = byId.get(id);
       if (!entry) throw new Error(`Missing reading navigation entry: ${id}`);
       return {
@@ -179,7 +179,7 @@ export function readingNavigation(
         current: id === currentId,
       };
     }),
-  }));
+  })).filter((group) => group.links.length > 0);
 }
 
 export function readingEntries(entries: Entry[], path: ReadingPath): Entry[] {
@@ -190,7 +190,7 @@ export function readingEntries(entries: Entry[], path: ReadingPath): Entry[] {
       if (!entry) throw new Error(`Missing reading entry: ${id}`);
       return entry;
     },
-  );
+  ).filter((entry) => path === "cases" || entry.data.section !== "cases");
 }
 
 export function readingPathForEntry(

@@ -47,7 +47,9 @@ AIが挙げた箇所は調査候補であり、そのまま修正対象ではな
 
 <div data-case-diagram="maintenance-change-scope"></div>
 
-AIの回答が食い違った場合も、製品の信頼順位を固定しなかった。コード上の事実にはコード全体を参照できるGitHub Copilot、設計の検討にはGPT、過去経緯にはMicrosoft 365 Copilotを重視し、問いとContextの一致度を基準に材料を選んだ。採否は人間が決めた。
+AIの回答が食い違った場合も、製品の信頼順位を固定しなかった。コード上の事実にはコード全体を参照できるGitHub Copilot、設計の検討にはGPT、過去経緯にはMicrosoft 365 Copilotを重視し、問いとContextの一致度を基準に材料を選んだ。
+
+採否は人間が決めた。
 
 ## 正常動作を保ちながら、異常時の停止を具体化する
 

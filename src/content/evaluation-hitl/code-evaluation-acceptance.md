@@ -426,7 +426,9 @@ $$
 
 重要なのは候補数ではなく、正しい候補を選別できるVerifierです。
 
-[AlphaCode](https://arxiv.org/abs/2203.07814)も大規模Samplingだけでなく、ProgramのBehaviorに基づくFilteringを組み合わせています。ただし、競技Programmingの結果を業務System保守へ直接一般化することはできません。
+[AlphaCode](https://arxiv.org/abs/2203.07814)も大規模Samplingだけでなく、ProgramのBehaviorに基づくFilteringを組み合わせています。
+
+ただし、競技Programmingの結果を業務System保守へ直接一般化することはできません。
 
 ---
 

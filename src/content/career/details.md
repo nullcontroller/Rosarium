@@ -70,13 +70,17 @@ source:
 
 生成AIや自然言語インターフェースを活用したDXサービスの企画・設計を中心に、技術と業務の両方へ直接関わる仕事を志向しています。
 
-特に、自社側で一つのサービスやシステムを継続的に担当し、企画、設計、導入、利用、評価、改善、再設計の循環へ長く関わりたいと考えています。ソフトウェア開発、プロジェクトマネジメント、レガシーシステムの保守・改善で得た経験は、そのためのシステム企画とアーキテクチャを支える基盤です。
+特に、自社側で一つのサービスやシステムを継続的に担当し、企画、設計、導入、利用、評価、改善、再設計の循環へ長く関わりたいと考えています。
+
+ソフトウェア開発、プロジェクトマネジメント、レガシーシステムの保守・改善で得た経験は、そのためのシステム企画とアーキテクチャを支える基盤です。
 
 ## Rosarium as Ongoing Practice
 
 Rosariumは、Applied AI、DX、System Architecture、実践事例について継続的に考察・整理し、自ら設計・開発・運営している個人技術サイトです。
 
-記事だけでなく、Information Architecture、UI、Navigation、Content Structure、Knowledge Organizationも、Codex等を活用しながら利用と検証を通じて改善しています。このサイト自体も、設計し、使い、観察し、改善する成果物の一つです。
+記事だけでなく、Information Architecture、UI、Navigation、Content Structure、Knowledge Organizationも、Codex等を活用しながら利用と検証を通じて改善しています。
+
+このサイト自体も、設計し、使い、観察し、改善する成果物の一つです。
 
 <p class="career-section-link"><a href="../../">Rosariumの庭を見る</a></p>
 

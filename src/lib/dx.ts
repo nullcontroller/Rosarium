@@ -70,6 +70,13 @@ export type PageEntry = CollectionEntry<"pages">;
 export const dxCategoryForId = (id: string) =>
   dxCategories.find((category) => category.id === id);
 
+// These introductions state the theme first, then its design scope.
+// Keep the complete summary as the SEO source; separate those two units in prose.
+export const dxIntroductionParagraphs = (summary: string): string[] => {
+  const boundary = summary.indexOf("。");
+  return boundary < 0 ? [summary] : [summary.slice(0, boundary + 1), summary.slice(boundary + 1)].filter(Boolean);
+};
+
 // Primary: the one shelf where the article's central question belongs.
 // Secondary: related questions used for discovery, never for duplicate primary listings.
 export const dxCategoryIdsForEntry = (entry: PageEntry): DxCategoryId[] =>
