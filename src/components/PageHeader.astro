@@ -1,9 +1,11 @@
 ---
+import { navigation } from "../lib/navigation";
 import { introductionForPath } from "../lib/site";
 import Icon from "./Icon.astro";
 import type { IconName } from "../lib/icons";
 interface Props {
   icon?: IconName;
+  navigationPath?: string;
   title: string;
   eyebrow?: string;
   summary?: string;
@@ -11,13 +13,15 @@ interface Props {
   status?: string;
 }
 const {
-  icon,
+  icon: explicitIcon,
+  navigationPath,
   title,
   eyebrow,
   summary = introductionForPath(Astro.url.pathname),
   summaryParagraphs,
   status,
 } = Astro.props;
+const icon = explicitIcon ?? (navigationPath === undefined ? undefined : navigation.flat().find((item) => item.path === navigationPath)?.icon);
 ---
 
 <header class:list={["page-heading", !icon && "text-only"]}>

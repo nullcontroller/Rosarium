@@ -637,7 +637,9 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
   const $ = page(route);
   assert.equal(
     $(
-      ".page-heading > .icon,.section-visual,.document-list .icon,.book-list-entry .icon",
+      route === "cases"
+        ? ".section-visual,.document-list .icon,.book-list-entry .icon"
+        : ".page-heading > .icon,.section-visual,.document-list .icon,.book-list-entry .icon",
     ).length,
     0,
     route,
@@ -928,3 +930,10 @@ assert.equal(page("")('.home-career .career-overview').text(), '立林 裕太朗
 assert.equal(page("")('.home-career .career-background').text(), '仕事の考え方と、その背景を紹介します。');
 assert.equal(page("")('.home-career .meaning-line').length, 0);
 assert.equal(page("")('.home-career br').length, 0);
+
+for (const [route, icon] of [["", "home"], ["ai", "articles"], ["dx", "overview"], ["cases", "cases"], ["retired", "archive"]]) {
+  const $ = page(route);
+  assert.equal($("main .hero .icon-page,main .page-heading > .icon-page").length, 1, route + ": one entrance icon");
+  assert.equal($("main .icon-page.icon-" + icon).length, 1, route + ": canonical entrance icon");
+  assert.equal($('.sidebar a[href="/Rosarium/' + (route ? route + '/' : '') + '"] .icon-' + icon).length, 1, route + ": Navigation icon agrees");
+}

@@ -1,4 +1,5 @@
 ---
+import { navigation } from "../lib/navigation";
 import Site from "../layouts/Site.astro";
 import GrowthEntry from "../components/GrowthEntry.astro";
 import { recentGrowth } from "../data/recent-growth";
@@ -6,13 +7,14 @@ import Icon from "../components/Icon.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { url } from "../lib/site";
 
+const homeIcon = navigation.flat().find((item) => item.path === "")!.icon;
 const recent = recentGrowth.slice(0, 1);
 ---
 
 <Site showRightSidebar={false} title="Home" section="">
   <section class="hero home-introduction">
     <div class="document-title-row">
-      <Icon name="home" size="page" />
+      <Icon name={homeIcon} size="page" />
       <h1>Rosarium</h1>
     </div>
     <p class="home-site-description">
