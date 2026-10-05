@@ -105,7 +105,7 @@ for (const file of htmlFiles) {
   }
 }
 
-for (const route of ["index.html", "ai/index.html", "dx/index.html", "cases/index.html", "career/index.html", "books/index.html"]) {
+for (const route of ["index.html", "ai/index.html", "dx/index.html", "cases/index.html", "career/index.html"]) {
   const $ = load(fs.readFileSync(path.join("dist", route), "utf8"));
   assert(!$('meta[name="robots"]').attr("content")?.includes("noindex"), `Main page is noindex: ${route}`);
 }
@@ -118,7 +118,7 @@ for (const canonical of indexable)
     sitemapUrls.has(canonical),
     `Indexable canonical missing from sitemap: ${canonical}`,
   );
-for (const route of ["search/", "overview/", "404.html"])
+for (const route of ["search/", "overview/", "books/", "series/", "404.html"])
   assert.ok(
     !sitemap.includes(`/Rosarium/${route}`),
     `Sitemap contains noindex route: ${route}`,
@@ -190,3 +190,15 @@ assert.deepEqual(
 console.log(
   `SEO audit: ${htmlFiles.length} HTML pages, ${articleCount} TechArticles, ${sitemapUrls.size} sitemap URLs, no indexable orphans, RSS/JSON Feed/robots/OpenSearch/llms.txt verified. ${repeatedDescriptions.length} shared description group(s) retained where context is equivalent.`,
 );
+
+// Retired catalogs keep their URLs as noindex redirects to authoritative entrances.
+for (const [route, destination] of [["books", "cases"], ["series", "dx/business-transformation"]]) {
+  const $ = load(fs.readFileSync("dist/" + route + "/index.html", "utf8"));
+  const target = "/Rosarium/" + destination + "/";
+  assert.match($('meta[name="robots"]').attr("content") || "", /noindex/);
+  assert.equal($('link[rel="canonical"]').attr("href"), "https://nullcontroller.github.io" + target);
+  assert.equal($('meta[http-equiv="refresh"]').attr("content"), "0;url=" + target);
+  assert.equal($("main a[href]").first().attr("href"), target);
+  assert.equal($("[data-series-index]").length, 0);
+  assert.ok($("script").text().includes("location.replace(destination)"));
+}

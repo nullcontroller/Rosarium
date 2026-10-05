@@ -1,17 +1,13 @@
 ---
-import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
-import SeriesIndex from "../components/SeriesIndex.astro";
-import { activeEntry } from "../lib/site";
-import PageHeader from "../components/PageHeader.astro";
-const all = await getCollection("pages", activeEntry);
+import { url } from "../lib/site";
+const destination = url("dx/business-transformation");
+const canonical = new URL(destination, Astro.site).toString();
 ---
 
-<Site title="連載" section="articles">
-  <PageHeader icon="articles" title="連載" />
-  {all
-    .filter((e) => e.data.publication_format === "series")
-    .map((entry) => (
-      <SeriesIndex entry={entry} all={all} />
-    ))}
+<Site showRightSidebar={false} title="業務変革へ統合しました" summary="一覧の役割は業務変革へ統合しました。" canonical={canonical} noindex showLastUpdated={false}>
+  <meta slot="head" http-equiv="refresh" content={"0;url=" + destination} />
+  <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
+  <h1>業務変革へ統合しました</h1>
+  <p><a href={destination}>業務変革へ移動する</a></p>
 </Site>

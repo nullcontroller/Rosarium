@@ -21,7 +21,6 @@ const manualRoutes = [
   "ai-design/lifecycle-operations",
   "ai-mathematics",
   "ai",
-  "books",
   "career",
   "cases",
   "dx",
@@ -29,7 +28,6 @@ const manualRoutes = [
   "essays",
   "practices",
   "reference",
-  "series",
   "start-here",
 ];
 

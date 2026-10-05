@@ -1,19 +1,13 @@
 ---
-import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
-import SeriesIndex from "../components/SeriesIndex.astro";
-import { caseStudies } from "../lib/navigation";
-import { activeEntry, url } from "../lib/site";
-import PageHeader from "../components/PageHeader.astro";
-const all = await getCollection("pages", activeEntry);
+import { url } from "../lib/site";
+const destination = url("cases");
+const canonical = new URL(destination, Astro.site).toString();
 ---
 
-<Site title="ブック — 実務事例" section="cases">
-  <PageHeader icon="cases" title="ブック — 実務事例" />
-  {caseStudies.filter((study) => all.some((entry) => entry.id === study.book)).map((study) => (
-    <SeriesIndex entry={all.find((e) => e.id === study.book)!} all={all} />
-  ))}
-  <p>
-    <a href={url("series")}>設計原則の連載</a>
-  </p>
+<Site showRightSidebar={false} title="実践事例へ統合しました" summary="一覧の役割は実践事例へ統合しました。" canonical={canonical} noindex showLastUpdated={false}>
+  <meta slot="head" http-equiv="refresh" content={"0;url=" + destination} />
+  <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
+  <h1>実践事例へ統合しました</h1>
+  <p><a href={destination}>実践事例へ移動する</a></p>
 </Site>

@@ -400,9 +400,9 @@ for (const [id, expected] of [
   ["cases/customer-support-ai-dx", ["公開：2026-09-28"]],
   ["cases/customer-support-ai-dx", ["公開：2026-09-28"]],
 ]) {
-  for (const route of [id.startsWith("cases/") ? "cases" : "series"]) {
+  for (const route of [id.startsWith("cases/") ? "cases" : id]) {
     const $ = page(route);
-    const metadata = $('[data-content-id="' + id + '"] .publication-date')
+    const metadata = $(route === id ? "main .document-header" : '[data-content-id="' + id + '"] .publication-date')
       .text()
       .replace(/\s+/g, " ")
       .trim();
@@ -514,7 +514,7 @@ const expectedBooks = [
   "cases/three-ai-maintenance",
   "cases/customer-support-ai-dx",
 ];
-for (const route of ["cases", "books"]) {
+for (const route of ["cases"]) {
   const $ = page(route);
   assert.deepEqual(
     $("[data-series-index]")
@@ -527,7 +527,7 @@ for (const route of ["cases", "books"]) {
   assert.equal($("[data-series-index] .content-title").length, 2);
 }
 assert.equal(
-  page("series")('[data-series-index="foundations/ai-business-design"]').length,
+  primaryIds(page("dx/business-transformation")).filter((id) => id === "foundations/ai-business-design").length,
   1,
 );
 const overview = page("overview");
@@ -857,7 +857,7 @@ for (const svg of supportDiagram("[data-support-dx] svg").toArray()) {
   assert(supportDiagram(svg).find("desc").text().includes("根拠不足"));
 }
 assert.equal(supportDiagram('article img[src$="customer-support-ai-dx-overview.jpg"]').length, 0);
-assert(page("books")('img[src$="customer-support-ai-dx-overview.jpg"]').length > 0);
+assert(fs.existsSync("dist/assets/cases/customer-support-ai-dx-overview.jpg"), "Original Book cover asset remains available");
 assert(supportDiagram("#support-detail-decision").text().includes("AI自身の自信だけでは決めません"));
 for (const route of ["cases/system-understanding", "cases/three-ai-maintenance", "career"]) {
   assert.equal(page(route)("[data-support-dx]").length, 0);
