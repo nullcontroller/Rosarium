@@ -63,3 +63,32 @@ export function pageContents(html, { headings = [], mode = "auto" } = {}) {
     reason: selected.length ? (mode === "always" ? "explicit-index" : majorCount >= 2 ? "multiple-h2" : entryIds.size >= 2 ? "multiple-list-entries" : "long-page-sections") : "short-page",
   };
 }
+
+/** Place shared reading controls after the title; metadata occupies one prelude. */
+export function pageOpening(html, headings = [], bookNavigation) {
+  const $ = load(html, {}, false);
+  const breadcrumb = $(".breadcrumb").first();
+  const breadcrumbHtml = breadcrumb.length ? $.html(breadcrumb) : "";
+  breadcrumb.remove();
+  const controls = [];
+  if (bookNavigation?.items.length) {
+    const detail = $('<details class="book-toc-mobile"><summary></summary><ol></ol></details>');
+    detail.find('summary').text('このBookの目次（全' + bookNavigation.chapterCount + '章）');
+    for (const item of bookNavigation.items) {
+      const li = $('<li></li>').toggleClass('current', !!item.current);
+      const link = $('<a></a>').attr('href', item.href).text(item.title);
+      if (item.current) link.attr('aria-current', 'page');
+      li.append(link); detail.find('ol').append(li);
+    }
+    controls.push(detail);
+  }
+  if (headings.length) {
+    const detail = $('<details class="book-toc-mobile" data-page-heading-toc><summary>目次</summary><ol></ol></details>');
+    for (const heading of headings) detail.find('ol').append($('<li></li>').toggleClass('sub', heading.depth === 3).append($('<a></a>').attr('href', '#' + heading.slug).text(heading.text)));
+    controls.push(detail);
+  }
+  const opening = $('.page-heading,.document-header,.hero,.document-title-row').first();
+  if (opening.length) opening.after(...controls);
+  else if (controls.length) $('h1').first().after(...controls);
+  return {html: $.html(), breadcrumbHtml};
+}

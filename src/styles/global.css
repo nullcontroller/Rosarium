@@ -6,6 +6,10 @@
   --line: #d4ddda;
   --accent: #17675a;
   --soft: #e8f0ec;
+  --aux-surface: #edf4f5;
+  --aux-border: color-mix(in srgb, var(--accent) 30%, var(--line));
+  --aux-selected: color-mix(in srgb, var(--accent) 10%, var(--aux-surface));
+  --aux-hover: color-mix(in srgb, var(--accent) 6%, var(--aux-surface));
   --obsolete-bg: #f0f1f3;
   --obsolete-badge: #e3e5e8;
   --obsolete-ink: #414b57;
@@ -25,6 +29,7 @@
     --line: #3c5052;
     --accent: #92d5c1;
     --soft: #263c38;
+    --aux-surface: #24373c;
     --obsolete-bg: #242a32;
     --obsolete-badge: #343d48;
     --obsolete-ink: #d1d5dc;
@@ -43,6 +48,7 @@
   --line: #3c5052;
   --accent: #92d5c1;
   --soft: #263c38;
+    --aux-surface: #24373c;
   --obsolete-bg: #242a32;
   --obsolete-badge: #343d48;
   --obsolete-ink: #d1d5dc;
@@ -2356,7 +2362,7 @@ article[data-lifecycle="retired"],
 
 /* Home Desktop spacing: reveal the next gateway without changing text or widths. */
 @media (min-width: 1100px) {
-  .home-page .shell > main { padding-block-start:1rem; }
+  .home-page .shell > main { padding-block-start:var(--page-top-spacing); }
   .home-page .site-last-updated { margin-bottom:.25rem; }
   .home-page .hero.home-introduction { padding-block:0; margin-bottom:.125rem; }
   .home-page .home-introduction .document-title-row { margin-bottom:.25rem; }
@@ -2474,3 +2480,29 @@ article[data-lifecycle="retired"],
 }
 main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
 .page-toc-caption { margin-top:1.25rem; color:var(--muted); font-size:.875rem; }
+
+/* Shared page opening follows the Garden baseline without changing reading widths. */
+@media screen {
+  :root { --page-top-spacing:2.5rem; --page-meta-gap:1rem; }
+  .shell > main { padding-block-start:var(--page-top-spacing); }
+  .page-prelude { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:.25rem 1rem; min-height:1.85em; font-size:.78rem; line-height:1.85; margin-bottom:var(--page-meta-gap); }
+  .page-prelude .site-last-updated { margin:0; margin-inline-start:auto; }
+  .page-prelude .breadcrumb { margin:0; line-height:1.5; }
+  .document-header { display:flex; flex-direction:column; }
+  .document-header > * { order:2; }
+  .document-header > .document-title-row { order:0; }
+  .document-header > .eyebrow { order:1; margin-block:0 .5rem; }
+  .page-heading > div { display:flex; flex-direction:column; }
+  .page-heading .page-title-with-status { order:0; }
+  .page-heading .eyebrow { order:1; margin-block:.25rem 0; }
+  .page-heading .lead { order:2; }
+  .book-toc-mobile { margin-block:.75rem 1rem; }
+}
+@media screen and (min-width:1100px) {
+  :root { --page-top-spacing:1rem; --page-meta-gap:.25rem; }
+  .reference-sidebar { padding-block-start:var(--page-top-spacing); }
+}
+@media screen and (max-width:760px) {
+  :root { --page-top-spacing:2rem; }
+  .page-prelude .site-last-updated { margin-inline-start:0; text-align:start; }
+}

@@ -15,7 +15,7 @@ const retiredNavigation = navigation.flat().find((item) => item.path === "retire
 import NavIcon from "../components/NavIcon.astro";
 import ReferencePanel from "../components/ReferencePanel.astro";
 import RightSidebarControls from "../components/RightSidebarControls.astro";
-import { pageContents } from "../lib/page-contents.mjs";
+import { pageContents, pageOpening } from "../lib/page-contents.mjs";
 import GlobalSearch from "../components/GlobalSearch.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import { getCollection } from "astro:content";
@@ -74,6 +74,7 @@ const {
 } = Astro.props;
 const contents = pageContents(await Astro.slots.render("default"), { headings, mode: showRightSidebar ? toc : "never" });
 const pageHeadings = contents.headings;
+const opening = pageOpening(contents.html, pageHeadings, bookNavigation);
 const hasPageToc = !!bookNavigation?.items.length || pageHeadings.length > 0;
 const referenceSidebar = showRightSidebar && (hasPageToc || showReference);
 const effectiveLastUpdated =
@@ -411,6 +412,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         data-toc-policy={showRightSidebar ? toc : "never"}
         data-toc-reason={contents.reason}
       >
+        <div class="page-prelude">
+        <Fragment set:html={opening.breadcrumbHtml} />
         {!noindex && showLastUpdated && (
           <p class="site-last-updated" data-last-updated={effectiveLastUpdated}>
             最終更新：
@@ -419,27 +422,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             </time>
           </p>
         )}
-        {bookNavigation && (
-          <details class="book-toc-mobile">
-            <summary>
-              このBookの目次（全{bookNavigation.chapterCount}章）
-            </summary>
-            <ol>
-              {bookNavigation.items.map((item) => (
-                <li class:list={[item.current && "current"]}>
-                  <a
-                    href={item.href}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.title}
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </details>
-        )}
-        {pageHeadings.length > 0 && <details class="book-toc-mobile" data-page-heading-toc><summary>目次</summary><ol>{pageHeadings.map((h) => <li class:list={[h.depth === 3 && "sub"]}><a href={"#" + h.slug}>{h.text}</a></li>)}</ol></details>}
-        <Fragment set:html={contents.html} />
+        </div>
+        <Fragment set:html={opening.html} />
       </main>
       {referenceSidebar && (
         <aside data-collapsible={String(rightSidebarCollapsible)} id="right-sidebar" class:list={[bookNavigation ? "book-toc" : "toc", "reference-sidebar"]} aria-label="右補助パネル">

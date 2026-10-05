@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { load } from "cheerio";
-import { pageContents } from "../src/lib/page-contents.mjs";
+import { pageContents, pageOpening } from "../src/lib/page-contents.mjs";
 
 test("HTML and Markdown headings use the same rule and preserve old fragments", () => {
   const page = pageContents('<h2 id="old">First</h2><h3>Child</h3><h4>Detail</h4><h2>Second</h2>');
@@ -40,4 +40,16 @@ test("long single-chapter and h3-only articles retain useful sections without in
     assert.equal(page.headings.filter(h => h.depth > 3).length, 0);
     assert.equal(page.headings.filter(h => h.text === 'Too deep').length, 0);
   }
+});
+
+test("page opening keeps metadata compact and places shared mobile contents after the title", () => {
+  const result = pageOpening('<nav class="breadcrumb"><a href="/ai/">AI</a></nav><article><header class="document-header"><h1>Title</h1></header><h2 id="a">Section</h2></article>', [{depth:2,slug:'a',text:'A & B'}], {title:'Book',chapterCount:1,items:[{href:'/chapter/',title:'Chapter',current:true}]});
+  const $ = load(result.html);
+  assert.equal($('.breadcrumb').length, 0);
+  assert.match(result.breadcrumbHtml, /href="\/ai\/"/);
+  assert.equal($('.document-header').next().is('details.book-toc-mobile'), true);
+  assert.equal($('[data-page-heading-toc] a').attr('href'), '#a');
+  assert.equal($('[data-page-heading-toc] a').text(), 'A & B');
+  assert.equal($('a[aria-current="page"]').text(), 'Chapter');
+  assert.equal($('h1').text(), 'Title');
 });
