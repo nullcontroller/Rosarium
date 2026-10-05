@@ -150,7 +150,7 @@ assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["庭", "AI", "DX", "実践事例", "Reference", "旧記事・退役記事"],
+  ["庭", "AI", "DX", "実践事例", "旧記事・退役記事"],
 );
 assert.deepEqual(
   top(".header-primary a")
@@ -161,25 +161,25 @@ assert.deepEqual(
 assert.equal(top('.header-primary a[href="/Rosarium/cases/"]').length, 1);
 assert.equal(top('.header-primary a[href="/Rosarium/career/"]').length, 0);
 assert.equal(top('.home-career a[href="/Rosarium/career/"]').length, 1);
-assert.equal(top(".header-actions a").length, 0);
+assert.equal(top(".header-actions a").length, 1);
 assert.equal(top("#global-search-input").length, 1);
 assert.equal(top(".global-search-toggle").length, 1);
 assert(!top(".sidebar-label").text().includes("設計体系"));
 assert.equal(top(".sidebar details").length, 0);
-assert.deepEqual(top(".sidebar .nav-auxiliary .nav-copy > span").map((_, e) => top(e).text()).get(), ["Reference", "旧記事・退役記事"]);
+assert.deepEqual(top(".sidebar .nav-auxiliary .nav-copy > span").map((_, e) => top(e).text()).get(), ["旧記事・退役記事"]);
 for (const secondary of ["詳細職務経歴", "Books", "連載", "Essays"])
   assert(
     !top(".sidebar nav a .nav-copy > span").text().includes(secondary),
     secondary,
   );
-assert.equal(top(".sidebar .icon").length, 6);
+assert.equal(top(".sidebar .icon").length, 5);
 assert.equal(
   new Set(
     top(".sidebar .icon")
       .map((_, e) => top(e).attr("class"))
       .get(),
   ).size,
-  6,
+  5,
 );
 assert.equal(top('.sidebar a[href="/Rosarium/career/"]').length, 0);
 assert.equal(top('.sidebar a[href="/Rosarium/updates/"]').length, 0);
@@ -710,7 +710,7 @@ assert(
 );
 const customerSupportBook = page("cases/customer-support-ai-dx");
 assert.equal(customerSupportBook(".series").length, 0);
-assert.equal(customerSupportBook(".book-toc > ol > li").length, 11);
+assert.equal(customerSupportBook(".book-toc .page-toc-panel > ol > li").length, 11);
 assert.equal(customerSupportBook(".book-toc-mobile > ol > li").length, 11);
 assert.equal(customerSupportBook(".book-toc .content-entry").length, 0);
 assert.equal(

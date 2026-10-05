@@ -82,14 +82,6 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
   ],
   [
     {
-      path: "reference",
-      title: "Reference",
-      summary: "用語・数式・参照資料",
-      icon: iconForPath("reference"),
-    },
-  ],
-  [
-    {
       path: "retired",
       title: archiveTitle,
       summary: "旧記事・役割を終えた記事",

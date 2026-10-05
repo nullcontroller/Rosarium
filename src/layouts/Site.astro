@@ -60,6 +60,8 @@ const {
   bookNavigation,
   frame = true,
 } = Astro.props;
+const hasPageToc = !!bookNavigation || headings.length > 0;
+const referenceSidebar = frame && (hasPageToc || ["articles", "ai-design", "ai-mathematics", "practices", "reference", "cases"].includes(section || ""));
 const effectiveLastUpdated =
   lastUpdated ?? staticLastUpdatedForPath(Astro.url.pathname);
 const analyticsEntry = (await getCollection("pages", publicEntry)).find(
@@ -292,6 +294,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           </a>
         </nav>
         <div class="header-actions">
+          <a class="reference-header-tool" href={url("reference")} data-reference-toggle aria-label="Referenceを開く" aria-controls="reference-panel" aria-expanded="false">参照</a>
           <GlobalSearch />
           <button id="theme" type="button" aria-label="配色を切り替える">
             配色切替
@@ -304,7 +307,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         "shell",
         frame && "global-frame",
         !frame && "career-shell",
-        frame && headings.length > 0 && "has-toc",
+        referenceSidebar && "has-toc",
         frame && bookNavigation && "has-book-toc",
       ]}
     >
@@ -318,12 +321,12 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                   class:list={[
                     "nav-group",
                     i === 1 && "nav-spacing",
-                    i === 3 && "nav-lifecycle",
+                    i === 2 && "nav-lifecycle",
                     i >= 2 && "nav-divider",
                     i >= 2 ? "nav-auxiliary" : "nav-main",
                   ]}
                   role="group"
-                  aria-label={i === 2 ? "Reference" : i === 3 ? retiredNavigation.title : "主要ナビ"}
+                  aria-label={i === 2 ? retiredNavigation.title : "主要ナビ"}
                 >
                   {group.map((item) => (
                     <div
@@ -418,37 +421,20 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         )}
         <slot />
       </main>
-      {frame && !bookNavigation && headings.length > 0 && (
-        <aside class="toc" aria-label="ページ内目次">
-          <>
-            <p>このページ</p>
-            <ol>
-              {headings
-                .filter((h) => h.depth <= 3)
-                .map((h) => (
-                  <li class:list={[h.depth === 3 && "sub"]}>
-                    <a href={"#" + h.slug}>{h.text}</a>
-                  </li>
-                ))}
-            </ol>
-          </>
-        </aside>
-      )}
-      {frame && bookNavigation && (
-        <aside class="book-toc" aria-label="このBookの目次">
-          <p class="book-toc-title">{bookNavigation.title}</p>
-          <ol>
-            {bookNavigation.items.map((item) => (
-              <li class:list={[item.current && "current"]}>
-                <a
-                  href={item.href}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.title}
-                </a>
-              </li>
-            ))}
-          </ol>
+      {referenceSidebar && (
+        <aside class:list={[bookNavigation ? "book-toc" : "toc", "reference-sidebar"]} aria-label="右補助パネル">
+          <div class="reference-tabs" role="tablist" aria-label="右補助パネルの表示">
+            {hasPageToc && <button id="page-toc-tab" type="button" role="tab" aria-selected="true" aria-controls="page-toc-panel">このページ</button>}
+            <button id="reference-sidebar-tab" type="button" role="tab" aria-selected={hasPageToc ? "false" : "true"} aria-controls="reference-panel" tabindex={hasPageToc ? -1 : 0}>リファレンス</button>
+          </div>
+          {hasPageToc && <div id="page-toc-panel" class="page-toc-panel" role="tabpanel" aria-labelledby="page-toc-tab">
+            {bookNavigation ? <>
+              <p class="book-toc-title">{bookNavigation.title}</p>
+              <ol>{bookNavigation.items.map((item) => <li class:list={[item.current && "current"]}><a href={item.href} aria-current={item.current ? "page" : undefined}>{item.title}</a></li>)}</ol>
+            </> : <ol>{headings.filter((h) => h.depth <= 3).map((h) => <li class:list={[h.depth === 3 && "sub"]}><a href={"#" + h.slug}>{h.text}</a></li>)}</ol>}
+          </div>}
+          <div data-reference-sidebar-slot></div>
+          <noscript><style>.reference-tabs { display: none; }</style><p><a href={url("reference")}>Referenceページを開く</a></p></noscript>
         </aside>
       )}
     </div>

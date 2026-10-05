@@ -59,7 +59,9 @@ assert.equal(archiveTop('[data-archive-entrance="retired"] > span').text(), "RET
 assert.equal(obsoleteIndex('[data-archive-category="実践事例"]').length, 0);
 assert.equal(obsoleteCasesIndex('[data-history-id="cases/system-understanding"]').length, 1);
 const nav = retiredIndex(".sidebar .nav-group").last();
-assert.equal(retiredIndex('.sidebar [role="group"][aria-label="Reference"] a').attr("href"), "/Rosarium/reference/");
+assert.equal(retiredIndex('.sidebar a[href="/Rosarium/reference/"]').length, 0);
+assert.equal(retiredIndex('.reference-edge-tab').length, 0);
+assert.equal(retiredIndex('.reference-header-tool[href="/Rosarium/reference/"]').length, 1);
 assert.equal(retiredIndex('.sidebar [role="group"][aria-label="旧記事・退役記事"] a').attr("href"), "/Rosarium/retired/");
 assert.deepEqual(nav.find(".nav-copy > span").map((_, element) => nav.find(element).text()).get(), ["旧記事・退役記事"]);
 assert.equal(retiredIndex('.header-primary a.mobile-retired-link[href="/Rosarium/retired/"]').length, 1);
