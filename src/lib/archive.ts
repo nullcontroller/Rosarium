@@ -24,3 +24,9 @@ export function getArchiveCategory(entry: CollectionEntry<"pages">) {
 // Books are one archive item; their chapters remain available through chapter navigation.
 export const isArchiveEntry = (entry: CollectionEntry<"pages">) =>
   !entry.data.source?.chapter_slug && ["obsolete", "retired"].includes(entry.data.lifecycle);
+
+export function archiveLabel(entries: CollectionEntry<"pages">[], lifecycle: "obsolete" | "retired") {
+  if (lifecycle === "retired") return "RETIRED";
+  const types = new Set(entries.map((entry) => isCaseEntry(entry) ? "CASE" : "ARTICLE"));
+  return types.size === 1 ? `OBSOLETE ${[...types][0]}` : "OBSOLETE";
+}

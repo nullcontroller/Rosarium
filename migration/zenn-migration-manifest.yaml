@@ -414,7 +414,7 @@ entries:
     original_url: https://zenn.dev/nullcontroller/articles/f5c1a1276d2191
     destination_file: src/content/cases/understanding-systems-as-capability.md
     destination_slug: understanding-systems-as-capability
-    category: cases
+    category: essays
     migrated: true
     image_count: 0
     notes:

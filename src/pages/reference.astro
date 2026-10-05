@@ -4,11 +4,8 @@ import Site from "../layouts/Site.astro";
 import ContentIndex from "../components/ContentIndex.astro";
 import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
-const entries = (await getCollection("pages", activeEntry))
-  .filter(
-    (e) => e.data.layer === "reference" && e.id !== "foundations/glossary",
-  )
-  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
+import { referenceEntries } from "../lib/reference";
+const entries = referenceEntries(await getCollection("pages", activeEntry));
 ---
 
 <Site title="Reference" section="reference">

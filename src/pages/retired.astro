@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import { publishedEntry, url } from "../lib/site";
-import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup } from "../lib/archive";
+import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup, archiveLabel } from "../lib/archive";
 const entries = await getCollection("pages", (entry) => publishedEntry(entry) && isArchiveEntry(entry));
 ---
 <Site title={archiveTitle} section="retired" noindex lastUpdated="2026-10-05" summary="現在の推奨ではない旧記事と、役割を終えた退役記事を確認するコンテンツ履歴の入口。" breadcrumbs={[{ name: "Rosarium", path: "" }, { name: archiveTitle, path: "retired" }]}>
@@ -12,7 +12,7 @@ const entries = await getCollection("pages", (entry) => publishedEntry(entry) &&
   <p>現在の推奨ではないコンテンツと、独立した役割を終えた記録を、位置づけごとに保存しています。</p>
   <div class="archive-entrances">
     {archiveLifecycles.map((group) => <a href={url(`retired/${group.id}`)} data-archive-entrance={group.id}>
-      <span>{group.lifecycle.toUpperCase()}</span>
+      <span>{archiveLabel(entries.filter((entry) => getArchiveGroup(entry) === group.id), group.lifecycle)}</span>
       <h2>{group.title}</h2>
       <p>{group.description}</p>
       <small>{entries.filter((entry) => getArchiveGroup(entry) === group.id).length}件</small>

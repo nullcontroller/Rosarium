@@ -115,6 +115,7 @@ const bookNavigation = series.length
   <article data-lifecycle={d.lifecycle} data-pagefind-body>
     <header class="document-header">
       <p class="eyebrow">
+        <span hidden data-pagefind-meta="content_kind">{d.kind === "case" || d.layer === "case" || d.section === "cases" ? "事例" : "記事"}</span>
         <span data-pagefind-meta="category">{contentCategory(entry)}</span> /{" "}
         <span data-pagefind-meta="layer">{layerLabel(d.layer)}</span> / {d.kind}
       </p>

@@ -3,8 +3,8 @@ summary: "問い合わせのたびに再調査していた既存システムを�
 publication_format: article
 layer: publication
 title: 理解できないシステムは、コストである
-kind: case
-section: cases
+kind: essay
+section: essays
 status: published
 lifecycle: obsolete
 last_updated: "2026-10-05"

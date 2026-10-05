@@ -62,3 +62,21 @@ test("obsolete Cases and articles have separate entrances, while retirement is s
   assert.equal(getArchiveGroup(entry("retired", "essays")), "retired");
   assert.equal(getArchiveGroup(entry("active", "cases")), undefined);
 });
+
+
+test("archive meta labels combine lifecycle and metadata-based content type", async () => {
+  const { archiveLabel } = await import("../src/lib/archive.ts");
+  const entry = (data) => ({ data });
+  assert.equal(archiveLabel([entry({ section: "essays" })], "obsolete"), "OBSOLETE ARTICLE");
+  for (const data of [{ section: "cases" }, { kind: "case" }, { layer: "case" }]) {
+    assert.equal(archiveLabel([entry(data)], "obsolete"), "OBSOLETE CASE");
+    assert.equal(archiveLabel([entry(data)], "retired"), "RETIRED");
+  }
+});
+
+test("essay metadata stays in obsolete articles even at a legacy Case URL", async () => {
+  const { getArchiveGroup, isCaseEntry } = await import("../src/lib/archive.ts");
+  const entry = { id: "cases/understanding-systems-as-capability", data: { lifecycle: "obsolete", section: "essays", kind: "essay", layer: "publication" } };
+  assert.equal(isCaseEntry(entry), false);
+  assert.equal(getArchiveGroup(entry), "obsolete");
+});

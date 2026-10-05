@@ -1,0 +1,226 @@
+---
+import { getCollection } from "astro:content";
+import { activeEntry, url } from "../lib/site";
+import { referenceEntries } from "../lib/reference";
+const entries = referenceEntries(await getCollection("pages", activeEntry));
+---
+<aside id="reference-panel" class="reference-panel" role="dialog" aria-label="Reference — 用語・数式・参考資料" aria-modal="false" hidden data-pagefind-ignore>
+  <header class="reference-panel-header">
+    <h2>Reference</h2>
+    <button type="button" data-reference-close aria-label="Referenceを閉じる">閉じる</button>
+  </header>
+  <div class="reference-panel-scroll">
+    <label for="reference-panel-search">用語・数式・参考資料を検索</label>
+    <input id="reference-panel-search" type="search" placeholder="例：コンテキスト" autocomplete="off" />
+    <p data-reference-status role="status" aria-live="polite">必要な資料をこのパネルで確認できます。</p>
+    <div data-reference-documents>
+      {entries.map((entry) => <details data-reference-document data-reference-url={url(entry.id)}>
+        <summary>{entry.data.title}</summary>
+        <div class="reference-document-body" data-reference-body></div>
+      </details>)}
+    </div>
+    <p class="reference-page-link"><a href={url("reference")} data-reference-page>Referenceページを開く</a></p>
+  </div>
+</aside>
+<script>
+  import { referenceSearchText } from "../lib/reference";
+  const panel = document.querySelector<HTMLElement>("#reference-panel")!;
+  const search = panel.querySelector<HTMLInputElement>("#reference-panel-search")!;
+  const status = panel.querySelector<HTMLElement>("[data-reference-status]")!;
+  const documents = [...panel.querySelectorAll<HTMLDetailsElement>("[data-reference-document]")];
+  const desktop = matchMedia("(min-width: 1100px)");
+  const urls = new Set(documents.map((document) => document.dataset.referenceUrl!));
+  const referenceUrl = panel.querySelector<HTMLAnchorElement>("[data-reference-page]")!.pathname;
+  let opener: HTMLElement | null = null;
+  let savedScroll = 0;
+  let loaded: Promise<void> | undefined;
+  let mobileHistory = false;
+  let mobileOpen = false;
+  let previousRestoration: ScrollRestoration = "auto";
+  let background: HTMLElement[] = [];
+
+  function filter() {
+    const terms = referenceSearchText(search.value).split(/\s+/).filter(Boolean);
+    const matches = (value: string) => terms.every((term) => referenceSearchText(value).includes(term));
+    let count = 0;
+    for (const document of documents) {
+      const titleMatches = terms.length > 0 && matches(document.querySelector("summary")!.textContent!);
+      let visible = 0;
+      for (const section of document.querySelectorAll<HTMLElement>(".reference-excerpt")) {
+        const heading = section.querySelector("h2,h3,h4");
+        const headingMatches = titleMatches || (terms.length > 0 && matches(heading?.textContent ?? ""));
+        section.hidden = terms.length > 0 && !headingMatches && !matches(section.textContent ?? "");
+        if (!section.hidden) visible++;
+        for (const row of section.querySelectorAll<HTMLTableRowElement>("tbody tr")) {
+          row.hidden = terms.length > 0 && !headingMatches && !matches(row.textContent ?? "");
+        }
+      }
+      document.hidden = terms.length > 0 && visible === 0;
+      if (!document.hidden) count++;
+      if (terms.length > 0) document.open = !document.hidden;
+    }
+    status.textContent = terms.length > 0 ? `${count}件の資料が一致しました。` : "見出しを選ぶと、用語・数式・参考資料を確認できます。";
+  }
+
+  async function loadReferences() {
+    if (loaded) return loaded;
+    search.disabled = true;
+    status.textContent = "Referenceを読み込んでいます。";
+    loaded = (async () => {
+      const results = await Promise.allSettled(documents.map(async (document, index) => {
+        if (document.dataset.loaded === "true") return;
+        const response = await fetch(document.dataset.referenceUrl!);
+        if (!response.ok) throw new Error("Reference unavailable");
+        const html = new DOMParser().parseFromString(await response.text(), "text/html");
+        const article = html.querySelector("main article[data-pagefind-body]");
+        if (!article) throw new Error("Reference body missing");
+        article.querySelectorAll("script,.document-header").forEach((element) => element.remove());
+        const prefix = `reference-${index}-`;
+        article.querySelectorAll<HTMLElement>("[id]").forEach((element) => element.id = prefix + element.id);
+        article.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((link) => link.setAttribute("href", `#${prefix}${link.getAttribute("href")!.slice(1)}`));
+        article.querySelectorAll("[data-pagefind-body],[data-pagefind-meta],[data-pagefind-filter]").forEach((element) => {
+          for (const attribute of [...element.attributes]) if (attribute.name.startsWith("data-pagefind")) element.removeAttribute(attribute.name);
+        });
+        const body = document.querySelector<HTMLElement>("[data-reference-body]")!;
+        let excerpt: HTMLElement | undefined;
+        for (const node of [...article.childNodes]) {
+          if (!excerpt || (node instanceof HTMLElement && /^H[234]$/.test(node.tagName))) {
+            excerpt = window.document.createElement("section");
+            excerpt.className = "reference-excerpt";
+            body.append(excerpt);
+          }
+          excerpt.append(node);
+        }
+        document.dataset.loaded = "true";
+      }));
+      search.disabled = false;
+      filter();
+      if (results.some((result) => result.status === "rejected")) {
+        status.textContent = "一部の資料を読み込めませんでした。Referenceページでも確認できます。";
+        loaded = undefined;
+        documents.filter((document) => !document.querySelector("[data-reference-body]")!.textContent?.trim()).forEach((document) => document.hidden = true);
+      }
+    })();
+    return loaded;
+  }
+
+  function triggers() {
+    return [...document.querySelectorAll<HTMLAnchorElement>('a[href]')].filter((link) => !link.hasAttribute("data-reference-page") &&
+      (link.pathname === referenceUrl || urls.has(link.pathname)) && link.origin === location.origin);
+  }
+  function syncTriggers(open: boolean) {
+    triggers().forEach((link) => {
+      link.setAttribute("aria-controls", panel.id);
+      link.setAttribute("aria-expanded", String(open));
+      link.setAttribute("aria-haspopup", "dialog");
+    });
+  }
+  function restore() {
+    if (panel.hidden) return;
+    const scroll = mobileOpen ? savedScroll : window.scrollY;
+    panel.hidden = true;
+    document.body.classList.remove("reference-open", "reference-mobile-open");
+    document.body.style.removeProperty("top");
+    background.forEach((element) => element.inert = false);
+    background = [];
+    history.scrollRestoration = previousRestoration;
+    syncTriggers(false);
+    window.scrollTo({ top: scroll, behavior: "instant" });
+    opener?.focus({ preventScroll: true });
+    mobileHistory = false;
+  }
+  function close() {
+    if (panel.hidden) return;
+    if (mobileHistory && history.state?.rosariumReferencePanel) history.back();
+    else restore();
+  }
+  async function open(trigger: HTMLElement, target?: URL) {
+    if (panel.hidden) {
+      opener = trigger;
+      savedScroll = window.scrollY;
+      previousRestoration = history.scrollRestoration;
+      history.scrollRestoration = "manual";
+      panel.hidden = false;
+      document.body.classList.add("reference-open");
+      mobileOpen = !desktop.matches;
+      if (mobileOpen) {
+        document.body.style.top = `-${savedScroll}px`;
+        document.body.classList.add("reference-mobile-open");
+        background = [...document.body.children].filter((element): element is HTMLElement => element instanceof HTMLElement && element !== panel && !["SCRIPT", "STYLE"].includes(element.tagName));
+        background.forEach((element) => element.inert = true);
+        history.pushState({ ...history.state, rosariumReferencePanel: true }, "", location.href);
+        mobileHistory = true;
+      } else window.scrollTo({ top: savedScroll, behavior: "instant" });
+      panel.setAttribute("aria-modal", String(!desktop.matches));
+      syncTriggers(true);
+    }
+    search.value = trigger.dataset.referenceTerm ?? "";
+    panel.querySelector<HTMLButtonElement>("[data-reference-close]")!.focus({ preventScroll: true });
+    await loadReferences();
+    if (panel.hidden) return;
+    filter();
+    const refDocument = documents.find((document) => document.dataset.referenceUrl === target?.pathname);
+    if (refDocument) {
+      refDocument.open = true;
+      const hash = target?.hash.slice(1);
+      const element = hash ? refDocument.querySelector(`#reference-${documents.indexOf(refDocument)}-${CSS.escape(decodeURIComponent(hash))}`) : refDocument;
+      const scroll = panel.querySelector<HTMLElement>(".reference-panel-scroll")!;
+      if (element) scroll.scrollTop += element.getBoundingClientRect().top - scroll.getBoundingClientRect().top;
+    }
+  }
+  syncTriggers(false);
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+    const link = event.target.closest<HTMLAnchorElement>("a[href]");
+    if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target === "_blank" || link.hasAttribute("data-reference-page")) return;
+    const target = new URL(link.href);
+    if (target.origin !== location.origin || (!urls.has(target.pathname) && target.pathname !== referenceUrl)) return;
+    event.preventDefault();
+    void open(link, target);
+  });
+  search.addEventListener("input", filter);
+  panel.querySelector("[data-reference-close]")!.addEventListener("click", close);
+  window.addEventListener("popstate", restore);
+  desktop.addEventListener("change", close);
+  document.addEventListener("keydown", (event) => {
+    if (panel.hidden) return;
+    if (event.key === "Escape") { event.preventDefault(); close(); }
+    if (event.key !== "Tab") return;
+    const focusable = [...panel.querySelectorAll<HTMLElement>('a[href],button,input,summary,[tabindex="0"]')].filter((element) => element.getClientRects().length > 0 && !(element instanceof HTMLInputElement && element.disabled));
+    const first = focusable[0], last = focusable.at(-1);
+    if (!panel.contains(document.activeElement) || (event.shiftKey && document.activeElement === first) || (!event.shiftKey && document.activeElement === last)) {
+      event.preventDefault();
+      (event.shiftKey ? last : first)?.focus();
+    }
+  });
+</script>
+<style is:global>
+body { --reference-panel-width: clamp(20rem, 24vw, 32rem); }
+.reference-panel[hidden] { display: none; }
+.reference-panel { position: fixed; top: 88px; right: 0; z-index: 60; width: var(--reference-panel-width); height: calc(100dvh - 88px); background: var(--surface); border-left: 1px solid var(--line); display: flex; flex-direction: column; color: var(--ink); }
+.reference-panel-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .75rem 1rem; border-bottom: 1px solid var(--line); }
+.reference-panel-header h2 { font-size: 1.2rem; margin: 0; }
+.reference-panel button { min-height: 44px; padding: .5rem .75rem; background: var(--surface); color: var(--ink); border: 1px solid var(--line); cursor: pointer; }
+.reference-panel-scroll { padding: 1rem; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.reference-panel-scroll label { display: block; font-size: .875rem; margin-bottom: .5rem; }
+.reference-panel input { width: 100%; min-height: 44px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); padding: .5rem; font: inherit; }
+.reference-panel [data-reference-status] { color: var(--muted); font-size: .875rem; line-height: 1.65; }
+.reference-panel details { border-top: 1px solid var(--line); padding-block: .75rem; }
+.reference-panel summary { min-height: 44px; cursor: pointer; font-weight: 600; line-height: 1.6; }
+.reference-panel h2, .reference-panel h3, .reference-panel h4 { overflow-wrap: anywhere; font-size: 1.05rem; line-height: 1.6; }
+.reference-panel p, .reference-panel li, .reference-panel td { font-size: .9375rem; line-height: 1.75; overflow-wrap: anywhere; }
+.reference-panel table { width: 100%; display: table; min-width: 0; }
+.reference-panel td, .reference-panel th { padding: .5rem; overflow-wrap: anywhere; }
+.reference-panel .katex-display { max-width: 100%; overflow-x: auto; padding-bottom: .3rem; }
+.reference-panel .reference-excerpt[hidden], .reference-panel details[hidden], .reference-panel tr[hidden] { display: none; }
+.reference-panel :is(button,input,summary,a):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (min-width: 1100px) {
+  .reference-open .shell { width: calc(100% - var(--reference-panel-width)); grid-template-columns: clamp(280px,18vw,380px) minmax(0,1fr); }
+  .reference-open .shell > :is(.toc,.book-toc) { display: none; }
+  .reference-open .site-footer { margin-right: var(--reference-panel-width); }
+}
+@media (max-width: 1099px) {
+  .reference-panel { top: 0; width: min(100%, 36rem); height: 100dvh; }
+  .reference-mobile-open { position: fixed; width: 100%; overflow: hidden; }
+}
+</style>

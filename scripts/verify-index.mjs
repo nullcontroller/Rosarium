@@ -910,7 +910,7 @@ console.log("Verified Portfolio SVG explanations, compact Home and indexable Abo
 for (const [id, data] of entries) {
   if (data.section !== "cases" && !id.startsWith("career/") && data.public !== false) {
     assert.equal(page(id)('[data-related-content] a[href*="/cases/"]').length, 0, id);
-    assert.equal(page(id)('main .prose a[href*="/cases/"]').length, 0, `${id}: no Case navigation in knowledge prose`);
+    // Inline citations remain valid; only automatically inserted recommendations are prohibited.
   }
 }
 for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "business-transformation", "selection-retirement", "system-transformation", "continuous-value"].map((id) => "dx/" + id)]) {

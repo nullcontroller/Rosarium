@@ -53,6 +53,9 @@ for (const entry of historical) {
 for (const group of archiveLifecycles) {
   assert.equal(archiveTop(`[data-archive-entrance="${group.id}"] small`).text(), `${historical.filter((entry) => getArchiveGroup(entry) === group.id).length}件`);
 }
+assert.equal(archiveTop('[data-archive-entrance="obsolete"] > span').text(), "OBSOLETE ARTICLE");
+assert.equal(archiveTop('[data-archive-entrance="obsolete-cases"] > span').text(), "OBSOLETE CASE");
+assert.equal(archiveTop('[data-archive-entrance="retired"] > span').text(), "RETIRED");
 assert.equal(obsoleteIndex('[data-archive-category="実践事例"]').length, 0);
 assert.equal(obsoleteCasesIndex('[data-history-id="cases/system-understanding"]').length, 1);
 const nav = retiredIndex(".sidebar .nav-group").last();

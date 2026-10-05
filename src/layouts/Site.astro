@@ -13,6 +13,7 @@ import {
 import { navigation } from "../lib/navigation";
 const retiredNavigation = navigation.flat().find((item) => item.path === "retired")!;
 import NavIcon from "../components/NavIcon.astro";
+import ReferencePanel from "../components/ReferencePanel.astro";
 import GlobalSearch from "../components/GlobalSearch.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import { getCollection } from "astro:content";
@@ -450,6 +451,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         </aside>
       )}
     </div>
+    <ReferencePanel />
     <footer class="site-footer">
       <div class="footer-brand">
         <strong>Rosarium</strong>
