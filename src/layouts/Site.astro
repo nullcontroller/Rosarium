@@ -40,6 +40,7 @@ interface Props {
     items: { title: string; href: string; current: boolean }[];
   };
   frame?: boolean;
+  showRightSidebar?: boolean;
 }
 const {
   title,
@@ -59,9 +60,10 @@ const {
   breadcrumbs = [],
   bookNavigation,
   frame = true,
+  showRightSidebar = true,
 } = Astro.props;
 const hasPageToc = !!bookNavigation || headings.length > 0;
-const referenceSidebar = frame && (hasPageToc || ["articles", "ai-design", "ai-mathematics", "practices", "reference", "cases"].includes(section || ""));
+const referenceSidebar = showRightSidebar && frame && (hasPageToc || ["articles", "ai-design", "ai-mathematics", "practices", "reference", "cases"].includes(section || ""));
 const effectiveLastUpdated =
   lastUpdated ?? staticLastUpdatedForPath(Astro.url.pathname);
 const analyticsEntry = (await getCollection("pages", publicEntry)).find(
@@ -294,7 +296,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           </a>
         </nav>
         <div class="header-actions">
-          <a class="reference-header-tool" href={url("reference")} data-reference-toggle aria-label="Referenceを開く" aria-controls="reference-panel" aria-expanded="false">参照</a>
+          {showRightSidebar && <a class="reference-header-tool" href={url("reference")} data-reference-toggle aria-label="Referenceを開く" aria-controls="reference-panel" aria-expanded="false">参照</a>}
           <GlobalSearch />
           <button id="theme" type="button" aria-label="配色を切り替える">
             配色切替
@@ -307,8 +309,9 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         "shell",
         frame && "global-frame",
         !frame && "career-shell",
+        !showRightSidebar && "standalone-reading",
         referenceSidebar && "has-toc",
-        frame && bookNavigation && "has-book-toc",
+        referenceSidebar && bookNavigation && "has-book-toc",
       ]}
     >
       {frame && (
@@ -422,10 +425,13 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         <slot />
       </main>
       {referenceSidebar && (
-        <aside class:list={[bookNavigation ? "book-toc" : "toc", "reference-sidebar"]} aria-label="右補助パネル">
+        <aside id="right-sidebar" class:list={[bookNavigation ? "book-toc" : "toc", "reference-sidebar"]} aria-label="右補助パネル">
+          <div class="right-sidebar-toolbar">
           <div class="reference-tabs" role="tablist" aria-label="右補助パネルの表示">
             {hasPageToc && <button id="page-toc-tab" type="button" role="tab" aria-selected="true" aria-controls="page-toc-panel">目次</button>}
             <button id="reference-sidebar-tab" type="button" role="tab" aria-selected={hasPageToc ? "false" : "true"} aria-controls="reference-panel" tabindex={hasPageToc ? -1 : 0}>リファレンス</button>
+          </div>
+          <button type="button" class="right-sidebar-collapse" data-right-sidebar-toggle aria-controls="right-sidebar" aria-expanded="true" aria-label="右補助サイドバーを閉じる" title="右補助サイドバーを閉じる">閉じる</button>
           </div>
           {hasPageToc && <div id="page-toc-panel" class="page-toc-panel" role="tabpanel" aria-labelledby="page-toc-tab">
             {bookNavigation ? <>
@@ -438,7 +444,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         </aside>
       )}
     </div>
-    <ReferencePanel />
+    {referenceSidebar && <button type="button" class="right-sidebar-reopen" data-right-sidebar-toggle aria-controls="right-sidebar" aria-expanded="false" aria-label="右補助サイドバーを開く" title="右補助サイドバーを開く" hidden>補助パネルを開く</button>}
+    {showRightSidebar && <ReferencePanel />}
     <footer class="site-footer">
       <div class="footer-brand">
         <strong>Rosarium</strong>

@@ -8,7 +8,7 @@ import { referenceEntries } from "../lib/reference";
 const entries = referenceEntries(await getCollection("pages", activeEntry));
 ---
 
-<Site title="Reference" section="reference">
+<Site title="Reference" section="reference" showRightSidebar={false}>
   <PageHeader icon="reference" title="Reference" />
   <p>
     数学的定義、観測から計算する指標、関係を単純化した説明モデル、実装と評価で確かめる設計仮説を区別して扱います。
