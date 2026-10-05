@@ -10,11 +10,13 @@ import {
   url,
   publicEntry,
 } from "../lib/site";
-import { navigation } from "../lib/navigation";
-const retiredNavigation = navigation.flat().find((item) => item.path === "retired")!;
+import { navigation, navigationItemForPath } from "../lib/navigation";
+const headerNavigation = ["", "ai", "dx", "cases"].map((path) => navigationItemForPath(path)!);
+const retiredNavigation = navigationItemForPath("retired")!;
 import NavIcon from "../components/NavIcon.astro";
 import ReferencePanel from "../components/ReferencePanel.astro";
 import RightSidebarControls from "../components/RightSidebarControls.astro";
+import { pageEntityType, readingSections, rightSidebarPolicy } from "../lib/layout-policy.mjs";
 import { pageContents, pageOpening } from "../lib/page-contents.mjs";
 import GlobalSearch from "../components/GlobalSearch.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
@@ -75,8 +77,9 @@ const {
 const contents = pageContents(await Astro.slots.render("default"), { headings, mode: showRightSidebar ? toc : "never" });
 const pageHeadings = contents.headings;
 const opening = pageOpening(contents.html, pageHeadings, bookNavigation);
-const hasPageToc = !!bookNavigation?.items.length || pageHeadings.length > 0;
-const referenceSidebar = showRightSidebar && (hasPageToc || showReference);
+const { hasPageToc, referenceSidebar } = rightSidebarPolicy({
+  showRightSidebar, showReference, headingCount: pageHeadings.length, chapterCount: bookNavigation?.items.length ?? 0,
+});
 const effectiveLastUpdated =
   lastUpdated ?? staticLastUpdatedForPath(Astro.url.pathname);
 const analyticsEntry = (await getCollection("pages", publicEntry)).find(
@@ -96,39 +99,7 @@ const ogImageUrl = ogImage.startsWith("http")
 const siteUrl = new URL(assetUrl(""), Astro.site).toString();
 const personId = `${siteUrl}#person`;
 const websiteId = `${siteUrl}#website`;
-const collectionSections = new Set([
-  "ai-design",
-  "ai-mathematics",
-  "ai",
-  "practices",
-  "cases",
-  "articles",
-  "dx",
-  "books",
-  "series",
-  "essays",
-  "overview",
-  "reference",
-  "updates",
-]);
-const readingSections = new Set([
-  "ai",
-  "articles",
-  "ai-design",
-  "ai-mathematics",
-  "practices",
-  "books",
-  "series",
-  "essays",
-]);
-const pageType =
-  ogType === "article"
-    ? "TechArticle"
-    : ogType === "profile"
-      ? "ProfilePage"
-      : collectionSections.has(section || "") || section?.startsWith("dx/")
-        ? "CollectionPage"
-        : "WebPage";
+const pageType = pageEntityType({ ogType, section });
 const breadcrumbId = `${canonicalUrl}#breadcrumb`;
 const pageEntity = {
   "@type": pageType,
@@ -282,28 +253,28 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       <div class="header-links">
         <nav class="header-primary" aria-label="主要ページ">
           <div class="header-primary-group">
-          <a href={url()} aria-current={section === "" ? "page" : undefined}>
-            庭
+          <a href={url(headerNavigation[0].path)} aria-current={section === "" ? "page" : undefined}>
+            {headerNavigation[0].headerLabel ?? headerNavigation[0].title}
           </a>
           <a
-            href={url("ai")}
+            href={url(headerNavigation[1].path)}
             aria-current={
               readingSections.has(section || "") ? "page" : undefined
             }
           >
-            AI
+            {headerNavigation[1].headerLabel ?? headerNavigation[1].title}
           </a>
           <a
-            href={url("dx")}
+            href={url(headerNavigation[2].path)}
             aria-current={section === "dx" ? "page" : undefined}
           >
-            DX
+            {headerNavigation[2].headerLabel ?? headerNavigation[2].title}
           </a>
           <a
-            href={url("cases")}
+            href={url(headerNavigation[3].path)}
             aria-current={section === "cases" ? "page" : undefined}
           >
-            事例
+            {headerNavigation[3].headerLabel ?? headerNavigation[3].title}
           </a>
           </div>
           <a class="mobile-retired-link" aria-label={retiredNavigation.title} href={url(retiredNavigation.path)} aria-current={section === retiredNavigation.path ? "page" : undefined}>

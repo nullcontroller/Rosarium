@@ -1,5 +1,5 @@
 ---
-import { navigation } from "../lib/navigation";
+import { navigationItemForPath } from "../lib/navigation";
 import Site from "../layouts/Site.astro";
 import GrowthEntry from "../components/GrowthEntry.astro";
 import { recentGrowth } from "../data/recent-growth";
@@ -7,7 +7,7 @@ import Icon from "../components/Icon.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { url } from "../lib/site";
 
-const homeIcon = navigation.flat().find((item) => item.path === "")!.icon;
+const homeIcon = navigationItemForPath("")!.icon;
 const recent = recentGrowth.slice(0, 1);
 ---
 

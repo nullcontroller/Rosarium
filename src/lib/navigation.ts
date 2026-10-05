@@ -9,6 +9,7 @@ export type NavigationItem = {
   path: string;
   title: string;
   shortLabel?: string;
+  headerLabel?: string;
   summary: string;
   icon: ReturnType<typeof iconForPath>;
   question?: string;
@@ -76,6 +77,7 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
     {
       path: "cases",
       title: "実践事例",
+      headerLabel: "事例",
       summary: "実務での課題、設計判断、実装、結果をまとめた事例。",
       icon: iconForPath("cases"),
       sections: ["cases"],
@@ -337,3 +339,7 @@ export const bookChapterNumber = (entry: Entry) => {
   const number = entry.data.title.match(/^(\d{2})\.\s/);
   return number ? Number(number[1]) : (entry.data.order ?? 0);
 };
+
+// Shared lookup; navigation remains the authoritative display/icon definition.
+export const navigationItemForPath = (path: string) =>
+  navigation.flat().find((item) => item.path === path);

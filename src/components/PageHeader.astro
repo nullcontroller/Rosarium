@@ -1,5 +1,5 @@
 ---
-import { navigation } from "../lib/navigation";
+import { navigationItemForPath } from "../lib/navigation";
 import { introductionForPath } from "../lib/site";
 import Icon from "./Icon.astro";
 import type { IconName } from "../lib/icons";
@@ -23,7 +23,8 @@ const {
   summaryParagraphs,
   status,
 } = Astro.props;
-const icon = explicitIcon ?? (navigationPath === undefined ? undefined : navigation.flat().find((item) => item.path === navigationPath)?.icon);
+const icon = explicitIcon ?? (navigationPath === undefined ? undefined : navigationItemForPath(navigationPath)?.icon);
+const introductionParagraphs = summaryParagraphs ?? (summary ? [summary] : []);
 ---
 
 <header class:list={["page-heading", !icon && "text-only", alignHero && "entrance-hero"]}>
@@ -34,7 +35,7 @@ const icon = explicitIcon ?? (navigationPath === undefined ? undefined : navigat
       <h1>{title}</h1>
       {status && <span class="page-status">{status}</span>}
     </div>
-    {!alignHero && (summaryParagraphs ?? (summary ? [summary] : [])).map((paragraph) => <p class="lead">{paragraph}</p>)}
+    {!alignHero && introductionParagraphs.map((paragraph) => <p class="lead">{paragraph}</p>)}
   </div>
-  {alignHero && (summaryParagraphs ?? (summary ? [summary] : [])).map((paragraph) => <p class="lead">{paragraph}</p>)}
+  {alignHero && introductionParagraphs.map((paragraph) => <p class="lead">{paragraph}</p>)}
 </header>
