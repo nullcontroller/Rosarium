@@ -80,3 +80,11 @@ test("essay metadata stays in obsolete articles even at a legacy Case URL", asyn
   assert.equal(isCaseEntry(entry), false);
   assert.equal(getArchiveGroup(entry), "obsolete");
 });
+
+test("archive anchors survive title changes and distinguish identical slugs in different collections", async () => {
+  const { archiveEntryAnchor } = await import("../src/lib/archive.ts");
+  const original = { id: "cases/shared", data: { title: "旧題" } };
+  assert.equal(archiveEntryAnchor(original), archiveEntryAnchor({ ...original, data: { title: "新題" } }));
+  assert.notEqual(archiveEntryAnchor(original), archiveEntryAnchor({ id: "essays/shared" }));
+  assert.equal(decodeURIComponent(archiveEntryAnchor(original)), archiveEntryAnchor(original));
+});

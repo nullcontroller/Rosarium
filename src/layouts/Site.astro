@@ -45,6 +45,7 @@ interface Props {
   showReference?: boolean;
   rightSidebarCollapsible?: boolean;
   mobilePageToc?: boolean;
+  pageTocDepth?: number;
 }
 const {
   title,
@@ -68,6 +69,7 @@ const {
   showReference = true,
   rightSidebarCollapsible = true,
   mobilePageToc = false,
+  pageTocDepth = 3,
 } = Astro.props;
 const hasPageToc = !!bookNavigation || headings.length > 0;
 const referenceSidebar = showRightSidebar && frame && (hasPageToc || ["articles", "ai-design", "ai-mathematics", "practices", "reference", "cases"].includes(section || ""));
@@ -431,7 +433,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             </ol>
           </details>
         )}
-        {mobilePageToc && headings.length > 0 && <details class="book-toc-mobile" data-page-heading-toc><summary>目次</summary><ol>{headings.filter((h) => h.depth <= 3).map((h) => <li><a href={"#" + h.slug}>{h.text}</a></li>)}</ol></details>}
+        {mobilePageToc && headings.length > 0 && <details class="book-toc-mobile" data-page-heading-toc><summary>目次</summary><ol>{headings.filter((h) => h.depth <= pageTocDepth).map((h) => <li class:list={[h.depth >= 3 && "sub", h.depth >= 4 && "toc-entry"]}><a href={"#" + h.slug}>{h.text}</a></li>)}</ol></details>}
         <slot />
       </main>
       {referenceSidebar && (
@@ -447,7 +449,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             {bookNavigation ? <>
               <p class="book-toc-title">{bookNavigation.title}</p>
               <ol>{bookNavigation.items.map((item) => <li class:list={[item.current && "current"]}><a href={item.href} aria-current={item.current ? "page" : undefined}>{item.title}</a></li>)}</ol>
-            </> : <ol>{headings.filter((h) => h.depth <= 3).map((h) => <li class:list={[h.depth === 3 && "sub"]}><a href={"#" + h.slug}>{h.text}</a></li>)}</ol>}
+            </> : <ol>{headings.filter((h) => h.depth <= pageTocDepth).map((h) => <li class:list={[h.depth >= 3 && "sub", h.depth >= 4 && "toc-entry"]}><a href={"#" + h.slug}>{h.text}</a></li>)}</ol>}
           </div>}
           {showReference && <div data-reference-sidebar-slot></div>}
           {showReference && <noscript><style>.reference-tabs { display: none; }</style><p><a href={url("reference")}>Referenceページを開く</a></p></noscript>}

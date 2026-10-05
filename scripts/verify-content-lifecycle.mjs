@@ -62,10 +62,15 @@ const nav = retiredIndex(".sidebar .nav-group").last();
 assert.equal(retiredIndex('.sidebar a[href="/Rosarium/reference/"]').length, 0);
 assert.equal(retiredIndex('.reference-edge-tab').length, 0);
 assert.equal(retiredIndex('.reference-header-tool[href="/Rosarium/reference/"]').length, 0);
-for (const [index, title] of [[obsoleteIndex, '旧記事'], [retiredIndex, '退役記事']]) {
+for (const [index, title] of [[obsoleteIndex, '旧記事'], [obsoleteCasesIndex, '旧事例'], [retiredIndex, '退役記事']]) {
   assert.equal(index('#page-toc-tab').text(), '目次');
   assert.equal(index('#reference-sidebar-tab, #reference-panel').length, 0);
   assert.equal(index('#page-toc-panel a').first().text(), title);
+  const desktopTargets = index('#page-toc-panel a').map((_, link) => index(link).attr('href')).get();
+  assert.deepEqual(index('details[data-page-heading-toc] a').map((_, link) => index(link).attr('href')).get(), desktopTargets);
+  for (const card of index('[data-history-id]').toArray()) {
+    assert(desktopTargets.includes('#' + index(card).attr('id')));
+  }
   for (const link of index('#page-toc-panel a').toArray()) {
     assert.equal(index(`[id="${index(link).attr('href').slice(1)}"]`).length, 1);
   }

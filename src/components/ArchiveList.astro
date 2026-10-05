@@ -1,7 +1,7 @@
 ---
 import type { Entry } from "../lib/navigation";
 import { formatDateJa, url } from "../lib/site";
-import { getArchiveCategory, isCaseEntry, archiveLabel, getArchiveCategories, archiveCategoryAnchor } from "../lib/archive";
+import { getArchiveCategory, isCaseEntry, archiveLabel, getArchiveCategories, archiveCategoryAnchor, archiveEntryAnchor } from "../lib/archive";
 interface Props { entries: Entry[]; lifecycle: "obsolete" | "retired"; }
 const { entries, lifecycle } = Astro.props;
 const categories = getArchiveCategories(entries);
@@ -10,7 +10,7 @@ const categories = getArchiveCategories(entries);
 {categories.map((category) => <section data-archive-category={category}>
   <h2 id={archiveCategoryAnchor(category)}>{category} <small>{entries.filter((entry) => getArchiveCategory(entry) === category).length}件</small></h2>
   <ul class="retired-list">
-  {entries.filter((entry) => getArchiveCategory(entry) === category).map((entry) => <li data-history-id={entry.id} data-retired-id={lifecycle === "retired" ? entry.id : undefined}>
+  {entries.filter((entry) => getArchiveCategory(entry) === category).map((entry) => <li id={archiveEntryAnchor(entry)} data-history-id={entry.id} data-retired-id={lifecycle === "retired" ? entry.id : undefined}>
     <span class="retired-badge">{archiveLabel([entry], lifecycle)}</span> <small>{isCaseEntry(entry) ? "事例" : "記事"}</small>
     <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>
     <p>{entry.data.summary}</p>

@@ -4,16 +4,25 @@ import Site from "../../layouts/Site.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ArchiveList from "../../components/ArchiveList.astro";
 import { publishedEntry } from "../../lib/site";
-import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup, getArchiveCategories, archiveCategoryAnchor } from "../../lib/archive";
+import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup, getArchiveCategories, archiveCategoryAnchor, getArchiveCategory, archiveEntryAnchor } from "../../lib/archive";
 export function getStaticPaths() {
   return archiveLifecycles.map((group) => ({ params: { lifecycle: group.id }, props: { group } }));
 }
 const { group } = Astro.props;
 const entries = (await getCollection("pages", (entry) => publishedEntry(entry) && isArchiveEntry(entry) && getArchiveGroup(entry) === group.id))
   .sort((a, b) => (b.data.published_at ?? b.data.last_updated).localeCompare(a.data.published_at ?? a.data.last_updated) || a.id.localeCompare(b.id));
-const headings = [{ depth: 2, slug: "archive-heading", text: group.title }, ...getArchiveCategories(entries).map((category) => ({ depth: 3, slug: archiveCategoryAnchor(category), text: category }))];
+const entryHeading = (entry: (typeof entries)[number], depth: number) => ({ depth, slug: archiveEntryAnchor(entry), text: entry.data.title });
+const headings = [
+  { depth: 2, slug: "archive-heading", text: group.title },
+  ...(group.id === "obsolete-cases"
+    ? entries.map((entry) => entryHeading(entry, 3))
+    : getArchiveCategories(entries).flatMap((category) => [
+      { depth: 3, slug: archiveCategoryAnchor(category), text: category },
+      ...entries.filter((entry) => getArchiveCategory(entry) === category).map((entry) => entryHeading(entry, 4)),
+    ])),
+];
 ---
-<Site rightSidebarCollapsible={false} headings={headings} mobilePageToc showReference={false} title={`${group.title}一覧`} summary={group.description} section="retired" noindex lastUpdated="2026-10-05" breadcrumbs={[{ name: "Rosarium", path: "" }, { name: archiveTitle, path: "retired" }, { name: group.title, path: `retired/${group.id}` }]}>
+<Site pageTocDepth={4} rightSidebarCollapsible={false} headings={headings} mobilePageToc showReference={false} title={`${group.title}一覧`} summary={group.description} section="retired" noindex lastUpdated="2026-10-05" breadcrumbs={[{ name: "Rosarium", path: "" }, { name: archiveTitle, path: "retired" }, { name: group.title, path: `retired/${group.id}` }]}>
   <div class="archive-page">
   <div id="archive-heading"><PageHeader title={group.title} summary={group.description} /></div>
   <p>{group.lifecycle.toUpperCase()} · {entries.length}件</p>

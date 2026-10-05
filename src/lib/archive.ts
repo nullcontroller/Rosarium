@@ -35,3 +35,6 @@ export function archiveLabel(entries: CollectionEntry<"pages">[], lifecycle: "ob
 export const archiveCategoryAnchor = (category: string) => `archive-category-${category}`;
 export const getArchiveCategories = (entries: CollectionEntry<"pages">[]) =>
   ["AI", "DX", "実践事例", "考察", "その他"].filter((category) => entries.some((entry) => getArchiveCategory(entry) === category));
+
+// Preserve the complete entry id, including its collection path, independently of titles.
+export const archiveEntryAnchor = (entry: CollectionEntry<"pages">) => `archive-entry-${entry.id}`;
