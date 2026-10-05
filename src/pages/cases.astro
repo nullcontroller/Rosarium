@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
 import { caseStudies } from "../lib/navigation";
-import { activeEntry, url } from "../lib/site";
+import { activeEntry } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 const all = await getCollection("pages", activeEntry);
 const caseGroups = [{ id: "active-cases", title: "主要事例", description: "", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
@@ -62,7 +62,4 @@ const headings = caseGroups.filter((group) => group.studies.length > 0).flatMap(
         ))}
       </section>
     ))}
-  <nav class="topic-navigation" aria-label="全体と公開物への入口">
-    <a href={url("books")}>実務事例のBook一覧</a>
-  </nav>
 </Site>
