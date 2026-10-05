@@ -15,7 +15,6 @@ const headings = groups.map((theme) => ({ depth: 2, slug: theme.id, text: theme.
   <p>AIの性質、回答に使う知識とその場の条件、人による確認、評価、運用までを設計の視点から整理しています。</p>
   <p>設計・理論・実践の読み方は<a href={url("start-here")}>はじめに</a>、領域を横断した議論は<a href={url("essays")}>考察</a>に整理しています。</p>
   <section class="dx-category-list" aria-labelledby="ai-themes-heading">
-    <p class="eyebrow">AIを考えるための地図</p>
     <h2 id="ai-themes-heading">AIを考える{groups.length}つのテーマ</h2>
     {groups.map((theme) => <DomainThemeSection {...theme} domain="ai" />)}
   </section>

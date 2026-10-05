@@ -1631,6 +1631,9 @@ blockquote {
 .dx-category-list {
   margin-top: 2rem;
 }
+.dx-category-list > h2:first-child {
+  margin-top: 0;
+}
 .dx-category {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
@@ -2434,3 +2437,12 @@ article[data-lifecycle="retired"],
 .book-toc-mobile li.sub { padding-left:.6rem; }
 .book-toc-mobile li.toc-entry { padding-left:1.2rem; }
 .retired-list > li[id] { scroll-margin-top:6rem; }
+
+/* Standalone profile pages share the reading rail without adding a left menu. */
+@media (min-width: 1440px) {
+  body .shell.career-shell.has-toc > main { width:100%; min-width:0; }
+  body .shell.career-shell.has-toc { display:grid; grid-template-columns:minmax(0,1fr) var(--right-rail-width); }
+  body .shell.career-shell.right-sidebar-collapsed { grid-template-columns:minmax(0,1fr); }
+}
+main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
+.page-toc-caption { margin-top:1.25rem; color:var(--muted); font-size:.875rem; }

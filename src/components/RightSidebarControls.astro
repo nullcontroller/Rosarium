@@ -1,9 +1,13 @@
+---
+interface Props { collapsible?: boolean; }
+const { collapsible = true } = Astro.props;
+---
+{collapsible && <button type="button" class="right-sidebar-toggle" data-right-sidebar-toggle aria-controls="right-sidebar" aria-expanded="true" aria-label="補助パネルを閉じる" title="補助パネルを閉じる">補助パネルを閉じる</button>}
 <script>
 (() => {
   const host = document.querySelector<HTMLElement>("#right-sidebar");
   if (!host || host.dataset.collapsible === "false") return;
   const desktop = matchMedia("(min-width: 1440px)");
-  const tabs = [...host.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
   const railStorageKey = "rosarium-right-sidebar-closed";
   let railClosed = false;
   try { railClosed = localStorage.getItem(railStorageKey) === "true"; } catch {}
@@ -18,16 +22,17 @@
     host.hidden = hidden;
     host.closest(".shell")?.classList.toggle("right-sidebar-collapsed", hidden);
     railButtons.forEach((button) => {
-      const reopen = button.classList.contains("right-sidebar-reopen");
-      button.hidden = reopen ? !hidden : false;
+      const label = hidden ? "補助パネルを開く" : "補助パネルを閉じる";
+      button.textContent = label;
+      button.setAttribute("aria-label", label);
+      button.title = label;
       button.setAttribute("aria-expanded", String(!hidden));
     });
-    if (hadFocus && hidden) document.querySelector<HTMLButtonElement>(".right-sidebar-reopen")?.focus({ preventScroll: true });
+    if (hadFocus && hidden) document.querySelector<HTMLButtonElement>(".right-sidebar-toggle")?.focus({ preventScroll: true });
     window.scrollTo({ top: scroll, behavior: "instant" });
   }
   railButtons.forEach((button) => button.addEventListener("click", () => {
     setRailClosed(!railClosed);
-    if (!railClosed) tabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.focus({ preventScroll: true });
   }));
   setRailClosed(railClosed, false);
   desktop.addEventListener("change", () => setRailClosed(railClosed, false));
@@ -42,20 +47,19 @@
 .reference-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .page-toc-panel[hidden] { display: none; }
 @media (min-width: 1440px) {
-  .reference-sidebar { display: flex; flex-direction: column; height: calc(100dvh - 88px); overflow: hidden; }
+  .reference-sidebar { padding-right: 2.5rem; display: flex; flex-direction: column; height: calc(100dvh - 88px); overflow: hidden; }
   .page-toc-panel { min-height: 0; overflow-y: auto; }
 }
 </style>
 <style is:global>
 .right-sidebar-toolbar { display: flex; align-items: start; gap: .25rem; }
 .right-sidebar-toolbar .reference-tabs { flex: 1; min-width: 0; }
-.right-sidebar-collapse { min-height: 44px; padding: .5rem .3rem; background: transparent; color: var(--muted); border: 0; cursor: pointer; font-size: .75rem; }
-.right-sidebar-reopen { position: fixed; top: 50%; right: 0; z-index: 45; writing-mode: vertical-rl; min-height: 44px; padding: .75rem .4rem; border: 1px solid var(--line); border-right: 0; background: var(--surface); color: var(--ink); cursor: pointer; font-size: .8125rem; }
-.reference-sidebar[hidden], .right-sidebar-reopen[hidden] { display: none !important; }
+.right-sidebar-toggle { position: fixed; top: 50%; right: 0; transform: translateY(-50%); z-index: 45; writing-mode: vertical-rl; width: 2rem; height: 14rem; display: flex; align-items: center; justify-content: center; padding: .75rem .4rem; border: 1px solid var(--line); border-right: 0; background: var(--surface); color: var(--ink); cursor: pointer; font-size: .8125rem; }
+.reference-sidebar[hidden], .right-sidebar-toggle[hidden] { display: none !important; }
 [data-right-sidebar-toggle]:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 @media (min-width: 1440px) {
-  body .shell.right-sidebar-collapsed { grid-template-columns: var(--left-rail-width) minmax(0, 1fr); }
+  body .shell.right-sidebar-collapsed, body .shell.reference-wide.right-sidebar-collapsed { grid-template-columns: var(--left-rail-width) minmax(0, 1fr); }
 }
-@media (max-width: 1439px) { .right-sidebar-collapse, .right-sidebar-reopen { display: none !important; } }
-@media print { .right-sidebar-reopen { display: none !important; } }
+@media (max-width: 1439px) { .right-sidebar-toggle { display: none !important; } }
+@media print { .right-sidebar-toggle { display: none !important; } }
 </style>

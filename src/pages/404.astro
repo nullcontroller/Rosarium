@@ -6,7 +6,7 @@ if (!Astro.site) throw new Error("Astro.site is required for 404 metadata");
 const canonical = new URL(assetUrl("404.html"), Astro.site).toString();
 ---
 
-<Site title="ページが見つかりません" canonical={canonical} noindex>
+<Site showRightSidebar={false} title="ページが見つかりません" canonical={canonical} noindex>
   <PageHeader icon="search" title="ページが見つかりません" />
   <p>お探しのページは移動または削除された可能性があります。</p>
   <nav class="topic-navigation" aria-label="復帰先">

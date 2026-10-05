@@ -15,6 +15,7 @@ const retiredNavigation = navigation.flat().find((item) => item.path === "retire
 import NavIcon from "../components/NavIcon.astro";
 import ReferencePanel from "../components/ReferencePanel.astro";
 import RightSidebarControls from "../components/RightSidebarControls.astro";
+import { pageContents } from "../lib/page-contents.mjs";
 import GlobalSearch from "../components/GlobalSearch.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import { getCollection } from "astro:content";
@@ -46,6 +47,7 @@ interface Props {
   rightSidebarCollapsible?: boolean;
   mobilePageToc?: boolean;
   pageTocDepth?: number;
+  toc?: "auto" | "never" | "always";
 }
 const {
   title,
@@ -68,11 +70,12 @@ const {
   showRightSidebar = true,
   showReference = true,
   rightSidebarCollapsible = true,
-  mobilePageToc = false,
-  pageTocDepth = 3,
+  toc = "auto",
 } = Astro.props;
-const hasPageToc = !!bookNavigation || headings.length > 0;
-const referenceSidebar = showRightSidebar && frame && (hasPageToc || ["articles", "ai-design", "ai-mathematics", "practices", "reference", "cases"].includes(section || ""));
+const contents = pageContents(await Astro.slots.render("default"), { headings, mode: showRightSidebar ? toc : "never" });
+const pageHeadings = contents.headings;
+const hasPageToc = !!bookNavigation?.items.length || pageHeadings.length > 0;
+const referenceSidebar = showRightSidebar && (hasPageToc || showReference);
 const effectiveLastUpdated =
   lastUpdated ?? staticLastUpdatedForPath(Astro.url.pathname);
 const analyticsEntry = (await getCollection("pages", publicEntry)).find(
@@ -405,6 +408,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         id="main"
         tabindex="-1"
         data-pagefind-ignore={!internalSearch ? true : undefined}
+        data-toc-policy={showRightSidebar ? toc : "never"}
+        data-toc-reason={contents.reason}
       >
         {!noindex && showLastUpdated && (
           <p class="site-last-updated" data-last-updated={effectiveLastUpdated}>
@@ -433,8 +438,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             </ol>
           </details>
         )}
-        {mobilePageToc && headings.length > 0 && <details class="book-toc-mobile" data-page-heading-toc><summary>目次</summary><ol>{headings.filter((h) => h.depth <= pageTocDepth).map((h) => <li class:list={[h.depth >= 3 && "sub", h.depth >= 4 && "toc-entry"]}><a href={"#" + h.slug}>{h.text}</a></li>)}</ol></details>}
-        <slot />
+        {pageHeadings.length > 0 && <details class="book-toc-mobile" data-page-heading-toc><summary>目次</summary><ol>{pageHeadings.map((h) => <li class:list={[h.depth === 3 && "sub"]}><a href={"#" + h.slug}>{h.text}</a></li>)}</ol></details>}
+        <Fragment set:html={contents.html} />
       </main>
       {referenceSidebar && (
         <aside data-collapsible={String(rightSidebarCollapsible)} id="right-sidebar" class:list={[bookNavigation ? "book-toc" : "toc", "reference-sidebar"]} aria-label="右補助パネル">
@@ -443,21 +448,23 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             {hasPageToc && <button id="page-toc-tab" type="button" role="tab" aria-selected="true" aria-controls="page-toc-panel">目次</button>}
             {showReference && <button id="reference-sidebar-tab" type="button" role="tab" aria-selected={hasPageToc ? "false" : "true"} aria-controls="reference-panel" tabindex={hasPageToc ? -1 : 0}>リファレンス</button>}
           </div>
-          {rightSidebarCollapsible && <button type="button" class="right-sidebar-collapse" data-right-sidebar-toggle aria-controls="right-sidebar" aria-expanded="true" aria-label="右補助サイドバーを閉じる" title="右補助サイドバーを閉じる">閉じる</button>}
           </div>
-          {hasPageToc && <div id="page-toc-panel" data-page-heading-toc={!bookNavigation ? true : undefined} class="page-toc-panel" role="tabpanel" aria-labelledby="page-toc-tab">
+          {hasPageToc && <div id="page-toc-panel" class="page-toc-panel" role="tabpanel" aria-labelledby="page-toc-tab">
             {bookNavigation ? <>
               <p class="book-toc-title">{bookNavigation.title}</p>
               <ol>{bookNavigation.items.map((item) => <li class:list={[item.current && "current"]}><a href={item.href} aria-current={item.current ? "page" : undefined}>{item.title}</a></li>)}</ol>
-            </> : <ol>{headings.filter((h) => h.depth <= pageTocDepth).map((h) => <li class:list={[h.depth >= 3 && "sub", h.depth >= 4 && "toc-entry"]}><a href={"#" + h.slug}>{h.text}</a></li>)}</ol>}
+            </> : null}
+            {pageHeadings.length > 0 && <div data-page-heading-toc>
+              {bookNavigation && <p class="page-toc-caption">このページの見出し</p>}
+              <ol>{pageHeadings.map((h) => <li class:list={[h.depth === 3 && "sub"]}><a href={"#" + h.slug}>{h.text}</a></li>)}</ol>
+            </div>}
           </div>}
           {showReference && <div data-reference-sidebar-slot></div>}
           {showReference && <noscript><style>.reference-tabs { display: none; }</style><p><a href={url("reference")}>Referenceページを開く</a></p></noscript>}
         </aside>
       )}
     </div>
-    {referenceSidebar && rightSidebarCollapsible && <button type="button" class="right-sidebar-reopen" data-right-sidebar-toggle aria-controls="right-sidebar" aria-expanded="false" aria-label="右補助サイドバーを開く" title="右補助サイドバーを開く" hidden>補助パネルを開く</button>}
-    {referenceSidebar && <RightSidebarControls />}
+    {referenceSidebar && <RightSidebarControls collapsible={rightSidebarCollapsible} />}
     {showRightSidebar && showReference && <ReferencePanel />}
     <footer class="site-footer">
       <div class="footer-brand">
@@ -483,9 +490,14 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       const headingLinks = [...document.querySelectorAll<HTMLAnchorElement>("[data-page-heading-toc] a[href^='#']")];
       const targets = [...new Set(headingLinks.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1)))))].filter((target): target is HTMLElement => !!target);
       if (targets.length) {
+        const masthead = document.querySelector<HTMLElement>(".masthead");
+        const headingOffset = () => (masthead?.getBoundingClientRect().height ?? 88) + 24;
+        const syncOffset = () => document.documentElement.style.setProperty("--toc-scroll-offset", headingOffset() + "px");
+        syncOffset();
+        if (masthead) new ResizeObserver(syncOffset).observe(masthead);
         const updateHeading = () => {
           const atEnd = window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
-          const current = atEnd ? targets[targets.length - 1] : [...targets].reverse().find((target) => target.getBoundingClientRect().top <= 150) || targets[0];
+          const current = atEnd ? targets[targets.length - 1] : [...targets].reverse().find((target) => target.getBoundingClientRect().top <= headingOffset() + 2) || targets[0];
           headingLinks.forEach((link) => {
             if (decodeURIComponent(link.hash.slice(1)) === current.id) link.setAttribute("aria-current", "location");
             else link.removeAttribute("aria-current");

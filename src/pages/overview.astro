@@ -6,7 +6,7 @@ const reading = url("ai");
 const canonical = new URL(reading, Astro.site).toString();
 ---
 
-<Site
+<Site showRightSidebar={false}
   title="AIへ統合しました"
   summary="全体目次の役割はAIの入口へ統合しました。"
   canonical={canonical}

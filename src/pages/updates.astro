@@ -6,7 +6,7 @@ const home = url();
 const canonical = new URL(home, Astro.site).toString();
 ---
 
-<Site
+<Site showRightSidebar={false}
   title="庭へ統合しました"
   summary="最近の更新情報はRosariumの庭で確認できます。"
   canonical={canonical}

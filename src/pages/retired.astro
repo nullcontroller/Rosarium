@@ -6,7 +6,7 @@ import { publishedEntry, url } from "../lib/site";
 import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup, archiveLabel } from "../lib/archive";
 const entries = await getCollection("pages", (entry) => publishedEntry(entry) && isArchiveEntry(entry));
 ---
-<Site title={archiveTitle} section="retired" noindex lastUpdated="2026-10-05" summary="現在の推奨ではない旧記事と、役割を終えた退役記事を確認するコンテンツ履歴の入口。" breadcrumbs={[{ name: "Rosarium", path: "" }, { name: archiveTitle, path: "retired" }]}>
+<Site showReference={false} title={archiveTitle} section="retired" noindex lastUpdated="2026-10-05" summary="現在の推奨ではない旧記事と、役割を終えた退役記事を確認するコンテンツ履歴の入口。" breadcrumbs={[{ name: "Rosarium", path: "" }, { name: archiveTitle, path: "retired" }]}>
   <div class="archive-page">
   <PageHeader title={archiveTitle} />
   <p>現在の推奨ではないコンテンツと、独立した役割を終えた記録を、位置づけごとに保存しています。</p>

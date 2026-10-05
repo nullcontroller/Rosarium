@@ -5,7 +5,7 @@ const destination = url("career");
 const canonical = new URL(destination, Astro.site).toString();
 ---
 
-<Site title="Careerへ統合しました — 経験と背景" summary="経験と仕事の考え方はCareerへ統合しました。職歴・資格の詳細はLinkedInをご覧ください。" canonical={canonical} noindex showLastUpdated={false}>
+<Site showRightSidebar={false} title="Careerへ統合しました — 経験と背景" summary="経験と仕事の考え方はCareerへ統合しました。職歴・資格の詳細はLinkedInをご覧ください。" canonical={canonical} noindex showLastUpdated={false}>
   <meta slot="head" http-equiv="refresh" content={`0;url=${destination}`} />
   <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
   <h1>Careerへ統合しました</h1>

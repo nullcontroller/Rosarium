@@ -7,7 +7,7 @@ const searchHome = `${home}?search=1`;
 const canonical = new URL(home, Astro.site).toString();
 ---
 
-<Site
+<Site showRightSidebar={false}
   title="検索"
   summary="検索機能はRosarium全体のHeaderへ移動しました。"
   canonical={canonical}

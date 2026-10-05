@@ -162,7 +162,8 @@ assert.equal(top('.header-primary a[href="/Rosarium/cases/"]').length, 1);
 assert.equal(top('.mobile-retired-link').attr("aria-label"), "旧記事・退役記事");
 assert.equal(top('.header-primary a[href="/Rosarium/career/"]').length, 0);
 assert.equal(top('.home-career a[href="/Rosarium/career/"]').length, 1);
-assert.equal(top(".header-actions a").length, 1);
+assert.equal(top(".header-actions a").length, 0);
+assert.equal(top("#right-sidebar").length, 0);
 assert.equal(top("#global-search-input").length, 1);
 assert.equal(top(".global-search-toggle").length, 1);
 assert(!top(".sidebar-label").text().includes("設計体系"));
@@ -192,7 +193,9 @@ assert.deepEqual(
 );
 assert.equal(top(".sidebar .nav-children .icon").length, 0);
 assert.equal(top(".sidebar").length, 1);
-assert.equal(career(".sidebar,.toc").length, 0);
+assert.equal(career(".sidebar").length, 0);
+assert.equal(career("#page-toc-tab").length, 1);
+assert.equal(career("#reference-sidebar-tab").length, 0);
 assert.equal(career(".global-search").length, 1);
 assert.equal(career(".header-primary").length, 1);
 assert.equal(career("#theme").length, 1);
@@ -712,7 +715,7 @@ assert(
 const customerSupportBook = page("cases/customer-support-ai-dx");
 assert.equal(customerSupportBook(".series").length, 0);
 assert.equal(customerSupportBook(".book-toc .page-toc-panel > ol > li").length, 11);
-assert.equal(customerSupportBook(".book-toc-mobile > ol > li").length, 11);
+assert.equal(customerSupportBook(".book-toc-mobile:not([data-page-heading-toc]) > ol > li").length, 11);
 assert.equal(customerSupportBook(".book-toc .content-entry").length, 0);
 assert.equal(
   customerSupportBook(".series-position-inline").text(),
@@ -881,7 +884,7 @@ for (const file of walk("dist").filter((file) => file.endsWith("index.html"))) {
 }
 console.log("Verified quiet Case endings and preserved Practice discovery.");
 
-const supportTitles = customerSupportBook(".book-toc a").map((_, node) => customerSupportBook(node).text().trim()).get();
+const supportTitles = customerSupportBook(".book-toc .page-toc-panel > ol a").map((_, node) => customerSupportBook(node).text().trim()).get();
 assert.deepEqual(supportTitles.slice(2).map((title) => title.slice(0, 2)), ["01", "02", "03", "04", "05", "06", "07", "08", "09"]);
 assert(customerSupportBook(".book-toc-mobile summary").text().includes("全9章"));
 assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".series-position-inline").text(), "現在位置：導入・全9章");

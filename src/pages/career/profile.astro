@@ -6,7 +6,7 @@ const career = url("career");
 const canonical = new URL(career, Astro.site).toString();
 ---
 
-<Site
+<Site showRightSidebar={false}
   title="Careerへ統合しました"
   summary="詳細な職務プロフィールはLinkedInへ委譲し、RosariumのCareerはPortfolio Gatewayへ統合しました。"
   canonical={canonical}

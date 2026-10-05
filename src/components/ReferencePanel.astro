@@ -239,7 +239,7 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
     }
     search.value = trigger.dataset.referenceTerm ?? "";
     if (trigger.dataset.referenceTermId) track("reference_term_open", trigger.dataset.referenceTermId);
-    panel.querySelector<HTMLButtonElement>("[data-reference-close]")!.focus({ preventScroll: true });
+    (desktop.matches ? search : panel.querySelector<HTMLButtonElement>("[data-reference-close]"))?.focus({ preventScroll: true });
     await loadReferences();
     if (panel.hidden) return;
     filter();

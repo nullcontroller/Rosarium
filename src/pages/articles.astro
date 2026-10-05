@@ -6,7 +6,7 @@ const destination = url("ai");
 const canonical = new URL(destination, Astro.site).toString();
 ---
 
-<Site
+<Site showRightSidebar={false}
   title="AIへ移動しました"
   summary="AIの入口は /ai/ へ移動しました。"
   canonical={canonical}
