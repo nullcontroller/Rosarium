@@ -69,7 +69,7 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
     {
       path: "dx",
       title: "DX",
-      summary: "価値・業務変革・システム企画を扱う領域。",
+      summary: "価値・業務変革・システム企画。",
       icon: iconForPath("dx"),
       sections: ["dx", ...dxCategories.map((category) => `dx/${category.id}`)],
     },

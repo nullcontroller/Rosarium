@@ -336,7 +336,7 @@ body { --reference-panel-width: clamp(320px, 28vw, 400px); }
 .page-toc-panel[hidden] { display: none; }
 .reference-header-tool { display: none; }
 @media (min-width: 1440px) {
-  body .shell.reference-wide { grid-template-columns: clamp(280px, 18vw, 380px) minmax(0, 1fr) clamp(420px, 25vw, 520px); }
+  body .shell.reference-wide { --right-rail-width: clamp(420px, 27vw, 520px); grid-template-columns: var(--left-rail-width) minmax(0, 1fr) var(--right-rail-width); }
   .reference-sidebar { display: flex; flex-direction: column; height: calc(100dvh - 88px); overflow: hidden; }
   .page-toc-panel { min-height: 0; overflow-y: auto; }
   [data-reference-sidebar-slot] { min-height: 0; flex: 1; }

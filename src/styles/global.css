@@ -2391,3 +2391,18 @@ article[data-lifecycle="retired"],
 /* Reference and Knowledge Lifecycle are independent navigation regions. */
 .sidebar .nav-lifecycle { margin-top: 1.5rem; padding-top: 1.25rem; }
 @media (max-width: 760px) { .sidebar .nav-lifecycle { display: none; } }
+
+/* Primary mobile navigation stays compact; lifecycle navigation is auxiliary. */
+@media (max-width: 760px) {
+  .header-primary { width: 100%; justify-content: flex-start; gap: .25rem; }
+  .header-primary a { flex: 0 0 auto; min-width: 0; padding-inline: .5rem; min-height: 44px; }
+  .header-primary .mobile-retired-link { margin-left: auto; min-width: 5.25rem; padding-inline: .75rem; font-weight: 450; color: var(--muted); }
+  .header-primary .mobile-retired-link[aria-current="page"] { color: var(--accent); }
+}
+/* Rails represent navigation and reading assistance, not equal columns. */
+@media (min-width: 1440px) {
+  .shell { --left-rail-width: clamp(220px, 13.5vw, 260px); --right-rail-width: clamp(280px, 20vw, 320px); grid-template-columns: var(--left-rail-width) minmax(0, 1fr); }
+  .shell.has-toc, .shell.has-theme-toc, .shell.has-book-toc { grid-template-columns: var(--left-rail-width) minmax(0, 1fr) var(--right-rail-width); }
+  .sidebar { padding-inline: .75rem; }
+  .sidebar nav a { padding-inline: .4rem; gap: .5rem; }
+}
