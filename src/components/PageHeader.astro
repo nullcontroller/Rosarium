@@ -6,6 +6,7 @@ import type { IconName } from "../lib/icons";
 interface Props {
   icon?: IconName;
   navigationPath?: string;
+  alignHero?: boolean;
   title: string;
   eyebrow?: string;
   summary?: string;
@@ -15,6 +16,7 @@ interface Props {
 const {
   icon: explicitIcon,
   navigationPath,
+  alignHero = false,
   title,
   eyebrow,
   summary = introductionForPath(Astro.url.pathname),
@@ -24,7 +26,7 @@ const {
 const icon = explicitIcon ?? (navigationPath === undefined ? undefined : navigation.flat().find((item) => item.path === navigationPath)?.icon);
 ---
 
-<header class:list={["page-heading", !icon && "text-only"]}>
+<header class:list={["page-heading", !icon && "text-only", alignHero && "entrance-hero"]}>
   {icon && <Icon name={icon} size="page" />}
   <div>
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
@@ -32,6 +34,7 @@ const icon = explicitIcon ?? (navigationPath === undefined ? undefined : navigat
       <h1>{title}</h1>
       {status && <span class="page-status">{status}</span>}
     </div>
-    {(summaryParagraphs ?? (summary ? [summary] : [])).map((paragraph) => <p class="lead">{paragraph}</p>)}
+    {!alignHero && (summaryParagraphs ?? (summary ? [summary] : [])).map((paragraph) => <p class="lead">{paragraph}</p>)}
   </div>
+  {alignHero && (summaryParagraphs ?? (summary ? [summary] : [])).map((paragraph) => <p class="lead">{paragraph}</p>)}
 </header>

@@ -2506,3 +2506,13 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
   :root { --page-top-spacing:2rem; }
   .page-prelude .site-last-updated { margin-inline-start:0; text-align:start; }
 }
+
+/* Entrance headers share the Garden title inset and full-width introduction. */
+@media screen {
+  .page-heading.entrance-hero { --hero-title-inset:.25rem; --hero-top-inset:.75rem; padding-block-start:var(--hero-top-inset); row-gap:0; }
+  .entrance-hero h1 { margin-block:var(--hero-title-inset); }
+  .entrance-hero > .lead { grid-column:1 / -1; }
+}
+@media screen and (min-width:1100px) {
+  .page-heading.entrance-hero { --hero-top-inset:0; }
+}
