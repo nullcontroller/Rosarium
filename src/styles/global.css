@@ -2356,27 +2356,29 @@ article[data-lifecycle="retired"],
 
 /* Home Desktop spacing: reveal the next gateway without changing text or widths. */
 @media (min-width: 1100px) {
-  .home-page .shell > main { padding-block-start:1.5rem; }
-  .home-page .site-last-updated { margin-bottom:.5rem; }
-  .home-page .hero.home-introduction { padding-block:.25rem; margin-bottom:.25rem; }
-  .home-page .home-primary-panels { gap:.75rem; margin-top:.25rem; }
-  .home-page .home-primary-panels > .home-section { padding-block:.75rem; }
-  .home-page .home-primary-panels .section-heading { margin-block:0 .25rem; }
+  .home-page .shell > main { padding-block-start:1rem; }
+  .home-page .site-last-updated { margin-bottom:.25rem; }
+  .home-page .hero.home-introduction { padding-block:0; margin-bottom:.125rem; }
+  .home-page .home-introduction .document-title-row { margin-bottom:.25rem; }
+  .home-page .home-introduction p { margin-block:.375rem; }
+  .home-page .home-primary-panels { gap:.5rem; margin-top:.125rem; }
+  .home-page .home-primary-panels > .home-section { padding-block:.5rem; }
+  .home-page .home-primary-panels .section-heading { margin-block:0 .125rem; }
   .home-page .home-primary-panels #recent-growth-heading,
-  .home-page .home-primary-panels #home-career-heading { margin-block:.2rem .25rem; }
-  .home-page [aria-labelledby="recent-growth-heading"] > p.meta { margin-block:.25rem; }
-  .home-page .home-primary-panels .growth-list { margin-top:.25rem; }
-  .home-page .home-primary-panels .growth-entry { padding-block:.25rem; }
-  .home-page .home-primary-panels .growth-meta { margin-block:.25rem; }
-  .home-page .home-primary-panels .content-title { margin-block:.25rem; }
+  .home-page .home-primary-panels #home-career-heading { margin-block:.125rem; }
+  .home-page [aria-labelledby="recent-growth-heading"] > p.meta { margin-block:.125rem; }
+  .home-page .home-primary-panels .growth-list { margin-top:.125rem; }
+  .home-page .home-primary-panels .growth-entry { padding-block:.125rem; }
+  .home-page .home-primary-panels .growth-meta { margin-block:.125rem; }
+  .home-page .home-primary-panels .content-title { margin-block:.125rem; }
   .home-page .home-primary-panels .growth-changes li { margin-block:.2rem; }
-  .home-page .home-primary-panels > .home-section > p:last-child { margin-block:.5rem 0; }
+  .home-page .home-primary-panels > .home-section > p:last-child { margin-block:.25rem 0; }
 }
 
 /* Home updates use a metadata row, then full-width title and changes. */
 @media (min-width: 1100px) {
   .home-page .home-primary-panels > .home-section { padding-inline:0; }
-  .home-page .home-primary-panels .growth-entry { row-gap:.25rem; }
+  .home-page .home-primary-panels .growth-entry { row-gap:.125rem; }
   .home-page .home-primary-panels .growth-entry > div { display:contents; }
   .home-page .home-primary-panels .growth-entry > .icon { grid-column:1; grid-row:1; }
   .home-page .home-primary-panels .growth-meta { grid-column:2; grid-row:1; align-self:center; margin-block:0; }
