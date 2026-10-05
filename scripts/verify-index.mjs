@@ -924,6 +924,7 @@ for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "
 }
 assert.equal(page("about")('main h2').filter((_, node) => page("about")(node).text() === "次に読む").length, 0);
 assert.equal(page("about")('main a[href="/Rosarium/"]').text(), "庭に戻る");
-assert.equal(page("")('.home-career .career-overview .meaning-line').length, 3);
-assert.equal(page("")('.home-career .career-background .meaning-line').length, 2);
+assert.equal(page("")('.home-career .career-overview').text(), '立林 裕太朗は、業務課題を整理し、AI・人間・既存システムの役割を決め、運用できる仕組みを設計しています。');
+assert.equal(page("")('.home-career .career-background').text(), '仕事の考え方と、その背景を紹介します。');
+assert.equal(page("")('.home-career .meaning-line').length, 0);
 assert.equal(page("")('.home-career br').length, 0);
