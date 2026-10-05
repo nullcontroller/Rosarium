@@ -38,3 +38,9 @@ export const getArchiveCategories = (entries: CollectionEntry<"pages">[]) =>
 
 // Preserve the complete entry id, including its collection path, independently of titles.
 export const archiveEntryAnchor = (entry: CollectionEntry<"pages">) => `archive-entry-${entry.id}`;
+
+// Rendering and TOC share category order and membership, without changing entry order.
+export const groupArchiveEntries = (entries: CollectionEntry<"pages">[]) =>
+  getArchiveCategories(entries).map((category) => ({
+    category, entries: entries.filter((entry) => getArchiveCategory(entry) === category),
+  }));

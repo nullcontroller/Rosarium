@@ -4,7 +4,7 @@ import Site from "../../layouts/Site.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ArchiveList from "../../components/ArchiveList.astro";
 import { publishedEntry } from "../../lib/site";
-import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup, getArchiveCategories, archiveCategoryAnchor, getArchiveCategory, archiveEntryAnchor } from "../../lib/archive";
+import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup, groupArchiveEntries, archiveCategoryAnchor, archiveEntryAnchor } from "../../lib/archive";
 export function getStaticPaths() {
   return archiveLifecycles.map((group) => ({ params: { lifecycle: group.id }, props: { group } }));
 }
@@ -16,9 +16,9 @@ const headings = [
   ...(group.id === "obsolete-cases" ? [{ depth: 2, slug: "archive-heading", text: group.title }] : []),
   ...(group.id === "obsolete-cases"
     ? entries.map((entry) => entryHeading(entry, 3))
-    : getArchiveCategories(entries).flatMap((category) => [
+    : groupArchiveEntries(entries).flatMap(({ category, entries: categoryEntries }) => [
       { depth: 2, slug: archiveCategoryAnchor(category), text: category },
-      ...entries.filter((entry) => getArchiveCategory(entry) === category).map((entry) => entryHeading(entry, 3)),
+      ...categoryEntries.map((entry) => entryHeading(entry, 3)),
     ])),
 ];
 ---
