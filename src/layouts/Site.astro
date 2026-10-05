@@ -321,7 +321,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                     i >= 2 ? "nav-auxiliary" : "nav-main",
                   ]}
                   role="group"
-                  aria-label={i === 2 ? "Reference" : i === 3 ? "Knowledge Lifecycle" : "主要ナビ"}
+                  aria-label={i === 2 ? "Reference" : i === 3 ? retiredNavigation.title : "主要ナビ"}
                 >
                   {group.map((item) => (
                     <div

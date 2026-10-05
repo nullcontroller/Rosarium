@@ -46,7 +46,7 @@ export const readingGroups: Record<
       ],
     },
     {
-      title: "Knowledge / Context",
+      title: "ナレッジ / コンテキスト",
       ids: [
         "knowledge-context/instruction-knowledge-evidence",
         "knowledge-context/prompt-structure",
@@ -57,7 +57,7 @@ export const readingGroups: Record<
       ],
     },
     {
-      title: "評価・HITL",
+      title: "評価・ヒューマンレビュー",
       ids: [
         "evaluation-hitl/datasets-and-regression",
         "evaluation-hitl/qa-evaluation",
@@ -65,7 +65,7 @@ export const readingGroups: Record<
       ],
     },
     {
-      title: "Software Engineering",
+      title: "ソフトウェア開発",
       ids: [
         "software-engineering/code-generation-boundaries",
         "software-engineering/code-maintenance-context",
@@ -116,7 +116,7 @@ export const readingGroups: Record<
       ],
     },
     {
-      title: "Prompt・Knowledge運用",
+      title: "プロンプト・ナレッジ運用",
       ids: [
         "knowledge-context/prompt-structure",
         "knowledge-context/prompt-failure-modes",
@@ -139,7 +139,7 @@ export const readingGroups: Record<
       ],
     },
     {
-      title: "評価・Human Review",
+      title: "評価・ヒューマンレビュー",
       ids: [
         "evaluation-hitl/datasets-and-regression",
         "evaluation-hitl/responsibility-and-hitl",

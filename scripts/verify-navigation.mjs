@@ -16,7 +16,7 @@ const routeFromUrl = (value) => {
 const htmlForRoute = (route) =>
   path.join("dist", ...(route ? route.split("/") : []), "index.html");
 // Archive pages are noindex bridges to indexed obsolete content.
-for (const route of ["retired", "retired/obsolete", "retired/retired"]) locations.push(`https://nullcontroller.github.io/Rosarium/${route}/`);
+for (const route of ["retired", "retired/obsolete", "retired/obsolete-cases", "retired/retired"]) locations.push(`https://nullcontroller.github.io/Rosarium/${route}/`);
 const routes = new Set(locations.map(routeFromUrl));
 const pages = new Map();
 
@@ -89,7 +89,7 @@ const routePath = (route) => {
   while (result.at(-1) !== "") result.push(previous.get(result.at(-1)));
   return result.reverse();
 };
-const reportPages = [...pages].filter(([route]) => !["retired", "retired/obsolete", "retired/retired"].includes(route)).map(([route, page]) => ({
+const reportPages = [...pages].filter(([route]) => !["retired", "retired/obsolete", "retired/obsolete-cases", "retired/retired"].includes(route)).map(([route, page]) => ({
   url: page.url,
   title: page.title,
   entryPoint: page.entryPoint,

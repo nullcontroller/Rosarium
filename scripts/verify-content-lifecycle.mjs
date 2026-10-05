@@ -2,6 +2,7 @@ import fs from "node:fs";
 import crypto from "node:crypto";
 import assert from "node:assert/strict";
 import YAML from "yaml";
+import { getArchiveGroup, isCaseEntry, archiveLifecycles } from "../src/lib/archive.ts";
 import { load } from "cheerio";
 import { publicEntry, publishedEntry } from "../src/lib/site.ts";
 const report = JSON.parse(fs.readFileSync("migration/zenn-recovery-2026-10-05.json", "utf8"));
@@ -11,8 +12,9 @@ const feeds = ["feed.xml", "feed.json", "rss.xml"].map((name) => fs.readFileSync
 const counts = {};
 const archiveTop = load(fs.readFileSync("dist/retired/index.html", "utf8"));
 const obsoleteIndex = load(fs.readFileSync("dist/retired/obsolete/index.html", "utf8"));
+const obsoleteCasesIndex = load(fs.readFileSync("dist/retired/obsolete-cases/index.html", "utf8"));
 const retiredIndex = load(fs.readFileSync("dist/retired/retired/index.html", "utf8"));
-for (const [route, index] of [["retired", archiveTop], ["retired/obsolete", obsoleteIndex], ["retired/retired", retiredIndex]]) {
+for (const [route, index] of [["retired", archiveTop], ["retired/obsolete", obsoleteIndex], ["retired/obsolete-cases", obsoleteCasesIndex], ["retired/retired", retiredIndex]]) {
   const canonical = `https://nullcontroller.github.io/Rosarium/${route}/`;
   assert.match(index('meta[name="robots"]').attr("content"), /noindex/);
   assert.equal(index('link[rel="canonical"]').attr("href"), canonical);
@@ -35,10 +37,10 @@ const historical = fs.readdirSync("src/content", { recursive: true })
   .map((file) => ({ id: file.replaceAll("\\", "/").replace(/\.md$/, ""), data: YAML.parse(fs.readFileSync(`src/content/${file}`, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]) }))
   .filter((entry) => publishedEntry(entry) && !entry.data.source?.chapter_slug && ["obsolete", "retired"].includes(entry.data.lifecycle));
 assert.equal(archiveTop("[data-history-id]").length, 0);
-assert.equal(archiveTop("[data-archive-entrance]").length, 2);
-assert.equal(retiredIndex("[data-history-id]").length + obsoleteIndex("[data-history-id]").length, historical.length);
+assert.equal(archiveTop("[data-archive-entrance]").length, 3);
+assert.equal(retiredIndex("[data-history-id]").length + obsoleteIndex("[data-history-id]").length + obsoleteCasesIndex("[data-history-id]").length, historical.length);
 for (const entry of historical) {
-  const item = (entry.data.lifecycle === "obsolete" ? obsoleteIndex : retiredIndex)(`[data-history-group="${entry.data.lifecycle}"] [data-history-id="${entry.id}"]`);
+  const item = (entry.data.lifecycle === "obsolete" ? (isCaseEntry(entry) ? obsoleteCasesIndex : obsoleteIndex) : retiredIndex)(`[data-history-group="${entry.data.lifecycle}"] [data-history-id="${entry.id}"]`);
   assert.equal(item.length, 1);
   assert(item.closest("[data-archive-category]").length === 1);
   for (const route of ["cases", "books", "ai", "dx", "practices", "essays"]) {
@@ -48,13 +50,15 @@ for (const entry of historical) {
   assert(item.text().includes(entry.data.lifecycle_reason));
   assert.equal(item.find("time").last().attr("datetime"), entry.data.last_updated);
 }
-for (const lifecycle of ["obsolete", "retired"]) {
-  assert.equal(archiveTop(`[data-archive-entrance="${lifecycle}"] small`).text(), `${historical.filter((entry) => entry.data.lifecycle === lifecycle).length}件`);
+for (const group of archiveLifecycles) {
+  assert.equal(archiveTop(`[data-archive-entrance="${group.id}"] small`).text(), `${historical.filter((entry) => getArchiveGroup(entry) === group.id).length}件`);
 }
+assert.equal(obsoleteIndex('[data-archive-category="実践事例"]').length, 0);
+assert.equal(obsoleteCasesIndex('[data-history-id="cases/system-understanding"]').length, 1);
 const nav = retiredIndex(".sidebar .nav-group").last();
 assert.equal(retiredIndex('.sidebar [role="group"][aria-label="Reference"] a').attr("href"), "/Rosarium/reference/");
-assert.equal(retiredIndex('.sidebar [role="group"][aria-label="Knowledge Lifecycle"] a').attr("href"), "/Rosarium/retired/");
-assert.deepEqual(nav.find(".nav-copy > span").map((_, element) => nav.find(element).text()).get(), ["退役記事"]);
+assert.equal(retiredIndex('.sidebar [role="group"][aria-label="旧記事・退役記事"] a').attr("href"), "/Rosarium/retired/");
+assert.deepEqual(nav.find(".nav-copy > span").map((_, element) => nav.find(element).text()).get(), ["旧記事・退役記事"]);
 assert.equal(retiredIndex('.header-primary a.mobile-retired-link[href="/Rosarium/retired/"]').length, 1);
 for (const record of report.entries) {
   counts[record.lifecycle] = (counts[record.lifecycle] ?? 0) + 1;

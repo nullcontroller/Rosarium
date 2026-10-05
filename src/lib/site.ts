@@ -2,27 +2,27 @@ export const sections = [
   ["foundations", "AI設計原則", "新しい入口はStart Hereから"],
   [
     "architecture",
-    "Architecture",
-    "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むArchitectureを設計します。",
+    "システムアーキテクチャ",
+    "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むシステムアーキテクチャを設計します。",
   ],
   [
     "knowledge-context",
-    "Knowledge / Context",
-    "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。Knowledge / Contextの役割と更新方法を設計します。",
+    "ナレッジ / コンテキスト",
+    "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。ナレッジ / コンテキストの役割と更新方法を設計します。",
   ],
   [
     "evaluation-hitl",
-    "Evaluation / HITL",
-    "AIの答えをどこまで機械で評価し、どこから人間が判断するかを決めます。Evaluation / HITLで、採用と改善の基準を設計します。",
+    "評価・ヒューマンレビュー",
+    "AIの答えをどこまで機械で評価し、どこから人間が判断するかを決めます。評価・ヒューマンレビューで、採用と改善の基準を設計します。",
   ],
   [
     "software-engineering",
-    "Software Engineering",
+    "ソフトウェア開発",
     "コードを作る速さだけでなく、安全に変更を採用できるかを考えます。開発・保守の工程へAIを組み込む方法を扱います。",
   ],
   ["practices", "実践知", "導入・教育・適用判断"],
   ["cases", "実践事例", "原則を適用した実務事例"],
-  ["essays", "Essays", "市場・キャリア・技術への考察"],
+  ["essays", "考察", "市場・キャリア・技術への考察"],
 ] as const;
 export const base = "/Rosarium";
 export const siteDescription =
@@ -33,11 +33,11 @@ export const pageIntroductions: Record<string, string> = {
   "software-engineering":
     "コードを作る速さだけでなく、安全に変更を採用できるかを考えます。開発・保守の工程へAIを組み込む方法を扱います。",
   "evaluation-hitl":
-    "AIの答えをどこまで機械で評価し、どこから人間が判断するかを決めます。Evaluation / HITLで、採用と改善の基準を設計します。",
+    "AIの答えをどこまで機械で評価し、どこから人間が判断するかを決めます。評価・ヒューマンレビューで、採用と改善の基準を設計します。",
   "knowledge-context":
-    "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。Knowledge / Contextの役割と更新方法を設計します。",
+    "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。ナレッジ / コンテキストの役割と更新方法を設計します。",
   architecture:
-    "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むArchitectureを設計します。",
+    "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むシステムアーキテクチャを設計します。",
   ai: "AIを仕事やシステムへ組み込むために、人とAIの役割、知識と条件、評価、理論、実践を設計の視点から考えます。",
   "ai-design":
     "AIを導入する前に、変えたい仕事と、AI・人間が担う役割を決めます。必要な情報、確認方法、運用までを設計する領域です。",
@@ -106,6 +106,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   about: "2026-10-05",
   retired: "2026-10-05",
   "retired/obsolete": "2026-10-05",
+  "retired/obsolete-cases": "2026-10-05",
   "retired/retired": "2026-10-05",
   "garden-notes": "2026-10-05",
   articles: "2026-10-04",
@@ -148,8 +149,8 @@ export const layers = {
   career: "キャリア",
   reference: "Reference",
   practice: "実践知",
-  case: "Case / 実務事例",
-  publication: "Publication / 公開物",
+  case: "実務事例",
+  publication: "公開物",
 } as const;
 export const layerLabel = (layer: keyof typeof layers) => layers[layer];
 

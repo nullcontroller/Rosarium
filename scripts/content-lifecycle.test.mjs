@@ -51,3 +51,14 @@ test("archive categories follow metadata rather than titles and omit individual 
   assert.equal(isArchiveEntry(entry({ lifecycle: "retired" })), true);
   assert.equal(isArchiveEntry(entry({ source: { chapter_slug: "chapter" } })), false);
 });
+
+
+test("obsolete Cases and articles have separate entrances, while retirement is shared", async () => {
+  const { getArchiveGroup } = await import("../src/lib/archive.ts");
+  const entry = (lifecycle, section) => ({ data: { lifecycle, section } });
+  assert.equal(getArchiveGroup(entry("obsolete", "cases")), "obsolete-cases");
+  assert.equal(getArchiveGroup(entry("obsolete", "essays")), "obsolete");
+  assert.equal(getArchiveGroup(entry("retired", "cases")), "retired");
+  assert.equal(getArchiveGroup(entry("retired", "essays")), "retired");
+  assert.equal(getArchiveGroup(entry("active", "cases")), undefined);
+});

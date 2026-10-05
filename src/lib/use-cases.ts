@@ -34,7 +34,7 @@ export const useCases = [
   {
     id: "natural-language-services",
     title: "自然言語で業務を扱うサービスを考えたい",
-    shortTitle: "自然言語サービス・RAG・Knowledge",
+    shortTitle: "自然言語サービス・RAG・ナレッジ",
     description:
       "自然言語を入口として、企業内の知識・業務・既存システムを扱うサービスを、RAG、Context、Tool、Workflowから考えます。",
     path: "ai-design/knowledge-context",
@@ -54,7 +54,7 @@ export const useCases = [
   {
     id: "software-engineering",
     title: "AIを使って開発・保守したい",
-    shortTitle: "AI × Software Engineering",
+    shortTitle: "AI × ソフトウェア開発",
     description:
       "コード生成、複数AI、仕様理解、既存ソフトウェアの変更と評価を、開発工程へ安全に組み込む方法を整理します。",
     path: "ai-design/software-engineering",
@@ -89,9 +89,9 @@ export const useCases = [
   {
     id: "case-studies",
     title: "実際にどうやったか見たい",
-    shortTitle: "Case・実務",
+    shortTitle: "事例・実務",
     description:
-      "QA / RAG、Knowledge再構築、複数AI、既存ソフトウェア改善へ、設計原則を適用した事例を見ます。",
+      "QA / RAG、ナレッジ再構築、複数AI、既存ソフトウェア改善へ、設計原則を適用した事例を見ます。",
     path: "cases",
     home: true,
     featured: [
@@ -109,7 +109,7 @@ export const useCases = [
   {
     id: "career-work",
     title: "キャリアと仕事の設計を考えたい",
-    shortTitle: "キャリア・Work Design",
+    shortTitle: "キャリア・仕事の設計",
     description:
       "AI人材、技術職、レビュー、情報発信など、技術を取り巻く仕事とキャリアについての論考を読みます。",
     path: "ai",

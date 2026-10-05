@@ -1,11 +1,20 @@
 import type { CollectionEntry } from "astro:content";
+export const archiveTitle = "旧記事・退役記事";
 export const archiveLifecycles = [
-  { lifecycle: "obsolete", title: "旧記事", description: "現在の推奨ではありませんが、当時の前提や判断に参考価値があります。" },
-  { lifecycle: "retired", title: "退役記事", description: "独立コンテンツとしての役割を終え、過去の思考や設計判断の記録として保存しています。" },
+  { id: "obsolete", lifecycle: "obsolete", title: "旧記事", description: "現在は推奨しませんが、当時の前提や判断を参考として残している記事です。" },
+  { id: "obsolete-cases", lifecycle: "obsolete", title: "旧事例", description: "現在の推奨構成ではない、過去の実践事例です。" },
+  { id: "retired", lifecycle: "retired", title: "退役記事", description: "独立した役割を終え、過去の記録として保存している内容です。" },
 ] as const;
+export const isCaseEntry = (entry: CollectionEntry<"pages">) =>
+  entry.data.section === "cases" || entry.data.kind === "case" || entry.data.layer === "case";
+export function getArchiveGroup(entry: CollectionEntry<"pages">) {
+  if (entry.data.lifecycle === "retired") return "retired";
+  if (entry.data.lifecycle === "obsolete") return isCaseEntry(entry) ? "obsolete-cases" : "obsolete";
+  return undefined;
+}
 export function getArchiveCategory(entry: CollectionEntry<"pages">) {
   const d = entry.data;
-  if (d.section === "cases" || d.kind === "case" || d.layer === "case") return "実践事例";
+  if (isCaseEntry(entry)) return "実践事例";
   if (d.section === "essays") return "考察";
   if (d.primaryCategory || d.entry_points.includes("dx")) return "DX";
   if (d.entry_points.includes("ai") || ["ai-design", "ai-mathematics", "practice"].includes(d.layer)) return "AI";

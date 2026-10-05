@@ -8,8 +8,8 @@ import PageHeader from "../components/PageHeader.astro";
 const all = await getCollection("pages", activeEntry);
 ---
 
-<Site title="Books — 実務事例" section="cases">
-  <PageHeader icon="cases" title="Books — 実務事例" />
+<Site title="ブック — 実務事例" section="cases">
+  <PageHeader icon="cases" title="ブック — 実務事例" />
   {caseStudies.filter((study) => all.some((entry) => entry.id === study.book)).map((study) => (
     <SeriesIndex entry={all.find((e) => e.id === study.book)!} all={all} />
   ))}

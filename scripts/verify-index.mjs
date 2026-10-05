@@ -150,13 +150,13 @@ assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["庭", "AI", "DX", "実践事例", "Reference", "退役記事"],
+  ["庭", "AI", "DX", "実践事例", "Reference", "旧記事・退役記事"],
 );
 assert.deepEqual(
   top(".header-primary a")
     .map((_, e) => top(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "事例", "退役記事"],
+  ["庭", "AI", "DX", "事例", "旧記事・退役記事"],
 );
 assert.equal(top('.header-primary a[href="/Rosarium/cases/"]').length, 1);
 assert.equal(top('.header-primary a[href="/Rosarium/career/"]').length, 0);
@@ -166,7 +166,7 @@ assert.equal(top("#global-search-input").length, 1);
 assert.equal(top(".global-search-toggle").length, 1);
 assert(!top(".sidebar-label").text().includes("設計体系"));
 assert.equal(top(".sidebar details").length, 0);
-assert.deepEqual(top(".sidebar .nav-auxiliary .nav-copy > span").map((_, e) => top(e).text()).get(), ["Reference", "退役記事"]);
+assert.deepEqual(top(".sidebar .nav-auxiliary .nav-copy > span").map((_, e) => top(e).text()).get(), ["Reference", "旧記事・退役記事"]);
 for (const secondary of ["詳細職務経歴", "Books", "連載", "Essays"])
   assert(
     !top(".sidebar nav a .nav-copy > span").text().includes(secondary),
@@ -199,7 +199,7 @@ assert.deepEqual(
   career(".header-primary a")
     .map((_, e) => career(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "事例", "退役記事"],
+  ["庭", "AI", "DX", "事例", "旧記事・退役記事"],
 );
 assert(career('a[href="/Rosarium/ai/"]').length);
 assert(career('a[href="/Rosarium/dx/"]').length);
@@ -322,7 +322,7 @@ assert.equal(pubs("#ai-themes-heading").text(), "AIを考える5つのテーマ"
 const aiSections = pubs('[data-domain-theme="ai"]');
 assert.equal(aiSections.length, 5);
 assert.deepEqual(aiSections.find(".dx-theme-introduction h2").map((_, el) => pubs(el).text()).get(),
-  ["AI設計", "AIの性質・理論", "Knowledge / Context", "評価・人による確認", "実践・開発"]);
+  ["AI設計", "AIの性質・理論", "ナレッジ / コンテキスト", "評価・ヒューマンレビュー", "実践・開発"]);
 const aiFeatured = pubs("[data-ai-featured]").map((_, el) => pubs(el).attr("data-ai-featured")).get();
 assert.equal(aiFeatured.length, 5);
 assert.equal(new Set(aiFeatured).size, 5);
@@ -749,7 +749,7 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
     const categories = $("main [data-practice-category]");
     assert.equal(categories.length, 4);
     assert.deepEqual(categories.map((_, node) => $(node).children("h2").text()).get(), [
-      "導入・教育・定着", "Prompt・Knowledge運用", "開発・保守", "評価・Human Review",
+      "導入・教育・定着", "プロンプト・ナレッジ運用", "開発・保守", "評価・ヒューマンレビュー",
     ]);
     categories.each((_, category) => {
       const links = $(category).find(".content-title a").map((_, e) => $(e).attr("href")).get();
@@ -920,4 +920,6 @@ for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "
 }
 assert.equal(page("about")('main h2').filter((_, node) => page("about")(node).text() === "次に読む").length, 0);
 assert.equal(page("about")('main a[href="/Rosarium/"]').text(), "庭に戻る");
-assert(page("")('.home-career p br').length, "Career introduction has an explicit sentence break");
+assert.equal(page("")('.home-career .career-overview .meaning-line').length, 3);
+assert.equal(page("")('.home-career .career-background .meaning-line').length, 2);
+assert.equal(page("")('.home-career br').length, 0);

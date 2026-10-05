@@ -21,19 +21,19 @@ export const aiThemes = [
     article: "foundations/conditional-probability", layer: "ai-mathematics",
   },
   {
-    id: "knowledge-context", title: "Knowledge / Context", path: "ai-design/knowledge-context",
+    id: "knowledge-context", title: "ナレッジ / コンテキスト", path: "ai-design/knowledge-context",
     paragraphs: [
       "AIに何を指示し、何を知識として持たせ、今回の回答には何を根拠として渡すかを分けます。モデルの性能だけでなく、参照できる情報の範囲と鮮度を考えます。",
-      "検索で必要な情報へ届くか、対象や条件に合う情報かを確かめます。Knowledge / Contextを分けることで、更新や失敗原因の確認をしやすくします。",
+      "検索で必要な情報へ届くか、対象や条件に合う情報かを確かめます。ナレッジ / コンテキストを分けることで、更新や失敗原因の確認をしやすくします。",
     ],
     questions: ["AIは何を参照できる状態で答えているか。", "指示・知識・今回の根拠をどう分けるか。", "RAGで解決できる問題と、残る問題は何か。"],
     article: "knowledge-context/instruction-knowledge-evidence", layer: "ai-design", topic: "knowledge-context",
   },
   {
-    id: "evaluation-hitl", title: "評価・人による確認", path: "ai-design/evaluation-hitl",
+    id: "evaluation-hitl", title: "評価・ヒューマンレビュー", path: "ai-design/evaluation-hitl",
     paragraphs: [
       "AIの回答を何で評価し、どこから人が確認・判断するかを決めます。正答率だけでなく、根拠の提示、回答を控える判断、人への引き継ぎも評価します。",
-      "検索・生成・業務効果を分けて測り、失敗を次の改善へ戻します。Evaluation / Human in the Loopを、採用基準と責任の置き方につなげます。",
+      "検索・生成・業務効果を分けて測り、失敗を次の改善へ戻します。評価・人による確認を、採用基準と責任の置き方につなげます。",
     ],
     questions: ["回答を採用してよいと判断する基準は何か。", "どの条件で自動回答を止め、人へ渡すか。", "失敗の原因をどの工程へ戻して改善するか。"],
     article: "evaluation-hitl/qa-evaluation", layer: "ai-design", topic: "evaluation-hitl",

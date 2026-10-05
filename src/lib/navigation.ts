@@ -1,6 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import { label } from "./site";
 import { iconForPath } from "./icons";
+import { archiveTitle } from "./archive";
 import { dxCategories } from "./dx";
 export type Entry = CollectionEntry<"pages">;
 
@@ -60,7 +61,7 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
     {
       path: "ai",
       title: "AI",
-      summary: "AIを業務やシステムへ組み込むための設計・理論・実践知。",
+      summary: "AIを仕事へ組み込む設計・実践。",
       icon: iconForPath("articles"),
       sections: ["ai", "articles", "ai-design", "ai-mathematics", "practices"],
     },
@@ -90,7 +91,7 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
   [
     {
       path: "retired",
-      title: "退役記事",
+      title: archiveTitle,
       summary: "旧記事・役割を終えた記事",
       icon: iconForPath("retired"),
     },
@@ -109,28 +110,28 @@ export const designTopics = [
   ],
   [
     "architecture",
-    "Architecture",
-    "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むArchitectureを設計します。",
+    "システムアーキテクチャ",
+    "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むシステムアーキテクチャを設計します。",
   ],
   [
     "knowledge-context",
-    "Knowledge / Context",
-    "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。Knowledge / Contextの役割と更新方法を設計します。",
+    "ナレッジ / コンテキスト",
+    "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。ナレッジ / コンテキストの役割と更新方法を設計します。",
   ],
   [
     "evaluation-hitl",
-    "Evaluation / HITL",
-    "AIの答えをどこまで機械で評価し、どこから人間が判断するかを決めます。Evaluation / HITLで、採用と改善の基準を設計します。",
+    "評価・ヒューマンレビュー",
+    "AIの答えをどこまで機械で評価し、どこから人間が判断するかを決めます。評価・ヒューマンレビューで、採用と改善の基準を設計します。",
   ],
   [
     "software-engineering",
-    "Software Engineering",
+    "ソフトウェア開発",
     "コードを作る速さだけでなく、安全に変更を採用できるかを考えます。開発・保守の工程へAIを組み込む方法を扱います。",
   ],
   [
     "lifecycle-operations",
-    "Lifecycle / Operations",
-    "導入後に何を監視し、変更時に何を確認し、いつ停止するかを考えます。Lifecycle / Operationsとして改善・移行・終了まで設計します。",
+    "ライフサイクル・運用",
+    "導入後に何を監視し、変更時に何を確認し、いつ停止するかを考えます。ライフサイクル・運用として改善・移行・終了まで設計します。",
   ],
 ] as const;
 export const topicLabel = (key?: string) =>
@@ -253,7 +254,7 @@ const caseStudyEntries: CaseStudy[] = [
   {
     book: "cases/system-understanding",
     referenceNote: "旧AI環境を前提とした参考事例",
-    topics: ["QA / RAG", "Knowledge再構築"],
+    topics: ["QA / RAG", "ナレッジ再構築"],
     challenge:
       "仕様書だけでは内部仕様を追えず、知識が長期担当者に依存していた。",
     designSummary:
@@ -296,7 +297,7 @@ const caseStudyEntries: CaseStudy[] = [
     challenge:
       "定型的な確認や検索にも人手が掛かり、専門判断が必要な問い合わせと同じ流れで対応していた。",
     designSummary:
-      "Knowledge / RAGと生成AIを組み合わせ、回答条件を満たさない場合は人へ引き継ぐ構成にした。",
+      "ナレッジ / RAGと生成AIを組み合わせ、回答条件を満たさない場合は人へ引き継ぐ構成にした。",
     result:
       "AIで回答できる問い合わせと、人が判断すべき問い合わせを分けて運用できるように設計した。",
     chapters: [

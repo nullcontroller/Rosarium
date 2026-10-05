@@ -1,6 +1,7 @@
 ---
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
+import { archiveTitle } from "../lib/archive";
 import { url } from "../lib/site";
 ---
 
@@ -58,20 +59,19 @@ import { url } from "../lib/site";
       <li>役目を終える（Retire）：通常導線から外し、過去の記録として残す。</li>
     </ol>
     <p>現役記事（ACTIVE）は現在の考え方として公開し、旧記事（OBSOLETE）は当時の前提や判断を示す参考記事として残します。退役記事（RETIRED）は独立した役割を終えた記録です。削除は、誤公開やテストなど履歴としても残す意味がない場合に限ります。</p>
-    <p><a href={url("retired")}>退役記事を見る</a></p>
+    <p><a href={url("retired")}>{archiveTitle}</a></p>
     <h2>何を扱うか</h2>
     <p>
       業務や利用者の課題を起点に、AI・人間・データ・既存システムの役割を決め、運用・改善・終了までを考えます。
     </p>
     <p>
       AIを業務へ適用する設計（Applied
-      AI）、業務やサービスのあり方を変えるDX、仕組み全体を組み立てるSystem
-      Architectureを、一続きの設計問題として扱います。
+      AI）、業務やサービスのあり方を変えるDX、仕組み全体を組み立てるシステムアーキテクチャを、一続きの設計問題として扱います。
     </p>
     <p>以下の領域を、実践事例と合わせて整理しています。</p>
     <ul>
-      <li>回答に使う知識とその場の条件（Knowledge / Context）</li>
-      <li>結果の評価と人間の判断（Evaluation / Human in the Loop）</li>
+      <li>回答に使う知識とその場の条件（ナレッジ / コンテキスト）</li>
+      <li>結果の評価と人間の判断（評価・ヒューマンレビュー）</li>
       <li>システムの維持・変更・終了（Software Lifecycle）</li>
       <li>既存資産の理解と改善（Legacy Modernization）</li>
     </ul>
