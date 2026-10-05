@@ -863,19 +863,15 @@ blockquote {
 }
 .site-footer {
   border-top: 1px solid var(--line);
-  padding: 1.3rem 2rem;
-  color: var(--muted);
-  font-size: 0.72rem;
-  text-align: center;
-}
-.footer-brand strong,
-.footer-brand span {
-  display: block;
-}
-.footer-brand span {
+  padding: 1rem 2rem;
   color: var(--muted);
   font-size: 0.75rem;
-  margin-top: 0.2rem;
+  text-align: start;
+}
+.site-footer > .meta {
+  max-width: 80rem;
+  margin: 0 auto;
+  line-height: 1.7;
 }
 .hero-author {
   color: var(--muted);
@@ -2319,6 +2315,7 @@ article[data-lifecycle="retired"],
 
 /* Keep the Garden introduction short so readers see content updates first. */
 .home-introduction .document-title-row { margin-bottom: 0.75rem; }
+.home-introduction .home-site-description { max-width:70ch; }
 .home-introduction h1 { margin-block: 0.25rem; }
 .home-introduction p { margin-block: 0.5rem; }
 .home-page .home-introduction + .home-section { margin-top: 1rem; }
