@@ -10,8 +10,9 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
     <button type="button" data-reference-close aria-label="Referenceを閉じる">閉じる</button>
   </header>
   <div class="reference-panel-scroll">
+    <p class="reference-panel-intro">記事を読みながら、用語・数式・参考資料を確認できます。</p>
     <label for="reference-panel-search">用語・数式・参考資料を検索</label>
-    <input id="reference-panel-search" type="search" placeholder="例：コンテキスト" autocomplete="off" />
+    <input id="reference-panel-search" type="search" placeholder="用語を検索..." autocomplete="off" />
     <p data-reference-status role="status" aria-live="polite">必要な資料をこのパネルで確認できます。</p>
     <div data-reference-documents>
       {entries.map((entry) => <details data-reference-document data-reference-url={url(entry.id)}>
@@ -104,6 +105,60 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
     return loaded;
   }
 
+  const storageKey = "rosarium-reference-used";
+  function remembered(key: string) { try { return localStorage.getItem(key) === "true"; } catch { return false; } }
+  function remember(key: string) { try { localStorage.setItem(key, "true"); } catch { /* Storage may be unavailable in private browsing. */ } }
+  function track(name: string, termId?: string) {
+    const analytics = window as typeof window & { gtag?: (...args: unknown[]) => void };
+    const init = document.querySelector("[data-analytics-init]");
+    if (!analytics.gtag || !init) return;
+    const contentType = document.querySelector('meta[name="analytics-content-type"]')?.getAttribute("content") ?? "article";
+    analytics.gtag("event", name, { page_path: location.pathname, content_type: contentType, ...(termId ? { term_id: termId } : {}) });
+  }
+  const article = document.querySelector<HTMLElement>('main article[data-pagefind-body]');
+  if (article && !urls.has(location.pathname)) {
+    const header = article.querySelector(".document-header");
+    if (header) {
+      const action = document.createElement("a");
+      action.href = referenceUrl;
+      action.dataset.referenceToggle = "true";
+      action.className = "reference-reading-action";
+      action.textContent = "Referenceを開く";
+      header.append(action);
+      if (!remembered(storageKey) && !remembered("rosarium-reference-hint-seen")) {
+        const hint = document.createElement("p");
+        hint.className = "reference-first-hint";
+        hint.textContent = "用語や数式は、Referenceを開くと記事を読みながら確認できます。";
+        hint.dataset.referenceHint = "true";
+        header.append(hint);
+        remember("rosarium-reference-hint-seen");
+      }
+    }
+    // Only two useful glossary terms, once each; never alter headings, code, existing links or historical records.
+    if (article.dataset.lifecycle === "active") {
+      for (const [word, termId] of [["コンテキスト", "context"], ["ナレッジ", "knowledge"]]) {
+        const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT);
+        let node: Node | null;
+        while ((node = walker.nextNode())) {
+          const parent = node.parentElement;
+          if (!parent?.closest(".prose p,.prose li") || parent.closest("a,code,pre,button,summary,[data-pagefind-ignore]")) continue;
+          const at = node.textContent!.indexOf(word);
+          if (at < 0) continue;
+          const link = document.createElement("a");
+          link.href = [...urls].find((url) => url.endsWith("/glossary/"))!;
+          link.dataset.referenceTerm = word;
+          link.dataset.referenceTermId = termId;
+          link.className = "reference-term";
+          link.title = "Referenceで確認";
+          link.setAttribute("aria-label", word + "をReferenceで確認");
+          link.textContent = word;
+          const text = node as Text;
+          const tail = text.splitText(at); tail.splitText(word.length); tail.replaceWith(link);
+          break;
+        }
+      }
+    }
+  }
   function triggers() {
     return [...document.querySelectorAll<HTMLAnchorElement>('a[href]')].filter((link) => !link.hasAttribute("data-reference-page") &&
       (link.pathname === referenceUrl || urls.has(link.pathname)) && link.origin === location.origin);
@@ -111,6 +166,12 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
   function syncTriggers(open: boolean) {
     triggers().forEach((link) => {
       link.setAttribute("aria-controls", panel.id);
+      if (link.closest(".sidebar") || link.hasAttribute("data-reference-toggle")) {
+        link.dataset.referenceToggle = "true";
+        link.setAttribute("aria-label", open ? "Referenceを閉じる" : "Referenceを開く");
+        if (link.classList.contains("reference-reading-action")) link.textContent = open ? "Referenceを閉じる" : "Referenceを開く";
+        else link.setAttribute("title", open ? "Referenceを閉じる" : "記事を開いたままReferenceを開く");
+      }
       link.setAttribute("aria-expanded", String(open));
       link.setAttribute("aria-haspopup", "dialog");
     });
@@ -136,6 +197,9 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
   }
   async function open(trigger: HTMLElement, target?: URL) {
     if (panel.hidden) {
+      remember(storageKey);
+      document.querySelectorAll("[data-reference-hint]").forEach((hint) => hint.remove());
+      track("reference_open");
       opener = trigger;
       savedScroll = window.scrollY;
       previousRestoration = history.scrollRestoration;
@@ -155,6 +219,7 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
       syncTriggers(true);
     }
     search.value = trigger.dataset.referenceTerm ?? "";
+    if (trigger.dataset.referenceTermId) track("reference_term_open", trigger.dataset.referenceTermId);
     panel.querySelector<HTMLButtonElement>("[data-reference-close]")!.focus({ preventScroll: true });
     await loadReferences();
     if (panel.hidden) return;
@@ -176,9 +241,11 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
     const target = new URL(link.href);
     if (target.origin !== location.origin || (!urls.has(target.pathname) && target.pathname !== referenceUrl)) return;
     event.preventDefault();
-    void open(link, target);
+    if (!panel.hidden && link.hasAttribute("data-reference-toggle")) close();
+    else void open(link, target);
   });
-  search.addEventListener("input", filter);
+  let searchTracked = false;
+  search.addEventListener("input", () => { filter(); if (!searchTracked && search.value.trim()) { track("reference_search"); searchTracked = true; } });
   panel.querySelector("[data-reference-close]")!.addEventListener("click", close);
   window.addEventListener("popstate", restore);
   desktop.addEventListener("change", close);
@@ -195,6 +262,13 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
   });
 </script>
 <style is:global>
+.reference-reading-action { display: inline-flex; align-items: center; min-height: 44px; padding: .4rem .7rem; border: 1px solid var(--line); font-size: .875rem; }
+.reference-first-hint { font-size: .875rem; color: var(--muted); margin: .5rem 0 0; max-width: 45rem; }
+a.reference-term { color: inherit; text-decoration: underline dotted; text-underline-offset: .2em; cursor: help; }
+a.reference-term:hover { text-decoration-style: solid; }
+.reference-reading-action:focus-visible, a.reference-term:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sidebar a[data-reference-toggle]::after { content: "▥"; font-size: 1.1rem; margin-left: auto; }
+.sidebar a[data-reference-toggle][aria-expanded="true"] { background: var(--surface); outline: 1px solid var(--line); }
 body { --reference-panel-width: clamp(20rem, 24vw, 32rem); }
 .reference-panel[hidden] { display: none; }
 .reference-panel { position: fixed; top: 88px; right: 0; z-index: 60; width: var(--reference-panel-width); height: calc(100dvh - 88px); background: var(--surface); border-left: 1px solid var(--line); display: flex; flex-direction: column; color: var(--ink); }
