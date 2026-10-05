@@ -7,9 +7,14 @@ import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 const all = await getCollection("pages", activeEntry);
 const caseGroups = [{ id: "active-cases", title: "主要事例", description: "", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
+const caseAnchor = (id: string) => `case-${id.split("/").pop()}`;
+const headings = caseGroups.filter((group) => group.studies.length > 0).flatMap((group) => [
+  { depth: 2, slug: `${group.id}-heading`, text: group.title },
+  ...group.studies.map((study) => ({ depth: 3, slug: caseAnchor(study.book), text: all.find((entry) => entry.id === study.book)!.data.title })),
+]);
 ---
 
-<Site title="実践事例" section="cases">
+<Site title="実践事例" section="cases" headings={headings} mobilePageToc>
   <PageHeader title="実践事例" />
   <p>各事例が扱う課題、設計、到達点を確認し、必要な章へ進めます。</p>
   {caseGroups
@@ -28,7 +33,7 @@ const caseGroups = [{ id: "active-cases", title: "主要事例", description: ""
           <p class="case-group-description">{group.description}</p>
         )}
         {group.studies.map((study) => (
-          <div class="case-study-index">
+          <div id={caseAnchor(study.book)} class="case-study-index">
             <SeriesIndex
               entry={all.find((e) => e.id === study.book)!}
               all={all}

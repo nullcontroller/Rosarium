@@ -41,6 +41,7 @@ interface Props {
   };
   frame?: boolean;
   showRightSidebar?: boolean;
+  mobilePageToc?: boolean;
 }
 const {
   title,
@@ -61,6 +62,7 @@ const {
   bookNavigation,
   frame = true,
   showRightSidebar = true,
+  mobilePageToc = false,
 } = Astro.props;
 const hasPageToc = !!bookNavigation || headings.length > 0;
 const referenceSidebar = showRightSidebar && frame && (hasPageToc || ["articles", "ai-design", "ai-mathematics", "practices", "reference", "cases"].includes(section || ""));
@@ -422,6 +424,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             </ol>
           </details>
         )}
+        {mobilePageToc && headings.length > 0 && <details class="book-toc-mobile" data-page-heading-toc><summary>目次</summary><ol>{headings.filter((h) => h.depth <= 3).map((h) => <li><a href={"#" + h.slug}>{h.text}</a></li>)}</ol></details>}
         <slot />
       </main>
       {referenceSidebar && (
@@ -433,7 +436,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           </div>
           <button type="button" class="right-sidebar-collapse" data-right-sidebar-toggle aria-controls="right-sidebar" aria-expanded="true" aria-label="右補助サイドバーを閉じる" title="右補助サイドバーを閉じる">閉じる</button>
           </div>
-          {hasPageToc && <div id="page-toc-panel" class="page-toc-panel" role="tabpanel" aria-labelledby="page-toc-tab">
+          {hasPageToc && <div id="page-toc-panel" data-page-heading-toc={!bookNavigation ? true : undefined} class="page-toc-panel" role="tabpanel" aria-labelledby="page-toc-tab">
             {bookNavigation ? <>
               <p class="book-toc-title">{bookNavigation.title}</p>
               <ol>{bookNavigation.items.map((item) => <li class:list={[item.current && "current"]}><a href={item.href} aria-current={item.current ? "page" : undefined}>{item.title}</a></li>)}</ol>
@@ -466,6 +469,26 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       </p>
     </footer>
     <script>
+      // Shared page-heading navigation: desktop and mobile use the same targets.
+      const headingLinks = [...document.querySelectorAll<HTMLAnchorElement>("[data-page-heading-toc] a[href^='#']")];
+      const targets = [...new Set(headingLinks.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1)))))].filter((target): target is HTMLElement => !!target);
+      if (targets.length) {
+        const updateHeading = () => {
+          const atEnd = window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+          const current = atEnd ? targets[targets.length - 1] : [...targets].reverse().find((target) => target.getBoundingClientRect().top <= 150) || targets[0];
+          headingLinks.forEach((link) => {
+            if (decodeURIComponent(link.hash.slice(1)) === current.id) link.setAttribute("aria-current", "location");
+            else link.removeAttribute("aria-current");
+          });
+        };
+        let pending = false;
+        window.addEventListener("scroll", () => {
+          if (pending) return;
+          pending = true;
+          requestAnimationFrame(() => { updateHeading(); pending = false; });
+        }, { passive: true });
+        updateHeading();
+      }
       const theme = document.querySelector("#theme");
       try {
         const saved = localStorage.getItem("adf-theme");

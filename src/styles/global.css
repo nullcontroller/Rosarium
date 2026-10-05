@@ -2408,3 +2408,6 @@ article[data-lifecycle="retired"],
 }
 
 .shell.standalone-reading > main { width: 100%; max-width: 64rem; margin-inline: auto; }
+
+[data-page-heading-toc] a[aria-current="location"] { color: var(--accent); font-weight: 650; text-decoration: underline; }
+.case-study-index[id] { scroll-margin-top: 6rem; }
