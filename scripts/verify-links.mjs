@@ -21,7 +21,7 @@ for (const name of ["zenn", "wiki"]) {
     if (metadata.status === "draft" || metadata.public === false) continue;
     assert(
       fs.existsSync(
-        path.join(root, e.category, e.destination_slug, "index.html"),
+        path.join(root, e.destination_file.replace(/^src\/content\//, "").replace(/\.md$/, ""), "index.html"),
       ),
       "Missing migrated page " + e.destination_file,
     );
