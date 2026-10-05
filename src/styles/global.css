@@ -2392,11 +2392,17 @@ article[data-lifecycle="retired"],
 .sidebar .nav-lifecycle { margin-top: 1.5rem; padding-top: 1.25rem; }
 @media (max-width: 760px) { .sidebar .nav-lifecycle { display: none; } }
 
-/* Primary mobile navigation stays compact; lifecycle navigation is auxiliary. */
+/* Mobile navigation is one row, independent of desktop rail sizing. */
 @media (max-width: 760px) {
-  .header-primary { width: 100%; justify-content: flex-start; gap: .25rem; }
+  .masthead { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: .35rem; row-gap: .2rem; }
+  .header-links { display: contents; }
+  .brand { grid-column: 1; grid-row: 1; gap: .35rem; }
+  .brand-mark { width: 1.75rem; height: 1.75rem; }
+  .header-actions { position: static; grid-column: 2; grid-row: 1; width: max-content; }
+  .header-primary { grid-column: 1 / -1; grid-row: 2; }
+  .header-primary { display: flex; width: 100%; min-width: 0; justify-content: flex-start; flex-wrap: nowrap; gap: clamp(.5rem, 2vw, .875rem); }
   .header-primary a { flex: 0 0 auto; min-width: 0; padding-inline: .5rem; min-height: 44px; }
-  .header-primary .mobile-retired-link { margin-left: auto; min-width: 5.25rem; padding-inline: .75rem; font-weight: 450; color: var(--muted); }
+  .header-primary .mobile-retired-link { margin-left: 0; min-width: 0; padding-inline: .5rem; font-weight: 450; color: var(--muted); }
   .header-primary .mobile-retired-link[aria-current="page"] { color: var(--accent); }
 }
 /* Rails represent navigation and reading assistance, not equal columns. */
@@ -2411,3 +2417,5 @@ article[data-lifecycle="retired"],
 
 [data-page-heading-toc] a[aria-current="location"] { color: var(--accent); font-weight: 650; text-decoration: underline; }
 .case-study-index[id] { scroll-margin-top: 6rem; }
+
+@media (max-width: 380px) { .masthead .brand { gap: .125rem; } .masthead .brand-name { font-size: 1.5rem; } }
