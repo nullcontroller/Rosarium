@@ -29,7 +29,7 @@ source:
     title: 第2章　異常系の構造を整理し、設計方針を確定する
     free: false
 series: three-ai-maintenance
-series_title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
+series_title: 複数AIを使い分けるレガシー保守
 order: 2
 ---
 

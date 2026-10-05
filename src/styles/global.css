@@ -2332,19 +2332,19 @@ article[data-lifecycle="retired"],
 }
 
 /* Two peer entry panels; history remains in the document flow. */
-.home-primary-panels { display:grid; gap:1.5rem; margin-top:1rem; }
+.home-primary-panels { display:grid; align-items:start; gap:1.5rem; margin-top:1rem; }
 .home-primary-panels > .home-section { margin:0; min-width:0; padding:1rem; border:1px solid var(--line); }
 .home-primary-panels #home-career-heading { font-size:1.1rem; font-weight:600; line-height:1.4; margin:.2rem 0 .6rem; }
 .home-primary-panels .growth-list { margin:.75rem 0 0; border:0; }
 .home-primary-panels .growth-entry { border:0; padding:.5rem 0; }
 .home-primary-panels .content-title { font-size:1rem; }
-@media (min-width:1100px) { .home-primary-panels { grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:stretch; } }
+@media (min-width:1100px) { .home-primary-panels { grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:start; } }
 
 /* Home density: keep the two gateways visible without changing reading pages. */
 .home-page .hero.home-introduction { padding-block:.75rem; margin-bottom:.75rem; }
 .home-introduction .document-title-row { margin-bottom:.35rem; }
 .home-primary-panels { gap:1rem; margin-top:.5rem; }
-.home-primary-panels > .home-section { padding:.9rem; }
+.home-primary-panels > .home-section { padding:.9rem; border-color:color-mix(in srgb, var(--line) 65%, transparent); }
 .home-primary-panels .section-heading { margin-bottom:.5rem; }
 .home-primary-panels p { margin-block:.55rem; line-height:1.65; }
 .home-primary-panels .growth-changes li { margin-block:.3rem; line-height:1.65; }
@@ -2423,3 +2423,6 @@ article[data-lifecycle="retired"],
 .case-study-index[id] { scroll-margin-top: 6rem; }
 
 @media (max-width: 380px) { .masthead .brand { gap: .125rem; } .masthead .brand-name { font-size: 1.5rem; } }
+
+/* Archive headings stay below the sticky masthead when navigating categories. */
+.archive-page #archive-heading, .retired-page h2[id] { scroll-margin-top: 6rem; }

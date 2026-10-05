@@ -29,7 +29,7 @@ source:
     title: 第6章　全体像を共有しながら、コード生成と単体テストを進める
     free: false
 series: three-ai-maintenance
-series_title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
+series_title: 複数AIを使い分けるレガシー保守
 order: 6
 ---
 

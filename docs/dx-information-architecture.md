@@ -21,7 +21,7 @@ DX対象36件を監査し、主カテゴリ1つ・副カテゴリ0件以上へ�
 | [01. なぜAIを導入したのか](../src/content/cases/customer-support-ai-dx/why-ai.md) | 業務変革 | なし | — |
 | [生成AI / RAGによる顧客サポートDX](../src/content/cases/customer-support-ai-dx.md) | 業務変革 | 継続的価値創出 | — |
 | [理解しにくいレガシーシステムを、変更判断できる状態へ変える](../src/content/cases/system-understanding.md) | システム変革 | なし | — |
-| [仕様調査から実装まで、複数AIを役割分担したレガシー保守](../src/content/cases/three-ai-maintenance.md) | システム変革 | なし | — |
+| [複数AIを使い分けるレガシー保守](../src/content/cases/three-ai-maintenance.md) | システム変革 | なし | — |
 | [理解できないシステムは、コストである](../src/content/cases/understanding-systems-as-capability.md) | システム変革 | 選択と廃止 | — |
 | [DXを学んで、「価値」という言葉が気になるようになった](../src/content/essays/dx-and-value.md) | 価値設計 | なし | 代表記事 |
 | [IT戦略では「何を作らないか」も設計する](../src/content/essays/it-strategy-and-not-building.md) | 選択と廃止 | 価値設計・システム変革 | 代表記事 |

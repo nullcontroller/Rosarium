@@ -29,7 +29,7 @@ source:
     title: 第3章　GitHub Copilotと人間で実現方法を具体化する
     free: false
 series: three-ai-maintenance
-series_title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
+series_title: 複数AIを使い分けるレガシー保守
 order: 3
 ---
 

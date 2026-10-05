@@ -182,30 +182,6 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
       link.setAttribute("aria-haspopup", "dialog");
     });
   }
-  const railStorageKey = "rosarium-right-sidebar-closed";
-  let railClosed = remembered(railStorageKey);
-  const railButtons = [...document.querySelectorAll<HTMLButtonElement>("[data-right-sidebar-toggle]")];
-  function setRailClosed(closed: boolean, persist = true) {
-    if (!host) return;
-    railClosed = closed;
-    if (persist) { try { localStorage.setItem(railStorageKey, String(closed)); } catch {} }
-    const scroll = window.scrollY;
-    const hidden = desktop.matches && closed;
-    const hadFocus = host.contains(document.activeElement);
-    host.hidden = hidden;
-    host.closest(".shell")?.classList.toggle("right-sidebar-collapsed", hidden);
-    railButtons.forEach((button) => {
-      const reopen = button.classList.contains("right-sidebar-reopen");
-      button.hidden = reopen ? !hidden : false;
-      button.setAttribute("aria-expanded", String(!hidden));
-    });
-    if (hadFocus && hidden) document.querySelector<HTMLButtonElement>(".right-sidebar-reopen")?.focus({ preventScroll: true });
-    window.scrollTo({ top: scroll, behavior: "instant" });
-  }
-  railButtons.forEach((button) => button.addEventListener("click", () => {
-    setRailClosed(!railClosed);
-    if (!railClosed) tabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.focus({ preventScroll: true });
-  }));
   function selectSidebar(reference: boolean) {
     if (!host) return;
     host.closest(".shell")?.classList.toggle("reference-wide", reference && desktop.matches);
@@ -236,7 +212,7 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
   }
   async function open(trigger: HTMLElement, target?: URL) {
     if (desktop.matches && !host) return;
-    if (desktop.matches && railClosed) setRailClosed(false);
+    if (desktop.matches) document.dispatchEvent(new Event("right-sidebar-open"));
     if (panel.hidden) {
       remember(storageKey);
       document.querySelectorAll("[data-reference-hint]").forEach((hint) => hint.remove());
@@ -317,8 +293,7 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
     });
   });
   placePanel();
-  setRailClosed(railClosed, false);
-  desktop.addEventListener("change", () => { placePanel(); setRailClosed(railClosed, false); });
+  desktop.addEventListener("change", placePanel);
   document.addEventListener("keydown", (event) => {
     if (panel.hidden) return;
     if (event.key === "Escape") { event.preventDefault(); close(); }
@@ -359,16 +334,11 @@ body { --reference-panel-width: clamp(320px, 28vw, 400px); }
 .reference-panel th:first-child, .reference-panel td:first-child { width: 30%; }
 .reference-panel .reference-excerpt[hidden], .reference-panel details[hidden], .reference-panel tr[hidden] { display: none; }
 .reference-panel :is(button,input,summary,a):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.reference-tabs { display: flex; gap: .25rem; flex: 0 0 auto; border-bottom: 1px solid var(--line); margin-bottom: .75rem; }
-.reference-tabs button { border: 0; border-bottom: 2px solid transparent; padding: .6rem .3rem; min-height: 44px; font: inherit; font-size: .85rem; color: var(--muted); background: transparent; cursor: pointer; white-space: nowrap; }
-.reference-tabs button[aria-selected="true"] { border-bottom-color: var(--accent); color: var(--ink); }
-.reference-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-.page-toc-panel[hidden] { display: none; }
 .reference-header-tool { display: none; }
 @media (min-width: 1440px) {
   body .shell.reference-wide { --right-rail-width: clamp(420px, 27vw, 520px); grid-template-columns: var(--left-rail-width) minmax(0, 1fr) var(--right-rail-width); }
-  .reference-sidebar { display: flex; flex-direction: column; height: calc(100dvh - 88px); overflow: hidden; }
-  .page-toc-panel { min-height: 0; overflow-y: auto; }
+
+
   [data-reference-sidebar-slot] { min-height: 0; flex: 1; }
   .reference-sidebar .reference-panel { position: static; width: 100%; height: 100%; border: 0; background: transparent; }
   .reference-sidebar .reference-panel-header { display: none; }
@@ -391,18 +361,4 @@ body { --reference-panel-width: clamp(320px, 28vw, 400px); }
 @media (max-width: 400px) { .masthead .brand { gap: .25rem; } }
 @media (min-width: 1440px) and (prefers-reduced-motion: no-preference) { .shell.has-toc, .shell.has-book-toc { transition: grid-template-columns .15s ease; } }
 @media print { .reference-sidebar, .reference-header-tool, .reference-panel { display: none !important; } }
-</style>
-
-<style is:global>
-.right-sidebar-toolbar { display: flex; align-items: start; gap: .25rem; }
-.right-sidebar-toolbar .reference-tabs { flex: 1; min-width: 0; }
-.right-sidebar-collapse { min-height: 44px; padding: .5rem .3rem; background: transparent; color: var(--muted); border: 0; cursor: pointer; font-size: .75rem; }
-.right-sidebar-reopen { position: fixed; top: 50%; right: 0; z-index: 45; writing-mode: vertical-rl; min-height: 44px; padding: .75rem .4rem; border: 1px solid var(--line); border-right: 0; background: var(--surface); color: var(--ink); cursor: pointer; font-size: .8125rem; }
-.reference-sidebar[hidden], .right-sidebar-reopen[hidden] { display: none !important; }
-[data-right-sidebar-toggle]:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-@media (min-width: 1440px) {
-  body .shell.right-sidebar-collapsed { grid-template-columns: var(--left-rail-width) minmax(0, 1fr); }
-}
-@media (max-width: 1439px) { .right-sidebar-collapse, .right-sidebar-reopen { display: none !important; } }
-@media print { .right-sidebar-reopen { display: none !important; } }
 </style>

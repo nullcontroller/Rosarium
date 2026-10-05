@@ -355,7 +355,7 @@
       "source_file": "articles/fccbf170ead145.md",
       "source_snapshot": "migration/zenn-recovery-2026-10-05/articles/fccbf170ead145.md",
       "source_sha256": "9f89405b960c00415d778edea4e472a69e2715ea07d35a2f9d140c7dfd7a6434",
-      "destination_body_sha256": "9c18a46cec1bd39f110da38c444b90e9fb190b127e6e463f6c5135ffd0eee452",
+      "destination_body_sha256": "9298a169d671f45815f318dd85b9f0a1f07b6df8bac2ab1d74eaba76f71ff08c",
       "restoration": "Existing Rosarium body retained; exact original snapshot saved"
     },
     {

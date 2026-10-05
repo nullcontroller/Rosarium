@@ -29,7 +29,7 @@ source:
     title: 第5章　AI間で現在の仕様を受け渡し、Excel仕様書を修正する
     free: false
 series: three-ai-maintenance
-series_title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
+series_title: 複数AIを使い分けるレガシー保守
 order: 5
 ---
 

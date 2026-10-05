@@ -227,4 +227,4 @@ Case Studyでは、実際の工程に沿って次の内容を整理していま�
 6. コード生成と単体テスト
 7. 成果と考察
 
-👉 **[仕様調査から実装まで、複数AIを役割分担したレガシー保守](/cases/three-ai-maintenance/)**
+👉 **[複数AIを使い分けるレガシー保守](/cases/three-ai-maintenance/)**

@@ -30,3 +30,8 @@ export function archiveLabel(entries: CollectionEntry<"pages">[], lifecycle: "ob
   const types = new Set(entries.map((entry) => isCaseEntry(entry) ? "CASE" : "ARTICLE"));
   return types.size === 1 ? `OBSOLETE ${[...types][0]}` : "OBSOLETE";
 }
+
+// The archive list and its contents navigation share metadata-based categories.
+export const archiveCategoryAnchor = (category: string) => `archive-category-${category}`;
+export const getArchiveCategories = (entries: CollectionEntry<"pages">[]) =>
+  ["AI", "DX", "実践事例", "考察", "その他"].filter((category) => entries.some((entry) => getArchiveCategory(entry) === category));

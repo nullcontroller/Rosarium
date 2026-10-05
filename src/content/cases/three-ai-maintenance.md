@@ -2,7 +2,7 @@
 summary: "仕様・コード・過去背景を参照できるAIを使い分け、調査から実装までをつないだ保守事例です。成果物の受け渡しごとに人間が前提を確認し、AIを使える業務範囲を広げました。"
 publication_format: book
 layer: publication
-title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
+title: 複数AIを使い分けるレガシー保守
 kind: case
 section: cases
 status: published
@@ -65,7 +65,7 @@ source:
       - 147fb6
       - c8af5c
 series: three-ai-maintenance
-series_title: 仕様調査から実装まで、複数AIを役割分担したレガシー保守
+series_title: 複数AIを使い分けるレガシー保守
 order: 0
 cover: /assets/cases/three-ai-maintenance-hero.jpg
 show_cover: false
