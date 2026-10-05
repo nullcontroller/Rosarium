@@ -289,8 +289,8 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           >
             事例
           </a>
-          <a class="mobile-retired-link" href={url(retiredNavigation.path)} aria-current={section === retiredNavigation.path ? "page" : undefined}>
-            {retiredNavigation.title}
+          <a class="mobile-retired-link" aria-label={retiredNavigation.title} href={url(retiredNavigation.path)} aria-current={section === retiredNavigation.path ? "page" : undefined}>
+            {retiredNavigation.shortLabel ?? retiredNavigation.title}
           </a>
         </nav>
         <div class="header-actions">
@@ -424,7 +424,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       {referenceSidebar && (
         <aside class:list={[bookNavigation ? "book-toc" : "toc", "reference-sidebar"]} aria-label="右補助パネル">
           <div class="reference-tabs" role="tablist" aria-label="右補助パネルの表示">
-            {hasPageToc && <button id="page-toc-tab" type="button" role="tab" aria-selected="true" aria-controls="page-toc-panel">このページ</button>}
+            {hasPageToc && <button id="page-toc-tab" type="button" role="tab" aria-selected="true" aria-controls="page-toc-panel">目次</button>}
             <button id="reference-sidebar-tab" type="button" role="tab" aria-selected={hasPageToc ? "false" : "true"} aria-controls="reference-panel" tabindex={hasPageToc ? -1 : 0}>リファレンス</button>
           </div>
           {hasPageToc && <div id="page-toc-panel" class="page-toc-panel" role="tabpanel" aria-labelledby="page-toc-tab">

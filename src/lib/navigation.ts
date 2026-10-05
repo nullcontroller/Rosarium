@@ -8,6 +8,7 @@ export type Entry = CollectionEntry<"pages">;
 export type NavigationItem = {
   path: string;
   title: string;
+  shortLabel?: string;
   summary: string;
   icon: ReturnType<typeof iconForPath>;
   question?: string;
@@ -84,6 +85,7 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
     {
       path: "retired",
       title: archiveTitle,
+      shortLabel: "旧・退役",
       summary: "旧記事・役割を終えた記事",
       icon: iconForPath("retired"),
     },

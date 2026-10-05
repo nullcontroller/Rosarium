@@ -29,7 +29,7 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
   const search = panel.querySelector<HTMLInputElement>("#reference-panel-search")!;
   const status = panel.querySelector<HTMLElement>("[data-reference-status]")!;
   const documents = [...panel.querySelectorAll<HTMLDetailsElement>("[data-reference-document]")];
-  const desktop = matchMedia("(min-width: 1201px)");
+  const desktop = matchMedia("(min-width: 1440px)");
   const host = document.querySelector<HTMLElement>(".reference-sidebar");
   const slot = host?.querySelector<HTMLElement>("[data-reference-sidebar-slot]");
   const toc = host?.querySelector<HTMLElement>("#page-toc-panel");
@@ -182,6 +182,7 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
   }
   function selectSidebar(reference: boolean) {
     if (!host) return;
+    host.closest(".shell")?.classList.toggle("reference-wide", reference && desktop.matches);
     if (toc) toc.hidden = reference;
     tabs.forEach((tab) => { const selected = (tab.id === "reference-sidebar-tab") === reference; tab.setAttribute("aria-selected", String(selected)); tab.tabIndex = selected ? 0 : -1; });
   }
@@ -189,7 +190,7 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
     if (panel.hidden) return;
     const scroll = mobileOpen ? savedScroll : window.scrollY;
     panel.hidden = true;
-    if (desktop.matches) selectSidebar(false);
+    selectSidebar(false);
     document.body.classList.remove("reference-open", "reference-mobile-open");
     document.body.style.removeProperty("top");
     document.body.style.removeProperty("width");
@@ -228,7 +229,7 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
         history.pushState({ ...history.state, rosariumReferencePanel: true }, "", location.href);
         mobileHistory = true;
       } else window.scrollTo({ top: savedScroll, behavior: "instant" });
-      if (desktop.matches) selectSidebar(true);
+      selectSidebar(true);
       panel.setAttribute("aria-modal", String(!desktop.matches));
       syncTriggers(true);
     }
@@ -324,6 +325,8 @@ body { --reference-panel-width: clamp(320px, 28vw, 400px); }
 .reference-panel table { width: 100%; display: table; min-width: 0; }
 .reference-panel td, .reference-panel th { padding: .5rem; overflow-wrap: anywhere; }
 .reference-panel .katex-display { max-width: 100%; overflow-x: auto; padding-bottom: .3rem; }
+.reference-panel .katex-display > .katex { font-size: 1em; }
+.reference-panel th:first-child, .reference-panel td:first-child { width: 30%; }
 .reference-panel .reference-excerpt[hidden], .reference-panel details[hidden], .reference-panel tr[hidden] { display: none; }
 .reference-panel :is(button,input,summary,a):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .reference-tabs { display: flex; gap: .25rem; flex: 0 0 auto; border-bottom: 1px solid var(--line); margin-bottom: .75rem; }
@@ -332,17 +335,18 @@ body { --reference-panel-width: clamp(320px, 28vw, 400px); }
 .reference-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .page-toc-panel[hidden] { display: none; }
 .reference-header-tool { display: none; }
-@media (min-width: 1201px) {
+@media (min-width: 1440px) {
+  body .shell.reference-wide { grid-template-columns: clamp(280px, 18vw, 380px) minmax(0, 1fr) clamp(420px, 25vw, 520px); }
   .reference-sidebar { display: flex; flex-direction: column; height: calc(100dvh - 88px); overflow: hidden; }
   .page-toc-panel { min-height: 0; overflow-y: auto; }
   [data-reference-sidebar-slot] { min-height: 0; flex: 1; }
   .reference-sidebar .reference-panel { position: static; width: 100%; height: 100%; border: 0; background: transparent; }
   .reference-sidebar .reference-panel-header { display: none; }
   .reference-sidebar .reference-panel-scroll { padding: 0; }
-  .reference-sidebar .reference-panel p, .reference-sidebar .reference-panel li, .reference-sidebar .reference-panel td { font-size: .875rem; }
+  .reference-sidebar .reference-panel p, .reference-sidebar .reference-panel li, .reference-sidebar .reference-panel td { font-size: .9375rem; }
   .reference-sidebar .reference-panel table { table-layout: fixed; }
 }
-@media (max-width: 1200px) {
+@media (max-width: 1439px) {
 
   .reference-header-tool { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; font-size: .8rem; color: var(--ink); border: 1px solid var(--line); border-radius: 4px; text-decoration: none; }
   .reference-header-tool:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -355,5 +359,6 @@ body { --reference-panel-width: clamp(320px, 28vw, 400px); }
 <style is:global>
 @media (max-width: 760px) { .sidebar { display: none; } .masthead .brand { width: max-content; } }
 @media (max-width: 400px) { .masthead .brand { gap: .25rem; } }
+@media (min-width: 1440px) and (prefers-reduced-motion: no-preference) { .shell.has-toc, .shell.has-book-toc { transition: grid-template-columns .15s ease; } }
 @media print { .reference-sidebar, .reference-header-tool, .reference-panel { display: none !important; } }
 </style>

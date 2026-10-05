@@ -156,9 +156,10 @@ assert.deepEqual(
   top(".header-primary a")
     .map((_, e) => top(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "事例", "旧記事・退役記事"],
+  ["庭", "AI", "DX", "事例", "旧・退役"],
 );
 assert.equal(top('.header-primary a[href="/Rosarium/cases/"]').length, 1);
+assert.equal(top('.mobile-retired-link').attr("aria-label"), "旧記事・退役記事");
 assert.equal(top('.header-primary a[href="/Rosarium/career/"]').length, 0);
 assert.equal(top('.home-career a[href="/Rosarium/career/"]').length, 1);
 assert.equal(top(".header-actions a").length, 1);
@@ -199,7 +200,7 @@ assert.deepEqual(
   career(".header-primary a")
     .map((_, e) => career(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "事例", "旧記事・退役記事"],
+  ["庭", "AI", "DX", "事例", "旧・退役"],
 );
 assert(career('a[href="/Rosarium/ai/"]').length);
 assert(career('a[href="/Rosarium/dx/"]').length);
