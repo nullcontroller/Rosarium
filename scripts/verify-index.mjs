@@ -551,20 +551,23 @@ console.log(
   "Verified overview compatibility redirect, three case books, independent series and simplified navigation.",
 );
 
+const growthContentChanges = (changes) => changes.flatMap(change => {
+  const targets = growthChangeTargets(change);
+  return targets.length ? targets.map(id => ({ id, text: growthChangeText(change) })) : [{ text: growthChangeText(change) }];
+});
 function assertGrowthChanges($, row, changes) {
+  const expected = growthContentChanges(changes);
   const items = row.find(".growth-changes > li").toArray();
-  assert.equal(items.length, changes.length);
+  assert.equal(items.length, expected.length);
   items.forEach((item, index) => {
-    const change = changes[index];
-    const targets = growthChangeTargets(change);
-    const links = $(item).find("a").toArray();
-    assert.equal(links.length, targets.length);
-    const titles = targets.map(id => entries.get(id).title);
-    assert.equal($(item).text(), (titles.length ? titles.join("・") + "：" : "") + growthChangeText(change));
-    links.forEach((link, i) => {
-      assert.equal($(link).text(), titles[i]);
-      assert.equal($(link).attr("href"), "/Rosarium/" + targets[i] + "/");
-    });
+    const change = expected[index];
+    const links = $(item).find("a");
+    assert.equal(links.length, change.id ? 1 : 0, "One article per visual block");
+    if (change.id) {
+      assert.equal(links.text(), entries.get(change.id).title);
+      assert.equal(links.attr("href"), "/Rosarium/" + change.id + "/");
+      assert.equal($(item).find(".growth-content-description").text(), change.text);
+    } else assert.equal($(item).text(), change.text);
   });
   const hrefs = row.find("a").map((_, link) => $(link).attr("href")).get();
   assert.equal(new Set(hrefs).size, hrefs.length, "Duplicate Garden Notes link");
@@ -613,7 +616,7 @@ for (const element of top("[data-growth-entry]").toArray()) {
 }
 assert.equal(
   top("[data-growth-entry]").first().find(".growth-changes > li").length,
-  Math.min(4, recentGrowth[0].changes.length),
+  growthContentChanges(recentGrowth[0].changes.slice(0, 4)).length,
 );
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),

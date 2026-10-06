@@ -25,6 +25,9 @@ const linkedChanges = await Promise.all(changes.map(async (change) => ({
     return { title: content.data.title, href: url(content.id) };
   })),
 })));
+const contentChanges = linkedChanges.flatMap<{ text: string; link?: { title: string; href: string } }>((change) => change.links.length
+  ? change.links.map((link) => ({ text: change.text, link }))
+  : [{ text: change.text, link: undefined }]);
 ---
 
 <article class="growth-entry icon-entry" data-growth-entry>
@@ -41,7 +44,18 @@ const linkedChanges = await Promise.all(changes.map(async (change) => ({
       {entry.title}
     </h3>
     <ul class="growth-changes content-summary" role="list">
-      {linkedChanges.map((change) => <li>{change.links.map((link, index) => <>{index > 0 && "・"}<a href={link.href}>{link.title}</a></>)}{change.links.length > 0 && "："}{change.text}</li>)}
+      {contentChanges.map((change) => <li class:list={[change.link && "growth-content-item"]}>
+        {change.link ? <>
+          <a class="growth-content-title" href={change.link.href}>{change.link.title}</a>
+          <span class="growth-content-description">{change.text}</span>
+        </> : change.text}
+      </li>)}
     </ul>
   </div>
 </article>
+
+<style>
+  .growth-content-item { padding-block: .2rem; }
+  .growth-content-title, .growth-content-description { display: block; }
+  .growth-content-description { margin-top: .2rem; }
+</style>
