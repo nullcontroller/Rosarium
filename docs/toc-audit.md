@@ -10,7 +10,7 @@
 |---|---|---|---|---|---:|---|
 | / | Rosarium | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /404.html | ページが見つかりません | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /about/ | Rosariumとは？ | あり | あり | なし | 6 | 主要見出しが複数 |
+| /about/ | Rosariumとは？ | あり | あり | なし | 7 | 主要見出しが複数 |
 | /ai-design/ | AI設計 | あり | あり | あり | 38 | 主要見出しが複数 |
 | /ai-design/applicability/ | AI適用判断 | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /ai-design/architecture/ | システムアーキテクチャ | あり | あり | あり | 4 | 主要見出しが複数 |
@@ -76,14 +76,14 @@
 | /dx/value-design/ | 価値設計 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /essays/ | 考察 | あり | あり | あり | 6 | 主要見出しが複数 |
 | /essays/ai-career-market/ | 採用される側から見たAI人材の転職概況 | あり | あり | あり | 7 | 長文の複数h3セクション |
-| /essays/ai-roles-beyond-fde/ | AI人材はFDEだけではない――これから進む専門職の細分化 | あり | あり | あり | 8 | 長文の複数h3セクション |
-| /essays/dx-and-value/ | DXを学んで、「価値」という言葉が気になるようになった | あり | あり | あり | 5 | 長文の複数h3セクション |
+| /essays/ai-roles-beyond-fde/ | AI人材はFDEだけではない――これから進む専門職の細分化 | あり | あり | あり | 12 | 主要見出しが複数 |
+| /essays/dx-and-value/ | DXを学んで、「価値」という言葉が気になるようになった | あり | あり | あり | 6 | 長文の複数h3セクション |
 | /essays/it-strategy-and-not-building/ | IT戦略では「何を作らないか」も設計する | あり | あり | あり | 9 | 主要見出しが複数 |
 | /essays/legacy-change-and-retirement/ | レガシーシステムは、変えやすくしながら終わらせる | あり | あり | あり | 7 | 主要見出しが複数 |
 | /essays/model-competition-and-ecosystems/ | AIはどこへ進化しているのか — モデル競争の裏にある「構造」と「エコシステム」 | なし | あり | あり | 25 | 主要見出しが複数 |
 | /essays/rethink-work-before-ai/ | AI化する前に、業務そのものを疑う | あり | あり | あり | 10 | 主要見出しが複数 |
 | /essays/trust-in-ai-generated-content/ | AI生成コンテンツは、なぜ信頼されにくいのか | あり | あり | あり | 5 | 長文の複数h3セクション |
-| /essays/what-not-to-build-with-ai/ | AIで作れる時代に、何を作らないか | あり | あり | あり | 5 | 長文の複数h3セクション |
+| /essays/what-not-to-build-with-ai/ | AIで作れる時代に、何を作らないか | あり | あり | あり | 6 | 長文の複数h3セクション |
 | /evaluation-hitl/ | 評価・ヒューマンレビュー | なし | あり | あり | 5 | 主要見出しが複数 |
 | /evaluation-hitl/code-evaluation-acceptance/ | コード生成AIの評価と採用設計 | あり | あり | あり | 23 | 長文の複数h3セクション |
 | /evaluation-hitl/datasets-and-regression/ | AI評価データセットと回帰評価設計 | あり | あり | あり | 12 | 長文の複数h3セクション |
@@ -107,7 +107,7 @@
 | /foundations/layered-hallucination-controls/ | ハルシネーションの多層制御設計 | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/llm-as-probabilistic-model/ | LLMを確率モデルとして設計するという立場 | なし | あり | あり | 5 | 主要見出しが複数 |
 | /foundations/temperature-design/ | Temperature設計指針 | あり | あり | あり | 13 | 長文の複数h3セクション |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 6 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 7 | 主要見出しが複数 |
 | /knowledge-context/ | ナレッジ / コンテキスト | なし | あり | あり | 7 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | AIを使い分ける基準は、モデル性能よりコンテキストではないか | あり | あり | あり | 8 | 長文の複数h3セクション |
 | /knowledge-context/human-and-ai-documentation/ | 人向け資料とAI向け資料の分離設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
@@ -118,7 +118,7 @@
 | /knowledge-context/qa-operations/ | QAチャット運用思想 | あり | あり | あり | 14 | 長文の複数h3セクション |
 | /overview/ | AIへ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /practices/ | 実践知 | あり | あり | あり | 26 | 主要見出しが複数 |
-| /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 5 | 主要見出しが複数 |
+| /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 6 | 主要見出しが複数 |
 | /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | あり | あり | あり | 6 | 主要見出しが複数 |
 | /practices/ai-education-principles/ | 生成AI教育はなぜ難しいのか ― 変わらない原則と変わり続ける実践を分けて設計する | あり | あり | あり | 7 | 長文の複数h3セクション |
 | /practices/education-and-capability/ | AI教育を原則と実践に分ける | あり | あり | あり | 7 | 主要見出しが複数 |
@@ -138,7 +138,7 @@
 | /software-engineering/ | ソフトウェア開発 | なし | あり | あり | 8 | 主要見出しが複数 |
 | /software-engineering/ai-design-assistance/ | 設計支援AIは消えない。コード生成の次に残る領域 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /software-engineering/ai-driven-development/ | 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか | あり | あり | あり | 5 | 長文の複数h3セクション |
-| /software-engineering/code-generation-and-work-design/ | コード生成AIはなぜ業務を変えないのか — 設計支援として使うべき理由 | あり | あり | あり | 15 | 長文の複数h3セクション |
+| /software-engineering/code-generation-and-work-design/ | コード生成AIはなぜ業務を変えないのか — 設計支援として使うべき理由 | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /software-engineering/code-generation-boundaries/ | コード生成を使うべき場所 | あり | あり | あり | 22 | 長文の複数h3セクション |
 | /software-engineering/code-generation-models/ | コード生成AIの正体 | あり | あり | あり | 24 | 長文の複数h3セクション |
 | /software-engineering/code-maintenance-context/ | なぜAIは新規コードよりコード保守に強いのか | あり | あり | あり | 23 | 長文の複数h3セクション |
