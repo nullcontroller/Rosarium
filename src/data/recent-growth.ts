@@ -31,6 +31,19 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-06",
+    type: "integrated",
+    title: "価値創造と継続改善の考えを既存知識へ統合",
+    changes: [
+      "FDEの旧考察に、顧客自身が継続改善できる条件と役割の変化を日付付きで追記",
+      "AIによる効率化を価値の高い仕事への時間再配分につなぐ考えを、DXの考察と業務設計へ統合",
+      "作る費用が下がるほど選択・維持・統合・終了の判断が重要になる理由を、既存記事で補強",
+      "Knowledge Lifecycleと構造を可視化して伝える方針をAboutへ集約し、導入後の定着と見直しを実践知で補強",
+    ],
+    category: "Rosarium",
+    icon: "updates",
+  },
+  {
     date: "2026-10-05",
     type: "integrated",
     title: "知識のライフサイクルと閲覧・参照機能を整理",

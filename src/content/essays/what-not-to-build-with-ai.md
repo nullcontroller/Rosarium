@@ -6,7 +6,7 @@ title: "AIで作れる時代に、何を作らないか"
 kind: essay
 section: essays
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-06"
 entry_points:
   - ai
   - dx
@@ -18,8 +18,8 @@ tags:
   - ライフサイクル
   - ai適用判断
 published_at: "2026-09-27"
-updated_at: "2026-09-27"
-update_type: new
+updated_at: "2026-10-06"
+update_type: revised
 source:
   type: repository
   url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/essays/what-not-to-build-with-ai.md
@@ -48,6 +48,14 @@ source:
 AIで実装時間を短くできても、この責任は消えない。
 
 「短時間で作れる」は、作る理由の一部にはなっても、作り続ける理由にはならない。
+
+### 生成の入口が広がるほど、選択の責任が増える
+
+Coding Agentなどによって実装に着手しやすくなると、以前は費用を理由に見送っていた小さな要求にも対応しやすくなる。その一方で、価値を確かめる前に、似た機能や独立したシステムを増やしてしまう危険もある。
+
+一つずつは短時間で作れても、保守、仕様変更、セキュリティ対応、OSやライブラリへの追従、他システムとの互換性を維持する仕事は積み上がる。不要になったものにも、データの移行、機能の統合、安全な廃止が必要になる。
+
+生成能力が広く使えるようになるほど、実装できることだけでは選択肢を絞れない。だからこそ、本当に作る必要があるか、既存のものへ統合できないか、何を維持し、いつ終えるかという判断の価値が上がる。作る速度が上がることと、維持できる範囲が広がることを分けて考えたい。
 
 ### 選択肢は新規開発だけではない
 

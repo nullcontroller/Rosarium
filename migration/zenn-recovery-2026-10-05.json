@@ -158,7 +158,13 @@
       "source_snapshot": "migration/zenn-recovery-2026-10-05/articles/5bbc6c7f86194f.md",
       "source_sha256": "014f1ce2671bcc1e164e64b1c393ce9bf8ed7a3c6e660eaa7068b894526c3e1c",
       "destination_body_sha256": "2de95f7442c261159590303d5931b15ac1f7ad5f8758ea1ee4d8c2bd3b1cb2da",
-      "restoration": "Existing Rosarium body retained; exact original snapshot saved"
+      "restoration": "Existing Rosarium body retained; exact original snapshot saved",
+      "local_appendix": {
+        "date": "2026-10-06",
+        "marker": "\n<!-- rosarium-local-revision:2026-10-06 -->\n",
+        "sha256": "3787921f655983a5bf7ba93e44992a4222867c8e8dc531df1afd48ffaf5f9ee1",
+        "reason": "ユーザー提供の投稿思想を統合。専門職分化の原文を保持し、構築後の持続性と顧客の改善能力を追記。"
+      }
     },
     {
       "title": "設計支援AIは消えない。コード生成の次に残る領域",
@@ -312,7 +318,13 @@
       "source_snapshot": "migration/zenn-recovery-2026-10-05/articles/ecf0bcfd611d7f.md",
       "source_sha256": "0ecf68ef6fe260f8f1ceb998ede5f37ea35884c7a73da5a15fedba9e71957e90",
       "destination_body_sha256": "2e7d70058cd4933815c5caf7460c0722b3e944dbb981c6fa0968d0f7213b76c1",
-      "restoration": "Existing Rosarium body retained; exact original snapshot saved"
+      "restoration": "Existing Rosarium body retained; exact original snapshot saved",
+      "local_appendix": {
+        "date": "2026-10-06",
+        "marker": "\n<!-- rosarium-local-revision:2026-10-06 -->\n",
+        "sha256": "3b07d82aeef643e4631a31d6917a83f28fddbe9cfeabe9655485494a31134658",
+        "reason": "実装支援を否定するように読める原文の対比を追記で見直し、Lifecycle全体の評価へ接続。"
+      }
     },
     {
       "title": "理解できないシステムは、コストである",

@@ -782,7 +782,7 @@ for (const id of [
   assert.equal(article("h1").length, 1, id);
   assert.equal(
     article('meta[name="last-updated"]').attr("content"),
-    "2026-10-04",
+    entries.get(id).last_updated,
     id,
   );
   assert.equal(

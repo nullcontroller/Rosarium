@@ -2,6 +2,7 @@ import fs from "node:fs";
 import crypto from "node:crypto";
 import assert from "node:assert/strict";
 import YAML from "yaml";
+import { verifyRecoveredBody } from "./recovered-body.mjs";
 import { getArchiveGroup, isCaseEntry, archiveLifecycles } from "../src/lib/archive.ts";
 import { load } from "cheerio";
 import { publicEntry, publishedEntry } from "../src/lib/site.ts";
@@ -85,7 +86,7 @@ for (const record of report.entries) {
   const raw = fs.readFileSync(`src/content/${record.destination}.md`, "utf8").replace(/\r\n/g, "\n");
   const match = raw.match(/^---\n([\s\S]*?)\n---\n/);
   const data = YAML.parse(match[1]);
-  assert.equal(digest(raw.slice(match[0].length)), record.destination_body_sha256, `Recovered body changed: ${record.destination}`);
+  verifyRecoveredBody(raw.slice(match[0].length), record, data.last_updated);
   assert.equal(data.lifecycle, record.lifecycle.toLowerCase());
   assert.equal(data.published_at ?? null, record.original_published_at);
   assert.equal(publishedEntry({ data }), true);

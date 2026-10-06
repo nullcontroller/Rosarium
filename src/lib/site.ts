@@ -70,7 +70,7 @@ export const fallbackLastUpdated = "2026-09-28";
 export const staticPageLastUpdated: Record<string, string> = {
   // Retired Details compatibility redirect; excluded from the sitemap.
   "career/details": "2026-10-04",
-  "": "2026-10-05",
+  "": "2026-10-06",
   ai: "2026-10-04",
   "ai-design": "2026-10-04",
   "ai-design/applicability": "2026-10-04",
@@ -103,12 +103,12 @@ export const staticPageLastUpdated: Record<string, string> = {
   career: "2026-10-04",
   "career/profile": "2026-09-28",
   search: "2026-09-28",
-  about: "2026-10-05",
+  about: "2026-10-06",
   retired: "2026-10-05",
   "retired/obsolete": "2026-10-05",
   "retired/obsolete-cases": "2026-10-05",
   "retired/retired": "2026-10-05",
-  "garden-notes": "2026-10-05",
+  "garden-notes": "2026-10-06",
   articles: "2026-10-04",
   overview: "2026-09-28",
   updates: "2026-09-28",

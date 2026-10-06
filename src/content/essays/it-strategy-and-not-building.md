@@ -10,11 +10,11 @@ primaryCategory: selection-retirement
 secondaryCategories: [value-design, system-transformation]
 featuredInCategory: true
 published_at: "2026-10-03"
-updated_at: "2026-10-03"
-last_updated: "2026-10-04"
+updated_at: "2026-10-06"
+last_updated: "2026-10-06"
 entry_points: ["ai", "dx"]
 tags: ["IT戦略", "システム企画", "ライフサイクル"]
-update_type: new
+update_type: revised
 source:
   type: repository
   url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/essays/it-strategy-and-not-building.md
@@ -408,6 +408,8 @@ AIも同じです。
 **作る段階から、すでに始まっている**
 
 と思っています。
+
+Coding Agentによって初期実装の費用を抑えられる場合も、この判断は変わりません。作る候補が増えるほど、限られた保守能力をどこへ使うか、何を統合し、何を終えるかを選ぶ必要があります。この因果は[「AIで作れる時代に、何を作らないか」](/essays/what-not-to-build-with-ai/)で詳しく考えます。
 
 ## ソフトウェアは作った後の方が長い
 
