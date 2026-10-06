@@ -1,8 +1,12 @@
 ---
+import { getEntry } from "astro:content";
+import { publishedEntry, url } from "../lib/site";
 import type { RecentGrowthItem } from "../data/recent-growth";
 import {
   recentGrowthDateLabel,
   recentGrowthLabels,
+  growthChangeText,
+  growthChangeTargets,
 } from "../data/recent-growth";
 import Icon from "./Icon.astro";
 
@@ -13,6 +17,14 @@ interface Props {
 
 const { entry, maxChanges } = Astro.props;
 const changes = maxChanges === undefined ? entry.changes : entry.changes.slice(0, maxChanges);
+const linkedChanges = await Promise.all(changes.map(async (change) => ({
+  text: growthChangeText(change),
+  links: await Promise.all(growthChangeTargets(change).map(async (id) => {
+    const content = await getEntry("pages", id);
+    if (!content || !publishedEntry(content)) throw new Error("Garden Notes target is not published: " + id);
+    return { title: content.data.title, href: url(content.id) };
+  })),
+})));
 ---
 
 <article class="growth-entry icon-entry" data-growth-entry>
@@ -29,7 +41,7 @@ const changes = maxChanges === undefined ? entry.changes : entry.changes.slice(0
       {entry.title}
     </h3>
     <ul class="growth-changes content-summary" role="list">
-      {changes.map((change) => <li>{change}</li>)}
+      {linkedChanges.map((change) => <li>{change.links.map((link, index) => <>{index > 0 && "・"}<a href={link.href}>{link.title}</a></>)}{change.links.length > 0 && "："}{change.text}</li>)}
     </ul>
   </div>
 </article>

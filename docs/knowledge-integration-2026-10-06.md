@@ -36,3 +36,11 @@ UI/CSS、URL、slug、title、Lifecycle、公開・検索・SEO方針に変更�
 - 98 content recordsのtitle / slug / 公開日 / status / lifecycle / 出典 / 分類 / series等をHEADと比較して一致。148 output routes/file inventory一致。
 - UI/CSS/component/layout/configへの変更なし。Careerとlegacy-change-and-retirementは内容も変更なし。
 - 11ページ × 1920×1080 / 1440×900 / 375×812 / 430×932 × dark/lightの88条件で、横overflowなし・本文とsidebar重なりなし・Desktop/Mobile共通TOC・anchor/active動作正常。最新Garden Notesの日付とFDEのobsolete metadataを確認。client errorなし。実機確認は未実施。
+
+## Garden Notesから本文へのリンク（追加要件）
+2026-10-06の既存entryの4変更項目へ、今回改訂した7コンテンツのidを追加。同じ記事はentry内で1回だけ参照する。
+GrowthEntryがcontent metadataから正式titleを取得し、共通url helperで内部URLを生成するため、HomeとGarden Notes詳細で表示名・遷移先を二重管理しない。
+過去の文字列形式の記録も維持。今後の新規Article/Case/Book、大幅改訂、統合先の正本はtextとcontentIdsを持つ形式を使用し、CSS/UI/refactor/metadata/typo等の変更には記事リンクを追加しない。
+CSS・構造・4項目表示・同日1件は維持。誤った内部id、未公開コンテンツ、同日重複entry、同一entry内の重複リンクは検証で失敗させる。
+check: 0 errors/warnings/hints。test: 40成功。buildと全既存監査成功。
+HomeとGarden Notes詳細を1920/1440/375/430、dark/lightの16条件で確認。112回の記事タイトルクリックが正しい内部URLとh1へ遷移。7リンクの一致・重複なし・横overflowなし。実機確認は未実施。

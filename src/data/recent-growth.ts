@@ -12,16 +12,21 @@ export const recentGrowthLabels = {
 
 export type RecentGrowthType = keyof typeof recentGrowthLabels;
 
+export type RecentGrowthChange = string | { text: string; contentIds: string[] };
+export const growthChangeText = (change: RecentGrowthChange) => typeof change === "string" ? change : change.text;
+export const growthChangeTargets = (change: RecentGrowthChange) => typeof change === "string" ? [] : change.contentIds;
+
 export interface RecentGrowthItem {
   date: string;
   type: RecentGrowthType;
   title: string;
-  changes: string[];
+  changes: RecentGrowthChange[];
   category: string;
   icon?: IconName;
 }
 
-// Garden Notes summarizes changes as plain text, without navigation links.
+// Content revisions link by entry id; displayed titles come from content metadata.
+// UI-only changes remain plain text and do not create content links.
 // This is the single source of truth for the public update history.
 // Keep one entry per date; add each reader-facing change as a short changes item.
 // Prioritize new articles/Cases/Books, substantive revisions and content integration.
@@ -35,10 +40,10 @@ const curatedRecentGrowth = [
     type: "integrated",
     title: "価値創造と継続改善の考えを既存知識へ統合",
     changes: [
-      "FDEの旧考察に、顧客自身が継続改善できる条件と役割の変化を日付付きで追記",
-      "AIによる効率化を価値の高い仕事への時間再配分につなぐ考えを、DXの考察と業務設計へ統合",
-      "作る費用が下がるほど選択・維持・統合・終了の判断が重要になる理由を、既存記事で補強",
-      "Knowledge Lifecycleと構造を可視化して伝える方針をAboutへ集約し、導入後の定着と見直しを実践知で補強",
+      { text: "FDEの旧考察に、顧客自身が継続改善できる条件と役割の変化を日付付きで追記", contentIds: ["essays/ai-roles-beyond-fde"] },
+      { text: "AIによる効率化を価値の高い仕事への時間再配分につなぐ考えを、DXの考察と業務設計へ統合", contentIds: ["essays/dx-and-value","foundations/ai-business-design"] },
+      { text: "作る費用が下がるほど選択・維持・統合・終了の判断が重要になる理由を、既存記事で補強", contentIds: ["essays/what-not-to-build-with-ai","essays/it-strategy-and-not-building","software-engineering/code-generation-and-work-design"] },
+      { text: "Knowledge Lifecycleと構造を可視化して伝える方針をAboutへ集約し、導入後の定着と見直しを実践知で補強", contentIds: ["practices/adoption-governance"] },
     ],
     category: "Rosarium",
     icon: "updates",
@@ -99,15 +104,20 @@ const curatedRecentGrowth = [
   },
 ] satisfies RecentGrowthItem[];
 
-const recentGrowthDates = new Set<string>();
-for (const entry of curatedRecentGrowth) {
-  if (recentGrowthDates.has(entry.date)) {
-    throw new Error(
-      `Recent Growthには同じ日付を複数登録できません: ${entry.date}`,
-    );
+export function validateRecentGrowth(entries: RecentGrowthItem[]) {
+  const dates = new Set<string>();
+  for (const entry of entries) {
+    if (dates.has(entry.date)) throw new Error("Recent Growthには同じ日付を複数登録できません: " + entry.date);
+    dates.add(entry.date);
+    const targets = new Set<string>();
+    for (const change of entry.changes) for (const id of growthChangeTargets(change)) {
+      if (!/^[a-z0-9-]+(?:\/[a-z0-9-]+)+$/.test(id)) throw new Error("Garden Notes requires an internal content id: " + id);
+      if (targets.has(id)) throw new Error("Duplicate Garden Notes content link: " + id);
+      targets.add(id);
+    }
   }
-  recentGrowthDates.add(entry.date);
 }
+validateRecentGrowth(curatedRecentGrowth);
 
 export const recentGrowth = curatedRecentGrowth.sort((a, b) =>
   b.date.localeCompare(a.date),

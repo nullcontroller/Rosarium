@@ -1,4 +1,4 @@
-import { recentGrowth } from "../src/data/recent-growth.ts";
+import { recentGrowth, growthChangeText, growthChangeTargets } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
@@ -551,6 +551,25 @@ console.log(
   "Verified overview compatibility redirect, three case books, independent series and simplified navigation.",
 );
 
+function assertGrowthChanges($, row, changes) {
+  const items = row.find(".growth-changes > li").toArray();
+  assert.equal(items.length, changes.length);
+  items.forEach((item, index) => {
+    const change = changes[index];
+    const targets = growthChangeTargets(change);
+    const links = $(item).find("a").toArray();
+    assert.equal(links.length, targets.length);
+    const titles = targets.map(id => entries.get(id).title);
+    assert.equal($(item).text(), (titles.length ? titles.join("・") + "：" : "") + growthChangeText(change));
+    links.forEach((link, i) => {
+      assert.equal($(link).text(), titles[i]);
+      assert.equal($(link).attr("href"), "/Rosarium/" + targets[i] + "/");
+    });
+  });
+  const hrefs = row.find("a").map((_, link) => $(link).attr("href")).get();
+  assert.equal(new Set(hrefs).size, hrefs.length, "Duplicate Garden Notes link");
+}
+
 assert(top("#recent-growth-heading").length);
 assert.equal(top(".growth-scrollbox").length, 0);
 assert.equal(top(".home-primary-panels > section").length, 2);
@@ -564,15 +583,14 @@ assert.equal(gardenNotes("#notes-2026-09").length, 1);
 for (const entry of recentGrowth) {
   const row = gardenNotes(`[data-growth-entry]:has(time[datetime="${entry.date}"])`);
   assert.equal(row.length, 1);
-  assert.deepEqual(row.find(".growth-changes > li").toArray().map(li => gardenNotes(li).text()), entry.changes);
-  assert.equal(row.find("a").length, 0);
+  assertGrowthChanges(gardenNotes, row, entry.changes);
 }
 
 assert.equal(top(".growth-list [data-growth-entry]").length, 1);
 assert.equal(top(`[data-growth-entry] time[datetime="${recentGrowth[0].date}"]`).length, 1);
 assert.equal(new Set(recentGrowth.map(entry => entry.date)).size, recentGrowth.length);
 assert.equal(recentGrowth.find(entry => entry.date === "2026-10-03").changes.length, 4);
-assert(recentGrowth.every(entry => !entry.changes.some(change => /表示・導線を整理|UI.?UXを改善/.test(change))));
+assert(recentGrowth.every(entry => !entry.changes.some(change => /表示・導線を整理|UI.?UXを改善/.test(growthChangeText(change)))));
 const growthDates = new Set();
 for (const element of top("[data-growth-entry]").toArray()) {
   const entry = top(element);
@@ -581,14 +599,14 @@ for (const element of top("[data-growth-entry]").toArray()) {
   assert(!growthDates.has(date), `Duplicate Recent Growth date: ${date}`);
   growthDates.add(date);
   assert.equal(entry.find("p.content-summary").length, 0);
-  assert.equal(entry.find("a").length, 0, `${date}: plain text only`);
+  assertGrowthChanges(top, entry, recentGrowth.find(item => item.date === date).changes.slice(0, 4));
   assert(!entry.text().includes("→"), `${date}: no navigation arrows`);
   const changes = entry.find(".growth-changes > li");
   assert(changes.length > 0, `${date}: changes are required`);
   for (const change of changes.toArray()) {
     assert(top(change).text().trim());
     assert(
-      !/[／/]/.test(top(change).text()),
+      !/[／/]/.test(top(change).clone().find("a").remove().end().text()),
       `${date}: no slash-joined changes`,
     );
   }
