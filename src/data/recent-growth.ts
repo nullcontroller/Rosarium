@@ -37,13 +37,16 @@ export interface RecentGrowthItem {
 const curatedRecentGrowth = [
   {
     date: "2026-10-06",
-    type: "integrated",
-    title: "価値創造と継続改善の考えを既存知識へ統合",
+    type: "revised",
+    title: "価値創造・FDE・AI時代の設計判断に関する記事を改訂",
     changes: [
-      { text: "FDEの旧考察に、顧客自身が継続改善できる条件と役割の変化を日付付きで追記", contentIds: ["essays/ai-roles-beyond-fde"] },
-      { text: "AIによる効率化を価値の高い仕事への時間再配分につなぐ考えを、DXの考察と業務設計へ統合", contentIds: ["essays/dx-and-value","foundations/ai-business-design"] },
-      { text: "作る費用が下がるほど選択・維持・統合・終了の判断が重要になる理由を、既存記事で補強", contentIds: ["essays/what-not-to-build-with-ai","essays/it-strategy-and-not-building","software-engineering/code-generation-and-work-design"] },
-      { text: "Knowledge Lifecycleと構造を可視化して伝える方針をAboutへ集約し、導入後の定着と見直しを実践知で補強", contentIds: ["practices/adoption-governance"] },
+      { text: "改訂。FDEを含むAI専門職の役割分化と、顧客自身が継続改善できる仕組みを設計する役割について、日付付きの追記で整理した", contentIds: ["essays/ai-roles-beyond-fde"] },
+      { text: "改訂。AIによる効率化を、価値の高い仕事への時間再配分につなげる考えを整理した", contentIds: ["essays/dx-and-value"] },
+      { text: "改訂。AI・人間・既存システムの責任分界と業務設計を、効率化後の時間再配分も含めて整理した", contentIds: ["foundations/ai-business-design"] },
+      { text: "改訂。生成コスト低下後に重要になる選択・維持・統合・終了判断について整理した", contentIds: ["essays/what-not-to-build-with-ai"] },
+      { text: "改訂。IT戦略における非構築判断と資源配分について整理した", contentIds: ["essays/it-strategy-and-not-building"] },
+      { text: "改訂。コード生成の高速化に加え、既存システムの理解・維持・統合・終了を支える設計判断について追記した", contentIds: ["software-engineering/code-generation-and-work-design"] },
+      { text: "改訂。AI導入後の定着と、運用結果に基づく継続的な見直しについて整理した", contentIds: ["practices/adoption-governance"] },
     ],
     category: "Rosarium",
     icon: "updates",

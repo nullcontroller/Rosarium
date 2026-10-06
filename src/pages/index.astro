@@ -40,7 +40,7 @@ const recent = recentGrowth.slice(0, 1);
       </p>
       <div class="growth-list growth-list-compact">
         {recent.map((entry) => (
-          <GrowthEntry entry={entry} maxChanges={4} />
+          <GrowthEntry entry={entry} />
         ))}
       </div>
       <p><a class="cta-link" href={url("garden-notes")}>Garden Notes</a></p>

@@ -602,7 +602,7 @@ for (const element of top("[data-growth-entry]").toArray()) {
   assert(!growthDates.has(date), `Duplicate Recent Growth date: ${date}`);
   growthDates.add(date);
   assert.equal(entry.find("p.content-summary").length, 0);
-  assertGrowthChanges(top, entry, recentGrowth.find(item => item.date === date).changes.slice(0, 4));
+  assertGrowthChanges(top, entry, recentGrowth.find(item => item.date === date).changes);
   assert(!entry.text().includes("→"), `${date}: no navigation arrows`);
   const changes = entry.find(".growth-changes > li");
   assert(changes.length > 0, `${date}: changes are required`);
@@ -616,7 +616,7 @@ for (const element of top("[data-growth-entry]").toArray()) {
 }
 assert.equal(
   top("[data-growth-entry]").first().find(".growth-changes > li").length,
-  growthContentChanges(recentGrowth[0].changes.slice(0, 4)).length,
+  growthContentChanges(recentGrowth[0].changes).length,
 );
 assert.equal(
   top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
