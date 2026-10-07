@@ -12,7 +12,7 @@ export const recentGrowthLabels = {
 
 export type RecentGrowthType = keyof typeof recentGrowthLabels;
 
-export type RecentGrowthChange = string | { text: string; contentIds: string[]; action?: "published" | "revised" };
+export type RecentGrowthChange = string | { text: string; contentIds: string[]; action?: "published" | "revised" | "integrated" | "retired" };
 export const growthChangeText = (change: RecentGrowthChange) => typeof change === "string" ? change : change.text;
 export const growthChangeTargets = (change: RecentGrowthChange) => typeof change === "string" ? [] : change.contentIds;
 
@@ -188,7 +188,7 @@ export function growthSummary(entry: RecentGrowthItem, isCase: (id: string) => b
     if (typeof change === "string" || !change.action) continue;
     for (const id of change.contentIds) {
       const kind = isCase(id) ? "Case" : "記事";
-      const action = change.action === "published" ? "新規公開" : "改訂";
+      const action = { published: "新規公開", revised: "改訂", integrated: "統合", retired: "退役" }[change.action];
       const key = `${kind}|${action}`;
       counts.set(key, (counts.get(key) ?? 0) + 1);
     }

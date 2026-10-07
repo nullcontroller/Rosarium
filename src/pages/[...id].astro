@@ -153,9 +153,7 @@ const bookNavigation = series.length
       {(d.publication_format || d.layer === "publication") && (
         <span hidden data-pagefind-meta="publication">{timing.value}</span>
       )}
-      {d.update_note && (
-        <p class="update-note">今回の更新：{d.update_note}</p>
-      )}
+      {d.layer !== "reference" && <ContentHistory id={entry.id} data={d} />}
       <p class="tags" data-pagefind-meta="tags">
         {d.tags.join(" / ")}
       </p>
@@ -188,7 +186,6 @@ const bookNavigation = series.length
     <div class="prose">
       <MarkdownBody html={content.body} />
     </div>
-    {d.layer !== "reference" && <ContentHistory id={entry.id} data={d} />}
   </article>
   {readingSequence.length > 0 && (
     <nav

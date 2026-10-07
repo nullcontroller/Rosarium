@@ -48,9 +48,9 @@ const d = entry.data;
       <span data-pagefind-meta="category">キャリア</span> ·{" "}
       <span data-pagefind-meta="status">{statusLabel(d.status)}</span>
     </p>
+    <ContentHistory id="career/overview" data={{}} />
     <div class="prose">
       <MarkdownBody html={entry.rendered?.html || ""} />
     </div>
-    <ContentHistory id="career/overview" data={{}} />
   </article>
 </Site>

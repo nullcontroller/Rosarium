@@ -43,7 +43,7 @@ authoring-guide.md、content-maintenance.mdと対象11ページを全文監査�
 
 旧公開URLは既存のSite + meta refresh + location.replace + 通常リンク方式で第2章へ転送。noindex、転送先canonical、右補助領域なし。通常一覧・検索・sitemap・feedでは第2章へ集約。公開本文に編集・移行事情を載せない。
 
-10月8日のGarden Notesは1entryでREVISED。「AI業務設計に関する記事を10件改訂」と件数を表示し、各記事の具体的な改訂内容は記事末尾の更新履歴に表示する。廃止した独立記事の「新規公開」は残さない。10月7日の事実に基づく新規公開・改訂の区別は変更しない。
+10月8日のGarden Notesは1entryでREVISED。「AI業務設計に関する記事を10件改訂」と件数を表示し、各記事の具体的な改訂内容は記事上部の更新履歴ボックスに表示する。廃止した独立記事の「新規公開」は残さない。10月7日の事実に基づく新規公開・改訂の区別は変更しない。
 
 既存Lifecycle・章タイトル・章順・URL・元公開日・source snapshotは保持。復旧台帳では総論の旧checksumと改訂理由・履歴を残し、元snapshotは変更しない。新記事の旧本文はGit履歴から追跡可能。
 

@@ -4,23 +4,40 @@ import { recentGrowthDateLabel } from "../data/recent-growth";
 interface Props { id: string; data: Parameters<typeof contentHistory>[1]; }
 const { id, data } = Astro.props;
 const events = contentHistory(id, data).reverse();
+const labels = { published: "公開", revised: "改訂", integrated: "統合", retired: "退役" };
 ---
 <section class="content-history" aria-label="更新履歴" data-content-history data-pagefind-ignore data-toc-exclude>
   <h2>更新履歴</h2>
   <ol role="list">
-    {events.map(event => <li>
+    {events.slice(0, 3).map(event => <li>
       <p class="history-event-meta">
         {event.date ? <time datetime={event.date}>{recentGrowthDateLabel(event.date)}</time> : <span>公開時期未確認</span>}
-        <span>{event.type === "published" ? "公開" : "改訂"}</span>
+        <span>{labels[event.type]}</span>
       </p>
-      {event.text && <p>{event.text}</p>}
+      {event.text?.split("\n").map(text => <p>{text}</p>)}
     </li>)}
   </ol>
+  {events.length > 3 && <details>
+    <summary>以前の更新履歴（{events.length - 3}件）</summary>
+    <ol role="list">
+      {events.slice(3).map(event => <li>
+        <p class="history-event-meta">
+          {event.date ? <time datetime={event.date}>{recentGrowthDateLabel(event.date)}</time> : <span>公開時期未確認</span>}
+          <span>{labels[event.type]}</span>
+        </p>
+        {event.text?.split("\n").map(text => <p>{text}</p>)}
+      </li>)}
+    </ol>
+  </details>}
 </section>
 <style>
-  .content-history { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .875rem; }
+  .content-history { margin-block: .75rem 1rem; padding: .875rem 1rem; border: 1px solid var(--line); background: var(--surface); max-width: 48rem; box-sizing: border-box; overflow-wrap: anywhere; color: var(--muted); font-size: .875rem; }
   .content-history h2 { margin: 0 0 .75rem; font-size: 1rem; color: inherit; }
   .content-history ol { list-style: none; padding: 0; margin: 0; display: grid; gap: .75rem; }
   .content-history p { margin: 0; }
   .history-event-meta { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .history-event-meta { font-size: .8125rem; }
+  details { margin-top: .75rem; }
+  summary { cursor: pointer; }
+  details ol { margin-top: .75rem; }
 </style>

@@ -28,6 +28,18 @@ test("aggregate counts separate publication, revision and Case without titles", 
   assert.equal(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-03"), () => false).length, 1);
 });
 
+test("update_note is preserved in the dated revision without duplicating an event", () => {
+  const id = "foundations/applicability-and-delegation";
+  const data = { updated_at: "2026-10-08", update_note: "価値・Riskに加え、検証・修正・復旧の負担を含む委任判断を追加" };
+  const events = contentHistory(id, data);
+  assert.equal(events.filter(event => event.date === "2026-10-08").length, 1);
+  assert(events.at(-1).text.includes(data.update_note));
+  assert.equal(contentHistory("example/article", data).at(-1).type, "revised");
+  const long = contentHistory("practices/adoption-governance", { updated_at: "2026-10-09", update_note: "追加の実質改訂" });
+  assert.equal(long.length, 4);
+  assert.equal(long[0].type, "published");
+});
+
 test("Home includes today through day 29, excluding future, old and month-only dates", () => {
   assert(inRecentWindow("2026-09-09", "2026-10-08"));
   assert(inRecentWindow("2026-10-08", "2026-10-08"));

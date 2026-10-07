@@ -569,6 +569,10 @@ for (const [id, data] of entries) {
   const document = page(id === "career/overview" ? "career" : id);
   const history = document("[data-content-history]");
   assert.equal(history.length, 1, id + ": independent history");
+  assert.equal(document(".update-note").length, 0);
+  assert(!document("main").text().includes("今回の更新："));
+  assert(history.parents("header").length || id === "career/overview", id + ": history near metadata");
+  if (data.update_note) assert(history.text().includes(data.update_note), id + ": update note preserved");
   assert(history.is("[data-pagefind-ignore][data-toc-exclude]"));
   const expected = contentHistory(id, data).reverse();
   assert.equal(history.find("li").length, expected.length, id);
