@@ -82,7 +82,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "ai-design/lifecycle-operations": "2026-10-04",
   "ai-mathematics": "2026-10-04",
   books: "2026-10-05",
-  cases: "2026-10-05",
+  cases: "2026-10-07",
   dx: "2026-10-04",
   "dx/value-design": "2026-10-03",
   "dx/business-transformation": "2026-10-03",

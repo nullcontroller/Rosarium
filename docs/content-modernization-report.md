@@ -161,3 +161,9 @@
 | 対象 | 判断 | 理由 | 接続 |
 | --- | --- | --- | --- |
 | `src/content/essays/ai-use-and-operation.md` | ADD | 利用の敷居低下に業務運用能力が追いつかない原因を、技術と組織の変化速度・判断能力の見えにくさから考察。設計手順・定着方法とは問いが異なる | AI / DX業務変革、考察一覧、Garden Notes。詳細はai-use-and-operation-audit-2026-10-07.md |
+
+## 2026-10-07 実務Case追加
+
+| Path | Decision | 理由 |
+|---|---|---|
+| `src/content/cases/specification-debt-review.md` | ADD | Documentation Debtと仕様・実装の横断調査、Before / Afterの人間による採否判断を扱う独立したACTIVE Case。既存の複数AI保守Caseは情報源ごとの役割分担、旧仕様復元Caseは仕様復元とQAが中心であり、本文を複製しない。 |

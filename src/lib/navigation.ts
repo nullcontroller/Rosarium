@@ -153,6 +153,7 @@ export const layerPath = (layer: string) =>
     reference: "reference",
   })[layer] || "start-here";
 export const publicationType = (e: Entry) =>
+  !e.data.publication_format && e.data.kind === "case" ? "Case" :
   ({ article: "Article", book: "Book", series: "連載", essay: "Essay" })[
     e.data.publication_format || "article"
   ];
@@ -247,6 +248,15 @@ type CaseStudy = {
   design: string[];
 };
 const caseStudyEntries: CaseStudy[] = [
+  {
+    book: "cases/specification-debt-review",
+    topics: ["Documentation Debt", "Context / Human Review"],
+    challenge: "変換レビューで、長期保守された仕様書と現在の実装の整合確認が必要になった。",
+    designSummary: "仕様書と現在のコードをAIが横断調査し、人間がEvidenceとBefore / Afterを確認して変更を判断した。",
+    result: "約40件の問題を確認し、修正するものと現状維持するものを人間が判断した。工数削減率は未測定。",
+    chapters: [],
+    design: ["knowledge-context/context-before-model-performance", "evaluation-hitl/responsibility-and-hitl"],
+  },
   {
     book: "cases/system-understanding",
     referenceNote: "旧AI環境を前提とした参考事例",

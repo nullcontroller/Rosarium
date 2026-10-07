@@ -33,6 +33,489 @@ export interface CaseDiagramModel {
 }
 // Reader-facing explanations; overview and chapter diagrams serve different reading questions.
 export const caseDiagrams: Record<string, CaseDiagramModel> = {
+  "maintenance-documentation-debt": {
+    "title": "AIは候補を提示し、人間が変更を判断する",
+    "intro": "Issue Candidate ≠ Change Decision。現在のコードも根拠の一つであり、正解そのものではありません。",
+    "description": "仕様書・現在のコード・関連Contextを並列入力としてAIが横断調査します。問題候補・関連根拠・修正候補を人間が確認し、変更前後を比較します。変更・現状維持・追加調査を分け、仕様判断と変更承認は人間が行います。",
+    "nodes": [
+        {
+            "id": "docs",
+            "label": "仕様書群",
+            "kind": "knowledge",
+            "description": "長期保守されたDocumentation。誤記・古い記述・重複・不整合を含む可能性があります。"
+        },
+        {
+            "id": "code",
+            "label": "現在のコード",
+            "kind": "system",
+            "description": "現在動くソフトウェアを理解する重要なEvidenceです。実装Bugや互換性処理の可能性があり、正しい仕様そのものとは扱いません。"
+        },
+        {
+            "id": "context",
+            "label": "関連Context",
+            "kind": "knowledge",
+            "description": "周辺仕様や既存の設計判断などを参照します。互換性やコード外の製品条件は人間が確認します。"
+        },
+        {
+            "id": "investigate",
+            "label": "AIによる横断調査",
+            "kind": "ai",
+            "description": "仕様書・コード・関連Contextを検索・比較し、不整合候補とEvidenceを整理します。仕様は決定しません。"
+        },
+        {
+            "id": "issue",
+            "label": "問題候補",
+            "kind": "ai",
+            "description": "Issue Candidateです。差異や不整合の指摘は、その箇所を変更する決定ではありません。"
+        },
+        {
+            "id": "evidence",
+            "label": "関連根拠",
+            "kind": "knowledge",
+            "description": "関連仕様・現在の実装など、指摘の根拠を提示します。人間が妥当性を確認します。"
+        },
+        {
+            "id": "proposal",
+            "label": "修正候補",
+            "kind": "ai",
+            "description": "Change Proposalです。AIが提示した修正案を、そのまま仕様書へ反映しません。"
+        },
+        {
+            "id": "validation",
+            "label": "人間による確認",
+            "kind": "human",
+            "description": "指摘と根拠の妥当性、互換性、コード外の事情を確認します。"
+        },
+        {
+            "id": "compare",
+            "label": "変更前・変更後の比較",
+            "kind": "human",
+            "description": "Before / Afterの意味、他仕様との矛盾、現在の実装、互換性条件を確認します。"
+        },
+        {
+            "id": "change",
+            "label": "変更する",
+            "kind": "decision",
+            "description": "根拠と変更前後を確認し、人間が修正を採用する判断です。"
+        },
+        {
+            "id": "retain",
+            "label": "現状維持",
+            "kind": "decision",
+            "description": "互換性・製品条件・保守上の理由から、AIの提案を採用しない経路です。"
+        },
+        {
+            "id": "research",
+            "label": "追加調査",
+            "kind": "decision",
+            "description": "根拠が足りない場合は決定を保留して調査へ戻す経路です。この図は判断の構造を示し、実施件数を示すものではありません。"
+        },
+        {
+            "id": "decision",
+            "label": "人間の仕様判断",
+            "kind": "human",
+            "description": "最終仕様の決定と変更承認は人間が担います。Issue Candidate ≠ Change Decisionです。"
+        },
+        {
+            "id": "reflect",
+            "label": "承認内容を仕様書へ反映",
+            "kind": "system",
+            "description": "修正を承認した内容のみ反映します。現状維持では記述を変更せず、追加調査では決定を保留します。"
+        }
+    ],
+    "edges": [
+        {
+            "to": "investigate",
+            "label": "",
+            "dashed": false,
+            "from": "docs"
+        },
+        {
+            "to": "investigate",
+            "label": "",
+            "dashed": false,
+            "from": "code"
+        },
+        {
+            "to": "investigate",
+            "label": "",
+            "dashed": false,
+            "from": "context"
+        },
+        {
+            "to": "issue",
+            "label": "",
+            "dashed": false,
+            "from": "investigate"
+        },
+        {
+            "to": "evidence",
+            "label": "",
+            "dashed": false,
+            "from": "investigate"
+        },
+        {
+            "to": "proposal",
+            "label": "",
+            "dashed": false,
+            "from": "investigate"
+        },
+        {
+            "to": "validation",
+            "label": "",
+            "dashed": false,
+            "from": "issue"
+        },
+        {
+            "to": "validation",
+            "label": "",
+            "dashed": false,
+            "from": "evidence"
+        },
+        {
+            "to": "validation",
+            "label": "",
+            "dashed": false,
+            "from": "proposal"
+        },
+        {
+            "to": "compare",
+            "label": "",
+            "dashed": false,
+            "from": "validation"
+        },
+        {
+            "to": "change",
+            "label": "",
+            "dashed": false,
+            "from": "compare"
+        },
+        {
+            "to": "retain",
+            "label": "",
+            "dashed": false,
+            "from": "compare"
+        },
+        {
+            "to": "research",
+            "label": "",
+            "dashed": false,
+            "from": "compare"
+        },
+        {
+            "to": "decision",
+            "label": "",
+            "dashed": false,
+            "from": "change"
+        },
+        {
+            "to": "decision",
+            "label": "",
+            "dashed": false,
+            "from": "retain"
+        },
+        {
+            "to": "investigate",
+            "label": "",
+            "dashed": true,
+            "from": "research"
+        },
+        {
+            "to": "reflect",
+            "label": "",
+            "dashed": false,
+            "from": "decision"
+        }
+    ],
+    "layouts": {
+        "mobile": {
+            "width": 320,
+            "height": 1320,
+            "nodes": {
+                "docs": {
+                    "x": 12,
+                    "y": 20,
+                    "w": 132,
+                    "h": 88
+                },
+                "code": {
+                    "x": 176,
+                    "y": 20,
+                    "w": 132,
+                    "h": 88
+                },
+                "context": {
+                    "x": 94,
+                    "y": 130,
+                    "w": 132,
+                    "h": 88
+                },
+                "investigate": {
+                    "x": 94,
+                    "y": 250,
+                    "w": 132,
+                    "h": 88
+                },
+                "issue": {
+                    "x": 12,
+                    "y": 370,
+                    "w": 132,
+                    "h": 88
+                },
+                "evidence": {
+                    "x": 176,
+                    "y": 370,
+                    "w": 132,
+                    "h": 88
+                },
+                "proposal": {
+                    "x": 94,
+                    "y": 480,
+                    "w": 132,
+                    "h": 88
+                },
+                "validation": {
+                    "x": 94,
+                    "y": 610,
+                    "w": 132,
+                    "h": 88
+                },
+                "compare": {
+                    "x": 94,
+                    "y": 730,
+                    "w": 132,
+                    "h": 88
+                },
+                "change": {
+                    "x": 12,
+                    "y": 860,
+                    "w": 132,
+                    "h": 88
+                },
+                "retain": {
+                    "x": 176,
+                    "y": 860,
+                    "w": 132,
+                    "h": 88
+                },
+                "research": {
+                    "x": 94,
+                    "y": 970,
+                    "w": 132,
+                    "h": 88
+                },
+                "decision": {
+                    "x": 94,
+                    "y": 1090,
+                    "w": 132,
+                    "h": 88
+                },
+                "reflect": {
+                    "x": 94,
+                    "y": 1210,
+                    "w": 132,
+                    "h": 88
+                }
+            },
+            "edges": {
+                "docs:investigate": {
+                    "path": "M78.0 108H78V236H160.0V250"
+                },
+                "code:investigate": {
+                    "path": "M242.0 108H242V236H160.0V250"
+                },
+                "context:investigate": {
+                    "path": "M160.0 218V236H160.0V250"
+                },
+                "investigate:issue": {
+                    "path": "M160.0 338V356H78.0V370"
+                },
+                "investigate:evidence": {
+                    "path": "M160.0 338V356H242.0V370"
+                },
+                "investigate:proposal": {
+                    "path": "M160.0 338V466H160.0V480"
+                },
+                "issue:validation": {
+                    "path": "M78.0 458H78V596H160.0V610"
+                },
+                "evidence:validation": {
+                    "path": "M242.0 458H242V596H160.0V610"
+                },
+                "proposal:validation": {
+                    "path": "M160.0 568V596H160.0V610"
+                },
+                "validation:compare": {
+                    "path": "M160.0 698V716H160.0V730"
+                },
+                "compare:change": {
+                    "path": "M160.0 818V846H78.0V860"
+                },
+                "compare:retain": {
+                    "path": "M160.0 818V846H242.0V860"
+                },
+                "compare:research": {
+                    "path": "M160.0 818H6V956H160.0V970"
+                },
+                "change:decision": {
+                    "path": "M78.0 948H78V1076H160.0V1090"
+                },
+                "retain:decision": {
+                    "path": "M242.0 948H242V1076H160.0V1090"
+                },
+                "research:investigate": {
+                    "path": "M226 1014.0H318V294.0H226"
+                },
+                "decision:reflect": {
+                    "path": "M160.0 1178V1196H160.0V1210"
+                }
+            }
+        },
+        "desktop": {
+            "width": 926,
+            "height": 652,
+            "nodes": {
+                "docs": {
+                    "x": 18,
+                    "y": 20,
+                    "w": 140,
+                    "h": 82
+                },
+                "code": {
+                    "x": 18,
+                    "y": 120,
+                    "w": 140,
+                    "h": 82
+                },
+                "context": {
+                    "x": 18,
+                    "y": 220,
+                    "w": 140,
+                    "h": 82
+                },
+                "investigate": {
+                    "x": 198,
+                    "y": 120,
+                    "w": 140,
+                    "h": 82
+                },
+                "issue": {
+                    "x": 378,
+                    "y": 20,
+                    "w": 140,
+                    "h": 82
+                },
+                "evidence": {
+                    "x": 378,
+                    "y": 120,
+                    "w": 140,
+                    "h": 82
+                },
+                "proposal": {
+                    "x": 378,
+                    "y": 220,
+                    "w": 140,
+                    "h": 82
+                },
+                "validation": {
+                    "x": 558,
+                    "y": 120,
+                    "w": 140,
+                    "h": 82
+                },
+                "compare": {
+                    "x": 738,
+                    "y": 120,
+                    "w": 140,
+                    "h": 82
+                },
+                "change": {
+                    "x": 738,
+                    "y": 350,
+                    "w": 140,
+                    "h": 82
+                },
+                "retain": {
+                    "x": 738,
+                    "y": 450,
+                    "w": 140,
+                    "h": 82
+                },
+                "research": {
+                    "x": 738,
+                    "y": 550,
+                    "w": 140,
+                    "h": 82
+                },
+                "decision": {
+                    "x": 378,
+                    "y": 400,
+                    "w": 140,
+                    "h": 82
+                },
+                "reflect": {
+                    "x": 18,
+                    "y": 400,
+                    "w": 140,
+                    "h": 82
+                }
+            },
+            "edges": {
+                "docs:investigate": {
+                    "path": "M158 61.0H178.0V161.0H198"
+                },
+                "code:investigate": {
+                    "path": "M158 161.0H178.0V161.0H198"
+                },
+                "context:investigate": {
+                    "path": "M158 261.0H178.0V161.0H198"
+                },
+                "investigate:issue": {
+                    "path": "M338 161.0H358.0V61.0H378"
+                },
+                "investigate:evidence": {
+                    "path": "M338 161.0H358.0V161.0H378"
+                },
+                "investigate:proposal": {
+                    "path": "M338 161.0H358.0V261.0H378"
+                },
+                "issue:validation": {
+                    "path": "M518 61.0H538.0V161.0H558"
+                },
+                "evidence:validation": {
+                    "path": "M518 161.0H538.0V161.0H558"
+                },
+                "proposal:validation": {
+                    "path": "M518 261.0H538.0V161.0H558"
+                },
+                "validation:compare": {
+                    "path": "M698 161.0H718.0V161.0H738"
+                },
+                "compare:change": {
+                    "path": "M808.0 202V320H898V391.0H878"
+                },
+                "compare:retain": {
+                    "path": "M808.0 202V320H718V491.0H738"
+                },
+                "compare:research": {
+                    "path": "M808.0 202V320H910V591.0H878"
+                },
+                "change:decision": {
+                    "path": "M738 391.0H628.0V441.0H518"
+                },
+                "retain:decision": {
+                    "path": "M738 491.0H628.0V441.0H518"
+                },
+                "research:investigate": {
+                    "path": "M878 591.0H902V8H268V120"
+                },
+                "decision:reflect": {
+                    "path": "M378 441.0H268.0V441.0H158"
+                }
+            }
+        }
+    }
+},
   "legacy-process-structure": {
     title: "開始条件の違いと、共通する処理を分ける",
     description:

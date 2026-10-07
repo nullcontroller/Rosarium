@@ -413,10 +413,10 @@ for (const [id, expected] of [
 const cases = page("cases");
 assert.deepEqual(
   cases("[data-series-index]").map((_, element) => cases(element).attr("data-series-index")).get(),
-  ["cases/three-ai-maintenance", "cases/customer-support-ai-dx"],
+  ["cases/specification-debt-review", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"],
 );
 assert.equal(cases(".case-reference-note").length, 0);
-assert.equal(cases("#active-cases .case-study-index").length, 2);
+assert.equal(cases("#active-cases .case-study-index").length, 3);
 assert.equal(cases("#obsolete-cases").length, 0);
 assert.equal(cases("#active-cases > h2").text(), "主要事例");
 
@@ -428,9 +428,9 @@ assert.equal(
   cases(".header-primary a[aria-current=page]").text().trim(),
   "事例",
 );
-assert.equal(cases(".case-study-index").length, 2);
+assert.equal(cases(".case-study-index").length, 3);
 assert.equal(cases("main img").length, 0);
-assert.equal(cases(".book-list-entry-text").length, 2);
+assert.equal(cases(".book-list-entry-text").length, 3);
 for (const id of [
   "cases/three-ai-maintenance",
   "cases/customer-support-ai-dx",
@@ -511,6 +511,7 @@ assert.equal(
   0,
 );
 const expectedBooks = [
+  "cases/specification-debt-review",
   "cases/three-ai-maintenance",
   "cases/customer-support-ai-dx",
 ];
@@ -524,7 +525,7 @@ for (const route of ["cases"]) {
   );
   assert.equal($("[data-series-index] details, [data-series-index] summary").length, 0);
   assert(!$("[data-series-index]").text().includes("概要・全体構成を読む"));
-  assert.equal($("[data-series-index] .content-title").length, 2);
+  assert.equal($("[data-series-index] .content-title").length, 3);
 }
 assert.equal(
   primaryIds(page("dx/business-transformation")).filter((id) => id === "foundations/ai-business-design").length,
@@ -785,7 +786,7 @@ for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
     });
     assert(!$("main").text().includes("業務・開発プロセスへの組込み"));
   } else if (route === "cases") {
-    assert.equal($("[data-series-index]").length, 2);
+    assert.equal($("[data-series-index]").length, expectedBooks.length);
     assert(!$("body").text().includes("業務・システムの実践"));
   } else {
     assert(primaryIds($).length, `${route}: actual article index remains`);
@@ -916,7 +917,7 @@ assert(!lastSupportChapter(".pagination").text().includes("次のページ"));
 assert(lastSupportChapter('.pagination a[href="/Rosarium/cases/customer-support-ai-dx/continuous-improvement/"]').length);
 
 // Portfolio explanation diagrams are static first and keep meaningful reading exits.
-for (const id of ["system-understanding", "three-ai-maintenance"]) {
+for (const id of ["system-understanding", "three-ai-maintenance", "specification-debt-review"]) {
  const $ = page("cases/" + id);
  assert.equal($("[data-case-flow]").length, 1);
  assert.equal($("[data-case-flow] svg").length, 2);
@@ -958,3 +959,18 @@ for (const [route, icon] of [["", "home"], ["ai", "articles"], ["dx", "overview"
   assert.equal($("main .icon-page.icon-" + icon).length, 1, route + ": canonical entrance icon");
   assert.equal($('.sidebar a[href="/Rosarium/' + (route ? route + '/' : '') + '"] .icon-' + icon).length, 1, route + ": Navigation icon agrees");
 }
+
+// New documentation review Case preserves a human decision boundary and static SVG paths.
+const debtCase = page("cases/specification-debt-review");
+const debtFigure = debtCase("#case-maintenance-documentation-debt");
+for (const layout of ["mobile", "desktop"]) {
+  const svg = debtFigure.find(`.case-layout-${layout}`);
+  assert.equal(svg.find("[data-node]").length, 14);
+  for (const id of ["change", "retain", "research", "decision"]) assert.equal(svg.find(`[data-node="${id}"]`).length, 1);
+  assert.equal(svg.find(".case-edge-dashed").length, 1, "Additional investigation returns to evidence collection");
+}
+assert(debtCase('main').text().includes("約40件は修正件数ではなく"));
+assert(debtCase('main').text().includes("Implementation = Correct Specificationとは扱わなかった"));
+assert(debtCase('main').text().includes("工数削減率や短縮時間は示せない"));
+assert(cases('[data-series-index="cases/specification-debt-review"]').text().includes("Case"));
+console.log("Verified documentation debt Case metrics, limitations, human decisions and static SVG fallbacks.");

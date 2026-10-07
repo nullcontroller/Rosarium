@@ -38,8 +38,9 @@ const curatedRecentGrowth = [
   {
     date: "2026-10-07",
     type: "new",
-    title: "AI業務運用の原因分析を新規公開し、実務設計の記事を改訂",
+    title: "AI業務運用の記事と仕様書レビューの実務事例を公開・改訂",
     changes: [
+      { text: "新規公開。長期保守された仕様書群と現在の実装をAIで横断調査し、人間が変更前後を確認して仕様判断するレビュー設計を整理した", contentIds: ["cases/specification-debt-review"] },
       { text: "新規公開。AI利用の民主化と業務運用能力の差を、業務設計・責任・評価・組織変化の観点から整理した", contentIds: ["essays/ai-use-and-operation"] },
       { text: "改訂。AIを業務で使いこなす条件を、情報・検証・権限・責任と、改善・縮小・統合・終了の実務設計として整理した", contentIds: ["practices/ai-adoption-and-effective-use"] },
     ],
