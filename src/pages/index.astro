@@ -86,7 +86,7 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 
 <style>
   .home-growth-history {
-    max-height: min(32.5rem, 55vh);
+    max-height: clamp(18.75rem, 32vh, 22.5rem);
     overflow-y: auto;
     overflow-x: hidden;
     padding: .5rem .75rem;

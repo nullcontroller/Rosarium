@@ -12,14 +12,16 @@ test("publication starts history and preserves original date precision", () => {
   assert.equal(events[1].type, "revised");
   assert(events[1].text.includes("実務経験"));
   assert.equal(contentHistory("example/article", { published_at: "2026-08-22 10:28" })[0].date, "2026-08-22");
-  assert.equal(contentHistory("example/article", {})[0].date, null);
+  assert.equal(contentHistory("example/article", {})[0].date, "2026-09-23");
+  assert.equal(contentHistory("career/overview", { layer: "career" })[0].date, null, "Career content remains unchanged");
+  assert.equal(contentHistory("example/article", { source: { published_at: "2026-06-10" } })[0].date, "2026-06-10");
 });
 
 test("new publication is not duplicated as a revision; revisions stay chronological", () => {
   const events = contentHistory("cases/specification-debt-review", { published_at: "2026-10-07" });
   assert.equal(events.length, 1);
   assert.equal(events[0].type, "published");
-  assert.deepEqual(contentHistory("practices/ai-adoption-and-effective-use", {}).map(event => event.date), [null, "2026-10-07", "2026-10-08"]);
+  assert.deepEqual(contentHistory("practices/ai-adoption-and-effective-use", {}).map(event => event.date), ["2026-09-23", "2026-10-07", "2026-10-08"]);
 });
 
 test("aggregate counts separate publication, revision and Case without titles", () => {
