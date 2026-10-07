@@ -154,3 +154,10 @@
 ## 2026-10-03 Career入口と経験ハブ
 
 `src/content/career/overview.md` はユーザー提供原稿による設計思想の正本。`src/content/career/details.md` は従来のCareerの経験・実践事例・外部プロフィールを継承するハブ。職歴・資格・期間の詳細はLinkedInへ委譲し、非公開profileと互換URLは維持する。新規実績を追加せず、3 Caseと8つの関連テーマ・背景へ接続した。
+
+
+## 2026-10-07：AI利用と運用の非対称性
+
+| 対象 | 判断 | 理由 | 接続 |
+| --- | --- | --- | --- |
+| `src/content/essays/ai-use-and-operation.md` | ADD | 利用の敷居低下に業務運用能力が追いつかない原因を、技術と組織の変化速度・判断能力の見えにくさから考察。設計手順・定着方法とは問いが異なる | AI / DX業務変革、考察一覧、Garden Notes。詳細はai-use-and-operation-audit-2026-10-07.md |

@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 138ページ。目次あり 117、なし 21。Referenceあり 115、なし 23。
+対象 139ページ。目次あり 118、なし 21。Referenceあり 116、なし 23。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -69,14 +69,15 @@
 | /cases/three-ai-maintenance/structuring-failure-handling/ | 第2章　異常系の構造を整理し、設計方針を確定する | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /dx/ | DX | あり | あり | あり | 5 | 主要見出しが複数 |
-| /dx/business-transformation/ | 業務変革 | あり | あり | あり | 6 | 主要見出しが複数 |
+| /dx/business-transformation/ | 業務変革 | あり | あり | あり | 7 | 主要見出しが複数 |
 | /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 6 | 主要見出しが複数 |
 | /dx/selection-retirement/ | 選択と廃止 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /dx/system-transformation/ | システム変革 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /dx/value-design/ | 価値設計 | あり | あり | あり | 3 | 主要見出しが複数 |
-| /essays/ | 考察 | あり | あり | あり | 6 | 主要見出しが複数 |
+| /essays/ | 考察 | あり | あり | あり | 7 | 主要見出しが複数 |
 | /essays/ai-career-market/ | 採用される側から見たAI人材の転職概況 | あり | あり | あり | 7 | 長文の複数h3セクション |
 | /essays/ai-roles-beyond-fde/ | AI人材はFDEだけではない――これから進む専門職の細分化 | あり | あり | あり | 12 | 主要見出しが複数 |
+| /essays/ai-use-and-operation/ | AIは誰でも使えるようになったのに、なぜ業務で使いこなせる人は少ないのか | あり | あり | あり | 7 | 主要見出しが複数 |
 | /essays/dx-and-value/ | DXを学んで、「価値」という言葉が気になるようになった | あり | あり | あり | 6 | 長文の複数h3セクション |
 | /essays/it-strategy-and-not-building/ | IT戦略では「何を作らないか」も設計する | あり | あり | あり | 9 | 主要見出しが複数 |
 | /essays/legacy-change-and-retirement/ | レガシーシステムは、変えやすくしながら終わらせる | あり | あり | あり | 7 | 主要見出しが複数 |
@@ -107,7 +108,7 @@
 | /foundations/layered-hallucination-controls/ | ハルシネーションの多層制御設計 | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/llm-as-probabilistic-model/ | LLMを確率モデルとして設計するという立場 | なし | あり | あり | 5 | 主要見出しが複数 |
 | /foundations/temperature-design/ | Temperature設計指針 | あり | あり | あり | 13 | 長文の複数h3セクション |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 7 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 8 | 主要見出しが複数 |
 | /knowledge-context/ | ナレッジ / コンテキスト | なし | あり | あり | 7 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | AIを使い分ける基準は、モデル性能よりコンテキストではないか | あり | あり | あり | 8 | 長文の複数h3セクション |
 | /knowledge-context/human-and-ai-documentation/ | 人向け資料とAI向け資料の分離設計 | あり | あり | あり | 17 | 長文の複数h3セクション |

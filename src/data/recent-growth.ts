@@ -36,6 +36,16 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-07",
+    type: "new",
+    title: "AI利用と業務運用の違いを考える記事を新規公開",
+    changes: [
+      { text: "新規公開。AI利用の民主化と業務運用能力の差を、業務設計・責任・評価・組織変化の観点から整理した", contentIds: ["essays/ai-use-and-operation"] },
+    ],
+    category: "Rosarium",
+    icon: "updates",
+  },
+  {
     date: "2026-10-06",
     type: "revised",
     title: "価値創造・FDE・AI時代の設計判断に関する記事を改訂",
