@@ -646,7 +646,7 @@ for (const route of ["ai-mathematics", "practices"]) {
   );
   assert.equal(
     $(".site-last-updated time").attr("datetime"),
-    route === "practices" ? "2026-10-05" : "2026-10-04",
+    route === "practices" ? "2026-10-08" : "2026-10-04",
     `${route}: last updated`,
   );
 }

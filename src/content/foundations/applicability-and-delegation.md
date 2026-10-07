@@ -6,7 +6,7 @@ title: AI適用可否と委任レベルの設計
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-08"
 entry_points:
   - ai
   - dx
@@ -15,9 +15,9 @@ secondaryCategories: [selection-retirement]
 tags:
   - foundations
 published_at: null
-updated_at: "2026-09-27"
-update_type: expanded
-update_note: "価値と業務変化からAIの役割を逆算する設計順序と、顧客問い合わせQAの例を追加"
+updated_at: "2026-10-08"
+update_type: revised
+update_note: "価値・Riskに加え、検証・修正・復旧の負担を含む委任判断を追加"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/AI%E9%81%A9%E7%94%A8%E5%8F%AF%E5%90%A6%E3%81%A8%E5%A7%94%E4%BB%BB%E3%83%AC%E3%83%99%E3%83%AB%E3%81%AE%E8%A8%AD%E8%A8%88
@@ -234,6 +234,31 @@ AIが本番環境へ直接反映するなら、影響が大きくなるため、
 AIが自動で返金するなら、金額上限、対象条件、監視、停止方法が必要になる。
 
 ---
+
+### 検証・修正・復旧まで含めて委任を比較する
+
+AIにできるかだけでなく、任せた後まで含めて業務全体が良くなるかを判断する。委任に必要な負担を、次の簡略モデルで分ける。
+
+```text
+Delegation Cost
+= AI Execution Cost + Human Verification Cost
+  + Correction Cost + Recovery Cost
+```
+
+これは実測式ではなく比較の枠組みである。時間と金額を混在させず、同じ単位と業務範囲で評価する。不要な工程は含めず、重複する確認・修正は二重計上しない。全体の完了時間を評価する場合は、受け渡しと待ち時間も別に確認する。
+
+説明用の仮例として、AIの生成が5分でも、人間のレビューに60分必要なら、生成時間だけでは有効な委任と判断できない。人間が行う方法や、AIを検索・候補提示に限定する方法と、同じ品質条件で比較する。
+
+| 判断軸 | 問い |
+|---|---|
+| Value | 誰のどの成果が改善するか |
+| Risk | 誤りの影響と可逆性はどうか |
+| Verification Cost | 人間が根拠を確認し、採否を決める負担はどれだけか |
+| Correction / Recovery Cost | 修正・停止・復旧を誰が、どの範囲で行えるか |
+
+高Riskの承認を費用だけで省略しない。検証負荷が価値を上回るなら、委任範囲を狭めるか、AIを使わない選択をする。生成後のレビューと合意形成が手戻りにつながった経験は[AIで速く作れても、仕事は速く終わらない](/practices/ai-generation-and-work-completion/)で扱っている。
+
+この判断を運用の評価・改善・終了まで接続する実務上の条件は、[AIは使われている。でも使いこなされていない](/practices/ai-adoption-and-effective-use/)で整理している。
 
 ### まとめ
 

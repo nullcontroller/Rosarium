@@ -5,7 +5,7 @@ title: 第4章　AIに任せない条件を、先に決める
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-08"
 entry_points:
   - ai
   - dx
@@ -36,6 +36,8 @@ source:
 series: ai-business-design
 series_title: 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』
 order: 4
+updated_at: "2026-10-08"
+update_type: revised
 ---
 
 ## 第4章　説明できない仕事を、AIに任せてはいけない
@@ -260,6 +262,12 @@ AIを導入するときは、何を自動化できるかに注目しがちです
 説明できない判断を業務へ流さないために、あらかじめ設計された動作です。
 
 ---
+
+### 説明できても、検証負荷が大きければ範囲を見直す
+
+人間が説明できることは委任の条件ですが、それだけで効率的な委任とは言えません。確認・修正・復旧に掛かる負担も含めて比較します。根拠を毎回一から調べ直す必要があるなら、AIの役割を検索や候補提示までに戻す選択があります。
+
+Value、Risk、Human Verification Costを合わせた比較は[AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)で扱っています。生成が速いことだけを理由に、説明・検証できる範囲を越えて仕事を任せません。
 
 ### 説明できる仕事だけを任せる
 

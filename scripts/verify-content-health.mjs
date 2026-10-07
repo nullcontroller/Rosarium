@@ -135,8 +135,8 @@ assert.equal(
   1,
   "Legacy lifecycle essay has a DX entry point; AI case links remain discovery paths",
 );
-assert.equal(aiAndDx.length, 37, "AI + DX discovery content count changed");
-assert.equal(files.length, 100, "All audited content must remain traceable");
+assert.equal(aiAndDx.length, 38, "AI + DX discovery content count changed");
+assert.equal(files.length, 101, "All audited content must remain traceable");
 
 console.log(
   `Verified content health: ${files.length} audited Markdown pages, ${publicEntries.length} public pages, ${canonicalReferences.length} canonical references, ${canonicalPractices.length} canonical practices; entry points AI-only=${aiOnly.length}, DX-only=${dxOnly.length}, AI+DX=${aiAndDx.length}.`,

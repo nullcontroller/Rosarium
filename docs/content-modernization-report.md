@@ -167,3 +167,9 @@
 | Path | Decision | 理由 |
 |---|---|---|
 | `src/content/cases/specification-debt-review.md` | ADD | Documentation Debtと仕様・実装の横断調査、Before / Afterの人間による採否判断を扱う独立したACTIVE Case。既存の複数AI保守Caseは情報源ごとの役割分担、旧仕様復元Caseは仕様復元とQAが中心であり、本文を複製しない。 |
+
+## 2026-10-08 AI業務設計の整理
+
+| Path | Decision | 理由 |
+|---|---|---|
+| `src/content/practices/ai-generation-and-work-completion.md` | ADD | 実務経験・Reviewability・業務完了時間の独立記事。既存第2章の同じ経験を詳述し直し、第2章は評価の要点に整理して重複を抑える。 |

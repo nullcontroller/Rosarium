@@ -36,6 +36,21 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-08",
+    type: "new",
+    title: "AI生成後のレビューと業務完了までを扱う記事を公開し、責任・委任・運用の知識を改訂",
+    changes: [
+      { text: "新規公開。要件をAIで整理した後に手戻りになった経験から、理解・レビュー可能性・合意形成まで含めた業務設計を整理した", contentIds: ["practices/ai-generation-and-work-completion"] },
+      { text: "改訂。責任と承認を人間へ残しながら、確認の条件・担当者・時間・費用を持つ工程としてHITLを整理した", contentIds: ["foundations/ai-business-design/delegation-and-responsibility"] },
+      { text: "改訂。同じ品質・完成条件で、総工数と業務完了までの経過時間を区別してAI導入を評価する観点を整理した", contentIds: ["foundations/ai-business-design/evaluating-business-efficiency"] },
+      { text: "改訂。価値とRiskに加え、人間の検証・修正・復旧の負担を含めて委任範囲を判断する考え方を追加した", contentIds: ["foundations/applicability-and-delegation"] },
+      { text: "改訂。説明できることだけでなく、検証負荷に応じてAIへ任せる範囲を見直す条件を追加した", contentIds: ["foundations/ai-business-design/explainable-delegation"] },
+      { text: "改訂。AIを使いこなす条件に、人間の検証・レビュー可能性・合意形成まで含む業務全体の設計を明示した", contentIds: ["practices/ai-adoption-and-effective-use"] },
+    ],
+    category: "Rosarium",
+    icon: "updates",
+  },
+  {
     date: "2026-10-07",
     type: "new",
     title: "AI業務運用の記事と仕様書レビューの実務事例を公開・改訂",

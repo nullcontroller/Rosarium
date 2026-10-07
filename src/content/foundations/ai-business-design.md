@@ -6,7 +6,7 @@ title: 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存�
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-10-06"
+last_updated: "2026-10-08"
 entry_points:
   - ai
   - dx
