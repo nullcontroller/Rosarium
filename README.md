@@ -23,6 +23,7 @@ npm test
 npm run build
 ```
 
+[執筆ガイド](docs/authoring-guide.md)にfront matter、Markdown拡張、Series、公開手順をまとめています。
 [検索・Discovery設定](docs/search-discovery.md)と[無料施策チェックリスト](docs/free-discovery-checklist.md)に、Search Console、Bing、Feed、外部Profileの運用手順をまとめています。
 `master`へのpushでGitHub Actionsが検証・ビルド・Pagesデプロイを行います。
 
