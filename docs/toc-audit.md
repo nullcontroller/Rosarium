@@ -120,7 +120,7 @@
 | /overview/ | AIへ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /practices/ | 実践知 | あり | あり | あり | 26 | 主要見出しが複数 |
 | /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 6 | 主要見出しが複数 |
-| /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | あり | あり | あり | 6 | 主要見出しが複数 |
+| /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | あり | あり | あり | 12 | 主要見出しが複数 |
 | /practices/ai-education-principles/ | 生成AI教育はなぜ難しいのか ― 変わらない原則と変わり続ける実践を分けて設計する | あり | あり | あり | 7 | 長文の複数h3セクション |
 | /practices/education-and-capability/ | AI教育を原則と実践に分ける | あり | あり | あり | 7 | 主要見出しが複数 |
 | /practices/transferring-ai-practices/ | 全員の業務が違うのに、AI活用事例をそのまま横展開できるのか | あり | あり | あり | 9 | 長文の複数h3セクション |
