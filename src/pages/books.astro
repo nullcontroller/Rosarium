@@ -5,9 +5,9 @@ const destination = url("cases");
 const canonical = new URL(destination, Astro.site).toString();
 ---
 
-<Site showRightSidebar={false} title="実践事例へ統合しました" summary="一覧の役割は実践事例へ統合しました。" canonical={canonical} noindex showLastUpdated={false}>
+<Site showRightSidebar={false} title="実践事例をご覧ください" summary="実務上の課題と設計判断は実践事例で紹介しています。" canonical={canonical} noindex showLastUpdated={false}>
   <meta slot="head" http-equiv="refresh" content={"0;url=" + destination} />
   <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
-  <h1>実践事例へ統合しました</h1>
+  <h1>実践事例をご覧ください</h1>
   <p><a href={destination}>実践事例へ移動する</a></p>
 </Site>

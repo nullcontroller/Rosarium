@@ -99,7 +99,8 @@ for (const record of report.entries) {
   if (record.lifecycle === "ACTIVE") assert.equal(note.length, 0);
   else {
     assert.equal(note.length, 1);
-    assert(note.text().includes(record.reason));
+    assert.ok(data.lifecycle_reason?.trim(), "Reader-facing lifecycle reason required");
+    assert(note.text().includes(data.lifecycle_reason));
     assert.equal(note.attr("data-lifecycle"), data.lifecycle);
   }
   if (record.lifecycle === "RETIRED") {

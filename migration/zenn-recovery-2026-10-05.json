@@ -167,7 +167,7 @@
       "local_appendix": {
         "date": "2026-10-06",
         "marker": "\n<!-- rosarium-local-revision:2026-10-06 -->\n",
-        "sha256": "3787921f655983a5bf7ba93e44992a4222867c8e8dc531df1afd48ffaf5f9ee1",
+        "sha256": "b6e30e37ca02d56034f1d55cb97738597ce091d30352b7ac3437b3307c869752",
         "reason": "ユーザー提供の投稿思想を統合。専門職分化の原文を保持し、構築後の持続性と顧客の改善能力を追記。"
       }
     },
@@ -327,7 +327,7 @@
       "local_appendix": {
         "date": "2026-10-06",
         "marker": "\n<!-- rosarium-local-revision:2026-10-06 -->\n",
-        "sha256": "3b07d82aeef643e4631a31d6917a83f28fddbe9cfeabe9655485494a31134658",
+        "sha256": "2aa8e9f5345a3821b54e609de05d3d6d55873e0d51a089a84fd0f498e11a34b5",
         "reason": "実装支援を否定するように読める原文の対比を追記で見直し、Lifecycle全体の評価へ接続。"
       }
     },

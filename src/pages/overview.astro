@@ -7,8 +7,8 @@ const canonical = new URL(reading, Astro.site).toString();
 ---
 
 <Site showRightSidebar={false}
-  title="AIへ統合しました"
-  summary="全体目次の役割はAIの入口へ統合しました。"
+  title="AIをご覧ください"
+  summary="AIに関するテーマと記事をご覧ください。"
   canonical={canonical}
   noindex
 >
@@ -16,7 +16,7 @@ const canonical = new URL(reading, Astro.site).toString();
   <script is:inline define:vars={{ reading }}>
     location.replace(reading);
   </script>
-  <h1>AIへ統合しました</h1>
-  <p>全体目次の役割はAIの入口へ統合しました。</p>
+  <h1>AIをご覧ください</h1>
+  <p>AIに関するテーマと記事をご覧ください。</p>
   <p><a href={reading}>AIへ移動する</a></p>
 </Site>

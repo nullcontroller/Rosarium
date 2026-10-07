@@ -5,9 +5,9 @@ const destination = url("dx/business-transformation");
 const canonical = new URL(destination, Astro.site).toString();
 ---
 
-<Site showRightSidebar={false} title="業務変革へ統合しました" summary="一覧の役割は業務変革へ統合しました。" canonical={canonical} noindex showLastUpdated={false}>
+<Site showRightSidebar={false} title="業務変革をご覧ください" summary="業務変革に関する記事をご覧ください。" canonical={canonical} noindex showLastUpdated={false}>
   <meta slot="head" http-equiv="refresh" content={"0;url=" + destination} />
   <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
-  <h1>業務変革へ統合しました</h1>
+  <h1>業務変革をご覧ください</h1>
   <p><a href={destination}>業務変革へ移動する</a></p>
 </Site>

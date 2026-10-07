@@ -30,10 +30,10 @@
 | /architecture/reference-architecture/ | AI業務システムの参照アーキテクチャ | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /architecture/security-threat-modeling/ | 生成AIセキュリティと脅威モデリング | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /articles/ | AIへ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /books/ | 実践事例へ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /books/ | 実践事例をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/ | Career | あり | あり | なし | 5 | 主要見出しが複数 |
-| /career/details/ | Careerへ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /career/profile/ | Careerへ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /career/profile/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/ | 実践事例 | あり | あり | あり | 3 | 一覧の移動単位が複数 |
 | /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/continuous-improvement/ | 08. 導入後にどう育てるか | あり | あり | あり | 16 | 主要見出しが複数 |
@@ -117,7 +117,7 @@
 | /knowledge-context/prompt-structure/ | プロンプト設計の基本構造 | あり | あり | あり | 18 | 長文の複数h3セクション |
 | /knowledge-context/qa-behavior-constraints/ | QA行動制約Knowledge | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /knowledge-context/qa-operations/ | QAチャット運用思想 | あり | あり | あり | 14 | 長文の複数h3セクション |
-| /overview/ | AIへ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /overview/ | AIをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /practices/ | 実践知 | あり | あり | あり | 26 | 主要見出しが複数 |
 | /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 6 | 主要見出しが複数 |
 | /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | あり | あり | あり | 12 | 主要見出しが複数 |
@@ -135,7 +135,7 @@
 | /retired/obsolete/ | 旧記事 | なし | あり | なし | 4 | アーカイブ個別項目 |
 | /retired/retired/ | 退役記事 | なし | あり | なし | 6 | アーカイブ個別項目 |
 | /search/ | 検索 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /series/ | 業務変革へ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /series/ | 業務変革をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/ | ソフトウェア開発 | なし | あり | あり | 8 | 主要見出しが複数 |
 | /software-engineering/ai-design-assistance/ | 設計支援AIは消えない。コード生成の次に残る領域 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /software-engineering/ai-driven-development/ | 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか | あり | あり | あり | 5 | 長文の複数h3セクション |
@@ -146,4 +146,4 @@
 | /software-engineering/development-workflow/ | AIを開発工程に組み込む | あり | あり | あり | 25 | 長文の複数h3セクション |
 | /software-engineering/multi-ai-orchestration/ | 複数AIの役割分担と工程設計 | あり | あり | あり | 26 | 長文の複数h3セクション |
 | /start-here/ | Start Here | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
-| /updates/ | 庭へ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /updates/ | 庭をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |

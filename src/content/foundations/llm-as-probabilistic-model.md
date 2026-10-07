@@ -36,7 +36,7 @@ source:
     topics: *a1
     published: true
     published_at: 2026-02-28 18:58
-lifecycle_reason: "LLMを数学的・確率的な対象として扱う立場は、現在のAI理論トップに統合されています。この内容は独立した記事としての役割を終えています。"
+lifecycle_reason: "LLMを数学的・確率的な対象として扱う過去の考察です。現在の生成の仕組みと設計上の注意点は、AI理論の各テーマで確認できます。"
 ---
 
 

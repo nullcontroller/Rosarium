@@ -7,7 +7,7 @@ const canonical = new URL(home, Astro.site).toString();
 ---
 
 <Site showRightSidebar={false}
-  title="庭へ統合しました"
+  title="庭をご覧ください"
   summary="最近の更新情報はRosariumの庭で確認できます。"
   canonical={canonical}
   noindex
@@ -16,7 +16,7 @@ const canonical = new URL(home, Astro.site).toString();
   <script is:inline define:vars={{ home }}>
     location.replace(home);
   </script>
-  <h1>庭へ統合しました</h1>
+  <h1>庭をご覧ください</h1>
   <p>最近の更新情報はRosariumの庭で確認できます。</p>
   <p><a href={home}>庭へ移動する</a></p>
 </Site>

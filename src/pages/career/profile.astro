@@ -7,8 +7,8 @@ const canonical = new URL(career, Astro.site).toString();
 ---
 
 <Site showRightSidebar={false}
-  title="Careerへ統合しました"
-  summary="詳細な職務プロフィールはLinkedInへ委譲し、RosariumのCareerはPortfolio Gatewayへ統合しました。"
+  title="Careerをご覧ください"
+  summary="仕事の考え方と経験はCareer、職歴・資格の詳細はLinkedInで確認できます。"
   canonical={canonical}
   noindex
   showLastUpdated={false}
@@ -17,9 +17,9 @@ const canonical = new URL(career, Astro.site).toString();
   <script is:inline define:vars={{ career }}>
     location.replace(career);
   </script>
-  <h1>Careerへ統合しました</h1>
+  <h1>Careerをご覧ください</h1>
   <p>
-    仕事の考え方と経験の背景はCareerへ統合しました。詳細な職務プロフィールはCareerからLinkedInをご覧ください。
+    仕事の考え方と経験の背景はCareerで紹介しています。詳細な職務プロフィールはCareerからLinkedInをご覧ください。
   </p>
   <p>
     <a href={career}>Careerへ移動する</a>
