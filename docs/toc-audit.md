@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 141ページ。目次あり 120、なし 21。Referenceあり 118、なし 23。
+対象 141ページ。目次あり 119、なし 22。Referenceあり 117、なし 24。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -70,7 +70,7 @@
 | /cases/three-ai-maintenance/structuring-failure-handling/ | 第2章　異常系の構造を整理し、設計方針を確定する | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /dx/ | DX | あり | あり | あり | 5 | 主要見出しが複数 |
-| /dx/business-transformation/ | 業務変革 | あり | あり | あり | 8 | 主要見出しが複数 |
+| /dx/business-transformation/ | 業務変革 | あり | あり | あり | 7 | 主要見出しが複数 |
 | /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 6 | 主要見出しが複数 |
 | /dx/selection-retirement/ | 選択と廃止 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /dx/system-transformation/ | システム変革 | あり | あり | あり | 4 | 主要見出しが複数 |
@@ -94,11 +94,11 @@
 | /evaluation-hitl/responsibility-and-hitl/ | AI出力の責任境界とHITL | あり | あり | あり | 28 | 長文の複数h3セクション |
 | /foundations/ | 設計資料アーカイブ | なし | あり | あり | 9 | 主要見出しが複数 |
 | /foundations/ai-business-design/ | 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』 | あり | あり | あり | 6 | Book章構造 |
-| /foundations/ai-business-design/asking-versus-delegating/ | 第3章　AIに聞くことと、AIに仕事を任せることは違う | あり | あり | あり | 14 | 長文の複数h3セクション |
+| /foundations/ai-business-design/asking-versus-delegating/ | 第3章　AIに聞くことと、AIに仕事を任せることは違う | あり | あり | あり | 13 | 長文の複数h3セクション |
 | /foundations/ai-business-design/delegation-and-responsibility/ | 第1章　AIに仕事を任せても、責任は消えない | あり | あり | あり | 15 | 長文の複数h3セクション |
-| /foundations/ai-business-design/evaluating-business-efficiency/ | 第2章　AI導入は効率化とは限らない | あり | あり | あり | 9 | 主要見出しが複数 |
-| /foundations/ai-business-design/explainable-delegation/ | 第4章　AIに任せない条件を、先に決める | あり | あり | あり | 17 | 長文の複数h3セクション |
-| /foundations/ai-business-design/human-judgment-capability/ | 第5章　AI時代、人間には「判断する力」が求められる | あり | あり | あり | 17 | 長文の複数h3セクション |
+| /foundations/ai-business-design/evaluating-business-efficiency/ | 第2章　AI導入は効率化とは限らない | あり | あり | あり | 15 | 主要見出しが複数 |
+| /foundations/ai-business-design/explainable-delegation/ | 第4章　AIに任せない条件を、先に決める | あり | あり | あり | 16 | 長文の複数h3セクション |
+| /foundations/ai-business-design/human-judgment-capability/ | 第5章　AI時代、人間には「判断する力」が求められる | あり | あり | あり | 15 | 長文の複数h3セクション |
 | /foundations/answer-scope/ | なぜ回答範囲を制限した方がよいのか | あり | あり | あり | 11 | 長文の複数h3セクション |
 | /foundations/applicability-and-delegation/ | AI適用可否と委任レベルの設計 | あり | あり | あり | 13 | 長文の複数h3セクション |
 | /foundations/conditional-probability/ | 生成AIの条件付き確率モデル基礎 | あり | あり | あり | 16 | 長文の複数h3セクション |
@@ -120,11 +120,11 @@
 | /knowledge-context/qa-operations/ | QAチャット運用思想 | あり | あり | あり | 14 | 長文の複数h3セクション |
 | /overview/ | AIをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /practices/ | 実践知 | あり | あり | あり | 26 | 主要見出しが複数 |
-| /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 6 | 主要見出しが複数 |
-| /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | あり | あり | あり | 12 | 主要見出しが複数 |
+| /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 7 | 主要見出しが複数 |
+| /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | あり | あり | あり | 3 | 主要見出しが複数 |
 | /practices/ai-education-principles/ | 生成AI教育はなぜ難しいのか ― 変わらない原則と変わり続ける実践を分けて設計する | あり | あり | あり | 7 | 長文の複数h3セクション |
-| /practices/ai-generation-and-work-completion/ | AIで速く作れても、仕事は速く終わらない | あり | あり | あり | 8 | 主要見出しが複数 |
-| /practices/education-and-capability/ | AI教育を原則と実践に分ける | あり | あり | あり | 7 | 主要見出しが複数 |
+| /practices/ai-generation-and-work-completion/ | AI導入は効率化とは限らない | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /practices/education-and-capability/ | AI教育を原則と実践に分ける | あり | あり | あり | 5 | 主要見出しが複数 |
 | /practices/transferring-ai-practices/ | 全員の業務が違うのに、AI活用事例をそのまま横展開できるのか | あり | あり | あり | 9 | 長文の複数h3セクション |
 | /practices/transferring-practices/ | AI活用を別の業務へ横展開する | あり | あり | あり | 4 | 主要見出しが複数 |
 | /reference/ | Reference | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |

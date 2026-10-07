@@ -87,7 +87,7 @@ AIを採用する場合も、モデルの能力ではなく、価値へ必要な
 
 ここから、自己解決できる質問と専門判断が必要な質問を分け、既存システムにある根拠を特定する。その後で、自然言語の入口、RAG検索、回答根拠、追加質問、Human in the Loop、有人対応への移管を設計する。
 
-導入後は、誤回答や有人対応の結果を、Knowledge、分類、検索条件、回答範囲、移管条件の改善へ戻す。評価はモデルの正答率だけでなく、自己解決率、専門担当者へ届く問い合わせの質、回答時間、誤案内の影響まで見る。
+導入後は、誤回答や有人対応の結果を、参照資料、分類、検索条件、回答範囲、移管条件の改善へ戻す。評価はモデルの正答率だけでなく、自己解決率、専門担当者へ届く問い合わせの質、回答時間、誤案内の影響まで見る。
 
 この設計順序についての思考の変化は、[DXを学んで、「価値」という言葉が気になるようになった](/essays/dx-and-value/)にまとめている。
 
@@ -153,27 +153,7 @@ AIが得意そうに見えるかより、出力を確認できるかが重要で
 
 ### 説明できる範囲だけを委任する
 
-AI出力を業務で採用する場合、説明の対象はモデル内部の全計算ではない。組織が説明すべきなのは、どの根拠と検証結果を確認し、なぜその出力を採用し、誤った場合に誰が訂正・影響対応を行うかである。
-
-誤りの影響が大きいほど、確認者に必要な根拠、専門知識、判断権限も大きくなる。人間を処理へ置くだけでは委任条件を満たさない。確認者が根拠を読めず、影響を判断できず、差し戻せないなら、承認は形式だけになる。
-
-説明可能性が足りない場合は、AIを使うか否かの二択にせず、役割を縮小する。
-
-```text
-回答・判断・実行
-        ↓
-候補提示・検索・整理
-```
-
-次の条件では、AIだけで処理を完了させない。
-
-- 根拠、版、適用対象を確認できない
-- 情報が不足又は矛盾し、可能性を一つに絞れない
-- 誤りの影響を判断できない
-- 採用理由を説明できない
-- 訂正と影響対応の担当が決まっていない
-
-この場合の追加質問、人間への移管、停止は失敗ではなく、説明できない判断を業務へ流さないための正常な制御である。
+委任には、根拠を確認でき、採用理由を説明し、誤りへ対応できることが必要です。条件を満たせなければ、回答・判断・実行から候補提示・検索・整理へ役割を戻します。停止すべき条件は[第4章　AIに任せない条件を、先に決める](/foundations/ai-business-design/explainable-delegation/)で整理しています。
 
 ---
 
@@ -237,28 +217,19 @@ AIが自動で返金するなら、金額上限、対象条件、監視、停止
 
 ### 検証・修正・復旧まで含めて委任を比較する
 
-AIにできるかだけでなく、任せた後まで含めて業務全体が良くなるかを判断する。委任に必要な負担を、次の簡略モデルで分ける。
+AIにできるかだけでなく、任せた後を含めても価値があるかを判断します。委任判断では、少なくとも次を確認します。
 
-```text
-Delegation Cost
-= AI Execution Cost + Human Verification Cost
-  + Correction Cost + Recovery Cost
-```
-
-これは実測式ではなく比較の枠組みである。時間と金額を混在させず、同じ単位と業務範囲で評価する。不要な工程は含めず、重複する確認・修正は二重計上しない。全体の完了時間を評価する場合は、受け渡しと待ち時間も別に確認する。
-
-説明用の仮例として、AIの生成が5分でも、人間のレビューに60分必要なら、生成時間だけでは有効な委任と判断できない。人間が行う方法や、AIを検索・候補提示に限定する方法と、同じ品質条件で比較する。
-
-| 判断軸 | 問い |
+| 判断軸 | 確認すること |
 |---|---|
-| Value | 誰のどの成果が改善するか |
-| Risk | 誤りの影響と可逆性はどうか |
-| Verification Cost | 人間が根拠を確認し、採否を決める負担はどれだけか |
-| Correction / Recovery Cost | 修正・停止・復旧を誰が、どの範囲で行えるか |
+| 価値 | 誰のどの成果が改善するか。既存の方法で達成できないか |
+| リスクと可逆性 | 誤りが何へ影響し、どこまで取り消せるか |
+| 検証可能性と確認負荷 | 根拠を確認し、採否を決められるか。その作業を担えるか |
+| 実行権限 | 許可する対象・操作・上限と、人間承認が必要な条件は何か |
+| 修正・復旧 | 問題時に誰が止め、どの範囲を戻せるか |
 
-高Riskの承認を費用だけで省略しない。検証負荷が価値を上回るなら、委任範囲を狭めるか、AIを使わない選択をする。生成後のレビューと合意形成が手戻りにつながった経験は[AIで速く作れても、仕事は速く終わらない](/practices/ai-generation-and-work-completion/)で扱っている。
+確認負荷は委任範囲を決める一条件です。費用だけを理由に高影響の処理の承認を省きません。必要な確認が成立しない場合は範囲を縮めるか、AIを使わない選択をします。作業量と待ち時間を含む効率の評価方法は[第2章　AI導入は効率化とは限らない](/foundations/ai-business-design/evaluating-business-efficiency/)で扱っています。
 
-この判断を運用の評価・改善・終了まで接続する実務上の条件は、[AIは使われている。でも使いこなされていない](/practices/ai-adoption-and-effective-use/)で整理している。
+運用後の見直しは[AI導入を業務へ定着させる](/practices/adoption-governance/)へ接続します。
 
 ### まとめ
 
@@ -272,7 +243,7 @@ AIの利用可否は、導入するか、導入しないかの二択ではない
 
 ### 参考資料
 
-- NIST, [AI Risk Management Framework 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10), 2023
-- NIST, [Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence), 2024
+- NIST, [AI リスク Management Framework 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10), 2023
+- NIST, [Artificial Intelligence リスク Management Framework: Generative Artificial Intelligence Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence), 2024
 - ISO, [ISO/IEC 42001:2023 AI management systems](https://www.iso.org/standard/42001)
 - OWASP GenAI Security Project, [OWASP Top 10 for LLM Applications 2025](https://genai.owasp.org/llm-top-10/)

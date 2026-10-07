@@ -172,4 +172,8 @@
 
 | Path | Decision | 理由 |
 |---|---|---|
-| `src/content/practices/ai-generation-and-work-completion.md` | ADD | 実務経験・Reviewability・業務完了時間の独立記事。既存第2章の同じ経験を詳述し直し、第2章は評価の要点に整理して重複を抑える。 |
+| `src/content/practices/ai-generation-and-work-completion.md` | MERGE | 第2章 evaluating-business-efficiencyへ実務経験・理解・レビュー・評価・改善後の業務を集約。旧公開URLは既存方式で転送。 |
+
+## 2026-10-08 AI業務設計の最終体系
+
+問いを基準に統合を再評価。詳細は `docs/ai-workflow-content-audit-2026-10-08.md`。第2章が効率評価と実務経験の説明を所有し、責任、Context、停止条件、人間判断、委任、運用は各ページへ接続する。公開Markdownは101から100へ減少し、公開済み旧URLは互換転送として維持する。

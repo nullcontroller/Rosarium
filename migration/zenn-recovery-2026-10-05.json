@@ -47,18 +47,23 @@
       "source_file": "articles/15bcff341ff67b.md",
       "source_snapshot": "migration/zenn-recovery-2026-10-05/articles/15bcff341ff67b.md",
       "source_sha256": "e96e5117af4b2dd3a45e7c08ed3697c0f5b2fbe8570f957fc429eec7a3e41621",
-      "destination_body_sha256": "595461f4215f0cb4b743e9f7ceec11489cd2920f775a14124664db4a7b888d61",
+      "destination_body_sha256": "7fc3fef80966f7be4540f064b5385f11cb97136d82f490defe8eebc023d7b69f",
       "restoration": "Existing Rosarium body retained; exact original snapshot saved",
       "local_revision": {
         "date": "2026-10-08",
-        "previous_body_sha256": "a253406593057102b7cebeee2b9ef197be51b5a3d1d3e31ee3fa8442ab2a7872",
-        "reason": "Explicit content revision: include reviewability, human verification cost and agreement in end-to-end workflow design; original source snapshot, lifecycle and publication metadata retained"
+        "previous_body_sha256": "595461f4215f0cb4b743e9f7ceec11489cd2920f775a14124664db4a7b888d61",
+        "reason": "Explicit knowledge architecture redesign: practical overview links to canonical responsibility, efficiency, context, delegation, judgment and operations; original snapshot and lifecycle retained"
       },
       "local_revision_history": [
         {
           "date": "2026-10-07",
           "previous_body_sha256": "18ffb1552a2ab99418b54b8438209b04c86a743d0d77857e89bc409b7a41715d",
           "reason": "Explicit revision request: clarify practical design and lifecycle duties; original source snapshot and publication metadata retained"
+        },
+        {
+          "date": "2026-10-08",
+          "previous_body_sha256": "a253406593057102b7cebeee2b9ef197be51b5a3d1d3e31ee3fa8442ab2a7872",
+          "reason": "Explicit content revision: include reviewability, human verification cost and agreement in end-to-end workflow design; original source snapshot, lifecycle and publication metadata retained"
         }
       ]
     },

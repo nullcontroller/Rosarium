@@ -1,0 +1,13 @@
+---
+import Site from "../../layouts/Site.astro";
+import { url } from "../../lib/site";
+const destination = url("foundations/ai-business-design/evaluating-business-efficiency");
+const canonical = new URL(destination, Astro.site).toString();
+---
+
+<Site showRightSidebar={false} title="AI導入は効率化とは限らない" summary="生成から確認・説明・合意までを含めた業務全体の効率を考えます。" canonical={canonical} noindex showLastUpdated={false}>
+  <meta slot="head" http-equiv="refresh" content={"0;url=" + destination} />
+  <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
+  <h1>AI導入は効率化とは限らない</h1>
+  <p><a href={destination}>第2章　AI導入は効率化とは限らないへ移動する</a></p>
+</Site>

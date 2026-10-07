@@ -1,6 +1,8 @@
 # Book Knowledge Coverage
 
-監査日：2026-09-24
+初回監査日：2026-09-24
+
+現行構造の再確認：2026-10-08
 
 対象Book：『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』
 
@@ -48,3 +50,16 @@ Human Judgment Capability
 - PARTIAL: 0
 - ABSENT: 0
 - CONFLICT: 0
+
+## 2026-10-08 現行の説明先
+
+上表は初回吸収時の対応履歴。現在の詳述先は以下とし、元の知識は削除しない。上記の9/9・11/11は移行元見出しの知識充足を示す件数であり、現在のページ見出し数ではない。
+
+- 第4章のモデル内部の説明と採用判断の違い、任せない条件、候補提示への縮小：`foundations/ai-business-design/explainable-delegation`。
+- 承認・権限・影響別確認・例外・是正：`evaluation-hitl/responsibility-and-hitl`。
+- 第5章の判断難度・基礎知識・知識/情報/時間/権限・役割更新：`foundations/ai-business-design/human-judgment-capability`。
+- 教育を原則と実践に分け、学習を業務で確かめる方法：`practices/education-and-capability`。
+- 委任範囲の選択：`foundations/applicability-and-delegation`。
+- 第2章は生成後の実務経験と効率評価を一か所で扱う。第5章の未掲載の次章予告は、運用改善を扱う `practices/adoption-governance` への接続に置き換えた。
+
+章順・タイトル・URL・sourceの原文情報は変更しない。
