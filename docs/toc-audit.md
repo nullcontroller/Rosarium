@@ -77,7 +77,7 @@
 | /essays/ | 考察 | あり | あり | あり | 7 | 主要見出しが複数 |
 | /essays/ai-career-market/ | 採用される側から見たAI人材の転職概況 | あり | あり | あり | 7 | 長文の複数h3セクション |
 | /essays/ai-roles-beyond-fde/ | AI人材はFDEだけではない――これから進む専門職の細分化 | あり | あり | あり | 12 | 主要見出しが複数 |
-| /essays/ai-use-and-operation/ | AIは誰でも使えるようになったのに、なぜ業務で使いこなせる人は少ないのか | あり | あり | あり | 7 | 主要見出しが複数 |
+| /essays/ai-use-and-operation/ | AIは誰でも使えるようになったのに、なぜ業務で使いこなせる人は少ないのか | あり | あり | あり | 8 | 主要見出しが複数 |
 | /essays/dx-and-value/ | DXを学んで、「価値」という言葉が気になるようになった | あり | あり | あり | 6 | 長文の複数h3セクション |
 | /essays/it-strategy-and-not-building/ | IT戦略では「何を作らないか」も設計する | あり | あり | あり | 9 | 主要見出しが複数 |
 | /essays/legacy-change-and-retirement/ | レガシーシステムは、変えやすくしながら終わらせる | あり | あり | あり | 7 | 主要見出しが複数 |
