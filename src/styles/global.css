@@ -1,12 +1,12 @@
 :root {
-  --bg: #f4f5f0;
-  --surface: #fff;
+  --bg: #e9eee7;
+  --surface: #f5f7f1;
   --ink: #243439;
-  --muted: #596c70;
-  --line: #d4ddda;
-  --accent: #17675a;
-  --soft: #e8f0ec;
-  --aux-surface: #edf4f5;
+  --muted: #4a6057;
+  --line: #9eafa4;
+  --accent: #145b4f;
+  --soft: #d8e6dc;
+  --aux-surface: #dce8e3;
   --aux-border: color-mix(in srgb, var(--accent) 30%, var(--line));
   --aux-selected: color-mix(in srgb, var(--accent) 10%, var(--aux-surface));
   --aux-hover: color-mix(in srgb, var(--accent) 6%, var(--aux-surface));
@@ -17,6 +17,14 @@
   --obsolete-line: #8a949f;
   --obsolete-link: #465566;
   --obsolete-hover: #24313f;
+  /* Role aliases retain the existing Dark rendering. Light overrides below. */
+  --elevated-surface: var(--surface);
+  --nav-surface: transparent;
+  --nav-hover-surface: var(--soft);
+  --nav-current-surface: var(--soft);
+  --career-surface: color-mix(in srgb, var(--line) 10%, var(--surface));
+  --growth-divider: none;
+  --scroll-fade: color-mix(in srgb, var(--muted) 16%, transparent);
   color-scheme: light;
   font-family: "Yu Gothic UI", "Yu Gothic", system-ui, sans-serif;
 }
@@ -58,6 +66,28 @@
   --obsolete-hover: #eef1f5;
   color-scheme: dark;
 }
+/* Support both saved Light preference and automatic OS Light preference. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --elevated-surface: #e6eee4;
+    --nav-surface: #e0e9df;
+    --nav-hover-surface: #d5e3d7;
+    --nav-current-surface: #c3d8c9;
+    --career-surface: #e9efe5;
+    --growth-divider: linear-gradient(color-mix(in srgb, var(--line) 65%, transparent), color-mix(in srgb, var(--line) 65%, transparent));
+    --scroll-fade: color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+}
+:root[data-theme="light"] {
+    --elevated-surface: #e6eee4;
+    --nav-surface: #e0e9df;
+    --nav-hover-surface: #d5e3d7;
+    --nav-current-surface: #c3d8c9;
+    --career-surface: #e9efe5;
+    --growth-divider: linear-gradient(color-mix(in srgb, var(--line) 65%, transparent), color-mix(in srgb, var(--line) 65%, transparent));
+    --scroll-fade: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -442,6 +472,7 @@ blockquote {
   width: 100%;
 }
 .sidebar {
+  background: var(--nav-surface);
   padding: 2.3rem 1.1rem;
   width: 100%;
   min-width: 0;
@@ -682,10 +713,13 @@ blockquote {
   color: var(--muted);
   margin-top: 2px;
 }
-.sidebar nav a:hover,
+.sidebar nav a:hover {
+  background: var(--nav-hover-surface);
+  border-color: var(--accent);
+}
 .sidebar nav a[aria-current],
 .sidebar nav a[data-section-active] {
-  background: var(--soft);
+  background: var(--nav-current-surface);
   border-color: var(--accent);
 }
 .nav-children {
@@ -2346,7 +2380,7 @@ article[data-lifecycle="retired"],
 .home-introduction .document-title-row { margin-bottom:.35rem; }
 .home-primary-panels { gap:1.5rem; margin-top:.5rem; }
 .home-primary-panels > .home-section { height:auto; min-height:0; padding:clamp(.875rem,2vw,1.5rem); border:0; border-top:1px solid color-mix(in srgb, var(--line) 65%, transparent); }
-.home-primary-panels > .home-career { background:color-mix(in srgb, var(--line) 10%, var(--surface)); }
+.home-primary-panels > .home-career { background:var(--career-surface); }
 .home-primary-panels .home-career > p:last-child { margin-bottom:0; }
 .home-primary-panels .section-heading { margin-bottom:.5rem; }
 .home-primary-panels p { margin-block:.55rem; line-height:1.65; }
@@ -2511,4 +2545,15 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
 }
 @media screen and (min-width:1100px) {
   .page-heading.entrance-hero { --hero-top-inset:0; }
+}
+
+/* Reading support surfaces share colors, keeping their existing sizes and borders. */
+.home-growth-history,
+.garden-notes-history,
+.content-history { --surface: var(--elevated-surface); }
+.home-growth-history .growth-entry {
+  background-image: var(--growth-divider);
+  background-size: 100% 1px;
+  background-position: center bottom;
+  background-repeat: no-repeat;
 }
