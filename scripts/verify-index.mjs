@@ -583,11 +583,14 @@ for (const [id, data] of entries) {
 
 assert(top("#recent-growth-heading").length);
 assert.equal(top(".growth-scrollbox").length, 0);
+assert.equal(top('.home-growth-history[data-recent-growth][role="region"][tabindex="0"][aria-label="Garden Notes 更新履歴"]').length, 1);
+assert.equal(top(".home-growth-history #recent-growth-heading").length, 0, "Section heading must stay outside the scroll region");
 assert.equal(top(".home-primary-panels > section").length, 2);
 assert.equal(top('a[href="/Rosarium/about/"]').text().trim(), "Rosariumとは？");
 assert.equal(top("#about-rosarium").length, 0);
 assert.equal(top('a[href="/Rosarium/garden-notes/"]').text().trim(), "Garden Notes");
 const gardenNotes = page("garden-notes");
+assert.equal(gardenNotes(".home-growth-history").length, 0);
 assert.equal(gardenNotes('.garden-notes-history[role="region"][tabindex="0"][aria-label="Garden Notes 更新履歴"]').length, 1);
 assert.equal(gardenNotes(".garden-notes-history [data-growth-entry]").length, recentGrowth.length);
 assert.equal(top(".garden-notes-history").length, 0, "Home must not inherit the history scroll region");

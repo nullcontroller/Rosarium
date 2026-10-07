@@ -40,7 +40,7 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
         直近30日間の記事・事例の公開や改訂を、件数中心に記録しています。
       </p>
       <p class="meta" data-growth-empty hidden={recent.length > 0}>直近30日間の更新はありません。</p>
-      <div class="growth-list growth-list-compact" data-recent-growth>
+      <div class="growth-list growth-list-compact home-growth-history" data-recent-growth role="region" tabindex="0" aria-label="Garden Notes 更新履歴">
         {recent.map((entry) => (
           <GrowthEntry entry={entry} />
         ))}
@@ -85,6 +85,25 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 </script>
 
 <style>
+  .home-growth-history {
+    max-height: min(32.5rem, 55vh);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: .5rem .75rem;
+    border: 1px solid var(--line);
+    overflow-wrap: anywhere;
+    background:
+      linear-gradient(to top, var(--surface) 30%, transparent) center bottom / 100% 2rem local no-repeat,
+      linear-gradient(to top, color-mix(in srgb, var(--muted) 16%, transparent), transparent) center bottom / 100% 1.5rem scroll no-repeat,
+      var(--surface);
+  }
+  .home-growth-history:not(:has(:global([data-growth-entry]:not([hidden])))) { display: none; }
+  @media (pointer: fine) {
+    .home-growth-history { scrollbar-width: thin; scrollbar-color: var(--muted) var(--surface); scrollbar-gutter: stable; }
+  }
+  @media (max-width: 800px) {
+    .home-growth-history { max-height: 45vh; max-height: 45svh; }
+  }
   [data-recent-growth] :global([data-growth-entry][hidden]),
   [data-growth-empty][hidden] { display: none; }
 </style>
