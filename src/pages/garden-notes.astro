@@ -19,18 +19,41 @@ const description = "Rosariumで行った主な公開・改訂・統合・剪定
   <div class="garden-notes-page">
     <p>Rosariumで行った主な公開・改訂・統合・剪定を記録しています。</p>
     <p>更新件数を月ごとに残しています。具体的な変更内容は各記事末尾の更新履歴で確認できます。手入れの方針は<a href={url("about")}>Rosariumとは？</a>にまとめています。</p>
+    <div class="garden-notes-history" role="region" tabindex="0" aria-label="Garden Notes 更新履歴">
     {months.map(({ month, entries }) => (
       <section aria-labelledby={`notes-${month}`}>
         <h2 id={`notes-${month}`}>{recentGrowthDateLabel(month)}</h2>
         <div class="growth-list">{entries.map((entry) => <GrowthEntry entry={entry} />)}</div>
       </section>
     ))}
+    </div>
     <nav class="topic-navigation" aria-label="庭へ戻る"><a href={url("")}>庭へ戻る</a></nav>
   </div>
 </Site>
 <style>
   .garden-notes-page { max-width: 52rem; }
-  .garden-notes-page > section { margin-top: 2rem; }
+  .garden-notes-history {
+    max-height: min(40rem, 65vh);
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 1.25rem;
+    padding: .75rem 1rem;
+    border: 1px solid var(--line);
+    overflow-wrap: anywhere;
+    background:
+      linear-gradient(to top, var(--surface) 30%, transparent) center bottom / 100% 2rem local no-repeat,
+      linear-gradient(to top, color-mix(in srgb, var(--muted) 16%, transparent), transparent) center bottom / 100% 1.5rem scroll no-repeat,
+      var(--surface);
+  }
+  .garden-notes-history > section + section { margin-top: 1.25rem; }
+  .garden-notes-history h2 { margin-top: .25rem; }
+  .garden-notes-history :global(.growth-entry) { padding-block: .75rem; }
   .garden-notes-page h2 { font-size: 1.25rem; margin-bottom: 0.75rem; }
   .garden-notes-page .growth-list { margin-top: 0; }
+  @media (pointer: fine) {
+    .garden-notes-history { scrollbar-width: thin; scrollbar-color: var(--muted) var(--surface); scrollbar-gutter: stable; }
+  }
+  @media (max-width: 800px) {
+    .garden-notes-history { max-height: 60vh; max-height: 60svh; padding: .75rem; }
+  }
 </style>

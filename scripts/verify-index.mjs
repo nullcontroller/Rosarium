@@ -588,6 +588,9 @@ assert.equal(top('a[href="/Rosarium/about/"]').text().trim(), "Rosariumとは？
 assert.equal(top("#about-rosarium").length, 0);
 assert.equal(top('a[href="/Rosarium/garden-notes/"]').text().trim(), "Garden Notes");
 const gardenNotes = page("garden-notes");
+assert.equal(gardenNotes('.garden-notes-history[role="region"][tabindex="0"][aria-label="Garden Notes 更新履歴"]').length, 1);
+assert.equal(gardenNotes(".garden-notes-history [data-growth-entry]").length, recentGrowth.length);
+assert.equal(top(".garden-notes-history").length, 0, "Home must not inherit the history scroll region");
 assert.equal(gardenNotes("[data-growth-entry]").length, recentGrowth.length);
 assert.equal(gardenNotes("#notes-2026-10").length, 1);
 assert.equal(gardenNotes("#notes-2026-09").length, 1);
