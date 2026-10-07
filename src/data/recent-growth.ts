@@ -12,7 +12,7 @@ export const recentGrowthLabels = {
 
 export type RecentGrowthType = keyof typeof recentGrowthLabels;
 
-export type RecentGrowthChange = string | { text: string; contentIds: string[] };
+export type RecentGrowthChange = string | { text: string; contentIds: string[]; action?: "published" | "revised" };
 export const growthChangeText = (change: RecentGrowthChange) => typeof change === "string" ? change : change.text;
 export const growthChangeTargets = (change: RecentGrowthChange) => typeof change === "string" ? [] : change.contentIds;
 
@@ -22,12 +22,15 @@ export interface RecentGrowthItem {
   title: string;
   changes: RecentGrowthChange[];
   category: string;
+  topic?: string;
+  summaryChanges?: string[];
   icon?: IconName;
 }
 
 // Content revisions link by entry id; displayed titles come from content metadata.
 // UI-only changes remain plain text and do not create content links.
-// This is the single source of truth for the public update history.
+// Detailed changes feed article histories; Garden Notes renders only aggregate counts.
+// Legacy records without identifiable targets retain a short summary without invented counts.
 // Keep one entry per date; add each reader-facing change as a short changes item.
 // Prioritize new articles/Cases/Books, substantive revisions and content integration.
 // Record content retirement, meaningful page restructuring and new reader-facing features.
@@ -37,19 +40,20 @@ export interface RecentGrowthItem {
 const curatedRecentGrowth = [
   {
     date: "2026-10-08",
+    topic: "AI業務設計に関する",
     type: "revised",
     title: "AI業務設計の知識を改訂し、責任・効率・委任・判断・運用を整理",
     changes: [
-      { text: "改訂。責任・承認・人間への引き継ぎを中心に、確認工程を持つ業務の設計を整理した", contentIds: ["foundations/ai-business-design/delegation-and-responsibility"] },
-      { text: "改訂。手戻りした実務経験をもとに、レビューしやすさ・理解・説明・合意と、工数・経過時間を区別したAI導入評価を整理した", contentIds: ["foundations/ai-business-design/evaluating-business-efficiency"] },
-      { text: "改訂。一般知識への質問と業務固有の情報を使う委任の違いを、情報不足時の経路から整理した", contentIds: ["foundations/ai-business-design/asking-versus-delegating"] },
-      { text: "改訂。根拠不足や説明できない場合に、停止・移管・役割縮小を選ぶ条件を整理した", contentIds: ["foundations/ai-business-design/explainable-delegation"] },
-      { text: "改訂。AI出力を判断する人間の知識・情報・時間・権限と、運用から学び直す必要性を整理した", contentIds: ["foundations/ai-business-design/human-judgment-capability"] },
-      { text: "改訂。価値・リスク・検証可能性・権限・復旧から、必要な最小の委任範囲を選ぶ観点を整理した", contentIds: ["foundations/applicability-and-delegation"] },
-      { text: "改訂。責任境界と人間による確認の評価を、業務全体の効率評価へ接続した", contentIds: ["evaluation-hitl/responsibility-and-hitl"] },
-      { text: "改訂。AIを業務で使いこなすために設計する問いの全体像を整理した", contentIds: ["practices/ai-adoption-and-effective-use"] },
-      { text: "改訂。運用結果から継続・改善・縮小・統合・終了を選ぶ条件と、引き継ぎの責任を整理した", contentIds: ["practices/adoption-governance"] },
-      { text: "改訂。判断能力を学習目標へ落とし、採用・棄却・保留を説明する練習と運用からの学習を整理した", contentIds: ["practices/education-and-capability"] },
+      { action: "revised", text: "改訂。責任・承認・人間への引き継ぎを中心に、確認工程を持つ業務の設計を整理した", contentIds: ["foundations/ai-business-design/delegation-and-responsibility"] },
+      { action: "revised", text: "改訂。手戻りした実務経験をもとに、レビューしやすさ・理解・説明・合意と、工数・経過時間を区別したAI導入評価を整理した", contentIds: ["foundations/ai-business-design/evaluating-business-efficiency"] },
+      { action: "revised", text: "改訂。一般知識への質問と業務固有の情報を使う委任の違いを、情報不足時の経路から整理した", contentIds: ["foundations/ai-business-design/asking-versus-delegating"] },
+      { action: "revised", text: "改訂。根拠不足や説明できない場合に、停止・移管・役割縮小を選ぶ条件を整理した", contentIds: ["foundations/ai-business-design/explainable-delegation"] },
+      { action: "revised", text: "改訂。AI出力を判断する人間の知識・情報・時間・権限と、運用から学び直す必要性を整理した", contentIds: ["foundations/ai-business-design/human-judgment-capability"] },
+      { action: "revised", text: "改訂。価値・リスク・検証可能性・権限・復旧から、必要な最小の委任範囲を選ぶ観点を整理した", contentIds: ["foundations/applicability-and-delegation"] },
+      { action: "revised", text: "改訂。責任境界と人間による確認の評価を、業務全体の効率評価へ接続した", contentIds: ["evaluation-hitl/responsibility-and-hitl"] },
+      { action: "revised", text: "改訂。AIを業務で使いこなすために設計する問いの全体像を整理した", contentIds: ["practices/ai-adoption-and-effective-use"] },
+      { action: "revised", text: "改訂。運用結果から継続・改善・縮小・統合・終了を選ぶ条件と、引き継ぎの責任を整理した", contentIds: ["practices/adoption-governance"] },
+      { action: "revised", text: "改訂。判断能力を学習目標へ落とし、採用・棄却・保留を説明する練習と運用からの学習を整理した", contentIds: ["practices/education-and-capability"] },
     ],
     category: "Rosarium",
     icon: "updates",
@@ -59,31 +63,33 @@ const curatedRecentGrowth = [
     type: "new",
     title: "AI業務運用の記事と仕様書レビューの実務事例を公開・改訂",
     changes: [
-      { text: "新規公開。長期保守された仕様書群と現在の実装をAIで横断調査し、人間が変更前後を確認して仕様判断するレビュー設計を整理した", contentIds: ["cases/specification-debt-review"] },
-      { text: "新規公開。AI利用の民主化と業務運用能力の差を、業務設計・責任・評価・組織変化の観点から整理した", contentIds: ["essays/ai-use-and-operation"] },
-      { text: "改訂。AIを業務で使いこなす条件を、情報・検証・権限・責任と、改善・縮小・統合・終了の実務設計として整理した", contentIds: ["practices/ai-adoption-and-effective-use"] },
+      { action: "published", text: "新規公開。長期保守された仕様書群と現在の実装をAIで横断調査し、人間が変更前後を確認して仕様判断するレビュー設計を整理した", contentIds: ["cases/specification-debt-review"] },
+      { action: "published", text: "新規公開。AI利用の民主化と業務運用能力の差を、業務設計・責任・評価・組織変化の観点から整理した", contentIds: ["essays/ai-use-and-operation"] },
+      { action: "revised", text: "改訂。AIを業務で使いこなす条件を、情報・検証・権限・責任と、改善・縮小・統合・終了の実務設計として整理した", contentIds: ["practices/ai-adoption-and-effective-use"] },
     ],
     category: "Rosarium",
     icon: "updates",
   },
   {
     date: "2026-10-06",
+    topic: "価値創造・AI設計に関する",
     type: "revised",
     title: "価値創造・FDE・AI時代の設計判断に関する記事を改訂",
     changes: [
-      { text: "改訂。FDEを含むAI専門職の役割分化と、顧客自身が継続改善できる仕組みを設計する役割について、日付付きの追記で整理した", contentIds: ["essays/ai-roles-beyond-fde"] },
-      { text: "改訂。AIによる効率化を、価値の高い仕事への時間再配分につなげる考えを整理した", contentIds: ["essays/dx-and-value"] },
-      { text: "改訂。AI・人間・既存システムの責任分界と業務設計を、効率化後の時間再配分も含めて整理した", contentIds: ["foundations/ai-business-design"] },
-      { text: "改訂。生成コスト低下後に重要になる選択・維持・統合・終了判断について整理した", contentIds: ["essays/what-not-to-build-with-ai"] },
-      { text: "改訂。IT戦略における非構築判断と資源配分について整理した", contentIds: ["essays/it-strategy-and-not-building"] },
-      { text: "改訂。コード生成の高速化に加え、既存システムの理解・維持・統合・終了を支える設計判断について追記した", contentIds: ["software-engineering/code-generation-and-work-design"] },
-      { text: "改訂。AI導入後の定着と、運用結果に基づく継続的な見直しについて整理した", contentIds: ["practices/adoption-governance"] },
+      { action: "revised", text: "改訂。FDEを含むAI専門職の役割分化と、顧客自身が継続改善できる仕組みを設計する役割について、日付付きの追記で整理した", contentIds: ["essays/ai-roles-beyond-fde"] },
+      { action: "revised", text: "改訂。AIによる効率化を、価値の高い仕事への時間再配分につなげる考えを整理した", contentIds: ["essays/dx-and-value"] },
+      { action: "revised", text: "改訂。AI・人間・既存システムの責任分界と業務設計を、効率化後の時間再配分も含めて整理した", contentIds: ["foundations/ai-business-design"] },
+      { action: "revised", text: "改訂。生成コスト低下後に重要になる選択・維持・統合・終了判断について整理した", contentIds: ["essays/what-not-to-build-with-ai"] },
+      { action: "revised", text: "改訂。IT戦略における非構築判断と資源配分について整理した", contentIds: ["essays/it-strategy-and-not-building"] },
+      { action: "revised", text: "改訂。コード生成の高速化に加え、既存システムの理解・維持・統合・終了を支える設計判断について追記した", contentIds: ["software-engineering/code-generation-and-work-design"] },
+      { action: "revised", text: "改訂。AI導入後の定着と、運用結果に基づく継続的な見直しについて整理した", contentIds: ["practices/adoption-governance"] },
     ],
     category: "Rosarium",
     icon: "updates",
   },
   {
     date: "2026-10-05",
+    summaryChanges: ["過去の記事・事例を整理し、現在の知識と過去の記録を区別して参照できるようにした"],
     type: "integrated",
     title: "知識のライフサイクルと閲覧・参照機能を整理",
     changes: [
@@ -98,6 +104,7 @@ const curatedRecentGrowth = [
   },
   {
     date: "2026-10-04",
+    summaryChanges: ["実務事例・キャリア・DXの内容を改訂し、サイトの紹介と更新履歴を公開"],
     type: "revised",
     title: "主要事例とCareerを更新",
     changes: [
@@ -115,6 +122,7 @@ const curatedRecentGrowth = [
   },
   {
     date: "2026-10-03",
+    summaryChanges: ["AI関連の知識とキャリア情報を改訂"],
     type: "revised",
     title: "Rosariumの記事と情報構造を更新",
     changes: [
@@ -128,6 +136,7 @@ const curatedRecentGrowth = [
   },
   {
     date: "2026-09",
+    summaryChanges: ["AI・システム設計・実務事例を扱うRosariumを公開"],
     type: "launch",
     title: "Rosarium 公開",
     changes: [
@@ -170,3 +179,22 @@ export const recentGrowthMonth = (date: string) => {
   const match = date.match(/^(\d{4})-(\d{2})/);
   return match ? `${match[1]}年${Number(match[2])}月` : date;
 };
+
+/** Counts unique content targets, not change bullets. Details remain in article histories. */
+export function growthSummary(entry: RecentGrowthItem, isCase: (id: string) => boolean): string[] {
+  if (entry.summaryChanges) return entry.summaryChanges;
+  const counts = new Map<string, number>();
+  for (const change of entry.changes) {
+    if (typeof change === "string" || !change.action) continue;
+    for (const id of change.contentIds) {
+      const kind = isCase(id) ? "Case" : "記事";
+      const action = change.action === "published" ? "新規公開" : "改訂";
+      const key = `${kind}|${action}`;
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+  }
+  return [...counts].map(([key, count]) => {
+    const [kind, action] = key.split("|");
+    return `${entry.topic ?? ""}${kind}を${count}件${action}`;
+  });
+}

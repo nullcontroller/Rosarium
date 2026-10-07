@@ -1,4 +1,6 @@
-import { recentGrowth, growthChangeText, growthChangeTargets } from "../src/data/recent-growth.ts";
+import { inRecentWindow } from "../src/lib/history-window.ts";
+import { contentHistory } from "../src/data/content-history.ts";
+import { recentGrowth, growthChangeText, growthSummary } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
@@ -552,26 +554,27 @@ console.log(
   "Verified overview compatibility redirect, three case books, independent series and simplified navigation.",
 );
 
-const growthContentChanges = (changes) => changes.flatMap(change => {
-  const targets = growthChangeTargets(change);
-  return targets.length ? targets.map(id => ({ id, text: growthChangeText(change) })) : [{ text: growthChangeText(change) }];
+const growthContentChanges = entry => growthSummary(entry, id => {
+  const data = entries.get(id);
+  return data.kind === "case" || data.layer === "case" || data.section === "cases";
 });
-function assertGrowthChanges($, row, changes) {
-  const expected = growthContentChanges(changes);
-  const items = row.find(".growth-changes > li").toArray();
-  assert.equal(items.length, expected.length);
-  items.forEach((item, index) => {
-    const change = expected[index];
-    const links = $(item).find("a");
-    assert.equal(links.length, change.id ? 1 : 0, "One article per visual block");
-    if (change.id) {
-      assert.equal(links.text(), entries.get(change.id).title);
-      assert.equal(links.attr("href"), "/Rosarium/" + change.id + "/");
-      assert.equal($(item).find(".growth-content-description").text(), change.text);
-    } else assert.equal($(item).text(), change.text);
-  });
-  const hrefs = row.find("a").map((_, link) => $(link).attr("href")).get();
-  assert.equal(new Set(hrefs).size, hrefs.length, "Duplicate Garden Notes link");
+function assertGrowthChanges($, row, entry) {
+  assert.deepEqual(row.find(".growth-changes > li").map((_, item) => $(item).text()).get(), growthContentChanges(entry));
+  assert.equal(row.find("a").length, 0, "Garden Notes is an aggregate log, not an article list");
+}
+
+for (const [id, data] of entries) {
+  if (data.public === false || data.status === "draft" || data.layer === "reference") continue;
+  // Career has a dedicated route; other public content uses the shared document route.
+  const document = page(id === "career/overview" ? "career" : id);
+  const history = document("[data-content-history]");
+  assert.equal(history.length, 1, id + ": independent history");
+  assert(history.is("[data-pagefind-ignore][data-toc-exclude]"));
+  const expected = contentHistory(id, data).reverse();
+  assert.equal(history.find("li").length, expected.length, id);
+  assert(history.find("li").last().text().includes("公開"), id + ": first event is publication");
+  assert.deepEqual(history.find("time").map((_, item) => document(item).attr("datetime")).get(), expected.filter(event => event.date).map(event => event.date));
+  assert.equal(document('#page-toc-panel a').filter((_, item) => document(item).text().trim() === "更新履歴").length, 0);
 }
 
 assert(top("#recent-growth-heading").length);
@@ -587,11 +590,11 @@ assert.equal(gardenNotes("#notes-2026-09").length, 1);
 for (const entry of recentGrowth) {
   const row = gardenNotes(`[data-growth-entry]:has(time[datetime="${entry.date}"])`);
   assert.equal(row.length, 1);
-  assertGrowthChanges(gardenNotes, row, entry.changes);
+  assertGrowthChanges(gardenNotes, row, entry);
 }
 
-assert.equal(top(".growth-list [data-growth-entry]").length, 1);
-assert.equal(top(`[data-growth-entry] time[datetime="${recentGrowth[0].date}"]`).length, 1);
+assert.equal(top(".growth-list [data-growth-entry]").length, recentGrowth.filter(entry => inRecentWindow(entry.date)).length);
+assert.equal(top(`[data-growth-entry] time[datetime="${recentGrowth[0].date}"]`).length, inRecentWindow(recentGrowth[0].date) ? 1 : 0);
 assert.equal(new Set(recentGrowth.map(entry => entry.date)).size, recentGrowth.length);
 assert.equal(recentGrowth.find(entry => entry.date === "2026-10-03").changes.length, 4);
 assert(recentGrowth.every(entry => !entry.changes.some(change => /表示・導線を整理|UI.?UXを改善/.test(growthChangeText(change)))));
@@ -603,7 +606,7 @@ for (const element of top("[data-growth-entry]").toArray()) {
   assert(!growthDates.has(date), `Duplicate Recent Growth date: ${date}`);
   growthDates.add(date);
   assert.equal(entry.find("p.content-summary").length, 0);
-  assertGrowthChanges(top, entry, recentGrowth.find(item => item.date === date).changes);
+  assertGrowthChanges(top, entry, recentGrowth.find(item => item.date === date));
   assert(!entry.text().includes("→"), `${date}: no navigation arrows`);
   const changes = entry.find(".growth-changes > li");
   assert(changes.length > 0, `${date}: changes are required`);
@@ -615,14 +618,6 @@ for (const element of top("[data-growth-entry]").toArray()) {
     );
   }
 }
-assert.equal(
-  top("[data-growth-entry]").first().find(".growth-changes > li").length,
-  growthContentChanges(recentGrowth[0].changes).length,
-);
-assert.equal(
-  top(".growth-list [data-growth-entry]").first().find(".content-title").text(),
-  recentGrowth[0].title,
-);
 assert.equal(top('a[href="/Rosarium/updates/"]').length, 0);
 const updates = page("updates");
 assert.match(updates("meta[name=robots]").attr("content") || "", /noindex/);

@@ -15,6 +15,7 @@ import MarkdownBody from "../components/MarkdownBody.astro";
 import { imageDimensions } from "../lib/image-metadata";
 import { contentUseCases } from "../lib/use-cases";
 import { formatDateJa, url, layerLabel, publicEntry, publishedEntry } from "../lib/site";
+import ContentHistory from "../components/ContentHistory.astro";
 import LifecycleNote from "../components/LifecycleNote.astro";
 import { iconForEntry } from "../lib/icons";
 import Icon from "../components/Icon.astro";
@@ -187,6 +188,7 @@ const bookNavigation = series.length
     <div class="prose">
       <MarkdownBody html={content.body} />
     </div>
+    {d.layer !== "reference" && <ContentHistory id={entry.id} data={d} />}
   </article>
   {readingSequence.length > 0 && (
     <nav

@@ -1,0 +1,26 @@
+---
+import { contentHistory } from "../data/content-history";
+import { recentGrowthDateLabel } from "../data/recent-growth";
+interface Props { id: string; data: Parameters<typeof contentHistory>[1]; }
+const { id, data } = Astro.props;
+const events = contentHistory(id, data).reverse();
+---
+<section class="content-history" aria-label="更新履歴" data-content-history data-pagefind-ignore data-toc-exclude>
+  <h2>更新履歴</h2>
+  <ol role="list">
+    {events.map(event => <li>
+      <p class="history-event-meta">
+        {event.date ? <time datetime={event.date}>{recentGrowthDateLabel(event.date)}</time> : <span>公開時期未確認</span>}
+        <span>{event.type === "published" ? "公開" : "改訂"}</span>
+      </p>
+      {event.text && <p>{event.text}</p>}
+    </li>)}
+  </ol>
+</section>
+<style>
+  .content-history { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .875rem; }
+  .content-history h2 { margin: 0 0 .75rem; font-size: 1rem; color: inherit; }
+  .content-history ol { list-style: none; padding: 0; margin: 0; display: grid; gap: .75rem; }
+  .content-history p { margin: 0; }
+  .history-event-meta { display: flex; flex-wrap: wrap; gap: .5rem; }
+</style>

@@ -1,0 +1,39 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { contentHistory } from "../src/data/content-history.ts";
+import { recentGrowth, growthSummary } from "../src/data/recent-growth.ts";
+import { inRecentWindow, japanToday } from "../src/lib/history-window.ts";
+
+test("publication starts history and preserves original date precision", () => {
+  const id = "foundations/ai-business-design/evaluating-business-efficiency";
+  const events = contentHistory(id, { source: { publication_month: "2026-08" } });
+  assert.deepEqual(events[0], { date: "2026-08", type: "published", text: undefined });
+  assert.equal(events[1].date, "2026-10-08");
+  assert.equal(events[1].type, "revised");
+  assert(events[1].text.includes("実務経験"));
+  assert.equal(contentHistory("example/article", { published_at: "2026-08-22 10:28" })[0].date, "2026-08-22");
+  assert.equal(contentHistory("example/article", {})[0].date, null);
+});
+
+test("new publication is not duplicated as a revision; revisions stay chronological", () => {
+  const events = contentHistory("cases/specification-debt-review", { published_at: "2026-10-07" });
+  assert.equal(events.length, 1);
+  assert.equal(events[0].type, "published");
+  assert.deepEqual(contentHistory("practices/ai-adoption-and-effective-use", {}).map(event => event.date), [null, "2026-10-07", "2026-10-08"]);
+});
+
+test("aggregate counts separate publication, revision and Case without titles", () => {
+  assert.deepEqual(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-08"), () => false), ["AI業務設計に関する記事を10件改訂"]);
+  assert.deepEqual(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-07"), id => id === "cases/specification-debt-review"), ["Caseを1件新規公開", "記事を1件新規公開", "記事を1件改訂"]);
+  assert.equal(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-03"), () => false).length, 1);
+});
+
+test("Home includes today through day 29, excluding future, old and month-only dates", () => {
+  assert(inRecentWindow("2026-09-09", "2026-10-08"));
+  assert(inRecentWindow("2026-10-08", "2026-10-08"));
+  assert(!inRecentWindow("2026-09-08", "2026-10-08"));
+  assert(!inRecentWindow("2026-10-09", "2026-10-08"));
+  assert(!inRecentWindow("2026-09", "2026-10-08"));
+  assert(inRecentWindow("2024-02-29", "2024-03-29"));
+  assert.equal(japanToday(new Date("2026-10-07T15:00:00Z")), "2026-10-08");
+});

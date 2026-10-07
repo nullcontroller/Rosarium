@@ -1,36 +1,27 @@
 ---
 import { getEntry } from "astro:content";
-import { publishedEntry, url } from "../lib/site";
+import { publishedEntry } from "../lib/site";
 import type { RecentGrowthItem } from "../data/recent-growth";
 import {
   recentGrowthDateLabel,
   recentGrowthLabels,
-  growthChangeText,
   growthChangeTargets,
+  growthSummary,
 } from "../data/recent-growth";
 import Icon from "./Icon.astro";
 
-interface Props {
-  entry: RecentGrowthItem;
-  maxChanges?: number;
+interface Props { entry: RecentGrowthItem; }
+const { entry } = Astro.props;
+const cases = new Set<string>();
+for (const id of entry.changes.flatMap(growthChangeTargets)) {
+  const content = await getEntry("pages", id);
+  if (!content || !publishedEntry(content)) throw new Error("History target is not published: " + id);
+  if (content.data.kind === "case" || content.data.layer === "case" || content.data.section === "cases") cases.add(id);
 }
-
-const { entry, maxChanges } = Astro.props;
-const changes = maxChanges === undefined ? entry.changes : entry.changes.slice(0, maxChanges);
-const linkedChanges = await Promise.all(changes.map(async (change) => ({
-  text: growthChangeText(change),
-  links: await Promise.all(growthChangeTargets(change).map(async (id) => {
-    const content = await getEntry("pages", id);
-    if (!content || !publishedEntry(content)) throw new Error("Garden Notes target is not published: " + id);
-    return { title: content.data.title, href: url(content.id) };
-  })),
-})));
-const contentChanges = linkedChanges.flatMap<{ text: string; link?: { title: string; href: string } }>((change) => change.links.length
-  ? change.links.map((link) => ({ text: change.text, link }))
-  : [{ text: change.text, link: undefined }]);
+const summaries = growthSummary(entry, id => cases.has(id));
 ---
 
-<article class="growth-entry icon-entry" data-growth-entry>
+<article class="growth-entry icon-entry" data-growth-entry data-growth-date={entry.date}>
   <Icon name={entry.icon ?? "updates"} size="list" />
   <div>
     <p class="meta growth-meta">
@@ -44,18 +35,7 @@ const contentChanges = linkedChanges.flatMap<{ text: string; link?: { title: str
       {entry.title}
     </h3>
     <ul class="growth-changes content-summary" role="list">
-      {contentChanges.map((change) => <li class:list={[change.link && "growth-content-item"]}>
-        {change.link ? <>
-          <a class="growth-content-title" href={change.link.href}>{change.link.title}</a>
-          <span class="growth-content-description">{change.text}</span>
-        </> : change.text}
-      </li>)}
+      {summaries.map(text => <li>{text}</li>)}
     </ul>
   </div>
 </article>
-
-<style>
-  .growth-content-item { padding-block: .2rem; }
-  .growth-content-title, .growth-content-description { display: block; }
-  .growth-content-description { margin-top: .2rem; }
-</style>

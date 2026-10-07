@@ -4,6 +4,7 @@ import Site from "../layouts/Site.astro";
 import MarkdownBody from "./MarkdownBody.astro";
 import { url } from "../lib/site";
 import { statusLabel } from "../lib/site";
+import ContentHistory from "./ContentHistory.astro";
 import Icon from "./Icon.astro";
 const entry = await getEntry("career", "overview");
 if (!entry) throw new Error("Career content missing");
@@ -50,5 +51,6 @@ const d = entry.data;
     <div class="prose">
       <MarkdownBody html={entry.rendered?.html || ""} />
     </div>
+    <ContentHistory id="career/overview" data={{}} />
   </article>
 </Site>

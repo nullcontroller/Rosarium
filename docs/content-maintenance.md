@@ -9,6 +9,7 @@ Rosariumの技術記事は、公開済み文章を固定された移行成果物
 - 出典はfront matterの `source` に保持し、本文の主語にはしない。
 - 過去の構成、移行対応、機械的な追跡情報は `migration/` と `docs/history/` に置く。
 - 公開本文では、現在の意味、前提、適用範囲を説明する。
+- Garden Notesは更新件数、各記事末尾は具体的な改訂内容を扱う。記録方法は [更新履歴の方針](content-history-policy.md) を参照する。
 
 ## 知識の層
 

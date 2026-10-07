@@ -2,13 +2,14 @@
 import { navigationItemForPath } from "../lib/navigation";
 import Site from "../layouts/Site.astro";
 import GrowthEntry from "../components/GrowthEntry.astro";
+import { inRecentWindow } from "../lib/history-window";
 import { recentGrowth } from "../data/recent-growth";
 import Icon from "../components/Icon.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { url } from "../lib/site";
 
 const homeIcon = navigationItemForPath("")!.icon;
-const recent = recentGrowth.slice(0, 1);
+const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 ---
 
 <Site showRightSidebar={false} title="Home" section="">
@@ -36,9 +37,10 @@ const recent = recentGrowth.slice(0, 1);
         id="recent-growth-heading"
       />
       <p class="meta">
-        記事や事例の公開・改訂・統合・整理など、主な手入れを記録しています。
+        直近30日間の記事・事例の公開や改訂を、件数中心に記録しています。
       </p>
-      <div class="growth-list growth-list-compact">
+      <p class="meta" data-growth-empty hidden={recent.length > 0}>直近30日間の更新はありません。</p>
+      <div class="growth-list growth-list-compact" data-recent-growth>
         {recent.map((entry) => (
           <GrowthEntry entry={entry} />
         ))}
@@ -66,3 +68,23 @@ const recent = recentGrowth.slice(0, 1);
     </section>
   </div>
 </Site>
+
+<script>
+  import { inRecentWindow } from "../lib/history-window";
+  function refreshRecentGrowth() {
+    const list = document.querySelector("[data-recent-growth]");
+    if (!list) return;
+    const entries = Array.from(list.querySelectorAll<HTMLElement>("[data-growth-date]"));
+    for (const entry of entries) entry.hidden = !inRecentWindow(entry.dataset.growthDate ?? "");
+    const empty = document.querySelector<HTMLElement>("[data-growth-empty]");
+    if (empty) empty.hidden = entries.some(entry => !entry.hidden);
+  }
+  refreshRecentGrowth();
+  document.addEventListener("astro:page-load", refreshRecentGrowth);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshRecentGrowth(); });
+</script>
+
+<style>
+  [data-recent-growth] :global([data-growth-entry][hidden]),
+  [data-growth-empty][hidden] { display: none; }
+</style>
