@@ -29,8 +29,8 @@ export const readingGroups: Record<
       title: "業務設計・考察",
       ids: [
         "foundations/ai-business-design",
-        "architecture/agents-tools-and-workflows",
-        "essays/what-not-to-build-with-ai",
+        "software-engineering/multi-ai-orchestration",
+        "essays/it-strategy-and-not-building",
       ],
     },
   ],
@@ -62,9 +62,7 @@ export const readingGroups: Record<
         "practices/adoption-governance",
         "practices/ai-adoption-and-effective-use",
         "practices/education-and-capability",
-        "practices/ai-education-principles",
         "practices/transferring-practices",
-        "practices/transferring-ai-practices",
       ],
     },
     {
@@ -84,8 +82,8 @@ export const readingGroups: Record<
         "software-engineering/code-maintenance-context",
         "software-engineering/multi-ai-orchestration",
         "cases/three-ai-maintenance",
-        "essays/what-not-to-build-with-ai",
-        "cases/understanding-systems-as-capability",
+        "essays/it-strategy-and-not-building",
+        "cases/system-understanding",
       ],
     },
     {
@@ -93,7 +91,6 @@ export const readingGroups: Record<
       ids: [
         "evaluation-hitl/datasets-and-regression",
         "evaluation-hitl/responsibility-and-hitl",
-        "foundations/generation-and-acceptance",
         "essays/trust-in-ai-generated-content",
       ],
     },

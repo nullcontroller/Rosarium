@@ -6,8 +6,9 @@ title: 理解できないシステムは、コストである
 kind: essay
 section: essays
 status: published
-lifecycle: obsolete
-last_updated: "2026-10-05"
+lifecycle: retired
+lifecycle_reason: "理解しにくいレガシーシステムを、変更判断できる状態へ変えるで扱うため、独立したページとしての役割を終了しました。"
+last_updated: "2026-10-08"
 entry_points:
   - ai
   - dx
@@ -40,7 +41,6 @@ source:
     topics: *a1
     published: true
     published_at: 2026-04-12 19:01
-lifecycle_reason: "旧AI環境下で行った仕様復元とRAGへの再利用を紹介する記事です。現在はGitHub Copilotがコードベースを参照できるため、ここで述べた理解の手順を現在の推奨構成としては扱いません。人による確認と判断は引き続き必要です。"
 ---
 
 ## 理解できないシステムは、コストである

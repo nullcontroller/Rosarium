@@ -6,8 +6,9 @@ title: 生成AI教育はなぜ難しいのか ― 変わらない原則と変わ
 kind: guide
 section: practices
 status: published
-lifecycle: active
-last_updated: "2026-10-04"
+lifecycle: retired
+lifecycle_reason: "AI教育を原則と実践に分けるで扱うため、独立したページとしての役割を終了しました。"
+last_updated: "2026-10-08"
 entry_points:
   - ai
   - dx

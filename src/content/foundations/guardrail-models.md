@@ -6,7 +6,7 @@ title: ガードレールの数学的説明
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-10-08"
 tags:
   - foundations
 published_at: null
@@ -383,9 +383,7 @@ $$
 
 ### 情報量が増えても安全性は証明できない
 
-元の説明では、入力情報量を $I(x)=-\log P(x)$ とし、制約を追加すれば $I(x,C)>I(x)$となるため、出力自由度が減るとしていました。
-
-この推論は成立しません。
+入力情報量を $I(x)=-\log P(x)$ とし、制約の追加によって $I(x,C)>I(x)$となることから、出力自由度が減ると推論することはできません。
 
 まず、自己情報量は事象の起こりにくさを表す量であり、プロンプトの長さや安全条件の強さではありません。
 

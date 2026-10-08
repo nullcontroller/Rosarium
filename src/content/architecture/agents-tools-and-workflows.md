@@ -6,7 +6,8 @@ title: 「AIエージェントを0から作る時代」は本当に来るのか�
 kind: architecture
 section: architecture
 status: published
-lifecycle: active
+lifecycle: retired
+lifecycle_reason: "複数AIの役割分担と工程設計で扱うため、独立したページとしての役割を終了しました。"
 last_updated: "2026-10-08"
 tags: &a1
   - ai

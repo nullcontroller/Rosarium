@@ -6,8 +6,9 @@ title: AIは自動化できる。しかし、その出力を確定値として�
 kind: principle
 section: foundations
 status: published
-lifecycle: active
-last_updated: "2026-09-28"
+lifecycle: retired
+lifecycle_reason: "AI出力の責任境界とHITLで扱うため、独立したページとしての役割を終了しました。"
+last_updated: "2026-10-08"
 entry_points:
   - ai
   - dx

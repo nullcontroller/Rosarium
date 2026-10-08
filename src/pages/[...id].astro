@@ -23,7 +23,7 @@ import {
   contentEntryPoints,
 } from "../lib/entry-points";
 export async function getStaticPaths() {
-  return (await getCollection("pages", (entry) => publishedEntry(entry) && !["software-engineering/ai-driven-development", "software-engineering/code-generation-boundaries", "software-engineering/code-generation-and-work-design"].includes(entry.id))).map((entry) => ({
+  return (await getCollection("pages", (entry) => publishedEntry(entry) && !["practices/ai-education-principles", "practices/transferring-ai-practices", "essays/what-not-to-build-with-ai", "architecture/agents-tools-and-workflows", "foundations/generation-and-acceptance", "cases/understanding-systems-as-capability", "software-engineering/ai-driven-development", "software-engineering/code-generation-boundaries", "software-engineering/code-generation-and-work-design"].includes(entry.id))).map((entry) => ({
     params: { id: entry.id },
     props: { entry },
   }));

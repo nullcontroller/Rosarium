@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 141ページ。目次あり 116、なし 25。Referenceあり 114、なし 27。
+対象 141ページ。目次あり 111、なし 30。Referenceあり 108、なし 33。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -22,7 +22,7 @@
 | /ai-mathematics/ | AI理論 | あり | あり | あり | 8 | 主要見出しが複数 |
 | /ai/ | AI | あり | あり | あり | 5 | 主要見出しが複数 |
 | /architecture/ | システムアーキテクチャ | なし | あり | あり | 7 | 主要見出しが複数 |
-| /architecture/agents-tools-and-workflows/ | 「AIエージェントを0から作る時代」は本当に来るのか？ | あり | あり | あり | 7 | 主要見出しが複数 |
+| /architecture/agents-tools-and-workflows/ | 「AIエージェントを0から作る時代」は本当に来るのか？ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /architecture/change-and-reevaluation/ | AIシステムの変更・再評価設計 | あり | あり | あり | 18 | 長文の複数h3セクション |
 | /architecture/cost-latency-routing/ | AIコスト・Latency・モデルルーティング設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /architecture/observability-and-slo/ | AIシステムのオブザーバビリティとSLO設計 | あり | あり | あり | 13 | 長文の複数h3セクション |
@@ -68,30 +68,30 @@
 | /cases/three-ai-maintenance/reviewable-specifications/ | 第4章　分散した検討結果を、レビュー可能な仕様書へ集約する | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/three-ai-maintenance/sharing-current-specifications/ | 第5章　確認した現行仕様をAI間で渡し、仕様書へ反映する | あり | あり | あり | 12 | 主要見出しが複数 |
 | /cases/three-ai-maintenance/structuring-failure-handling/ | 第2章　異常系の構造を整理し、設計方針を確定する | あり | あり | あり | 11 | 主要見出しが複数 |
-| /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
+| /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /dx/ | DX | あり | あり | あり | 5 | 主要見出しが複数 |
-| /dx/business-transformation/ | 業務変革 | あり | あり | あり | 6 | 主要見出しが複数 |
-| /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 6 | 主要見出しが複数 |
-| /dx/selection-retirement/ | 選択と廃止 | あり | あり | あり | 3 | 主要見出しが複数 |
+| /dx/business-transformation/ | 業務変革 | あり | あり | あり | 5 | 主要見出しが複数 |
+| /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 4 | 主要見出しが複数 |
+| /dx/selection-retirement/ | 選択と廃止 | あり | あり | あり | 2 | 主要見出しが複数 |
 | /dx/system-transformation/ | システム変革 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /dx/value-design/ | 価値設計 | あり | あり | あり | 3 | 主要見出しが複数 |
-| /essays/ | 考察 | あり | あり | あり | 7 | 主要見出しが複数 |
+| /essays/ | 考察 | あり | あり | あり | 6 | 主要見出しが複数 |
 | /essays/ai-career-market/ | 採用される側から見たAI人材の転職概況 | あり | あり | あり | 7 | 長文の複数h3セクション |
 | /essays/ai-roles-beyond-fde/ | AI人材はFDEだけではない――これから進む専門職の細分化 | あり | あり | あり | 12 | 主要見出しが複数 |
 | /essays/ai-use-and-operation/ | AIは誰でも使えるようになったのに、なぜ業務で使いこなせる人は少ないのか | あり | あり | あり | 8 | 主要見出しが複数 |
 | /essays/dx-and-value/ | DXを学んで、「価値」という言葉が気になるようになった | あり | あり | あり | 6 | 長文の複数h3セクション |
-| /essays/it-strategy-and-not-building/ | IT戦略では「何を作らないか」も設計する | あり | あり | あり | 9 | 主要見出しが複数 |
+| /essays/it-strategy-and-not-building/ | IT戦略では「何を作らないか」も設計する | あり | あり | あり | 10 | 主要見出しが複数 |
 | /essays/legacy-change-and-retirement/ | レガシーシステムは、変えやすくしながら終わらせる | あり | あり | あり | 7 | 主要見出しが複数 |
 | /essays/model-competition-and-ecosystems/ | AIはどこへ進化しているのか — モデル競争の裏にある「構造」と「エコシステム」 | なし | あり | あり | 25 | 主要見出しが複数 |
 | /essays/rethink-work-before-ai/ | AI化する前に、業務そのものを疑う | あり | あり | あり | 10 | 主要見出しが複数 |
 | /essays/trust-in-ai-generated-content/ | AI生成コンテンツは、なぜ信頼されにくいのか | あり | あり | あり | 5 | 長文の複数h3セクション |
-| /essays/what-not-to-build-with-ai/ | AIで作れる時代に、何を作らないか | あり | あり | あり | 6 | 長文の複数h3セクション |
+| /essays/what-not-to-build-with-ai/ | AIで作れる時代に、何を作らないか | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /evaluation-hitl/ | 評価・ヒューマンレビュー | なし | あり | あり | 5 | 主要見出しが複数 |
 | /evaluation-hitl/code-evaluation-acceptance/ | コード生成AIの評価と採用設計 | あり | あり | あり | 23 | 長文の複数h3セクション |
 | /evaluation-hitl/datasets-and-regression/ | AI評価データセットと回帰評価設計 | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /evaluation-hitl/human-review-capability/ | AI時代において「レビューできる人」が価値を持つ理由 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /evaluation-hitl/qa-evaluation/ | QAチャット評価設計思想 | あり | あり | あり | 15 | 長文の複数h3セクション |
-| /evaluation-hitl/responsibility-and-hitl/ | AI出力の責任境界とHITL | あり | あり | あり | 28 | 長文の複数h3セクション |
+| /evaluation-hitl/responsibility-and-hitl/ | AI出力の責任境界とHITL | あり | あり | あり | 29 | 長文の複数h3セクション |
 | /foundations/ | 設計資料アーカイブ | なし | あり | あり | 9 | 主要見出しが複数 |
 | /foundations/ai-business-design/ | 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』 | あり | あり | あり | 6 | Book章構造 |
 | /foundations/ai-business-design/asking-versus-delegating/ | 第3章　AIに聞くことと、AIに仕事を任せることは違う | あり | あり | あり | 13 | 長文の複数h3セクション |
@@ -102,7 +102,7 @@
 | /foundations/answer-scope/ | なぜ回答範囲を制限した方がよいのか | あり | あり | あり | 11 | 長文の複数h3セクション |
 | /foundations/applicability-and-delegation/ | AI適用可否と委任レベルの設計 | あり | あり | あり | 13 | 長文の複数h3セクション |
 | /foundations/conditional-probability/ | 生成AIの条件付き確率モデル基礎 | あり | あり | あり | 16 | 長文の複数h3セクション |
-| /foundations/generation-and-acceptance/ | AIは自動化できる。しかし、その出力を確定値として扱ってはいけない | あり | あり | あり | 4 | 長文の複数h3セクション |
+| /foundations/generation-and-acceptance/ | AIは自動化できる。しかし、その出力を確定値として扱ってはいけない | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /foundations/glossary/ | Reference索引 | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /foundations/guardrail-models/ | ガードレールの数学的説明 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /foundations/hallucination-mechanisms/ | ハルシネーションの発生原理 | あり | あり | あり | 15 | 長文の複数h3セクション |
@@ -119,14 +119,14 @@
 | /knowledge-context/qa-behavior-constraints/ | QA行動制約Knowledge | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /knowledge-context/qa-operations/ | QAチャット運用思想 | あり | あり | あり | 14 | 長文の複数h3セクション |
 | /overview/ | AIをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /practices/ | 実践知 | あり | あり | あり | 23 | 主要見出しが複数 |
+| /practices/ | 実践知 | あり | あり | あり | 20 | 主要見出しが複数 |
 | /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 7 | 主要見出しが複数 |
 | /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | あり | あり | あり | 3 | 主要見出しが複数 |
-| /practices/ai-education-principles/ | 生成AI教育はなぜ難しいのか ― 変わらない原則と変わり続ける実践を分けて設計する | あり | あり | あり | 7 | 長文の複数h3セクション |
+| /practices/ai-education-principles/ | 生成AI教育はなぜ難しいのか ― 変わらない原則と変わり続ける実践を分けて設計する | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /practices/ai-generation-and-work-completion/ | AI導入は効率化とは限らない | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /practices/education-and-capability/ | AI教育を原則と実践に分ける | あり | あり | あり | 5 | 主要見出しが複数 |
-| /practices/transferring-ai-practices/ | 全員の業務が違うのに、AI活用事例をそのまま横展開できるのか | あり | あり | あり | 9 | 長文の複数h3セクション |
-| /practices/transferring-practices/ | AI活用を別の業務へ横展開する | あり | あり | あり | 4 | 主要見出しが複数 |
+| /practices/education-and-capability/ | AI教育を原則と実践に分ける | あり | あり | あり | 6 | 主要見出しが複数 |
+| /practices/transferring-ai-practices/ | 全員の業務が違うのに、AI活用事例をそのまま横展開できるのか | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /practices/transferring-practices/ | AI活用を別の業務へ横展開する | あり | あり | あり | 5 | 主要見出しが複数 |
 | /reference/ | Reference | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /reference/evaluation-metrics/ | 評価指標リファレンス | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /reference/glossary/ | 基本用語集 | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
@@ -134,8 +134,8 @@
 | /reference/responsibility-state-model/ | 責任境界・状態モデル | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /retired/ | 旧記事・退役記事 | なし | あり | なし | 3 | 主要見出しが複数 |
 | /retired/obsolete-cases/ | 旧事例 | なし | あり | なし | 2 | アーカイブ個別項目 |
-| /retired/obsolete/ | 旧記事 | なし | あり | なし | 4 | アーカイブ個別項目 |
-| /retired/retired/ | 退役記事 | なし | あり | なし | 10 | アーカイブ個別項目 |
+| /retired/obsolete/ | 旧記事 | なし | あり | なし | 3 | アーカイブ個別項目 |
+| /retired/retired/ | 退役記事 | なし | あり | なし | 16 | アーカイブ個別項目 |
 | /search/ | 検索 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /series/ | 業務変革をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/ | ソフトウェア開発 | なし | あり | あり | 6 | 主要見出しが複数 |
@@ -146,6 +146,6 @@
 | /software-engineering/code-generation-models/ | コード生成AIの正体 | あり | あり | あり | 24 | 長文の複数h3セクション |
 | /software-engineering/code-maintenance-context/ | なぜAIは新規コードよりコード保守に強いのか | あり | あり | あり | 23 | 長文の複数h3セクション |
 | /software-engineering/development-workflow/ | AIを開発工程に組み込む | あり | あり | あり | 27 | 長文の複数h3セクション |
-| /software-engineering/multi-ai-orchestration/ | 複数AIの役割分担と工程設計 | あり | あり | あり | 26 | 長文の複数h3セクション |
+| /software-engineering/multi-ai-orchestration/ | 複数AIの役割分担と工程設計 | あり | あり | あり | 27 | 長文の複数h3セクション |
 | /start-here/ | Start Here | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /updates/ | 庭をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |

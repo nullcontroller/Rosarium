@@ -6,7 +6,7 @@ title: プロンプト設計の基本構造
 kind: guide
 section: knowledge-context
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-10-08"
 tags:
   - knowledge-context
 published_at: null
@@ -247,9 +247,7 @@ Context windowへ入る量が増えても、必要情報を常に同じ精度で
 
 Criteriaは、AIが出力候補をどう評価し、どの条件で回答を止めるかを定義します。
 
-現行稿には「Knowledgeへ判断基準は入れず、事実だけを入れる」という考え方がありました。
-
-これは強すぎます。
+「Knowledgeには事実だけを入れ、判断基準は入れない」と限定すると、業務規則の管理が分散する場合があります。
 
 判断基準は、業務上の正本として管理すべきKnowledgeになり得ます。
 

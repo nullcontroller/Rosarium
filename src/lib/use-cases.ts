@@ -25,7 +25,7 @@ export const useCases = [
     ],
     publications: [
       "foundations/ai-business-design",
-      "foundations/generation-and-acceptance",
+      "evaluation-hitl/responsibility-and-hitl",
       "practices/ai-adoption-and-effective-use",
       "essays/dx-and-value",
       "cases/customer-support-ai-dx",
@@ -47,7 +47,7 @@ export const useCases = [
     publications: [
       "knowledge-context/context-before-model-performance",
       "cases/system-understanding",
-      "architecture/agents-tools-and-workflows",
+      "software-engineering/multi-ai-orchestration",
       "cases/customer-support-ai-dx",
     ],
   },
@@ -65,7 +65,7 @@ export const useCases = [
     ],
     publications: [
       "cases/three-ai-maintenance",
-      "essays/what-not-to-build-with-ai",
+      "essays/it-strategy-and-not-building",
     ],
   },
   {
@@ -97,11 +97,10 @@ export const useCases = [
       "cases/customer-support-ai-dx",
     ],
     publications: [
-      "cases/system-understanding",
-      "cases/three-ai-maintenance",
-      "cases/customer-support-ai-dx",
-      "cases/understanding-systems-as-capability",
-    ],
+        "cases/system-understanding",
+        "cases/three-ai-maintenance",
+        "cases/customer-support-ai-dx",
+      ],
   },
   {
     id: "career-work",
@@ -161,7 +160,7 @@ export function contentUseCaseIds(entry: Entry): UseCaseId[] {
     data.design_topic === "knowledge-context" ||
     data.section === "knowledge-context" ||
     id.startsWith("cases/system-understanding") ||
-    id === "architecture/agents-tools-and-workflows" ||
+    id === "software-engineering/multi-ai-orchestration" ||
     [...tags].some((tag) =>
       ["rag", "コンテキスト", "knowledge", "aiエージェント", "mcp"].includes(
         tag,

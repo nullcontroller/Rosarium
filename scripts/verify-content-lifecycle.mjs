@@ -11,7 +11,17 @@ const digest = (raw) => crypto.createHash("sha256").update(raw).digest("hex");
 const sitemap = fs.readFileSync("dist/sitemap.xml", "utf8");
 const feeds = ["feed.xml", "feed.json", "rss.xml"].map((name) => fs.readFileSync(`dist/${name}`, "utf8"));
 const counts = {};
-const integratedEntries = new Set(["software-engineering/code-generation-and-work-design", "software-engineering/ai-driven-development"]);
+const integrationTargets = {
+  "practices/ai-education-principles": "practices/education-and-capability",
+  "practices/transferring-ai-practices": "practices/transferring-practices",
+  "essays/what-not-to-build-with-ai": "essays/it-strategy-and-not-building",
+  "architecture/agents-tools-and-workflows": "software-engineering/multi-ai-orchestration",
+  "foundations/generation-and-acceptance": "evaluation-hitl/responsibility-and-hitl",
+  "cases/understanding-systems-as-capability": "cases/system-understanding",
+  "software-engineering/code-generation-and-work-design": "software-engineering/development-workflow",
+  "software-engineering/ai-driven-development": "software-engineering/development-workflow"
+};
+const integratedEntries = new Set(Object.keys(integrationTargets));
 const archiveTop = load(fs.readFileSync("dist/retired/index.html", "utf8"));
 const obsoleteIndex = load(fs.readFileSync("dist/retired/obsolete/index.html", "utf8"));
 const obsoleteCasesIndex = load(fs.readFileSync("dist/retired/obsolete-cases/index.html", "utf8"));
@@ -88,7 +98,7 @@ for (const record of report.entries) {
   const match = raw.match(/^---\n([\s\S]*?)\n---\n/);
   const data = YAML.parse(match[1]);
   // Integration changes lifecycle metadata, not the immutable recovered body or appendix.
-  verifyRecoveredBody(raw.slice(match[0].length), record, record.destination === "software-engineering/code-generation-and-work-design" ? record.local_appendix.date : data.last_updated);
+  verifyRecoveredBody(raw.slice(match[0].length), record, integratedEntries.has(record.destination) && record.local_appendix ? record.local_appendix.date : data.last_updated);
   const lifecycle = integratedEntries.has(record.destination) ? "RETIRED" : record.lifecycle;
   assert.equal(data.lifecycle, lifecycle.toLowerCase());
   assert.equal(data.published_at ?? null, record.original_published_at);
@@ -100,7 +110,7 @@ for (const record of report.entries) {
   if (!integratedEntries.has(record.destination)) assert.equal($('link[rel="canonical"]').attr("href"), canonical);
   if (integratedEntries.has(record.destination)) {
     assert.match($('meta[name="robots"]').attr("content"), /noindex/);
-    assert.equal($('meta[http-equiv="refresh"]').attr("content"), "0;url=/Rosarium/software-engineering/development-workflow/");
+    assert.equal($('meta[http-equiv="refresh"]').attr("content"), `0;url=/Rosarium/${integrationTargets[record.destination]}/`);
     assert.equal(retiredIndex(`[data-retired-id="${record.destination}"]`).length, 1);
     assert(!sitemap.includes(canonical));
     for (const feed of feeds) assert(!feed.includes(canonical));

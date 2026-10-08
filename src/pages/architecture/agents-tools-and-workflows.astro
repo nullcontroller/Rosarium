@@ -1,0 +1,18 @@
+---
+import Site from "../../layouts/Site.astro";
+import ContentHistory from "../../components/ContentHistory.astro";
+import { getEntry } from "astro:content";
+import { url } from "../../lib/site";
+const entry = await getEntry("pages", "architecture/agents-tools-and-workflows");
+const destination = url("software-engineering/multi-ai-orchestration");
+const canonical = new URL(destination, Astro.site).toString();
+---
+<Site showRightSidebar={false} title={entry!.data.title} summary="複数AIの役割分担と工程設計を参照できます。" canonical={canonical} noindex showLastUpdated={false}>
+  <meta slot="head" http-equiv="refresh" content={"0;url=" + destination} />
+  <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
+  <header>
+    <h1>{entry!.data.title}</h1>
+    <p><a href={destination}>複数AIの役割分担と工程設計へ移動する</a></p>
+    {entry && <ContentHistory id={entry.id} data={entry.data} />}
+  </header>
+</Site>

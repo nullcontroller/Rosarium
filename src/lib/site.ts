@@ -119,6 +119,12 @@ export const staticPageLastUpdated: Record<string, string> = {
   "essays/model-competition-and-ecosystems": "2026-10-03",
   "evaluation-hitl/human-review-capability": "2026-10-03",
   "software-engineering/ai-design-assistance": "2026-10-08",
+  "practices/ai-education-principles": "2026-10-08",
+  "practices/transferring-ai-practices": "2026-10-08",
+  "essays/what-not-to-build-with-ai": "2026-10-08",
+  "architecture/agents-tools-and-workflows": "2026-10-08",
+  "foundations/generation-and-acceptance": "2026-10-08",
+  "cases/understanding-systems-as-capability": "2026-10-08",
   "software-engineering/ai-driven-development": "2026-10-08",
 };
 export const staticLastUpdatedForPath = (pathname: string) => {

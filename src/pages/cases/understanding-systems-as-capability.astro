@@ -1,0 +1,18 @@
+---
+import Site from "../../layouts/Site.astro";
+import ContentHistory from "../../components/ContentHistory.astro";
+import { getEntry } from "astro:content";
+import { url } from "../../lib/site";
+const entry = await getEntry("pages", "cases/understanding-systems-as-capability");
+const destination = url("cases/system-understanding");
+const canonical = new URL(destination, Astro.site).toString();
+---
+<Site showRightSidebar={false} title={entry!.data.title} summary="理解しにくいレガシーシステムを、変更判断できる状態へ変えるを参照できます。" canonical={canonical} noindex showLastUpdated={false}>
+  <meta slot="head" http-equiv="refresh" content={"0;url=" + destination} />
+  <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
+  <header>
+    <h1>{entry!.data.title}</h1>
+    <p><a href={destination}>理解しにくいレガシーシステムを、変更判断できる状態へ変えるへ移動する</a></p>
+    {entry && <ContentHistory id={entry.id} data={entry.data} />}
+  </header>
+</Site>

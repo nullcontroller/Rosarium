@@ -6,7 +6,9 @@ title: "AIで作れる時代に、何を作らないか"
 kind: essay
 section: essays
 status: published
-last_updated: "2026-10-06"
+lifecycle: retired
+lifecycle_reason: "IT戦略では「何を作らないか」も設計するで扱うため、独立したページとしての役割を終了しました。"
+last_updated: "2026-10-08"
 entry_points:
   - ai
   - dx

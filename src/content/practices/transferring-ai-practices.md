@@ -6,8 +6,9 @@ title: 全員の業務が違うのに、AI活用事例をそのまま横展開�
 kind: guide
 section: practices
 status: published
-lifecycle: active
-last_updated: "2026-10-03"
+lifecycle: retired
+lifecycle_reason: "AI活用を別の業務へ横展開するで扱うため、独立したページとしての役割を終了しました。"
+last_updated: "2026-10-08"
 entry_points:
   - ai
   - dx

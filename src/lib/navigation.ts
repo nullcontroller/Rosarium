@@ -185,24 +185,23 @@ export const publicationStatus = (e: Entry) =>
 export const publicationDate = (e: Entry) => publicationTiming(e).value;
 export const topicPublications: Record<string, string[]> = {
   applicability: [
-    "essays/rethink-work-before-ai",
-    "practices/transferring-practices",
-    "practices/transferring-ai-practices",
-    "practices/adoption-governance",
-    "practices/ai-adoption-and-effective-use",
-    "foundations/ai-business-design",
-    "foundations/generation-and-acceptance",
-    "essays/dx-and-value",
-    "cases/customer-support-ai-dx",
-  ],
+        "essays/rethink-work-before-ai",
+        "practices/transferring-practices",
+        "practices/adoption-governance",
+        "practices/ai-adoption-and-effective-use",
+        "foundations/ai-business-design",
+        "evaluation-hitl/responsibility-and-hitl",
+        "essays/dx-and-value",
+        "cases/customer-support-ai-dx",
+      ],
   "responsibility-control": [
-    "foundations/generation-and-acceptance",
+    "evaluation-hitl/responsibility-and-hitl",
     "essays/trust-in-ai-generated-content",
     "foundations/ai-business-design",
     "cases/customer-support-ai-dx",
   ],
   architecture: [
-    "architecture/agents-tools-and-workflows",
+    "software-engineering/multi-ai-orchestration",
     "foundations/ai-business-design",
     "cases/three-ai-maintenance",
   ],
@@ -212,7 +211,7 @@ export const topicPublications: Record<string, string[]> = {
     "cases/customer-support-ai-dx",
   ],
   "evaluation-hitl": [
-    "foundations/generation-and-acceptance",
+    "evaluation-hitl/responsibility-and-hitl",
     "essays/trust-in-ai-generated-content",
     "cases/system-understanding",
     "cases/customer-support-ai-dx",
@@ -221,13 +220,12 @@ export const topicPublications: Record<string, string[]> = {
     "cases/three-ai-maintenance",
   ],
   "lifecycle-operations": [
-    "essays/it-strategy-and-not-building",
-    "essays/legacy-change-and-retirement",
-    "cases/system-understanding",
-    "cases/three-ai-maintenance",
-    "cases/customer-support-ai-dx",
-    "essays/what-not-to-build-with-ai",
-  ],
+        "essays/it-strategy-and-not-building",
+        "essays/legacy-change-and-retirement",
+        "cases/system-understanding",
+        "cases/three-ai-maintenance",
+        "cases/customer-support-ai-dx",
+      ],
 };
 export const relatedPublications = (all: Entry[], topic?: string) =>
   (topicPublications[topic || ""] || [])

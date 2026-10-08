@@ -274,7 +274,7 @@ for (const topic of [
   }
   assert.equal($("[data-related-publications]").length, 0);
 }
-assert(page("ai-design/architecture")('a[href="/Rosarium/architecture/agents-tools-and-workflows/"]').length, "Agent experience remains discoverable separately from the design guide");
+assert(page("ai-design/architecture")('a[href="/Rosarium/software-engineering/multi-ai-orchestration/"]').length, "Agent experience remains discoverable within the orchestration guide");
 for (const [id, d] of entries) {
   if (d.layer === "ai-design")
     assert.equal(
@@ -852,11 +852,11 @@ assert(
   ).length,
 );
 assert(
-  page("practices")('a[href="/Rosarium/practices/transferring-ai-practices/"]')
+  page("practices")('a[href="/Rosarium/practices/transferring-practices/"]')
     .length,
 );
 console.log(
-  "Verified imported essay discovery, canonical routes, search bodies and feeds; transfer article retains its existing route.",
+  "Verified imported essay discovery, canonical routes, search bodies and feeds; transfer guide retains the practical sharing experience.",
 );
 
 // No recommendations are reinserted after the article or chapter navigation.
