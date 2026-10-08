@@ -81,10 +81,8 @@ export const readingGroups: Record<
       title: "開発・保守",
       ids: [
         "software-engineering/development-workflow",
-        "software-engineering/code-generation-boundaries",
         "software-engineering/code-maintenance-context",
         "software-engineering/multi-ai-orchestration",
-        "software-engineering/code-generation-and-work-design",
         "software-engineering/ai-driven-development",
         "essays/what-not-to-build-with-ai",
         "cases/understanding-systems-as-capability",

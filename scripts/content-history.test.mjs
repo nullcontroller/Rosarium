@@ -30,7 +30,7 @@ test("new publication is not duplicated as a revision; revisions stay chronologi
 });
 
 test("aggregate counts separate publication, revision and Case without titles", () => {
-  assert.deepEqual(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-08"), id => id === "cases/specification-debt-review"), ["AI設計に関する記事を16件改訂", "AI設計に関するCaseを1件改訂"]);
+  assert.deepEqual(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-08"), id => id === "cases/specification-debt-review"), ["AI設計に関する記事を16件改訂", "AI設計に関する記事を2件統合", "AI設計に関するCaseを1件改訂"]);
   assert.deepEqual(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-07"), id => id === "cases/specification-debt-review"), ["Caseを1件新規公開", "記事を1件新規公開", "記事を1件改訂"]);
   assert.equal(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-03"), () => false).length, 1);
 });

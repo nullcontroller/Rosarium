@@ -6,8 +6,9 @@ title: コード生成AIはなぜ業務を変えないのか — 設計支援と
 kind: guide
 section: software-engineering
 status: published
-lifecycle: active
-last_updated: "2026-10-06"
+lifecycle: retired
+lifecycle_reason: "コード生成と設計支援を対立させる説明の役割を終了し、AIへのコード変更の委任と開発工程全体の評価へ統合しました。"
+last_updated: "2026-10-08"
 entry_points:
   - ai
   - dx

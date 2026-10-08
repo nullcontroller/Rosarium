@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 141ページ。目次あり 119、なし 22。Referenceあり 117、なし 24。
+対象 141ページ。目次あり 117、なし 24。Referenceあり 115、なし 26。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -70,7 +70,7 @@
 | /cases/three-ai-maintenance/structuring-failure-handling/ | 第2章　異常系の構造を整理し、設計方針を確定する | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /dx/ | DX | あり | あり | あり | 5 | 主要見出しが複数 |
-| /dx/business-transformation/ | 業務変革 | あり | あり | あり | 7 | 主要見出しが複数 |
+| /dx/business-transformation/ | 業務変革 | あり | あり | あり | 6 | 主要見出しが複数 |
 | /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 6 | 主要見出しが複数 |
 | /dx/selection-retirement/ | 選択と廃止 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /dx/system-transformation/ | システム変革 | あり | あり | あり | 4 | 主要見出しが複数 |
@@ -119,7 +119,7 @@
 | /knowledge-context/qa-behavior-constraints/ | QA行動制約Knowledge | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /knowledge-context/qa-operations/ | QAチャット運用思想 | あり | あり | あり | 14 | 長文の複数h3セクション |
 | /overview/ | AIをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /practices/ | 実践知 | あり | あり | あり | 26 | 主要見出しが複数 |
+| /practices/ | 実践知 | あり | あり | あり | 24 | 主要見出しが複数 |
 | /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 7 | 主要見出しが複数 |
 | /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | あり | あり | あり | 3 | 主要見出しが複数 |
 | /practices/ai-education-principles/ | 生成AI教育はなぜ難しいのか ― 変わらない原則と変わり続ける実践を分けて設計する | あり | あり | あり | 7 | 長文の複数h3セクション |
@@ -135,17 +135,17 @@
 | /retired/ | 旧記事・退役記事 | なし | あり | なし | 3 | 主要見出しが複数 |
 | /retired/obsolete-cases/ | 旧事例 | なし | あり | なし | 2 | アーカイブ個別項目 |
 | /retired/obsolete/ | 旧記事 | なし | あり | なし | 4 | アーカイブ個別項目 |
-| /retired/retired/ | 退役記事 | なし | あり | なし | 6 | アーカイブ個別項目 |
+| /retired/retired/ | 退役記事 | なし | あり | なし | 9 | アーカイブ個別項目 |
 | /search/ | 検索 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /series/ | 業務変革をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /software-engineering/ | ソフトウェア開発 | なし | あり | あり | 8 | 主要見出しが複数 |
+| /software-engineering/ | ソフトウェア開発 | なし | あり | あり | 6 | 主要見出しが複数 |
 | /software-engineering/ai-design-assistance/ | 設計支援AIは消えない。コード生成の次に残る領域 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /software-engineering/ai-driven-development/ | 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか | あり | あり | あり | 5 | 長文の複数h3セクション |
-| /software-engineering/code-generation-and-work-design/ | コード生成AIはなぜ業務を変えないのか — 設計支援として使うべき理由 | あり | あり | あり | 16 | 長文の複数h3セクション |
-| /software-engineering/code-generation-boundaries/ | コード生成を使うべき場所 | あり | あり | あり | 22 | 長文の複数h3セクション |
+| /software-engineering/code-generation-and-work-design/ | コード生成AIはなぜ業務を変えないのか — 設計支援として使うべき理由 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /software-engineering/code-generation-boundaries/ | コード生成を使うべき場所 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/code-generation-models/ | コード生成AIの正体 | あり | あり | あり | 24 | 長文の複数h3セクション |
 | /software-engineering/code-maintenance-context/ | なぜAIは新規コードよりコード保守に強いのか | あり | あり | あり | 23 | 長文の複数h3セクション |
-| /software-engineering/development-workflow/ | AIを開発工程に組み込む | あり | あり | あり | 25 | 長文の複数h3セクション |
+| /software-engineering/development-workflow/ | AIを開発工程に組み込む | あり | あり | あり | 26 | 長文の複数h3セクション |
 | /software-engineering/multi-ai-orchestration/ | 複数AIの役割分担と工程設計 | あり | あり | あり | 26 | 長文の複数h3セクション |
 | /start-here/ | Start Here | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /updates/ | 庭をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |

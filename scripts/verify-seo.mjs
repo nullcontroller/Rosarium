@@ -192,7 +192,7 @@ console.log(
 );
 
 // Retired catalogs keep their URLs as noindex redirects to authoritative entrances.
-for (const [route, destination] of [["books", "cases"], ["series", "dx/business-transformation"], ["practices/ai-generation-and-work-completion", "foundations/ai-business-design/evaluating-business-efficiency"]]) {
+for (const [route, destination] of [["software-engineering/code-generation-and-work-design", "software-engineering/development-workflow"], ["software-engineering/code-generation-boundaries", "software-engineering/development-workflow"], ["books", "cases"], ["series", "dx/business-transformation"], ["practices/ai-generation-and-work-completion", "foundations/ai-business-design/evaluating-business-efficiency"]]) {
   const $ = load(fs.readFileSync("dist/" + route + "/index.html", "utf8"));
   const target = "/Rosarium/" + destination + "/";
   assert.match($('meta[name="robots"]').attr("content") || "", /noindex/);

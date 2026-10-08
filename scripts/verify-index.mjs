@@ -58,6 +58,11 @@ for (const [id, d] of entries) {
   if (d.status === "draft" || d.public === false) continue;
   const route = id === "career/overview" ? "career" : id;
   const $ = load(fs.readFileSync("dist/" + route + "/index.html", "utf8"));
+  if ($("meta[http-equiv=refresh]").length) {
+    assert.equal(d.lifecycle, "retired", id);
+    assert.equal($("[data-pagefind-body]").length, 0, id + ": redirect must not enter search");
+    continue;
+  }
   assert.equal(
     $('[data-pagefind-meta="summary"]').text().trim(),
     d.summary,
@@ -219,7 +224,7 @@ const design = page("ai-design");
 assert.deepEqual(
   new Set(primaryIds(design)),
   new Set(
-    [...entries].filter(([, d]) => d.layer === "ai-design").map(([id]) => id),
+    [...entries].filter(([, d]) => d.layer === "ai-design" && (!d.lifecycle || d.lifecycle === "active")).map(([id]) => id),
   ),
 );
 for (const id of primaryIds(design))

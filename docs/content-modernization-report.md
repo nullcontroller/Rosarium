@@ -124,11 +124,11 @@
 | `src/content/reference/responsibility-state-model.md` | SPLIT | 安定して参照する責務を独立させる | Capability・Authority・Accountabilityと状態遷移を独立 |
 | `src/content/software-engineering/ai-design-assistance.md` | RETIRE | Code生成と設計を単純な正解問題 / 非関数問題で対比しており、後発記事の方が精密 | 本文を非公開アーカイブとして保持し、Code生成と業務設計の後継記事へredirect |
 | `src/content/software-engineering/ai-driven-development.md` | UPDATE | 現行構造・表現との不一致 | 外部Bookという表現をCase Studyの現行導線へ更新 |
-| `src/content/software-engineering/code-generation-and-work-design.md` | KEEP | Code生成と作業設計を接続 | — |
-| `src/content/software-engineering/code-generation-boundaries.md` | KEEP | Code生成の委任境界を整理 | — |
+| `src/content/software-engineering/code-generation-and-work-design.md` | RETIRE | 生成と設計支援を対立させる説明の役割終了 | 2026-10-08にdevelopment-workflowへ統合。旧本文を保存し互換redirect |
+| `src/content/software-engineering/code-generation-boundaries.md` | RETIRE | 独立した適用場所の判断が工程・委任設計と重複 | 2026-10-08にdevelopment-workflowへ統合。旧本文を保存し互換redirect |
 | `src/content/software-engineering/code-generation-models.md` | UPDATE | 現行構造・表現との不一致 | 設計仮説と製品固有情報の扱いから旧媒体表現を除去 |
 | `src/content/software-engineering/code-maintenance-context.md` | KEEP | 保守で必要なContext構成を整理 | — |
-| `src/content/software-engineering/development-workflow.md` | KEEP | AI Assisted Software Engineeringの現行Practice | — |
+| `src/content/software-engineering/development-workflow.md` | UPDATE | AIへの変更委任と工程ゲートのAI設計ガイド | 変更影響・検証・反映権限・確認負荷・復旧を統合 |
 | `src/content/software-engineering/multi-ai-orchestration.md` | KEEP | 複数AIの役割・受渡し・停止条件を整理 | — |
 
 ## Findings

@@ -51,7 +51,7 @@ export const aiDesignTopicGuides = {
   },
   "software-engineering": {
     question: "開発・保守のどの工程をAIへ任せるか。変更の適用判断、既存成果物を根拠にする条件、単一AIと複数AIの工程設計を順に確認します。",
-    readingOrder: ["software-engineering/code-generation-boundaries", "software-engineering/code-maintenance-context", "software-engineering/multi-ai-orchestration"],
+    readingOrder: ["software-engineering/development-workflow", "software-engineering/code-maintenance-context", "software-engineering/multi-ai-orchestration"],
     next: { path: "ai-design/lifecycle-operations", title: "ライフサイクル・運用", reason: "採用した構成を監視し、変更・事故・終了まで継続して判断します。" },
   },
   "lifecycle-operations": {

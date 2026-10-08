@@ -50,7 +50,7 @@
 | architecture/prompts-as-interfaces | 根拠・未解決事項・状態を失わず次工程へどう渡すか | UPDATE / 受渡し契約 |
 | architecture/security-threat-modeling | 入力・検索・Tool・出力の脅威と権限逸脱をどう制御するか | KEEP / 脅威モデル |
 | architecture/cost-latency-routing | Taskごとに非AIを含む処理経路をどう選ぶか | KEEP / Routing・Cache・Budget。Book第2章の業務効率と区別 |
-| software-engineering/code-generation-boundaries | 検証環境と変更影響からコード生成へ何を任せるか | UPDATE / 委任レベル整合 |
+| software-engineering/development-workflow | コード変更をどこまで委任し、検証・承認・復旧をどう工程へ配置するか | UPDATE / 旧コード生成境界を統合 |
 | software-engineering/code-maintenance-context | 既存コード・テスト・履歴が有効な根拠になる条件は何か | KEEP / 保守Contextの条件と限界 |
 | software-engineering/multi-ai-orchestration | 単一AI・固定Workflow・Agent・複数AIをどう配置・制御するか | UPDATE / 工程全体 |
 | architecture/observability-and-slo | 稼働中の品質・費用・異常を何で観測し対応へつなぐか | KEEP / 観測 |

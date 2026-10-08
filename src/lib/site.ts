@@ -68,6 +68,8 @@ export const introductionForPath = (pathname: string) =>
 export const fallbackLastUpdated = "2026-09-28";
 // Content/structure dates are explicit; shared CSS, analytics and deploys do not change them.
 export const staticPageLastUpdated: Record<string, string> = {
+  "software-engineering/code-generation-and-work-design": "2026-10-08",
+  "software-engineering/code-generation-boundaries": "2026-10-08",
   "practices/ai-generation-and-work-completion": "2026-10-08",
   // Retired Details compatibility redirect; excluded from the sitemap.
   "career/details": "2026-10-04",

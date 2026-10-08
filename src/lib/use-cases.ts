@@ -61,12 +61,10 @@ export const useCases = [
     home: true,
     featured: [
       "software-engineering/development-workflow",
-      "software-engineering/code-generation-boundaries",
       "software-engineering/multi-ai-orchestration",
     ],
     publications: [
       "software-engineering/ai-driven-development",
-      "software-engineering/code-generation-and-work-design",
       "cases/three-ai-maintenance",
       "essays/what-not-to-build-with-ai",
     ],

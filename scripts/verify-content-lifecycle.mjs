@@ -30,13 +30,13 @@ assert.equal(retiredIndex("[data-pagefind-body]").length, 0);
 assert.equal(retiredIndex("main[data-pagefind-ignore]").length, 1);
 assert(!sitemap.includes("https://nullcontroller.github.io/Rosarium/retired/retired/"));
 for (const feed of feeds) assert(!feed.includes("https://nullcontroller.github.io/Rosarium/retired/retired/"));
-assert.equal(retiredIndex("[data-retired-id]").length, report.entries.filter((record) => record.lifecycle === "RETIRED").length);
 const about = load(fs.readFileSync("dist/about/index.html", "utf8"));
 assert.equal(about('main a[href="/Rosarium/retired/"]').length, 1);
 const historical = fs.readdirSync("src/content", { recursive: true })
   .filter((file) => file.endsWith(".md"))
   .map((file) => ({ id: file.replaceAll("\\", "/").replace(/\.md$/, ""), data: YAML.parse(fs.readFileSync(`src/content/${file}`, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]) }))
   .filter((entry) => publishedEntry(entry) && !entry.data.source?.chapter_slug && ["obsolete", "retired"].includes(entry.data.lifecycle));
+assert.equal(retiredIndex("[data-retired-id]").length, historical.filter((entry) => entry.data.lifecycle === "retired").length);
 assert.equal(archiveTop("[data-history-id]").length, 0);
 assert.equal(archiveTop("[data-archive-entrance]").length, 3);
 assert.equal(retiredIndex("[data-history-id]").length + obsoleteIndex("[data-history-id]").length + obsoleteCasesIndex("[data-history-id]").length, historical.length);
@@ -86,24 +86,34 @@ for (const record of report.entries) {
   const raw = fs.readFileSync(`src/content/${record.destination}.md`, "utf8").replace(/\r\n/g, "\n");
   const match = raw.match(/^---\n([\s\S]*?)\n---\n/);
   const data = YAML.parse(match[1]);
-  verifyRecoveredBody(raw.slice(match[0].length), record, data.last_updated);
-  assert.equal(data.lifecycle, record.lifecycle.toLowerCase());
+  // Integration changes lifecycle metadata, not the immutable recovered body or appendix.
+  verifyRecoveredBody(raw.slice(match[0].length), record, record.destination === "software-engineering/code-generation-and-work-design" ? record.local_appendix.date : data.last_updated);
+  const lifecycle = record.destination === "software-engineering/code-generation-and-work-design" ? "RETIRED" : record.lifecycle;
+  assert.equal(data.lifecycle, lifecycle.toLowerCase());
   assert.equal(data.published_at ?? null, record.original_published_at);
   assert.equal(publishedEntry({ data }), true);
   const html = fs.readFileSync(`dist/${record.destination}/index.html`, "utf8");
   const $ = load(html);
   const canonical = `https://nullcontroller.github.io/Rosarium/${record.destination}/`;
-  assert.equal($("h1").text(), data.title);
-  assert.equal($('link[rel="canonical"]').attr("href"), canonical);
+  if (record.destination !== "software-engineering/code-generation-and-work-design") assert.equal($("h1").text(), data.title);
+  if (record.destination !== "software-engineering/code-generation-and-work-design") assert.equal($('link[rel="canonical"]').attr("href"), canonical);
+  if (record.destination === "software-engineering/code-generation-and-work-design") {
+    assert.match($('meta[name="robots"]').attr("content"), /noindex/);
+    assert.equal($('meta[http-equiv="refresh"]').attr("content"), "0;url=/Rosarium/software-engineering/development-workflow/");
+    assert.equal(retiredIndex('[data-retired-id="software-engineering/code-generation-and-work-design"]').length, 1);
+    assert(!sitemap.includes(canonical));
+    for (const feed of feeds) assert(!feed.includes(canonical));
+    continue;
+  }
   const note = $(".content-lifecycle-note");
-  if (record.lifecycle === "ACTIVE") assert.equal(note.length, 0);
+  if (lifecycle === "ACTIVE") assert.equal(note.length, 0);
   else {
     assert.equal(note.length, 1);
     assert.ok(data.lifecycle_reason?.trim(), "Reader-facing lifecycle reason required");
     assert(note.text().includes(data.lifecycle_reason));
     assert.equal(note.attr("data-lifecycle"), data.lifecycle);
   }
-  if (record.lifecycle === "RETIRED") {
+  if (lifecycle === "RETIRED") {
     const item = retiredIndex(`[data-retired-id="${record.destination}"]`);
     assert.equal(item.length, 1);
     assert.equal(item.find("h3 a").attr("href"), `/Rosarium/${record.destination}/`);

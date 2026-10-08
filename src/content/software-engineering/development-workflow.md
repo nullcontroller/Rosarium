@@ -1,11 +1,14 @@
 ---
 summary: "AIが受け取る入力、出力成果物、根拠、検証、停止条件、承認者を開発工程として定義する。検証済みの成果物だけを次へ渡すための契約・Gate・記録・手動経路を整理する。"
-layer: practice
+layer: ai-design
+design_topic: software-engineering
 title: AIを開発工程に組み込む
 kind: guide
 section: software-engineering
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-08"
+updated_at: "2026-10-08"
+update_type: revised
 tags:
   - software-engineering
 published_at: null
@@ -323,6 +326,32 @@ P_{miss}(\Delta)\times Impact(\Delta)
 $$
 
 これは一般的な単調増加を保証する法則ではない。差分サイズ、結合度、変更の性質を含めてレビュー単位を決めるための損失モデルである。
+
+---
+
+### コード変更をどこまで委任するか
+
+コード生成を使う場所を作業名だけで固定せず、変更ごとに委任範囲を決める。同じ種類の修正でも、依存先、データ、実行環境、検証手段によって任せられる範囲は変わる。
+
+一般的な[AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)を、開発では次のように具体化する。
+
+| 任せる範囲 | 反映へ進む条件 |
+|---|---|
+| 調査・変更候補の提示 | 根拠と未確認点を人間が確認する |
+| 差分・テストの下書き | 分離した環境で試作し、受入条件に照らして検証する |
+| 人間承認後の反映 | 承認した対象・差分・版に限って反映する |
+| 定義範囲での自動反映 | 対象、検証、監視、停止、復旧の条件を実行基盤が強制する |
+
+試作やテストを実行する権限と、正式な変更を取り込み、公開する権限は分ける。検証できない場合は調査や下書きへ範囲を戻し、必要な情報が得られない場合は停止する。モデルや道具が変わったときも、以前の許可範囲をそのまま引き継がず再評価する。
+
+判断時には、少なくとも次を確認する。
+
+- **変更影響と情報**：関連コード、仕様、設定、依存関係、対象版を参照でき、影響先と保持すべき挙動を説明できるか。
+- **検証可能性**：テストが通るだけでなく、要求・互換性・安全性を確認できるか。生成したテストの期待値も独立して確認する。詳細は[コード生成AIの評価と採用設計](/evaluation-hitl/code-evaluation-acceptance/)で扱う。
+- **確認の負担**：調査、レビュー、修正まで含めても価値が残るか。負担が大きい場合は差分を小さくするか、委任範囲を縮める。[業務全体の効率評価](/foundations/ai-business-design/evaluating-business-efficiency/)と同じ観点で見る。
+- **反映権限と復旧**：誰が承認・反映・停止を担い、どの状態へ戻すか。コードを戻せてもデータや外部操作を戻せない変更では、バックアップや別の復旧手順が必要になる。
+
+自動化率や生成行数を成功条件にせず、安全に採用できた変更と、その後の運用結果で委任範囲を見直す。コード生成と設計支援を対立させず、調査・実装・検証・運用のそれぞれで価値を確認する。採用後も、仕様の理解、依存先への追従、保守、移行、終了を担う責任は残る。
 
 ---
 
@@ -656,4 +685,3 @@ AIを開発工程へ組み込むとは、AIに多くのコードを書かせる�
 - [GitHub Docs: Responsible use of Copilot coding agent](https://docs.github.com/en/copilot/responsible-use/agents)
 - [GitHub Docs: Reviewing Copilot coding agent output](https://docs.github.com/en/enterprise-cloud%40latest/copilot/how-tos/copilot-on-github/use-copilot-agents/review-copilot-output)
 - [SWE-bench: Can Language Models Resolve Real-World GitHub Issues?](https://arxiv.org/abs/2310.06770)
-

@@ -45,7 +45,7 @@ export const aiThemes = [
       "作業ごとにAIが参照できる情報を見極め、人のレビューを挟みます。運用後の評価や知識更新まで含め、実際の仕事へ適用する方法を扱います。",
     ],
     questions: ["AIを使う効果と、確認にかかる負担をどう比べるか。", "変更の影響を確認し、失敗時に戻せるか。", "調査から実装まで、人のレビューをどこへ挟むか。"],
-    article: "software-engineering/code-generation-boundaries", layer: "ai-design", topic: "software-engineering",
+    article: "software-engineering/development-workflow", layer: "ai-design", topic: "software-engineering",
   },
 ] as const;
 

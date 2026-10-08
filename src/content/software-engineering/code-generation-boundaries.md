@@ -6,6 +6,8 @@ title: コード生成を使うべき場所
 kind: guide
 section: software-engineering
 status: published
+lifecycle: retired
+lifecycle_reason: "コード変更の委任・検証・反映権限を開発工程の設計として扱うため、独立した記事としての役割を終了しました。"
 last_updated: "2026-10-08"
 tags:
   - software-engineering

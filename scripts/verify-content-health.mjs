@@ -126,9 +126,10 @@ assert.ok(
   "Reference needs glossary, mathematics, metrics and responsibility state",
 );
 assert.ok(
-  canonicalPractices.length >= 4,
-  "Practices needs adoption, education, transfer and development workflow",
+  canonicalPractices.length >= 3,
+  "Practices needs adoption, education and transfer; development workflow belongs to AI Design",
 );
+assert.ok(publicEntries.some(({ file, data }) => file.endsWith("software-engineering/development-workflow.md") && data.layer === "ai-design" && data.design_topic === "software-engineering"), "Development workflow must remain discoverable in AI Design");
 assert.equal(aiOnly.length, 54, "AI-only content includes four restored retired records");
 assert.equal(
   dxOnly.length,

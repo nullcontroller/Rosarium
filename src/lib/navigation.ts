@@ -219,7 +219,6 @@ export const topicPublications: Record<string, string[]> = {
   ],
   "software-engineering": [
     "software-engineering/ai-driven-development",
-    "software-engineering/code-generation-and-work-design",
     "cases/three-ai-maintenance",
   ],
   "lifecycle-operations": [

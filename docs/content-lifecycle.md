@@ -10,6 +10,8 @@
 
 保存領域の入口・一覧とRETIRED個別記事は `noindex, follow`（OBSOLETE個別記事はindex可能）、canonicalは自身のURLとする。本文を現在の考え方へ書き換えず、位置づけと理由を注記する。
 
+2026-10-08に統合した `software-engineering/code-generation-boundaries` と `code-generation-and-work-design` は、旧本文を保存したまま旧URLを `development-workflow` への互換redirectとする。既存のmeta refresh・location.replace・手動リンクを使用し、canonicalは統合先、検索本文には登録しない。退役一覧の記録は維持する。他の保存記事の直接閲覧方針は変更しない。
+
 Pagefindには公開記事のLifecycleを登録する。検索の初期値はACTIVE・OBSOLETEがON、RETIREDがOFF。内部検索への登録と外部検索エンジンのindex可否は独立して管理する。退役記事一覧自体は内部検索対象にも含めない。
 
 Bookは一覧の1件として扱い、章は既存の章ナビで参照する。章にもBookと同じlifecycleと理由を明記し、内部検索でも位置づけが一致するようにする。
