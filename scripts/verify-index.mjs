@@ -976,7 +976,10 @@ for (const layout of ["mobile", "desktop"]) {
   assert.equal(svg.find(".case-edge-dashed").length, 1, "Additional investigation returns to evidence collection");
 }
 assert(debtCase('main').text().includes("約40件は修正件数ではなく"));
-assert(debtCase('main').text().includes("Implementation = Correct Specificationとは扱わなかった"));
+assert(debtCase('main').text().includes("現在のコードを正本として扱った"));
+assert(debtCase('main').text().includes("Windows 2000に関する記述が残っており、不要な古い説明として削除した"));
+assert(debtCase('main').text().includes("コードだけでは決まらない部分は人間が判断"));
+assert(!debtCase('main').text().includes("正解そのものではありません"));
 assert(debtCase('main').text().includes("一連のレビューと修正を約3時間で完了した"));
 assert(debtCase('main').text().includes("削減率・短縮率・ROIは未評価"));
 assert(!debtCase('main').text().includes("1日"));

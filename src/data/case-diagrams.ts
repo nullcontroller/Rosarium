@@ -35,38 +35,38 @@ export interface CaseDiagramModel {
 export const caseDiagrams: Record<string, CaseDiagramModel> = {
   "maintenance-documentation-debt": {
     "title": "AIは候補を提示し、人間が変更を判断する",
-    "intro": "Issue Candidate ≠ Change Decision。現在のコードも根拠の一つであり、正解そのものではありません。",
-    "description": "Pythonで統合したMarkdown仕様書・現在のコード・関連Contextを並列入力としてCopilotが横断調査します。問題候補・関連根拠・修正候補を人間が確認し、変更前後を比較します。変更・現状維持・追加調査を分け、仕様判断と最終修正は人間が行います。",
+    "intro": "今回は現在のコードを正本として仕様書を照合しました。コードだけでは決まらない部分は人間が判断し、最終修正も人間が行います。",
+    "description": "Pythonで統合したMarkdown仕様書・現在のコード・関連情報をCopilotが横断調査します。人間が問題候補とコードを確認し、コードで決まる部分は実装に合わせます。意図や方針などコードだけでは決まらない部分は人間が判断し、変更前後を確認して最終修正します。",
     "nodes": [
         {
             "id": "docs",
             "label": "仕様書群",
             "kind": "knowledge",
-            "description": "分割されたMarkdown仕様書をPythonで1ファイルへ統合し、横断比較できるContextを整えました。長期保守による誤記・古い記述・重複・不整合も調査対象です。"
+            "description": "分割されたMarkdown仕様書をPythonで1ファイルへ統合し、横断比較できるコンテキストを整えました。誤字・古い説明・コマンド例の誤り・矛盾を調査しました。"
         },
         {
             "id": "code",
             "label": "現在のコード",
             "kind": "system",
-            "description": "現在動くソフトウェアを理解する重要なEvidenceです。実装Bugや互換性処理の可能性があり、正しい仕様そのものとは扱いません。"
+            "description": "今回の照合では現在のコードを正本としました。コードで確認できる挙動を基準に仕様書を修正し、意図や方針などコードだけでは決まらない部分は人間が判断しました。"
         },
         {
             "id": "context",
-            "label": "関連Context",
+            "label": "関連情報",
             "kind": "knowledge",
-            "description": "周辺仕様や既存の設計判断などを参照します。互換性やコード外の製品条件は人間が確認します。"
+            "description": "関連仕様や設計上の意味を確認するための情報です。コードだけでは決まらない内容を人間が判断する際に参照します。"
         },
         {
             "id": "investigate",
             "label": "AIによる横断調査",
             "kind": "ai",
-            "description": "GitHub Copilotで仕様書・コード・関連Contextを検索・比較し、不整合候補とEvidenceを整理しました。仕様は決定しません。"
+            "description": "GitHub Copilotで仕様書全体を横断レビューし、現在のコードと照合しました。問題候補・根拠・修正候補を提示し、最終仕様は決定しません。"
         },
         {
             "id": "issue",
             "label": "問題候補",
             "kind": "ai",
-            "description": "Issue Candidateです。差異や不整合の指摘は、その箇所を変更する決定ではありません。"
+            "description": "誤字・古い説明・コマンド例の誤り・矛盾などの問題候補です。人間が検出結果とコードを確認します。"
         },
         {
             "id": "evidence",
@@ -78,19 +78,19 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
             "id": "proposal",
             "label": "修正候補",
             "kind": "ai",
-            "description": "Change Proposalです。AIが提示した修正案を、そのまま仕様書へ反映しません。"
+            "description": "AIが提示する修正案です。そのまま反映せず、人間がコードとの整合と記述の妥当性を確認します。"
         },
         {
             "id": "validation",
             "label": "人間による確認",
             "kind": "human",
-            "description": "指摘と根拠の妥当性、互換性、コード外の事情を確認します。"
+            "description": "AIの検出結果と現在のコードを確認し、実装で決まる部分と人間の判断が必要な部分を分けます。"
         },
         {
             "id": "compare",
             "label": "変更前・変更後の比較",
             "kind": "human",
-            "description": "Before / Afterの意味、他仕様との矛盾、現在の実装、互換性条件を確認します。"
+            "description": "修正前後を比較し、現在のコードの挙動を正しく説明しているか、他仕様との矛盾が残らないかを確認します。"
         },
         {
             "id": "change",
@@ -102,7 +102,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
             "id": "retain",
             "label": "現状維持",
             "kind": "decision",
-            "description": "互換性・製品条件・保守上の理由から、AIの提案を採用しない経路です。"
+            "description": "人間の確認で変更が不要と判断した場合に、AIの提案を採用しない経路です。対象外環境の古い説明を残すという意味ではありません。"
         },
         {
             "id": "research",
@@ -114,7 +114,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
             "id": "decision",
             "label": "人間の仕様判断",
             "kind": "human",
-            "description": "最終仕様の決定と変更承認は人間が担います。Issue Candidate ≠ Change Decisionです。"
+            "description": "コードで決まる部分はその挙動を基準にし、意図・業務上の判断・将来方針などコードだけでは決まらない部分は人間が最終判断します。"
         },
         {
             "id": "reflect",

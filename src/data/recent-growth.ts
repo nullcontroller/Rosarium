@@ -60,7 +60,7 @@ const curatedRecentGrowth = [
       { action: "revised", text: "改訂。誤答を業務へ流さない対策の配置に焦点を絞り、検索・回答拒否・検出器の評価へ接続した", contentIds: ["foundations/layered-hallucination-controls"] },
       { action: "revised", text: "改訂。回答の失敗を原因工程の担当者へ戻し、知識の改善と変更時の再評価につなぐ運用を整理した", contentIds: ["knowledge-context/qa-operations"] },
       { action: "revised", text: "改訂。コード変更の委任レベルを、下書き・人間承認後の反映・限定自動反映へ揃え、試作と正式反映の権限を分けた", contentIds: ["software-engineering/code-generation-boundaries"] },
-      { action: "revised", text: "改訂。分割されたMarkdown仕様書をPythonで統合し、Copilotが横断レビューできるContextを構成した実務を追記。AIによる横断調査と、品質を優先した人間の最終判断・修正を組み合わせ、約3時間で一連のレビューと修正を完了した事例を追加。", contentIds: ["cases/specification-debt-review"] },
+      { action: "revised", text: "改訂。分割されたMarkdown仕様書をPythonで統合し、Copilotによる横断レビューと現在のコードを正本とする照合、人間の最終判断・修正を組み合わせた実務を追記。約3時間で一連のレビューと修正を完了した事例を追加。", contentIds: ["cases/specification-debt-review"] },
     ],
     category: "Rosarium",
     icon: "updates",
