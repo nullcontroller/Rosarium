@@ -977,6 +977,8 @@ for (const layout of ["mobile", "desktop"]) {
 }
 assert(debtCase('main').text().includes("約40件は修正件数ではなく"));
 assert(debtCase('main').text().includes("Implementation = Correct Specificationとは扱わなかった"));
-assert(debtCase('main').text().includes("工数削減率や短縮時間は示せない"));
+assert(debtCase('main').text().includes("一連のレビューと修正を約3時間で完了した"));
+assert(debtCase('main').text().includes("削減率・短縮率・ROIは未評価"));
+assert(!debtCase('main').text().includes("1日"));
 assert(cases('[data-series-index="cases/specification-debt-review"]').text().includes("Case"));
 console.log("Verified documentation debt Case metrics, limitations, human decisions and static SVG fallbacks.");
