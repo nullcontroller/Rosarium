@@ -6,7 +6,7 @@ title: なぜAIは新規コードよりコード保守に強いのか
 kind: guide
 section: software-engineering
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-10-08"
 tags:
   - software-engineering
 published_at: null
@@ -565,9 +565,11 @@ Compiler、Test、Analyzerは観測可能な条件を確認します。
 | Data移行・高Risk | 低 | 選択肢整理、独立検証を必須化 |
 | 実行環境を再現不能 | 低 | Code説明と確認観点の提示 |
 
-この表は固定的な業界基準ではありません。
+この表は固定的な業界基準でも、AI能力の上限でもありません。
 
-対象Systemの影響度、組織能力、検証環境によって調整します。
+対象Systemの影響度、組織能力、検証環境によって調整します。モデルや調査・テストの道具が変われば、同じ変更でも委任範囲を再評価します。
+
+本ページは既存成果物が判断材料になる条件を扱います。調査から変更・反映までをどこまで委任するかは、[AIを開発工程に組み込む](/software-engineering/development-workflow/)の検証・権限・復旧条件に照らして決めます。
 
 ---
 

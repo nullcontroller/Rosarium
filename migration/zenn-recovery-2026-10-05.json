@@ -290,8 +290,13 @@
       "source_file": "articles/c95d77150aa590.md",
       "source_snapshot": "migration/zenn-recovery-2026-10-05/articles/c95d77150aa590.md",
       "source_sha256": "0b6b0fcca0e5d70c5fbcd3fa049aff1672ed62d696761b5c3f2cb5f11b002c2e",
-      "destination_body_sha256": "6489aa7af8d416f8ded3d3cc6e5376d4d637ad448aa3911420327e7dbc0363a7",
-      "restoration": "Existing Rosarium body retained; exact original snapshot saved"
+      "destination_body_sha256": "32dbbf73f7e13ec40ac4537d7b44082c22bc0322871cba98c93056cbccb15240",
+      "restoration": "Existing Rosarium body retained; exact original snapshot saved",
+      "local_revision": {
+        "date": "2026-10-08",
+        "previous_body_sha256": "6489aa7af8d416f8ded3d3cc6e5376d4d637ad448aa3911420327e7dbc0363a7",
+        "reason": "October content review: distinguish observed practice from fixed AI capability boundaries; immutable source snapshot retained"
+      }
     },
     {
       "title": "AI生成コンテンツは、なぜ信頼されにくいのか",
@@ -384,8 +389,13 @@
       "source_file": "articles/fccbf170ead145.md",
       "source_snapshot": "migration/zenn-recovery-2026-10-05/articles/fccbf170ead145.md",
       "source_sha256": "9f89405b960c00415d778edea4e472a69e2715ea07d35a2f9d140c7dfd7a6434",
-      "destination_body_sha256": "9298a169d671f45815f318dd85b9f0a1f07b6df8bac2ab1d74eaba76f71ff08c",
-      "restoration": "Existing Rosarium body retained; exact original snapshot saved"
+      "destination_body_sha256": "421054be5c1bddc4d2598ee36a666b3be58e6b6c638811c108d141ea089486e6",
+      "restoration": "Existing Rosarium body retained; exact original snapshot saved",
+      "local_revision": {
+        "date": "2026-10-08",
+        "previous_body_sha256": "9298a169d671f45815f318dd85b9f0a1f07b6df8bac2ab1d74eaba76f71ff08c",
+        "reason": "October content review: distinguish observed practice from fixed AI capability boundaries; immutable source snapshot retained"
+      }
     },
     {
       "title": "GitHub連携からZennへ投稿してみる",
