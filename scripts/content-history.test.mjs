@@ -23,7 +23,9 @@ test("new publication is not duplicated as a revision; revisions stay chronologi
   assert.equal(events[0].type, "published");
   assert.equal(events[1].date, "2026-10-08");
   assert.equal(events[1].type, "revised");
-  assert(events[1].text.includes("人間による最終修正"));
+  assert(events[1].text.includes("人間の最終判断・修正"));
+  assert(events[1].text.includes("約3時間"));
+  assert(!/ROI|未評価|未測定/.test(events[1].text));
   assert.deepEqual(contentHistory("practices/ai-adoption-and-effective-use", {}).map(event => event.date), ["2026-09-23", "2026-10-07", "2026-10-08"]);
 });
 

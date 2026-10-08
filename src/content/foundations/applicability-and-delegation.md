@@ -17,7 +17,7 @@ tags:
 published_at: null
 updated_at: "2026-10-08"
 update_type: revised
-update_note: "価値・Riskに加え、検証・修正・復旧の負担を含む委任判断を追加"
+update_note: "価値・リスク・検証可能性・権限・復旧から、必要な最小の委任範囲を選ぶ観点を整理した"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/AI%E9%81%A9%E7%94%A8%E5%8F%AF%E5%90%A6%E3%81%A8%E5%A7%94%E4%BB%BB%E3%83%AC%E3%83%99%E3%83%AB%E3%81%AE%E8%A8%AD%E8%A8%88
