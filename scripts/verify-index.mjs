@@ -1,5 +1,6 @@
 import { inRecentWindow } from "../src/lib/history-window.ts";
 import { contentHistory } from "../src/data/content-history.ts";
+import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
 import { recentGrowth, growthChangeText, growthSummary } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
 import path from "node:path";
@@ -227,23 +228,19 @@ assert.deepEqual(
   design(".design-flow li")
     .map((_, e) => design(e).text().trim())
     .get(),
-  [
-    "価値",
-    "実現したい業務変化",
-    "業務・システム設計",
-    "AI・人間・既存システムの役割分担",
-    "必要なAI技術",
-    "安全性・責任境界",
-    "評価・改善",
-    "運用・再設計",
-  ],
+  ["価値・適用判断", "責任・情報・評価", "構成・実行・権限", "運用・改善", "再評価・縮小・終了"],
 );
-assert.deepEqual(
-  design(".design-area-list .eyebrow")
-    .map((_, e) => design(e).text().trim())
-    .get(),
-  ["700", "800", "900", "1000", "1100", "1200"],
-);
+const designAreaLinks = design(".design-area-list h3 a");
+assert.equal(designAreaLinks.length, 10);
+assert.equal(design(".design-area-list h3").length, designAreaLinks.length);
+assert.deepEqual(designAreaLinks.map((_, e) => design(e).attr("href")).get(), [
+  "foundations/applicability-and-delegation", "foundations/ai-business-design/evaluating-business-efficiency",
+  "evaluation-hitl/responsibility-and-hitl", "ai-design/knowledge-context", "ai-design/evaluation-hitl",
+  "architecture/reference-architecture", "software-engineering/multi-ai-orchestration",
+  "architecture/security-threat-modeling", "practices/adoption-governance", "ai-design/lifecycle-operations",
+].map(path => "/Rosarium/" + path + "/"));
+assert.equal(new Set(designAreaLinks.map((_, e) => design(e).attr("href")).get()).size, 10);
+assert(design("main").text().includes("番号は読む順の目安"));
 assert.equal(top(".sidebar").text().includes("DX"), true);
 assert.equal(page("ai-design/applicability")("[data-related-publications]").length, 0);
 assert.equal(page("ai-design/lifecycle-operations")("[data-related-publications]").length, 0);
@@ -263,12 +260,16 @@ for (const topic of [
 ]) {
   const $ = page("ai-design/" + topic);
   assert(primaryIds($).length);
+  assert.deepEqual(primaryIds($), [...aiDesignTopicGuides[topic].readingOrder], `${topic} reading order and complete coverage`);
+  assert.equal($("[data-ai-design-guide]").text(), aiDesignTopicGuides[topic].question);
+  assert.equal($("[data-ai-design-next] a").attr("href"), "/Rosarium/" + aiDesignTopicGuides[topic].next.path + "/");
   for (const id of primaryIds($)) {
     assert.equal(entries.get(id).layer, "ai-design");
     assert.equal(entries.get(id).design_topic, topic);
   }
   assert.equal($("[data-related-publications]").length, 0);
 }
+assert(page("ai-design/architecture")('a[href="/Rosarium/architecture/agents-tools-and-workflows/"]').length, "Agent experience remains discoverable separately from the design guide");
 for (const [id, d] of entries) {
   if (d.layer === "ai-design")
     assert.equal(
@@ -651,7 +652,7 @@ for (const route of ["ai-mathematics", "practices"]) {
   );
   assert.equal(
     $(".site-last-updated time").attr("datetime"),
-    route === "practices" ? "2026-10-08" : "2026-10-04",
+    ["practices", "ai-design"].includes(route) ? "2026-10-08" : "2026-10-04",
     `${route}: last updated`,
   );
 }

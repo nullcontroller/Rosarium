@@ -6,7 +6,7 @@ title: QAチャット運用思想
 kind: guide
 section: knowledge-context
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-10-08"
 tags:
   - knowledge-context
 published_at: null
@@ -16,6 +16,8 @@ source:
   original_type: wiki
   slug: QAチャット運用思想
   topics: []
+updated_at: "2026-10-08"
+update_type: revised
 ---
 ## QAチャット運用思想
 
@@ -23,9 +25,7 @@ source:
 > 適用対象：RAG、社内QA、顧客向けQA、Knowledge検索
 > 対象工程：設計 / 運用 / 監視 / 障害対応 / Knowledge更新
 
-前章では、AIの確率的な出力、回答範囲、Temperatureを扱いました。
-
-ここからは、それらをQAチャットとして運用する方法を考えます。
+このページでは、回答・追加質問・拒否・人への移管の結果を、KnowledgeとQAチャットの改善へ戻す運用を考えます。
 
 QAチャットは、質問を入力すると文章を返すため、単純な機能に見えます。
 
@@ -98,36 +98,9 @@ QAチャットの成功を、単に「文章が自然だった」と定義して
 記録・フィードバック
 ```
 
-各工程が成功した事象を、順に $I,A,S,R,E,G,V$ とします。
+各工程の失敗を区別して記録する。検索失敗なら索引やKnowledgeを確認し、根拠にない回答なら生成・検証を確認する。最終回答だけを直すのではなく、原因工程の担当者へ改善を戻す。
 
-- $I$：質問を正しく解釈した
-- $A$：認証・権限判定が正しい
-- $S$：対象範囲と入力条件を満たした
-- $R$：必要な根拠を取得した
-- $E$：根拠が回答に十分だった
-- $G$：根拠に沿って生成した
-- $V$：検証を通過した
-
-業務として回答が成立する確率は、連鎖律で次のように分解できます。
-
-$$
-\begin{aligned}
-P(Success)
-=&\ P(I)
-P(A\mid I)
-P(S\mid I,A)\\
-&\times P(R\mid I,A,S)
-P(E\mid I,A,S,R)\\
-&\times P(G\mid I,A,S,R,E)
-P(V\mid I,A,S,R,E,G)
-\end{aligned}
-$$
-
-各工程が独立であるとは仮定していません。
-
-この式が示すのは、最終回答だけを見ても、失敗原因は特定できないということです。
-
-検索失敗と生成失敗では、直すべき場所が異なります。
+検索・生成・拒否の評価指標は[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)で扱う。運用ではその評価結果に、担当者、対応期限、修正後の確認結果を結び付ける。
 
 ---
 
@@ -406,6 +379,8 @@ QAチャット側の設計だけでなく、利用者へも回答の性質を伝
 | 変更管理 | モデル、Prompt、Index、Knowledgeの版管理 |
 
 精度評価だけでなく、運用停止やKnowledge更新も、本番前の設計対象です。
+
+モデル・検索・Knowledgeの版を変える際の公開判断と切り戻しは[AIシステムの変更・再評価設計](/architecture/change-and-reevaluation/)へ接続する。日常の監視は[AIシステムのオブザーバビリティとSLO設計](/architecture/observability-and-slo/)を使い、QA運用では回答の未解決事項を誰が引き取り、どの知識へ戻すかを決める。
 
 ---
 

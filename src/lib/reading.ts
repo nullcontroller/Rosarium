@@ -1,6 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import { url } from "./site";
-import { caseStudies } from "./navigation";
+import { caseStudies, designTopics } from "./navigation";
+import { aiDesignTopicGuides, aiDesignTopicOrder } from "./ai-design";
 
 export type ReadingPath =
   "ai-design" | "ai-mathematics" | "practices" | "cases";
@@ -20,64 +21,15 @@ export const readingGroups: Record<
   readonly { title: string; ids: readonly string[] }[]
 > = {
   "ai-design": [
+    ...aiDesignTopicOrder.map((topic) => ({
+      title: designTopics.find(([key]) => key === topic)![1],
+      ids: aiDesignTopicGuides[topic].readingOrder,
+    })),
     {
-      title: "基礎・適用判断",
+      title: "業務設計・考察",
       ids: [
-        "foundations/applicability-and-delegation",
-        "foundations/answer-scope",
-        "evaluation-hitl/responsibility-and-hitl",
         "foundations/ai-business-design",
-      ],
-    },
-    {
-      title: "責任・安全",
-      ids: [
-        "foundations/guardrail-models",
-        "foundations/layered-hallucination-controls",
-        "architecture/security-threat-modeling",
-      ],
-    },
-    {
-      title: "アーキテクチャ",
-      ids: [
-        "architecture/reference-architecture",
-        "architecture/prompts-as-interfaces",
         "architecture/agents-tools-and-workflows",
-      ],
-    },
-    {
-      title: "ナレッジ / コンテキスト",
-      ids: [
-        "knowledge-context/instruction-knowledge-evidence",
-        "knowledge-context/prompt-structure",
-        "knowledge-context/prompt-failure-modes",
-        "knowledge-context/human-and-ai-documentation",
-        "knowledge-context/qa-behavior-constraints",
-        "knowledge-context/qa-operations",
-      ],
-    },
-    {
-      title: "評価・ヒューマンレビュー",
-      ids: [
-        "evaluation-hitl/datasets-and-regression",
-        "evaluation-hitl/qa-evaluation",
-        "evaluation-hitl/code-evaluation-acceptance",
-      ],
-    },
-    {
-      title: "ソフトウェア開発",
-      ids: [
-        "software-engineering/code-generation-boundaries",
-        "software-engineering/code-maintenance-context",
-        "software-engineering/multi-ai-orchestration",
-      ],
-    },
-    {
-      title: "運用・改善・再設計",
-      ids: [
-        "architecture/change-and-reevaluation",
-        "architecture/observability-and-slo",
-        "architecture/cost-latency-routing",
         "essays/what-not-to-build-with-ai",
       ],
     },

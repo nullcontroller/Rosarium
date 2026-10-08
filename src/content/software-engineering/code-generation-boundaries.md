@@ -6,7 +6,7 @@ title: コード生成を使うべき場所
 kind: guide
 section: software-engineering
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-10-08"
 tags:
   - software-engineering
 published_at: null
@@ -16,6 +16,8 @@ source:
   original_type: wiki
   slug: コード生成を使うべき場所
   topics: []
+updated_at: "2026-10-08"
+update_type: revised
 ---
 ## コード生成を使うべき場所
 
@@ -82,21 +84,19 @@ Coding AIの生産性について、異なる条件の研究を一つの結論�
 
 ### 「使う」を五段階へ分ける
 
-AI利用を、使う・使わないの二値にしません。
+コード生成でも、[AI適用可否と委任レベルの設計](/foundations/applicability-and-delegation/)と同じく、調査・下書き・承認後実行・限定自動実行を分ける。ここではL0〜L4を開発工程へ当てはめる。
 
 | Level | AIへ許可すること | 人間・Systemの役割 |
 |---|---|---|
 | L0 | 利用しない | 従来工程で実施 |
 | L1 | 説明・調査・候補提示 | 根拠を確認し、判断する |
-| L2 | Patch・Testの下書き | 全差分をReviewして採用 |
-| L3 | Sandbox内で編集・検証 | Gate通過後に人間が承認 |
-| L4 | 定義範囲で自動反映 | Systemが強制制御し監視 |
+| L2 | Patch・Testの下書き | Sandboxで試作・検証し、全差分をReviewして採用 |
+| L3 | 人間承認後の反映 | 承認した差分と対象だけを実行する |
+| L4 | 定義範囲で自動反映 | Systemが強制制御し監視する |
 
-高Risk Taskでも、L1の調査支援には利用できる場合があります。
+Sandbox内で編集できることは、正式な変更を反映できることを意味しない。試作・検証の権限と、取込み・公開の権限は別に設定する。
 
-反対に、低Risk Taskでも検証手段がなければ、L4へ進めるべきではありません。
-
-重要なのはAIを利用するかではなく、自律性のLevelです。
+一般の委任設計にはL5の広い自律実行もあるが、ここで推奨するコード変更の範囲には加えない。高Risk TaskでもL1の調査支援は使える場合があり、低Riskでも検証手段がなければL4へ進めない。
 
 ---
 

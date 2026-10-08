@@ -5,13 +5,15 @@ import ContentIndex from "../../components/ContentIndex.astro";
 import { designTopics } from "../../lib/navigation";
 import { activeEntry, url } from "../../lib/site";
 import PageHeader from "../../components/PageHeader.astro";
+import { aiDesignTopicGuides, orderedDesignEntries } from "../../lib/ai-design";
 export function getStaticPaths() {
   return designTopics.map(([topic, title, summary]) => ({
     params: { topic },
-    props: { title, summary },
+    props: { topic, title, summary },
   }));
 }
-const { title, summary } = Astro.props;
+const { topic, title, summary } = Astro.props;
+const guide = aiDesignTopicGuides[topic];
 const all = await getCollection("pages", activeEntry);
 ---
 
@@ -25,12 +27,20 @@ const all = await getCollection("pages", activeEntry);
     <a href={url("ai-design")}>AI設計</a> / {title}
   </nav>
   <PageHeader title={title} summary={summary} />
+  <p data-ai-design-guide>{guide.question}</p>
+  {topic === "architecture" && (
+    <p>
+      既存ツールとの役割分担を具体的な経験から考える場合は、
+      <a href={url("architecture/agents-tools-and-workflows")}>「AIエージェントを0から作る時代」は本当に来るのか？</a>
+      も読めます。
+    </p>
+  )}
   <ContentIndex
     showIcons={false}
-    entries={all.filter(
-      (e) =>
-        e.data.layer === "ai-design" &&
-        e.data.design_topic === Astro.params.topic,
-    )}
+    entries={orderedDesignEntries(all, topic)}
   />
+  <p data-ai-design-next>
+    {guide.next.reason}
+    <a href={url(guide.next.path)}>{guide.next.title}</a>
+  </p>
 </Site>

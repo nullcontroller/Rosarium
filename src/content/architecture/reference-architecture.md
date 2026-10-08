@@ -6,7 +6,7 @@ title: AI業務システムの参照アーキテクチャ
 kind: architecture
 section: architecture
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-10-08"
 entry_points:
   - ai
   - dx
@@ -15,13 +15,14 @@ secondaryCategories: []
 tags:
   - architecture
 published_at: null
-updated_at: "2026-09-22"
+updated_at: "2026-10-08"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/AI%E6%A5%AD%E5%8B%99%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%8F%82%E7%85%A7%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3
   original_type: wiki
   slug: AI業務システムの参照アーキテクチャ
   topics: []
+update_type: revised
 ---
 ## AI業務システムの参照アーキテクチャ
 
@@ -208,44 +209,40 @@ $$
 
 ### 8. Approval BoundaryとExecution Boundary
 
-Approvalは内容の確認、Executionは外部作用である。両者を分ける。
+AIが返すのは候補であり、既存システムへ登録する確定値ではない。形式が正しい候補でも、対象の誤り、根拠不足、権限不足が残るため、承認と実行を分ける。
 
-Execution Boundaryで最低限確認する。
+```text
+AIの候補
+  ↓ 型・対象・根拠・業務規則を検証
+承認待ちの候補
+  ↓ 権限者が対象・値・操作を確認
+承認済みの要求
+  ↓ 既存システムが認可・現在状態を再確認
+実行結果を記録
+```
 
-- 実行主体の認証
-- 対象Resource
-- 許可されたOperation
-- 金額、件数、時間、範囲の上限
-- 二重実行を防ぐ冪等性
-- Dry-runまたはPreview
-- 取消し・Rollback可能性
-- 実行結果の記録
+例えば登録業務では、AIに自由文の依頼を直接DB更新させるのではなく、対象IDと値を持つ登録候補を作らせる。既存システムがIDの存在、許容値、現在の業務状態を照合し、必要な承認を通した要求だけをAPIへ渡す。
 
-ModelがTool Callを生成したことは、Tool実行の許可を意味しない。
+承認した対象・引数・版を固定し、承認後にAIが別の操作へ書き換えられないようにする。承認から実行までに権限や対象状態が変わった場合は、再確認または差し戻しを行う。
+
+| 実行境界 | 決めること |
+|---|---|
+| 主体と対象 | 誰の権限で、どの資源へ、何を実行するか |
+| 制限 | 件数・金額・時間・操作の上限と、許可しない経路 |
+| 重複と失敗 | 冪等性、タイムアウト時の結果照会、再試行の条件 |
+| 回復と記録 | 取消し・切り戻し、復旧担当、承認内容と実行結果の追跡 |
+
+通信が途切れた場合は、失敗したと推測して再実行せず、要求IDから結果を照会する。部分的に実行された場合も、成功と一括扱いせず、回復できる状態を記録する。
+
+承認者と確認対象の設計は[AI出力の責任境界とHITL](/evaluation-hitl/responsibility-and-hitl/)、情報漏えいと権限逸脱の対策は[生成AIセキュリティと脅威モデリング](/architecture/security-threat-modeling/)で扱う。ここでは、それらを生成・検証・承認・実行の境界へ配置する。
 
 ---
 
 ### 9. 誤りを影響へ変えない
 
-誤り事象を $F$、未検出を $\neg D$、実行を $E$、復旧不能を $\neg R$ とする。
+生成の誤り、検証の見逃し、未承認の実行、復旧の失敗は、異なる境界で制御する。モデル精度が高くても、生成器に実行権限と承認権限を集めれば、残った誤りが業務へ届く。
 
-$$
-P(F\cap\neg D\cap E\cap\neg R)
-=
-P(F)
-P(\neg D\mid F)
-P(E\mid F,\neg D)
-P(\neg R\mid F,\neg D,E)
-$$
-
-実務上の制御点は四つある。
-
-1. 誤りを生成しにくくする
-2. 誤りを検出する
-3. 未検出出力を実行させない
-4. 実行後に影響を検知し復旧する
-
-Model精度だけを改善しても、残り三点がなければSystem Riskは十分に下がらない。
+誤りを候補の段階へ閉じ込め、検証できない場合は拒否・追加質問・移管へ戻す。制御層ごとの対策と限界は[ハルシネーションの多層制御設計](/foundations/layered-hallucination-controls/)で確認する。
 
 ---
 
@@ -296,7 +293,7 @@ AIへ書込み権限を与えても、本番Release権限まで与える必要�
 - 実行対象、実行結果、Rollback
 - 利用者FeedbackとIncident
 
-すべての生Dataを無期限保存するという意味ではない。機密性、最小化、保持期間、Access Controlを同時に設計する。
+すべての生Dataを無期限保存するという意味ではない。機密性、最小化、保持期間、Access Controlを同時に設計する。観測から対応へつなぐ指標は[AIシステムのオブザーバビリティとSLO設計](/architecture/observability-and-slo/)、構成を変更する際の評価・切り戻し・終了は[AIシステムの変更・再評価設計](/architecture/change-and-reevaluation/)で扱う。
 
 ---
 
@@ -325,7 +322,6 @@ AIへ書込み権限を与えても、本番Release権限まで与える必要�
 #### このページの説明モデル
 
 - $\mathcal{S}=(X,C,M,V,G,A,E,O)$
-- 誤り、未検出、実行、復旧不能の確率分解
 - 六つのPlane
 
 #### 設計仮説

@@ -40,9 +40,9 @@ export interface RecentGrowthItem {
 const curatedRecentGrowth = [
   {
     date: "2026-10-08",
-    topic: "AI業務設計に関する",
+    topic: "AI設計に関する",
     type: "revised",
-    title: "AI業務設計の知識を改訂し、責任・効率・委任・判断・運用を整理",
+    title: "AI設計の知識を改訂し、責任・評価・構成・委任・運用を整理",
     changes: [
       { action: "revised", text: "改訂。責任・承認・人間への引き継ぎを中心に、確認工程を持つ業務の設計を整理した", contentIds: ["foundations/ai-business-design/delegation-and-responsibility"] },
       { action: "revised", text: "改訂。手戻りした実務経験をもとに、レビューしやすさ・理解・説明・合意と、工数・経過時間を区別したAI導入評価を整理した", contentIds: ["foundations/ai-business-design/evaluating-business-efficiency"] },
@@ -54,6 +54,12 @@ const curatedRecentGrowth = [
       { action: "revised", text: "改訂。AIを業務で使いこなすために設計する問いの全体像を整理した", contentIds: ["practices/ai-adoption-and-effective-use"] },
       { action: "revised", text: "改訂。運用結果から継続・改善・縮小・統合・終了を選ぶ条件と、引き継ぎの責任を整理した", contentIds: ["practices/adoption-governance"] },
       { action: "revised", text: "改訂。判断能力を学習目標へ落とし、採用・棄却・保留を説明する練習と運用からの学習を整理した", contentIds: ["practices/education-and-capability"] },
+      { action: "revised", text: "改訂。AIの候補を既存システムへ渡す際の検証・承認・実行と、失敗時の状態確認を整理した", contentIds: ["architecture/reference-architecture"] },
+      { action: "revised", text: "改訂。成果物・根拠・状態・版を渡す契約に焦点を絞り、人間レビューと工程制御への接続を整理した", contentIds: ["architecture/prompts-as-interfaces"] },
+      { action: "revised", text: "改訂。単一Agentにも必要な情報・道具・権限・状態・停止条件を具体化し、受け渡し契約と工程制御を分けた", contentIds: ["software-engineering/multi-ai-orchestration"] },
+      { action: "revised", text: "改訂。誤答を業務へ流さない対策の配置に焦点を絞り、検索・回答拒否・検出器の評価へ接続した", contentIds: ["foundations/layered-hallucination-controls"] },
+      { action: "revised", text: "改訂。回答の失敗を原因工程の担当者へ戻し、知識の改善と変更時の再評価につなぐ運用を整理した", contentIds: ["knowledge-context/qa-operations"] },
+      { action: "revised", text: "改訂。コード変更の委任レベルを、下書き・人間承認後の反映・限定自動反映へ揃え、試作と正式反映の権限を分けた", contentIds: ["software-engineering/code-generation-boundaries"] },
     ],
     category: "Rosarium",
     icon: "updates",

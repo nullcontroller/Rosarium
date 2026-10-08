@@ -59,3 +59,11 @@ top-level Zenn Article 16件のうち13件を公開し、退役3件は後継Know
 ## Compatibility
 
 公開を継続するContentのURL、canonical、layer、section、design_topic、Zenn / Wiki provenanceは変更していない。退役3件の旧Rosarium URLは後継Knowledgeへredirectし、Zenn canonicalと移行元metadataは非公開Content内に保持する。
+
+## 2026-10-08 AI設計全体の再監査
+
+上記の2026-10-03時点の経路は履歴として保持する。現在のAI設計入口は10の設計領域を示し、領域別の23件は適用判断→責任→情報→評価→構成→開発工程→運用の順とする。読む順の定義は `src/lib/ai-design.ts` を共有し、`src/lib/reading.ts` もそこから参照する。分類・URL・Lifecycleは維持する。
+
+Architectureの構成ガイドを参照アーキテクチャ、Agent/Tool/Workflowのガイドを複数AI工程設計へ対応付ける。ストレージ整理の考察は設計ガイドの代わりにせず、Architecture領域から経験として辿れるようにする。QA運用はLifecycle、モデルRoutingはArchitectureに属する現在のmetadataへ読む経路を一致させる。
+
+本文6件の説明範囲、改訂判断、全23件の問いは [AI設計全体監査](../docs/ai-design-entry-audit-2026-10-08.md) に記録する。新規記事・記事削除・分類移動は行わない。

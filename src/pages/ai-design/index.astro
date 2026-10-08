@@ -2,60 +2,13 @@
 import { getCollection } from "astro:content";
 import Site from "../../layouts/Site.astro";
 import ContentIndex from "../../components/ContentIndex.astro";
+import { aiDesignAreas, aiDesignTopicOrder, orderedDesignEntries } from "../../lib/ai-design";
 import { designTopics } from "../../lib/navigation";
 import { activeEntry, url } from "../../lib/site";
 import PageHeader from "../../components/PageHeader.astro";
 const all = await getCollection("pages", activeEntry);
-const designFlow = [
-  "価値",
-  "実現したい業務変化",
-  "業務・システム設計",
-  "AI・人間・既存システムの役割分担",
-  "必要なAI技術",
-  "安全性・責任境界",
-  "評価・改善",
-  "運用・再設計",
-];
-const appliedAreas = [
-  {
-    number: "700",
-    title: "AI評価設計",
-    summary:
-      "業務価値、品質、リスク、Human in the Loopを測り、採用と改善へつなぐ。",
-    path: "ai-design/evaluation-hitl",
-  },
-  {
-    number: "800",
-    title: "AIアーキテクチャ",
-    summary: "AI・人間・既存システムを一つの業務システムとして構成する。",
-    path: "ai-design/architecture",
-  },
-  {
-    number: "900",
-    title: "AI運用",
-    summary: "監視、変更、再評価、縮退、停止を継続運用として設計する。",
-    path: "ai-design/lifecycle-operations",
-  },
-  {
-    number: "1000",
-    title: "AIエージェント設計",
-    summary:
-      "AIへ渡す情報、使える道具、実行権限を決め、仕事の流れへつなぐ。Tool / Workflow / Contextを分けて設計する。",
-    path: "architecture/agents-tools-and-workflows",
-  },
-  {
-    number: "1100",
-    title: "AIセキュリティ・権限制御",
-    summary: "生成・受理・実行を分離し、必要最小限の権限と停止条件を定める。",
-    path: "ai-design/responsibility-control",
-  },
-  {
-    number: "1200",
-    title: "AI・既存システム統合",
-    summary: "既存仕様と確定的処理を活かし、AIの確率的処理を安全に組み込む。",
-    path: "ai-design/software-engineering",
-  },
-];
+const topics = aiDesignTopicOrder.map((topic) => designTopics.find(([key]) => key === topic)!);
+const designFlow = ["価値・適用判断", "責任・情報・評価", "構成・実行・権限", "運用・改善", "再評価・縮小・終了"];
 ---
 
 <Site
@@ -83,18 +36,16 @@ const appliedAreas = [
   </section>
 
   <section aria-labelledby="applied-ai-areas">
-    <h2 id="applied-ai-areas">Applied AI設計の接続領域</h2>
+    <h2 id="applied-ai-areas">AIを業務・システムへ組み込むための設計領域</h2>
     <p>
-      既存の設計知識を、設計・構築・評価・運用・改善の循環として接続します。
+      番号は読む順の目安です。実装の固定順ではなく、評価や運用で分かったことを前の判断へ戻しながら設計します。各項目から設計の説明、または領域別の記事へ進めます。
     </p>
     <ol class="design-area-list">
-      {appliedAreas.map((area) => (
-        <li>
-          <p class="eyebrow">{area.number}</p>
+      {aiDesignAreas.map((area, index) => (
+        <li id={area.id}>
+          <p class="eyebrow">{String(index + 1).padStart(2, "0")} · {area.scope}</p>
           <h3>
-            {area.path === "architecture/agents-tools-and-workflows"
-              ? <a href={url(area.path)}>{area.title}</a>
-              : area.title}
+            <a href={url(area.path)}>{area.title}</a>
           </h3>
           <p>{area.summary}</p>
         </li>
@@ -102,15 +53,15 @@ const appliedAreas = [
     </ol>
   </section>
 
-  {designTopics.map(([key, title, summary]) => (
+  <h2 id="design-articles">設計領域ごとの記事</h2>
+  <p>上の設計領域から読む内容を選んだ後、関連する原則や詳しい手順を領域ごとに確認できます。</p>
+  {topics.map(([key, title, summary]) => (
     <section>
       <h2><a href={url("ai-design/" + key)}>{title}</a></h2>
       <p>{summary}</p>
       <ContentIndex
         showIcons={false}
-        entries={all.filter(
-          (e) => e.data.layer === "ai-design" && e.data.design_topic === key,
-        )}
+        entries={orderedDesignEntries(all, key)}
       />
     </section>
   ))}
