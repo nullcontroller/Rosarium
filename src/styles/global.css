@@ -69,6 +69,11 @@
 /* Support both saved Light preference and automatic OS Light preference. */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
+    --home-background: #e5ece7;
+    --home-panel-surface: #ffffff;
+    --home-panel-border-width: 1px;
+    --home-panel-radius: .35rem;
+    --home-panel-padding: 1rem;
     --elevated-surface: #e6eee4;
     --nav-surface: #e0e9df;
     --nav-hover-surface: #d5e3d7;
@@ -79,6 +84,11 @@
   }
 }
 :root[data-theme="light"] {
+    --home-background: #e5ece7;
+    --home-panel-surface: #ffffff;
+    --home-panel-border-width: 1px;
+    --home-panel-radius: .35rem;
+    --home-panel-padding: 1rem;
     --elevated-surface: #e6eee4;
     --nav-surface: #e0e9df;
     --nav-hover-surface: #d5e3d7;
@@ -2381,6 +2391,15 @@ article[data-lifecycle="retired"],
 .home-primary-panels { gap:1.5rem; margin-top:.5rem; }
 .home-primary-panels > .home-section { height:auto; min-height:0; padding:clamp(.875rem,2vw,1.5rem); border:0; border-top:1px solid color-mix(in srgb, var(--line) 65%, transparent); }
 .home-primary-panels > .home-career { background:var(--career-surface); }
+.home-page .shell > main { background:var(--home-background, var(--surface)); }
+.home-primary-panels > .home-panel {
+  background:var(--home-panel-surface, transparent);
+  border-inline:var(--home-panel-border-width, 0) solid var(--line);
+  border-bottom:var(--home-panel-border-width, 0) solid var(--line);
+  border-radius:var(--home-panel-radius, 0);
+}
+.home-primary-panels > .home-panel.home-career { background:var(--home-panel-surface, var(--career-surface)); }
+
 .home-primary-panels .home-career > p:last-child { margin-bottom:0; }
 .home-primary-panels .section-heading { margin-bottom:.5rem; }
 .home-primary-panels p { margin-block:.55rem; line-height:1.65; }
@@ -2413,7 +2432,7 @@ article[data-lifecycle="retired"],
 
 /* Home updates use a metadata row, then full-width title and changes. */
 @media (min-width: 1100px) {
-  .home-page .home-primary-panels > .home-section { padding-inline:0; }
+  .home-page .home-primary-panels > .home-section { padding-inline:var(--home-panel-padding, 0); }
   .home-page .home-primary-panels .growth-entry { row-gap:.125rem; }
   .home-page .home-primary-panels .growth-entry > div { display:contents; }
   .home-page .home-primary-panels .growth-entry > .icon { grid-column:1; grid-row:1; }
