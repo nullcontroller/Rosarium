@@ -38,4 +38,5 @@ const introductionParagraphs = summaryParagraphs ?? (summary ? [summary] : []);
     {!alignHero && introductionParagraphs.map((paragraph) => <p class="lead">{paragraph}</p>)}
   </div>
   {alignHero && introductionParagraphs.map((paragraph) => <p class="lead">{paragraph}</p>)}
+  {alignHero && Astro.slots.has("default") && <div class="entrance-hero-actions"><slot /></div>}
 </header>

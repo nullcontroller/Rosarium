@@ -140,14 +140,14 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file
     `${html}: shared brand mark`,
   );
 }
-assert.equal(top(".home-introduction a").length, 1);
-assert.equal(top('.home-introduction a[href="/Rosarium/about/"]').length, 1);
-assert(top(".home-site-description").text().includes("AIを主軸に"));
+assert.equal(top(".entrance-hero-actions a").length, 1);
+assert.equal(top('.entrance-hero-actions a[href="/Rosarium/about/"]').length, 1);
+assert(top(".entrance-hero > .lead").text().includes("AIを主軸に"));
 assert(
-  top(".home-site-description").text().includes("DX・システム設計"),
+  top(".entrance-hero > .lead").text().includes("DX・システム設計"),
 );
 assert(!top("main").text().includes("Applied AI / System Architecture"));
-assert(top(".home-site-description").text().includes("実践例・設計判断"));
+assert(top(".entrance-hero > .lead").text().includes("実践例・設計判断"));
 assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())

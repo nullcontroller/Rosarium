@@ -1,32 +1,26 @@
 ---
-import { navigationItemForPath } from "../lib/navigation";
 import Site from "../layouts/Site.astro";
 import GrowthEntry from "../components/GrowthEntry.astro";
 import { inRecentWindow } from "../lib/history-window";
 import { recentGrowth } from "../data/recent-growth";
-import Icon from "../components/Icon.astro";
+import PageHeader from "../components/PageHeader.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { url } from "../lib/site";
 
-const homeIcon = navigationItemForPath("")!.icon;
 const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 ---
 
 <Site showRightSidebar={false} title="Home" section="">
-  <section class="hero home-introduction">
-    <div class="document-title-row">
-      <Icon name={homeIcon} size="page" />
-      <h1>Rosarium</h1>
-    </div>
-    <p class="home-site-description">
-      AIを主軸に、DX・システム設計を考える個人の技術サイトです。学習と実務で得た実践例・設計判断を整理しています。
-    </p>
+  <PageHeader
+    alignHero
+    navigationPath=""
+    title="Rosarium"
+    summary="AIを主軸に、DX・システム設計を考える個人の技術サイトです。学習と実務で得た実践例・設計判断を整理しています。"
+  >
     <p class="meta">
-      <a class="action-link" href={url("about")}>
-        Rosariumとは？
-      </a>
+      <a class="action-link" href={url("about")}>Rosariumとは？</a>
     </p>
-  </section>
+  </PageHeader>
 
   <div class="home-primary-panels">
     <section class="home-section" aria-labelledby="recent-growth-heading">
