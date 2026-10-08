@@ -42,7 +42,7 @@ const curatedRecentGrowth = [
     date: "2026-10-08",
     topic: "AI設計に関する",
     type: "revised",
-    title: "AI設計の知識を改訂し、責任・評価・構成・委任・運用を整理",
+    title: "AI設計の知識と実践事例を改訂し、責任・評価・構成・委任・運用を整理",
     changes: [
       { action: "revised", text: "改訂。責任・承認・人間への引き継ぎを中心に、確認工程を持つ業務の設計を整理した", contentIds: ["foundations/ai-business-design/delegation-and-responsibility"] },
       { action: "revised", text: "改訂。手戻りした実務経験をもとに、レビューしやすさ・理解・説明・合意と、工数・経過時間を区別したAI導入評価を整理した", contentIds: ["foundations/ai-business-design/evaluating-business-efficiency"] },
@@ -60,6 +60,7 @@ const curatedRecentGrowth = [
       { action: "revised", text: "改訂。誤答を業務へ流さない対策の配置に焦点を絞り、検索・回答拒否・検出器の評価へ接続した", contentIds: ["foundations/layered-hallucination-controls"] },
       { action: "revised", text: "改訂。回答の失敗を原因工程の担当者へ戻し、知識の改善と変更時の再評価につなぐ運用を整理した", contentIds: ["knowledge-context/qa-operations"] },
       { action: "revised", text: "改訂。コード変更の委任レベルを、下書き・人間承認後の反映・限定自動反映へ揃え、試作と正式反映の権限を分けた", contentIds: ["software-engineering/code-generation-boundaries"] },
+      { action: "revised", text: "改訂。古い環境の説明・仕様説明の誤り・仕様書間の矛盾を具体化し、品質と仕様責任を優先して人間が最終修正した判断を補強した", contentIds: ["cases/specification-debt-review"] },
     ],
     category: "Rosarium",
     icon: "updates",

@@ -19,13 +19,16 @@ test("publication starts history and preserves original date precision", () => {
 
 test("new publication is not duplicated as a revision; revisions stay chronological", () => {
   const events = contentHistory("cases/specification-debt-review", { published_at: "2026-10-07" });
-  assert.equal(events.length, 1);
+  assert.equal(events.length, 2);
   assert.equal(events[0].type, "published");
+  assert.equal(events[1].date, "2026-10-08");
+  assert.equal(events[1].type, "revised");
+  assert(events[1].text.includes("人間が最終修正"));
   assert.deepEqual(contentHistory("practices/ai-adoption-and-effective-use", {}).map(event => event.date), ["2026-09-23", "2026-10-07", "2026-10-08"]);
 });
 
 test("aggregate counts separate publication, revision and Case without titles", () => {
-  assert.deepEqual(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-08"), () => false), ["AI設計に関する記事を16件改訂"]);
+  assert.deepEqual(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-08"), id => id === "cases/specification-debt-review"), ["AI設計に関する記事を16件改訂", "AI設計に関するCaseを1件改訂"]);
   assert.deepEqual(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-07"), id => id === "cases/specification-debt-review"), ["Caseを1件新規公開", "記事を1件新規公開", "記事を1件改訂"]);
   assert.equal(growthSummary(recentGrowth.find(entry => entry.date === "2026-10-03"), () => false).length, 1);
 });
