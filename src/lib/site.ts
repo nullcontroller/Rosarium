@@ -118,7 +118,8 @@ export const staticPageLastUpdated: Record<string, string> = {
   "404.html": "2026-09-28",
   "essays/model-competition-and-ecosystems": "2026-10-03",
   "evaluation-hitl/human-review-capability": "2026-10-03",
-  "software-engineering/ai-design-assistance": "2026-10-03",
+  "software-engineering/ai-design-assistance": "2026-10-08",
+  "software-engineering/ai-driven-development": "2026-10-08",
 };
 export const staticLastUpdatedForPath = (pathname: string) => {
   const route = pathname.replace(base, "").replace(/^\/+|\/+$/g, "");

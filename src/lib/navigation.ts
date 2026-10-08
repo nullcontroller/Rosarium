@@ -218,7 +218,6 @@ export const topicPublications: Record<string, string[]> = {
     "cases/customer-support-ai-dx",
   ],
   "software-engineering": [
-    "software-engineering/ai-driven-development",
     "cases/three-ai-maintenance",
   ],
   "lifecycle-operations": [

@@ -28,3 +28,7 @@
 `code-generation-models` はモデル、検索、道具、状態、権限、検証の構成説明としてKEEP。`code-maintenance-context` は新規・保守の性能優位を保証しないことを明示した、既存情報の取得と検証条件の説明としてKEEP。`ai-driven-development` と3 AI保守Caseは実務経験の記録としてKEEP。`multi-ai-orchestration` は情報環境と工程制御としてKEEP。`ai-design-assistance` は既に退役しており復活させない。
 
 `docs/content-update-policy.md` は現checkoutに存在しないため、`content-history-policy.md`、`content-lifecycle.md` と既存互換routeを判断根拠とした。
+
+## 後続の優先監査による判断更新
+
+ai-driven-developmentと3 AI保守Book全7章を全文比較した結果、記事の独立した役割より、工程原則と実務Caseへ集約する価値が高いと判断した。前段のKEEPはこの比較前の判断。development-workflowへ工程接続の実務リンクを補強し、旧本文・元公開日は保存、RETIREDと既存方式の互換redirectへ変更した。code-generation-modelsとmulti-ai-orchestrationは全文確認でKEEP、code-maintenance-contextは委任条件とコードを基準にする範囲を改訂。教育・横展開は保留。

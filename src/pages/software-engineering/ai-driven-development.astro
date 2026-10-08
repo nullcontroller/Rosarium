@@ -1,0 +1,19 @@
+---
+import Site from "../../layouts/Site.astro";
+import ContentHistory from "../../components/ContentHistory.astro";
+import { getEntry } from "astro:content";
+import { url } from "../../lib/site";
+const entry = await getEntry("pages", "software-engineering/ai-driven-development");
+const destination = url("software-engineering/development-workflow");
+const canonical = new URL(destination, Astro.site).toString();
+---
+
+<Site showRightSidebar={false} title={entry!.data.title} summary="コード変更の委任・検証・反映権限・復旧を開発工程として設計します。" canonical={canonical} noindex showLastUpdated={false}>
+  <meta slot="head" http-equiv="refresh" content={"0;url=" + destination} />
+  <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
+  <header>
+  <h1>{entry!.data.title}</h1>
+  <p><a href={destination}>AIを開発工程に組み込むへ移動する</a></p>
+  {entry && <ContentHistory id={entry.id} data={entry.data} />}
+  </header>
+</Site>

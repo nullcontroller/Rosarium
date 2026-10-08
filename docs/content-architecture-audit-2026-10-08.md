@@ -10,20 +10,20 @@
 
 - コード生成2記事の統合済み判断を維持。development-workflowが変更委任・検証・権限・復旧の説明を所有する。
 - コード生成AIの正体はモデルと製品構成、保守コンテキストは既存成果物の情報価値、複数AIは配置と受渡しの問いを持つ。名称だけで退役しない。
-- Agentの個人実践とAI駆動開発の3製品利用は、実績を保持し一般的な能力上限・固定分業から分離する。
-- 教育・横展開は長い考察と短いガイドの重複があり、MERGE候補。ただし独自例の吸収と旧URLの検証前に退役しない。
+- Agentの個人実践は実績を保持。AI駆動開発の記事は、全文比較で原則がdevelopment-workflow、実務が3 AI保守Caseと重複すると確認したため統合する。
+- 教育・横展開の旧候補は保留。今回の優先対象から外し、変更しない。
 - Caseの当時の道具・役割は実務事実。現行能力へ置換しない。
 
 ## 件数
 
 - KEEP: 71
-- REWRITE: 3
-- MERGE: 4
+- REWRITE: 2
+- MERGE: 5
 - RETIRE: 4
 - OBSOLETE: 16
 - DELETE: 0
 
-MERGE4件のうち2件は統合済み、2件は未実施候補。REWRITE3件は今回改訂。RETIRE4件・OBSOLETE16件は既存状態の維持。今回の新規退役・物理削除・Lifecycle変更は0件。KEEP71件は一次判定を含む。
+MERGE5件のうち3件は統合済み、教育・横展開の2件は保留候補。REWRITE2件は改訂済み。RETIRE4件・OBSOLETE16件は既存状態の維持。今回ai-driven-developmentをactiveからretiredへ変更し、本文・公開日を保存した。物理削除0件。KEEP71件は一次判定を含む。優先対象の全文判断はcode-agent-workflow-priority-audit-2026-10-08.mdを参照。
 
 ## 中心にする説明先
 
@@ -52,20 +52,20 @@ MERGE4件のうち2件は統合済み、2件は未実施候補。REWRITE3件は�
 | code-generation-and-work-design | D/E：コード生成と設計支援の対立 | 既存統合維持 |
 | code-generation-boundaries | B/D/E：工程名で適用場所を固定 | 既存統合維持 |
 | agents-tools-and-workflows | B/C/G：個人の同期構成をAgent全般へ一般化 | 今回改訂 |
-| ai-driven-development | C/G：3製品の担当が普遍的分業に読める | 今回改訂 |
+| ai-driven-development | E：工程原則はdevelopment-workflow、実務は3 AI保守Caseと重複 | 統合・RETIRED・互換redirect |
 | code-maintenance-context | B/G：適用表を能力上限として読める | 今回改訂。性能優位の限定は維持 |
-| ai-education-principles | E：原則／実践の分離をガイドと重複説明 | 統合候補、未実施 |
-| transferring-ai-practices | E：横展開の条件分解をガイドと重複説明 | 統合候補、未実施。共有経験は保持対象 |
+| ai-education-principles | E：原則／実践の分離をガイドと重複説明 | 保留、変更なし |
+| transferring-ai-practices | E：横展開の条件分解をガイドと重複説明 | 保留、変更なし。共有経験は保持対象 |
 | model-competition-and-ecosystems | A/C/F：企業類型・競争構造を固定 | 既存RETIRED維持 |
 | ai-roles-beyond-fde | C/F：職名・市場予測の変化が速い | 既存OBSOLETE維持 |
 
 ## 入口・互換URL・履歴
 
-AI DesignのAgent入口はmulti-ai-orchestration、Software Engineering入口はdevelopment-workflow / code-maintenance-context / multi-ai-orchestrationを既に案内するため構造変更不要。DX・Career・ナビは変更しない。新規ページ・新規redirectは作らない。
+AI DesignのAgent入口とSoftware Engineeringのガイド構造は維持。読み順・実践導線・出版物一覧から統合済みai-driven-developmentを外し、実務経験は既存の3 AI保守Caseへ案内する。Careerは変更しない。
 
-既存redirect：software-engineering/code-generation-boundaries/、software-engineering/code-generation-and-work-design/ → software-engineering/development-workflow/。過去のpractices/ai-generation-and-work-completion/ → foundations/ai-business-design/evaluating-business-efficiency/も維持。保存された旧本文は改訂しない。
+redirect：software-engineering/ai-driven-development/、software-engineering/code-generation-boundaries/、software-engineering/code-generation-and-work-design/ → software-engineering/development-workflow/。過去のpractices/ai-generation-and-work-completion/ → foundations/ai-business-design/evaluating-business-efficiency/も維持。保存された旧本文は改訂しない。
 
-2026-10-08の同日履歴へ3記事を各1件追加。Garden Notesは集計のみ（記事19件改訂・2件統合、Case1件改訂）。既存の記事更新履歴データを共用。移入元のスナップショットは保存し、実質改訂の本文チェックサム・前版記録を更新。
+2026-10-08のai-driven-development履歴を統合へ変更。同日同記事の重複記録は追加しない。Garden Notesは集計のみ（記事18件改訂・3件統合、Case1件改訂）。既存の記事更新履歴データを共用。移入元のスナップショットは保存し、実質改訂の本文チェックサム・前版記録を更新。
 
 ## 3〜6か月後の再監査
 
@@ -165,14 +165,14 @@ AI DesignのAgent入口はmulti-ai-orchestration、Software Engineering入口は
 | src/content/reference/glossary.md | 基本用語集 | Rosariumで使う基本用語を、モデル・情報・工程・責任の観点から定義する。用語を製品名や流行語ではなく、設計上の役割として確認するための参照資料。 | KEEP | H：問い・設計責務の一次確認では廃止根拠なし。全文再評価が済んでいないページを含むため暫定。 | reference/glossary | 維持（一次判断）。 |
 | src/content/reference/mathematical-reference.md | 数式・記号リファレンス | AIの出力の揺らぎや失敗リスクを考えるときに使う数式をまとめています。条件付き確率・Temperature・RAG・期待損失について、数学上の定義と設計用の簡略モデルを区別します。 | KEEP | H：問い・設計責務の一次確認では廃止根拠なし。全文再評価が済んでいないページを含むため暫定。 | reference/mathematical-reference | 維持（一次判断）。 |
 | src/content/reference/responsibility-state-model.md | 責任境界・状態モデル | AIの能力・権限・説明責任を分離し、生成から実行・監視までの成果物状態を定義する。候補生成を承認や確定処理と混同しないための安定した参照モデル。 | KEEP | H：問い・設計責務の一次確認では廃止根拠なし。全文再評価が済んでいないページを含むため暫定。 | reference/responsibility-state-model | 維持（一次判断）。 |
-| src/content/software-engineering/ai-design-assistance.md | 設計支援AIは消えない。コード生成の次に残る領域 | コード生成と設計判断の性質の違いから、設計支援AIの役割を考察する。実装時間の短縮に加え、選択肢や責務を整理して人間の意思決定を支援する価値を論じる。 | RETIRE | この内容は現在の推奨ではありません。設計支援とコード生成については「コード生成AIはなぜ業務を変えないのか」で、業務設計と責任の観点から確認できます。 | software-engineering/development-workflow | 既存の保存・公開範囲を維持。 |
-| src/content/software-engineering/ai-driven-development.md | 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか | 要件整理・既存仕様調査・設計・仕様化・実装・テストを一つのAI活用工程として考える。3つのAIを役割分担させた経験と、成果物を通じた受け渡しを紹介する。 | REWRITE | B/G：実務で選んだ構成や適用例を、固定的な能力上限・分業と区別する。 | software-engineering/ai-driven-development | 本文を最小改訂。履歴へ反映。 |
+| src/content/software-engineering/ai-design-assistance.md | 設計支援AIは消えない。コード生成の次に残る領域 | コード生成と設計判断の性質の違いから、設計支援AIの役割を考察する。実装時間の短縮に加え、選択肢や責務を整理して人間の意思決定を支援する価値を論じる。 | RETIRE | この内容は現在の推奨ではありません。設計から実装・検証までの委任については「AIを開発工程に組み込む」で、検証・反映権限・復旧の観点から確認できます。 | software-engineering/development-workflow | 既存の保存・公開範囲を維持。 |
+| src/content/software-engineering/ai-driven-development.md | 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか | 要件整理・既存仕様調査・設計・仕様化・実装・テストを一つのAI活用工程として考える。3つのAIを役割分担させた経験と、成果物を通じた受け渡しを紹介する。 | MERGE | E：工程原則・実務経験とも既存説明先へ集約できる。全文比較済み。 | software-engineering/development-workflow + cases/three-ai-maintenance | 本文保存、RETIRED、互換redirect。 |
 | src/content/software-engineering/code-generation-and-work-design.md | コード生成AIはなぜ業務を変えないのか — 設計支援として使うべき理由 | コード生成の高速化だけでは残る、業務の設計・責務分割・運用上の判断を考察する。AIを設計の理解・維持・改善に使い、意思決定の負担を減らす視点を示す。 | MERGE | D/E：コード生成の場所・設計との対立より、変更委任の工程設計へ統合する。 | software-engineering/development-workflow | 統合済み。本文保存・既存redirect維持。 |
 | src/content/software-engineering/code-generation-boundaries.md | コード生成を使うべき場所 | AIにコードを書かせる前に、変更の影響を確認できるか、失敗時に戻せるかを考えます。必要なContext・テスト・人間レビューの費用を整理し、安全に採用できた変更で評価します。 | MERGE | D/E：コード生成の場所・設計との対立より、変更委任の工程設計へ統合する。 | software-engineering/development-workflow | 統合済み。本文保存・既存redirect維持。 |
-| src/content/software-engineering/code-generation-models.md | コード生成AIの正体 | コード生成AIは、文章を出すモデルだけで成り立つわけではありません。必要情報（Context）、編集ツール、権限、テストを分け、生成から採用までの仕組みと失敗箇所を説明します。 | KEEP | H：問い・設計責務の一次確認では廃止根拠なし。全文再評価が済んでいないページを含むため暫定。 | software-engineering/code-generation-models | 維持（一次判断）。 |
+| src/content/software-engineering/code-generation-models.md | コード生成AIの正体 | コード生成AIは、文章を出すモデルだけで成り立つわけではありません。必要情報（Context）、編集ツール、権限、テストを分け、生成から採用までの仕組みと失敗箇所を説明します。 | KEEP | H：全文確認済み。構成・工程・受け渡しにそれぞれ独立した問いがあり、固定的な能力境界ではない。 | software-engineering/code-generation-models | 維持。今回の本文変更なし。 |
 | src/content/software-engineering/code-maintenance-context.md | なぜAIは新規コードよりコード保守に強いのか | 既存コード・テスト・差分が、AIの生成条件と検証根拠になる理由を整理する。保守が常に容易とはせず、依存関係や検索コストを踏まえて調査・局所変更・検証へ分解する。 | REWRITE | B/G：実務で選んだ構成や適用例を、固定的な能力上限・分業と区別する。 | software-engineering/code-maintenance-context | 本文を最小改訂。履歴へ反映。 |
-| src/content/software-engineering/development-workflow.md | AIを開発工程に組み込む | AIが受け取る入力、出力成果物、根拠、検証、停止条件、承認者を開発工程として定義する。検証済みの成果物だけを次へ渡すための契約・Gate・記録・手動経路を整理する。 | KEEP | H：問い・設計責務の一次確認では廃止根拠なし。全文再評価が済んでいないページを含むため暫定。 | software-engineering/development-workflow | 維持（一次判断）。 |
-| src/content/software-engineering/multi-ai-orchestration.md | 複数AIの役割分担と工程設計 | 複数のAIを使うとき、誰に何を渡し、どの成果物を確認して次へ進むかを決めます。Task・Context・Tool・権限を役割ごとに整理し、工程全体の品質と費用を管理します。 | KEEP | H：問い・設計責務の一次確認では廃止根拠なし。全文再評価が済んでいないページを含むため暫定。 | software-engineering/multi-ai-orchestration | 維持（一次判断）。 |
+| src/content/software-engineering/development-workflow.md | AIを開発工程に組み込む | AIが受け取る入力、出力成果物、根拠、検証、停止条件、承認者を開発工程として定義する。検証済みの成果物だけを次へ渡すための契約・Gate・記録・手動経路を整理する。 | KEEP | H：全文確認済み。構成・工程・受け渡しにそれぞれ独立した問いがあり、固定的な能力境界ではない。 | software-engineering/development-workflow | 維持。工程ページへ実務Caseの導線を補強。 |
+| src/content/software-engineering/multi-ai-orchestration.md | 複数AIの役割分担と工程設計 | 複数のAIを使うとき、誰に何を渡し、どの成果物を確認して次へ進むかを決めます。Task・Context・Tool・権限を役割ごとに整理し、工程全体の品質と費用を管理します。 | KEEP | H：全文確認済み。構成・工程・受け渡しにそれぞれ独立した問いがあり、固定的な能力境界ではない。 | software-engineering/multi-ai-orchestration | 維持。今回の本文変更なし。 |
 
 ## 残作業
 

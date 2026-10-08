@@ -8,7 +8,7 @@ section: software-engineering
 status: archived
 lifecycle: retired
 public: true
-last_updated: "2026-10-05"
+last_updated: "2026-10-08"
 tags: &a1
   - ai
   - 設計
@@ -35,7 +35,7 @@ source:
     topics: *a1
     published: true
     published_at: 2026-04-09 00:14
-lifecycle_reason: "この内容は現在の推奨ではありません。設計支援とコード生成については「コード生成AIはなぜ業務を変えないのか」で、業務設計と責任の観点から確認できます。"
+lifecycle_reason: "この内容は現在の推奨ではありません。設計から実装・検証までの委任については「AIを開発工程に組み込む」で、検証・反映権限・復旧の観点から確認できます。"
 ---
 
 

@@ -11,6 +11,7 @@ const digest = (raw) => crypto.createHash("sha256").update(raw).digest("hex");
 const sitemap = fs.readFileSync("dist/sitemap.xml", "utf8");
 const feeds = ["feed.xml", "feed.json", "rss.xml"].map((name) => fs.readFileSync(`dist/${name}`, "utf8"));
 const counts = {};
+const integratedEntries = new Set(["software-engineering/code-generation-and-work-design", "software-engineering/ai-driven-development"]);
 const archiveTop = load(fs.readFileSync("dist/retired/index.html", "utf8"));
 const obsoleteIndex = load(fs.readFileSync("dist/retired/obsolete/index.html", "utf8"));
 const obsoleteCasesIndex = load(fs.readFileSync("dist/retired/obsolete-cases/index.html", "utf8"));
@@ -88,19 +89,19 @@ for (const record of report.entries) {
   const data = YAML.parse(match[1]);
   // Integration changes lifecycle metadata, not the immutable recovered body or appendix.
   verifyRecoveredBody(raw.slice(match[0].length), record, record.destination === "software-engineering/code-generation-and-work-design" ? record.local_appendix.date : data.last_updated);
-  const lifecycle = record.destination === "software-engineering/code-generation-and-work-design" ? "RETIRED" : record.lifecycle;
+  const lifecycle = integratedEntries.has(record.destination) ? "RETIRED" : record.lifecycle;
   assert.equal(data.lifecycle, lifecycle.toLowerCase());
   assert.equal(data.published_at ?? null, record.original_published_at);
   assert.equal(publishedEntry({ data }), true);
   const html = fs.readFileSync(`dist/${record.destination}/index.html`, "utf8");
   const $ = load(html);
   const canonical = `https://nullcontroller.github.io/Rosarium/${record.destination}/`;
-  if (record.destination !== "software-engineering/code-generation-and-work-design") assert.equal($("h1").text(), data.title);
-  if (record.destination !== "software-engineering/code-generation-and-work-design") assert.equal($('link[rel="canonical"]').attr("href"), canonical);
-  if (record.destination === "software-engineering/code-generation-and-work-design") {
+  if (!integratedEntries.has(record.destination)) assert.equal($("h1").text(), data.title);
+  if (!integratedEntries.has(record.destination)) assert.equal($('link[rel="canonical"]').attr("href"), canonical);
+  if (integratedEntries.has(record.destination)) {
     assert.match($('meta[name="robots"]').attr("content"), /noindex/);
     assert.equal($('meta[http-equiv="refresh"]').attr("content"), "0;url=/Rosarium/software-engineering/development-workflow/");
-    assert.equal(retiredIndex('[data-retired-id="software-engineering/code-generation-and-work-design"]').length, 1);
+    assert.equal(retiredIndex(`[data-retired-id="${record.destination}"]`).length, 1);
     assert(!sitemap.includes(canonical));
     for (const feed of feeds) assert(!feed.includes(canonical));
     continue;

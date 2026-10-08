@@ -83,7 +83,7 @@ export const readingGroups: Record<
         "software-engineering/development-workflow",
         "software-engineering/code-maintenance-context",
         "software-engineering/multi-ai-orchestration",
-        "software-engineering/ai-driven-development",
+        "cases/three-ai-maintenance",
         "essays/what-not-to-build-with-ai",
         "cases/understanding-systems-as-capability",
       ],

@@ -6,7 +6,8 @@ title: 私が考えるAI駆動開発 ― AI・人間・成果物をどうつな�
 kind: guide
 section: software-engineering
 status: published
-lifecycle: active
+lifecycle: retired
+lifecycle_reason: "AI・人間・成果物をつなぐ考え方は、開発工程の委任・検証・反映権限の設計へ統合しました。3つのAIを使った保守の実務経験は、実践事例で読めます。"
 last_updated: "2026-10-08"
 tags: &a1
   - githubcopilot

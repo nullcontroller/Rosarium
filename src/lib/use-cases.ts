@@ -64,7 +64,6 @@ export const useCases = [
       "software-engineering/multi-ai-orchestration",
     ],
     publications: [
-      "software-engineering/ai-driven-development",
       "cases/three-ai-maintenance",
       "essays/what-not-to-build-with-ai",
     ],
