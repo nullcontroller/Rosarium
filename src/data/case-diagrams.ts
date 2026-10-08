@@ -36,13 +36,13 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   "maintenance-documentation-debt": {
     "title": "AIは候補を提示し、人間が変更を判断する",
     "intro": "Issue Candidate ≠ Change Decision。現在のコードも根拠の一つであり、正解そのものではありません。",
-    "description": "仕様書・現在のコード・関連Contextを並列入力としてAIが横断調査します。問題候補・関連根拠・修正候補を人間が確認し、変更前後を比較します。変更・現状維持・追加調査を分け、仕様判断と変更承認は人間が行います。",
+    "description": "Pythonで統合したMarkdown仕様書・現在のコード・関連Contextを並列入力としてCopilotが横断調査します。問題候補・関連根拠・修正候補を人間が確認し、変更前後を比較します。変更・現状維持・追加調査を分け、仕様判断と最終修正は人間が行います。",
     "nodes": [
         {
             "id": "docs",
             "label": "仕様書群",
             "kind": "knowledge",
-            "description": "長期保守されたDocumentation。誤記・古い記述・重複・不整合を含む可能性があります。"
+            "description": "分割されたMarkdown仕様書をPythonで1ファイルへ統合し、横断比較できるContextを整えました。長期保守による誤記・古い記述・重複・不整合も調査対象です。"
         },
         {
             "id": "code",
@@ -60,7 +60,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
             "id": "investigate",
             "label": "AIによる横断調査",
             "kind": "ai",
-            "description": "仕様書・コード・関連Contextを検索・比較し、不整合候補とEvidenceを整理します。仕様は決定しません。"
+            "description": "GitHub Copilotで仕様書・コード・関連Contextを検索・比較し、不整合候補とEvidenceを整理しました。仕様は決定しません。"
         },
         {
             "id": "issue",
@@ -118,9 +118,9 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         },
         {
             "id": "reflect",
-            "label": "承認内容を仕様書へ反映",
-            "kind": "system",
-            "description": "修正を承認した内容のみ反映します。現状維持では記述を変更せず、追加調査では決定を保留します。"
+            "label": "人間が仕様書へ反映",
+            "kind": "human",
+            "description": "人間自身が、採用した内容を仕様書へ修正・反映しました。現状維持では記述を変更せず、追加調査では決定を保留します。自動反映は採用しませんでした。"
         }
     ],
     "edges": [
