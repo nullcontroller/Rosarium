@@ -39,6 +39,17 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-09",
+    topic: "コンテキスト設計に関する",
+    type: "revised",
+    title: "問いに必要な情報から調査経路を選ぶ考え方を改訂",
+    changes: [
+      { action: "revised", text: "改訂。AIと人間を能力で比較するのではなく、問いに必要なコンテキストと一次情報への距離から調査経路を選ぶ実務例を追加した", contentIds: ["knowledge-context/context-before-model-performance"] },
+    ],
+    category: "Rosarium",
+    icon: "updates",
+  },
+  {
     date: "2026-10-08",
     topic: "AI設計に関する",
     type: "revised",

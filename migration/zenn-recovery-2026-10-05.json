@@ -87,7 +87,13 @@
       "source_snapshot": "migration/zenn-recovery-2026-10-05/articles/1c9ec1d7e01206.md",
       "source_sha256": "8d31eaeca6d1cc947aaaffae46b3f19f91f5adf9f44ff64bbd9b18982fce3cd7",
       "destination_body_sha256": "8268c36eb937e54504c1635dce25e54f96e4b7d2a8ae206704c69cdaf1d200b6",
-      "restoration": "Existing Rosarium body retained; exact original snapshot saved"
+      "restoration": "Existing Rosarium body retained; exact original snapshot saved",
+      "local_appendix": {
+        "date": "2026-10-09",
+        "reason": "問いに必要な情報と一次情報への距離から、人とAIの調査経路を選ぶ実務例を追記。",
+        "marker": "### 誰に聞くかではなく、誰が必要なコンテキストを持つか",
+        "sha256": "7de315066c7cdf20413edf625965435f3e9d76a4013d591a7e044d7ab80e93fd"
+      }
     },
     {
       "title": "全員の業務が違うのに、AI活用事例をそのまま横展開できるのか",
