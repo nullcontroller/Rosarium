@@ -46,7 +46,7 @@
 | /cases/customer-support-ai-dx/responsibility-boundary/ | 02. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/stopping-conditions/ | 05. AIをどこで止めるか | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/why-ai/ | 01. なぜAIを導入したのか | あり | あり | あり | 15 | 主要見出しが複数 |
-| /cases/specification-debt-review/ | 3万ページの仕様書をAIで横断レビューする | あり | あり | あり | 13 | 主要見出しが複数 |
+| /cases/specification-debt-review/ | 3万文字・68ページの仕様書をAIで横断レビューする | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/system-understanding/ | 理解しにくいレガシーシステムを、変更判断できる状態へ変える | あり | あり | あり | 19 | 主要見出しが複数 |
 | /cases/system-understanding/connecting-ui-and-internals/ | 第7章 UI操作と内部処理を結び付け、操作結果を追えるようにする | あり | あり | あり | 15 | 主要見出しが複数 |
 | /cases/system-understanding/human-and-ai-knowledge/ | 第6章 人が読む仕様とAIが使うKnowledgeを分ける | あり | あり | あり | 16 | 主要見出しが複数 |
