@@ -11,16 +11,23 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 ---
 
 <Site showRightSidebar={false} title="Home" section="">
-  <PageHeader
-    alignHero
-    navigationPath=""
-    title="Rosarium"
-    summary="AIを主軸に、DX・システム設計を考える個人の技術サイトです。学習と実務で得た実践例・設計判断を整理しています。"
-  >
-    <p class="meta">
-      <a class="action-link" href={url("about")}>Rosariumとは？</a>
-    </p>
-  </PageHeader>
+  <div class="home-hero-layout">
+    <PageHeader
+      alignHero
+      navigationPath=""
+      title="Rosarium"
+      summary="AIを主軸に、DX・システム設計を考える個人の技術サイトです。学習と実務で得た実践例・設計判断を整理しています。"
+    >
+      <p class="meta">
+        <a class="action-link" href={url("about")}>Rosariumとは？</a>
+      </p>
+    </PageHeader>
+    <aside class="home-career" aria-labelledby="home-career-heading">
+      <h2 class="eyebrow" id="home-career-heading">PROFILE / CAREER</h2>
+      <p class="career-overview">AI・人間・既存システムの役割を整理し、運用できる仕組みを設計しています。</p>
+      <a class="cta-link" href={url("career")}>キャリアを見る</a>
+    </aside>
+  </div>
 
   <div class="home-primary-panels">
     <section class="home-section home-panel" aria-labelledby="recent-growth-heading">
@@ -41,25 +48,6 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
       </div>
       <p><a class="cta-link" href={url("garden-notes")}>Garden Notes</a></p>
     </section>
-
-    <section
-      class="home-section home-panel home-career"
-      aria-labelledby="home-career-heading"
-    >
-      <SectionHeading
-        icon="career"
-        eyebrow="PROFILE / CAREER"
-        title="キャリア"
-        id="home-career-heading"
-      />
-      <p class="career-overview">立林 裕太朗は、業務課題を整理し、AI・人間・既存システムの役割を決め、運用できる仕組みを設計しています。</p>
-      <p class="career-background">仕事の考え方と、その背景を紹介します。</p>
-      <p>
-        <a class="cta-link" href={url("career")}>
-          キャリア
-        </a>
-      </p>
-    </section>
   </div>
 </Site>
 
@@ -79,6 +67,16 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 </script>
 
 <style>
+  .home-hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) 18rem; gap: 1.5rem; align-items: end; margin-bottom: 1.3rem; }
+  .home-hero-layout :global(.page-heading) { min-width: 0; margin-bottom: 0; }
+  .home-career { min-width: 0; padding: .75rem 1rem; border: 1px solid var(--line); border-radius: var(--home-panel-radius, .35rem); background: var(--home-panel-surface, var(--surface)); }
+  .home-career h2 { margin: 0; font-size: .75rem; }
+  .home-career p { margin-block: .5rem .25rem; color: var(--muted); font-size: .875rem; line-height: 1.65; }
+  .home-career a { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; }
+  @media (max-width: 800px) {
+    .home-hero-layout { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+  }
+
   .home-growth-history {
     max-height: clamp(18.75rem, 32vh, 22.5rem);
     overflow-y: auto;

@@ -591,7 +591,9 @@ assert(top("#recent-growth-heading").length);
 assert.equal(top(".growth-scrollbox").length, 0);
 assert.equal(top('.home-growth-history[data-recent-growth][role="region"][tabindex="0"][aria-label="Garden Notes 更新履歴"]').length, 1);
 assert.equal(top(".home-growth-history #recent-growth-heading").length, 0, "Section heading must stay outside the scroll region");
-assert.equal(top(".home-primary-panels > section").length, 2);
+assert.equal(top(".home-primary-panels > section").length, 1);
+assert.equal(top(".home-hero-layout > aside.home-career").length, 1);
+assert.equal(top(".home-primary-panels .home-career").length, 0);
 assert.equal(top('a[href="/Rosarium/about/"]').text().trim(), "Rosariumとは？");
 assert.equal(top("#about-rosarium").length, 0);
 assert.equal(top('a[href="/Rosarium/garden-notes/"]').text().trim(), "Garden Notes");
@@ -959,8 +961,9 @@ for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "
 }
 assert.equal(page("about")('main h2').filter((_, node) => page("about")(node).text() === "次に読む").length, 0);
 assert.equal(page("about")('main a[href="/Rosarium/"]').text(), "庭に戻る");
-assert.equal(page("")('.home-career .career-overview').text(), '立林 裕太朗は、業務課題を整理し、AI・人間・既存システムの役割を決め、運用できる仕組みを設計しています。');
-assert.equal(page("")('.home-career .career-background').text(), '仕事の考え方と、その背景を紹介します。');
+assert.equal(page("")('.home-career .career-overview').text(), 'AI・人間・既存システムの役割を整理し、運用できる仕組みを設計しています。');
+assert.equal(page("")('.home-career .career-background').length, 0);
+assert.equal(page("")('.home-career a').text(), 'キャリアを見る');
 assert.equal(page("")('.home-career .meaning-line').length, 0);
 assert.equal(page("")('.home-career br').length, 0);
 
