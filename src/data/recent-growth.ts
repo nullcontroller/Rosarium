@@ -44,7 +44,7 @@ const curatedRecentGrowth = [
     type: "revised",
     title: "問いに必要な情報から調査経路を選ぶ考え方を改訂",
     changes: [
-      { action: "revised", text: "改訂。AIと人間を能力で比較するのではなく、問いに必要なコンテキストと一次情報への距離から調査経路を選ぶ実務例を追加した", contentIds: ["knowledge-context/context-before-model-performance"] },
+      { action: "revised", text: "改訂。人間とAIが持つコンテキスト・応答特性・検証可能性から調査主体を選び、不足する情報に応じて切り替える考え方を追加した", contentIds: ["knowledge-context/context-before-model-performance"] },
     ],
     category: "Rosarium",
     icon: "updates",

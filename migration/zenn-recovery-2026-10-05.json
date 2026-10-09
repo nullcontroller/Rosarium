@@ -90,9 +90,9 @@
       "restoration": "Existing Rosarium body retained; exact original snapshot saved",
       "local_appendix": {
         "date": "2026-10-09",
-        "reason": "問いに必要な情報と一次情報への距離から、人とAIの調査経路を選ぶ実務例を追記。",
+        "reason": "問いに必要な情報、応答特性、検証可能性を比較し、調査主体を切り替える説明へ改訂。",
         "marker": "### 誰に聞くかではなく、誰が必要なコンテキストを持つか",
-        "sha256": "7de315066c7cdf20413edf625965435f3e9d76a4013d591a7e044d7ab80e93fd"
+        "sha256": "db6699777a2dba04737f75ba0450d092cc27fc475bf4157ff830a2aaa148e885"
       }
     },
     {
