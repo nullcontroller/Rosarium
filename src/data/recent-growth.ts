@@ -39,6 +39,11 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-10", type: "revised", title: "顧客サポートQA事例の業務要求と設計範囲を明確化",
+    changes: [{ action: "revised", text: "改訂。企画で与えられた業務目標と、要件定義・SAで判断するシステム要件・実現方式の境界を明確にした", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/design-principles"] }],
+    category: "Rosarium", icon: "updates",
+  },
+  {
     date: "2026-10-09",
     topic: "コンテキスト設計に関する",
     type: "revised",

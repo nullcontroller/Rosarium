@@ -14,7 +14,7 @@ const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entr
 const pages = walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"));
 const representativeTypes = new Map([
   ["/Rosarium/", "home"], ["/Rosarium/about/", "about"],
-  ["/Rosarium/ai/", "ai"], ["/Rosarium/dx/", "dx"],
+  ["/Rosarium/ai/", "ai"], ["/Rosarium/dx/", "dx"], ["/Rosarium/planning/", "planning"],
   ["/Rosarium/ai-design/knowledge-context/", "theme"], ["/Rosarium/dx/value-design/", "theme"],
   ["/Rosarium/essays/rethink-work-before-ai/", "article"],
   ["/Rosarium/foundations/ai-business-design/", "book"],

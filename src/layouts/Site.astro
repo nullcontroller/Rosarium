@@ -11,7 +11,7 @@ import {
   publicEntry,
 } from "../lib/site";
 import { navigation, navigationItemForPath } from "../lib/navigation";
-const headerNavigation = ["", "ai", "dx", "cases"].map((path) => navigationItemForPath(path)!);
+const headerNavigation = ["", "ai", "dx", "planning", "cases"].map((path) => navigationItemForPath(path)!);
 const retiredNavigation = navigationItemForPath("retired")!;
 import NavIcon from "../components/NavIcon.astro";
 import ReferencePanel from "../components/ReferencePanel.astro";
@@ -253,29 +253,11 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       <div class="header-links">
         <nav class="header-primary" aria-label="主要ページ">
           <div class="header-primary-group">
-          <a href={url(headerNavigation[0].path)} aria-current={section === "" ? "page" : undefined}>
-            {headerNavigation[0].headerLabel ?? headerNavigation[0].title}
-          </a>
-          <a
-            href={url(headerNavigation[1].path)}
-            aria-current={
-              readingSections.has(section || "") ? "page" : undefined
-            }
-          >
-            {headerNavigation[1].headerLabel ?? headerNavigation[1].title}
-          </a>
-          <a
-            href={url(headerNavigation[2].path)}
-            aria-current={section === "dx" ? "page" : undefined}
-          >
-            {headerNavigation[2].headerLabel ?? headerNavigation[2].title}
-          </a>
-          <a
-            href={url(headerNavigation[3].path)}
-            aria-current={section === "cases" ? "page" : undefined}
-          >
-            {headerNavigation[3].headerLabel ?? headerNavigation[3].title}
-          </a>
+          {headerNavigation.map(item => (
+            <a href={url(item.path)} aria-current={(item.path === "ai" ? readingSections.has(section || "") : section === item.path) ? "page" : undefined}>
+              {item.headerLabel ?? item.title}
+            </a>
+          ))}
           </div>
           <a class="mobile-retired-link" aria-label={retiredNavigation.title} href={url(retiredNavigation.path)} aria-current={section === retiredNavigation.path ? "page" : undefined}>
             {retiredNavigation.shortLabel ?? retiredNavigation.title}

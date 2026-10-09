@@ -5,7 +5,7 @@ title: 09. この事例から得た設計原則
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-10-10"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []
@@ -21,7 +21,7 @@ order: 10
 
 ## 1. AIから始めず、価値と業務課題から始める
 
-「RAGを使いたい」から用途を探すのではなく、顧客と担当者へ届けたい価値、変えたい業務、そのために必要なCapabilityの順で考えます。
+企画から与えられた業務目標を起点に、必要なシステムの能力を具体化します。「RAGを使いたい」から業務要求を作るのではなく、その要求を満たす実現方式として技術を比較します。
 
 ## 2. 全自動化を目的にしない
 

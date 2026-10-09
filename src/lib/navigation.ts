@@ -71,9 +71,16 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
     {
       path: "dx",
       title: "DX",
-      summary: "価値・業務変革・システム企画。",
+      summary: "デジタル技術による価値・業務・組織の変化。",
       icon: iconForPath("dx"),
       sections: ["dx", ...dxCategories.map((category) => `dx/${category.id}`)],
+    },
+    {
+      path: "planning",
+      title: "企画",
+      summary: "何を、なぜ、どこまでシステム化するかを決める。",
+      icon: iconForPath("planning"),
+      sections: ["planning"],
     },
     {
       path: "cases",
@@ -291,7 +298,7 @@ const caseStudyEntries: CaseStudy[] = [
     book: "cases/customer-support-ai-dx",
     topics: ["Applied AI / DX", "RAG / HITL / UX"],
     challenge:
-      "定型的な確認や検索にも人手が掛かり、専門判断が必要な問い合わせと同じ流れで対応していた。",
+      "企画から与えられた工数削減・自己解決の目標を、回答と有人対応をつなぐシステム要件へ落とす。",
     designSummary:
       "ナレッジ / RAGと生成AIを組み合わせ、回答条件を満たさない場合は人へ引き継ぐ構成にした。",
     result:

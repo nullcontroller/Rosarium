@@ -17,6 +17,7 @@ export function analyticsMetadata(pathname: string, title: string, entry?: Colle
       : root === "cases" ? "case"
       : root === "books" || root === "series" ? "book"
       : root === "dx" ? slug.includes("/") ? "theme" : "dx"
+      : root === "planning" ? "planning"
       : root === "ai" ? "ai"
       : root === "ai-design" || root === "ai-mathematics" ? "theme" : "index";
   const study = caseStudies.find((study) => slug === study.book || slug.startsWith(`${study.book}/`));
@@ -24,7 +25,7 @@ export function analyticsMetadata(pathname: string, title: string, entry?: Colle
     page_title: data?.title ?? (title === "Home" ? "Rosarium" : title),
     page_path: pathname,
     content_type: contentType,
-    content_domain: contentType === "case" ? "case" : contentType === "career" ? "career" :
+    content_domain: contentType === "case" ? "case" : contentType === "career" ? "career" : root === "planning" ? "planning" :
       data?.primaryCategory || root === "dx" ? "dx" :
       data || ["ai", "ai-design", "ai-mathematics", "practices", "architecture", "foundations", "knowledge-context", "evaluation-hitl", "software-engineering", "essays"].includes(root) ? "ai" : "site",
     primary_category: data?.primaryCategory ?? data?.design_topic ??

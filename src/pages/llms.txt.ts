@@ -18,6 +18,7 @@ export const GET: APIRoute = ({ site }) => {
     link("AI理論", "ai-mathematics"),
     link("実践知", "practices"),
     link("DX", "dx"),
+    link("企画", "planning"),
     link("RSS Feed", "feed.xml"),
     link("JSON Feed", "feed.json"),
     "",

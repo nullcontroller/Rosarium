@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import Site from "../layouts/Site.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { activeEntry, url } from "../lib/site";
+import { isPlanningKnowledge, planningQuestions } from "../lib/planning";
+const articles = (await getCollection("pages", activeEntry)).filter(isPlanningKnowledge);
+const headings = [
+  { depth: 2, slug: "scope", text: "企画で決めること" },
+  { depth: 2, slug: "handoff", text: "企画から要件定義・SAへ" },
+  { depth: 2, slug: "reading", text: "企画の判断を考える" },
+];
+---
+<Site title="企画" section="planning" headings={headings}>
+  <PageHeader alignHero navigationPath="planning" title="企画" eyebrow="SYSTEM PLANNING" />
+  <p>企画の問いは「何を、なぜ、どこまで実現するか」です。業務課題や経営課題を受け、システム化の目的・範囲・業務目標と投資の優先順位を決めます。</p>
+  <p><a href={url("dx")}>DX</a>は業務・価値・組織の変化、<a href={url("ai-design")}>AI設計</a>はAI・人間・既存システムを組み合わせる要件・方式・責任の設計を扱います。企画はDXに限らず、既存業務の改善や継続・廃止の判断にも必要です。</p>
+  <section aria-labelledby="scope">
+    <h2 id="scope">企画で決めること</h2>
+    <ul>{planningQuestions.map(question => <li><strong>{question.title}</strong><p>{question.description}</p></li>)}</ul>
+  </section>
+  <section aria-labelledby="handoff">
+    <h2 id="handoff">企画から要件定義・SAへ</h2>
+    <p>企画 → 業務要求・業務目標 → システム要件 → 実現方式を区別します。企画で与えられた目的・対象・目標を、利用者とシステムの役割、機能・非機能要件、方式、テスト・移行・運用へ具体化するのが要件定義・システムアーキテクチャです。</p>
+    <table><thead><tr><th>層</th><th>顧客サポートQAでの位置付け</th></tr></thead><tbody>
+      <tr><th>企画</th><td>プリンタ事業縮小へ対応し、担当者を8名から6名へ縮小、残業を抑制する方針。</td></tr>
+      <tr><th>業務要求・業務目標</th><td>問い合わせ対応工数を月400時間から300時間以下へ。定型問い合わせ750件のうち600件以上を顧客自身で完結させる。</td></tr>
+      <tr><th>システム要件</th><td>不足情報を追加確認し、回答根拠を取得・提示する。回答困難時は有人対応へ継続し、品質評価とKnowledge更新を可能にする。</td></tr>
+      <tr><th>実現方式</th><td>生成AI、ベクトル検索、RAG、HITL、Knowledge Architectureを比較・設計する。</td></tr>
+    </tbody></table>
+    <p>上の企画方針と業務目標は企画部門から与えられた前提です。<a href={url("cases/customer-support-ai-dx")}>生成AI / RAGによる顧客サポートDX</a>は、その要求をSAとして要件と実現方式へ落とす事例であり、企画実績ではありません。目標値は達成実績を示しません。</p>
+    <p>この流れは固定的な工程順ではありません。現場理解、仮説、プロトタイプ、利用者評価を通じて要求を具体化し、PoCや運用の結果から企画へ戻ることもあります。企画を変更する判断と、実現方法を変更する判断は分けて記録します。</p>
+  </section>
+  <section aria-labelledby="reading">
+    <h2 id="reading">企画の判断を考える</h2>
+    <ul class="dx-featured-articles">{articles.map(entry => <li><h3><a href={url(entry.id)}>{entry.data.title}</a></h3><p>{entry.data.summary}</p></li>)}</ul>
+    <p>現在、公開中の企画事例はありません。この領域では、企画の知識と判断原則を整理しています。</p>
+  </section>
+</Site>

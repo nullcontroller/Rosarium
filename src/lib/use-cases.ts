@@ -1,7 +1,9 @@
+import { isPlanningKnowledge } from "./planning";
 import type { CollectionEntry } from "astro:content";
 
 export type Entry = CollectionEntry<"pages">;
 export type UseCaseId =
+  | "planning"
   | "ai-adoption"
   | "natural-language-services"
   | "software-engineering"
@@ -10,6 +12,13 @@ export type UseCaseId =
   | "career-work";
 
 export const useCases = [
+  {
+    id: "planning", title: "何をシステム化するか考えたい", shortTitle: "企画・対象範囲・投資判断",
+    description: "業務課題・価値・目標から、作るものと作らないものを選び、要件定義へ業務要求を渡します。",
+    path: "planning", home: false,
+    featured: ["essays/it-strategy-and-not-building", "essays/rethink-work-before-ai"],
+    publications: [],
+  },
   {
     id: "ai-adoption",
     title: "AIを業務に使いたい",
@@ -136,6 +145,7 @@ export function contentUseCaseIds(entry: Entry): UseCaseId[] {
   const { data, id } = entry;
   const tags = new Set(data.tags.map((tag) => tag.toLowerCase()));
   const result = new Set<UseCaseId>();
+  if (isPlanningKnowledge(entry)) result.add("planning");
 
   if (
     [

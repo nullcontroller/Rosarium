@@ -158,13 +158,13 @@ assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["庭", "AI", "DX", "実践事例", "旧記事・退役記事"],
+  ["庭", "AI", "DX", "企画", "実践事例", "旧記事・退役記事"],
 );
 assert.deepEqual(
   top(".header-primary a")
     .map((_, e) => top(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "事例", "旧・退役"],
+  ["庭", "AI", "DX", "企画", "事例", "旧・退役"],
 );
 assert.equal(top('.header-primary a[href="/Rosarium/cases/"]').length, 1);
 assert.equal(top('.mobile-retired-link').attr("aria-label"), "旧記事・退役記事");
@@ -182,7 +182,7 @@ for (const secondary of ["詳細職務経歴", "Books", "連載", "Essays"])
     !top(".sidebar nav a .nav-copy > span").text().includes(secondary),
     secondary,
   );
-assert.equal(top(".sidebar .icon").length, 5);
+assert.equal(top(".sidebar .icon").length, 6);
 assert.equal(
   new Set(
     top(".sidebar .icon")
@@ -211,7 +211,7 @@ assert.deepEqual(
   career(".header-primary a")
     .map((_, e) => career(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "事例", "旧・退役"],
+  ["庭", "AI", "DX", "企画", "事例", "旧・退役"],
 );
 assert(career('a[href="/Rosarium/ai/"]').length);
 assert(career('a[href="/Rosarium/dx/"]').length);
