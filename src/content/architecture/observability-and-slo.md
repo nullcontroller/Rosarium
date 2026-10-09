@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-09-28"
 tags:
   - architecture
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/AI%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E3%82%AA%E3%83%96%E3%82%B6%E3%83%BC%E3%83%90%E3%83%93%E3%83%AA%E3%83%86%E3%82%A3%E3%81%A8SLO%E8%A8%AD%E8%A8%88
   original_type: wiki
   slug: AIシステムのオブザーバビリティとSLO設計
   topics: []
+publication_date_basis: fallback
 ---
 ## AIシステムのオブザーバビリティとSLO設計
 

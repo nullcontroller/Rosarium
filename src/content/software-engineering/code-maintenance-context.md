@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-10-08"
 tags:
   - software-engineering
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/%E3%81%AA%E3%81%9CAI%E3%81%AF%E6%96%B0%E8%A6%8F%E3%82%B3%E3%83%BC%E3%83%89%E3%82%88%E3%82%8A%E3%82%B3%E3%83%BC%E3%83%89%E4%BF%9D%E5%AE%88%E3%81%AB%E5%BC%B7%E3%81%84%E3%81%AE%E3%81%8B
   original_type: wiki
   slug: なぜAIは新規コードよりコード保守に強いのか
   topics: []
+publication_date_basis: fallback
 ---
 ## なぜAIは新規コードよりコード保守に強いのか
 

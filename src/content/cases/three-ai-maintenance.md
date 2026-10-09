@@ -18,7 +18,7 @@ tags: &a1
   - オーケストレーション
   - hitl
   - 保守開発
-published_at: null
+published_at: "2026-07"
 updated_at: "2026-09-22"
 canonical: https://zenn.dev/nullcontroller/books/b9a9feaefb4001
 source:

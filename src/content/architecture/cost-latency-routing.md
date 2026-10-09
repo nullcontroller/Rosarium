@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-10-04"
 tags:
   - architecture
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/AI%E3%82%B3%E3%82%B9%E3%83%88%E3%83%BBLatency%E3%83%BB%E3%83%A2%E3%83%87%E3%83%AB%E3%83%AB%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E8%A8%AD%E8%A8%88
   original_type: wiki
   slug: AIコスト・Latency・モデルルーティング設計
   topics: []
+publication_date_basis: fallback
 ---
 ## AIコスト・Latency・モデルルーティング設計
 

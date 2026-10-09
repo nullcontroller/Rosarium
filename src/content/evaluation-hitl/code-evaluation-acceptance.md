@@ -9,7 +9,7 @@ status: published
 last_updated: "2026-10-04"
 tags:
   - evaluation-hitl
-published_at: null
+published_at: "2026-09-23"
 updated_at: "2026-09-22"
 source:
   type: wiki
@@ -17,6 +17,7 @@ source:
   original_type: wiki
   slug: コード生成AIの評価と採用設計
   topics: []
+publication_date_basis: fallback
 ---
 ## コード生成AIの評価と採用設計
 

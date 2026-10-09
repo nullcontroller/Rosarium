@@ -101,7 +101,11 @@ for (const record of report.entries) {
   verifyRecoveredBody(raw.slice(match[0].length), record, integratedEntries.has(record.destination) && record.local_appendix ? record.local_appendix.date : data.last_updated);
   const lifecycle = integratedEntries.has(record.destination) ? "RETIRED" : record.lifecycle;
   assert.equal(data.lifecycle, lifecycle.toLowerCase());
-  assert.equal(data.published_at ?? null, record.original_published_at);
+  if (record.original_published_at) assert.equal(data.published_at, record.original_published_at);
+  else if (data.publication_date_basis === "fallback") {
+    assert.equal(data.published_at, "2026-09-23");
+    assert.equal(data.source?.published_at ?? data.source?.publication_month ?? null, null);
+  } else assert.equal(data.published_at ?? null, data.source?.published_at ?? data.source?.publication_month ?? null);
   assert.equal(publishedEntry({ data }), true);
   const html = fs.readFileSync(`dist/${record.destination}/index.html`, "utf8");
   const $ = load(html);

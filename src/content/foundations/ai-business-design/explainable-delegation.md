@@ -17,7 +17,7 @@ tags: &a1
   - aiエージェント
   - hitl
   - aiガバナンス
-published_at: null
+published_at: "2026-09-23"
 canonical: https://zenn.dev/nullcontroller/books/76ed12dcc7e5d7/view/146efb
 source:
   type: zenn
@@ -38,6 +38,7 @@ series_title: 『生成AIを業務へ組み込む設計原則 ― AI・人間・
 order: 4
 updated_at: "2026-10-08"
 update_type: revised
+publication_date_basis: fallback
 ---
 
 ## 第4章　説明できない仕事を、AIに任せてはいけない

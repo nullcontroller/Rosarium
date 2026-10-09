@@ -9,7 +9,7 @@ status: published
 last_updated: "2026-10-08"
 tags:
   - software-engineering
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/%E8%A4%87%E6%95%B0AI%E3%81%AE%E5%BD%B9%E5%89%B2%E5%88%86%E6%8B%85%E3%81%A8%E5%B7%A5%E7%A8%8B%E8%A8%AD%E8%A8%88
@@ -18,6 +18,7 @@ source:
   topics: []
 updated_at: "2026-10-08"
 update_type: revised
+publication_date_basis: fallback
 ---
 ## 複数AIの役割分担と工程設計
 

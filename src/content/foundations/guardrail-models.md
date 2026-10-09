@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-10-08"
 tags:
   - foundations
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/%E3%82%AC%E3%83%BC%E3%83%89%E3%83%AC%E3%83%BC%E3%83%AB%E3%81%AE%E6%95%B0%E5%AD%A6%E7%9A%84%E8%AA%AC%E6%98%8E
   original_type: wiki
   slug: ガードレールの数学的説明
   topics: []
+publication_date_basis: fallback
 ---
 ## ガードレールの数学的説明
 

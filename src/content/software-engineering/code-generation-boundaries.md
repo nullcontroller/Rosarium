@@ -11,7 +11,7 @@ lifecycle_reason: "コード変更の委任・検証・反映権限を開発工�
 last_updated: "2026-10-08"
 tags:
   - software-engineering
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/%E3%82%B3%E3%83%BC%E3%83%89%E7%94%9F%E6%88%90%E3%82%92%E4%BD%BF%E3%81%86%E3%81%B9%E3%81%8D%E5%A0%B4%E6%89%80
@@ -20,6 +20,7 @@ source:
   topics: []
 updated_at: "2026-10-08"
 update_type: revised
+publication_date_basis: fallback
 ---
 ## コード生成を使うべき場所
 

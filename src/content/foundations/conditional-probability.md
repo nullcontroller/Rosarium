@@ -8,7 +8,7 @@ status: published
 last_updated: "2026-10-04"
 tags:
   - foundations
-published_at: null
+published_at: "2026-09-23"
 updated_at: "2026-09-22"
 source:
   type: wiki
@@ -16,6 +16,7 @@ source:
   original_type: wiki
   slug: 生成AIの条件付き確率モデル基礎
   topics: []
+publication_date_basis: fallback
 ---
 ## 生成AIの条件付き確率モデル基礎
 

@@ -14,7 +14,7 @@ tags: &a1
   - リファクタリング
   - レガシー
   - rag
-published_at: null
+published_at: "2026-03"
 canonical: https://zenn.dev/nullcontroller/books/db491398459cbc/view/175772
 source:
   type: zenn

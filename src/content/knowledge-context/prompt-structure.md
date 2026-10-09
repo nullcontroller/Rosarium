@@ -9,7 +9,7 @@ status: published
 last_updated: "2026-10-08"
 tags:
   - knowledge-context
-published_at: null
+published_at: "2026-09-23"
 updated_at: "2026-09-22"
 source:
   type: wiki
@@ -17,6 +17,7 @@ source:
   original_type: wiki
   slug: プロンプト設計の基本構造
   topics: []
+publication_date_basis: fallback
 ---
 ## プロンプト設計の基本構造
 

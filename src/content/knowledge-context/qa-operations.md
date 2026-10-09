@@ -9,7 +9,7 @@ status: published
 last_updated: "2026-10-08"
 tags:
   - knowledge-context
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/QA%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E9%81%8B%E7%94%A8%E6%80%9D%E6%83%B3
@@ -18,6 +18,7 @@ source:
   topics: []
 updated_at: "2026-10-08"
 update_type: revised
+publication_date_basis: fallback
 ---
 ## QAチャット運用思想
 

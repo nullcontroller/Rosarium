@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-10-04"
 tags:
   - evaluation-hitl
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/QA%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E8%A9%95%E4%BE%A1%E8%A8%AD%E8%A8%88%E6%80%9D%E6%83%B3
   original_type: wiki
   slug: QAチャット評価設計思想
   topics: []
+publication_date_basis: fallback
 ---
 ## QAチャット評価設計思想
 

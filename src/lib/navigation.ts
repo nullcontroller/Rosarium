@@ -1,3 +1,4 @@
+import { publicationDate as resolvePublicationDate } from "./publication-date";
 import type { CollectionEntry } from "astro:content";
 import { label } from "./site";
 import { iconForPath } from "./icons";
@@ -161,20 +162,13 @@ export const isPublication = (e: Entry) =>
   !!e.data.publication_format ||
   (e.data.layer === "publication" && (!e.data.series || e.data.order === 0));
 export const publicationTiming = (e: Entry) => {
-  if (e.data.published_at)
-    return {
-      label: "公開",
-      value: e.data.published_at.slice(0, 10),
-      datetime: e.data.published_at,
-    };
-  const month = e.data.source?.publication_month;
-  const match = month?.match(/^(\d{4})-(\d{2})$/);
-  if (match)
-    return {
-      label: "公開",
-      value: `${match[1]}年${Number(match[2])}月`,
-    };
-  return { label: "公開", value: "公開時期未確認" };
+  const date = resolvePublicationDate(e.data);
+  const month = date.match(/^(\d{4})-(\d{2})$/);
+  return {
+    label: "公開",
+    value: month ? `${month[1]}年${Number(month[2])}月` : date,
+    datetime: date,
+  };
 };
 export const publicationStatus = (e: Entry) =>
   e.data.publication_status

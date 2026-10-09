@@ -17,7 +17,7 @@ tags: &a1
   - aiエージェント
   - hitl
   - aiガバナンス
-published_at: null
+published_at: "2026-08"
 canonical: https://zenn.dev/nullcontroller/books/76ed12dcc7e5d7/view/62ecee
 source:
   type: zenn

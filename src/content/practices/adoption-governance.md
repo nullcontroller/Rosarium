@@ -18,6 +18,8 @@ tags:
   - Governance
 updated_at: "2026-10-08"
 update_type: revised
+published_at: "2026-09-23"
+publication_date_basis: fallback
 ---
 
 AI導入は、利用可能なツールを増やすだけでは定着しない。対象業務の目的、AIへ委ねる範囲、人間が判断する条件、失敗時の扱いを一つの運用として設計する必要がある。

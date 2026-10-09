@@ -17,6 +17,8 @@ tags:
   - Capability
 updated_at: "2026-10-08"
 update_type: revised
+published_at: "2026-09-23"
+publication_date_basis: fallback
 ---
 
 AI教育では、製品の操作方法だけを教えても、別の業務や別のモデルへ知識を移しにくい。変化しにくい原則と、更新が必要な実践知を分けて扱う。

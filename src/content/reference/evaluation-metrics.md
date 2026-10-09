@@ -9,6 +9,8 @@ last_updated: "2026-10-04"
 order: 30
 tags: [Evaluation, RAG]
 updated_at: "2026-09-22"
+published_at: "2026-09-23"
+publication_date_basis: fallback
 ---
 
 ## 評価指標リファレンス

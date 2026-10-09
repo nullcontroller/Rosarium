@@ -14,7 +14,7 @@ primaryCategory: value-design
 secondaryCategories: [selection-retirement]
 tags:
   - foundations
-published_at: null
+published_at: "2026-09-23"
 updated_at: "2026-10-08"
 update_type: revised
 update_note: "価値・リスク・検証可能性・権限・復旧から、必要な最小の委任範囲を選ぶ観点を整理した"
@@ -24,6 +24,7 @@ source:
   original_type: wiki
   slug: AI適用可否と委任レベルの設計
   topics: []
+publication_date_basis: fallback
 ---
 ## AI適用可否と委任レベルの設計
 

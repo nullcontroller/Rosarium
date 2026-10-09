@@ -8,7 +8,7 @@ status: published
 last_updated: "2026-09-22"
 tags:
   - foundations
-published_at: null
+published_at: "2026-09-23"
 updated_at: "2026-09-22"
 source:
   type: wiki
@@ -16,6 +16,7 @@ source:
   original_type: wiki
   slug: 用語・数式索引
   topics: []
+publication_date_basis: fallback
 ---
 設計で使う語、数式、評価指標、責任状態を、目的別のReferenceへ整理している。
 

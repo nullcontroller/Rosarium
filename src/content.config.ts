@@ -68,6 +68,7 @@ const pages = defineCollection({
       secondaryCategories: z.array(dxCategory).default([]),
       featuredInCategory: z.boolean().default(false),
       published_at: z.string().nullable().optional(),
+      publication_date_basis: z.enum(["fallback"]).optional(),
       updated_at: z.string().nullable().optional(),
       update_type: z
         .enum([

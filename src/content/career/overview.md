@@ -9,6 +9,8 @@ source:
   type: repository
   url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/career/overview.md
   commit: "ae8d6b5be128f332ba6a7be4e158cde1f8a937d4"
+published_at: "2026-09-23"
+publication_date_basis: fallback
 ---
 
 ## 何をする人か

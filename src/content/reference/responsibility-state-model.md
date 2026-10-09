@@ -9,6 +9,8 @@ last_updated: "2026-09-22"
 order: 40
 tags: [責任境界, HITL]
 updated_at: "2026-09-22"
+published_at: "2026-09-23"
+publication_date_basis: fallback
 ---
 
 ## 責任境界・状態モデル

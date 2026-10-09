@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-10-04"
 tags:
   - knowledge-context
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/%E4%BA%BA%E5%90%91%E3%81%91%E8%B3%87%E6%96%99%E3%81%A8AI%E5%90%91%E3%81%91%E8%B3%87%E6%96%99%E3%81%AE%E5%88%86%E9%9B%A2%E8%A8%AD%E8%A8%88
   original_type: wiki
   slug: 人向け資料とAI向け資料の分離設計
   topics: []
+publication_date_basis: fallback
 ---
 ## 人向け資料とAI向け資料の分離設計
 

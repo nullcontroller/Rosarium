@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-09-28"
 tags:
   - architecture
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/%E7%94%9F%E6%88%90AI%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%81%A8%E8%84%85%E5%A8%81%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0
   original_type: wiki
   slug: 生成AIセキュリティと脅威モデリング
   topics: []
+publication_date_basis: fallback
 ---
 ## 生成AIセキュリティと脅威モデリング
 

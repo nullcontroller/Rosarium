@@ -8,13 +8,14 @@ status: published
 last_updated: "2026-10-04"
 tags:
   - foundations
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/Temperature%E8%A8%AD%E8%A8%88%E6%8C%87%E9%87%9D
   original_type: wiki
   slug: Temperature設計指針
   topics: []
+publication_date_basis: fallback
 ---
 ## Temperature設計指針
 

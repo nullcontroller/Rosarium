@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-10-04"
 tags:
   - knowledge-context
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/Instruction%E3%83%BBKnowledge%E3%83%BBEvidence%E3%81%AE%E8%B2%AC%E5%8B%99%E5%88%86%E9%9B%A2
   original_type: wiki
   slug: Instruction・Knowledge・Evidenceの責務分離
   topics: []
+publication_date_basis: fallback
 ---
 ## Instruction・Knowledge・Evidenceの責務分離
 

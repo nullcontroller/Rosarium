@@ -13,7 +13,7 @@ test("publication starts history and preserves original date precision", () => {
   assert(events[1].text.includes("実務経験"));
   assert.equal(contentHistory("example/article", { published_at: "2026-08-22 10:28" })[0].date, "2026-08-22");
   assert.equal(contentHistory("example/article", {})[0].date, "2026-09-23");
-  assert.equal(contentHistory("career/overview", { layer: "career" })[0].date, null, "Career content remains unchanged");
+  assert.equal(contentHistory("career/overview", { layer: "career" })[0].date, "2026-09-23", "Career uses the common operational fallback");
   assert.equal(contentHistory("example/article", { source: { published_at: "2026-06-10" } })[0].date, "2026-06-10");
 });
 
@@ -56,3 +56,9 @@ test("Home includes today through day 29, excluding future, old and month-only d
   assert(inRecentWindow("2024-02-29", "2024-03-29"));
   assert.equal(japanToday(new Date("2026-10-07T15:00:00Z")), "2026-10-08");
 });
+
+ test("confirmed source dates supersede operational fallback without changing revisions", () => {
+  const data = { published_at: "2026-09-23", publication_date_basis: "fallback", source: { published_at: "2026-08-15 08:42" } };
+  assert.equal(contentHistory("example/article", data)[0].date, "2026-08-15");
+  assert.equal(contentHistory("example/article", { ...data, published_at: "2026-07-01", publication_date_basis: undefined })[0].date, "2026-07-01");
+ });

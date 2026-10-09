@@ -14,7 +14,7 @@ primaryCategory: system-transformation
 secondaryCategories: []
 tags:
   - architecture
-published_at: null
+published_at: "2026-09-23"
 updated_at: "2026-10-08"
 source:
   type: wiki
@@ -23,6 +23,7 @@ source:
   slug: AI業務システムの参照アーキテクチャ
   topics: []
 update_type: revised
+publication_date_basis: fallback
 ---
 ## AI業務システムの参照アーキテクチャ
 

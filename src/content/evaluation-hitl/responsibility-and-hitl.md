@@ -14,7 +14,7 @@ primaryCategory: system-transformation
 secondaryCategories: []
 tags:
   - evaluation-hitl
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/AI%E5%87%BA%E5%8A%9B%E3%81%AE%E8%B2%AC%E4%BB%BB%E5%A2%83%E7%95%8C%E3%81%A8HITL
@@ -23,6 +23,7 @@ source:
   topics: []
 updated_at: "2026-10-08"
 update_type: revised
+publication_date_basis: fallback
 ---
 
 ## AI出力の責任境界とHITL

@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-10-04"
 tags:
   - knowledge-context
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/QA%E8%A1%8C%E5%8B%95%E5%88%B6%E7%B4%84Knowledge
   original_type: wiki
   slug: QA行動制約Knowledge
   topics: []
+publication_date_basis: fallback
 ---
 ## QA行動制約Knowledge
 

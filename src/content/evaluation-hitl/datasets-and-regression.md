@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-09-28"
 tags:
   - evaluation-hitl
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/AI%E8%A9%95%E4%BE%A1%E3%83%87%E3%83%BC%E3%82%BF%E3%82%BB%E3%83%83%E3%83%88%E3%81%A8%E5%9B%9E%E5%B8%B0%E8%A9%95%E4%BE%A1%E8%A8%AD%E8%A8%88
   original_type: wiki
   slug: AI評価データセットと回帰評価設計
   topics: []
+publication_date_basis: fallback
 ---
 ## AI評価データセットと回帰評価設計
 

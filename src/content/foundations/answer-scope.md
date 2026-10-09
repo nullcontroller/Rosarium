@@ -9,13 +9,14 @@ status: published
 last_updated: "2026-10-04"
 tags:
   - foundations
-published_at: null
+published_at: "2026-09-23"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/%E3%81%AA%E3%81%9C%E5%9B%9E%E7%AD%94%E7%AF%84%E5%9B%B2%E3%82%92%E5%88%B6%E9%99%90%E3%81%97%E3%81%9F%E6%96%B9%E3%81%8C%E3%82%88%E3%81%84%E3%81%AE%E3%81%8B
   original_type: wiki
   slug: なぜ回答範囲を制限した方がよいのか
   topics: []
+publication_date_basis: fallback
 ---
 ## なぜ回答範囲を制限した方がよいのか
 
