@@ -875,7 +875,7 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html") && !file
       .some((node) => /^(関連する入口|関連する設計(?:原則|知識)?|関連する記事・設計|関連記事|関連テーマ|Next|Related|Explore)$/.test($(node).text().trim())),
     file,
   );
-  assert(!$("main a[href]").toArray().some((node) => /→\s*$/.test($(node).text().trim())), `${file}: no arrow CTA`);
+  assert(!$("main a[href]").toArray().some((node) => !$(node).closest(".home-career").length && /→\s*$/.test($(node).text().trim())), `${file}: no arrow CTA`);
 }
 console.log(
   "Verified absence of automatic related sections and next-reading headings.",
@@ -961,9 +961,9 @@ for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "
 }
 assert.equal(page("about")('main h2').filter((_, node) => page("about")(node).text() === "次に読む").length, 0);
 assert.equal(page("about")('main a[href="/Rosarium/"]').text(), "庭に戻る");
-assert.equal(page("")('.home-career .career-overview').text(), 'AI・人間・既存システムの役割を整理し、運用できる仕組みを設計しています。');
+assert.equal(page("")('.home-career .career-overview').text(), 'AI・人間・既存システムの役割を整理し、業務要求から要件・設計・運用までをつなぐ仕組みを考えています。仕事の考え方と専門性を紹介します。');
 assert.equal(page("")('.home-career .career-background').length, 0);
-assert.equal(page("")('.home-career a').text(), 'キャリアを見る');
+assert.equal(page("")('.home-career a').text(), 'キャリアを見る →');
 assert.equal(page("")('.home-career .meaning-line').length, 0);
 assert.equal(page("")('.home-career br').length, 0);
 

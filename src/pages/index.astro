@@ -24,8 +24,8 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
     </PageHeader>
     <aside class="home-career" aria-labelledby="home-career-heading">
       <h2 class="eyebrow" id="home-career-heading">PROFILE / CAREER</h2>
-      <p class="career-overview">AI・人間・既存システムの役割を整理し、運用できる仕組みを設計しています。</p>
-      <a class="cta-link" href={url("career")}>キャリアを見る</a>
+      <p class="career-overview">AI・人間・既存システムの役割を整理し、業務要求から要件・設計・運用までをつなぐ仕組みを考えています。仕事の考え方と専門性を紹介します。</p>
+      <a class="cta-link" href={url("career")}>キャリアを見る <span aria-hidden="true">→</span></a>
     </aside>
   </div>
 
@@ -67,14 +67,17 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 </script>
 
 <style>
-  .home-hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) 18rem; gap: 1.5rem; align-items: end; margin-bottom: 1.3rem; }
+  .home-hero-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 1.5rem; align-items: stretch; margin-bottom: 1.3rem; }
   .home-hero-layout :global(.page-heading) { min-width: 0; margin-bottom: 0; }
-  .home-career { min-width: 0; padding: .75rem 1rem; border: 1px solid var(--line); border-radius: var(--home-panel-radius, .35rem); background: var(--home-panel-surface, var(--surface)); }
-  .home-career h2 { margin: 0; font-size: .75rem; }
-  .home-career p { margin-block: .5rem .25rem; color: var(--muted); font-size: .875rem; line-height: 1.65; }
-  .home-career a { display: inline-flex; align-items: center; min-height: 44px; font-size: .875rem; }
+  .home-career { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 1.125rem 1.375rem; border: 1px solid var(--aux-border); border-radius: var(--home-panel-radius, .35rem); background: color-mix(in srgb, var(--home-panel-surface, var(--surface)) 94%, var(--accent)); }
+  .home-career h2 { margin: 0; font-size: .875rem; letter-spacing: .12em; }
+  .home-career p { margin-block: .75rem .5rem; color: var(--muted); font-size: .95rem; line-height: 1.65; }
+  .home-career a { display: inline-flex; align-items: center; align-self: flex-start; gap: .5rem; min-height: 44px; color: var(--accent); font-size: .95rem; font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .25em; }
+  .home-career:hover, .home-career:focus-within { border-color: var(--accent); }
+  .home-career a:hover { color: var(--ink); }
   @media (max-width: 800px) {
     .home-hero-layout { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+    .home-career { padding: 1rem; }
   }
 
   .home-growth-history {
