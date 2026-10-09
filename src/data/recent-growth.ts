@@ -39,8 +39,11 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
-    date: "2026-10-10", type: "revised", title: "顧客サポートQA事例の業務要求と設計範囲を明確化",
-    changes: [{ action: "revised", text: "改訂。企画で与えられた業務目標と、要件定義・SAで判断するシステム要件・実現方式の境界を明確にした", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/design-principles"] }],
+    date: "2026-10-10", type: "revised", title: "企画の判断領域と、今後深めたい専門性を整理",
+    changes: [{ action: "revised", text: "改訂。企画で与えられた業務目標と、要件定義・SAで判断するシステム要件・実現方式の境界を明確にした", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/design-principles"] },
+      "システム企画の領域を新設し、価値発見・業務要求と要件定義・システムアーキテクチャの境界を整理した",
+      { action: "revised", text: "改訂。価値発見と業務要求の定義を、今後深めたい専門領域として明確にした", contentIds: ["career/overview"] }],
+    summaryChanges: ["システム企画の領域を新設", "Careerを1件改訂", "Caseを3件改訂"],
     category: "Rosarium", icon: "updates",
   },
   {

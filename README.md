@@ -11,6 +11,8 @@ MarkdownをGitで管理し、レビュー・検証を経てAstroから静的HTML
 中心テーマ：Applied AI / System Architecture / Knowledge・Context / Evaluation・HITL / AI-Assisted Software Engineering / AI System Lifecycle。
 既存システムの改善・モダナイゼーションは、設計原則を適用した実務事例として扱います。
 
+価値発見と業務要求の定義を、今後深めたい専門領域として[企画](https://nullcontroller.github.io/Rosarium/planning/#purpose)に整理しています。現在の実務実績とは区別して扱います。
+
 ## 領域の境界
 
 - **企画**：何を、なぜ、どこまでシステム化するか。業務課題、価値・KPI、対象と対象外、投資・優先順位を決め、業務要求を要件定義へ渡します。

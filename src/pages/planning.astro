@@ -2,19 +2,36 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
+import ContentHistory from "../components/ContentHistory.astro";
 import { activeEntry, url } from "../lib/site";
-import { isPlanningKnowledge, planningQuestions } from "../lib/planning";
+import { isPlanningKnowledge, planningQuestions, planningPublishedAt } from "../lib/planning";
 const articles = (await getCollection("pages", activeEntry)).filter(isPlanningKnowledge);
 const headings = [
+  { depth: 2, slug: "purpose", text: "価値発見と業務要求を、専門領域として深めたい" },
+  { depth: 2, slug: "field-work", text: "現場での具体化と、企画の問い" },
   { depth: 2, slug: "scope", text: "企画で決めること" },
   { depth: 2, slug: "handoff", text: "企画から要件定義・SAへ" },
   { depth: 2, slug: "reading", text: "企画の判断を考える" },
 ];
 ---
-<Site title="企画" section="planning" headings={headings}>
+<Site title="企画" section="planning" publishedAt={planningPublishedAt} headings={headings}>
   <PageHeader alignHero navigationPath="planning" title="企画" eyebrow="SYSTEM PLANNING" />
   <p>企画の問いは「何を、なぜ、どこまで実現するか」です。業務課題や経営課題を受け、システム化の目的・範囲・業務目標と投資の優先順位を決めます。</p>
   <p><a href={url("dx")}>DX</a>は業務・価値・組織の変化、<a href={url("ai-design")}>AI設計</a>はAI・人間・既存システムを組み合わせる要件・方式・責任の設計を扱います。企画はDXに限らず、既存業務の改善や継続・廃止の判断にも必要です。</p>
+  <ContentHistory id="planning" data={{ published_at: planningPublishedAt }} />
+  <section aria-labelledby="purpose">
+    <h2 id="purpose">価値発見と業務要求を、専門領域として深めたい</h2>
+    <p>私は、与えられた課題をどうシステム化するかだけでなく、そもそも何を変える価値があるのかを見つけるところから関わりたいと考えています。そのためRosariumでは、企画を独立した知識・判断の領域として設けました。</p>
+    <p>利用者・事業・組織にとっての価値を確かめ、どの業務課題を優先するか、何を変え、何を変えないかを決める。その判断を業務要求とシステム化範囲にまとめ、要件定義へ渡す仕事を、今後の専門領域として深めたいと思っています。</p>
+    <p>価値 → 業務課題 → 業務要求 → システム化範囲 → 要件定義 → システムアーキテクチャ → 実装・検証 → 運用・改善、というつながりを考えます。技術検証や利用者評価の結果から、価値や要求を見直す反復も含みます。</p>
+    <p>出発点は「AIで何を作れるか」ではありません。「何を変える価値があるか」を確かめた後で、AI、既存システム、通常のソフトウェア、業務手順や人間の役割の変更、システムを作らない選択を比較します。AIを使わないことも、企画の正式な判断です。</p>
+    <p>ここで示すのは、今後深めたい知識と判断領域です。現在、私がシステム企画を担当した公開可能な実務Caseはありません。将来、実際の企画判断を公開できるようになったときの受け皿としても育てていきます。</p>
+  </section>
+  <section aria-labelledby="field-work">
+    <h2 id="field-work">現場での具体化と、企画の問い</h2>
+    <p>FDE的な仕事には、現場理解、課題把握、プロトタイプ、利用者評価、要求具体化、実装・改善が含まれます。ここでは「現場課題をどう具体化し、どう実装・改善するか」という問いとして捉えます。</p>
+    <p>企画で強調したい問いは「そもそも何を変える価値があり、何を業務要求として定義するか」です。目指す業務成果、KPI、優先順位、今回の範囲と対象外を決めます。現場での具体化と重なる部分もありますが、職種の優劣ではなく、主に扱う判断の違いとして区別します。</p>
+  </section>
   <section aria-labelledby="scope">
     <h2 id="scope">企画で決めること</h2>
     <ul>{planningQuestions.map(question => <li><strong>{question.title}</strong><p>{question.description}</p></li>)}</ul>

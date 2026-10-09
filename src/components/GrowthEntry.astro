@@ -14,9 +14,11 @@ interface Props { entry: RecentGrowthItem; }
 const { entry } = Astro.props;
 const cases = new Set<string>();
 for (const id of entry.changes.flatMap(growthChangeTargets)) {
-  const content = await getEntry("pages", id);
+  const content = id.startsWith("career/")
+    ? await getEntry("career", id.slice("career/".length))
+    : await getEntry("pages", id);
   if (!content || !publishedEntry(content)) throw new Error("History target is not published: " + id);
-  if (content.data.kind === "case" || content.data.layer === "case" || content.data.section === "cases") cases.add(id);
+  if ("kind" in content.data && (content.data.kind === "case" || content.data.layer === "case" || content.data.section === "cases")) cases.add(id);
 }
 const summaries = growthSummary(entry, id => cases.has(id));
 ---
