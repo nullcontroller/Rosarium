@@ -31,7 +31,7 @@ for (const file of htmlFiles) {
   assert.ok(description, `Missing description: ${file}`);
   assert.ok(
     canonical?.startsWith(
-      "https://nullcontroller.github.io/Rosarium/",
+      "https://rosarium-tech.com/",
     ),
     `Invalid canonical: ${file}`,
   );
@@ -120,7 +120,7 @@ for (const canonical of indexable)
   );
 for (const route of ["search/", "overview/", "books/", "series/", "404.html"])
   assert.ok(
-    !sitemap.includes(`/Rosarium/${route}`),
+    !sitemap.includes(`/${route}`),
     `Sitemap contains noindex route: ${route}`,
   );
 assert.ok(sitemap.startsWith('<?xml version="1.0"'), "Invalid sitemap XML");
@@ -131,7 +131,7 @@ const overview = load(fs.readFileSync("dist/overview/index.html", "utf8"));
 const notFound = load(fs.readFileSync("dist/404.html", "utf8"));
 assert.match(search('meta[name="robots"]').attr("content") || "", /noindex/);
 assert(!about('meta[name="robots"]').attr("content")?.includes("noindex"));
-assert.equal(about('link[rel="canonical"]').attr("href"), "https://nullcontroller.github.io/Rosarium/about/");
+assert.equal(about('link[rel="canonical"]').attr("href"), "https://rosarium-tech.com/about/");
 assert.equal(about('meta[http-equiv="refresh"]').length, 0);
 assert.match(overview('meta[name="robots"]').attr("content") || "", /noindex/);
 assert.match(notFound('meta[name="robots"]').attr("content") || "", /noindex/);
@@ -141,7 +141,7 @@ assert.match(robotsFile, /User-agent: \*/);
 assert.match(robotsFile, /Allow: \//);
 assert.match(
   robotsFile,
-  /Sitemap: https:\/\/nullcontroller\.github\.io\/Rosarium\/sitemap\.xml/,
+  /Sitemap: https:\/\/rosarium-tech\.com\/sitemap\.xml/,
 );
 
 for (const name of ["feed.xml", "rss.xml"]) {
@@ -194,9 +194,9 @@ console.log(
 // Retired catalogs keep their URLs as noindex redirects to authoritative entrances.
 for (const [route, destination] of [["practices/ai-education-principles","practices/education-and-capability"], ["practices/transferring-ai-practices","practices/transferring-practices"], ["essays/what-not-to-build-with-ai","essays/it-strategy-and-not-building"], ["architecture/agents-tools-and-workflows","software-engineering/multi-ai-orchestration"], ["foundations/generation-and-acceptance","evaluation-hitl/responsibility-and-hitl"], ["cases/understanding-systems-as-capability","cases/system-understanding"], ["software-engineering/ai-driven-development", "software-engineering/development-workflow"], ["software-engineering/code-generation-and-work-design", "software-engineering/development-workflow"], ["software-engineering/code-generation-boundaries", "software-engineering/development-workflow"], ["books", "cases"], ["series", "dx/business-transformation"], ["practices/ai-generation-and-work-completion", "foundations/ai-business-design/evaluating-business-efficiency"]]) {
   const $ = load(fs.readFileSync("dist/" + route + "/index.html", "utf8"));
-  const target = "/Rosarium/" + destination + "/";
+  const target = "/" + destination + "/";
   assert.match($('meta[name="robots"]').attr("content") || "", /noindex/);
-  assert.equal($('link[rel="canonical"]').attr("href"), "https://nullcontroller.github.io" + target);
+  assert.equal($('link[rel="canonical"]').attr("href"), "https://rosarium-tech.com" + target);
   assert.equal($('meta[http-equiv="refresh"]').attr("content"), "0;url=" + target);
   assert.equal($("main a[href]").first().attr("href"), target);
   assert.equal($("[data-series-index]").length, 0);
@@ -222,7 +222,7 @@ assert.equal(websites.length, 1);
 assert.equal(websites[0].author["@id"], people[0]["@id"]);
 assert.equal(websites[0].publisher["@id"], people[0]["@id"]);
 assert.equal(websites[0].name, "Rosarium");
-assert.equal(websites[0].url, "https://nullcontroller.github.io/Rosarium/");
+assert.equal(websites[0].url, "https://rosarium-tech.com/");
 assert.equal(people[0].name.replace(/\s/g, ""), "立林裕太朗");
-assert.equal(people[0].url, "https://nullcontroller.github.io/Rosarium/career/");
+assert.equal(people[0].url, "https://rosarium-tech.com/career/");
 console.log("Verified Home brand identity, social metadata and single author relationship.");

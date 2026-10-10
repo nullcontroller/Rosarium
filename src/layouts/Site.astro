@@ -89,7 +89,7 @@ const analyticsPage = analyticsMetadata(Astro.url.pathname, analyticsTitle, anal
 const documentTitle =
   title === "Home" ? "Rosarium | 立林 裕太朗" : `${title} | Rosarium`;
 const canonicalUrl = canonical?.startsWith(
-  "https://nullcontroller.github.io/Rosarium/",
+  "https://rosarium-tech.com/",
 )
   ? canonical
   : new URL(Astro.url.pathname, Astro.site).toString();

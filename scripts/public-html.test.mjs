@@ -7,7 +7,7 @@ test("publication links resolve locally while unavailable source links retain co
   const map = new Map([
     [
       normalizeSourceUrl("https://zenn.dev/nullcontroller/articles/abc"),
-      "/Rosarium/essays/example/",
+      "/essays/example/",
     ],
   ]);
   const $ = load(
@@ -19,7 +19,7 @@ test("publication links resolve locally while unavailable source links retain co
   assert.equal($("a").length, 2);
   assert.equal(
     $("a").first().attr("href"),
-    "/Rosarium/essays/example/",
+    "/essays/example/",
   );
   assert.equal($("em").text(), "参考資料");
   assert($.text().includes("別資料"));
@@ -28,10 +28,17 @@ test("publication links resolve locally while unavailable source links retain co
 test("career links become local and removed routes cannot remain clickable", () => {
   const $ = load(
     publicHtml(
-      '<a href="https://nullcontroller.github.io/career-profile/profile/">詳細</a><a href="/Rosarium/project/journal/test/">記録</a><a href="/Rosarium/foundations/wiki-overview/">概要</a>',
+      '<a href="https://nullcontroller.github.io/career-profile/profile/">詳細</a><a href="/project/journal/test/">記録</a><a href="/foundations/wiki-overview/">概要</a>',
     ),
   );
   assert.equal($("a").length, 1);
-  assert.equal($("a").attr("href"), "/Rosarium/career/");
+  assert.equal($("a").attr("href"), "/career/");
   assert($.text().includes("記録"));
+});
+
+test("raw HTML diagram sources and source sets use domain-root assets", () => {
+  const $ = load(publicHtml('<picture><source srcset="/Rosarium/diagrams/a.svg"><img src="/Rosarium/diagrams/b.svg"></picture><a href="https://rosarium-tech.com/Rosarium/about/">About</a>'));
+  assert.equal($("source").attr("srcset"), "/diagrams/a.svg");
+  assert.equal($("img").attr("src"), "/diagrams/b.svg");
+  assert.equal($("a").attr("href"), "https://rosarium-tech.com/about/");
 });

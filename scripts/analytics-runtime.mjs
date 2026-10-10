@@ -5,9 +5,9 @@ export function runAnalytics(script, overrides = {}) {
   const loaders = [];
   const window = {
     location: {
-      hostname: "nullcontroller.github.io",
+      hostname: "rosarium-tech.com",
       protocol: "https:",
-      pathname: "/Rosarium/",
+      pathname: "/",
       search: "",
       ...overrides.location,
     },
@@ -16,7 +16,7 @@ export function runAnalytics(script, overrides = {}) {
     window,
     navigator: { webdriver: false, userAgent: "Mozilla/5.0 Chrome/140.0 Safari/537.36", ...overrides.navigator },
     measurementId: "G-W5ZR0NKWGB",
-    page: { page_title: "Rosarium", page_path: "/Rosarium/", content_type: "home", primary_category: "home" },
+    page: { page_title: "Rosarium", page_path: "/", content_type: "home", primary_category: "home" },
     enabled: overrides.enabled ?? true,
     URL,
     URLSearchParams,

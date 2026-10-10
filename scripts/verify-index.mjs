@@ -97,7 +97,7 @@ const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 assert.equal(career("h1").text(), "Career");
 assert.equal(career(".career-focus-grid > section").length, 0);
 assert.equal(career(".career-case-links li").length, 0);
-assert.equal(career('a[href="/Rosarium/career/details/"]').length, 0);
+assert.equal(career('a[href="/career/details/"]').length, 0);
 assert.equal(career(".content-related").length, 0);
 for (const heading of [
   "Career Detail",
@@ -112,10 +112,10 @@ for (const heading of [
 }
 const details = load(fs.readFileSync("dist/career/details/index.html", "utf8"));
 assert.equal(details(".career-case-links li").length, 0);
-assert.equal(details('meta[http-equiv="refresh"]').attr("content"), "0;url=/Rosarium/career/");
-assert(details('a[href="/Rosarium/career/"]').length);
+assert.equal(details('meta[http-equiv="refresh"]').attr("content"), "0;url=/career/");
+assert(details('a[href="/career/"]').length);
 assert(career('a[href^="https://www.linkedin.com/in/"]').length === 1);
-assert.equal(career('a[href="/Rosarium/career/profile/"]').length, 0);
+assert.equal(career('a[href="/career/profile/"]').length, 0);
 console.log(
   `Verified ${entries.size} summaries/search metadata, ${links} content links and Career gateway.`,
 );
@@ -132,7 +132,7 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file
   assert.equal(brand.text().trim(), "Rosarium", `${html}: brand text`);
   assert.equal(
     brand.attr("href"),
-    "/Rosarium/",
+    "/",
     `${html}: base-aware brand link`,
   );
   assert.equal(
@@ -141,13 +141,13 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file
     `${html}: brand must not contain profile or decorative content`,
   );
   assert.equal(
-    brand.find('img.brand-mark[src="/Rosarium/favicon.svg"]').length,
+    brand.find('img.brand-mark[src="/favicon.svg"]').length,
     1,
     `${html}: shared brand mark`,
   );
 }
 assert.equal(top(".entrance-hero-actions a").length, 1);
-assert.equal(top('.entrance-hero-actions a[href="/Rosarium/about/"]').length, 1);
+assert.equal(top('.entrance-hero-actions a[href="/about/"]').length, 1);
 assert(top(".entrance-hero > .lead").text().includes("AIを主軸に"));
 assert(
   top(".entrance-hero > .lead").text().includes("システム企画・業務要件"),
@@ -166,10 +166,10 @@ assert.deepEqual(
     .get(),
   ["庭", "AI", "DX", "企画", "事例", "旧・退役"],
 );
-assert.equal(top('.header-primary a[href="/Rosarium/cases/"]').length, 1);
+assert.equal(top('.header-primary a[href="/cases/"]').length, 1);
 assert.equal(top('.mobile-retired-link').attr("aria-label"), "旧記事・退役記事");
-assert.equal(top('.header-primary a[href="/Rosarium/career/"]').length, 0);
-assert.equal(top('.home-career a[href="/Rosarium/career/"]').length, 1);
+assert.equal(top('.header-primary a[href="/career/"]').length, 0);
+assert.equal(top('.home-career a[href="/career/"]').length, 1);
 assert.equal(top(".header-actions a").length, 0);
 assert.equal(top("#right-sidebar").length, 0);
 assert.equal(top("#global-search-input").length, 1);
@@ -191,8 +191,8 @@ assert.equal(
   ).size,
   5,
 );
-assert.equal(top('.sidebar a[href="/Rosarium/career/"]').length, 0);
-assert.equal(top('.sidebar a[href="/Rosarium/updates/"]').length, 0);
+assert.equal(top('.sidebar a[href="/career/"]').length, 0);
+assert.equal(top('.sidebar a[href="/updates/"]').length, 0);
 assert.deepEqual(
   top(".sidebar .nav-children a .nav-copy > span")
     .map((_, e) => top(e).text())
@@ -213,9 +213,9 @@ assert.deepEqual(
     .get(),
   ["庭", "AI", "DX", "企画", "事例", "旧・退役"],
 );
-assert(career('a[href="/Rosarium/ai/"]').length);
-assert(career('a[href="/Rosarium/dx/"]').length);
-assert(career('a[href="/Rosarium/cases/"]').length);
+assert(career('a[href="/ai/"]').length);
+assert(career('a[href="/dx/"]').length);
+assert(career('a[href="/cases/"]').length);
 const primaryIds = ($) =>
   $("[data-primary-index] [data-content-id]")
     .map((_, e) => $(e).attr("data-content-id"))
@@ -243,7 +243,7 @@ assert.deepEqual(designAreaLinks.map((_, e) => design(e).attr("href")).get(), [
   "evaluation-hitl/responsibility-and-hitl", "ai-design/knowledge-context", "ai-design/evaluation-hitl",
   "architecture/reference-architecture", "software-engineering/multi-ai-orchestration",
   "architecture/security-threat-modeling", "practices/adoption-governance", "ai-design/lifecycle-operations",
-].map(path => "/Rosarium/" + path + "/"));
+].map(path => "/" + path + "/"));
 assert.equal(new Set(designAreaLinks.map((_, e) => design(e).attr("href")).get()).size, 10);
 assert(design("main").text().includes("番号は読む順の目安"));
 assert.equal(top(".sidebar").text().includes("DX"), true);
@@ -267,14 +267,14 @@ for (const topic of [
   assert(primaryIds($).length);
   assert.deepEqual(primaryIds($), [...aiDesignTopicGuides[topic].readingOrder], `${topic} reading order and complete coverage`);
   assert.equal($("[data-ai-design-guide]").text(), aiDesignTopicGuides[topic].question);
-  assert.equal($("[data-ai-design-next] a").attr("href"), "/Rosarium/" + aiDesignTopicGuides[topic].next.path + "/");
+  assert.equal($("[data-ai-design-next] a").attr("href"), "/" + aiDesignTopicGuides[topic].next.path + "/");
   for (const id of primaryIds($)) {
     assert.equal(entries.get(id).layer, "ai-design");
     assert.equal(entries.get(id).design_topic, topic);
   }
   assert.equal($("[data-related-publications]").length, 0);
 }
-assert(page("ai-design/architecture")('a[href="/Rosarium/software-engineering/multi-ai-orchestration/"]').length, "Agent experience remains discoverable within the orchestration guide");
+assert(page("ai-design/architecture")('a[href="/software-engineering/multi-ai-orchestration/"]').length, "Agent experience remains discoverable within the orchestration guide");
 for (const [id, d] of entries) {
   if (d.layer === "ai-design")
     assert.equal(
@@ -345,7 +345,7 @@ for (const element of aiSections.toArray()) {
   assert.equal(theme.find(".dx-theme-introduction p").length, 2);
 }
 assert.equal(pubs(".secondary-reading").length, 0);
-assert.equal(pubs('main a[href^="/Rosarium/cases/"]').length, 0);
+assert.equal(pubs('main a[href^="/cases/"]').length, 0);
 const dx = page("dx");
 assert.equal(dx("h1").text(), "DX");
 assert(
@@ -364,8 +364,8 @@ assert.deepEqual(
   ["価値設計", "業務変革", "選択と廃止", "システム変革", "継続的価値創出"],
 );
 assert.equal(dx(".dx-ai-connection").length, 0);
-assert.equal(dx('main a[href^="/Rosarium/cases/"]').length, 0);
-assert.equal(dx('main a[href="/Rosarium/ai/"]').length, 0);
+assert.equal(dx('main a[href^="/cases/"]').length, 0);
+assert.equal(dx('main a[href="/ai/"]').length, 0);
 const dxFeaturedIds = dx("[data-dx-featured]").map((_, element) => dx(element).attr("data-dx-featured")).get();
 assert.equal(new Set(dxFeaturedIds).size, dxFeaturedIds.length, "DX featured articles must appear once");
 for (const category of [
@@ -376,7 +376,7 @@ for (const category of [
   "continuous-value",
 ]) {
   assert(
-    dx(`a[href="/Rosarium/dx/${category}/"]`).length,
+    dx(`a[href="/dx/${category}/"]`).length,
     `DX category link: ${category}`,
   );
   const categoryPage = page(`dx/${category}`);
@@ -396,11 +396,11 @@ for (const category of [
   for (const id of primaryIds(categoryPage)) assert.equal(entries.get(id).primaryCategory, category, `${id}: DX category pages use primary only`);
   assert.equal(categoryPage('[aria-label="関連する入口"]').length, 0);
 }
-assert(dx('a[href="/Rosarium/essays/dx-and-value/"]').length);
-assert.equal(dx('main a[href="/Rosarium/cases/customer-support-ai-dx/"]').length, 0);
-assert(!dx('a[href="/Rosarium/foundations/conditional-probability/"]').length);
+assert(dx('a[href="/essays/dx-and-value/"]').length);
+assert.equal(dx('main a[href="/cases/customer-support-ai-dx/"]').length, 0);
+assert(!dx('a[href="/foundations/conditional-probability/"]').length);
 const dxEssay = page("essays/dx-and-value");
-assert.equal(dxEssay('[data-related-content] a[href="/Rosarium/cases/customer-support-ai-dx/"]').length, 0);
+assert.equal(dxEssay('[data-related-content] a[href="/cases/customer-support-ai-dx/"]').length, 0);
 assert(dxEssay('[data-related-content] a').length <= 4);
 for (const [id, expected] of [
   ["foundations/ai-business-design", ["公開：2026年2月"]],
@@ -491,13 +491,13 @@ assert.match(
 );
 assert.equal(
   careerProfile("meta[http-equiv=refresh]").attr("content"),
-  "0;url=/Rosarium/career/",
+  "0;url=/career/",
 );
 assert.equal(
   careerProfile('link[rel="canonical"]').attr("href"),
-  "https://nullcontroller.github.io/Rosarium/career/",
+  "https://rosarium-tech.com/career/",
 );
-assert(careerProfile('a[href="/Rosarium/career/"]').length);
+assert(careerProfile('a[href="/career/"]').length);
 console.log(
   "Verified reading gateway, layer separation and existing URLs without related publications.",
 );
@@ -543,9 +543,9 @@ const overview = page("overview");
 assert.match(overview("meta[name=robots]").attr("content") || "", /noindex/);
 assert.equal(
   overview("meta[http-equiv=refresh]").attr("content"),
-  "0;url=/Rosarium/ai/",
+  "0;url=/ai/",
 );
-assert(overview('a[href="/Rosarium/ai/"]').length);
+assert(overview('a[href="/ai/"]').length);
 const articlesCompatibility = page("articles");
 assert.match(
   articlesCompatibility("meta[name=robots]").attr("content") || "",
@@ -553,9 +553,9 @@ assert.match(
 );
 assert.equal(
   articlesCompatibility("meta[http-equiv=refresh]").attr("content"),
-  "0;url=/Rosarium/ai/",
+  "0;url=/ai/",
 );
-assert(articlesCompatibility('a[href="/Rosarium/ai/"]').length);
+assert(articlesCompatibility('a[href="/ai/"]').length);
 console.log(
   "Verified overview compatibility redirect, three case books, independent series and simplified navigation.",
 );
@@ -594,9 +594,9 @@ assert.equal(top(".home-growth-history #recent-growth-heading").length, 0, "Sect
 assert.equal(top(".home-primary-panels > section").length, 1);
 assert.equal(top(".home-hero-layout > aside.home-career").length, 1);
 assert.equal(top(".home-primary-panels .home-career").length, 0);
-assert.equal(top('a[href="/Rosarium/about/"]').text().trim(), "Rosariumとは？");
+assert.equal(top('a[href="/about/"]').text().trim(), "Rosariumとは？");
 assert.equal(top("#about-rosarium").length, 0);
-assert.equal(top('a[href="/Rosarium/garden-notes/"]').text().trim(), "Garden Notes");
+assert.equal(top('a[href="/garden-notes/"]').text().trim(), "Garden Notes");
 const gardenNotes = page("garden-notes");
 assert.equal(gardenNotes(".home-growth-history").length, 0);
 assert.equal(gardenNotes('.garden-notes-history[role="region"][tabindex="0"][aria-label="Garden Notes 更新履歴"]').length, 1);
@@ -636,14 +636,14 @@ for (const element of top("[data-growth-entry]").toArray()) {
     );
   }
 }
-assert.equal(top('a[href="/Rosarium/updates/"]').length, 0);
+assert.equal(top('a[href="/updates/"]').length, 0);
 const updates = page("updates");
 assert.match(updates("meta[name=robots]").attr("content") || "", /noindex/);
 assert.equal(
   updates("meta[http-equiv=refresh]").attr("content"),
-  "0;url=/Rosarium/",
+  "0;url=/",
 );
-assert(updates('a[href="/Rosarium/"]').length);
+assert(updates('a[href="/"]').length);
 assert.equal(updates(".growth-list [data-content-id]").length, 0);
 assert(
   !fs.readFileSync("dist/feed.xml", "utf8").includes("Rosarium 公開"),
@@ -822,7 +822,7 @@ for (const id of [
   );
   assert.equal(
     article('link[rel="canonical"]').attr("href"),
-    `https://nullcontroller.github.io/Rosarium/${id}/`,
+    `https://rosarium-tech.com/${id}/`,
     id,
   );
   assert.equal(
@@ -840,21 +840,21 @@ for (const id of [
 }
 assert(
   page("dx/selection-retirement")(
-    'a[href="/Rosarium/essays/it-strategy-and-not-building/"]',
+    'a[href="/essays/it-strategy-and-not-building/"]',
   ).length,
 );
 assert(
   page("dx/business-transformation")(
-    'a[href="/Rosarium/essays/rethink-work-before-ai/"]',
+    'a[href="/essays/rethink-work-before-ai/"]',
   ).length,
 );
 assert(
   page("dx/system-transformation")(
-    'a[href="/Rosarium/essays/legacy-change-and-retirement/"]',
+    'a[href="/essays/legacy-change-and-retirement/"]',
   ).length,
 );
 assert(
-  page("practices")('a[href="/Rosarium/practices/transferring-practices/"]')
+  page("practices")('a[href="/practices/transferring-practices/"]')
     .length,
 );
 console.log(
@@ -909,7 +909,7 @@ assert.equal(supportDiagram(".diagram-desktop [data-node]").length, 8);
 
 for (const id of ["cases/system-understanding", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"]) {
   const $ = page(id);
-  assert.equal($('[data-related-content] a[href="/Rosarium/career/"]').length, 0);
+  assert.equal($('[data-related-content] a[href="/career/"]').length, 0);
 }
 for (const id of ["foundations/ai-business-design", "practices/transferring-practices", "knowledge-context/instruction-knowledge-evidence"]) {
   assert.equal(page(id)('[data-related-content] a[href*="/cases/"]').length, 0, `${id}: knowledge exits exclude Cases`);
@@ -927,7 +927,7 @@ assert(customerSupportBook(".book-toc-mobile summary").text().includes("全9章"
 assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".series-position-inline").text(), "現在位置：導入・全9章");
 const lastSupportChapter = page("cases/customer-support-ai-dx/design-principles");
 assert(!lastSupportChapter(".pagination").text().includes("次のページ"));
-assert(lastSupportChapter('.pagination a[href="/Rosarium/cases/customer-support-ai-dx/continuous-improvement/"]').length);
+assert(lastSupportChapter('.pagination a[href="/cases/customer-support-ai-dx/continuous-improvement/"]').length);
 
 // Portfolio explanation diagrams are static first and keep meaningful reading exits.
 for (const id of ["system-understanding", "three-ai-maintenance", "specification-debt-review"]) {
@@ -956,11 +956,11 @@ for (const [id, data] of entries) {
 }
 for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "business-transformation", "selection-retirement", "system-transformation", "continuous-value"].map((id) => "dx/" + id)]) {
   const $ = page(route);
-  assert.equal($('main a[href^="/Rosarium/cases/"]').length, 0, route);
+  assert.equal($('main a[href^="/cases/"]').length, 0, route);
   assert.equal($('main [data-content-id^="cases/"]').length, 0, route);
 }
 assert.equal(page("about")('main h2').filter((_, node) => page("about")(node).text() === "次に読む").length, 0);
-assert.equal(page("about")('main a[href="/Rosarium/"]').text(), "庭に戻る");
+assert.equal(page("about")('main a[href="/"]').text(), "庭に戻る");
 assert.equal(page("")('.home-career .career-overview').text(), 'AI・人間・既存システムの役割を整理し、業務要求から要件・設計・運用までをつなぐ仕組みを考えています。仕事の考え方と専門性を紹介します。');
 assert.equal(page("")('.home-career .career-background').length, 0);
 assert.equal(page("")('.home-career a').text(), 'キャリアを見る →');
@@ -971,7 +971,7 @@ for (const [route, icon] of [["", "home"], ["ai", "articles"], ["dx", "overview"
   const $ = page(route);
   assert.equal($("main .hero .icon-page,main .page-heading > .icon-page").length, 1, route + ": one entrance icon");
   assert.equal($("main .icon-page.icon-" + icon).length, 1, route + ": canonical entrance icon");
-  assert.equal($('.sidebar a[href="/Rosarium/' + (route ? route + '/' : '') + '"] .icon-' + icon).length, 1, route + ": Navigation icon agrees");
+  assert.equal($('.sidebar a[href="/' + (route ? route + '/' : '') + '"] .icon-' + icon).length, 1, route + ": Navigation icon agrees");
 }
 
 // New documentation review Case preserves a human decision boundary and static SVG paths.

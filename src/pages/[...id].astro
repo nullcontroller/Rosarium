@@ -51,7 +51,7 @@ const seriesPosition = series.length > 0
   ? `現在位置：${(d.order ?? 0) === 0 ? "全体構成" : chapterNumber === 0 ? "導入" : `第${chapterNumber}章`}・全${chapterCount}章`
   : undefined;
 const coverDimensions = imageDimensions(
-  d.cover ? "/Rosarium" + d.cover : undefined,
+  d.cover ? d.cover : undefined,
 );
 const purposes = contentUseCases(entry);
 const timing = publicationTiming(entry);
@@ -174,7 +174,7 @@ const bookNavigation = series.length
     {d.cover && d.show_cover && (
       <img
         class="book-cover"
-        src={"/Rosarium" + d.cover}
+        src={d.cover}
         alt={d.cover_alt || d.title + " 表紙"}
         width={coverDimensions?.width || 180}
         height={coverDimensions?.height}

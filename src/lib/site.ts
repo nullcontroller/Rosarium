@@ -24,7 +24,7 @@ export const sections = [
   ["cases", "実践事例", "原則を適用した実務事例"],
   ["essays", "考察", "市場・キャリア・技術への考察"],
 ] as const;
-export const base = "/Rosarium";
+export const base = "";
 export const siteDescription =
   "Rosariumは、立林裕太朗個人の技術サイトです。AIを主軸に、システム企画・業務要件、アーキテクチャ、ソフトウェア開発の知識と実践事例を整理する技術ポートフォリオです。";
 
@@ -64,7 +64,7 @@ export const pageIntroductions: Record<string, string> = {
 };
 export const introductionForPath = (pathname: string) =>
   pageIntroductions[
-    pathname.replace(/^\/Rosarium(?=\/|$)/, "").replace(/^\/+|\/+$/g, "")
+    pathname.replace(/^\/+|\/+$/g, "")
   ];
 export const fallbackLastUpdated = "2026-09-28";
 // Content/structure dates are explicit; shared CSS, analytics and deploys do not change them.

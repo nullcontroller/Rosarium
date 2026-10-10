@@ -8,8 +8,7 @@ import {
   localUrls,
 } from "./src/lib/markdown.mjs";
 export default defineConfig({
-  site: "https://nullcontroller.github.io",
-  base: "/Rosarium",
+  site: "https://rosarium-tech.com",
   trailingSlash: "always",
   markdown: {
     processor: unified({

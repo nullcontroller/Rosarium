@@ -39,18 +39,16 @@ export function semanticDirectives() {
     });
   };
 }
+// Old imported paths are normalized without changing source/provenance files.
 export function localUrls() {
   return (tree) => {
     visit(tree, "element", (node) => {
       for (const key of ["href", "src"]) {
-        const v = node.properties?.[key];
-        if (
-          typeof v === "string" &&
-          v.startsWith("/") &&
-          !v.startsWith("//") &&
-          !v.startsWith("/Rosarium/")
-        )
-          node.properties[key] = "/Rosarium" + v;
+        const value = node.properties?.[key];
+        if (typeof value !== "string") continue;
+        node.properties[key] = value
+          .replace(/^https:\/\/nullcontroller\.github\.io\/Rosarium(?=\/|$)/, "https://rosarium-tech.com")
+          .replace(/^\/Rosarium(?=\/|$)/, "") || "/";
       }
     });
   };

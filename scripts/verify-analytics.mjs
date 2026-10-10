@@ -13,14 +13,14 @@ const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entr
 });
 const pages = walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"));
 const representativeTypes = new Map([
-  ["/Rosarium/", "home"], ["/Rosarium/about/", "about"],
-  ["/Rosarium/ai/", "ai"], ["/Rosarium/dx/", "dx"], ["/Rosarium/planning/", "planning"],
-  ["/Rosarium/ai-design/knowledge-context/", "theme"], ["/Rosarium/dx/value-design/", "theme"],
-  ["/Rosarium/essays/rethink-work-before-ai/", "article"],
-  ["/Rosarium/foundations/ai-business-design/", "book"],
-  ["/Rosarium/cases/customer-support-ai-dx/", "case"],
-  ["/Rosarium/career/", "career"], ["/Rosarium/garden-notes/", "garden_notes"],
-  ["/Rosarium/reference/", "reference"],
+  ["/", "home"], ["/about/", "about"],
+  ["/ai/", "ai"], ["/dx/", "dx"], ["/planning/", "planning"],
+  ["/ai-design/knowledge-context/", "theme"], ["/dx/value-design/", "theme"],
+  ["/essays/rethink-work-before-ai/", "article"],
+  ["/foundations/ai-business-design/", "book"],
+  ["/cases/customer-support-ai-dx/", "case"],
+  ["/career/", "career"], ["/garden-notes/", "garden_notes"],
+  ["/reference/", "reference"],
 ]);
 for (const file of pages) {
   const $ = load(fs.readFileSync(file, "utf8"));
@@ -48,19 +48,19 @@ for (const file of pages) {
   const parameters = normal.events[2][2];
   assert(parameters.page_title && parameters.page_path && parameters.content_type && parameters.primary_category);
   assert.equal(parameters.page_path, new URL($('link[rel="canonical"]').attr("href")).pathname);
-  assert.equal(parameters.page_location, `https://nullcontroller.github.io${parameters.page_path}`);
+  assert.equal(parameters.page_location, `https://rosarium-tech.com${parameters.page_path}`);
   assert(parameters.content_domain);
   if (representativeTypes.has(pagePath)) {
     assert.equal(parameters.content_type, representativeTypes.get(pagePath), `${file}: representative content type`);
     assert.equal(parameters.page_title, $("h1").first().text().trim(), `${file}: stable content title`);
     representativeTypes.delete(pagePath);
   }
-  if (pagePath === "/Rosarium/essays/rethink-work-before-ai/") {
+  if (pagePath === "/essays/rethink-work-before-ai/") {
     assert.equal(parameters.primary_category, "business-transformation");
     assert.equal(parameters.content_domain, "dx");
     assert.equal(parameters.article_slug, "essays/rethink-work-before-ai");
   }
-  if (pagePath.startsWith("/Rosarium/cases/system-understanding/")) assert.equal(parameters.obsolete_status, "obsolete");
+  if (pagePath.startsWith("/cases/system-understanding/")) assert.equal(parameters.obsolete_status, "obsolete");
   for (const overrides of [{ navigator: { webdriver: true } }, { navigator: { userAgent: "Googlebot/2.1" } }, { location: { hostname: "localhost" } }]) {
     const excluded = runAnalytics(script, overrides);
     assert.equal(excluded.loaders.length, 0, `${file}: excluded clients do not load GA4`);

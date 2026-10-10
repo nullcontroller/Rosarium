@@ -30,10 +30,19 @@ test("Static SVG and base-path links survive Markdown processing", async () => {
     rehypePlugins: [localUrls],
   });
   const { code } = await p.render(
-    "[読書](/foundations/)\n\n<figure class=\"diagram-static\"><img src=\"/Rosarium/diagrams/static/example.svg\" alt=\"流れ\" /></figure>\n\n| A | B |\n|---|---|\n| C | D |",
+    "[読書](/foundations/)\n\n<figure class=\"diagram-static\"><img src=\"/diagrams/static/example.svg\" alt=\"流れ\" /></figure>\n\n| A | B |\n|---|---|\n| C | D |",
   );
-  assert.match(code, /href="\/Rosarium\/foundations\/"/);
+  assert.match(code, /href="\/foundations\/"/);
   assert.match(code, /class="diagram-static"/);
-  assert.match(code, /src="\/Rosarium\/diagrams\/static\/example.svg"/);
+  assert.match(code, /src="\/diagrams\/static\/example.svg"/);
   assert.match(code, /<table>/);
+});
+
+test("root deployment normalizes legacy local paths without altering external repositories", async () => {
+  const p = await createMarkdownProcessor({ rehypePlugins: [localUrls] });
+  const { code } = await p.render('[現在](/about/) [旧](/Rosarium/ai/) [旧正本](https://nullcontroller.github.io/Rosarium/dx/) [資料](https://github.com/nullcontroller/Rosarium/wiki)');
+  assert.match(code, /href="\/about\/"/);
+  assert.match(code, /href="\/ai\/"/);
+  assert.match(code, /href="https:\/\/rosarium-tech\.com\/dx\/"/);
+  assert.match(code, /href="https:\/\/github\.com\/nullcontroller\/Rosarium\/wiki"/);
 });

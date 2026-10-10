@@ -1,6 +1,6 @@
 # Search and discovery
 
-RosariumはGitHub Pages上の静的サイトです。検索エンジン向けの公開情報は、`astro.config.mjs`の`site`と`base`を基点に生成します。
+RosariumはGitHub Pages上の静的サイトです。検索エンジン向けの公開情報は、`astro.config.mjs`の`site: "https://rosarium-tech.com"`を基点に生成します。独自ドメインのroot配信のため`base`は省略し、既定の`/`を使います。GitHub PagesのActions配信を継続し、Custom DomainはGitHub側で管理します。CNAMEファイルやアプリ側のwww転送は追加しません。移行元のsource metadata・過去監査のURLは履歴として保持します。
 
 ## 自動生成する公開情報
 
@@ -15,15 +15,9 @@ RosariumはGitHub Pages上の静的サイトです。検索エンジン向けの
 
 ## Google Search Console
 
-1. Search ConsoleでURL-prefix Property `https://nullcontroller.github.io/Rosarium/`を追加する
-2. HTML tag方式のVerification Tokenだけを取得する
-3. GitHub RepositoryのSettings → Secrets and variables → Actions → Variablesへ`PUBLIC_GOOGLE_SITE_VERIFICATION`を登録する
-4. `master`のPages Workflowを再実行する
-5. 公開HTMLの`google-site-verification` meta tagを確認してVerifyする
-6. `https://nullcontroller.github.io/Rosarium/sitemap.xml`を送信する
-7. 重要ページをURL Inspectionで確認する
+新ドメインのPropertyは旧GitHub PagesのPropertyとは別に扱います。既存のHTML確認ファイル`public/google57af630fc0ce16af.html`は変更せずrootへ配信します。新ドメインでの所有権確認・サイトマップ送信はSearch Console側で確認してください。既存ファイルが配信されることと、新Propertyの所有権確認完了は別です。
 
-Tokenは公開される値なのでRepository Variableを使用します。値が未設定ならmeta tagは生成しません。
+サイトマップの送信先は`https://rosarium-tech.com/sitemap.xml`です。今回のドメイン移行ではSearch Consoleの外部操作は行いません。
 
 ## Bing Webmaster Tools
 

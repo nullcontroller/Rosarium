@@ -6,7 +6,7 @@ import { activityDate, updateLabels, updateType } from "./growth";
 
 export const feedAuthor = {
   name: "立林 裕太朗",
-  url: "https://nullcontroller.github.io/Rosarium/career/",
+  url: "https://rosarium-tech.com/career/",
 };
 
 export async function publicationFeedEntries() {

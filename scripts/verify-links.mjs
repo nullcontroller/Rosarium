@@ -4,7 +4,7 @@ import path from "node:path";
 import { load } from "cheerio";
 import assert from "node:assert/strict";
 const root = path.resolve("dist"),
-  base = "/Rosarium";
+  base = "";
 const walk = (d) =>
   fs
     .readdirSync(d, { withFileTypes: true })
@@ -43,7 +43,7 @@ for (const file of files) {
   if ($("[data-pagefind-body]").length)
     assert($(".prose").text().trim().length > 50, `Empty article: ${file}`);
   const current =
-    "https://nullcontroller.github.io" +
+    "https://rosarium-tech.com" +
     base +
     "/" +
     path
@@ -54,7 +54,9 @@ for (const file of files) {
     const raw = $(el).attr("href") || $(el).attr("src");
     if (!raw || /^(data:|mailto:|tel:|javascript:)/.test(raw)) continue;
     const u = new URL(raw, current);
-    if (u.origin !== "https://nullcontroller.github.io") continue;
+    assert(!/^\/Rosarium(?:\/|$)/.test(u.pathname) || u.hostname !== "rosarium-tech.com", `Legacy project prefix: ${file}: ${raw}`);
+    assert(!raw.startsWith("https://nullcontroller.github.io/Rosarium"), `Old canonical link: ${file}: ${raw}`);
+    if (u.origin !== "https://rosarium-tech.com") continue;
     if (!u.pathname.startsWith(base + "/")) {
       errors.push(`${file}: outside base ${raw}`);
       continue;

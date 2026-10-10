@@ -13,15 +13,14 @@ const { page, enabled = true } = Astro.props;
       function shouldLoadAnalytics() {
         // This is a conservative pre-load guard, not complete bot detection.
         const automatedAgent = /\b(?:bot|crawler|spider|headless(?:chrome)?|lighthouse|pagespeed|googlebot|bingbot|applebot|slackbot|facebookexternalhit|linkpreview)\b|\b[a-z0-9_-]*(?:bot|crawler|spider|preview)\//i;
-        return enabled && window.location.hostname === 'nullcontroller.github.io' &&
+        return enabled && window.location.hostname === 'rosarium-tech.com' &&
           window.location.protocol === 'https:' &&
-          window.location.pathname.startsWith('/Rosarium/') &&
           navigator.webdriver !== true &&
           !automatedAgent.test(navigator.userAgent);
       }
       if (shouldLoadAnalytics()) {
       // Never forward arbitrary query/hash values; retain only campaign identifiers.
-      const pageLocation = new URL(window.location.pathname, 'https://nullcontroller.github.io');
+      const pageLocation = new URL(window.location.pathname, 'https://rosarium-tech.com');
       const query = new URLSearchParams(window.location.search);
       for (const key of ['utm_source', 'utm_medium', 'utm_campaign']) {
         const value = query.get(key);

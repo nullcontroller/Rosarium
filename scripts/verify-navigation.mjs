@@ -3,20 +3,20 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import { load } from "cheerio";
 
-const basePath = "/Rosarium/";
+const basePath = "/";
 const fallbackLastUpdated = "2026-09-28";
 const sitemap = fs.readFileSync("dist/sitemap.xml", "utf8");
 const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
 
 const routeFromUrl = (value) => {
-  const pathname = new URL(value, "https://nullcontroller.github.io").pathname;
+  const pathname = new URL(value, "https://rosarium-tech.com").pathname;
   assert.ok(pathname.startsWith(basePath), `Outside base path: ${value}`);
   return pathname.slice(basePath.length).replace(/^\/+|\/+$/g, "");
 };
 const htmlForRoute = (route) =>
   path.join("dist", ...(route ? route.split("/") : []), "index.html");
 // Archive pages are noindex bridges to indexed obsolete content.
-for (const route of ["retired", "retired/obsolete", "retired/obsolete-cases", "retired/retired"]) locations.push(`https://nullcontroller.github.io/Rosarium/${route}/`);
+for (const route of ["retired", "retired/obsolete", "retired/obsolete-cases", "retired/retired"]) locations.push(`https://rosarium-tech.com/${route}/`);
 const routes = new Set(locations.map(routeFromUrl));
 const pages = new Map();
 

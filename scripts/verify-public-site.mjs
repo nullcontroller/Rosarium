@@ -34,7 +34,7 @@ for (const file of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith
     );
     for (const id of removed)
       assert(
-        !href.startsWith("/Rosarium/" + id + "/"),
+        !href.startsWith("/" + id + "/"),
         file + " removed link " + href,
       );
   }
@@ -50,13 +50,13 @@ for (const file of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith
   assert.equal($("header.masthead > .brand").text().trim(), "Rosarium", file);
   assert.equal(
     $("header.masthead > .brand").attr("href"),
-    "/Rosarium/",
+    "/",
     file,
   );
   const canonical = $('link[rel="canonical"]').attr("href");
   assert(
     canonical?.startsWith(
-      "https://nullcontroller.github.io/Rosarium/",
+      "https://rosarium-tech.com/",
     ),
     file,
   );
@@ -115,7 +115,7 @@ const profile = load(fs.readFileSync("dist/career/profile/index.html", "utf8"));
 assert.match(profile('meta[name="robots"]').attr("content") || "", /noindex/);
 assert.equal(
   profile('meta[http-equiv="refresh"]').attr("content"),
-  "0;url=/Rosarium/career/",
+  "0;url=/career/",
 );
 assert(
   !profile("main").text().includes("職務経歴"),
@@ -135,7 +135,7 @@ console.log("Before integration: " + JSON.stringify(baseline));
 for (const [route, title] of [["career", "Career"]]) {
   const html = fs.readFileSync(`dist/${route}/index.html`, "utf8");
   const $ = load(html);
-  const canonical = `https://nullcontroller.github.io/Rosarium/${route}/`;
+  const canonical = `https://rosarium-tech.com/${route}/`;
   assert.equal($("h1").text(), title);
   assert.equal($('link[rel="canonical"]').attr("href"), canonical);
   assert.equal($('meta[property="og:url"]').attr("content"), canonical);
@@ -147,13 +147,13 @@ for (const [route, title] of [["career", "Career"]]) {
   assert(!$("main").text().includes("希望条件"));
 }
 const careerDetails = load(fs.readFileSync("dist/career/details/index.html", "utf8"));
-assert.equal(careerDetails('link[rel="canonical"]').attr("href"), "https://nullcontroller.github.io/Rosarium/career/");
+assert.equal(careerDetails('link[rel="canonical"]').attr("href"), "https://rosarium-tech.com/career/");
 assert(careerDetails('meta[name="robots"]').attr("content").includes("noindex"));
-assert.equal(careerDetails('meta[http-equiv="refresh"]').attr("content"), "0;url=/Rosarium/career/");
+assert.equal(careerDetails('meta[http-equiv="refresh"]').attr("content"), "0;url=/career/");
 assert.equal(career(".content-related").length, 0);
 for (const file of walk("dist").filter(p => p.endsWith(".html"))) {
   const $ = load(fs.readFileSync(file, "utf8"));
-  assert.equal($('a[href="/Rosarium/career/details/"]').length, 0, file);
+  assert.equal($('a[href="/career/details/"]').length, 0, file);
 }
 assert(!fs.readFileSync("dist/sitemap.xml", "utf8").includes("/career/details/"));
 console.log("Verified consolidated Career, retired Details redirect and canonical/OGP/JSON-LD.");

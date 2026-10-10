@@ -2,7 +2,7 @@ import type { CollectionEntry } from "astro:content";
 import { caseStudies } from "./navigation";
 
 export function analyticsMetadata(pathname: string, title: string, entry?: CollectionEntry<"pages">) {
-  const slug = pathname.replace(/^\/Rosarium\/?/, "").replace(/\/$/, "");
+  const slug = pathname.replace(/^\/+/, "").replace(/\/$/, "");
   const root = slug.split("/")[0];
   const data = entry?.data;
   const contentType = data

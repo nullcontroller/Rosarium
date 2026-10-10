@@ -25,13 +25,13 @@ test("page_view retains safe campaign attribution while removing arbitrary queri
   const result = runAnalytics(script, { location: { search: "?utm_source=linkedin&utm_medium=social&utm_campaign=rosarium&email=reader%40example.com&q=private#secret" }, referrer: "https://www.linkedin.com/profile/private?email=reader%40example.com" });
   const parameters = result.events[2][2];
   assert.equal(parameters.page_title, "Rosarium");
-  assert.equal(parameters.page_path, "/Rosarium/");
+  assert.equal(parameters.page_path, "/");
   assert.equal(parameters.content_type, "home");
   assert.equal(parameters.page_referrer, "https://www.linkedin.com/");
-  assert.equal(parameters.page_location, "https://nullcontroller.github.io/Rosarium/?utm_source=linkedin&utm_medium=social&utm_campaign=rosarium");
+  assert.equal(parameters.page_location, "https://rosarium-tech.com/?utm_source=linkedin&utm_medium=social&utm_campaign=rosarium");
   assert.equal(result.events.filter((event) => event[1] === "page_view").length, 1);
   const unsafe = runAnalytics(script, { location: { search: "?utm_source=reader%40example.com" } });
-  assert.equal(unsafe.events[2][2].page_location, "https://nullcontroller.github.io/Rosarium/");
+  assert.equal(unsafe.events[2][2].page_location, "https://rosarium-tech.com/");
   assert.equal(runAnalytics(script, { enabled: false }).events.length, 0);
 });
 
@@ -45,7 +45,7 @@ test("obvious automated clients do not load or initialize analytics", () => {
 });
 
 test("local builds and preview deployments never send production analytics", () => {
-  for (const location of [{ hostname: "localhost" }, { hostname: "127.0.0.1" }, { hostname: "[::1]" }, { hostname: "preview.example.com" }, { protocol: "http:" }, { pathname: "/another-repository/" }]) {
+  for (const location of [{ hostname: "localhost" }, { hostname: "127.0.0.1" }, { hostname: "[::1]" }, { hostname: "preview.example.com" }, { protocol: "http:" }, { hostname: "nullcontroller.github.io" }]) {
     const result = runAnalytics(script, { location });
     assert.equal(result.loaders.length, 0);
     assert.equal(result.events.length, 0);
