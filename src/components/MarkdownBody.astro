@@ -35,7 +35,9 @@ const components = {
   case: Case,
   note: Note,
 };
-const $ = load(publicHtml(Astro.props.html, sourceLinks), null, false);
+const portfolioLinks = new Set(Astro.url.pathname === url("career")
+  ? ["https://github.com/nullcontroller/Rosarium"] : []);
+const $ = load(publicHtml(Astro.props.html, sourceLinks, portfolioLinks), null, false);
 // Case discovery belongs to Cases/Career, not to knowledge article bodies.
 // Keep the reference wording and source metadata, but remove its navigation.
 if (!/\/(?:cases|career)(?:\/|$)/.test(Astro.url.pathname)) {

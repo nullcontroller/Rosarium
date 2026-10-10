@@ -181,6 +181,7 @@ Careerは src/content/career/overview.md の1ページで人物・仕事観・�
 
 sourceとcanonicalの移行元情報は内部資料として保持します。公開ページのcanonicalは自サイトです。
 公開UIにはSource表示を追加せず、GitHub・Zenn・旧Careerサイトへのリンクを出しません。
+CareerのPortfolio導線では例外として、実装・コンテンツ管理・検証を確認できるRosariumリポジトリへのリンク1件だけを掲載します。移行元の表示や、他ページの出典リンクの公開とは区別します。
 MarkdownBodyが対応する出典URLを内部リンクへ変換し、未対応のリンクはテキストとして残します。
 技術本文は保持し、変換は公開時に行います。
 

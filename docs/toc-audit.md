@@ -31,7 +31,7 @@
 | /architecture/security-threat-modeling/ | 生成AIセキュリティと脅威モデリング | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /articles/ | AIへ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /books/ | 実践事例をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /career/ | Career | あり | あり | なし | 5 | 主要見出しが複数 |
+| /career/ | Career | あり | あり | なし | 10 | 主要見出しが複数 |
 | /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/profile/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/ | 実践事例 | あり | あり | あり | 4 | 一覧の移動単位が複数 |

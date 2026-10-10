@@ -42,3 +42,13 @@ test("raw HTML diagram sources and source sets use domain-root assets", () => {
   assert.equal($("img").attr("src"), "/diagrams/b.svg");
   assert.equal($("a").attr("href"), "https://rosarium-tech.com/about/");
 });
+
+test("explicit portfolio link allowance preserves only the approved repository", () => {
+  const href = "https://github.com/nullcontroller/Rosarium";
+  const html = `<a href="${href}">実装</a><a href="${href}/wiki">資料</a>`;
+  const map = new Map([[href, "/ai-design/"]]);
+  const $ = load(publicHtml(html, map, new Set([href])));
+  assert.equal($("a").length, 1);
+  assert.equal($("a").attr("href"), href);
+  assert.equal(load(publicHtml(html, map))("a").attr("href"), "/ai-design/");
+});

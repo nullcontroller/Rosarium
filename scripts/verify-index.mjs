@@ -780,7 +780,10 @@ assert.equal(
   "現在位置：第9章・全9章",
 );
 assert.equal(customerSupportBook('a[href*="outcomes-and-evidence"]').length, 0);
-assert.equal(page("career")('main a[href*="/cases/"]').length, 0);
+for (const id of ["specification-debt-review", "three-ai-maintenance", "system-understanding", "customer-support-ai-dx"])
+  assert.equal(page("career")(`main a[href="/cases/${id}/"]`).length, 1);
+assert.equal(page("career")('[data-directive="case"]').length, 4);
+assert.equal(page("career")('main a[href="https://github.com/nullcontroller/Rosarium"]').length, 1);
 console.log("Verified recent growth and exact Book publication presentation.");
 
 for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {

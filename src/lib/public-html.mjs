@@ -15,7 +15,7 @@ export const hiddenRoutes = [
   "/foundations/wiki-overview",
   "/foundations/design-system-overview",
 ];
-export function publicHtml(html, sourceLinks = new Map()) {
+export function publicHtml(html, sourceLinks = new Map(), allowedExternalLinks = new Set()) {
   const $ = load(html, null, false);
   $("[href], [src], [srcset]").each((_, element) => {
     const node = $(element);
@@ -57,7 +57,7 @@ export function publicHtml(html, sourceLinks = new Map()) {
     }
     if (isCareer) {
       a.attr("href", "/career/");
-    } else if (externalSource) {
+    } else if (externalSource && !allowedExternalLinks.has(href)) {
       const replacement = sourceLinks.get(normalized);
       if (replacement) a.attr("href", replacement);
       else a.replaceWith(a.contents());

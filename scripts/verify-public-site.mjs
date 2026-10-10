@@ -26,8 +26,10 @@ for (const file of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith
   htmlCount++;
   for (const element of $("[href]").toArray()) {
     const href = $(element).attr("href");
+    const portfolioLink = path.resolve(file) === path.resolve("dist/career/index.html") &&
+      href === "https://github.com/nullcontroller/Rosarium";
     assert(
-        !/github\.com|zenn\.dev|nullcontroller\.github\.io\/career-profile/i.test(
+        portfolioLink || !/github\.com|zenn\.dev|nullcontroller\.github\.io\/career-profile/i.test(
           href,
         ),
       file + " " + href,
@@ -82,7 +84,9 @@ const homepage = load(fs.readFileSync("dist/index.html", "utf8"));
 assert.equal(homepage("h1").text(), "Rosarium");
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 for (const text of [
-  "Applied AI × DX × System Architecture",
+  "現在の専門性",
+  "代表実績・設計事例",
+  "今後深めたい領域",
   "何をする人か",
   "仕事で重視すること",
   "経験と現在の仕事のつながり",
@@ -127,7 +131,7 @@ const baseline = JSON.parse(
 console.log(
   "Public HTML audit: " +
     htmlCount +
-    " pages; public GitHub/Zenn links=0, external Career=0; removed routes absent.",
+    " pages; only Career portfolio repository link allowed, external Career=0; removed routes absent.",
 );
 console.log("Before integration: " + JSON.stringify(baseline));
 
