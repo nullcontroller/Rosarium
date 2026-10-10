@@ -65,7 +65,7 @@ export function pageContents(html, { headings = [], mode = "auto" } = {}) {
 }
 
 /** Place shared reading controls after the title; metadata occupies one prelude. */
-export function pageOpening(html, headings = [], bookNavigation) {
+export function pageOpening(html, headings = [], bookNavigation, { expanded = false } = {}) {
   const $ = load(html, {}, false);
   const breadcrumb = $(".breadcrumb").first();
   const breadcrumbHtml = breadcrumb.length ? $.html(breadcrumb) : "";
@@ -84,6 +84,7 @@ export function pageOpening(html, headings = [], bookNavigation) {
   }
   if (headings.length) {
     const detail = $('<details class="book-toc-mobile" data-page-heading-toc><summary>目次</summary><ol></ol></details>');
+    if (expanded) detail.attr("open", "");
     for (const heading of headings) detail.find('ol').append($('<li></li>').toggleClass('sub', heading.depth === 3).append($('<a></a>').attr('href', '#' + heading.slug).text(heading.text)));
     controls.push(detail);
   }

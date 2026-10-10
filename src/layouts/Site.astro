@@ -48,6 +48,7 @@ interface Props {
   showReference?: boolean;
   rightSidebarCollapsible?: boolean;
   mobilePageToc?: boolean;
+  expandPageToc?: boolean;
   pageTocDepth?: number;
   toc?: "auto" | "never" | "always";
 }
@@ -73,10 +74,11 @@ const {
   showReference = true,
   rightSidebarCollapsible = true,
   toc = "auto",
+  expandPageToc = false,
 } = Astro.props;
 const contents = pageContents(await Astro.slots.render("default"), { headings, mode: showRightSidebar ? toc : "never" });
 const pageHeadings = contents.headings;
-const opening = pageOpening(contents.html, pageHeadings, bookNavigation);
+const opening = pageOpening(contents.html, pageHeadings, bookNavigation, { expanded: expandPageToc });
 const { hasPageToc, referenceSidebar } = rightSidebarPolicy({
   showRightSidebar, showReference, headingCount: pageHeadings.length, chapterCount: bookNavigation?.items.length ?? 0,
 });

@@ -52,4 +52,13 @@ test("page opening keeps metadata compact and places shared mobile contents afte
   assert.equal($('[data-page-heading-toc] a').text(), 'A & B');
   assert.equal($('a[aria-current="page"]').text(), 'Chapter');
   assert.equal($('h1').text(), 'Title');
+  assert.equal($('[data-page-heading-toc]').is('[open]'), false);
+});
+
+test("expanded page contents expose Japanese heading links and exclude history", () => {
+  const contents = pageContents('<h1>Career</h1><section data-toc-exclude><h2>更新履歴</h2></section><h2 id="何をする人か">何をする人か</h2><h2 id="現在の専門性">現在の専門性</h2>');
+  const $ = load(pageOpening(contents.html, contents.headings, undefined, { expanded: true }).html);
+  assert($('[data-page-heading-toc]').is('[open]'));
+  assert.deepEqual($('[data-page-heading-toc] a').map((_, link) => $(link).attr('href')).get(), ['#何をする人か', '#現在の専門性']);
+  assert.equal($('[data-page-heading-toc] a').filter((_, link) => $(link).text() === '更新履歴').length, 0);
 });
