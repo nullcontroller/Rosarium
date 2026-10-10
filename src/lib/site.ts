@@ -67,14 +67,15 @@ export const introductionForPath = (pathname: string) =>
     pathname.replace(/^\/+|\/+$/g, "")
   ];
 export const fallbackLastUpdated = "2026-09-28";
-// Content/structure dates are explicit; shared CSS, analytics and deploys do not change them.
+// Page dates are explicit. Home tracks the latest site-wide public change separately.
 export const staticPageLastUpdated: Record<string, string> = {
   "software-engineering/code-generation-and-work-design": "2026-10-08",
   "software-engineering/code-generation-boundaries": "2026-10-08",
   "practices/ai-generation-and-work-completion": "2026-10-08",
   // Retired Details compatibility redirect; excluded from the sitemap.
   "career/details": "2026-10-04",
-  "": "2026-10-08",
+  // Site-wide last public change; independent of Garden Notes and individual page histories.
+  "": "2026-10-11",
   ai: "2026-10-10",
   "ai-design": "2026-10-10",
   "ai-design/applicability": "2026-10-08",
