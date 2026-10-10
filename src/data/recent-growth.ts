@@ -39,11 +39,15 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
-    date: "2026-10-10", type: "revised", title: "企画の判断領域と、今後深めたい専門性を整理",
+    date: "2026-10-10", type: "revised", title: "企画領域・専門性を整理し、独自ドメインで長期育成へ",
     changes: [{ action: "revised", text: "改訂。企画で与えられた業務目標と、要件定義・SAで判断するシステム要件・実現方式の境界を明確にした", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/design-principles"] },
       "システム企画の領域を新設し、価値発見・業務要求と要件定義・システムアーキテクチャの境界を整理した",
-      { action: "revised", text: "改訂。価値発見と業務要求の定義を、今後深めたい専門領域として明確にした", contentIds: ["career/overview"] }],
-    summaryChanges: ["システム企画の領域を新設", "Careerを1件改訂", "Caseを3件改訂"],
+      { action: "revised", text: "改訂。価値発見と業務要求の定義を、今後深めたい専門領域として明確にした", contentIds: ["career/overview"] },
+      "独自ドメインを取得し、正規URLを https://rosarium-tech.com/ へ変更。旧GitHub Pages URLからも新しい入口へ案内",
+      "設計・実践・知識を長期的に再利用できる技術ポートフォリオとして育てます"],
+    summaryChanges: ["システム企画の領域を新設", "Careerを1件改訂", "Caseを3件改訂",
+      "独自ドメインを取得し、正規URLを rosarium-tech.com へ変更。旧GitHub Pages URLからも新しい入口へ案内",
+      "設計・実践・知識を長期的に再利用できる技術ポートフォリオとして育てます"],
     category: "Rosarium", icon: "updates",
   },
   {
