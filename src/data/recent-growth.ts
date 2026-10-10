@@ -43,11 +43,9 @@ const curatedRecentGrowth = [
     changes: [{ action: "revised", text: "改訂。企画で与えられた業務目標と、要件定義・SAで判断するシステム要件・実現方式の境界を明確にした", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/design-principles"] },
       "システム企画の領域を新設し、価値発見・業務要求と要件定義・システムアーキテクチャの境界を整理した",
       { action: "revised", text: "改訂。価値発見と業務要求の定義を、今後深めたい専門領域として明確にした", contentIds: ["career/overview"] },
-      "独自ドメインを取得し、正規URLを https://rosarium-tech.com/ へ変更。旧GitHub Pages URLからも新しい入口へ案内",
-      "設計・実践・知識を長期的に再利用できる技術ポートフォリオとして育てます"],
+      "Rosariumを長期視点で育てる技術ポートフォリオとして運用するため、独自ドメインを取得し、正規URLを rosarium-tech.com へ変更。旧GitHub Pages URLからも新しい入口へ案内"],
     summaryChanges: ["システム企画の領域を新設", "Careerを1件改訂", "Caseを3件改訂",
-      "独自ドメインを取得し、正規URLを rosarium-tech.com へ変更。旧GitHub Pages URLからも新しい入口へ案内",
-      "設計・実践・知識を長期的に再利用できる技術ポートフォリオとして育てます"],
+      "Rosariumを長期視点で育てる技術ポートフォリオとして運用するため、独自ドメインを取得し、正規URLを rosarium-tech.com へ変更。旧GitHub Pages URLからも新しい入口へ案内"],
     category: "Rosarium", icon: "updates",
   },
   {
