@@ -35,5 +35,8 @@ test("planning publication and Career aspirations retain distinct histories", ()
   assert.equal(events[0].date, "2026-09-23");
   assert.equal(events.at(-1).date, "2026-10-10");
   assert(events.at(-1).text.includes("今後深めたい"));
-  assert(text.includes("現在、企画を担当した公開可能な実務Caseはありません"));
+  const direction = text.split("## 今後深めたい領域")[1].split("\n## ")[0];
+  assert(direction.includes("System Planning / Value Discovery / Business Requirementsを、今後深めたい専門領域として位置付けています"));
+  assert(direction.includes("関わりたいと考えています"));
+  assert(!/未経験|実績がない|Caseがない|実務Caseはありません|十分な経験がない/.test(text));
 });
