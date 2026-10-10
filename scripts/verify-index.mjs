@@ -150,10 +150,10 @@ assert.equal(top(".entrance-hero-actions a").length, 1);
 assert.equal(top('.entrance-hero-actions a[href="/Rosarium/about/"]').length, 1);
 assert(top(".entrance-hero > .lead").text().includes("AIを主軸に"));
 assert(
-  top(".entrance-hero > .lead").text().includes("DX・システム設計"),
+  top(".entrance-hero > .lead").text().includes("システム企画・業務要件"),
 );
 assert(!top("main").text().includes("Applied AI / System Architecture"));
-assert(top(".entrance-hero > .lead").text().includes("実践例・設計判断"));
+assert(top(".entrance-hero > .lead").text().includes("知識と実践事例"));
 assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())

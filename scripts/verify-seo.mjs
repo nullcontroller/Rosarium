@@ -202,3 +202,27 @@ for (const [route, destination] of [["practices/ai-education-principles","practi
   assert.equal($("[data-series-index]").length, 0);
   assert.ok($("script").text().includes("location.replace(destination)"));
 }
+
+const home = load(fs.readFileSync("dist/index.html", "utf8"));
+assert.equal(home("title").text(), "Rosarium | 立林 裕太朗");
+const homeDescription = home('meta[name="description"]').attr("content");
+assert(homeDescription.includes("立林裕太朗個人の技術サイト"));
+assert(homeDescription.includes("システム企画・業務要件"));
+for (const [selector, expected] of [
+  ['meta[property="og:title"]', home("title").text()],
+  ['meta[name="twitter:title"]', home("title").text()],
+  ['meta[property="og:description"]', homeDescription],
+  ['meta[name="twitter:description"]', homeDescription],
+]) assert.equal(home(selector).attr("content"), expected);
+const graph = JSON.parse(home('script[type="application/ld+json"]').first().text())["@graph"];
+const people = graph.filter(entity => entity["@type"] === "Person");
+const websites = graph.filter(entity => entity["@type"] === "WebSite");
+assert.equal(people.length, 1);
+assert.equal(websites.length, 1);
+assert.equal(websites[0].author["@id"], people[0]["@id"]);
+assert.equal(websites[0].publisher["@id"], people[0]["@id"]);
+assert.equal(websites[0].name, "Rosarium");
+assert.equal(websites[0].url, "https://nullcontroller.github.io/Rosarium/");
+assert.equal(people[0].name.replace(/\s/g, ""), "立林裕太朗");
+assert.equal(people[0].url, "https://nullcontroller.github.io/Rosarium/career/");
+console.log("Verified Home brand identity, social metadata and single author relationship.");

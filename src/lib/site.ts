@@ -26,7 +26,7 @@ export const sections = [
 ] as const;
 export const base = "/Rosarium";
 export const siteDescription =
-  "AIを仕事にどう組み込み、人間とどう分担するかを考える個人の技術サイトです。DX、システム設計、業務設計も扱い、具体的な事例から設計・理論を深めます。";
+  "Rosariumは、立林裕太朗個人の技術サイトです。AIを主軸に、システム企画・業務要件、アーキテクチャ、ソフトウェア開発の知識と実践事例を整理する技術ポートフォリオです。";
 
 // Reader-facing introductions are shared by page headings and SEO descriptions.
 export const pageIntroductions: Record<string, string> = {
