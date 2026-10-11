@@ -2,9 +2,21 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import YAML from "yaml";
-import { isPlanningKnowledge, planningPublishedAt } from "../src/lib/planning.ts";
+import { isPlanningKnowledge, planningPublishedAt, planningQuestions } from "../src/lib/planning.ts";
 import { contentHistory } from "../src/data/content-history.ts";
 const entry = (tags, extra = {}) => ({ data: { tags, kind: "essay", section: "essays", ...extra } });
+test("planning retains its entry and legacy anchor without the boundary explanation", () => {
+  const planning = fs.readFileSync("src/pages/planning.astro", "utf8");
+  assert(!planning.includes('aria-labelledby="handoff"'));
+  assert(!planning.includes('slug: "handoff"'));
+  assert(!planning.includes("IPAの区分"));
+  assert(planning.includes('id="handoff" aria-hidden="true"'));
+  assert(planning.includes('id="scope"'));
+  assert(!planningQuestions.some(question => question.title === "要件定義への引渡し"));
+  for (const file of ["src/content/career/overview.md", "src/content/cases/customer-support-ai-dx.md"]) {
+    assert(!fs.readFileSync(file, "utf8").includes("/planning/#handoff"));
+  }
+});
 test("planning reader purpose derives existing knowledge tags and excludes Case experience", () => {
   for (const tag of ["IT戦略", "システム企画", "ECRS"]) assert(isPlanningKnowledge(entry([tag])));
   assert(!isPlanningKnowledge(entry(["DX", "PoC", "KPI"])));
