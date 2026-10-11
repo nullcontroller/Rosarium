@@ -39,6 +39,16 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-11",
+    type: "revised",
+    title: "Careerの専門性と将来方向を明確化",
+    changes: [
+      { action: "revised", text: "改訂。Windows向け業務ユーティリティの長期経験、C#・Python、Applied AI、要件定義・システム設計を具体化し、今後深めたいシステム企画・ITストラテジスト的領域への志向とFDE非志向を明示した", contentIds: ["career/overview"] },
+    ],
+    category: "Rosarium",
+    icon: "career",
+  },
+  {
     date: "2026-10-10", type: "revised", title: "企画領域・専門性を整理し、独自ドメインで長期育成へ",
     changes: [{ action: "revised", text: "改訂。企画で与えられた業務目標と、要件定義・SAで判断するシステム要件・実現方式の境界を明確にした", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/design-principles"] },
       "システム企画の領域を新設し、価値発見・業務要求と要件定義・システムアーキテクチャの境界を整理した",
