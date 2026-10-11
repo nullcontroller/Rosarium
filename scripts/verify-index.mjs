@@ -145,8 +145,9 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file
     `${html}: shared brand mark`,
   );
 }
-assert.equal(top(".entrance-hero-actions a").length, 1);
+assert.equal(top(".entrance-hero-actions a").length, 2);
 assert.equal(top('.entrance-hero-actions a[href="/about/"]').length, 1);
+assert.equal(top('.entrance-hero-actions a[href="/cases/"]').length, 1);
 assert(top(".entrance-hero > .lead").text().includes("2016年からのC# / .NET"));
 assert(
   top(".entrance-hero > .lead").text().includes("要件定義・システム設計、Applied AI"),
@@ -169,16 +170,10 @@ assert.equal(top('.header-primary a[href="/cases/"]').length, 1);
 assert.equal(top('.mobile-retired-link').attr("aria-label"), "旧記事・退役記事");
 assert.equal(top('.header-primary a[href="/career/"]').length, 1);
 assert.equal(top('.home-career a[href="/career/"]').length, 1);
-const featured = top('section[aria-labelledby="featured-cases-heading"]');
-assert.equal(featured.length, 1);
-for (const id of ["specification-debt-review", "three-ai-maintenance", "customer-support-ai-dx"]) {
-  assert.equal(featured.find(`a[href="/cases/${id}/"]`).length, 1);
-}
-assert(featured.text().includes("実務実績"));
-assert(featured.text().includes("設計事例"));
-assert(featured.text().includes("導入済みの実測成果ではありません"));
-assert.equal(featured.find(".case-outcome").length, 0);
-assert.equal(featured.find("figure.case").length, 3);
+assert.equal(top('section[aria-labelledby="featured-cases-heading"]').length, 0);
+assert.equal(top('.home-garden-notes #recent-growth-heading').length, 1);
+assert.equal(top('.home-garden-notes [data-growth-entry]').length, Math.min(3, recentGrowth.length));
+assert.equal(top('main a[href="/garden-notes/"]').length, 1);
 assert.equal(top(".header-actions a.reference-header-tool").length, 1);
 assert.equal(top("#right-sidebar").length, 1);
 assert(top("#right-sidebar").is("[hidden][data-initially-closed=true]"));
@@ -439,6 +434,16 @@ assert.equal(cases(".case-reference-note").length, 0);
 assert.equal(cases("#active-cases .case-study-index").length, 3);
 assert.equal(cases("#obsolete-cases").length, 0);
 assert.equal(cases("#active-cases > h2").text(), "主要事例");
+const caseHighlights = cases(".case-highlight-list > li");
+assert.equal(caseHighlights.length, 3);
+for (const id of ["specification-debt-review", "three-ai-maintenance", "customer-support-ai-dx"]) {
+  assert.equal(cases(`.case-highlight-list a[href="#case-${id}"]`).length, 1);
+  assert.equal(cases(`#case-${id}`).length, 1);
+}
+assert(caseHighlights.text().includes("実務実績"));
+assert(caseHighlights.text().includes("設計事例"));
+assert(caseHighlights.text().includes("導入済みの実測成果ではありません"));
+
 
 
 
@@ -599,14 +604,14 @@ for (const [id, data] of entries) {
   assert.equal(document('#page-toc-panel a').filter((_, item) => document(item).text().trim() === "更新履歴").length, 0);
 }
 
-assert.equal(top("#recent-growth-heading, [data-growth-entry], [data-recent-growth], .home-primary-panels").length, 0);
+assert.equal(top("#recent-growth-heading").length, 1);
+assert.equal(top(".home-garden-notes .home-growth-history").length, 1);
+assert.equal(top(".home-primary-panels").length, 0);
 assert.equal(top('.header-secondary a[href="/garden-notes/"]').length, 1);
-assert.equal(top('main a[href="/garden-notes/"]').length, 0);
 assert.equal(top(".home-hero-layout > aside.home-career").length, 1);
-assert.equal(top(".home-primary-panels .home-career").length, 0);
 assert.equal(top('a[href="/about/"]').text().trim(), "Rosariumとは？");
 assert.equal(top("#about-rosarium").length, 0);
-assert.equal(top('a[href="/garden-notes/"]').text().trim(), "Garden Notes");
+assert.equal(top('.header-secondary a[href="/garden-notes/"]').text().trim(), "Garden Notes");
 const gardenNotes = page("garden-notes");
 assert.equal(gardenNotes('.header-secondary a[aria-current="page"]').attr("href"), "/garden-notes/");
 assert.equal(gardenNotes(".home-growth-history").length, 0);
