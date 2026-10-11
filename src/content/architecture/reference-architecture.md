@@ -6,7 +6,7 @@ title: AI業務システムの参照アーキテクチャ
 kind: architecture
 section: architecture
 status: published
-last_updated: "2026-10-08"
+last_updated: "2026-10-12"
 entry_points:
   - ai
   - dx
@@ -15,7 +15,7 @@ secondaryCategories: []
 tags:
   - architecture
 published_at: "2026-09-23"
-updated_at: "2026-10-08"
+updated_at: "2026-10-12"
 source:
   type: wiki
   url: https://github.com/nullcontroller/Rosarium/wiki/AI%E6%A5%AD%E5%8B%99%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%8F%82%E7%85%A7%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3
@@ -52,6 +52,11 @@ AI業務システムは、モデルへ入力を渡して回答を受け取るだ
 このページは特定Cloud、Framework、Model製品の構成図ではない。AI適用判断からLifecycle / Operationsまでの設計原則を、一つの業務Systemへ接続するための論理Architectureである。
 
 ---
+
+### 要求から構成を導く記事との役割分担
+
+本記事は構成要素、責任境界、検証・承認・実行の配置を扱う。  
+要求を機能へ分解し、技術の採用理由と不採用理由を比較する前段は[業務要求からシステム方式を設計する](/architecture/requirements-to-system-method/)で扱う。
 
 ### 1. 全体構造
 
@@ -149,6 +154,20 @@ Context Assemblyの責務は、情報を最大量入れることではない。
 6. Context Budget内で優先順位を付ける
 
 RAGの検索結果はEvidence候補であり、正答そのものではない。
+
+#### 属性による検索対象制御と類似度を分ける
+
+意味的に類似することと、業務上の回答根拠として適格であることは別である。  
+対象・版・権限などの適用条件を入力から収集し、文書へ対応するメタデータを付与する。  
+条件に適合する文書へ検索対象を制限した後、その範囲で意味検索し、取得根拠を生成へ渡す。  
+条件が未確定なら追加確認し、根拠不足なら回答を停止する。
+
+類似度しきい値は意味的な近さを選ぶ手段であり、属性による対象制御の代わりにはならない。  
+しきい値を厳しくするだけでは、適合する有用な文書も取りこぼし得る。  
+適用条件を通過した候補に対して順位やしきい値を使い、根拠の適合性を回答生成の前提として扱う。
+
+この制御が機能要件を満たしたかは[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)で検証する。
+
 
 ---
 

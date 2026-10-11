@@ -46,7 +46,7 @@ export const aiDesignTopicGuides = {
   },
   architecture: {
     question: "AIの候補を、既存システムの確定処理へどうつなぐか。全体構成を起点に、受け渡し契約、脅威と権限、処理経路の選択を設計します。",
-    readingOrder: ["architecture/reference-architecture", "architecture/prompts-as-interfaces", "architecture/security-threat-modeling", "architecture/cost-latency-routing"],
+    readingOrder: ["architecture/requirements-to-system-method", "architecture/reference-architecture", "architecture/prompts-as-interfaces", "architecture/security-threat-modeling", "architecture/cost-latency-routing"],
     next: { path: "ai-design/software-engineering", title: "ソフトウェア開発", reason: "構成と権限の境界を、調査・生成・検証の具体的な工程へ適用します。" },
   },
   "software-engineering": {

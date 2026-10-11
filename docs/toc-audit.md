@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 142ページ。目次あり 112、なし 30。Referenceあり 110、なし 32。
+対象 143ページ。目次あり 113、なし 30。Referenceあり 111、なし 32。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -11,9 +11,9 @@
 | / | Rosarium | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /404.html | ページが見つかりません | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /about/ | Rosariumとは？ | あり | あり | なし | 7 | 主要見出しが複数 |
-| /ai-design/ | AI設計 | あり | あり | あり | 43 | 主要見出しが複数 |
+| /ai-design/ | AI設計 | あり | あり | あり | 44 | 主要見出しが複数 |
 | /ai-design/applicability/ | AI適用判断 | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
-| /ai-design/architecture/ | システムアーキテクチャ | あり | あり | あり | 4 | 主要見出しが複数 |
+| /ai-design/architecture/ | システムアーキテクチャ | あり | あり | あり | 5 | 主要見出しが複数 |
 | /ai-design/evaluation-hitl/ | 評価・ヒューマンレビュー | あり | あり | あり | 3 | 主要見出しが複数 |
 | /ai-design/knowledge-context/ | ナレッジ / コンテキスト | あり | あり | あり | 5 | 主要見出しが複数 |
 | /ai-design/lifecycle-operations/ | ライフサイクル・運用 | あり | あり | あり | 3 | 主要見出しが複数 |
@@ -21,13 +21,14 @@
 | /ai-design/software-engineering/ | ソフトウェア開発 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /ai-mathematics/ | AI理論 | あり | あり | あり | 8 | 主要見出しが複数 |
 | /ai/ | AI | あり | あり | あり | 5 | 主要見出しが複数 |
-| /architecture/ | システムアーキテクチャ | なし | あり | あり | 7 | 主要見出しが複数 |
+| /architecture/ | システムアーキテクチャ | なし | あり | あり | 8 | 主要見出しが複数 |
 | /architecture/agents-tools-and-workflows/ | 「AIエージェントを0から作る時代」は本当に来るのか？ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /architecture/change-and-reevaluation/ | AIシステムの変更・再評価設計 | あり | あり | あり | 18 | 長文の複数h3セクション |
 | /architecture/cost-latency-routing/ | AIコスト・Latency・モデルルーティング設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /architecture/observability-and-slo/ | AIシステムのオブザーバビリティとSLO設計 | あり | あり | あり | 13 | 長文の複数h3セクション |
 | /architecture/prompts-as-interfaces/ | AI間インターフェースとしてのプロンプト | あり | あり | あり | 24 | 長文の複数h3セクション |
-| /architecture/reference-architecture/ | AI業務システムの参照アーキテクチャ | あり | あり | あり | 17 | 長文の複数h3セクション |
+| /architecture/reference-architecture/ | AI業務システムの参照アーキテクチャ | あり | あり | あり | 18 | 長文の複数h3セクション |
+| /architecture/requirements-to-system-method/ | 業務要求からシステム方式を設計する | あり | あり | あり | 7 | 主要見出しが複数 |
 | /architecture/security-threat-modeling/ | 生成AIセキュリティと脅威モデリング | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /articles/ | AIへ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /books/ | 実践事例をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
@@ -73,7 +74,7 @@
 | /dx/business-transformation/ | 業務変革 | あり | あり | あり | 5 | 主要見出しが複数 |
 | /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /dx/selection-retirement/ | 選択と廃止 | あり | あり | あり | 2 | 主要見出しが複数 |
-| /dx/system-transformation/ | システム変革 | あり | あり | あり | 4 | 主要見出しが複数 |
+| /dx/system-transformation/ | システム変革 | あり | あり | あり | 5 | 主要見出しが複数 |
 | /dx/value-design/ | 価値設計 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /essays/ | 考察 | あり | あり | あり | 6 | 主要見出しが複数 |
 | /essays/ai-career-market/ | 採用される側から見たAI人材の転職概況 | あり | あり | あり | 7 | 長文の複数h3セクション |
@@ -90,7 +91,7 @@
 | /evaluation-hitl/code-evaluation-acceptance/ | コード生成AIの評価と採用設計 | あり | あり | あり | 23 | 長文の複数h3セクション |
 | /evaluation-hitl/datasets-and-regression/ | AI評価データセットと回帰評価設計 | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /evaluation-hitl/human-review-capability/ | AI時代において「レビューできる人」が価値を持つ理由 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
-| /evaluation-hitl/qa-evaluation/ | QAチャット評価設計思想 | あり | あり | あり | 15 | 長文の複数h3セクション |
+| /evaluation-hitl/qa-evaluation/ | QAチャット評価設計思想 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /evaluation-hitl/responsibility-and-hitl/ | AI出力の責任境界とHITL | あり | あり | あり | 29 | 長文の複数h3セクション |
 | /foundations/ | 設計資料アーカイブ | なし | あり | あり | 9 | 主要見出しが複数 |
 | /foundations/ai-business-design/ | 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』 | あり | あり | あり | 6 | Book章構造 |
