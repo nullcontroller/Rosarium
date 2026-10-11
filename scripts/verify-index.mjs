@@ -1,4 +1,3 @@
-import { inRecentWindow } from "../src/lib/history-window.ts";
 import { contentHistory } from "../src/data/content-history.ts";
 import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
 import { recentGrowth, growthChangeText, growthSummary } from "../src/data/recent-growth.ts";
@@ -175,8 +174,11 @@ assert.equal(featured.length, 1);
 for (const id of ["specification-debt-review", "three-ai-maintenance", "customer-support-ai-dx"]) {
   assert.equal(featured.find(`a[href="/cases/${id}/"]`).length, 1);
 }
-assert(featured.text().includes("設計の到達点"));
-assert(top("main").text().indexOf("代表実績・設計事例") < top("main").text().indexOf("最近の手入れ"));
+assert(featured.text().includes("実務実績"));
+assert(featured.text().includes("設計事例"));
+assert(featured.text().includes("導入済みの実測成果ではありません"));
+assert.equal(featured.find(".case-outcome").length, 0);
+assert.equal(featured.find("figure.case").length, 3);
 assert.equal(top(".header-actions a.reference-header-tool").length, 1);
 assert.equal(top("#right-sidebar").length, 1);
 assert(top("#right-sidebar").is("[hidden][data-initially-closed=true]"));
@@ -597,17 +599,16 @@ for (const [id, data] of entries) {
   assert.equal(document('#page-toc-panel a').filter((_, item) => document(item).text().trim() === "更新履歴").length, 0);
 }
 
-assert(top("#recent-growth-heading").length);
-assert.equal(top(".growth-scrollbox").length, 0);
-assert.equal(top('.home-growth-history[data-recent-growth][role="region"][tabindex="0"][aria-label="Garden Notes 更新履歴"]').length, 1);
-assert.equal(top(".home-growth-history #recent-growth-heading").length, 0, "Section heading must stay outside the scroll region");
-assert.equal(top(".home-primary-panels > section").length, 1);
+assert.equal(top("#recent-growth-heading, [data-growth-entry], [data-recent-growth], .home-primary-panels").length, 0);
+assert.equal(top('.header-secondary a[href="/garden-notes/"]').length, 1);
+assert.equal(top('main a[href="/garden-notes/"]').length, 0);
 assert.equal(top(".home-hero-layout > aside.home-career").length, 1);
 assert.equal(top(".home-primary-panels .home-career").length, 0);
 assert.equal(top('a[href="/about/"]').text().trim(), "Rosariumとは？");
 assert.equal(top("#about-rosarium").length, 0);
 assert.equal(top('a[href="/garden-notes/"]').text().trim(), "Garden Notes");
 const gardenNotes = page("garden-notes");
+assert.equal(gardenNotes('.header-secondary a[aria-current="page"]').attr("href"), "/garden-notes/");
 assert.equal(gardenNotes(".home-growth-history").length, 0);
 assert.equal(gardenNotes('.garden-notes-history[role="region"][tabindex="0"][aria-label="Garden Notes 更新履歴"]').length, 1);
 assert.equal(gardenNotes(".garden-notes-history [data-growth-entry]").length, recentGrowth.length);
@@ -621,8 +622,8 @@ for (const entry of recentGrowth) {
   assertGrowthChanges(gardenNotes, row, entry);
 }
 
-assert.equal(top(".growth-list [data-growth-entry]").length, recentGrowth.filter(entry => inRecentWindow(entry.date)).length);
-assert.equal(top(`[data-growth-entry] time[datetime="${recentGrowth[0].date}"]`).length, inRecentWindow(recentGrowth[0].date) ? 1 : 0);
+
+
 assert.equal(new Set(recentGrowth.map(entry => entry.date)).size, recentGrowth.length);
 assert.equal(recentGrowth.find(entry => entry.date === "2026-10-03").changes.length, 4);
 assert(recentGrowth.every(entry => !entry.changes.some(change => /表示・導線を整理|UI.?UXを改善/.test(growthChangeText(change)))));

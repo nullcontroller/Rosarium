@@ -2,16 +2,17 @@
 import Site from "../layouts/Site.astro";
 import Case from "../components/Case.astro";
 import { caseStudies } from "../lib/navigation";
-import GrowthEntry from "../components/GrowthEntry.astro";
-import { inRecentWindow } from "../lib/history-window";
-import { recentGrowth } from "../data/recent-growth";
 import PageHeader from "../components/PageHeader.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { url } from "../lib/site";
 
 const featuredCases = ["cases/specification-debt-review", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"].map(id => caseStudies.find(study => study.book === id)!);
 const caseTitles: Record<string, string> = { "cases/specification-debt-review": "仕様書横断レビュー", "cases/three-ai-maintenance": "複数AIを使い分けたレガシー保守", "cases/customer-support-ai-dx": "顧客サポートQAの要件・方式設計" };
-const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
+const caseSummaries: Record<string, string> = {
+  "cases/specification-debt-review": "仕様書とコードを横断レビューし、約40件の問題を確認。根拠をもとに修正と現状維持を判断しました。",
+  "cases/three-ai-maintenance": "暗号処理・異常系の保守を複数AIと人間の確認で内製し、外部委託を不要にしました。",
+  "cases/customer-support-ai-dx": "与えられた業務目標を、追加質問・検索対象制御・RAG・有人引継ぎの要件と方式へ具体化しました。",
+};
 ---
 
 <Site toc="never" rightSidebarInitiallyClosed title="Home" section="">
@@ -41,51 +42,12 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
     <p class="meta">担当範囲、設計判断、成果と限界を、実践事例から確認できます。</p>
     {featuredCases.map(study => <Case title={caseTitles[study.book]}>
       <p class="meta">{study.referenceNote}</p>
-      <dl class="case-outcome">
-        <div><dt>課題</dt><dd>{study.challenge}</dd></div>
-        <div><dt>担当・設計</dt><dd>{study.designSummary}</dd></div>
-        <div><dt>{study.book === "cases/customer-support-ai-dx" ? "設計の到達点" : "確認できた結果"}</dt><dd>{study.result}</dd></div>
-      </dl>
+      <p>{caseSummaries[study.book]}</p>
       <a href={url(study.book)}>事例の詳細を見る</a>
     </Case>)}
   </section>
 
-  <div class="home-primary-panels">
-    <section class="home-section home-panel" aria-labelledby="recent-growth-heading">
-      <SectionHeading
-        icon="updates"
-        eyebrow="GARDEN NOTES"
-        title="最近の手入れ"
-        id="recent-growth-heading"
-      />
-      <p class="meta">
-        直近30日間の記事・事例の公開や改訂を、件数中心に記録しています。
-      </p>
-      <p class="meta" data-growth-empty hidden={recent.length > 0}>直近30日間の更新はありません。</p>
-      <div class="growth-list growth-list-compact home-growth-history" data-recent-growth role="region" tabindex="0" aria-label="Garden Notes 更新履歴">
-        {recent.map((entry) => (
-          <GrowthEntry entry={entry} />
-        ))}
-      </div>
-      <p><a class="cta-link" href={url("garden-notes")}>Garden Notes</a></p>
-    </section>
-  </div>
 </Site>
-
-<script>
-  import { inRecentWindow } from "../lib/history-window";
-  function refreshRecentGrowth() {
-    const list = document.querySelector("[data-recent-growth]");
-    if (!list) return;
-    const entries = Array.from(list.querySelectorAll<HTMLElement>("[data-growth-date]"));
-    for (const entry of entries) entry.hidden = !inRecentWindow(entry.dataset.growthDate ?? "");
-    const empty = document.querySelector<HTMLElement>("[data-growth-empty]");
-    if (empty) empty.hidden = entries.some(entry => !entry.hidden);
-  }
-  refreshRecentGrowth();
-  document.addEventListener("astro:page-load", refreshRecentGrowth);
-  document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshRecentGrowth(); });
-</script>
 
 <style>
   .career-overview > span { display: block; }
@@ -108,28 +70,4 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
     .home-career { padding: 1rem; }
   }
 
-  .home-growth-history {
-    max-height: min(40rem, 60vh);
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: .5rem .75rem;
-    border: 1px solid var(--line);
-    overflow-wrap: anywhere;
-    background:
-      linear-gradient(to top, var(--home-panel-surface, var(--surface)) 30%, transparent) center bottom / 100% 2rem local no-repeat,
-      linear-gradient(to top, var(--scroll-fade), transparent) center bottom / 100% 1.5rem scroll no-repeat,
-      var(--home-panel-surface, var(--surface));
-  }
-  .home-growth-history:not(:has(:global([data-growth-entry]:not([hidden])))) { display: none; }
-  @media (pointer: fine) {
-    .home-growth-history { scrollbar-width: thin; scrollbar-color: var(--muted) var(--home-panel-surface, var(--surface)); scrollbar-gutter: stable; }
-  }
-  @media (min-width: 801px) and (max-width: 1100px) {
-    .home-growth-history { max-height: 50vh; }
-  }
-  @media (max-width: 800px) {
-    .home-growth-history { max-height: 45vh; max-height: 45svh; }
-  }
-  [data-recent-growth] :global([data-growth-entry][hidden]),
-  [data-growth-empty][hidden] { display: none; }
 </style>
