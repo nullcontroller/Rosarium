@@ -4,7 +4,7 @@ seo_title: "Career | Applied AI・要件定義・System Architecture"
 summary: "立林裕太朗は、2016年からのC# / .NETによるWindowsソフトウェア開発・既存システム保守を基盤に、要件定義、System / Software Architecture、Applied AIを扱うエンジニアです。現在の設計・実装経験と、今後広げたいシステム企画の判断領域を紹介します。"
 layer: career
 status: stable
-last_updated: "2026-10-11"
+last_updated: "2026-10-12"
 source:
   type: repository
   url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/career/overview.md
@@ -71,7 +71,10 @@ Pythonは、分割仕様書の統合、調査・検証、自動化、AI活用に
 **実務：** 暗号処理の変更に伴い、保存情報の欠落・破損、読出し失敗への対応と責任分担を整理。  
 AIを調査・実装支援に使いつつ、仕様と異常系の判断は人間が行いました。
 
-**確認できた結果：** 承認した仕様に基づき修正と単体テストを実施し、正常系への変更を限定しました。
+**確認できた結果：** 承認した仕様に基づき修正と単体テストを実施し、正常系への変更を限定しました。  
+要件整理から単体テストまで内製し、外部委託を不要にしました。  
+開発期間は当初想定していた期間との比較で約7割短縮しました。  
+各AIや各工程だけの効果を切り分けた値ではありません。
 
 [レガシー保守の判断と実装を見る](/cases/three-ai-maintenance/)
 :::
@@ -81,7 +84,7 @@ AIを調査・実装支援に使いつつ、仕様と異常系の判断は人間
 人が理解する図と、RAG / QAで検索するKnowledgeを作り分けました。
 
 **確認できた結果：** 問い合わせや仕様確認、後続の変更検討へ再利用できる情報を整備しました。  
-当時のAI環境を前提とした事例です。
+当時のAI環境を前提とした参考事例（OBSOLETE）です。
 
 [システム理解とナレッジ再構築を見る](/cases/system-understanding/)
 :::

@@ -148,9 +148,9 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file
 }
 assert.equal(top(".entrance-hero-actions a").length, 1);
 assert.equal(top('.entrance-hero-actions a[href="/about/"]').length, 1);
-assert(top(".entrance-hero > .lead").text().includes("AIを主軸に"));
+assert(top(".entrance-hero > .lead").text().includes("2016年からのC# / .NET"));
 assert(
-  top(".entrance-hero > .lead").text().includes("システム企画・業務要件"),
+  top(".entrance-hero > .lead").text().includes("要件定義・システム設計、Applied AI"),
 );
 assert(!top("main").text().includes("Applied AI / System Architecture"));
 assert(top(".entrance-hero > .lead").text().includes("知識と実践事例"));
@@ -158,18 +158,25 @@ assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["庭", "AI", "DX", "企画", "実践事例", "旧記事・退役記事"],
+  ["庭", "AI", "DX", "企画", "実践事例", "キャリア", "旧記事・退役記事"],
 );
 assert.deepEqual(
   top(".header-primary a")
     .map((_, e) => top(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "企画", "事例", "旧・退役"],
+  ["庭", "AI", "DX", "企画", "事例", "キャリア", "旧・退役"],
 );
 assert.equal(top('.header-primary a[href="/cases/"]').length, 1);
 assert.equal(top('.mobile-retired-link').attr("aria-label"), "旧記事・退役記事");
-assert.equal(top('.header-primary a[href="/career/"]').length, 0);
+assert.equal(top('.header-primary a[href="/career/"]').length, 1);
 assert.equal(top('.home-career a[href="/career/"]').length, 1);
+const featured = top('section[aria-labelledby="featured-cases-heading"]');
+assert.equal(featured.length, 1);
+for (const id of ["specification-debt-review", "three-ai-maintenance", "customer-support-ai-dx"]) {
+  assert.equal(featured.find(`a[href="/cases/${id}/"]`).length, 1);
+}
+assert(featured.text().includes("設計の到達点"));
+assert(top("main").text().indexOf("代表実績・設計事例") < top("main").text().indexOf("最近の手入れ"));
 assert.equal(top(".header-actions a.reference-header-tool").length, 1);
 assert.equal(top("#right-sidebar").length, 1);
 assert(top("#right-sidebar").is("[hidden][data-initially-closed=true]"));
@@ -185,16 +192,16 @@ for (const secondary of ["詳細職務経歴", "Books", "連載", "Essays"])
     !top(".sidebar nav a .nav-copy > span").text().includes(secondary),
     secondary,
   );
-assert.equal(top(".sidebar .icon").length, 6);
+assert.equal(top(".sidebar .icon").length, 7);
 assert.equal(
   new Set(
     top(".sidebar .icon")
       .map((_, e) => top(e).attr("class"))
       .get(),
   ).size,
-  5,
+  6,
 );
-assert.equal(top('.sidebar a[href="/career/"]').length, 0);
+assert.equal(top('.sidebar a[href="/career/"]').length, 1);
 assert.equal(top('.sidebar a[href="/updates/"]').length, 0);
 assert.deepEqual(
   top(".sidebar .nav-children a .nav-copy > span")
@@ -214,7 +221,7 @@ assert.deepEqual(
   career(".header-primary a")
     .map((_, e) => career(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "企画", "事例", "旧・退役"],
+  ["庭", "AI", "DX", "企画", "事例", "キャリア", "旧・退役"],
 );
 assert(career('a[href="/ai/"]').length);
 assert(career('a[href="/dx/"]').length);
@@ -458,7 +465,7 @@ for (const id of [
       .find(".case-outcome dt")
       .map((_, e) => cases(e).text())
       .get(),
-    ["課題", "設計", "結果"],
+    ["課題", "設計", id === "cases/customer-support-ai-dx" ? "設計の到達点" : "結果"],
   );
 }
 assert.equal(

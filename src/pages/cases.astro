@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
 import { caseStudies } from "../lib/navigation";
-import { activeEntry } from "../lib/site";
+import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 const all = await getCollection("pages", activeEntry);
 const caseGroups = [{ id: "active-cases", title: "主要事例", description: "", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
@@ -17,6 +17,7 @@ const headings = caseGroups.filter((group) => group.studies.length > 0).flatMap(
 <Site title="実践事例" section="cases" headings={headings} mobilePageToc>
   <PageHeader alignHero navigationPath="cases" title="実践事例" />
   <p>各事例が扱う課題、設計、到達点を確認し、必要な章へ進めます。</p>
+  <p><a href={url("career")}>運営者の専門性・実務経験を見る</a> · <a href={url("retired/obsolete-cases")}>過去の参考事例（OBSOLETE）</a></p>
   {caseGroups
     .filter((group) => group.studies.length > 0)
     .map((group) => (
@@ -42,6 +43,7 @@ const headings = caseGroups.filter((group) => group.studies.length > 0).flatMap(
               heading="h3"
             >
               <div slot="details">
+                {study.referenceNote && <p class="meta">{study.referenceNote}</p>}
                 <dl class="case-outcome" aria-label="課題から結果まで">
                   <div>
                     <dt>課題</dt>
@@ -52,7 +54,7 @@ const headings = caseGroups.filter((group) => group.studies.length > 0).flatMap(
                     <dd>{study.designSummary}</dd>
                   </div>
                   <div>
-                    <dt>結果</dt>
+                    <dt>{study.book === "cases/customer-support-ai-dx" ? "設計の到達点" : "結果"}</dt>
                     <dd>{study.result}</dd>
                   </div>
                 </dl>

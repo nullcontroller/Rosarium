@@ -1,5 +1,7 @@
 ---
 import Site from "../layouts/Site.astro";
+import Case from "../components/Case.astro";
+import { caseStudies } from "../lib/navigation";
 import GrowthEntry from "../components/GrowthEntry.astro";
 import { inRecentWindow } from "../lib/history-window";
 import { recentGrowth } from "../data/recent-growth";
@@ -7,6 +9,8 @@ import PageHeader from "../components/PageHeader.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { url } from "../lib/site";
 
+const featuredCases = ["cases/specification-debt-review", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"].map(id => caseStudies.find(study => study.book === id)!);
+const caseTitles: Record<string, string> = { "cases/specification-debt-review": "仕様書横断レビュー", "cases/three-ai-maintenance": "複数AIを使い分けたレガシー保守", "cases/customer-support-ai-dx": "顧客サポートQAの要件・方式設計" };
 const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 ---
 
@@ -18,7 +22,7 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
       title="Rosarium"
       summaryParagraphs={[
         "Rosariumは、立林裕太朗個人の技術サイトです。",
-        "AIを主軸に、システム企画・業務要件、アーキテクチャ、\nソフトウェア開発の知識と実践事例を整理しています。",
+        "2016年からのC# / .NETによるWindowsソフトウェア開発・保守を基盤に、要件定義・システム設計、Applied AIに取り組んでいます。\n既存システムの理解・改善と、AIを業務へ組み込む設計の知識と実践事例を整理しています。",
       ]}
     >
       <p class="meta">
@@ -31,6 +35,20 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
       <a class="cta-link" href={url("career")}>キャリアを見る <span aria-hidden="true">→</span></a>
     </aside>
   </div>
+
+  <section class="home-section home-panel" aria-labelledby="featured-cases-heading">
+    <SectionHeading icon="cases" eyebrow="CASE STUDIES" title="代表実績・設計事例" id="featured-cases-heading" />
+    <p class="meta">担当範囲、設計判断、成果と限界を、実践事例から確認できます。</p>
+    {featuredCases.map(study => <Case title={caseTitles[study.book]}>
+      <p class="meta">{study.referenceNote}</p>
+      <dl class="case-outcome">
+        <div><dt>課題</dt><dd>{study.challenge}</dd></div>
+        <div><dt>担当・設計</dt><dd>{study.designSummary}</dd></div>
+        <div><dt>{study.book === "cases/customer-support-ai-dx" ? "設計の到達点" : "確認できた結果"}</dt><dd>{study.result}</dd></div>
+      </dl>
+      <a href={url(study.book)}>事例の詳細を見る</a>
+    </Case>)}
+  </section>
 
   <div class="home-primary-panels">
     <section class="home-section home-panel" aria-labelledby="recent-growth-heading">

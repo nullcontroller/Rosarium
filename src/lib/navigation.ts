@@ -90,6 +90,12 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
       icon: iconForPath("cases"),
       sections: ["cases"],
     },
+    {
+      path: "career",
+      title: "キャリア",
+      summary: "運営者の専門性・実務経験・今後の方向性。",
+      icon: iconForPath("career"),
+    },
   ],
   [
     {
@@ -247,6 +253,7 @@ type CaseStudy = {
 const caseStudyEntries: CaseStudy[] = [
   {
     book: "cases/specification-debt-review",
+    referenceNote: "実務実績",
     topics: ["Documentation Debt", "Context / Human Review"],
     challenge: "変換レビューで、長期保守された仕様書と現在の実装の整合確認が必要になった。",
     designSummary: "仕様書と現在のコードをAIが横断調査し、人間がEvidenceとBefore / Afterを確認して変更を判断した。",
@@ -277,12 +284,13 @@ const caseStudyEntries: CaseStudy[] = [
   },
   {
     book: "cases/three-ai-maintenance",
+    referenceNote: "実務実績",
     topics: ["AIオーケストレーション", "既存ソフトウェア開発・改善"],
     challenge:
       "コード、過去資料、仕様検討に必要な情報が分散し、一つのAIだけでは保守判断に必要な情報が揃わなかった。",
     designSummary:
       "コードはGitHub Copilot、過去資料はMicrosoft 365 Copilot、仕様検討はGPTを中心に使い分け、人が確認して結果をつないだ。",
-    result: "コード調査から影響確認、背景調査、仕様検討、実装支援まで、AIを使える範囲を広げた。",
+    result: "要件整理から単体テストまで内製し、外部委託を不要にした。当初想定の開発期間と比べ約7割短縮。各AI単体の効果を切り分けた値ではない。",
     chapters: [
       "cases/three-ai-maintenance/cryptography-and-failure-modes",
       "cases/three-ai-maintenance/structuring-failure-handling",
@@ -296,6 +304,7 @@ const caseStudyEntries: CaseStudy[] = [
   },
   {
     book: "cases/customer-support-ai-dx",
+    referenceNote: "設計事例：業務目標を要件・方式・評価条件へ具体化。導入済みの実測成果ではありません。",
     topics: ["Applied AI / DX", "RAG / HITL / UX"],
     challenge:
       "企画から与えられた工数削減・自己解決の目標を、回答と有人対応をつなぐシステム要件へ落とす。",

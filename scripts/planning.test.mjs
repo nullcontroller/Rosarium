@@ -45,8 +45,8 @@ test("planning publication and Career aspirations retain distinct histories", ()
   const data = YAML.parse(text.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
   const events = contentHistory("career/overview", data);
   assert.equal(events[0].date, "2026-09-23");
-  assert.equal(events.at(-1).date, "2026-10-11");
-  assert(events.at(-1).text.includes("今後深めたい"));
+  assert.equal(events.at(-1).date, "2026-10-12");
+  assert(events.some(event => event.text?.includes("今後深めたい")));
   const direction = text.split("## 今後広げたい判断領域")[1]?.split("\n## ")[0];
   assert(direction, "Career must have a forward-looking planning direction");
   assert.match(direction, /現在は.*業務要求/);
