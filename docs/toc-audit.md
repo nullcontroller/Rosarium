@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 143ページ。目次あり 113、なし 30。Referenceあり 111、なし 32。
+対象 143ページ。目次あり 112、なし 31。Referenceあり 111、なし 32。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -35,7 +35,7 @@
 | /career/ | Career | あり | あり | なし | 8 | 主要見出しが複数 |
 | /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/profile/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /cases/ | 実践事例 | あり | あり | あり | 4 | 一覧の移動単位が複数 |
+| /cases/ | 実践事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/continuous-improvement/ | 08. 導入後にどう育てるか | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/customer-experience/ | 06. 顧客体験をどう変えたか | あり | あり | あり | 18 | 主要見出しが複数 |
