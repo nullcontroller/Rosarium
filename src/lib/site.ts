@@ -114,7 +114,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "retired/obsolete": "2026-10-05",
   "retired/obsolete-cases": "2026-10-05",
   "retired/retired": "2026-10-05",
-  "garden-notes": "2026-10-10",
+  "garden-notes": "2026-10-11",
   articles: "2026-10-04",
   overview: "2026-09-28",
   updates: "2026-09-28",
