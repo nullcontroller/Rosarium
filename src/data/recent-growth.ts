@@ -39,6 +39,11 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-12", type: "revised", title: "Careerの成果と事例の位置付けを明確化",
+    changes: [{ action: "revised", text: "改訂。公開済みのレガシー保守の成果と、過去の参考事例の位置付けを明確にした", contentIds: ["career/overview"] }],
+    category: "Rosarium", icon: "updates",
+  },
+  {
     date: "2026-10-11",
     type: "revised",
     title: "Careerの専門性と将来方向を明確化",
