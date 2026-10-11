@@ -1,18 +1,12 @@
 ---
 import Site from "../layouts/Site.astro";
-import Case from "../components/Case.astro";
-import { caseStudies } from "../lib/navigation";
+import GrowthEntry from "../components/GrowthEntry.astro";
+import { recentGrowth } from "../data/recent-growth";
 import PageHeader from "../components/PageHeader.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { url } from "../lib/site";
 
-const featuredCases = ["cases/specification-debt-review", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"].map(id => caseStudies.find(study => study.book === id)!);
-const caseTitles: Record<string, string> = { "cases/specification-debt-review": "仕様書横断レビュー", "cases/three-ai-maintenance": "複数AIを使い分けたレガシー保守", "cases/customer-support-ai-dx": "顧客サポートQAの要件・方式設計" };
-const caseSummaries: Record<string, string> = {
-  "cases/specification-debt-review": "仕様書とコードを横断レビューし、約40件の問題を確認。根拠をもとに修正と現状維持を判断しました。",
-  "cases/three-ai-maintenance": "暗号処理・異常系の保守を複数AIと人間の確認で内製し、外部委託を不要にしました。",
-  "cases/customer-support-ai-dx": "与えられた業務目標を、追加質問・検索対象制御・RAG・有人引継ぎの要件と方式へ具体化しました。",
-};
+const recent = recentGrowth.slice(0, 3);
 ---
 
 <Site toc="never" rightSidebarInitiallyClosed title="Home" section="">
@@ -28,6 +22,8 @@ const caseSummaries: Record<string, string> = {
     >
       <p class="meta">
         <a class="action-link" href={url("about")}>Rosariumとは？</a>
+        <span aria-hidden="true"> · </span>
+        <a class="action-link" href={url("cases")}>実践事例を見る</a>
       </p>
     </PageHeader>
     <aside class="home-career" aria-labelledby="home-career-heading">
@@ -37,14 +33,13 @@ const caseSummaries: Record<string, string> = {
     </aside>
   </div>
 
-  <section class="home-section home-panel" aria-labelledby="featured-cases-heading">
-    <SectionHeading icon="cases" eyebrow="CASE STUDIES" title="代表実績・設計事例" id="featured-cases-heading" />
-    <p class="meta">担当範囲、設計判断、成果と限界を、実践事例から確認できます。</p>
-    {featuredCases.map(study => <Case title={caseTitles[study.book]}>
-      <p class="meta">{study.referenceNote}</p>
-      <p>{caseSummaries[study.book]}</p>
-      <a href={url(study.book)}>事例の詳細を見る</a>
-    </Case>)}
+  <section class="home-section home-panel home-garden-notes" aria-labelledby="recent-growth-heading">
+    <SectionHeading icon="updates" eyebrow="GARDEN NOTES" title="最近の手入れ" id="recent-growth-heading" />
+    <p class="meta">最近の公開・改訂・統合の記録です。代表実績と設計事例は<a href={url("cases")}>実践事例</a>にまとめています。</p>
+    <div class="growth-list growth-list-compact home-growth-history" role="region" tabindex="0" aria-label="Garden Notes 最近の更新">
+      {recent.map((entry) => <GrowthEntry entry={entry} />)}
+    </div>
+    <p><a class="cta-link" href={url("garden-notes")}>Garden Notesの全履歴を見る</a></p>
   </section>
 
 </Site>
@@ -68,6 +63,23 @@ const caseSummaries: Record<string, string> = {
   @media (max-width: 800px) {
     .home-hero-layout { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
     .home-career { padding: 1rem; }
+  }
+
+  .home-garden-notes { max-width: 52rem; }
+  .home-growth-history {
+    max-height: min(40rem, 58vh);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: .5rem .75rem;
+    border: 1px solid var(--line);
+    overflow-wrap: anywhere;
+    background: var(--home-panel-surface, var(--surface));
+  }
+  @media (pointer: fine) {
+    .home-growth-history { scrollbar-width: thin; scrollbar-color: var(--muted) var(--home-panel-surface, var(--surface)); }
+  }
+  @media (max-width: 800px) {
+    .home-growth-history { max-height: 55svh; }
   }
 
 </style>
