@@ -36,7 +36,7 @@ test("planning references preserve existing classification; support QA records t
   assert(text.includes("著者自身が企画した事例ではありません"));
   assert(text.includes("月400時間から300時間以下"));
   assert(text.includes("750件のうち600件以上"));
-  assert.equal(contentHistory("cases/customer-support-ai-dx", {}).at(-1).date, "2026-10-10");
+  assert.equal(contentHistory("cases/customer-support-ai-dx", {}).at(-1).date, "2026-10-12");
 });
 
 test("planning publication and Career aspirations retain distinct histories", () => {
