@@ -154,12 +154,8 @@ assert(
 );
 assert(!top("main").text().includes("Applied AI / System Architecture"));
 assert(top(".entrance-hero > .lead").text().includes("知識と実践事例"));
-assert.deepEqual(
-  top(".sidebar nav a .nav-copy > span")
-    .map((_, e) => top(e).text())
-    .get(),
-  ["庭", "AI", "DX", "企画", "実践事例", "旧記事・退役記事"],
-);
+assert.equal(top(".sidebar").length, 0);
+assert.equal(top(".home-introduction span").length, 2);
 assert.deepEqual(
   top(".header-primary a")
     .map((_, e) => top(e).text().trim())
@@ -176,20 +172,20 @@ assert.equal(top("#global-search-input").length, 1);
 assert.equal(top(".global-search-toggle").length, 1);
 assert(!top(".sidebar-label").text().includes("設計体系"));
 assert.equal(top(".sidebar details").length, 0);
-assert.deepEqual(top(".sidebar .nav-auxiliary .nav-copy > span").map((_, e) => top(e).text()).get(), ["旧記事・退役記事"]);
+assert.deepEqual(top(".sidebar .nav-auxiliary .nav-copy > span").map((_, e) => top(e).text()).get(), []);
 for (const secondary of ["詳細職務経歴", "Books", "連載", "Essays"])
   assert(
     !top(".sidebar nav a .nav-copy > span").text().includes(secondary),
     secondary,
   );
-assert.equal(top(".sidebar .icon").length, 6);
+assert.equal(top(".sidebar .icon").length, 0);
 assert.equal(
   new Set(
     top(".sidebar .icon")
       .map((_, e) => top(e).attr("class"))
       .get(),
   ).size,
-  5,
+  0,
 );
 assert.equal(top('.sidebar a[href="/career/"]').length, 0);
 assert.equal(top('.sidebar a[href="/updates/"]').length, 0);
@@ -200,7 +196,7 @@ assert.deepEqual(
   [],
 );
 assert.equal(top(".sidebar .nav-children .icon").length, 0);
-assert.equal(top(".sidebar").length, 1);
+assert.equal(top(".sidebar").length, 0);
 assert.equal(career(".sidebar").length, 0);
 assert.equal(career("#page-toc-tab").length, 1);
 assert.equal(career("#reference-sidebar-tab").length, 0);
@@ -246,7 +242,7 @@ assert.deepEqual(designAreaLinks.map((_, e) => design(e).attr("href")).get(), [
 ].map(path => "/" + path + "/"));
 assert.equal(new Set(designAreaLinks.map((_, e) => design(e).attr("href")).get()).size, 10);
 assert(design("main").text().includes("番号は読む順の目安"));
-assert.equal(top(".sidebar").text().includes("DX"), true);
+assert.equal(top(".header-primary").text().includes("DX"), true);
 assert.equal(page("ai-design/applicability")("[data-related-publications]").length, 0);
 assert.equal(page("ai-design/lifecycle-operations")("[data-related-publications]").length, 0);
 assert(
@@ -974,7 +970,7 @@ for (const [route, icon] of [["", "home"], ["ai", "articles"], ["dx", "overview"
   const $ = page(route);
   assert.equal($("main .hero .icon-page,main .page-heading > .icon-page").length, 1, route + ": one entrance icon");
   assert.equal($("main .icon-page.icon-" + icon).length, 1, route + ": canonical entrance icon");
-  assert.equal($('.sidebar a[href="/' + (route ? route + '/' : '') + '"] .icon-' + icon).length, 1, route + ": Navigation icon agrees");
+  assert.equal($('.sidebar a[href="/' + (route ? route + '/' : '') + '"] .icon-' + icon).length, route ? 1 : 0, route + ": Navigation icon agrees");
 }
 
 // New documentation review Case preserves a human decision boundary and static SVG paths.
