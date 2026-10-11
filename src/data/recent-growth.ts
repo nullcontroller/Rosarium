@@ -43,7 +43,7 @@ const curatedRecentGrowth = [
     type: "revised",
     title: "Careerの専門性と将来方向を明確化",
     changes: [
-      { action: "revised", text: "改訂。Windows向け業務ユーティリティの長期経験、C#・Python、Applied AI、要件定義・システム設計を具体化し、今後深めたいシステム企画・ITストラテジスト的領域への志向とFDE非志向を明示した", contentIds: ["career/overview"] },
+      { action: "revised", text: "改訂。Career全体を再構成し、「何をする人か」を箇条書き化、現在の専門性とスキルセットを統合した。Windows向け業務ユーティリティの長期経験、C#・Python、Applied AI、要件定義・システム設計を具体化し、将来のITストラテジスト的領域への志向とFDE非志向を明示した", contentIds: ["career/overview"] },
     ],
     category: "Rosarium",
     icon: "career",
