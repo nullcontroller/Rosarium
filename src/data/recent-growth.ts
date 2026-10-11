@@ -39,8 +39,19 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
-    date: "2026-10-12", type: "revised", title: "Careerの成果と事例の位置付けを明確化",
-    changes: [{ action: "revised", text: "改訂。公開済みのレガシー保守の成果と、過去の参考事例の位置付けを明確にした", contentIds: ["career/overview"] }],
+    date: "2026-10-12", type: "revised", title: "技術ポートフォリオとしての導線と実績提示を強化",
+    changes: [
+      { action: "revised", text: "改訂。公開済みのレガシー保守の成果と、過去の参考事例の位置付けを明確にした", contentIds: ["career/overview"] },
+      "トップページで専門性と代表実績への導線を強化",
+      "Case一覧で実務実績と設計事例の位置付けを明確化",
+      "技術記事からCareerへ進めるナビゲーションを改善",
+    ],
+    summaryChanges: [
+      "トップページで専門性と代表実績への導線を強化",
+      "Careerを1件改訂し、実務経験・設計事例・確認できた成果の提示を改善",
+      "Case一覧で実務実績と設計事例の位置付けを明確化",
+      "技術記事からCareerへ進めるナビゲーションを改善",
+    ],
     category: "Rosarium", icon: "updates",
   },
   {
