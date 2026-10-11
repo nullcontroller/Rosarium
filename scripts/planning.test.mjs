@@ -50,7 +50,7 @@ test("planning publication and Career aspirations retain distinct histories", ()
   const direction = text.split("## 今後広げたい判断領域")[1]?.split("\n## ")[0];
   assert(direction, "Career must have a forward-looking planning direction");
   assert.match(direction, /現在は.*業務要求/);
-  assert.match(direction, /今後は.*System Planning \/ Strategy/);
+  assert.match(direction, /今後は.*システム企画・IT戦略/);
   assert.match(direction, /業務要求・業務目標・KPI/);
   assert.match(direction, /企画判断の実績を主張するものではありません/);
   assert(!/未経験|実績がない|Caseがない|実務Caseはありません|十分な経験がない/.test(text));
