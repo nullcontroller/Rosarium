@@ -24,7 +24,7 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html"))) {
   assert.deepEqual(mobileTargets, desktopTargets, `Mobile/Desktop headings: ${file}`);
   if (policy !== "never" && majorCount >= 2) assert(hasToc, `Multiple major headings without contents: ${file}`);
   if (policy !== "never" && body.find("h3").length >= 2 && body.text().replace(/\s/g, "").length >= 1000) assert(hasToc, `Long sections without contents: ${file}`);
-  if (policy === "never") assert(!hasToc && !hasRail, `Explicit exclusion: ${file}`);
+  if (policy === "never") assert(!hasToc, `Explicit TOC exclusion: ${file}`);
   assert.equal(hasRail, hasToc || hasReference, `Empty rail: ${file}`);
   if (hasToc) assert($("#page-toc-panel a").length > 0, `Empty contents tab: ${file}`);
   if (hasReference) assert($("[data-reference-document]").length > 0, `Empty reference tab: ${file}`);

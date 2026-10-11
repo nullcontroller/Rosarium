@@ -47,6 +47,7 @@ interface Props {
   showRightSidebar?: boolean;
   showReference?: boolean;
   rightSidebarCollapsible?: boolean;
+  rightSidebarInitiallyClosed?: boolean;
   mobilePageToc?: boolean;
   expandPageToc?: boolean;
   pageTocDepth?: number;
@@ -73,6 +74,7 @@ const {
   showRightSidebar = true,
   showReference = true,
   rightSidebarCollapsible = true,
+  rightSidebarInitiallyClosed = false,
   toc = "auto",
   expandPageToc = false,
 } = Astro.props;
@@ -282,6 +284,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         !frame && "career-shell",
         !showRightSidebar && section !== "" && "standalone-reading",
         referenceSidebar && "has-toc",
+        referenceSidebar && rightSidebarInitiallyClosed && "right-sidebar-collapsed",
         referenceSidebar && bookNavigation && "has-book-toc",
       ]}
     >
@@ -382,7 +385,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         <Fragment set:html={opening.html} />
       </main>
       {referenceSidebar && (
-        <aside data-collapsible={String(rightSidebarCollapsible)} id="right-sidebar" class:list={[bookNavigation ? "book-toc" : "toc", "reference-sidebar"]} aria-label="右補助パネル">
+        <aside hidden={rightSidebarInitiallyClosed} data-initially-closed={String(rightSidebarInitiallyClosed)} data-collapsible={String(rightSidebarCollapsible)} id="right-sidebar" class:list={[bookNavigation ? "book-toc" : "toc", "reference-sidebar"]} aria-label="右補助パネル">
           <div class="right-sidebar-toolbar">
           <div class="reference-tabs" role="tablist" aria-label="右補助パネルの表示">
             {hasPageToc && <button id="page-toc-tab" type="button" role="tab" aria-selected="true" aria-controls="page-toc-panel">目次</button>}
@@ -404,7 +407,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         </aside>
       )}
     </div>
-    {referenceSidebar && <RightSidebarControls collapsible={rightSidebarCollapsible} />}
+    {referenceSidebar && <RightSidebarControls collapsible={rightSidebarCollapsible} initiallyClosed={rightSidebarInitiallyClosed} />}
     {showRightSidebar && showReference && <ReferencePanel />}
     <footer class="site-footer">
       <p class="meta" data-pagefind-ignore>

@@ -1,8 +1,8 @@
 ---
-interface Props { collapsible?: boolean; }
-const { collapsible = true } = Astro.props;
+interface Props { collapsible?: boolean; initiallyClosed?: boolean; }
+const { collapsible = true, initiallyClosed = false } = Astro.props;
 ---
-{collapsible && <button type="button" class="right-sidebar-toggle" data-right-sidebar-toggle aria-controls="right-sidebar" aria-expanded="true" aria-label="補助パネルを閉じる" title="補助パネルを閉じる">補助パネルを閉じる</button>}
+{collapsible && <button type="button" class="right-sidebar-toggle" data-right-sidebar-toggle aria-controls="right-sidebar" aria-expanded={!initiallyClosed} aria-label={initiallyClosed ? "補助パネルを開く" : "補助パネルを閉じる"} title={initiallyClosed ? "補助パネルを開く" : "補助パネルを閉じる"}>{initiallyClosed ? "補助パネルを開く" : "補助パネルを閉じる"}</button>}
 <script>
 (() => {
   const host = document.querySelector<HTMLElement>("#right-sidebar");
@@ -11,11 +11,12 @@ const { collapsible = true } = Astro.props;
   const railStorageKey = "rosarium-right-sidebar-closed";
   let railClosed = false;
   try { railClosed = localStorage.getItem(railStorageKey) === "true"; } catch {}
+  if (host.dataset.initiallyClosed === "true") railClosed = true;
   const railButtons = [...document.querySelectorAll<HTMLButtonElement>("[data-right-sidebar-toggle]")];
   function setRailClosed(closed: boolean, persist = true) {
     if (!host) return;
     railClosed = closed;
-    if (persist) { try { localStorage.setItem(railStorageKey, String(closed)); } catch {} }
+    if (persist && host.dataset.initiallyClosed !== "true") { try { localStorage.setItem(railStorageKey, String(closed)); } catch {} }
     const scroll = window.scrollY;
     const hidden = desktop.matches && closed;
     const hadFocus = host.contains(document.activeElement);
@@ -33,6 +34,7 @@ const { collapsible = true } = Astro.props;
   }
   railButtons.forEach((button) => button.addEventListener("click", () => {
     setRailClosed(!railClosed);
+    if (!railClosed) document.dispatchEvent(new Event("right-sidebar-opened"));
   }));
   setRailClosed(railClosed, false);
   desktop.addEventListener("change", () => setRailClosed(railClosed, false));
