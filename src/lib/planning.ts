@@ -4,7 +4,7 @@ export function isPlanningKnowledge(entry: CollectionEntry<"pages">): boolean {
   if (entry.data.section === "cases" || entry.data.kind === "case") return false;
   return entry.data.tags.some(tag => ["it戦略", "システム企画", "ecrs"].includes(tag.toLowerCase()));
 }
-export const planningPublishedAt = "2026-10-10";
+export const planningPublishedAt = "2026-10-11";
 
 export const planningQuestions = [
   { title: "課題・価値・目標", description: "現状（As-Is）と目指す業務（To-Be）を比較し、利用者・事業・組織にとっての価値と優先する業務課題を特定します。業務プロセスを見直し、業務要件・KPI・効果目標を定めます。" },
