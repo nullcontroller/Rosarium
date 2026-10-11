@@ -142,7 +142,7 @@ function Save-Ogp([string]$path, [string]$eyebrow, [string]$title, [string]$subt
 
   $icon = [System.Drawing.Image]::FromFile($sourceAsset)
   $graphics.DrawImage($icon, 865, 148, 250, 250)
-  $graphics.DrawString("nullcontroller.github.io", $footerFont, $mutedBrush, 862, 500)
+  $graphics.DrawString("rosarium-tech.com", $footerFont, $mutedBrush, 862, 500)
 
   $bitmap.Save($path, [System.Drawing.Imaging.ImageFormat]::Png)
   $icon.Dispose()
@@ -158,6 +158,6 @@ Save-SquareIcon (Join-Path $iconDir "apple-touch-icon.png") 180 0.9
 Save-SquareIcon (Join-Path $iconDir "icon-maskable-192.png") 192 0.78
 Save-SquareIcon (Join-Path $iconDir "icon-maskable-512.png") 512 0.78
 
-Save-Ogp (Join-Path $ogDir "site.png") "PERSONAL SITE" "Rosarium" "立林 裕太朗 · Applied AI / System Architecture" "AI Design / AI数学論 / Practices / Case Studies"
-Save-Ogp (Join-Path $ogDir "career.png") "立林 裕太朗" "Own Career" "Applied AI × システム企画・アーキテクチャ" "OWN CAREER"
+Save-Ogp (Join-Path $ogDir "site.png") "PERSONAL SITE" "Rosarium" "立林 裕太朗・応用AI / 要件定義 / システム企画" "AI Design / AI数学論 / Practices / Case Studies"
+Save-Ogp (Join-Path $ogDir "career.png") "立林 裕太朗" "Own Career" "応用AI・要件定義を軸に、システム企画へ専門性を広げる" "OWN CAREER"
 Save-Ogp (Join-Path $ogDir "ai-design.png") "SYSTEM DESIGN" "AI Design" "AIを業務システムへ組み込むための設計知識" "Applied AI / Architecture / Evaluation / Operations"

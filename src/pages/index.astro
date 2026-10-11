@@ -27,7 +27,7 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
     </PageHeader>
     <aside class="home-career" aria-labelledby="home-career-heading">
       <h2 class="eyebrow" id="home-career-heading">PROFILE / CAREER</h2>
-      <p class="career-overview">AI・人間・既存システムの役割を整理し、業務要求から要件・設計・運用までをつなぐ仕組みを考えています。仕事の考え方と専門性を紹介します。</p>
+      <p class="career-overview"><span>AI・人間・既存システムの役割を整理し、</span><span>業務要求から要件・設計・運用までをつなぐ仕組みを考えています。</span><span>仕事の考え方と専門性を紹介します。</span></p>
       <a class="cta-link" href={url("career")}>キャリアを見る <span aria-hidden="true">→</span></a>
     </aside>
   </div>
@@ -70,6 +70,10 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 </script>
 
 <style>
+  :global(.home-page .shell) { display: block; }
+  :global(.home-page .shell > .sidebar) { display: none; }
+  :global(.home-page .shell > main) { width: min(100%, 96rem); margin-inline: auto; }
+  .career-overview > span { display: block; }
   .home-hero-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 1.5rem; align-items: stretch; margin-bottom: 1.3rem; }
   .home-hero-layout :global(.page-heading) { min-width: 0; margin-bottom: 0; }
   .home-career { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 1.125rem 1.375rem; border: 1px solid var(--aux-border); border-radius: var(--home-panel-radius, .35rem); background: color-mix(in srgb, var(--home-panel-surface, var(--surface)) 94%, var(--accent)); }
@@ -78,6 +82,10 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
   .home-career a { display: inline-flex; align-items: center; align-self: flex-start; gap: .5rem; min-height: 44px; color: var(--accent); font-size: .95rem; font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .25em; }
   .home-career:hover, .home-career:focus-within { border-color: var(--accent); }
   .home-career a:hover { color: var(--ink); }
+  @media (min-width: 1100px) {
+    .home-hero-layout { grid-template-columns: minmax(0, 1fr) 34rem; }
+    .career-overview > span { white-space: nowrap; }
+  }
   @media (max-width: 800px) {
     .home-hero-layout { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
     .home-career { padding: 1rem; }
