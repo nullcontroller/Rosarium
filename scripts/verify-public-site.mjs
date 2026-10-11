@@ -84,13 +84,13 @@ const homepage = load(fs.readFileSync("dist/index.html", "utf8"));
 assert.equal(homepage("h1").text(), "Rosarium");
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 for (const text of [
-  "現在の専門性",
+  "何をする人か",
+  "専門性・スキルセット",
+  "経験の流れ",
   "代表実績・設計事例",
   "今後深めたい領域",
-  "何をする人か",
-  "仕事で重視すること",
-  "経験と現在の仕事のつながり",
-  "今後取り組みたい仕事",
+  "志向する働き方",
+  "ポートフォリオで確認できること",
   "職歴・資格の詳細",
 ])
   assert(career("main").text().includes(text), text);
