@@ -42,6 +42,8 @@ const curatedRecentGrowth = [
     date: "2026-10-12", type: "revised", title: "技術ポートフォリオとしての導線と実績提示を強化",
     changes: [
       { action: "revised", text: "改訂。公開済みのレガシー保守の成果と、過去の参考事例の位置付けを明確にした", contentIds: ["career/overview"] },
+      { action: "published", text: "新規公開。業務要求から機能要件・技術方式・責任分担を導き、PoCで採否を判断する方法を整理した", contentIds: ["architecture/requirements-to-system-method"] },
+      { action: "revised", text: "改訂。方式検証の仮説・評価分担・試算と実測の区別、属性による検索対象制御と記事間の接続を補強した", contentIds: ["architecture/reference-architecture", "evaluation-hitl/qa-evaluation"] },
       "トップページで専門性と代表実績への導線を強化",
       "Case一覧で実務実績と設計事例の位置付けを明確化",
       "技術記事からCareerへ進めるナビゲーションを改善",
@@ -54,6 +56,8 @@ const curatedRecentGrowth = [
       "技術記事からCareerへ進めるナビゲーションを改善",
       "顧客サポートQA事例をシステム方式設計中心に再構成し、生成AI・検索・RAG・有人対応の機能分担とCareerの説明を整合",
       "検索対象制御の設計判断と評価・改善の関係を明確化。原典の数値と実測成果を区別",
+      "業務要求からシステム方式を導く記事を1件公開し、技術選定・機能分担・PoCの判断方法を体系化",
+      "参照アーキテクチャとQA評価記事を2件改訂し、仮説・検証分担・方式採否と相互参照を補強",
     ],
     category: "Rosarium", icon: "updates",
   },
