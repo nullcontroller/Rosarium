@@ -33,10 +33,10 @@ test("planning publication and Career aspirations retain distinct histories", ()
   const data = YAML.parse(text.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
   const events = contentHistory("career/overview", data);
   assert.equal(events[0].date, "2026-09-23");
-  assert.equal(events.at(-1).date, "2026-10-10");
+  assert.equal(events.at(-1).date, "2026-10-11");
   assert(events.at(-1).text.includes("今後深めたい"));
   const direction = text.split("## 今後深めたい領域")[1].split("\n## ")[0];
-  assert(direction.includes("システム企画、価値発見、業務要求の定義を、今後深めたい専門領域として位置付けています"));
-  assert(direction.includes("関わりたいと考えています"));
+  assert(direction.includes("システム企画、価値発見、業務要求の定義へ専門範囲を広げたい"));
+  assert(direction.includes("今後はITストラテジスト（ST）的な判断領域も深めたい"));
   assert(!/未経験|実績がない|Caseがない|実務Caseはありません|十分な経験がない/.test(text));
 });

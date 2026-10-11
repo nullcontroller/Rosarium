@@ -89,9 +89,9 @@ for (const text of [
   "今後深めたい領域",
   "何をする人か",
   "仕事で重視すること",
-  "経験と現在の仕事のつながり",
-  "今後取り組みたい仕事",
-  "職歴・資格の詳細",
+  "技術・実務の土台",
+  "希望する仕事・キャリアの方向",
+  "詳細プロフィール・ポートフォリオ",
 ])
   assert(career("main").text().includes(text), text);
 for (const duplicate of [
