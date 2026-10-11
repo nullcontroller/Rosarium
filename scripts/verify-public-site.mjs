@@ -84,14 +84,14 @@ const homepage = load(fs.readFileSync("dist/index.html", "utf8"));
 assert.equal(homepage("h1").text(), "Rosarium");
 const career = load(fs.readFileSync("dist/career/index.html", "utf8"));
 for (const text of [
-  "現在の専門性",
-  "代表実績・設計事例",
-  "今後深めたい領域",
   "何をする人か",
+  "現在の専門性",
+  "技術的バックグラウンド",
+  "代表実績・設計事例",
   "仕事で重視すること",
-  "技術・実務の土台",
-  "希望する仕事・キャリアの方向",
-  "詳細プロフィール・ポートフォリオ",
+  "今後広げたい判断領域",
+  "希望するRole",
+  "詳細・関連資料",
 ])
   assert(career("main").text().includes(text), text);
 for (const duplicate of [

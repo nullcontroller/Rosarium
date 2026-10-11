@@ -42,7 +42,9 @@ const d = entry.data;
     </span>
 
     <p class="lead" data-pagefind-meta="summary">
-      {d.summary}
+      {d.summary.split(/(?<=。)/).filter(Boolean).map((sentence, index) => (
+        <>{index > 0 && <br />}{sentence}</>
+      ))}
     </p>
 
     <p hidden>
