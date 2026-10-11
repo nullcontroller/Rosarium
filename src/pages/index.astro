@@ -10,17 +10,17 @@ import { url } from "../lib/site";
 const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 ---
 
-<Site frame={false} showRightSidebar={false} title="Home" section="">
+<Site showRightSidebar={false} title="Home" section="">
   <div class="home-hero-layout">
     <PageHeader
       alignHero
       navigationPath=""
       title="Rosarium"
+      summaryParagraphs={[
+        "Rosariumは、立林裕太朗個人の技術サイトです。",
+        "AIを主軸に、システム企画・業務要件、アーキテクチャ、ソフトウェア開発の知識と実践事例を整理しています。",
+      ]}
     >
-      <p slot="summary" class="lead home-introduction">
-        <span>Rosariumは、立林裕太朗個人の技術サイトです。</span>
-        <span>AIを主軸に、システム企画・業務要件、アーキテクチャ、ソフトウェア開発の知識と実践事例を整理しています。</span>
-      </p>
       <p class="meta">
         <a class="action-link" href={url("about")}>Rosariumとは？</a>
       </p>
@@ -72,7 +72,6 @@ const recent = recentGrowth.filter(entry => inRecentWindow(entry.date));
 <style>
   .home-hero-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 1.5rem; align-items: stretch; margin-bottom: 1.3rem; }
   .home-hero-layout :global(.page-heading) { min-width: 0; margin-bottom: 0; }
-  .home-introduction span { display: block; }
   .home-career { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 1.125rem 1.375rem; border: 1px solid var(--aux-border); border-radius: var(--home-panel-radius, .35rem); background: color-mix(in srgb, var(--home-panel-surface, var(--surface)) 94%, var(--accent)); }
   .home-career h2 { margin: 0; font-size: .875rem; letter-spacing: .12em; }
   .home-career p { margin-block: .75rem .5rem; color: var(--muted); font-size: .95rem; line-height: 1.65; }
