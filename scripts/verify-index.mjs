@@ -442,7 +442,7 @@ for (const id of ["specification-debt-review", "three-ai-maintenance", "customer
 }
 assert(caseHighlights.text().includes("実務実績"));
 assert(caseHighlights.text().includes("設計事例"));
-assert(caseHighlights.text().includes("導入済みの実測成果ではありません"));
+assert(caseHighlights.text().includes("目標実現の見込みを立てました"));
 
 
 
@@ -806,7 +806,7 @@ assert.equal(
 assert(
   customerSupportBook("main")
     .text()
-    .includes("公開実績として確認できない数値は成果として断定しません"),
+    .includes("システム方式上の実現の見込みが立ちました"),
 );
 assert.equal(
   page("cases/customer-support-ai-dx/design-principles")(".series-position-inline").text(),
