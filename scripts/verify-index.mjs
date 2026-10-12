@@ -977,6 +977,15 @@ for (const slug of ["why-ai", "responsibility-boundary", "poc-evaluation", "know
  }
 }
 assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".support-comparison > section").length, 2);
+const comparison = page("cases/customer-support-ai-dx/executive-summary");
+assert.equal(comparison(".support-comparison > section").first().find(".support-route").length, 0);
+const routes = comparison('[data-flow-from="after-judge"]');
+assert.equal(routes.length, 2);
+assert.deepEqual(routes.map((_, node) => comparison(node).attr("data-flow-to")).get(), ["after-answer", "after-handoff"]);
+assert.deepEqual(routes.map((_, node) => comparison(node).attr("data-flow-condition")).get(), ["回答可能", "根拠不足・専門判断が必要"]);
+assert.equal(routes.find(".support-branch-connector").length, 2);
+assert.deepEqual(routes.last().find("[data-support-step]").map((_, node) => comparison(node).attr("data-support-step")).get(),
+  ["after-handoff", "after-investigate", "after-human-answer"]);
 assert.equal(page("cases/customer-support-ai-dx/why-ai")(".support-table tbody tr").length, 5);
 assert.equal(page("cases/customer-support-ai-dx/responsibility-boundary")(".support-table tbody tr").length, 3);
 assert.equal(page("cases/customer-support-ai-dx/stopping-conditions")(".support-checks > li").length, 3);

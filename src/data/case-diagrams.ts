@@ -2,7 +2,7 @@ export type CaseNodeKind =
   "human" | "ai" | "knowledge" | "system" | "decision" | "feedback";
 export interface SupportExplanation {
   format: "flow" | "comparison" | "table" | "decision";
-  panels?: { title: string; nodeIds: string[]; outcomes?: { condition: string; result: string }[] }[];
+  panels?: { title: string; nodeIds: string[]; outcomes?: { condition: string; result: string }[]; branches?: { from: string; condition: string; nodeIds: string[] }[] }[];
   columns?: string[];
   records?: string[][];
   checks?: { question: string; yes: string; no: string }[];
@@ -1867,7 +1867,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       },
       {
         "id": "after-search",
-        "label": "QAシステムが適合する文書を取得する",
+        "label": "QAシステムが根拠文書を検索する",
         "kind": "knowledge",
         "description": "機種で文書を絞り、その範囲で関連する根拠を検索します。"
       },
@@ -1876,6 +1876,30 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "label": "QAシステムが回答可能か判定する",
         "kind": "decision",
         "description": "根拠に基づく回答を作れるか、専門判断を要するか確認します。"
+      },
+      {
+        "id": "after-answer",
+        "label": "システムが回答する",
+        "kind": "system",
+        "description": "適合する根拠に沿った回答を顧客へ提示します。"
+      },
+      {
+        "id": "after-handoff",
+        "label": "担当者が調査結果を引き継ぐ",
+        "kind": "human",
+        "description": "確認済み情報、検索した文書、未解決事項を受け取ります。"
+      },
+      {
+        "id": "after-investigate",
+        "label": "担当者が調査を続ける",
+        "kind": "human",
+        "description": "不足する確認と専門的な調査・判断を行います。"
+      },
+      {
+        "id": "after-human-answer",
+        "label": "担当者が回答する",
+        "kind": "human",
+        "description": "専門調査の結果を踏まえて顧客へ案内します。"
       }
     ],
     "explanation": {
@@ -1899,19 +1923,27 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
             "after-search",
             "after-judge"
           ],
-          "outcomes": [
+          "branches": [
             {
+              "from": "after-judge",
               "condition": "回答可能",
-              "result": "システムが顧客へ回答する"
+              "nodeIds": [
+                "after-answer"
+              ]
             },
             {
-              "condition": "専門判断が必要・根拠不足",
-              "result": "サポート担当者が引き継ぐ"
+              "from": "after-judge",
+              "condition": "根拠不足・専門判断が必要",
+              "nodeIds": [
+                "after-handoff",
+                "after-investigate",
+                "after-human-answer"
+              ]
             }
           ]
         }
       ],
-      "note": "主な変化は、情報収集・検索・回答作成の一部をシステムが担い、専門判断はサポート担当者に残すことです。",
+      "note": "判定から伸びる二つの矢印は、回答可能なら自動回答、根拠不足・原因未特定・専門判断が必要なら調査結果を引き継いだ有人対応へ進むことを示します。",
       "scope": "従来の有人対応と、顧客の自己解決を支援する設計方式の違いを示します。"
     }
   },
@@ -2104,42 +2136,42 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       ],
       "records": [
         [
-          "顧客の原文・会話履歴",
-          "元の問い合わせと、追加質問への回答。",
-          "AIの要約だけに依存せず、依頼の意図と確認の経緯へ戻る。"
+          "問い合わせ内容",
+          "顧客が最初に伝えた症状・依頼と、元の会話履歴。",
+          "要約だけに依存せず、依頼の意図と確認の経緯を確認する。"
         ],
         [
-          "特定済み対象",
-          "機種・版・接続方法・OSなどの環境、エラーと症状。",
-          "対象条件とその根拠を確認する。"
+          "追加質問の結果",
+          "顧客の回答で確認した機種・版・接続方法・OSなどの環境、エラー表示。",
+          "対象条件と、何を質問して得た情報かを確認する。"
         ],
         [
           "確認済み事項",
-          "顧客が実施済みの対処と、確認できた状態。",
-          "同じ質問や操作を繰り返さない。"
+          "顧客から得られた事実、確認結果、実施済みの対処。",
+          "同じ質問や操作を繰り返さず、次の確認へ進む。"
         ],
         [
-          "未確認事項",
-          "確認できなかった条件と、解消していない症状。",
-          "次に質問・調査すべきことを選ぶ。"
+          "AIの調査結果",
+          "調べた内容、検索条件、特定できた事項とその根拠。",
+          "どこまで調べたかを確認し、未確認の推測と区別する。"
         ],
         [
-          "検索条件と候補",
-          "検索した対象範囲と、取得文書の候補。",
-          "どこまで調べたかを確認し、必要な追加調査へ進む。"
+          "参照文書",
+          "検索した仕様書・FAQ・障害情報。取得候補と採用・除外の理由。",
+          "文書の対象適合性と根拠を確認する。候補の取得だけで事実と確定しない。"
         ],
         [
-          "採用・除外した根拠",
-          "参照した文書と、候補を使わなかった理由。",
-          "根拠の適合性と回答の妥当性を調べる。"
+          "未解決事項",
+          "原因を特定できなかった内容、未確認の条件、解消していない症状。",
+          "追加調査・専門判断を行う起点を選ぶ。"
         ],
         [
-          "停止理由",
-          "根拠不足・原因未特定・専門判断などの移行理由。",
-          "自動回答を止めた地点から専門判断を引き受ける。"
+          "引継ぎ理由",
+          "根拠不足、原因未特定、専門判断の必要性など、自動回答を止めた理由。",
+          "停止した地点から調査を再開する。"
         ]
       ],
-      "note": "機種・文書・停止理由はシステムが保持し、生成AIの要約は読むための補助とします。",
+      "note": "確認済みの事実、検索で得た候補、未確認情報を区別して保持します。AIの推測や要約を確認済みの事実へ置き換えません。",
       "scope": "引継ぎに必要な項目と、担当者が対応を再開するための情報を整理します。"
     }
   },
@@ -2227,7 +2259,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     }
   },
   "support-human-handoff": {
-    "title": "集めた情報を保持し、担当者が続きから対応する",
+    "title": "AIの一次調査を引き継ぎ、担当者が専門調査から回答まで続ける",
     "description": "担当主体の交代と、引き継ぐ情報の流れを示します。矢印は情報を受け渡して次の対応へ進む意味です。",
     "nodes": [
       {
@@ -2238,9 +2270,9 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       },
       {
         "id": "collect",
-        "label": "QAシステムが確認情報を保持する",
+        "label": "QAシステムが情報収集・一次調査を行う",
         "kind": "system",
-        "description": "機種・環境・エラー、確認済みと未確認の事項、検索条件と根拠を区別して保持します。"
+        "description": "追加質問の回答と検索結果を保持します。確認済みの事実、根拠文書の候補、未確認情報を区別します。"
       },
       {
         "id": "stop",
@@ -2250,32 +2282,39 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       },
       {
         "id": "transfer",
-        "label": "QAシステムが担当者へ情報を渡す",
+        "label": "QAシステムが調査結果を引き継ぐ",
         "kind": "system",
-        "description": "下の一覧にある問い合わせ原文、確認済み事項、根拠、未確認事項、停止理由を渡します。"
+        "description": "問い合わせ、追加質問の結果、調査内容、参照文書、未解決事項、引継ぎ理由を渡します。"
       },
       {
         "id": "resume",
-        "label": "サポート担当者が未解決箇所から再開する",
+        "label": "担当者が未解決事項から専門調査を続ける",
         "kind": "human",
-        "description": "引継ぎ情報を確認し、不足する確認や専門調査から対応を続けます。顧客へ同じ説明を求める状態を避けます。"
+        "description": "顧客情報と参照文書を確認し、未解決の条件への追加調査と専門判断を行います。"
+      },
+      {
+        "id": "reply",
+        "label": "サポート担当者が顧客へ回答する",
+        "kind": "human",
+        "description": "引継ぎ情報と専門調査の結果を踏まえ、顧客へ回答します。"
       }
     ],
     "explanation": {
       "format": "flow",
       "panels": [
         {
-          "title": "入力から担当者の対応再開まで",
+          "title": "顧客の入力から、一次調査の引継ぎ・専門調査・回答へ",
           "nodeIds": [
             "input",
             "collect",
             "stop",
             "transfer",
-            "resume"
+            "resume",
+            "reply"
           ]
         }
       ],
-      "note": "回答案だけを転送せず、顧客の原文と判断に使った情報へ戻れる状態で渡します。引継ぎは担当者への承認依頼だけではありません。",
+      "note": "担当者はAIの回答を承認するだけではなく、一次調査の続きを引き受けます。同じ質問や文書検索のやり直しを減らす設計です。",
       "scope": "有人引継ぎで必要な情報と、担当者が対応を再開できる状態を整理した設計案です。"
     }
   },

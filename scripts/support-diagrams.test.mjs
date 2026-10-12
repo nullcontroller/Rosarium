@@ -31,6 +31,23 @@ test("support explanations stay Japanese, static and distinguish design from pub
     assert.equal(ids.size, model.nodes.length);
     for (const panel of model.explanation.panels ?? []) {
       assert(panel.nodeIds.every(nodeId => ids.has(nodeId)), id);
+      for (const branch of panel.branches ?? []) {
+        assert.equal(branch.from, panel.nodeIds.at(-1), `${id}: branch starts at the decision`);
+        assert(branch.nodeIds.every(nodeId => ids.has(nodeId)), id);
+      }
     }
   }
+});
+
+test("comparison forks from one decision into automatic reply and continued human investigation", () => {
+  const [before, after] = caseDiagrams["support-executive-summary"].explanation.panels;
+  assert(!before.branches, "before and after must not share processing edges");
+  assert.deepEqual(after.branches.map(branch => branch.from), ["after-judge", "after-judge"]);
+  assert.deepEqual(after.branches.map(branch => branch.condition), ["回答可能", "根拠不足・専門判断が必要"]);
+  assert.deepEqual(after.branches.map(branch => branch.nodeIds), [
+    ["after-answer"], ["after-handoff", "after-investigate", "after-human-answer"],
+  ]);
+  const handoff = caseDiagrams["support-human-handoff"].explanation.panels[0].nodeIds;
+  assert(handoff.indexOf("transfer") < handoff.indexOf("resume"));
+  assert(handoff.indexOf("resume") < handoff.indexOf("reply"));
 });
