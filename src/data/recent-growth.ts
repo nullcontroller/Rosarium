@@ -47,7 +47,7 @@ const curatedRecentGrowth = [
       "トップページで専門性と代表実績への導線を強化",
       "Case一覧で実務実績と設計事例の位置付けを明確化",
       "技術記事からCareerへ進めるナビゲーションを改善",
-      { action: "revised", text: "改訂。顧客サポートQAのBookをシステム方式設計中心に再構成し、業務要求と必要機能、検索対象制御と評価・改善の関係、原典と補足設計の範囲を明確化した。図解を説明目的ごとの比較・機能表・判断フローへ改訂し、日本語の主体と動作、検索制御・停止・引継ぎ・改善判断を明確にした", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/customer-experience", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/continuous-improvement", "cases/customer-support-ai-dx/design-principles"] },
+      { action: "revised", text: "改訂。顧客サポートQAのBookを、企画部門からの改善提案を受けたシステム方式設計の事例として整理。業務要求から機能分担・検索対象制御・有人引継ぎを具体化し、目標実現への見込みを提示した。図解も比較・機能分担・判断フローとして見直した", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/customer-experience", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/continuous-improvement", "cases/customer-support-ai-dx/design-principles"] },
     ],
     summaryChanges: [
       "トップページで専門性と代表実績への導線を強化",
@@ -55,7 +55,7 @@ const curatedRecentGrowth = [
       "Case一覧で実務実績と設計事例の位置付けを明確化",
       "技術記事からCareerへ進めるナビゲーションを改善",
       "顧客サポートQA事例をシステム方式設計中心に再構成し、生成AI・検索・RAG・有人対応の機能分担とCareerの説明を整合",
-      "検索対象制御の設計判断と評価・改善の関係を明確化。原典の数値と実測成果を区別",
+      "検索対象制御の設計判断と検証条件を整理し、業務目標への実現見込みを明確化",
       "顧客サポートQAの図解を日本語の比較・表・判断フローへ改訂し、担当主体と検索・停止・有人引継ぎを狭い画面でも読み取れる構成に整理",
       "業務要求からシステム方式を導く記事を1件公開し、技術選定・機能分担・PoCの判断方法を体系化",
       "参照アーキテクチャとQA評価記事を2件改訂し、仮説・検証分担・方式採否と相互参照を補強",

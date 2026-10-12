@@ -1816,7 +1816,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "検索対象の制御は回答生成の前に行います。生成AIの自信だけでは回答を確定しません。",
-      "scope": "業務要求を具体化した概念構成です。実装クラスやAPI配置、本番導入の成果を示す図ではありません。"
+      "scope": "業務要求に対応する機能の構成と、処理のつながりを示します。"
     }
   },
   "support-executive-summary": {
@@ -1912,7 +1912,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "主な変化は、情報収集・検索・回答作成の一部をシステムが担い、専門判断はサポート担当者に残すことです。",
-      "scope": "改善後は設計した方式の比較です。導入済みの実測効果を表すものではありません。"
+      "scope": "従来の有人対応と、顧客の自己解決を支援する設計方式の違いを示します。"
     }
   },
   "support-why-ai": {
@@ -1954,7 +1954,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         ]
       ],
       "note": "技術は機能要件を実現する手段です。生成AIは対話と文章生成、検索は文書取得、メタデータは検索範囲の制御を担います。",
-      "scope": "採用理由を説明する方式上の整理です。比較対象と不採用理由は下の補足設計で扱います。"
+      "scope": "業務要件から実現方式を選ぶ設計上の整理です。比較対象と採用理由は本文で説明します。"
     }
   },
   "support-responsibility-boundary": {
@@ -1986,7 +1986,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         ]
       ],
       "note": "AIにすべてを委任する方式でも、すべての回答を人間が承認する方式でもありません。問い合わせの条件で担当範囲を分けます。",
-      "scope": "機種制御と専門判断への引継ぎは原典の方式です。公開範囲・業務状態・権限の詳細は本文の補足設計です。"
+      "scope": "機種制御と専門判断への引継ぎを基本とし、公開範囲・業務状態・権限の詳細は追加の設計条件として扱います。"
     }
   },
   "support-poc-evaluation": {
@@ -2046,7 +2046,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "修正対象は検索構成です。モデル変更やプロンプト修正だけで解決したという説明にはしません。",
-      "scope": "原典に記載されたケース内の検証・改善過程です。評価分担・回帰確認・採否基準は補足設計であり、本人の実測成果を示しません。"
+      "scope": "検索対象の誤りを防ぐ設計と、方式の評価・改善に必要な条件を示します。"
     }
   },
   "support-poc-checks": {
@@ -2088,7 +2088,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         ]
       ],
       "note": "一致を機械的に確かめられる項目と、業務の専門判断が必要な項目を分けます。全件を一律に人手判定する方式ではありません。",
-      "scope": "評価分担と引継ぎ品質の詳細は補足評価設計です。論述資料の件数や評価率を、本人の実測成果へ置き換えません。"
+      "scope": "検索・対話・回答・有人引継ぎの各段階で何を確認するか示します。"
     }
   },
   "support-handoff-information": {
@@ -2140,7 +2140,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         ]
       ],
       "note": "機種・文書・停止理由はシステムが保持し、生成AIの要約は読むための補助とします。",
-      "scope": "具体的な引継ぎ項目と担当者画面は本文の補足設計です。実装済みの社内データ構造を公開するものではありません。"
+      "scope": "引継ぎに必要な項目と、担当者が対応を再開するための情報を整理します。"
     }
   },
   "support-stopping-conditions": {
@@ -2177,7 +2177,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "AI自身の自信だけでは決めません。追加質問をしても条件を解消できなければ、推測で回答を続けません。",
-      "scope": "原典の根拠不足・原因未特定・専門判断を中心とした判定です。高影響・公開可否・矛盾の詳細条件は本文の補足設計です。"
+      "scope": "根拠不足・原因未特定・専門判断を基本の停止条件とします。高影響・公開可否・矛盾も追加の設計条件です。"
     }
   },
   "support-knowledge-design": {
@@ -2223,7 +2223,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "意味的に似ている文書でも、別機種の情報は適切な回答根拠とは限りません。類似度のしきい値を上げることと、属性で対象を制限することは別の手段です。",
-      "scope": "原典の直接記述は対象機種による検索対象制御です。版数・公開可否・有効期間の制限は本文の補足設計です。"
+      "scope": "対象機種による検索対象制御を中心に、版数・公開可否・有効期間の制限も導入時の設計対象として扱います。"
     }
   },
   "support-human-handoff": {
@@ -2276,7 +2276,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "回答案だけを転送せず、顧客の原文と判断に使った情報へ戻れる状態で渡します。引継ぎは担当者への承認依頼だけではありません。",
-      "scope": "原典は有人引継ぎの構成を示します。項目ごとの保持、担当者画面、再開位置は本文で展開した補足設計です。"
+      "scope": "有人引継ぎで必要な情報と、担当者が対応を再開できる状態を整理した設計案です。"
     }
   },
   "support-continuous-improvement": {
@@ -2336,7 +2336,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "改善後は先頭の設計・判断条件へ戻ります。データを自動収集しても、変更の採否と適用範囲は設計側・業務側が判断します。",
-      "scope": "原典の検索方式改善を、導入後の運用へ展開した補足設計です。実運用の改善成果や社内組織を示しません。"
+      "scope": "検索・回答の品質を観測し、改善・再評価へつなぐ運用設計を示します。"
     }
   },
   "system-understanding": {
