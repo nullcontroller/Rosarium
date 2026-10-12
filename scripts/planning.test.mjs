@@ -33,7 +33,8 @@ test("planning references preserve existing classification; support QA records t
   }
   const text = fs.readFileSync("src/content/cases/customer-support-ai-dx.md", "utf8");
   assert(text.includes("企画部門から"));
-  assert(text.includes("著者自身が企画した事例ではありません"));
+  assert(text.includes("企画部門から提案された業務改善方針を受け"));
+  assert(text.includes("システム方針・方式を設計しました"));
   assert(text.includes("月400時間から300時間以下"));
   assert(text.includes("750件のうち600件以上"));
   assert.equal(contentHistory("cases/customer-support-ai-dx", {}).at(-1).date, "2026-10-12");
