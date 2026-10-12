@@ -135,8 +135,10 @@ export const staticLastUpdatedForPath = (pathname: string) => {
   return staticPageLastUpdated[route] ?? fallbackLastUpdated;
 };
 export const formatDateJa = (value: string) => {
-  const [year, month, day] = value.slice(0, 10).split("-").map(Number);
-  return `${year}年${month}月${day}日`;
+  const match = value.match(/^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?(?:T.*)?$/);
+  if (!match) return value;
+  const [, year, month, day] = match;
+  return `${year}年${month ? `${Number(month)}月` : ""}${day ? `${Number(day)}日` : ""}`;
 };
 export const url = (p = "") =>
   base + "/" + p.replace(/^\/+|\/+$/g, "") + (p ? "/" : "");
