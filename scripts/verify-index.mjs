@@ -606,6 +606,15 @@ for (const [id, data] of entries) {
 
 assert.equal(top("#recent-growth-heading").length, 1);
 assert.equal(top(".home-garden-notes .home-growth-history").length, 1);
+assert.equal(top('main a[href="/cases/"]').length, 1, "Home should have just one case-study link");
+assert.equal(top('.home-growth-toolbar a[href="/garden-notes/"]').length, 1);
+assert.equal(top('main a[href="/garden-notes/"]').length, 1);
+assert.equal(top(".home-garden-notes > .home-growth-toolbar").length, 1);
+const noteToolbar = top(".home-garden-notes > .home-growth-toolbar").get(0);
+const noteHistory = top(".home-garden-notes > .home-growth-history").get(0);
+assert(noteToolbar && noteHistory && noteToolbar.parent === noteHistory.parent);
+assert(top(".home-garden-notes > .home-growth-toolbar").index() < top(".home-garden-notes > .home-growth-history").index(),
+  "Full history link should appear above the update scroll region");
 assert.equal(top(".home-primary-panels").length, 0);
 assert.equal(top('.header-secondary a[href="/garden-notes/"]').length, 1);
 assert.equal(top(".home-hero-layout > aside.home-career").length, 1);
