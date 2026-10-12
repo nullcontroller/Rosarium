@@ -917,31 +917,22 @@ console.log(
   "Verified absence of automatic related sections and next-reading headings.",
 );
 
-// The Book body uses the enhanced SVG; the same raster remains the list thumbnail.
+// Support QA is readable without interaction and keeps the existing cover and fragment targets.
 const supportDiagram = page("cases/customer-support-ai-dx");
 assert.equal(supportDiagram("[data-support-dx]").length, 1);
-assert.equal(supportDiagram("[data-detail]").length, 8);
-assert.equal(supportDiagram("[data-support-dx] svg").length, 2);
-for (const svg of supportDiagram("[data-support-dx] svg").toArray()) {
-  assert.equal(supportDiagram(svg).find("[data-node]").length, 8);
-  assert(supportDiagram(svg).find("title").text());
-  assert(supportDiagram(svg).find("desc").text().includes("根拠不足"));
+assert.equal(supportDiagram("[data-support-dx] svg, [data-support-dx] button, [data-support-dx] [hidden]").length, 0);
+assert.equal(supportDiagram("[data-support-step]").length, 6);
+for (const id of ["customer", "knowledge", "rag", "genai", "decision", "human", "response", "feedback"]) {
+  assert.equal(supportDiagram(`#support-detail-${id}`).length, 1, "Keep overview fragment anchors");
 }
+assert(supportDiagram("#support-detail-decision").text().includes("回答可能か判定"));
+assert(supportDiagram(".support-note").text().includes("自信だけでは"));
 assert.equal(supportDiagram('article img[src$="customer-support-ai-dx-overview.jpg"]').length, 0);
 assert(fs.existsSync("dist/assets/cases/customer-support-ai-dx-overview.jpg"), "Original Book cover asset remains available");
-assert(supportDiagram("#support-detail-decision").text().includes("AI自身の自信だけでは決めません"));
 for (const route of ["cases/system-understanding", "cases/three-ai-maintenance", "career"]) {
   assert.equal(page(route)("[data-support-dx]").length, 0);
 }
-console.log("Verified support DX SVG, static explanation targets and preserved Book thumbnail.");
-
-const compactDiagram = supportDiagram(".diagram-mobile");
-assert.equal(compactDiagram.find(".feedback-path").length, 0, "No edge-spanning Mobile feedback loop");
-for (const label of compactDiagram.find(".node-label").toArray()) {
-  assert(/[ぁ-んァ-ヶ一-龯]/.test(supportDiagram(label).text()), "Main diagram labels explain their role in Japanese");
-}
-assert(compactDiagram.find('[data-node="feedback"]').text().includes("次回の検索・回答へ反映"));
-assert.equal(supportDiagram(".diagram-desktop [data-node]").length, 8);
+console.log("Verified support QA static explanation, preserved fragments and original Book thumbnail.");
 
 for (const id of ["cases/system-understanding", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"]) {
   const $ = page(id);
@@ -976,9 +967,21 @@ for (const id of ["system-understanding", "three-ai-maintenance", "specification
 }
 for (const slug of ["why-ai", "responsibility-boundary", "poc-evaluation", "knowledge-design", "stopping-conditions", "human-handoff", "continuous-improvement", "executive-summary"]) {
  const $ = page("cases/customer-support-ai-dx/" + slug);
- assert.equal($("[data-case-flow]").length, 1);
- for(const link of $("[data-case-flow] [data-node]").toArray()) assert($( $(link).attr("href") ).length);
+ assert($("[data-explanation-id]").length >= 1);
+ assert.equal($("[data-explanation-id] svg, [data-explanation-id] [hidden], [data-explanation-id] button").length, 0);
+ for (const figure of $("[data-explanation-id]").toArray()) {
+   assert($(figure).find("figcaption").text());
+   assert($(figure).find(".support-purpose").text());
+   assert($(figure).find(".support-scope").text());
+   assert(!/Before|After|Collecting|Retrieving|Answering|Find Failure|Business Acceptance/.test($(figure).text()));
+ }
 }
+assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".support-comparison > section").length, 2);
+assert.equal(page("cases/customer-support-ai-dx/why-ai")(".support-table tbody tr").length, 5);
+assert.equal(page("cases/customer-support-ai-dx/responsibility-boundary")(".support-table tbody tr").length, 3);
+assert.equal(page("cases/customer-support-ai-dx/stopping-conditions")(".support-checks > li").length, 3);
+assert.equal(page("cases/customer-support-ai-dx/poc-evaluation")('[data-explanation-id="support-poc-checks"] tbody tr').length, 5);
+assert.equal(page("cases/customer-support-ai-dx/human-handoff")('[data-explanation-id="support-handoff-information"] tbody tr').length, 7);
 assert.equal(page("about")('meta[http-equiv="refresh"]').length, 0);
 assert(!page("about")('meta[name="robots"]').attr("content")?.includes("noindex"));
 console.log("Verified Portfolio SVG explanations, compact Home and indexable About page.");

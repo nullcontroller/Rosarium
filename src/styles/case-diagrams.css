@@ -200,3 +200,40 @@
   }
   .case-diagram [data-node]:hover .case-action-mark { font-weight: 900; }
 }
+
+/* Support QA uses purpose-specific HTML explanations, never a scaled-down SVG. */
+.support-explanation { padding: clamp(.75rem, 2vw, 1.25rem); }
+.support-explanation .support-purpose { margin-block: .6rem 1rem; color: var(--muted); font-size: .9rem; }
+.support-explanation .support-panels { display: grid; gap: 1.25rem; }
+.support-explanation .support-panel { min-width: 0; }
+.support-explanation .support-panel-title { margin: 0 0 .75rem; font-weight: 600; }
+.support-explanation .support-steps, .support-explanation .support-checks { list-style: none; padding: 0; margin: 0; }
+.support-explanation .support-steps > li, .support-explanation .support-checks > li { margin: 0; padding: 0; }
+.support-explanation .support-step { border: 1px solid var(--line); border-radius: .35rem; padding: .65rem .8rem; background: var(--bg); min-width: 0; }
+.support-explanation .support-question, .support-explanation [data-kind="decision"] { border-color: var(--accent); }
+.support-explanation .support-action { margin: 0; font-weight: 600; line-height: 1.6; }
+.support-explanation .support-description { margin: .25rem 0 0; color: var(--muted); font-size: .875rem; line-height: 1.6; }
+.support-explanation .support-connector { display: block; text-align: center; line-height: 1.6; padding: .2rem; color: var(--accent); }
+.support-explanation .support-outcomes, .support-explanation .support-branches { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; margin: .75rem 0 0; }
+.support-explanation .support-outcomes > div { padding: .65rem .8rem; border: 1px solid var(--accent); border-radius: .35rem; background: var(--soft); }
+.support-explanation dt { font-weight: 600; }
+.support-explanation dd { margin: .2rem 0 0; font-size: .9rem; }
+.support-explanation .support-branches > div { border-top: 1px solid var(--line); padding-top: .5rem; }
+.support-explanation .support-note { margin: 1rem 0 .5rem; font-size: .9rem; }
+.support-explanation .support-scope { margin: .5rem 0 0; color: var(--muted); font-size: .8125rem; }
+.support-explanation .support-table { width: 100%; margin: .75rem 0; table-layout: fixed; }
+.support-explanation .support-table th, .support-explanation .support-table td { white-space: normal; overflow-wrap: anywhere; font-size: .9rem; }
+.support-explanation .support-table th[scope="row"] { font-weight: 600; }
+.support-cell-label { display: none; }
+@container (min-width: 38rem) {
+  .support-explanation .support-comparison { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .support-explanation .support-outcomes, .support-explanation .support-branches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@container (max-width: 40rem) {
+  .support-explanation .support-table, .support-explanation .support-table tbody, .support-explanation .support-table tr { display: block; }
+  .support-explanation .support-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .support-explanation .support-table tr { border: 1px solid var(--line); border-radius: .35rem; margin: .75rem 0; padding: .65rem .8rem; background: var(--bg); }
+  .support-explanation .support-table th[scope="row"], .support-explanation .support-table td { display: block; border: 0; padding: .25rem 0; }
+  .support-explanation .support-cell-label { display: block; font-size: .8125rem; color: var(--muted); margin-bottom: .15rem; }
+}
+.support-explanation p { white-space: pre-line; }

@@ -1,548 +1,74 @@
 ---
-import DiagramOperationGuide from "./DiagramOperationGuide.astro";
-/** Static links and explanations are enhanced in-place; both layouts share one model. */
-const nodes = [
-  {
-    id: "customer",
-    label: "顧客向けWeb QA",
-    sub: "対話・追加質問",
-    paragraphs: [
-      "顧客が自然言語で問い合わせ、生成AIが不足情報を追加質問します。顧客の回答に応じて確認事項を変え、対象機種・利用環境・エラーを特定します。",
-      "条件を特定できないままAIへ渡すと、誤った情報を検索・回答する可能性があります。",
-      "必要な条件が揃わない場合は、AIだけで回答せず、人へ引き継ぎます。",
-    ],
-  },
-  {
-    id: "knowledge",
-    label: "回答の知識",
-    sub: "Knowledge",
-    paragraphs: [
-      "マニュアルやFAQなどの知識について、対象の製品・版、公開可否、現在も有効な情報かを確認します。",
-      "検索できる文書でも、古い仕様や調査中の情報をそのまま顧客への回答に使うことはできません。",
-      "確認した条件を知識とともに管理し、次の検索で回答に使える情報を選べるようにします。",
-    ],
-  },
-  {
-    id: "rag",
-    label: "検索対象制御",
-    sub: "絞込み → ベクトル検索",
-    paragraphs: [
-      "追加質問で特定した対象機種のメタデータで文書の範囲を制限し、その範囲でベクトル検索して関連文書を取得します。検索対象制御を回答生成の前に置く方式です。",
-      "文章が似ていても、対象の製品や版が違う情報を使うと、誤った案内につながります。",
-      "条件に合う情報を生成AIへ渡し、回答後も参照した文書や箇所を確認できるようにします。",
-    ],
-  },
-  {
-    id: "genai",
-    label: "根拠付き回答",
-    sub: "RAGによる回答生成",
-    paragraphs: [
-      "ベクトル検索で取得した文書を生成AIへ渡し、その文書に基づいて回答を生成するのがRAGの役割です。検索対象制御、文書取得、回答生成は異なる機能です。",
-      "読みやすい文章が出ても、正しさが保証されたわけではなく、根拠にない内容を補っていないか確認が必要です。",
-      "回答案をそのまま送らず、対象や公開可否などの条件を確認する次の判定へ渡します。",
-    ],
-  },
-  {
-    id: "decision",
-    label: "回答条件の判定",
-    sub: "システムで条件を確認",
-    paragraphs: [
-      "回答の根拠、対象の製品・版、公開可否、案内が業務へ与える影響をシステムで確認します。",
-      "AI自身の自信だけでは決めません。",
-      "条件を満たした回答は顧客へ届け、不足や矛盾がある場合、または専門判断が必要な場合は人へ引き継ぎます。",
-    ],
-  },
-  {
-    id: "human",
-    label: "人による確認",
-    sub: "専門判断・有人引継ぎ",
-    paragraphs: [
-      "根拠が足りない場合や専門判断が必要な場合は、人が質問・条件・参照情報・AIが回答を止めた理由を確認します。",
-      "回答案だけを受け取ると判断の経緯が分からないため、元の質問や文書までたどれる形で引き継ぎます。",
-      "人が必要な調査と判断を行い、最終的な業務責任を持って顧客への案内につなげます。",
-    ],
-  },
-  {
-    id: "response",
-    label: "顧客へ回答",
-    sub: "条件を満たす場合",
-    paragraphs: [
-      "回答条件を満たしたAIの回答、または人が判断した案内を顧客へ届けます。",
-      "案内を生成することと業務を確定することは分け、権限や取引などの確定処理は既存システムが担います。",
-      "回答の利用結果や有人対応の結果は、知識・検索条件・評価を見直すための情報として次の改善へつなげます。",
-    ],
-  },
-  {
-    id: "feedback",
-    label: "改善",
-    sub: "利用結果を次回へ反映",
-    paragraphs: [
-      "利用結果、誤回答、有人対応の結果から、どこで回答や引き継ぎがうまくいかなかったかを確認します。",
-      "知識の不足だけを原因とせず、検索条件、回答の生成、判定や人への引き継ぎのどこを見直すべきか分けて考えます。",
-      "知識・検索条件・評価方法を改善した後は再評価し、次回の検索・回答へ反映します。",
-    ],
-  },
-];
-const layouts = [
-  {
-    name: "desktop",
-    viewBox: "0 0 840 390",
-    width: 164,
-    positions: [
-      [20, 40],
-      [230, 180],
-      [230, 40],
-      [440, 40],
-      [650, 40],
-      [650, 180],
-      [440, 300],
-      [230, 300],
-    ],
-    paths: [
-      "M184 76H230",
-      "M312 180V112",
-      "M394 76H440",
-      "M604 76H650",
-      "M710 112V140H522V300",
-      "M760 112V180",
-      "M732 252V336H604",
-      "M440 336H394",
-      "M312 300V252",
-    ],
-    labels: [
-      [530, 160, "回答条件を満たす"],
-      [765, 160, "人へ引継ぎ"],
-      [55, 285, "知識・検索・評価を改善"],
-    ],
-  },
-  {
-    name: "mobile",
-    viewBox: "0 0 320 560",
-    width: 232,
-    positions: [
-      [44, 10],
-      [8, 90],
-      [174, 90],
-      [44, 182],
-      [44, 258],
-      [8, 362],
-      [174, 362],
-      [12, 464],
-    ],
-    // Flow, split and improvement are separate blocks, not equal-sized steps.
-    sizes: [
-      [232, 56],
-      [138, 64],
-      [138, 64],
-      [232, 56],
-      [232, 60],
-      [138, 72],
-      [138, 72],
-      [296, 86],
-    ],
-    paths: [
-      "M160 66V78H243V90",
-      "M146 122H174",
-      "M243 154V168H160V182",
-      "M160 238V258",
-      "M160 318V338H243V362",
-      "M160 318V338H77V362",
-      "M146 398H174",
-      "M243 434V452H160V464",
-    ],
-    labels: [
-      [14, 82, "知識と検索"],
-      [12, 354, "有人対応"],
-      [247, 354, "AIで完結"],
-    ],
-  },
-];
+import { caseDiagrams } from "../data/case-diagrams";
+import "../styles/case-diagrams.css";
+interface Props { id?: string; }
+const { id = "support-overview" } = Astro.props;
+const model = caseDiagrams[id];
+const explanation = model?.explanation;
+if (!explanation) throw new Error(`Unknown support explanation: ${id}`);
+const sentenceLines = (text: string) => text.replaceAll("。", "。\n").trim();
+const isOverview = id === "support-overview";
+const nodeById = new Map(model.nodes.map(node => [node.id, node]));
+const prefix = isOverview ? "support-dx-flow" : `case-${id}`;
+const oldAnchors: Record<string, string> = { customer: "customer", search: "rag", answer: "genai", decision: "decision" };
 ---
 
-<figure class="support-dx" id="support-dx-flow" data-support-dx>
-  <figcaption>問い合わせ対応の分岐と改善の流れ</figcaption>
-  <DiagramOperationGuide />
-  {layouts.map((layout) => (
-    <svg
-      class={`diagram-${layout.name}`}
-      viewBox={layout.viewBox}
-      role="group"
-      aria-labelledby={`support-${layout.name}-title support-${layout.name}-desc`}
-    >
-      <title
-        id={`support-${layout.name}-title`}
-      >顧客サポートDX：AIで回答する経路と人へ引き継ぐ経路</title>
-      <desc id={`support-${layout.name}-desc`}>
-        顧客の質問に対し、KnowledgeからRAGで根拠を検索し、生成AIが回答案を作ります。システムの回答条件を満たすものは回答へ、根拠不足や専門判断が必要なものは人間へ引き継ぎます。利用結果と有人対応結果を知識・検索条件・評価の改善へ戻します。
-      </desc>
-      <defs>
-        <marker
-          id={`support-arrow-${layout.name}`}
-          viewBox="0 0 10 10"
-          refX="9"
-          refY="5"
-          markerWidth="6"
-          markerHeight="6"
-          orient="auto-start-reverse"
-        >
-          <path d="M0 0L10 5L0 10Z" />
-        </marker>
-      </defs>
-      <g class="flow-lines" aria-hidden="true">
-        {layout.paths.map((path, index) => (
-          <path
-            class:list={[
-              layout.name === "desktop" &&
-                index === layout.paths.length - 1 &&
-                "feedback-path",
-            ]}
-            d={path}
-            marker-end={`url(#support-arrow-${layout.name})`}
-          />
-        ))}
-      </g>
-      <g class="flow-labels" aria-hidden="true">
-        {layout.labels.map(([x, y, text]) => (
-          <text x={x} y={y}>
-            {text}
-          </text>
-        ))}
-      </g>
-      {nodes.map((node, index) => {
-        const [x, y] = layout.positions[index];
-        const [width, height] =
-          layout.name === "mobile" && layout.sizes
-            ? layout.sizes[index]
-            : [layout.width, 72];
-        const mobile = layout.name === "mobile";
-        const feedback = mobile && node.id === "feedback";
-        const nodeLabel =
-          mobile && node.id === "customer" ? "質問" : node.label;
-        const nodeSub =
-          mobile && node.id === "human" ? "専門判断・引継ぎ" : node.sub;
-        return (
-          <a
-            href={`#support-detail-${node.id}`}
-            data-node={node.id}
-            data-kind={node.id}
-            aria-label={`${node.label}：${node.sub}。説明を読む`}
-            style={`--step:${index}`}
-          >
-            <rect
-              x={x}
-              y={y}
-              width={width}
-              height={height}
-              rx={node.id === "decision" ? 22 : 8}
-            />
-            <text
-              class="node-label"
-              x={x + width / 2}
-              y={y + (height === 56 ? 23 : 27)}
-              text-anchor="middle"
-            >
-              {nodeLabel}
-            </text>
-            {feedback ? (
-              <text class="node-sub" x={x + width / 2} text-anchor="middle">
-                <tspan x={x + width / 2} y={y + 47}>
-                  利用結果・誤回答・有人対応結果
-                </tspan>
-                <tspan x={x + width / 2} y={y + 65}>
-                  知識・検索条件・評価を改善
-                </tspan>
-                <tspan x={x + width / 2} y={y + 82}>
-                  次回の検索・回答へ反映
-                </tspan>
-              </text>
-            ) : (
-              <text
-                class="node-sub"
-                x={x + width / 2}
-                y={y + (height === 56 ? 43 : 49)}
-                text-anchor="middle"
-              >
-                {nodeSub}
-              </text>
-            )}
-            <text
-              class="action-mark"
-              x={x + width - 16}
-              y={y + 17}
-              aria-hidden="true"
-            >
-              ＋
-            </text>
-            <text
-              class="selected-mark"
-              x={x + width - 16}
-              y={y + 17}
-              aria-hidden="true"
-            >
-              ✓
-            </text>
-          </a>
-        );
-      })}
-    </svg>
-  ))}
-  <div class="diagram-details" aria-label="各工程の説明">
-    <section data-diagram-empty>
-      <h3>図の見方</h3>
-      <p>＋の付いた項目を選ぶと、その処理で何を確認しているかを表示します。</p>
-      <p>なぜ必要なのか、次の処理へどうつながるのかを、選んだ項目ごとに確認できます。</p>
-    </section>
-    {nodes.map((node) => (
-      <div id={`support-detail-${node.id}`} data-detail={node.id}>
-        <h3>{node.label}</h3>
-        {node.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-      </div>
-    ))}
-  </div>
-  <p
-    class="diagram-announcement"
-    role="status"
-    aria-live="polite"
-    aria-atomic="true"
-  ></p>
+<figure class="case-diagram support-explanation" id={prefix} data-explanation-id={id}
+  data-support-dx={isOverview ? "" : undefined} data-case-flow={!isOverview ? "" : undefined}
+  aria-labelledby={`${prefix}-title`}>
+  <figcaption id={`${prefix}-title`}>{model.title}</figcaption>
+  <p class="support-purpose">{sentenceLines(model.description)}</p>
+  {explanation.format === "table" && (
+    <table class="support-table" aria-labelledby={`${prefix}-title`}>
+      <thead><tr>{explanation.columns!.map(column => <th scope="col">{column}</th>)}</tr></thead>
+      <tbody>{explanation.records!.map(record => <tr>{record.map((cell, index) => index === 0 ?
+        <th scope="row">{cell}</th> : <td><span class="support-cell-label" aria-hidden="true">{explanation.columns![index]}</span>{cell}</td>)}</tr>)}</tbody>
+    </table>
+  )}
+  {explanation.panels && (
+    <div class:list={["support-panels", explanation.format === "comparison" && "support-comparison"]}>
+      {explanation.panels.map(panel => (
+        <section class="support-panel" aria-label={panel.title}>
+          <p class="support-panel-title">{panel.title}</p>
+          <ol class="support-steps">
+            {panel.nodeIds.map((nodeId, index) => {
+              const node = nodeById.get(nodeId)!;
+              return <li>
+                <div class="support-step" data-kind={node.kind} data-support-step={nodeId}
+                  id={isOverview && oldAnchors[nodeId] ? `support-detail-${oldAnchors[nodeId]}` : undefined}>
+                  <p class="support-action">{node.label}</p>
+                  <p class="support-description">{sentenceLines(node.description)}</p>
+                </div>
+                {index < panel.nodeIds.length - 1 && <span class="support-connector" aria-hidden="true">↓</span>}
+              </li>;
+            })}
+          </ol>
+          {panel.outcomes && <dl class="support-outcomes" aria-label="判定後の行き先">
+            {panel.outcomes.map((outcome, index) => <div id={isOverview ? `support-detail-${index ? "human" : "response"}` : undefined}>
+              <dt>{outcome.condition}</dt><dd>{outcome.result}</dd>
+            </div>)}
+          </dl>}
+        </section>
+      ))}
+    </div>
+  )}
+  {explanation.checks && (
+    <ol class="support-checks">
+      {explanation.checks.map((check, index) => <li>
+        <div class="support-step support-question">
+          <p class="support-action">{check.question}</p>
+          <dl class="support-branches">
+            <div><dt>はい</dt><dd>{check.yes}</dd></div>
+            <div><dt>いいえ</dt><dd>{check.no}</dd></div>
+          </dl>
+        </div>
+        {index < explanation.checks!.length - 1 && <span class="support-connector" aria-hidden="true">はい ↓</span>}
+      </li>)}
+    </ol>
+  )}
+  {explanation.outcomes && <dl class="support-outcomes" aria-label="判定結果">
+    {explanation.outcomes.map(outcome => <div><dt>{outcome.condition}</dt><dd>{outcome.result}</dd></div>)}
+  </dl>}
+  <p class="support-note" id={isOverview ? "support-detail-knowledge" : undefined}>{sentenceLines(explanation.note)}</p>
+  <p class="support-scope" id={isOverview ? "support-detail-feedback" : undefined}>{sentenceLines(explanation.scope)}</p>
 </figure>
-<script>
-  import { enhanceCaseDiagrams } from "../lib/interactive-diagrams";
-  enhanceCaseDiagrams();
-  document.addEventListener("astro:page-load", enhanceCaseDiagrams);
-</script>
-<style>
-  /* Widen only the explanatory figure; keep surrounding reading line lengths. */
-  :global(.prose:has(> [data-support-dx])) {
-    max-width: none;
-  }
-  :global(.prose:has(> [data-support-dx]) > :not([data-support-dx])) {
-    max-width: 78ch;
-  }
-
-  .support-dx {
-    margin: 1.5rem 0;
-    padding: clamp(0.65rem, 2vw, 1.25rem);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--surface);
-    min-width: 0;
-    container-type: inline-size;
-    scroll-margin-top: 7rem;
-  }
-  figcaption {
-    font-weight: 600;
-    color: var(--ink);
-  }
-  svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    overflow: visible;
-  }
-  .diagram-desktop {
-    display: none;
-  }
-  .diagram-mobile {
-    display: block;
-    max-width: 420px;
-    margin-inline: auto;
-  }
-  marker path {
-    fill: var(--accent);
-  }
-  .flow-lines path {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 2;
-  }
-  .feedback-path {
-    stroke-dasharray: 5 4;
-  }
-  .flow-labels {
-    fill: var(--muted);
-    font-size: 12px;
-  }
-  [data-node] {
-    color: var(--ink);
-    text-decoration: none;
-  }
-  [data-enhanced] [data-node] {
-    cursor: pointer;
-  }
-  rect {
-    fill: var(--surface);
-    stroke: var(--line);
-    stroke-width: 2;
-  }
-  [data-kind="knowledge"] rect,
-  [data-kind="rag"] rect {
-    fill: var(--soft);
-  }
-  [data-kind="genai"] rect {
-    stroke-width: 3;
-  }
-  [data-kind="decision"] rect {
-    stroke: var(--accent);
-  }
-  [data-kind="human"] rect {
-    stroke-dasharray: 4 3;
-  }
-  [data-kind="response"] rect {
-    fill: var(--soft);
-    stroke: var(--accent);
-  }
-  [data-kind="feedback"] rect {
-    fill: var(--bg);
-  }
-  .node-label {
-    fill: var(--ink);
-    font:
-      600 18px system-ui,
-      sans-serif;
-  }
-  .node-sub {
-    fill: var(--muted);
-    font:
-      11px system-ui,
-      sans-serif;
-  }
-  .diagram-mobile .node-label {
-    font-size: 18px;
-  }
-  .diagram-mobile .node-sub,
-  .diagram-mobile .flow-labels {
-    font-size: 14px;
-  }
-  .selected-mark {
-    display: none;
-    fill: var(--accent);
-    font-size: 14px;
-  }
-  .action-mark {
-    fill: var(--accent);
-    font-size: 17px;
-    font-weight: 700;
-  }
-  [aria-pressed="true"] .action-mark {
-    display: none;
-  }
-  @media (hover: hover) {
-    [data-node]:hover rect {
-      fill: var(--soft);
-      stroke: var(--accent);
-      stroke-width: 3;
-    }
-    [data-node]:hover .action-mark {
-      font-weight: 900;
-    }
-  }
-  [aria-pressed="true"] rect {
-    fill: var(--soft);
-    stroke: var(--accent);
-    stroke-width: 3;
-  }
-  [aria-pressed="true"] .selected-mark {
-    display: block;
-  }
-  [data-node]:focus-visible {
-    outline: none;
-  }
-  [data-node]:focus-visible rect {
-    stroke: var(--accent);
-    stroke-width: 4;
-    stroke-dasharray: 5 3;
-  }
-  .diagram-details {
-    min-height: 12rem;
-    box-sizing: border-box;
-    border: 1px solid var(--line);
-    border-top-width: 3px;
-    border-radius: 6px;
-    padding: 1rem;
-    margin-top: 0.5rem;
-  }
-  [data-enhanced] .diagram-details:has([data-detail]:not([hidden])),
-  .diagram-details:has([data-detail]:target) {
-    border-color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 5%, var(--surface));
-  }
-  .diagram-details > div,
-  .diagram-details > section {
-    max-width: 74ch;
-  }
-  .diagram-details [data-detail] {
-    scroll-margin-top: 7rem;
-  }
-  .diagram-details h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.1875rem;
-    line-height: 1.5;
-  }
-  .diagram-details p {
-    margin: 0;
-    font-size: 0.9375rem;
-    line-height: 1.7;
-  }
-  .diagram-details p + p {
-    margin-top: 0.6em;
-  }
-  /* CSS anchors remain functional without JavaScript; reserve the detail panel. */
-  .diagram-details [data-detail] {
-    display: none;
-  }
-  .diagram-details [data-detail]:target {
-    display: block;
-  }
-  .diagram-details:has(:target) [data-detail]:not(:target) {
-    display: none;
-  }
-  .diagram-details:has(:target) [data-diagram-empty],
-  .diagram-details [data-diagram-empty][hidden] {
-    display: none;
-  }
-  [data-enhanced] .diagram-details [data-detail]:not([hidden]) {
-    display: block;
-  }
-  [data-enhanced] .diagram-details [data-detail][hidden] {
-    display: none;
-  }
-  .diagram-announcement {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-  }
-  @keyframes flow-reveal {
-    from {
-      opacity: 0.8;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  .flow-reveal [data-node] {
-    animation: flow-reveal 400ms ease-out both;
-    animation-delay: calc(var(--step) * 55ms);
-  }
-  @container (min-width: 640px) {
-    .diagram-details {
-      min-height: 12rem;
-    }
-    .diagram-details p {
-      font-size: 1rem;
-    }
-    .diagram-desktop {
-      display: block;
-    }
-    .diagram-mobile {
-      display: none;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .flow-reveal [data-node] {
-      animation: none;
-    }
-  }
-</style>

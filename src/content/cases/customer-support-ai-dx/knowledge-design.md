@@ -35,13 +35,15 @@ order: 5
 以下の版数・有効期間・公開可否・分類・Provenance、Chunk・Ranking・引用・矛盾管理は、既存Bookで展開した補足設計です。  
 原典に直接ある対象機種制御と区別し、これらの実装・運用成果を主張しません。
 
-## Semantic Similarityは回答資格ではない
+<span id="semantic-similarityは回答資格ではない"></span>
+
+## 意味の近さは回答根拠の適合性ではない
 
 RAGで問い合わせに似た文書を検索できても、その文書を回答根拠として使ってよいとは限りません。  
 類似機種の障害情報、古い版の手順、調査中の内部情報は、意味的には近くても顧客への回答には不適切です。
 
 ```text
-Semantic Similarity ≠ Business Validity
+意味が近いこと ≠ 回答根拠として適合すること
 ```
 
 そこで検索を「似ている文書を探す処理」だけで終わらせず、業務上利用できるKnowledgeへ絞り込む処理として設計します。
@@ -77,7 +79,9 @@ Semantic Similarity ≠ Business Validity
 
 この区別により、「検索できる文書」と「顧客への回答根拠として使用してよい文書」を同一視しません。
 
-## Retrievalを段階化する
+<span id="retrievalを段階化する"></span>
+
+## 回答生成の前に検索対象を制御する
 
 <div data-case-diagram="support-knowledge-design"></div>
 
