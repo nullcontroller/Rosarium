@@ -453,6 +453,13 @@ assert.equal(
   cases(".header-primary a[aria-current=page]").text().trim(),
   "事例",
 );
+assert.equal(cases("#page-toc-tab, #page-toc-panel, [data-page-heading-toc]").length, 0);
+assert.equal(cases("main").attr("data-toc-policy"), "never");
+assert.equal(cases('main a[href="/career/"]').length, 1);
+assert.equal(cases('main a[href="/retired/obsolete-cases/"]').length, 1);
+for (const id of ["specification-debt-review", "three-ai-maintenance", "customer-support-ai-dx"]) {
+  assert.equal(cases(`#case-${id}`).length, 1, "Preserve case anchors");
+}
 assert.equal(cases(".case-study-index").length, 3);
 assert.equal(cases("main img").length, 0);
 assert.equal(cases(".book-list-entry-text").length, 3);
