@@ -43,6 +43,29 @@ const oldAnchors: Record<string, string> = { customer: "customer", search: "rag"
               </li>;
             })}
           </ol>
+          {panel.branches && <>
+            <div class="support-fork-stem" aria-hidden="true"></div>
+            <div class="support-routing" aria-label="回答可否の判定から二つの処理経路へ">
+              {panel.branches.map(branch => <section class="support-route" data-flow-from={branch.from}
+                data-flow-to={branch.nodeIds[0]} data-flow-condition={branch.condition} aria-label={branch.condition}>
+                <div class="support-branch-connector" aria-hidden="true"><span>↓</span></div>
+                <p class="support-route-condition">{branch.condition}</p>
+                <span class="support-connector" aria-hidden="true">↓</span>
+                <ol class="support-steps">
+                  {branch.nodeIds.map((nodeId, index) => {
+                    const node = nodeById.get(nodeId)!;
+                    return <li>
+                      <div class="support-step" data-kind={node.kind} data-support-step={nodeId}>
+                        <p class="support-action">{node.label}</p>
+                        <p class="support-description">{sentenceLines(node.description)}</p>
+                      </div>
+                      {index < branch.nodeIds.length - 1 && <span class="support-connector" aria-hidden="true">↓</span>}
+                    </li>;
+                  })}
+                </ol>
+              </section>)}
+            </div>
+          </>}
           {panel.outcomes && <dl class="support-outcomes" aria-label="判定後の行き先">
             {panel.outcomes.map((outcome, index) => <div id={isOverview ? `support-detail-${index ? "human" : "response"}` : undefined}>
               <dt>{outcome.condition}</dt><dd>{outcome.result}</dd>
