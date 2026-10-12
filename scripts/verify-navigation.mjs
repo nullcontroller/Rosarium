@@ -25,7 +25,8 @@ for (const location of locations) {
   const file = htmlForRoute(route);
   assert.ok(fs.existsSync(file), `Sitemap route has no HTML: ${route || "/"}`);
   const $ = load(fs.readFileSync(file, "utf8"));
-  assert.equal($('.header-secondary a[href="/garden-notes/"]').length, 1, `Missing history navigation: ${route || "/"}`);
+  assert.equal($(".header-secondary").length, 0, `Redundant header history navigation: ${route || "/"}`);
+  if (!route) assert.equal($('main a[href="/garden-notes/"]').length, 1, "Garden Notes history must remain reachable from the home page");
   const lastUpdated = $('meta[name="last-updated"]').attr("content") ?? "";
   const visibleLastUpdated =
     $(".site-last-updated time, .document-header .content-last-updated time")
