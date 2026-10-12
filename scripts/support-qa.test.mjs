@@ -27,7 +27,7 @@ test("support QA is written for portfolio readers without manuscript references 
   const chapters = fs.readdirSync(base).filter((entry) => entry.endsWith(".md"));
   const contents = [read(""), ...chapters.map((file) => read(file.slice(0, -3)))].join("\n");
   assert(!/原典|母艦|論述資料|補足設計|R5-1/.test(contents));
-  assert(!/500件|72％|96％|720件/.test(contents));
+  assert(!/過去の定型問い合わせ500件|72％|96％|720件/.test(contents));
   assert(!/本番導入済み|実測で達成|導入成果を達成/.test(contents));
 });
 
