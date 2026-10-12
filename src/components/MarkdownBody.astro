@@ -65,6 +65,8 @@ const nodes = $.root().contents().toArray();
   const Block = components[kind];
   return el.is("[data-support-dx-diagram]") ? (
     <InteractiveSupportDxDiagram />
+  ) : el.is("[data-case-diagram]") && el.attr("data-case-diagram")!.startsWith("support-") ? (
+    <InteractiveSupportDxDiagram id={el.attr("data-case-diagram")!} />
   ) : el.is("[data-case-diagram]") ? (
     <InteractiveCaseDiagram id={el.attr("data-case-diagram")!} />
   ) : Block ? (

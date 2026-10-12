@@ -1,6 +1,17 @@
 export type CaseNodeKind =
   "human" | "ai" | "knowledge" | "system" | "decision" | "feedback";
+export interface SupportExplanation {
+  format: "flow" | "comparison" | "table" | "decision";
+  panels?: { title: string; nodeIds: string[]; outcomes?: { condition: string; result: string }[] }[];
+  columns?: string[];
+  records?: string[][];
+  checks?: { question: string; yes: string; no: string }[];
+  outcomes?: { condition: string; result: string }[];
+  note: string;
+  scope: string;
+}
 export interface CaseDiagramModel {
+  explanation?: SupportExplanation;
   title: string;
   intro?: string;
   description: string;
@@ -1738,926 +1749,595 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       },
     ],
   },
-  "support-continuous-improvement": {
-    title: "利用結果を次の設計へ戻す",
-    description:
-      "本文の工程・分岐・役割を示します。ノードを選ぶと前後の関係を確認できます。",
-    nodes: [
+  "support-overview": {
+    "title": "顧客の問い合わせから、回答または有人対応へ",
+    "description": "顧客の入力を、追加質問・検索・根拠付き回答へ渡し、回答できない条件では担当者へ移す機能のつながりを示します。",
+    "nodes": [
       {
-        id: "D",
-        label: "Design",
-        kind: "system",
-        description: "Design。次の工程：Use。",
+        "id": "customer",
+        "label": "顧客が問い合わせる",
+        "kind": "human",
+        "description": "顧客はWebのQA画面から、困っている内容を自然な言葉で入力します。"
       },
       {
-        id: "U",
-        label: "Use",
-        kind: "system",
-        description: "Use。次の工程：Observe。",
+        "id": "questions",
+        "label": "生成AIが不足情報を質問する",
+        "kind": "ai",
+        "description": "問い合わせだけでは不明な機種・環境・エラーを追加質問し、顧客の回答を集めます。"
       },
       {
-        id: "O",
-        label: "Observe",
-        kind: "feedback",
-        description: "Observe。次の工程：Evaluate。",
+        "id": "target",
+        "label": "QAシステムが対象機種を特定する",
+        "kind": "system",
+        "description": "得られた条件を保持し、機種が特定できない場合は自動回答を続けません。"
       },
       {
-        id: "E",
-        label: "Evaluate",
-        kind: "feedback",
-        description: "Evaluate。次の工程：Find Failure。",
+        "id": "search",
+        "label": "検索機能が適合する文書を取得する",
+        "kind": "knowledge",
+        "description": "機種メタデータで文書を絞り込み、その範囲でベクトル検索します。"
       },
       {
-        id: "F",
-        label: "Find Failure",
-        kind: "system",
-        description:
-          "Find Failure。次の工程：Knowledge / Retrieval / UI / Processを改善。",
+        "id": "answer",
+        "label": "生成AIが根拠から回答案を作る",
+        "kind": "ai",
+        "description": "取得文書を参照するRAGで、根拠に基づく回答案を生成します。"
       },
       {
-        id: "I",
-        label: "知識・検索・UI・処理を改善",
-        kind: "knowledge",
-        description:
-          "Knowledge / Retrieval / UI / Processを改善。次の工程：Design。",
-      },
+        "id": "decision",
+        "label": "QAシステムが回答可能か判定する",
+        "kind": "decision",
+        "description": "必要情報・回答根拠・専門判断の要否を確認し、顧客へ返すか有人対応へ進むかを決めます。"
+      }
     ],
-    edges: [
-      {
-        from: "D",
-        to: "U",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "U",
-        to: "O",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "O",
-        to: "E",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "E",
-        to: "F",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "F",
-        to: "I",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "I",
-        to: "D",
-        label: "",
-        dashed: false,
-      },
-    ],
-    rows: [["D"], ["U"], ["O"], ["E"], ["F"], ["I"]],
-    groups: [],
+    "explanation": {
+      "format": "flow",
+      "panels": [
+        {
+          "title": "問い合わせから回答判定まで",
+          "nodeIds": [
+            "customer",
+            "questions",
+            "target",
+            "search",
+            "answer",
+            "decision"
+          ],
+          "outcomes": [
+            {
+              "condition": "回答条件を満たす",
+              "result": "QAシステムが顧客へ回答する"
+            },
+            {
+              "condition": "根拠不足・原因未特定・専門判断が必要",
+              "result": "サポート担当者へ引き継ぐ"
+            }
+          ]
+        }
+      ],
+      "note": "検索対象の制御は回答生成の前に行います。生成AIの自信だけでは回答を確定しません。",
+      "scope": "業務要求を具体化した概念構成です。実装クラスやAPI配置、本番導入の成果を示す図ではありません。"
+    }
   },
   "support-executive-summary": {
-    title: "全件有人から、自己解決と専門対応を分ける",
-    description:
-      "本文の工程・分岐・役割を示します。ノードを選ぶと前後の関係を確認できます。",
-    nodes: [
+    "title": "変更前と改善後：人間の対応をどこまでシステムへ移すか",
+    "description": "変更前と改善後を独立した流れとして比較します。上下の矢印は各方式の処理順序であり、変更前から改善後へ処理が流れる意味ではありません。",
+    "nodes": [
       {
-        id: "B1",
-        label: "顧客",
-        kind: "system",
-        description: "顧客。次の工程：サポート担当者。",
+        "id": "before-customer",
+        "label": "顧客が問い合わせる",
+        "kind": "human",
+        "description": "担当者へ問い合わせを伝えます。"
       },
       {
-        id: "B2",
-        label: "サポート担当者",
-        kind: "human",
-        description: "サポート担当者。次の工程：追加質問。",
+        "id": "before-questions",
+        "label": "担当者が不足情報を聞き取る",
+        "kind": "human",
+        "description": "顧客の回答に応じて次の質問を選びます。"
       },
       {
-        id: "B3",
-        label: "追加質問",
-        kind: "system",
-        description: "追加質問。次の工程：複数資料を検索。",
+        "id": "before-search",
+        "label": "担当者が資料を検索する",
+        "kind": "human",
+        "description": "仕様書・FAQ・障害情報を探します。"
       },
       {
-        id: "B4",
-        label: "複数資料を検索",
-        kind: "knowledge",
-        description: "複数資料を検索。次の工程：原因判断。",
+        "id": "before-judge",
+        "label": "担当者が根拠と原因を判断する",
+        "kind": "human",
+        "description": "対象機種に適合する文書か確認し、原因を絞ります。"
       },
       {
-        id: "B5",
-        label: "原因判断",
-        kind: "system",
-        description: "原因判断。次の工程：回答。",
+        "id": "before-answer",
+        "label": "担当者が回答する",
+        "kind": "human",
+        "description": "根拠と調査結果から顧客への案内を作ります。"
       },
       {
-        id: "B6",
-        label: "回答",
-        kind: "system",
-        description: "回答。この工程の位置と前後のつながりを確認します。",
+        "id": "after-customer",
+        "label": "顧客が問い合わせる",
+        "kind": "human",
+        "description": "顧客向けWeb QAへ自然な言葉で入力します。"
       },
       {
-        id: "A1",
-        label: "顧客",
-        kind: "system",
-        description: "顧客。次の工程：AIとの対話。",
+        "id": "after-questions",
+        "label": "QAシステムが追加質問する",
+        "kind": "ai",
+        "description": "生成AIが不足情報を質問し、回答条件を具体化します。"
       },
       {
-        id: "A2",
-        label: "AIとの対話",
-        kind: "ai",
-        description: "AIとの対話。次の工程：RAG / Knowledge。",
+        "id": "after-search",
+        "label": "QAシステムが適合する文書を取得する",
+        "kind": "knowledge",
+        "description": "機種で文書を絞り、その範囲で関連する根拠を検索します。"
       },
       {
-        id: "A3",
-        label: "RAG / Knowledge",
-        kind: "knowledge",
-        description: "RAG / Knowledge。次の工程：根拠と判断条件。",
-      },
-      {
-        id: "A4",
-        label: "根拠と判断条件",
-        kind: "decision",
-        description:
-          "根拠と判断条件。次の工程：回答可能：自己解決／専門判断が必要：情報を保ったまま人間へ。",
-      },
-      {
-        id: "A5",
-        label: "自己解決",
-        kind: "system",
-        description: "自己解決。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "A6",
-        label: "情報を保ったまま人間へ",
-        kind: "human",
-        description:
-          "情報を保ったまま人間へ。この工程の位置と前後のつながりを確認します。",
-      },
+        "id": "after-judge",
+        "label": "QAシステムが回答可能か判定する",
+        "kind": "decision",
+        "description": "根拠に基づく回答を作れるか、専門判断を要するか確認します。"
+      }
     ],
-    edges: [
-      {
-        from: "B1",
-        to: "B2",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "B2",
-        to: "B3",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "B3",
-        to: "B4",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "B4",
-        to: "B5",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "B5",
-        to: "B6",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "A1",
-        to: "A2",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "A2",
-        to: "A3",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "A3",
-        to: "A4",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "A4",
-        to: "A5",
-        label: "回答可能",
-        dashed: false,
-      },
-      {
-        from: "A4",
-        to: "A6",
-        label: "専門判断が必要",
-        dashed: false,
-      },
-    ],
-    rows: [
-      ["B1", "A1"],
-      ["B2", "A2"],
-      ["B3", "A3"],
-      ["B4", "A4"],
-      ["B5", "A5", "A6"],
-      ["B6"],
-    ],
-    groups: [
-      {
-        title: "Before",
-        ids: ["B1", "B2", "B3", "B4", "B5", "B6"],
-      },
-      {
-        title: "After",
-        ids: ["A1", "A2", "A3", "A4", "A5", "A6"],
-      },
-    ],
-  },
-  "support-human-handoff": {
-    title: "確認済み情報を保って人へ引き継ぐ",
-    description:
-      "顧客・AI・Knowledge・担当者の間で受け渡す情報を、元の順序で示します。",
-    nodes: [
-      {
-        id: "C",
-        label: "顧客",
-        kind: "system",
-        description: "顧客が担当する工程を時系列で確認します。",
-      },
-      {
-        id: "A",
-        label: "AI / QA",
-        kind: "ai",
-        description: "AI / QAが担当する工程を時系列で確認します。",
-      },
-      {
-        id: "K",
-        label: "知識・根拠",
-        kind: "knowledge",
-        description: "Knowledgeが担当する工程を時系列で確認します。",
-      },
-      {
-        id: "H",
-        label: "サポート担当者",
-        kind: "human",
-        description: "サポート担当者が担当する工程を時系列で確認します。",
-      },
-    ],
-    messages: [
-      {
-        from: "C",
-        to: "A",
-        label: "自然な言葉で問い合わせ",
-        dashed: false,
-      },
-      {
-        from: "A",
-        to: "C",
-        label: "不足情報を一つずつ確認",
-        dashed: false,
-      },
-      {
-        from: "A",
-        to: "K",
-        label: "機種・版・公開範囲を付けて検索",
-        dashed: false,
-      },
-      {
-        from: "K",
-        to: "A",
-        label: "根拠候補",
-        dashed: true,
-      },
-      {
-        from: "A",
-        to: "A",
-        label: "停止条件を判定",
-        dashed: false,
-      },
-      {
-        from: "A",
-        to: "H",
-        label: "確認済み情報・根拠・停止理由",
-        dashed: true,
-      },
-      {
-        from: "A",
-        to: "C",
-        label: "確認内容を担当者へ引継ぎ済みと表示",
-        dashed: true,
-      },
-      {
-        from: "H",
-        to: "C",
-        label: "続きから専門対応",
-        dashed: false,
-      },
-    ],
-  },
-  "support-knowledge-design": {
-    title: "回答に使える根拠を絞る",
-    description:
-      "本文の工程・分岐・役割を示します。ノードを選ぶと前後の関係を確認できます。",
-    nodes: [
-      {
-        id: "Q",
-        label: "問い合わせと対話で得たContext",
-        kind: "system",
-        description:
-          "問い合わせと対話で得たContext。次の工程：対象機種で絞る。",
-      },
-      {
-        id: "F1",
-        label: "対象機種で絞る",
-        kind: "system",
-        description: "対象機種で絞る。次の工程：有効な版で絞る。",
-      },
-      {
-        id: "F2",
-        label: "有効な版で絞る",
-        kind: "system",
-        description: "有効な版で絞る。次の工程：顧客へ公開可能な情報へ絞る。",
-      },
-      {
-        id: "F3",
-        label: "顧客へ公開可能な情報へ絞る",
-        kind: "system",
-        description:
-          "顧客へ公開可能な情報へ絞る。次の工程：意味検索 / キーワード検索。",
-      },
-      {
-        id: "S",
-        label: "意味検索 / キーワード検索",
-        kind: "knowledge",
-        description:
-          "意味検索 / キーワード検索。次の工程：回答根拠として十分か。",
-      },
-      {
-        id: "V",
-        label: "回答根拠として十分か",
-        kind: "decision",
-        description:
-          "回答根拠として十分か。次の工程：Yes：生成AIへGrounding Contextを渡す／No：人間へ引き継ぐ。",
-      },
-      {
-        id: "G",
-        label: "生成AIへGrounding Contextを渡す",
-        kind: "ai",
-        description:
-          "生成AIへGrounding Contextを渡す。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "H",
-        label: "人間へ引き継ぐ",
-        kind: "human",
-        description:
-          "人間へ引き継ぐ。この工程の位置と前後のつながりを確認します。",
-      },
-    ],
-    edges: [
-      {
-        from: "Q",
-        to: "F1",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "F1",
-        to: "F2",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "F2",
-        to: "F3",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "F3",
-        to: "S",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "S",
-        to: "V",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "V",
-        to: "G",
-        label: "Yes",
-        dashed: false,
-      },
-      {
-        from: "V",
-        to: "H",
-        label: "No",
-        dashed: false,
-      },
-    ],
-    rows: [["Q"], ["F1"], ["F2"], ["F3"], ["S"], ["V"], ["G", "H"]],
-    groups: [],
-  },
-  "support-poc-evaluation": {
-    title: "検索・対話・回答・業務受入を分けて評価する",
-    description:
-      "本文の工程・分岐・役割を示します。ノードを選ぶと前後の関係を確認できます。",
-    nodes: [
-      {
-        id: "I",
-        label: "問い合わせ",
-        kind: "system",
-        description: "問い合わせ。次の工程：Retrieval Evaluation。",
-      },
-      {
-        id: "RE",
-        label: "Retrieval Evaluation",
-        kind: "system",
-        description:
-          "Retrieval Evaluation。次の工程：Dialogue / Context Evaluation／対象・版・公開範囲に適合した根拠か。",
-      },
-      {
-        id: "DE",
-        label: "Dialogue / Context Evaluation",
-        kind: "system",
-        description:
-          "Dialogue / Context Evaluation。次の工程：Generation Evaluation／不足情報を確認できるか。",
-      },
-      {
-        id: "AE",
-        label: "Generation Evaluation",
-        kind: "system",
-        description:
-          "Generation Evaluation。次の工程：Business Acceptance／根拠から逸脱せず提示可能か。",
-      },
-      {
-        id: "BA",
-        label: "Business Acceptance",
-        kind: "system",
-        description:
-          "Business Acceptance。次の工程：自己解決と人間への移行が業務として成立するか。",
-      },
-      {
-        id: "RQ",
-        label: "対象・版・公開範囲に適合した根拠か",
-        kind: "knowledge",
-        description:
-          "対象・版・公開範囲に適合した根拠か。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "DQ",
-        label: "不足情報を確認できるか",
-        kind: "system",
-        description:
-          "不足情報を確認できるか。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "AQ",
-        label: "根拠から逸脱せず提示可能か",
-        kind: "knowledge",
-        description:
-          "根拠から逸脱せず提示可能か。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "BQ",
-        label: "自己解決と人間への移行が業務として成立するか",
-        kind: "human",
-        description:
-          "自己解決と人間への移行が業務として成立するか。この工程の位置と前後のつながりを確認します。",
-      },
-    ],
-    edges: [
-      {
-        from: "I",
-        to: "RE",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "RE",
-        to: "DE",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "DE",
-        to: "AE",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "AE",
-        to: "BA",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "RE",
-        to: "RQ",
-        label: "",
-        dashed: true,
-      },
-      {
-        from: "DE",
-        to: "DQ",
-        label: "",
-        dashed: true,
-      },
-      {
-        from: "AE",
-        to: "AQ",
-        label: "",
-        dashed: true,
-      },
-      {
-        from: "BA",
-        to: "BQ",
-        label: "",
-        dashed: true,
-      },
-    ],
-    rows: [["I"], ["RE", "RQ"], ["DE", "DQ"], ["AE", "AQ"], ["BA", "BQ"]],
-    groups: [],
-  },
-  "support-responsibility-boundary": {
-    title: "AIと人間の回答責任を分ける",
-    description:
-      "本文の工程・分岐・役割を示します。ノードを選ぶと前後の関係を確認できます。",
-    nodes: [
-      {
-        id: "Q",
-        label: "問い合わせ",
-        kind: "system",
-        description: "問い合わせ。次の工程：AI。",
-      },
-      {
-        id: "A",
-        label: "AI",
-        kind: "ai",
-        description: "AI。次の工程：既存システム / Knowledge。",
-      },
-      {
-        id: "K",
-        label: "既存システム / Knowledge",
-        kind: "knowledge",
-        description: "既存システム / Knowledge。次の工程：回答条件を満たすか。",
-      },
-      {
-        id: "J",
-        label: "回答条件を満たすか",
-        kind: "decision",
-        description:
-          "回答条件を満たすか。次の工程：満たす：根拠に基づく回答／満たさない：人間へ引継ぎ。",
-      },
-      {
-        id: "R",
-        label: "根拠に基づく回答",
-        kind: "knowledge",
-        description:
-          "根拠に基づく回答。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "H",
-        label: "人間へ引継ぎ",
-        kind: "human",
-        description:
-          "人間へ引継ぎ。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "A1",
-        label: "自然な表現の理解",
-        kind: "system",
-        description:
-          "自然な表現の理解。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "A2",
-        label: "不足情報の追加質問",
-        kind: "system",
-        description:
-          "不足情報の追加質問。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "A3",
-        label: "Knowledge検索",
-        kind: "knowledge",
-        description:
-          "Knowledge検索。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "A4",
-        label: "根拠に沿った回答案",
-        kind: "knowledge",
-        description:
-          "根拠に沿った回答案。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "H1",
-        label: "専門判断",
-        kind: "system",
-        description: "専門判断。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "H2",
-        label: "個別調査",
-        kind: "system",
-        description: "個別調査。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "H3",
-        label: "影響の大きい判断",
-        kind: "system",
-        description:
-          "影響の大きい判断。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "H4",
-        label: "例外対応",
-        kind: "system",
-        description: "例外対応。この工程の位置と前後のつながりを確認します。",
-      },
-    ],
-    edges: [
-      {
-        from: "Q",
-        to: "A",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "A",
-        to: "K",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "K",
-        to: "J",
-        label: "",
-        dashed: false,
-      },
-      {
-        from: "J",
-        to: "R",
-        label: "満たす",
-        dashed: false,
-      },
-      {
-        from: "J",
-        to: "H",
-        label: "満たさない",
-        dashed: false,
-      },
-    ],
-    rows: [
-      ["Q"],
-      ["A"],
-      ["K"],
-      ["J"],
-      ["R", "H"],
-      ["A1", "H1"],
-      ["A2", "H2"],
-      ["A3", "H3"],
-      ["A4", "H4"],
-    ],
-    groups: [
-      {
-        title: "AIの役割",
-        ids: ["A1", "A2", "A3", "A4"],
-      },
-      {
-        title: "人間の役割",
-        ids: ["H1", "H2", "H3", "H4"],
-      },
-    ],
-  },
-  "support-stopping-conditions": {
-    title: "回答を止め、人へ移す条件",
-    description:
-      "本文の工程・分岐・役割を示します。ノードを選ぶと前後の関係を確認できます。",
-    nodes: [
-      {
-        id: "start",
-        label: "開始",
-        kind: "system",
-        description: "開始。次の工程：問い合わせ受付：Collecting。",
-      },
-      {
-        id: "Collecting",
-        label: "Collecting",
-        kind: "decision",
-        description:
-          "Collecting。次の工程：必要情報がそろう：Retrieving／情報を特定できない：Human。",
-      },
-      {
-        id: "Retrieving",
-        label: "Retrieving",
-        kind: "decision",
-        description:
-          "Retrieving。次の工程：適合する公開可能な根拠：Answering／根拠不足 / 矛盾 / 非公開：Human。",
-      },
-      {
-        id: "Human",
-        label: "Human",
-        kind: "human",
-        description: "Human。次の工程：終了。",
-      },
-      {
-        id: "Answering",
-        label: "Answering",
-        kind: "decision",
-        description:
-          "Answering。次の工程：低リスクで回答可能：Completed／専門判断 / 高影響：Human。",
-      },
-      {
-        id: "Completed",
-        label: "Completed",
-        kind: "system",
-        description: "Completed。次の工程：終了。",
-      },
-      {
-        id: "end",
-        label: "終了",
-        kind: "system",
-        description: "終了。この工程の位置と前後のつながりを確認します。",
-      },
-    ],
-    edges: [
-      {
-        from: "start",
-        to: "Collecting",
-        label: "問い合わせ受付",
-      },
-      {
-        from: "Collecting",
-        to: "Retrieving",
-        label: "必要情報がそろう",
-      },
-      {
-        from: "Collecting",
-        to: "Human",
-        label: "情報を特定できない",
-      },
-      {
-        from: "Retrieving",
-        to: "Answering",
-        label: "適合する公開可能な根拠",
-      },
-      {
-        from: "Retrieving",
-        to: "Human",
-        label: "根拠不足 / 矛盾 / 非公開",
-      },
-      {
-        from: "Answering",
-        to: "Completed",
-        label: "低リスクで回答可能",
-      },
-      {
-        from: "Answering",
-        to: "Human",
-        label: "専門判断 / 高影響",
-      },
-      {
-        from: "Human",
-        to: "end",
-        label: "",
-      },
-      {
-        from: "Completed",
-        to: "end",
-        label: "",
-      },
-    ],
-    rows: [
-      ["start"],
-      ["Collecting"],
-      ["Retrieving"],
-      ["Answering", "Human"],
-      ["Completed"],
-      ["end"],
-    ],
-    groups: [],
+    "explanation": {
+      "format": "comparison",
+      "panels": [
+        {
+          "title": "変更前：すべて担当者が対応",
+          "nodeIds": [
+            "before-customer",
+            "before-questions",
+            "before-search",
+            "before-judge",
+            "before-answer"
+          ]
+        },
+        {
+          "title": "改善後：回答と専門対応を分ける",
+          "nodeIds": [
+            "after-customer",
+            "after-questions",
+            "after-search",
+            "after-judge"
+          ],
+          "outcomes": [
+            {
+              "condition": "回答可能",
+              "result": "システムが顧客へ回答する"
+            },
+            {
+              "condition": "専門判断が必要・根拠不足",
+              "result": "サポート担当者が引き継ぐ"
+            }
+          ]
+        }
+      ],
+      "note": "主な変化は、情報収集・検索・回答作成の一部をシステムが担い、専門判断はサポート担当者に残すことです。",
+      "scope": "改善後は設計した方式の比較です。導入済みの実測効果を表すものではありません。"
+    }
   },
   "support-why-ai": {
-    title: "業務価値から適用手段を選ぶ",
-    description:
-      "本文の工程・分岐・役割を示します。ノードを選ぶと前後の関係を確認できます。",
-    nodes: [
+    "title": "業務要求から必要機能を導き、技術方式を選ぶ",
+    "description": "顧客の自己解決と専門対応への集中という与えられた要求を、必要機能・採用方式・採用理由へ対応付けます。",
+    "nodes": [],
+    "explanation": {
+      "format": "table",
+      "columns": [
+        "必要な機能",
+        "採用する方式",
+        "採用理由"
+      ],
+      "records": [
+        [
+          "不足情報の聞き取り",
+          "生成AIによる追加質問",
+          "顧客の回答に応じて質問を変え、検索に必要な条件を集める。"
+        ],
+        [
+          "回答根拠の取得",
+          "既存文書のベクトル検索",
+          "分散した仕様書・FAQ・障害情報から、問い合わせに関連する情報を探す。"
+        ],
+        [
+          "対象条件の制御",
+          "メタデータによる絞込み",
+          "対象機種が異なる文書を、意味検索の前に除外する。"
+        ],
+        [
+          "根拠に基づく回答",
+          "検索結果を参照する回答生成（RAG）",
+          "社内の製品情報を根拠として与え、生成AIの内部知識だけに依存しない。"
+        ],
+        [
+          "専門判断と例外対応",
+          "サポート担当者への引継ぎ",
+          "自動回答できない問い合わせでも、専門的な調査と判断を続ける。"
+        ]
+      ],
+      "note": "技術は機能要件を実現する手段です。生成AIは対話と文章生成、検索は文書取得、メタデータは検索範囲の制御を担います。",
+      "scope": "採用理由を説明する方式上の整理です。比較対象と不採用理由は下の補足設計で扱います。"
+    }
+  },
+  "support-responsibility-boundary": {
+    "title": "AI・QAシステム、人間、既存システムの役割分担",
+    "description": "処理順序ではなく、三者が担う機能と確定してはいけない境界を示します。",
+    "nodes": [],
+    "explanation": {
+      "format": "table",
+      "columns": [
+        "担当主体",
+        "担う処理",
+        "責任の境界"
+      ],
+      "records": [
+        [
+          "AI・QAシステム",
+          "不足情報の収集、対象条件の確認、関連文書の検索、根拠に基づく回答案の生成。",
+          "根拠不足や専門判断が必要な場合は回答を止め、担当者へ引き継ぐ。"
+        ],
+        [
+          "サポート担当者",
+          "専門判断、個別調査、影響が大きい操作の判断、例外への対応。",
+          "元の問い合わせと確認済み情報を確認し、調査と顧客への案内を引き受ける。"
+        ],
+        [
+          "既存システム・知識基盤",
+          "製品仕様・FAQ・障害情報の保持、適用条件と公開範囲の管理、必要な業務状態と権限の管理。",
+          "事実・制約・権限を管理する。生成AIの推測で状態更新や実行結果を確定しない。"
+        ]
+      ],
+      "note": "AIにすべてを委任する方式でも、すべての回答を人間が承認する方式でもありません。問い合わせの条件で担当範囲を分けます。",
+      "scope": "機種制御と専門判断への引継ぎは原典の方式です。公開範囲・業務状態・権限の詳細は本文の補足設計です。"
+    }
+  },
+  "support-poc-evaluation": {
+    "title": "別機種の誤検索を見つけ、検索方式を修正する",
+    "description": "検証結果から問題の所在を分析し、回答生成の前提となる検索対象制御を変更する判断を示します。",
+    "nodes": [
       {
-        id: "V",
-        label: "顧客と担当者へ届けたい価値",
-        kind: "human",
-        description:
-          "顧客と担当者へ届けたい価値。次の工程：変えたい業務プロセス。",
+        "id": "test",
+        "label": "開発担当者と業務担当者が検証する",
+        "kind": "feedback",
+        "description": "追加質問・取得文書・根拠との整合・顧客への提示可否を、評価表の項目に沿って確認します。"
       },
       {
-        id: "P",
-        label: "変えたい業務プロセス",
-        kind: "system",
-        description:
-          "変えたい業務プロセス。次の工程：AI・人間・既存システムの役割。",
+        "id": "failure",
+        "label": "別機種の文書を使う問題を発見する",
+        "kind": "feedback",
+        "description": "回答は自然でも、対象機種と異なる文書を根拠にしているケースを区別します。"
       },
       {
-        id: "R",
-        label: "AI・人間・既存システムの役割",
-        kind: "human",
-        description:
-          "AI・人間・既存システムの役割。次の工程：必要な能力は何か。",
+        "id": "cause",
+        "label": "設計側が検索の原因を分析する",
+        "kind": "decision",
+        "description": "意味的な類似性だけでは、対象機種に適合する文書を保証できないと判断します。"
       },
       {
-        id: "T",
-        label: "必要な能力は何か",
-        kind: "decision",
-        description:
-          "必要な能力は何か。次の工程：自然な表現を解釈：生成AI／根拠を探す：RAG／確定的に処理できる：ルール / 既存システム／専門判断が必要：人間。",
+        "id": "control",
+        "label": "対象機種による検索対象制御を追加する",
+        "kind": "system",
+        "description": "文書に機種メタデータを付け、一致する文書へ絞ってから検索する方式へ変更します。"
       },
       {
-        id: "L",
-        label: "生成AI",
-        kind: "ai",
-        description: "生成AI。この工程の位置と前後のつながりを確認します。",
+        "id": "retest",
+        "label": "同じ評価条件で再検証する",
+        "kind": "feedback",
+        "description": "誤検索の改善と、以前は回答できた問い合わせへの影響を確認します。"
       },
       {
-        id: "G",
-        label: "RAG",
-        kind: "knowledge",
-        description: "RAG。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "S",
-        label: "ルール / 既存システム",
-        kind: "system",
-        description:
-          "ルール / 既存システム。この工程の位置と前後のつながりを確認します。",
-      },
-      {
-        id: "H",
-        label: "人間",
-        kind: "human",
-        description: "人間。この工程の位置と前後のつながりを確認します。",
-      },
+        "id": "accept",
+        "label": "設計側と業務側が方式の採否を判断する",
+        "kind": "decision",
+        "description": "成功条件と許容できない失敗に照らし、採用・追加修正・棄却を決めます。"
+      }
     ],
-    edges: [
+    "explanation": {
+      "format": "flow",
+      "panels": [
+        {
+          "title": "検証結果を方式改善へ戻す",
+          "nodeIds": [
+            "test",
+            "failure",
+            "cause",
+            "control",
+            "retest",
+            "accept"
+          ]
+        }
+      ],
+      "note": "修正対象は検索構成です。モデル変更やプロンプト修正だけで解決したという説明にはしません。",
+      "scope": "原典に記載されたケース内の検証・改善過程です。評価分担・回帰確認・採否基準は補足設計であり、本人の実測成果を示しません。"
+    }
+  },
+  "support-poc-checks": {
+    "title": "何を検証し、誰が判定するか",
+    "description": "最終回答の正答率だけへ集約せず、機能ごとに確認方法と判断主体を分けます。",
+    "nodes": [],
+    "explanation": {
+      "format": "table",
+      "columns": [
+        "評価項目",
+        "確認すること",
+        "判断主体・方法"
+      ],
+      "records": [
+        [
+          "追加質問による情報収集",
+          "機種・環境・症状など、検索と停止判定に必要な情報が得られるか。",
+          "期待項目の取得は開発担当者や自動テストで確認。質問の有効性は業務担当者が判断する。"
+        ],
+        [
+          "根拠文書の検索",
+          "対象機種に適合する文書が取得され、別機種の文書が除外されるか。",
+          "対象機種と文書メタデータの一致を開発担当者やテストで確認する。"
+        ],
+        [
+          "根拠と回答の整合",
+          "回答に根拠外の主張や、対象に適用できない手順がないか。",
+          "根拠の参照を確認し、内容の妥当性はサポート担当者が判断する。"
+        ],
+        [
+          "顧客への提示品質",
+          "無修正で顧客へ示せる内容と表現か。",
+          "サポート担当者が業務上の受入基準に沿って判断する。"
+        ],
+        [
+          "有人引継ぎ",
+          "回答できない場合に停止し、確認済み情報を渡して対応を再開できるか。",
+          "停止と項目保持はテストで確認。調査を続けられるかは担当者が確認する。"
+        ]
+      ],
+      "note": "一致を機械的に確かめられる項目と、業務の専門判断が必要な項目を分けます。全件を一律に人手判定する方式ではありません。",
+      "scope": "評価分担と引継ぎ品質の詳細は補足評価設計です。論述資料の件数や評価率を、本人の実測成果へ置き換えません。"
+    }
+  },
+  "support-handoff-information": {
+    "title": "担当者へ何を渡し、どこから対応を再開するか",
+    "description": "担当者が問い合わせを最初から聞き直さず、未解決の確認と調査から再開するための情報を示します。",
+    "nodes": [],
+    "explanation": {
+      "format": "table",
+      "columns": [
+        "渡す情報",
+        "保持する内容",
+        "担当者が再開する判断"
+      ],
+      "records": [
+        [
+          "顧客の原文・会話履歴",
+          "元の問い合わせと、追加質問への回答。",
+          "AIの要約だけに依存せず、依頼の意図と確認の経緯へ戻る。"
+        ],
+        [
+          "特定済み対象",
+          "機種・版・接続方法・OSなどの環境、エラーと症状。",
+          "対象条件とその根拠を確認する。"
+        ],
+        [
+          "確認済み事項",
+          "顧客が実施済みの対処と、確認できた状態。",
+          "同じ質問や操作を繰り返さない。"
+        ],
+        [
+          "未確認事項",
+          "確認できなかった条件と、解消していない症状。",
+          "次に質問・調査すべきことを選ぶ。"
+        ],
+        [
+          "検索条件と候補",
+          "検索した対象範囲と、取得文書の候補。",
+          "どこまで調べたかを確認し、必要な追加調査へ進む。"
+        ],
+        [
+          "採用・除外した根拠",
+          "参照した文書と、候補を使わなかった理由。",
+          "根拠の適合性と回答の妥当性を調べる。"
+        ],
+        [
+          "停止理由",
+          "根拠不足・原因未特定・専門判断などの移行理由。",
+          "自動回答を止めた地点から専門判断を引き受ける。"
+        ]
+      ],
+      "note": "機種・文書・停止理由はシステムが保持し、生成AIの要約は読むための補助とします。",
+      "scope": "具体的な引継ぎ項目と担当者画面は本文の補足設計です。実装済みの社内データ構造を公開するものではありません。"
+    }
+  },
+  "support-stopping-conditions": {
+    "title": "三つの条件を満たす場合だけ自動回答する",
+    "description": "各条件の「はい」は次の確認へ進むことを示し、「いいえ」は自動回答を中止して有人対応へ移ることを示します。",
+    "nodes": [],
+    "explanation": {
+      "format": "decision",
+      "checks": [
+        {
+          "question": "必要な情報がそろっていますか？",
+          "yes": "回答根拠を確認する。",
+          "no": "確認した情報と未確認項目を保持し、担当者へ引き継ぐ。"
+        },
+        {
+          "question": "適切な回答根拠がありますか？",
+          "yes": "専門判断の要否を確認する。",
+          "no": "検索条件と根拠不足の理由を保持し、担当者へ引き継ぐ。"
+        },
+        {
+          "question": "専門判断なしで回答できますか？",
+          "yes": "根拠に沿う回答だけを顧客へ提示する。",
+          "no": "回答案を確定せず、専門判断が必要な理由を担当者へ渡す。"
+        }
+      ],
+      "outcomes": [
+        {
+          "condition": "すべて「はい」",
+          "result": "QAシステムが自動回答する"
+        },
+        {
+          "condition": "一つでも「いいえ」",
+          "result": "必要情報を保持してサポート担当者へ引き継ぐ"
+        }
+      ],
+      "note": "AI自身の自信だけでは決めません。追加質問をしても条件を解消できなければ、推測で回答を続けません。",
+      "scope": "原典の根拠不足・原因未特定・専門判断を中心とした判定です。高影響・公開可否・矛盾の詳細条件は本文の補足設計です。"
+    }
+  },
+  "support-knowledge-design": {
+    "title": "対象機種で絞り込んでから、根拠文書を検索する",
+    "description": "回答生成へ渡してよい文書の範囲を、意味検索より先に決める依存関係を示します。",
+    "nodes": [
       {
-        from: "V",
-        to: "P",
-        label: "",
-        dashed: false,
+        "id": "target",
+        "label": "QAシステムが対象機種を特定する",
+        "kind": "system",
+        "description": "顧客の問い合わせと追加質問への回答から機種を確認します。未特定なら推測で検索範囲を決めません。"
       },
       {
-        from: "P",
-        to: "R",
-        label: "",
-        dashed: false,
+        "id": "filter",
+        "label": "検索機能が一致する文書へ絞り込む",
+        "kind": "knowledge",
+        "description": "文書の機種メタデータと照合し、対象機種に適合する文書だけを検索対象にします。"
       },
       {
-        from: "R",
-        to: "T",
-        label: "",
-        dashed: false,
+        "id": "retrieve",
+        "label": "対象文書から関連情報を検索する",
+        "kind": "knowledge",
+        "description": "制限した範囲の中でベクトル検索し、問い合わせに関連する根拠文書を取得します。"
       },
       {
-        from: "T",
-        to: "L",
-        label: "自然な表現を解釈",
-        dashed: false,
-      },
-      {
-        from: "T",
-        to: "G",
-        label: "根拠を探す",
-        dashed: false,
-      },
-      {
-        from: "T",
-        to: "S",
-        label: "確定的に処理できる",
-        dashed: false,
-      },
-      {
-        from: "T",
-        to: "H",
-        label: "専門判断が必要",
-        dashed: false,
-      },
+        "id": "evidence",
+        "label": "生成AIが取得文書を回答根拠にする",
+        "kind": "ai",
+        "description": "取得文書を参照するRAGで回答案を生成します。適合する根拠がなければ回答せず、人へ引き継ぎます。"
+      }
     ],
-    rows: [["V"], ["P"], ["R"], ["T"], ["L", "G"], ["S", "H"]],
-    groups: [],
+    "explanation": {
+      "format": "flow",
+      "panels": [
+        {
+          "title": "対象条件から回答根拠まで",
+          "nodeIds": [
+            "target",
+            "filter",
+            "retrieve",
+            "evidence"
+          ]
+        }
+      ],
+      "note": "意味的に似ている文書でも、別機種の情報は適切な回答根拠とは限りません。類似度のしきい値を上げることと、属性で対象を制限することは別の手段です。",
+      "scope": "原典の直接記述は対象機種による検索対象制御です。版数・公開可否・有効期間の制限は本文の補足設計です。"
+    }
+  },
+  "support-human-handoff": {
+    "title": "集めた情報を保持し、担当者が続きから対応する",
+    "description": "担当主体の交代と、引き継ぐ情報の流れを示します。矢印は情報を受け渡して次の対応へ進む意味です。",
+    "nodes": [
+      {
+        "id": "input",
+        "label": "顧客が問い合わせと回答を入力する",
+        "kind": "human",
+        "description": "元の質問、症状、追加質問への回答を受け付けます。"
+      },
+      {
+        "id": "collect",
+        "label": "QAシステムが確認情報を保持する",
+        "kind": "system",
+        "description": "機種・環境・エラー、確認済みと未確認の事項、検索条件と根拠を区別して保持します。"
+      },
+      {
+        "id": "stop",
+        "label": "QAシステムが自動回答を中止する",
+        "kind": "decision",
+        "description": "根拠不足・原因未特定・専門判断などの停止理由を記録し、推測による回答を止めます。"
+      },
+      {
+        "id": "transfer",
+        "label": "QAシステムが担当者へ情報を渡す",
+        "kind": "system",
+        "description": "下の一覧にある問い合わせ原文、確認済み事項、根拠、未確認事項、停止理由を渡します。"
+      },
+      {
+        "id": "resume",
+        "label": "サポート担当者が未解決箇所から再開する",
+        "kind": "human",
+        "description": "引継ぎ情報を確認し、不足する確認や専門調査から対応を続けます。顧客へ同じ説明を求める状態を避けます。"
+      }
+    ],
+    "explanation": {
+      "format": "flow",
+      "panels": [
+        {
+          "title": "入力から担当者の対応再開まで",
+          "nodeIds": [
+            "input",
+            "collect",
+            "stop",
+            "transfer",
+            "resume"
+          ]
+        }
+      ],
+      "note": "回答案だけを転送せず、顧客の原文と判断に使った情報へ戻れる状態で渡します。引継ぎは担当者への承認依頼だけではありません。",
+      "scope": "原典は有人引継ぎの構成を示します。項目ごとの保持、担当者画面、再開位置は本文で展開した補足設計です。"
+    }
+  },
+  "support-continuous-improvement": {
+    "title": "利用結果から原因を分け、再評価して改善を反映する",
+    "description": "記録から原因を分析し、知識・検索・処理方式のどこを直すか人間が判断する改善サイクルを示します。",
+    "nodes": [
+      {
+        "id": "design",
+        "label": "設計側が方式と判断条件を定める",
+        "kind": "system",
+        "description": "業務担当者と回答可能な範囲、停止条件、評価基準を確認します。"
+      },
+      {
+        "id": "use",
+        "label": "顧客と担当者がシステムを利用する",
+        "kind": "human",
+        "description": "自己解決と専門対応の両方の結果を確認できるようにします。"
+      },
+      {
+        "id": "record",
+        "label": "システムが利用結果と失敗を記録する",
+        "kind": "system",
+        "description": "問い合わせ条件、根拠、停止理由、有人対応の結果を分けて記録します。"
+      },
+      {
+        "id": "analyse",
+        "label": "設計側と業務側が原因を分析する",
+        "kind": "decision",
+        "description": "知識不足、機種属性、検索条件、対話、回答生成、業務分担のどこに問題があるか判断します。"
+      },
+      {
+        "id": "improve",
+        "label": "担当領域ごとに知識・検索・方式を改善する",
+        "kind": "system",
+        "description": "文書管理側は知識と適用条件、設計・開発側は検索や処理、業務側は専門対応と適用範囲を見直します。"
+      },
+      {
+        "id": "reevaluate",
+        "label": "設計側と業務側が再評価して反映する",
+        "kind": "feedback",
+        "description": "同じ条件で安全性と回帰を確認し、受入基準を通過した変更だけを利用へ戻します。"
+      }
+    ],
+    "explanation": {
+      "format": "flow",
+      "panels": [
+        {
+          "title": "改善判断から再評価まで",
+          "nodeIds": [
+            "design",
+            "use",
+            "record",
+            "analyse",
+            "improve",
+            "reevaluate"
+          ]
+        }
+      ],
+      "note": "改善後は先頭の設計・判断条件へ戻ります。データを自動収集しても、変更の採否と適用範囲は設計側・業務側が判断します。",
+      "scope": "原典の検索方式改善を、導入後の運用へ展開した補足設計です。実運用の改善成果や社内組織を示しません。"
+    }
   },
   "system-understanding": {
     title: "理解しにくいシステムを、変更判断に使える知識へ",

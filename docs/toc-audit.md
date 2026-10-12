@@ -41,7 +41,7 @@
 | /cases/customer-support-ai-dx/customer-experience/ | 06. 顧客体験をどう変えたか | あり | あり | あり | 18 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/design-principles/ | 09. この事例から得た設計原則 | あり | あり | あり | 22 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/executive-summary/ | 00. このケーススタディについて | あり | あり | あり | 15 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/human-handoff/ | 07. AIから人間へどう引き継ぐか | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/human-handoff/ | 07. AIから人間へどう引き継ぐか | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/knowledge-design/ | 04. RAG / Knowledgeをどう設計したか | あり | あり | あり | 20 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/poc-evaluation/ | 03. PoCで「使えるか」をどう判断したか | あり | あり | あり | 18 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/responsibility-boundary/ | 02. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 17 | 主要見出しが複数 |
