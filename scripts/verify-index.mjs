@@ -1,5 +1,6 @@
 import { contentHistory } from "../src/data/content-history.ts";
 import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
+import { formatDateJa } from "../src/lib/site.ts";
 import { recentGrowth, growthChangeText, growthSummary } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
 import path from "node:path";
@@ -12,10 +13,6 @@ const walk = (d) =>
     .flatMap((e) =>
       e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)],
     );
-const formatDateJa = (value) => {
-  const [year, month, day] = value.split("-");
-  return `${year}年${Number(month)}月${Number(day)}日`;
-};
 const entries = new Map(
   walk("src/content")
     .filter((p) => p.endsWith(".md"))
@@ -34,6 +31,13 @@ const entries = new Map(
 let links = 0;
 for (const p of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(p, "utf8"));
+  $("time").each((_, el) => {
+    const node = $(el);
+    assert(!/undefined|NaN/.test(node.text()), `${p}: date label is complete`);
+    if (/^\d{4}-\d{2}$/.test(node.attr("datetime") ?? "")) {
+      assert.equal(node.text(), formatDateJa(node.attr("datetime")), `${p}: month-only date does not invent a day`);
+    }
+  });
   $("[data-content-id]").each((_, el) => {
     const node = $(el),
       d = entries.get(node.attr("data-content-id"));
