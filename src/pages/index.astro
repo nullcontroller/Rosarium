@@ -35,11 +35,13 @@ const recent = recentGrowth.slice(0, 3);
 
   <section class="home-section home-panel home-garden-notes" aria-labelledby="recent-growth-heading">
     <SectionHeading icon="updates" eyebrow="GARDEN NOTES" title="最近の手入れ" id="recent-growth-heading" />
-    <p class="meta">最近の公開・改訂・統合の記録です。代表実績と設計事例は<a href={url("cases")}>実践事例</a>にまとめています。</p>
+    <div class="home-growth-toolbar">
+      <p class="meta">最近の公開・改訂・統合の記録です。</p>
+      <a class="cta-link" href={url("garden-notes")}>Garden Notesの全履歴を見る</a>
+    </div>
     <div class="growth-list growth-list-compact home-growth-history" role="region" tabindex="0" aria-label="Garden Notes 最近の更新">
       {recent.map((entry) => <GrowthEntry entry={entry} />)}
     </div>
-    <p><a class="cta-link" href={url("garden-notes")}>Garden Notesの全履歴を見る</a></p>
   </section>
 
 </Site>
@@ -66,8 +68,11 @@ const recent = recentGrowth.slice(0, 3);
   }
 
   .home-garden-notes { width: 100%; max-width: none; box-sizing: border-box; }
+  .home-growth-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .35rem 1.25rem; }
+  .home-growth-toolbar > p { margin-block: .3rem; }
+  .home-growth-toolbar > a { color: var(--accent); font-weight: 600; text-underline-offset: .2em; }
   .home-growth-history {
-    max-height: min(40rem, 58vh);
+    max-height: min(22rem, 38vh);
     overflow-y: auto;
     overflow-x: hidden;
     padding: .5rem .75rem;
@@ -79,7 +84,7 @@ const recent = recentGrowth.slice(0, 3);
     .home-growth-history { scrollbar-width: thin; scrollbar-color: var(--muted) var(--home-panel-surface, var(--surface)); }
   }
   @media (max-width: 800px) {
-    .home-growth-history { max-height: 55svh; }
+    .home-growth-history { max-height: min(18rem, 42svh); }
   }
 
 </style>
