@@ -1816,7 +1816,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "検索対象の制御は回答生成の前に行います。生成AIの自信だけでは回答を確定しません。",
-      "scope": "業務要求を具体化した概念構成です。実装クラスやAPI配置、本番導入の成果を示す図ではありません。"
+      "scope": "業務要求に対応する機能の構成と、処理のつながりを示します。"
     }
   },
   "support-executive-summary": {
@@ -1912,7 +1912,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "主な変化は、情報収集・検索・回答作成の一部をシステムが担い、専門判断はサポート担当者に残すことです。",
-      "scope": "改善後は設計した方式の比較です。導入済みの実測効果を表すものではありません。"
+      "scope": "従来の有人対応と、顧客の自己解決を支援する設計方式の違いを示します。"
     }
   },
   "support-why-ai": {
@@ -2046,7 +2046,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "修正対象は検索構成です。モデル変更やプロンプト修正だけで解決したという説明にはしません。",
-      "scope": "方式改善を説明する検証例です。評価分担・回帰確認・採否基準も設計し、実運用の測定結果とは区別します。"
+      "scope": "検索対象の誤りを防ぐ設計と、方式の評価・改善に必要な条件を示します。"
     }
   },
   "support-poc-checks": {
@@ -2088,7 +2088,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         ]
       ],
       "note": "一致を機械的に確かめられる項目と、業務の専門判断が必要な項目を分けます。全件を一律に人手判定する方式ではありません。",
-      "scope": "評価分担と引継ぎ品質を工程別に整理する設計案です。検証用の件数や評価率は実運用の測定結果ではありません。"
+      "scope": "検索・対話・回答・有人引継ぎの各段階で何を確認するか示します。"
     }
   },
   "support-handoff-information": {
@@ -2140,7 +2140,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         ]
       ],
       "note": "機種・文書・停止理由はシステムが保持し、生成AIの要約は読むための補助とします。",
-      "scope": "引継ぎ情報と担当者画面の設計案です。実装済みの社内データ構造を示すものではありません。"
+      "scope": "引継ぎに必要な項目と、担当者が対応を再開するための情報を整理します。"
     }
   },
   "support-stopping-conditions": {
@@ -2336,7 +2336,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "改善後は先頭の設計・判断条件へ戻ります。データを自動収集しても、変更の採否と適用範囲は設計側・業務側が判断します。",
-      "scope": "検索方式の改善から、導入後の監視・再評価までを整理した運用設計案です。実運用の改善成果を示すものではありません。"
+      "scope": "検索・回答の品質を観測し、改善・再評価へつなぐ運用設計を示します。"
     }
   },
   "system-understanding": {
