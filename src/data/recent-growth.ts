@@ -39,27 +39,18 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
-    date: "2026-10-12", type: "revised", title: "技術ポートフォリオとしての導線と実績提示を強化",
+    date: "2026-10-12", type: "revised", title: "システム方式設計と実践事例の説明を整理",
     changes: [
       { action: "revised", text: "改訂。公開済みのレガシー保守の成果と、過去の参考事例の位置付けを明確にした", contentIds: ["career/overview"] },
       { action: "published", text: "新規公開。業務要求から機能要件・技術方式・責任分担を導き、PoCで採否を判断する方法を整理した", contentIds: ["architecture/requirements-to-system-method"] },
       { action: "revised", text: "改訂。方式検証の仮説・評価分担・試算と実測の区別、属性による検索対象制御と記事間の接続を補強した", contentIds: ["architecture/reference-architecture", "evaluation-hitl/qa-evaluation"] },
-      "トップページで専門性と代表実績への導線を強化",
-      "Case一覧で実務実績と設計事例の位置付けを明確化",
-      "技術記事からCareerへ進めるナビゲーションを改善",
       { action: "revised", text: "改訂。顧客サポートQAのBookを、企画部門からの改善提案を受けたシステム方式設計の事例として整理。業務要求から機能分担・検索対象制御・有人引継ぎを具体化し、目標実現への見込みを提示した。図解も比較・機能分担・判断フローとして見直した。回答可否の分岐矢印と調査結果を引き継ぐ有人対応を具体化し、三つの処理経路による適格性確認テストとテスター・業務専門家の判定分担を追加した", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/customer-experience", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/continuous-improvement", "cases/customer-support-ai-dx/design-principles"] },
     ],
     summaryChanges: [
-      "トップページで専門性と代表実績への導線を強化",
-      "Careerを1件改訂し、実務経験・設計事例・確認できた成果の提示を改善",
-      "Case一覧で実務実績と設計事例の位置付けを明確化",
-      "技術記事からCareerへ進めるナビゲーションを改善",
-      "顧客サポートQA事例をシステム方式設計中心に再構成し、生成AI・検索・RAG・有人対応の機能分担とCareerの説明を整合",
-      "検索対象制御の設計判断と検証条件を整理し、業務目標への実現見込みを明確化",
-      "顧客サポートQAの図解を日本語の比較・表・判断フローへ改訂し、担当主体と検索・停止・有人引継ぎを狭い画面でも読み取れる構成に整理",
-      "顧客サポートQAの回答可否の分岐と調査結果の有人引継ぎを具体化し、三つの処理経路と判定主体を分けた適格性確認テストを追加",
-      "業務要求からシステム方式を導く記事を1件公開し、技術選定・機能分担・PoCの判断方法を体系化",
-      "参照アーキテクチャとQA評価記事を2件改訂し、仮説・検証分担・方式採否と相互参照を補強",
+      "Careerでレガシー保守の成果と担当範囲を整理",
+      "顧客サポートQAの方式設計・有人引継ぎ・適格性確認テストを改訂",
+      "業務要求からシステム方式を導く記事を新規公開",
+      "参照アーキテクチャとQA評価の記事を改訂",
     ],
     category: "Rosarium", icon: "updates",
   },
