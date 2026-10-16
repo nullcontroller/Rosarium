@@ -47,6 +47,7 @@ const curatedRecentGrowth = [
     changes: [
       { action: "published", text: "新規公開。リソースの所有権・寿命・依存関係から不整合を見つけ、検証可能な仮説へ変える調査手順を整理した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] },
       { action: "published", text: "新規公開。効率化後の余力を配分する主体、業務の調整、使途ごとの成果指標と見直し条件を整理した", contentIds: ["essays/from-ai-efficiency-to-value"] },
+      { action: "integrated", text: "統合。AIを業務で使いこなすための判断項目を実践知の入口へ集約した", contentIds: ["practices/ai-adoption-and-effective-use"] },
     ],
     category: "Rosarium", icon: "updates",
   },

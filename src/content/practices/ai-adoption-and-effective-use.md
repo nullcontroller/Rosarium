@@ -6,8 +6,9 @@ title: AIは使われている。でも使いこなされていない
 kind: guide
 section: practices
 status: published
-lifecycle: active
-last_updated: "2026-10-08"
+lifecycle: retired
+lifecycle_reason: "業務へAIを組み込むための問いを実践知の入口へ集約したため、独立記事としての役割を終了しました。"
+last_updated: "2026-10-16"
 entry_points:
   - ai
   - dx

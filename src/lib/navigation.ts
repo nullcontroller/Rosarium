@@ -195,7 +195,6 @@ export const topicPublications: Record<string, string[]> = {
         "essays/rethink-work-before-ai",
         "practices/transferring-practices",
         "practices/adoption-governance",
-        "practices/ai-adoption-and-effective-use",
         "foundations/ai-business-design",
         "evaluation-hitl/responsibility-and-hitl",
         "essays/dx-and-value",
@@ -203,7 +202,6 @@ export const topicPublications: Record<string, string[]> = {
       ],
   "responsibility-control": [
     "evaluation-hitl/responsibility-and-hitl",
-    "essays/trust-in-ai-generated-content",
     "foundations/ai-business-design",
     "cases/customer-support-ai-dx",
   ],
@@ -219,7 +217,6 @@ export const topicPublications: Record<string, string[]> = {
   ],
   "evaluation-hitl": [
     "evaluation-hitl/responsibility-and-hitl",
-    "essays/trust-in-ai-generated-content",
     "cases/system-understanding",
     "cases/customer-support-ai-dx",
   ],

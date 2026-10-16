@@ -12,6 +12,7 @@ const sitemap = fs.readFileSync("dist/sitemap.xml", "utf8");
 const feeds = ["feed.xml", "feed.json", "rss.xml"].map((name) => fs.readFileSync(`dist/${name}`, "utf8"));
 const counts = {};
 const integrationTargets = {
+  "practices/ai-adoption-and-effective-use": "practices",
   "practices/ai-education-principles": "practices/education-and-capability",
   "practices/transferring-ai-practices": "practices/transferring-practices",
   "essays/what-not-to-build-with-ai": "essays/it-strategy-and-not-building",

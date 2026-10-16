@@ -96,7 +96,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "dx/system-transformation": "2026-10-04",
   "dx/continuous-value": "2026-10-04",
   essays: "2026-10-07",
-  practices: "2026-10-08",
+  practices: "2026-10-16",
   reference: "2026-10-04",
   series: "2026-10-04",
   "start-here": "2026-10-10",
