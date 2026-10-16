@@ -1,7 +1,7 @@
 import { contentHistory } from "../src/data/content-history.ts";
 import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
 import { formatDateJa } from "../src/lib/site.ts";
-import { recentGrowth, growthChangeText, growthSummary } from "../src/data/recent-growth.ts";
+import { recentGrowth, growthChangeText, growthChangeTargets, growthSummary } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
@@ -593,8 +593,23 @@ const growthContentChanges = entry => growthSummary(entry, id => {
   return data.kind === "case" || data.layer === "case" || data.section === "cases";
 });
 function assertGrowthChanges($, row, entry) {
-  assert.deepEqual(row.find(".growth-changes > li").map((_, item) => $(item).text()).get(), growthContentChanges(entry));
-  assert.equal(row.find("a").length, 0, "Garden Notes is an aggregate log, not an article list");
+  const ids = entry.showArticleLinks ? entry.changes.flatMap(growthChangeTargets) : [];
+  const expectedLinks = ids.map(id => ({
+    title: entries.get(id)?.title,
+    href: `/${id === "career/overview" ? "career" : id}/`,
+  }));
+  assert.deepEqual(
+    row.find(".growth-changes > li").map((_, item) => $(item).text()).get(),
+    [...growthContentChanges(entry), ...expectedLinks.map(link => link.title)],
+  );
+  assert.deepEqual(
+    row.find(".growth-changes a").map((_, item) => ({
+      title: $(item).text(),
+      href: $(item).attr("href"),
+    })).get(),
+    expectedLinks,
+    "Garden Notes links appear only for explicitly marked content entries",
+  );
 }
 
 for (const [id, data] of entries) {
