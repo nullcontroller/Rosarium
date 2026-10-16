@@ -5,7 +5,16 @@ import PageHeader from "../components/PageHeader.astro";
 import DomainThemeSection from "../components/DomainThemeSection.astro";
 import { aiThemeGroups } from "../lib/ai";
 import { activeEntry, url } from "../lib/site";
-const groups = aiThemeGroups(await getCollection("pages", activeEntry));
+const entries = await getCollection("pages", activeEntry);
+const groups = aiThemeGroups(entries);
+const practiceArticles = [
+  { id: "software-engineering/engineering-judgment-in-ai-code-review", description: "AIで調査範囲を絞り、自分でコードを読んで判断した経験。" },
+  { id: "essays/from-ai-efficiency-to-value", description: "AIで生まれた時間を、次の成果へどうつなぐか。" },
+].map(({ id, description }) => {
+  const entry = entries.find((entry) => entry.id === id);
+  if (!entry) throw new Error(`AI practice article missing: ${id}`);
+  return { entry, description };
+});
 const headings = groups.map((theme) => ({ depth: 2, slug: theme.id, text: theme.title }));
 ---
 
@@ -15,6 +24,14 @@ const headings = groups.map((theme) => ({ depth: 2, slug: theme.id, text: theme.
   <p>AIの性質、回答に使う知識とその場の条件、人による確認、評価、運用までを設計の視点から整理しています。</p>
   <p>システム化する目的・範囲・業務目標は<a href={url("planning")}>企画</a>で扱います。ここでは、その要求に対してAIをどう位置付け、要件・方式・責任を設計するかを考えます。</p>
   <p>設計・理論・実践の読み方は<a href={url("start-here")}>はじめに</a>、領域を横断した議論は<a href={url("essays")}>考察</a>に整理しています。</p>
+  <nav aria-label="AIの実務と成果を考える記事" data-ai-practice-links>
+    <p>AIを仕事に使うときの技術判断と、効率化の先にある成果を考える記事です。</p>
+    <ul>
+      {practiceArticles.map(({ entry, description }) => (
+        <li><a href={url(entry.id)}>{entry.data.title}</a>：{description}</li>
+      ))}
+    </ul>
+  </nav>
   <section class="dx-category-list" aria-labelledby="ai-themes-heading">
     <h2 id="ai-themes-heading">AIを考える{groups.length}つのテーマ</h2>
     {groups.map((theme) => <DomainThemeSection {...theme} domain="ai" />)}
