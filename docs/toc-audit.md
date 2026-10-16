@@ -149,7 +149,7 @@
 | /software-engineering/code-generation-models/ | コード生成AIの正体 | あり | あり | あり | 24 | 長文の複数h3セクション |
 | /software-engineering/code-maintenance-context/ | なぜAIは新規コードよりコード保守に強いのか | あり | あり | あり | 23 | 長文の複数h3セクション |
 | /software-engineering/development-workflow/ | AIを開発工程に組み込む | あり | あり | あり | 27 | 長文の複数h3セクション |
-| /software-engineering/engineering-judgment-in-ai-code-review/ | AIがコードを読めても、違和感に気づくには技術力がいる | あり | あり | あり | 8 | 主要見出しが複数 |
+| /software-engineering/engineering-judgment-in-ai-code-review/ | AIがコードを読めても、違和感に気づくには技術力がいる | あり | あり | あり | 6 | 主要見出しが複数 |
 | /software-engineering/multi-ai-orchestration/ | 複数AIの役割分担と工程設計 | あり | あり | あり | 27 | 長文の複数h3セクション |
 | /start-here/ | Start Here | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /updates/ | 庭をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
