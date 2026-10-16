@@ -39,6 +39,14 @@ export interface RecentGrowthItem {
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-16", type: "new", title: "AIを使う技術判断と、効率化後の余力の配分を整理",
+    changes: [
+      { action: "published", text: "新規公開。リソースの所有権・寿命・依存関係から不整合を見つけ、検証可能な仮説へ変える調査手順を整理した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] },
+      { action: "published", text: "新規公開。効率化後の余力を配分する主体、業務の調整、使途ごとの成果指標と見直し条件を整理した", contentIds: ["essays/from-ai-efficiency-to-value"] },
+    ],
+    category: "Rosarium", icon: "updates",
+  },
+  {
     date: "2026-10-12", type: "revised", title: "システム方式設計と実践事例の説明を整理",
     changes: [
       { action: "revised", text: "改訂。公開済みのレガシー保守の成果と、過去の参考事例の位置付けを明確にした", contentIds: ["career/overview"] },
