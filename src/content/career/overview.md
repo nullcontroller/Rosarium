@@ -121,7 +121,7 @@ Knowledgeの運用とPoCの評価条件も設計対象です。
 
 ## 希望するRole
 
-システム企画・業務要件とシステム要件の接続、System / Software Architecture、Applied AI、既存システムの保守・モダナイゼーションを中心に担う**技術専門職（Individual Contributor）**を志向しています。  
+システム企画・業務要件とシステム要件の接続、System / Software Architecture、Applied AI、既存システムの保守・モダナイゼーションを中心に担う**技術専門職**（Individual Contributor）を志向しています。  
 一つのシステムやサービスに継続して関わり、要件・方式・実装・評価・運用をつなぐ働き方が希望です。
 
 FDE、顧客常駐や顧客折衝そのものを中心とする役割、顧客ごとの短期PoC・個別実装を反復する役割は、主な志向先ではありません。  
@@ -136,5 +136,4 @@ FDEを独立した技術能力の分類とは捉えず、企画・要件定義�
 - [RosariumのGitHubリポジトリ](https://github.com/nullcontroller/Rosarium)：サイトの実装・コンテンツ管理・検証。  
   非公開の業務コードは掲載していません。
 
-**職歴・在籍期間・資格・詳細なスキルセットは[LinkedInプロフィール](https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/)を参照してください。  
-**
+**職歴・在籍期間・資格・詳細なスキルセットは[LinkedInプロフィール](https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/)を参照してください。**
