@@ -6,6 +6,7 @@ import {
   recentGrowthDateLabel,
   recentGrowthLabels,
   growthChangeTargets,
+  growthPublishedTargets,
   growthSummary,
 } from "../data/recent-growth";
 import Icon from "./Icon.astro";
@@ -14,12 +15,13 @@ interface Props { entry: RecentGrowthItem; }
 const { entry } = Astro.props;
 const cases = new Set<string>();
 const articleLinks: { href: string; title: string }[] = [];
+const published = new Set(growthPublishedTargets(entry));
 for (const id of entry.changes.flatMap(growthChangeTargets)) {
   const content = id.startsWith("career/")
     ? await getEntry("career", id.slice("career/".length))
     : await getEntry("pages", id);
   if (!content || !publishedEntry(content)) throw new Error("History target is not published: " + id);
-  if (entry.showArticleLinks) articleLinks.push({ href: url(id), title: content.data.title });
+  if (published.has(id)) articleLinks.push({ href: url(id === "career/overview" ? "career" : id), title: content.data.title });
   if ("kind" in content.data && (content.data.kind === "case" || content.data.layer === "case" || content.data.section === "cases")) cases.add(id);
 }
 const summaries = growthSummary(entry, id => cases.has(id));
