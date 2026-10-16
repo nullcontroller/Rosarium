@@ -1,7 +1,7 @@
 import { contentHistory } from "../src/data/content-history.ts";
 import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
 import { formatDateJa } from "../src/lib/site.ts";
-import { recentGrowth, growthChangeText, growthChangeTargets, growthSummary } from "../src/data/recent-growth.ts";
+import { recentGrowth, growthChangeText, growthPublishedTargets, growthSummary } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
@@ -593,7 +593,7 @@ const growthContentChanges = entry => growthSummary(entry, id => {
   return data.kind === "case" || data.layer === "case" || data.section === "cases";
 });
 function assertGrowthChanges($, row, entry) {
-  const ids = entry.showArticleLinks ? entry.changes.flatMap(growthChangeTargets) : [];
+  const ids = growthPublishedTargets(entry);
   const expectedLinks = ids.map(id => ({
     title: entries.get(id)?.title,
     href: `/${id === "career/overview" ? "career" : id}/`,
@@ -608,7 +608,7 @@ function assertGrowthChanges($, row, entry) {
       href: $(item).attr("href"),
     })).get(),
     expectedLinks,
-    "Garden Notes links appear only for explicitly marked content entries",
+    "Garden Notes links appear for new publications, not ordinary revisions",
   );
 }
 
