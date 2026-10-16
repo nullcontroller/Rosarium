@@ -26,7 +26,9 @@ test("new publication is not duplicated as a revision; revisions stay chronologi
   assert(events[1].text.includes("人間の最終判断・修正"));
   assert(events[1].text.includes("約3時間"));
   assert(!/ROI|未評価|未測定/.test(events[1].text));
-  assert.deepEqual(contentHistory("practices/ai-adoption-and-effective-use", {}).map(event => event.date), ["2026-09-23", "2026-10-07", "2026-10-08"]);
+  const adoptionEvents = contentHistory("practices/ai-adoption-and-effective-use", {});
+  assert.deepEqual(adoptionEvents.map(event => event.date), ["2026-09-23", "2026-10-07", "2026-10-08", "2026-10-16"]);
+  assert.equal(adoptionEvents.at(-1).type, "integrated");
 });
 
 test("aggregate counts separate publication, revision and Case without titles", () => {

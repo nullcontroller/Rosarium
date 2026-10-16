@@ -60,7 +60,6 @@ export const readingGroups: Record<
       title: "導入・教育・定着",
       ids: [
         "practices/adoption-governance",
-        "practices/ai-adoption-and-effective-use",
         "practices/education-and-capability",
         "practices/transferring-practices",
       ],
@@ -91,7 +90,6 @@ export const readingGroups: Record<
       ids: [
         "evaluation-hitl/datasets-and-regression",
         "evaluation-hitl/responsibility-and-hitl",
-        "essays/trust-in-ai-generated-content",
       ],
     },
     {

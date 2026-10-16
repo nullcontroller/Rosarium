@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 145ページ。目次あり 114、なし 31。Referenceあり 113、なし 32。
+対象 145ページ。目次あり 113、なし 32。Referenceあり 112、なし 33。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -71,7 +71,7 @@
 | /cases/three-ai-maintenance/structuring-failure-handling/ | 第2章　異常系の構造を整理し、設計方針を確定する | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /dx/ | DX | あり | あり | あり | 5 | 主要見出しが複数 |
-| /dx/business-transformation/ | 業務変革 | あり | あり | あり | 5 | 主要見出しが複数 |
+| /dx/business-transformation/ | 業務変革 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 5 | 主要見出しが複数 |
 | /dx/selection-retirement/ | 選択と廃止 | あり | あり | あり | 2 | 主要見出しが複数 |
 | /dx/system-transformation/ | システム変革 | あり | あり | あり | 5 | 主要見出しが複数 |
@@ -122,9 +122,9 @@
 | /knowledge-context/qa-operations/ | QAチャット運用思想 | あり | あり | あり | 14 | 長文の複数h3セクション |
 | /overview/ | AIをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /planning/ | 企画 | あり | あり | あり | 4 | 主要見出しが複数 |
-| /practices/ | 実践知 | あり | あり | あり | 20 | 主要見出しが複数 |
+| /practices/ | 実践知 | あり | あり | あり | 19 | 主要見出しが複数 |
 | /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 7 | 主要見出しが複数 |
-| /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | あり | あり | あり | 3 | 主要見出しが複数 |
+| /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /practices/ai-education-principles/ | 生成AI教育はなぜ難しいのか ― 変わらない原則と変わり続ける実践を分けて設計する | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /practices/ai-generation-and-work-completion/ | AI導入は効率化とは限らない | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /practices/education-and-capability/ | AI教育を原則と実践に分ける | あり | あり | あり | 6 | 主要見出しが複数 |
@@ -138,7 +138,7 @@
 | /retired/ | 旧記事・退役記事 | なし | あり | なし | 3 | 主要見出しが複数 |
 | /retired/obsolete-cases/ | 旧事例 | なし | あり | なし | 2 | アーカイブ個別項目 |
 | /retired/obsolete/ | 旧記事 | なし | あり | なし | 3 | アーカイブ個別項目 |
-| /retired/retired/ | 退役記事 | なし | あり | なし | 16 | アーカイブ個別項目 |
+| /retired/retired/ | 退役記事 | なし | あり | なし | 17 | アーカイブ個別項目 |
 | /search/ | 検索 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /series/ | 業務変革をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/ | ソフトウェア開発 | なし | あり | あり | 6 | 主要見出しが複数 |

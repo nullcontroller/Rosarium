@@ -35,7 +35,6 @@ export const useCases = [
     publications: [
       "foundations/ai-business-design",
       "evaluation-hitl/responsibility-and-hitl",
-      "practices/ai-adoption-and-effective-use",
       "essays/dx-and-value",
       "cases/customer-support-ai-dx",
     ],
@@ -123,7 +122,6 @@ export const useCases = [
     publications: [
       "essays/ai-career-market",
       "essays/ai-roles-beyond-fde",
-      "essays/trust-in-ai-generated-content",
     ],
   },
 ] as const satisfies readonly {

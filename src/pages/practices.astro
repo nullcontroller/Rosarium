@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import ContentIndex from "../components/ContentIndex.astro";
-import { activeEntry } from "../lib/site";
+import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 import { readingNavigation } from "../lib/reading";
 const all = await getCollection("pages", activeEntry);
@@ -20,6 +20,23 @@ const categories = themeGroups.map((group) => ({
 
 <Site title="実践知" section="practices">
   <PageHeader title="実践知" />
+  <section id="adoption-questions" aria-labelledby="adoption-questions-heading">
+    <h2 id="adoption-questions-heading">AIを業務へ組み込むために考えること</h2>
+    <p>AIの利用量より、対象業務が適切に進むことを重視します。個人の下書きと、顧客への回答や既存システムの更新では、必要な情報・検証・権限が異なります。最初に誰のどの困りごとを減らすかを確かめ、AIを使わない方法も比較します。</p>
+    <table>
+      <thead><tr><th>問い</th><th>詳しく考える領域</th></tr></thead>
+      <tbody>
+        <tr><td>誰が確認し、責任を持つか</td><td><a href={url("foundations/ai-business-design/delegation-and-responsibility")}>責任・承認・人間への引継ぎ</a></td></tr>
+        <tr><td>業務全体が改善するか</td><td><a href={url("foundations/ai-business-design/evaluating-business-efficiency")}>確認・修正・合意まで含む効率の評価</a></td></tr>
+        <tr><td>必要情報を利用できるか</td><td><a href={url("foundations/ai-business-design/asking-versus-delegating")}>業務固有の情報と、不足時の経路</a></td></tr>
+        <tr><td>どこまで任せるか</td><td><a href={url("foundations/applicability-and-delegation")}>価値・影響・検証可能性からの適用判断</a></td></tr>
+        <tr><td>どこで止めるか</td><td><a href={url("foundations/ai-business-design/explainable-delegation")}>任せない条件</a></td></tr>
+        <tr><td>人間が判断できるか</td><td><a href={url("foundations/ai-business-design/human-judgment-capability")}>判断する人の知識・根拠・時間・権限</a></td></tr>
+        <tr><td>どう改善し続けるか</td><td><a href={url("practices/adoption-governance")}>運用評価と改善・縮小・統合・終了</a></td></tr>
+      </tbody>
+    </table>
+    <p>生成、採用、承認、実行と、その後の評価をつなぎます。利用率や生成量だけで成功とせず、必要なら範囲を縮め、既存の方法へ戻せるようにします。組織へ広げる難しさは<a href={url("essays/ai-use-and-operation")}>AI利用と業務運用の違い</a>で確認できます。</p>
+  </section>
   {categories.map((category) => (
     <section data-practice-category aria-label={category.title}>
       <h2>{category.title}</h2>

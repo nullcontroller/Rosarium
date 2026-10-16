@@ -1,6 +1,6 @@
 import { contentHistory } from "../src/data/content-history.ts";
 import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
-import { formatDateJa } from "../src/lib/site.ts";
+import { formatDateJa, staticPageLastUpdated } from "../src/lib/site.ts";
 import { recentGrowth, growthChangeText, growthPublishedTargets, growthSummary } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
 import path from "node:path";
@@ -711,7 +711,7 @@ for (const route of ["ai-mathematics", "practices"]) {
   );
   assert.equal(
     $(".site-last-updated time").attr("datetime"),
-    ["practices", "ai-design"].includes(route) ? "2026-10-08" : "2026-10-04",
+    staticPageLastUpdated[route],
     `${route}: last updated`,
   );
 }
@@ -1060,3 +1060,9 @@ assert(debtCase('main').text().includes("削減率・短縮率・ROIは未評価
 assert(!debtCase('main').text().includes("1日"));
 assert(cases('[data-series-index="cases/specification-debt-review"]').text().includes("Case"));
 console.log("Verified documentation debt Case metrics, limitations, human decisions and static SVG fallbacks.");
+const practiceGateway = page("practices");
+assert.equal(practiceGateway("#adoption-questions tbody tr").length, 7);
+assert.equal(practiceGateway('main a[href="/practices/ai-adoption-and-effective-use/"]').length, 0);
+assert.equal(practiceGateway('main a[href="/essays/trust-in-ai-generated-content/"]').length, 0);
+assert(page("essays")('a[href="/essays/trust-in-ai-generated-content/"]').length);
+assert(page("essays/trust-in-ai-generated-content")(".prose").text().trim());
