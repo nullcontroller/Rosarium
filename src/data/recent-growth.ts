@@ -17,8 +17,6 @@ export const growthChangeText = (change: RecentGrowthChange) => typeof change ==
 export const growthChangeTargets = (change: RecentGrowthChange) => typeof change === "string" ? [] : change.contentIds;
 
 export interface RecentGrowthItem {
-  /** Show clickable article titles in Garden Notes for this update. */
-  showArticleLinks?: boolean;
   date: string;
   type: RecentGrowthType;
   title: string;
@@ -29,9 +27,13 @@ export interface RecentGrowthItem {
   icon?: IconName;
 }
 
+/** Titles linked from Garden Notes must be explicitly recorded as new publications. */
+export const growthPublishedTargets = (entry: RecentGrowthItem): string[] =>
+  entry.changes.flatMap(change => typeof change === "string" || change.action !== "published" ? [] : change.contentIds);
+
 // Content revisions link by entry id; displayed titles come from content metadata.
 // UI-only changes remain plain text and do not create content links.
-// Detailed changes feed article histories; Garden Notes renders only aggregate counts.
+// Detailed changes feed article histories; Garden Notes shows counts and links for new publications.
 // Legacy records without identifiable targets retain a short summary without invented counts.
 // Keep one entry per date; add each reader-facing change as a short changes item.
 // Prioritize new articles/Cases/Books, substantive revisions and content integration.
@@ -42,7 +44,6 @@ export interface RecentGrowthItem {
 const curatedRecentGrowth = [
   {
     date: "2026-10-16", type: "new", title: "AIを使う技術判断と、効率化後の余力の配分を整理",
-    showArticleLinks: true,
     changes: [
       { action: "published", text: "新規公開。リソースの所有権・寿命・依存関係から不整合を見つけ、検証可能な仮説へ変える調査手順を整理した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] },
       { action: "published", text: "新規公開。効率化後の余力を配分する主体、業務の調整、使途ごとの成果指標と見直し条件を整理した", contentIds: ["essays/from-ai-efficiency-to-value"] },
