@@ -1,6 +1,6 @@
 ---
 import { getEntry } from "astro:content";
-import { publishedEntry } from "../lib/site";
+import { publishedEntry, url } from "../lib/site";
 import type { RecentGrowthItem } from "../data/recent-growth";
 import {
   recentGrowthDateLabel,
@@ -13,11 +13,13 @@ import Icon from "./Icon.astro";
 interface Props { entry: RecentGrowthItem; }
 const { entry } = Astro.props;
 const cases = new Set<string>();
+const articleLinks: { href: string; title: string }[] = [];
 for (const id of entry.changes.flatMap(growthChangeTargets)) {
   const content = id.startsWith("career/")
     ? await getEntry("career", id.slice("career/".length))
     : await getEntry("pages", id);
   if (!content || !publishedEntry(content)) throw new Error("History target is not published: " + id);
+  if (entry.showArticleLinks) articleLinks.push({ href: url(id), title: content.data.title });
   if ("kind" in content.data && (content.data.kind === "case" || content.data.layer === "case" || content.data.section === "cases")) cases.add(id);
 }
 const summaries = growthSummary(entry, id => cases.has(id));
@@ -38,6 +40,7 @@ const summaries = growthSummary(entry, id => cases.has(id));
     </h3>
     <ul class="growth-changes content-summary" role="list">
       {summaries.map(text => <li>{text}</li>)}
+      {articleLinks.map(({ href, title }) => <li><a href={href}>{title}</a></li>)}
     </ul>
   </div>
 </article>
