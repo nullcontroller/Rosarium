@@ -1,6 +1,7 @@
 import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
+import { aiThemeIds } from "./lib/ai";
 const section = z.enum([
   "foundations",
   "architecture",
@@ -64,6 +65,7 @@ const pages = defineCollection({
         .array(z.enum(["ai", "dx"]))
         .min(1)
         .default(["ai"]),
+      ai_theme: z.enum(aiThemeIds).optional(),
       primaryCategory: dxCategory.optional(),
       secondaryCategories: z.array(dxCategory).default([]),
       featuredInCategory: z.boolean().default(false),

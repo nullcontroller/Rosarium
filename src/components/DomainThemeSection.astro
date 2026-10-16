@@ -8,9 +8,10 @@ interface Props {
   paragraphs: readonly string[];
   questions: readonly string[];
   articles: CollectionEntry<"pages">[];
+  related?: CollectionEntry<"pages">[];
   domain: "ai" | "dx";
 }
-const { id, title, path, paragraphs, questions, articles, domain } = Astro.props;
+const { id, title, path, paragraphs, questions, articles, related = [], domain } = Astro.props;
 ---
 
 <!-- Both domains retain the existing DX typography and responsive rules. -->
@@ -33,5 +34,14 @@ const { id, title, path, paragraphs, questions, articles, domain } = Astro.props
         </li>
       ))}
     </ul>
+    {related.length > 0 && <>
+      <h3>関連する記事</h3>
+      <ul class="dx-featured-articles" data-ai-related>
+        {related.map((entry) => <li>
+          <h4><a href={url(entry.id)}>{entry.data.title}</a></h4>
+          <p>{entry.data.summary}</p>
+        </li>)}
+      </ul>
+    </>}
   </div>
 </section>

@@ -1066,3 +1066,18 @@ assert.equal(practiceGateway('main a[href="/practices/ai-adoption-and-effective-
 assert.equal(practiceGateway('main a[href="/essays/trust-in-ai-generated-content/"]').length, 0);
 assert(page("essays")('a[href="/essays/trust-in-ai-generated-content/"]').length);
 assert(page("essays/trust-in-ai-generated-content")(".prose").text().trim());
+
+// Explicit AI theme assignments add related links without replacing the reading entry point.
+const aiRelatedPage = load(fs.readFileSync("dist/ai/index.html", "utf8"));
+assert.equal(aiRelatedPage("[data-domain-theme=ai]").length, 5);
+assert.equal(aiRelatedPage("[data-ai-practice-links]").length, 0);
+for (const [id, data] of entries) {
+  if (!data.ai_theme || data.public === false || data.status === "draft") continue;
+  const related = aiRelatedPage(`#${data.ai_theme} [data-ai-related]`);
+  // These two first publications must remain discoverable in their assigned themes.
+  if (["software-engineering/engineering-judgment-in-ai-code-review", "essays/from-ai-efficiency-to-value"].includes(id)) {
+    assert.equal(related.find(`a[href="/${id}/"]`).length, 1);
+    assert.equal(related.find(`a[href="/${id}/"]`).text(), data.title);
+  }
+}
+console.log("Verified AI article links inside existing themes without a standalone new-article section.");

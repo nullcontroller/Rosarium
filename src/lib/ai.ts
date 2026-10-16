@@ -1,5 +1,8 @@
 import type { CollectionEntry } from "astro:content";
 
+export const aiThemeIds = ["ai-design", "ai-mathematics", "knowledge-context", "evaluation-hitl", "practices"] as const;
+export const AI_RELATED_LIMIT = 3;
+
 // Reuse existing primary classifications; secondary relationships stay internal.
 export const aiThemes = [
   {
@@ -58,6 +61,14 @@ export const aiThemeGroups = (entries: CollectionEntry<"pages">[]) => {
       throw new Error(`${theme.id}: representative article must be unique and match its primary classification`);
     }
     ids.add(entry.id);
-    return { ...theme, articles: [entry] };
+    const related = [...new Map(entries.filter((candidate) =>
+      candidate.id !== entry.id && candidate.data.ai_theme === theme.id &&
+      candidate.data.public !== false && candidate.data.lifecycle === "active" &&
+      ["published", "stable"].includes(candidate.data.status) &&
+      candidate.data.entry_points.includes("ai") && candidate.data.published_at
+    ).map((candidate) => [candidate.id, candidate])).values()]
+      .sort((a, b) => b.data.published_at!.localeCompare(a.data.published_at!) || a.id.localeCompare(b.id))
+      .slice(0, AI_RELATED_LIMIT);
+    return { ...theme, articles: [entry], related };
   });
 };

@@ -8,6 +8,7 @@ publication_format: article
 status: published
 published_at: "2026-10-16"
 last_updated: "2026-10-16"
+ai_theme: practices
 entry_points: [ai]
 tags: [ソフトウェア設計, 保守開発, リソース管理, 検証]
 ---

@@ -10,6 +10,7 @@ published_at: "2026-10-16"
 last_updated: "2026-10-16"
 update_type: revised
 update_note: "余力の使途を決める問いを軸に、業務追加と価値の区別、責任ある再配分と評価の論旨を明確化"
+ai_theme: ai-design
 entry_points: [ai, dx]
 primaryCategory: continuous-value
 tags: [業務設計, 業務改善, 価値創造, IT戦略]
