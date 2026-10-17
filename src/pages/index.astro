@@ -5,6 +5,7 @@ import { recentGrowth } from "../data/recent-growth";
 import PageHeader from "../components/PageHeader.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { url } from "../lib/site";
+import { featuredCaseHighlights } from "../lib/navigation";
 
 const recent = recentGrowth.slice(0, 3);
 ---
@@ -33,6 +34,15 @@ const recent = recentGrowth.slice(0, 3);
     </aside>
   </div>
 
+  <section class="home-section home-panel" aria-labelledby="home-cases-heading">
+    <SectionHeading icon="cases" title="代表実績・設計事例" id="home-cases-heading" />
+    <ul>
+      {featuredCaseHighlights.map((item) => <li>
+        <a href={url(item.id)}>{item.title}</a> <span class="meta">{item.category}</span>
+        <p>{item.summary}</p>
+      </li>)}
+    </ul>
+  </section>
   <section class="home-section home-panel home-garden-notes" aria-labelledby="recent-growth-heading">
     <SectionHeading icon="updates" eyebrow="GARDEN NOTES" title="最近の手入れ" id="recent-growth-heading" />
     <div class="home-growth-toolbar">

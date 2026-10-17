@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Site from "../layouts/Site.astro";
-import { splitRelatedContent } from "../lib/related-content.mjs";
+import { splitRelatedContent, caseEvidenceLinks } from "../lib/related-content.mjs";
 import {
   layerPath,
   bookChapterNumber,
@@ -9,6 +9,7 @@ import {
   topicLabel,
   publicationStatus,
   publicationTiming,
+  caseStudies,
 } from "../lib/navigation";
 import ContentLink from "../components/ContentLink.astro";
 import MarkdownBody from "../components/MarkdownBody.astro";
@@ -36,6 +37,9 @@ const primaryLabel =
   d.section === "cases" ? "実践事例" : layerLabel(d.layer);
 const { headings } = await render(entry);
 const all = await getCollection("pages", publicEntry);
+const activeIds = new Set(all.filter(item => item.data.lifecycle === "active").map(item => item.id));
+const evidenceLinks = caseEvidenceLinks(entry.id, content.body, Astro.url, caseStudies.filter(study => activeIds.has(study.book)), activeIds)
+  .map((id: string) => all.find(item => item.id === id)!);
 const series = d.series
   ? all
       .filter((e) => e.data.series === d.series)
@@ -186,6 +190,10 @@ const bookNavigation = series.length
     <div class="prose">
       <MarkdownBody html={content.body} />
     </div>
+    {evidenceLinks.length > 0 && <section class="case-knowledge-links" aria-labelledby="evidence-links-heading">
+      <h2 id="evidence-links-heading">{d.section === "cases" ? "この事例で使う設計原則" : "この原則を使う実践事例"}</h2>
+      <ul>{evidenceLinks.map(item => <li><a href={url(item.id)}>{item.data.title}</a></li>)}</ul>
+    </section>}
   </article>
   {readingSequence.length > 0 && (
     <nav

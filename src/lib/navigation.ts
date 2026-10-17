@@ -356,3 +356,25 @@ export const bookChapterNumber = (entry: Entry) => {
 // Shared lookup; navigation remains the authoritative display/icon definition.
 export const navigationItemForPath = (path: string) =>
   navigation.flat().find((item) => item.path === path);
+
+// Shared compact evidence summaries for Home and Cases.
+export const featuredCaseHighlights = [
+  {
+    id: "cases/specification-debt-review",
+    title: "仕様書横断レビュー",
+    category: "実務実績",
+    summary: "仕様書とコードを横断レビューし、約40件の問題を確認。根拠をもとに修正と現状維持を判断しました。",
+  },
+  {
+    id: "cases/three-ai-maintenance",
+    title: "複数AIを使い分けたレガシー保守",
+    category: "実務実績",
+    summary: "暗号処理・異常系の保守を複数AIと人間の確認で内製し、外部委託を不要にしました。",
+  },
+  {
+    id: "cases/customer-support-ai-dx",
+    title: "顧客サポートQAの要件・方式設計",
+    category: "設計事例",
+    summary: "企画部門の改善提案を受け、追加質問・検索対象制御・RAG・有人引継ぎを方式設計。目標実現の見込みを立てました。",
+  },
+] as const;

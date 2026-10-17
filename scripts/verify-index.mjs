@@ -1060,6 +1060,25 @@ assert(debtCase('main').text().includes("削減率・短縮率・ROIは未評価
 assert(!debtCase('main').text().includes("1日"));
 assert(cases('[data-series-index="cases/specification-debt-review"]').text().includes("Case"));
 console.log("Verified documentation debt Case metrics, limitations, human decisions and static SVG fallbacks.");
+assert.equal(top('[aria-labelledby="home-cases-heading"] li').length, 3);
+assert.equal(top('[aria-labelledby="home-cases-heading"] a[href="/cases/customer-support-ai-dx/"]').length, 1);
+assert(top('[aria-labelledby="home-cases-heading"]').text().includes("設計事例"));
+assert.equal(page("software-engineering/code-maintenance-context")('.prose a[href="/cases/specification-debt-review/"]').length, 1, "Authored Case evidence remains clickable");
+assert(page("foundations/applicability-and-delegation")('main a[href="/cases/customer-support-ai-dx/"]').length, "Principle reaches its mapped Case");
+assert(page("cases/customer-support-ai-dx")('main a[href="/foundations/applicability-and-delegation/"]').length, "Case returns to its principle");
+for (const [id, data] of entries) {
+  if (data.public === false || data.status === "draft") continue;
+  const $ = page(id === "career/overview" ? "career" : id);
+  const links = $('.case-knowledge-links a').map((_, node) => $(node).attr('href')).get();
+  assert(links.length <= (data.section === "cases" ? 3 : 2), id);
+  assert.equal(new Set(links).size, links.length, id);
+  for (const href of links) assert.equal($(`.prose a[href="${href}"]`).length, 0, `${id}: no repeated evidence link`);
+}
+const judgmentExample = page("software-engineering/engineering-judgment-in-ai-code-review")('.prose').text();
+assert(judgmentExample.includes("説明用の架空の疑似コード"));
+assert(judgmentExample.includes("不適切な終了順序"));
+assert(judgmentExample.includes("正常完了を確認してから"));
+assert(judgmentExample.includes("待機の失敗・取消し"));
 const practiceGateway = page("practices");
 assert.equal(practiceGateway("#adoption-questions tbody tr").length, 7);
 assert.equal(practiceGateway('main a[href="/practices/ai-adoption-and-effective-use/"]').length, 0);
