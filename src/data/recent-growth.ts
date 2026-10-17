@@ -45,6 +45,7 @@ const curatedRecentGrowth = [
   {
     date: "2026-10-18", type: "expanded", title: "終了順序の技術判断を架空例で具体化",
     changes: [{ action: "revised", text: "改訂。実際の調査とは分離した疑似コードで、不適切な終了順序と修正例、依存関係と安全を確認する条件を追加した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] }],
+    summaryChanges: ["終了順序の記事に、実務とは分離した架空の疑似コードを追加", "不適切な順序と修正例、リソースの依存関係、安全を確認する条件を具体化"],
     category: "Rosarium", icon: "updates",
   },
   {
