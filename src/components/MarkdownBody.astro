@@ -38,14 +38,7 @@ const components = {
 const portfolioLinks = new Set(Astro.url.pathname === url("career")
   ? ["https://github.com/nullcontroller/Rosarium"] : []);
 const $ = load(publicHtml(Astro.props.html, sourceLinks, portfolioLinks), null, false);
-// Case discovery belongs to Cases/Career, not to knowledge article bodies.
-// Keep the reference wording and source metadata, but remove its navigation.
-if (!/\/(?:cases|career)(?:\/|$)/.test(Astro.url.pathname)) {
-  $("a[href]").each((_, element) => {
-    const link = $(element);
-    if (/\/cases(?:\/|$)/.test(link.attr("href") || "")) link.replaceWith(link.contents());
-  });
-}
+// Keep authored evidence links; recommendation sections are filtered separately.
 $("img").each((_, element) => {
   const image = $(element);
   image.attr("loading", "lazy");

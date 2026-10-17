@@ -44,3 +44,12 @@ export function relatedTargets(html, pageUrl) {
   return new Set($("a[href]").toArray().map((node) => new URL($(node).attr("href"), pageUrl).href));
 }
 
+// Only explicitly mapped, active evidence; never infer links from shared keywords.
+export function caseEvidenceLinks(id, html, pageUrl, studies, activeIds) {
+  if (!activeIds.has(id)) return [];
+  const study = studies.find(item => item.book === id);
+  const candidates = study ? study.design : studies.filter(item => item.design.includes(id)).map(item => item.book);
+  const existing = new Set([...relatedTargets(html, pageUrl)].map(target => new URL(target).pathname.replace(/^\/Rosarium(?=\/)/, "")));
+  return [...new Set(candidates)].filter(target => target !== id && activeIds.has(target) && !existing.has(`/${target}/`)).slice(0, study ? 3 : 2);
+}
+

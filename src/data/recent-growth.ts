@@ -43,6 +43,11 @@ export const growthPublishedTargets = (entry: RecentGrowthItem): string[] =>
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-18", type: "expanded", title: "終了順序の技術判断を架空例で具体化",
+    changes: [{ action: "revised", text: "改訂。実際の調査とは分離した疑似コードで、不適切な終了順序と修正例、依存関係と安全を確認する条件を追加した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] }],
+    category: "Rosarium", icon: "updates",
+  },
+  {
     date: "2026-10-16", type: "new", title: "AIを使う技術判断と、効率化後の余力の配分を整理",
     changes: [
       { action: "published", text: "新規公開。リソースの所有権・寿命・依存関係から不整合を見つけ、検証可能な仮説へ変える調査手順を整理した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] },

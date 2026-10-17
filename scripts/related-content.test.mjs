@@ -1,7 +1,19 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { load } from "cheerio";
-import { splitRelatedContent, relatedTargets } from "../src/lib/related-content.mjs";
+import { splitRelatedContent, relatedTargets, caseEvidenceLinks } from "../src/lib/related-content.mjs";
+
+test("curated evidence links are bidirectional, bounded and do not repeat body links", () => {
+  const studies = [{ book: "cases/a", design: ["foundations/p"] }, { book: "cases/b", design: ["foundations/p"] }, { book: "cases/c", design: ["foundations/p"] }];
+  const active = new Set(["foundations/p", "cases/a", "cases/b", "cases/c"]);
+  const origin = "https://rosarium-tech.com/foundations/p/";
+  assert.deepEqual(caseEvidenceLinks("foundations/p", "", origin, studies, active), ["cases/a", "cases/b"]);
+  assert.deepEqual(caseEvidenceLinks("cases/a", "", origin, studies, active), ["foundations/p"]);
+  assert.deepEqual(caseEvidenceLinks("foundations/p", '<a href="/cases/a/">根拠</a>', origin, studies, active), ["cases/b", "cases/c"]);
+  active.delete("cases/b");
+  assert.deepEqual(caseEvidenceLinks("foundations/p", '<a href="/Rosarium/cases/a/">根拠</a>', origin, studies, active), ["cases/c"]);
+  assert.deepEqual(caseEvidenceLinks("foundations/unrelated", "", origin, studies, active), []);
+});
 
 test("explicit recommendations are excluded while later body and inline references remain", () => {
   const source = '<p>本文<a href="/reference/">用語</a></p><h2 id="related">Related Design Principles</h2><ul><li><a href="/ai-design/">原則</a></li></ul><h2 id="later">次の本題</h2><p>後半本文</p>';
