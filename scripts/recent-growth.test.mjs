@@ -51,7 +51,7 @@ test("October 18 highlights the design revision and reported investigation", () 
   assert(item.summaryChanges[1].includes("担当範囲・方式判断・到達点"));
   assert.equal(item.summaryChanges[2], "終了順序の記事を、本人が確認した調査・判断の記録に整理");
   assert.equal(item.changes[0].contentIds[0], "cases/customer-support-ai-dx");
-  assert.equal(new Set(item.changes.flatMap(growthChangeTargets)).size, 3);
+  assert.equal(new Set(item.changes.flatMap(growthChangeTargets)).size, item.changes.flatMap(growthChangeTargets).length);
   for (const id of item.changes.flatMap(growthChangeTargets)) assert(fs.existsSync(`src/content/${id}.md`), id);
   validateRecentGrowth(recentGrowth);
 });

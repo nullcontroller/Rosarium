@@ -1763,19 +1763,19 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "questions",
         "label": "生成AIが不足情報を質問する",
         "kind": "ai",
-        "description": "問い合わせだけでは不明な機種・環境・エラーを追加質問し、顧客の回答を集めます。"
+        "description": "問い合わせだけでは不明な対象機種・利用環境・エラー表示・版数を追加質問し、顧客の回答を集めます。"
       },
       {
         "id": "target",
         "label": "QAシステムが対象機種を特定する",
         "kind": "system",
-        "description": "得られた条件を保持し、機種が特定できない場合は自動回答を続けません。"
+        "description": "機種・環境・エラー・版数を確認して保持します。不足条件を質問しても解消できなければ自動回答を止めます。"
       },
       {
         "id": "search",
         "label": "検索機能が適合する文書を取得する",
         "kind": "knowledge",
-        "description": "機種メタデータで文書を絞り込み、その範囲でベクトル検索します。"
+        "description": "判定A：対象機種・利用環境・対応版数で検索対象を絞り、その範囲でベクトル検索します。"
       },
       {
         "id": "answer",
@@ -1787,7 +1787,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "decision",
         "label": "QAシステムが回答可能か判定する",
         "kind": "decision",
-        "description": "必要情報・回答根拠・専門判断の要否を確認し、顧客へ返すか有人対応へ進むかを決めます。"
+        "description": "判定B：回答項目の自動回答可否・適用条件・専門判断条件を確認し、許可された場合だけ顧客へ返します。"
       }
     ],
     "explanation": {
@@ -1809,13 +1809,13 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
               "result": "QAシステムが顧客へ回答する"
             },
             {
-              "condition": "根拠不足・原因未特定・専門判断が必要",
+              "condition": "根拠不足・原因未特定・条件不一致・専門判断が必要",
               "result": "サポート担当者へ引き継ぐ"
             }
           ]
         }
       ],
-      "note": "検索対象の制御は回答生成の前に行います。生成AIの自信だけでは回答を確定しません。",
+      "note": "判定Aは検索前の対象適格性、判定Bは回答前の許可を確認します。文書があることや生成AIの自信だけでは回答を確定しません。",
       "scope": "業務要求に対応する機能の構成と、処理のつながりを示します。"
     }
   },
@@ -1875,7 +1875,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "after-judge",
         "label": "QAシステムが回答可能か判定する",
         "kind": "decision",
-        "description": "根拠に基づく回答を作れるか、専門判断を要するか確認します。"
+        "description": "回答項目の自動回答許可と適用条件を照合し、専門判断が必要なら確定しません。"
       },
       {
         "id": "after-answer",
@@ -1906,7 +1906,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       "format": "comparison",
       "panels": [
         {
-          "title": "変更前：すべて担当者が対応",
+          "title": "導入前の業務：すべて担当者が対応",
           "nodeIds": [
             "before-customer",
             "before-questions",
@@ -1933,7 +1933,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
             },
             {
               "from": "after-judge",
-              "condition": "根拠不足・専門判断が必要",
+              "condition": "根拠不足・条件不一致・専門判断が必要",
               "nodeIds": [
                 "after-handoff",
                 "after-investigate",
@@ -1990,7 +1990,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     }
   },
   "support-responsibility-boundary": {
-    "title": "AI・QAシステム、人間、既存システムの役割分担",
+    "title": "AI・新規QA・人間・Knowledgeの役割分担",
     "description": "処理順序ではなく、三者が担う機能と確定してはいけない境界を示します。",
     "nodes": [],
     "explanation": {
@@ -2004,7 +2004,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         [
           "AI・QAシステム",
           "不足情報の収集、対象条件の確認、関連文書の検索、根拠に基づく回答案の生成。",
-          "根拠不足や専門判断が必要な場合は回答を止め、担当者へ引き継ぐ。"
+          "回答項目の許可・適用条件を照合し、根拠不足・条件不一致・専門判断では回答を止めて担当者へ引き継ぐ。"
         ],
         [
           "サポート担当者",
@@ -2012,18 +2012,45 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
           "元の問い合わせと確認済み情報を確認し、調査と顧客への案内を引き受ける。"
         ],
         [
-          "既存システム・知識基盤",
-          "製品仕様・FAQ・障害情報の保持、適用条件と公開範囲の管理、必要な業務状態と権限の管理。",
-          "事実・制約・権限を管理する。生成AIの推測で状態更新や実行結果を確定しない。"
+          "新規QAシステム・Knowledge管理",
+          "既存の製品資料をKnowledgeへ整備し、対象条件・回答許可・公開範囲・確認済み事項を管理する。",
+          "条件の照合と回答許可を生成AIの推測へ任せず、回答・停止・引継ぎを制御する。"
         ]
       ],
       "note": "AIにすべてを委任する方式でも、すべての回答を人間が承認する方式でもありません。問い合わせの条件で担当範囲を分けます。",
-      "scope": "機種制御と専門判断への引継ぎを基本とし、公開範囲・業務状態・権限の詳細は追加の設計条件として扱います。"
+      "scope": "検索対象の適格性と回答項目の許可を別々に判定します。公開範囲・業務状態・権限の詳細は運用へ展開する際の設計条件です。"
     }
   },
+  "support-validation-stages": {
+    "title": "PoCと適格性確認テストは、目的と合否判断が異なる",
+    "description": "新規QA開発の前に方式を試す工程と、開発後に確定した要求・仕様への適合を確認する工程を分けます。",
+    "nodes": [],
+    "explanation": {
+        "format": "table",
+        "columns": [
+            "工程と時期",
+            "対象",
+            "目的・判断"
+        ],
+        "records": [
+            [
+                "本格開発前のPoC",
+                "1,000件：定型500・専門判断400・根拠不足100",
+                "追加質問・検索・回答と停止を試し、二つの問題原因から方式を改善して採用を判断する。"
+            ],
+            [
+                "開発後のシステム適格性確認テスト",
+                "独立した500件：追加質問なし／ありの自動回答、有人引継ぎ",
+                "確定した期待結果と照合する。定型の自動回答80％以上、専門判断・根拠不足の適切な引継ぎ100％を合格条件とする。"
+            ]
+        ],
+        "note": "機械的な照合は自動化し、顧客へ無修正で提示できる品質はCS部が判断します。PoCの結果をテストの合格へ転用しません。",
+        "scope": "PoCは検証シナリオ、適格性確認テストは評価方法・判定基準の設計です。未確認のテスト完了や本番実測を示しません。"
+    }
+},
   "support-poc-evaluation": {
-    "title": "別機種の誤検索を見つけ、検索方式を修正する",
-    "description": "検証結果から問題の所在を分析し、回答生成の前提となる検索対象制御を変更する判断を示します。",
+    "title": "誤検索と誤自動回答を分け、二つの制御を修正する",
+    "description": "検証シナリオで誤検索と誤自動回答の原因を分け、検索対象と回答許可を修正して再検証する判断を示します。",
     "nodes": [
       {
         "id": "test",
@@ -2033,27 +2060,27 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       },
       {
         "id": "failure",
-        "label": "別機種の文書を使う問題を発見する",
+        "label": "別機種の誤検索と専門判断の誤自動回答を発見する",
         "kind": "feedback",
-        "description": "回答は自然でも、対象機種と異なる文書を根拠にしているケースを区別します。"
+        "description": "対象機種と異なる文書の取得と、専門判断が必要なのに回答するケースを別の問題として区別します。"
       },
       {
         "id": "cause",
         "label": "設計側が検索の原因を分析する",
         "kind": "decision",
-        "description": "意味的な類似性だけでは、対象機種に適合する文書を保証できないと判断します。"
+        "description": "意味の近さだけでは適用できず、文書があるだけでは自動回答を許可できないという二つの原因を分けます。"
       },
       {
         "id": "control",
-        "label": "対象機種による検索対象制御を追加する",
+        "label": "検索対象と回答項目の許可を制御する",
         "kind": "system",
-        "description": "文書に機種メタデータを付け、一致する文書へ絞ってから検索する方式へ変更します。"
+        "description": "文書の適用条件で検索対象を絞り、回答項目の自動回答可否・適用条件・専門判断条件をCS部と定めて提示前に検証します。"
       },
       {
         "id": "retest",
         "label": "同じ評価条件で再検証する",
         "kind": "feedback",
-        "description": "誤検索の改善と、以前は回答できた問い合わせへの影響を確認します。"
+        "description": "適合文書の取得、自動回答の成立、専門判断・根拠不足時の停止をそれぞれ再確認します。"
       },
       {
         "id": "accept",
@@ -2077,8 +2104,8 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
           ]
         }
       ],
-      "note": "修正対象は検索構成です。モデル変更やプロンプト修正だけで解決したという説明にはしません。",
-      "scope": "検索対象の誤りを防ぐ設計と、方式の評価・改善に必要な条件を示します。"
+      "note": "修正対象は検索対象と回答許可の二つの制御です。モデル変更やプロンプト修正だけで解決したという説明にはしません。",
+      "scope": "誤検索と誤自動回答を分け、方式の採否判断へつなぐ検証シナリオを示します。"
     }
   },
   "support-poc-checks": {
@@ -2188,14 +2215,14 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
           "no": "確認した情報と未確認項目を保持し、担当者へ引き継ぐ。"
         },
         {
-          "question": "適切な回答根拠がありますか？",
-          "yes": "専門判断の要否を確認する。",
+          "question": "判定A：対象条件に適合する回答根拠がありますか？",
+          "yes": "回答項目の許可と適用条件を確認する。",
           "no": "検索条件と根拠不足の理由を保持し、担当者へ引き継ぐ。"
         },
         {
-          "question": "専門判断なしで回答できますか？",
+          "question": "判定B：自動回答が許可され、適用条件を満たし、専門判断が不要ですか？",
           "yes": "根拠に沿う回答だけを顧客へ提示する。",
-          "no": "回答案を確定せず、専門判断が必要な理由を担当者へ渡す。"
+          "no": "回答案を確定せず、回答不可・条件不一致・専門判断が必要な理由を担当者へ渡す。"
         }
       ],
       "outcomes": [
@@ -2226,7 +2253,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "filter",
         "label": "検索機能が一致する文書へ絞り込む",
         "kind": "knowledge",
-        "description": "文書の機種メタデータと照合し、対象機種に適合する文書だけを検索対象にします。"
+        "description": "判定A：対象機種・利用環境・対応版数のメタデータと照合し、適合文書だけを検索対象にします。"
       },
       {
         "id": "retrieve",
@@ -2238,7 +2265,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "evidence",
         "label": "生成AIが取得文書を回答根拠にする",
         "kind": "ai",
-        "description": "取得文書を参照するRAGで回答案を生成します。適合する根拠がなければ回答せず、人へ引き継ぎます。"
+        "description": "取得文書を参照するRAGで回答候補を生成します。顧客へ提示する前に、判定Bで回答項目の許可と適用条件を別途確認します。"
       }
     ],
     "explanation": {
@@ -2255,7 +2282,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "意味的に似ている文書でも、別機種の情報は適切な回答根拠とは限りません。類似度のしきい値を上げることと、属性で対象を制限することは別の手段です。",
-      "scope": "対象機種による検索対象制御を中心に、版数・公開可否・有効期間の制限も導入時の設計対象として扱います。"
+      "scope": "対象機種・利用環境・対応版数の適格性を検索前に制御します。回答項目の自動回答許可は別に検証し、公開可否・有効期間は運用上の設計条件です。"
     }
   },
   "support-human-handoff": {
@@ -2338,7 +2365,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "record",
         "label": "システムが利用結果と失敗を記録する",
         "kind": "system",
-        "description": "問い合わせ条件、根拠、停止理由、有人対応の結果を分けて記録します。"
+        "description": "問い合わせ条件、根拠、停止理由、引継ぎ後の対応工数・重複質問を記録する計画です。"
       },
       {
         "id": "analyse",
@@ -2350,7 +2377,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "improve",
         "label": "担当領域ごとに知識・検索・方式を改善する",
         "kind": "system",
-        "description": "文書管理側は知識と適用条件、設計・開発側は検索や処理、業務側は専門対応と適用範囲を見直します。"
+        "description": "Knowledge管理の担当は機種・版・許可条件、設計・開発側は検索や処理、CS部は専門対応と適用範囲を見直す運用を設計します。"
       },
       {
         "id": "reevaluate",
