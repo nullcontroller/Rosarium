@@ -308,7 +308,7 @@ const caseStudyEntries: CaseStudy[] = [
     designSummary:
       "追加質問で条件を特定し、検索対象を制限してRAGへ渡す。回答項目の許可・適用条件を別に検証し、根拠不足・専門判断では人へ引き継ぐ。",
     result:
-      "AIで回答できる問い合わせと、人が判断すべき問い合わせを分けて運用できるように設計した。",
+      "検索対象の適格性と回答許可を分離し、顧客の自己解決と専門対応を両立する方式を設計した。",
     chapters: [
       "cases/customer-support-ai-dx/responsibility-boundary",
       "cases/customer-support-ai-dx/poc-evaluation",
@@ -384,7 +384,7 @@ const caseHighlights = [
     id: "cases/customer-support-ai-dx",
     title: "顧客サポートQAの要件・方式設計",
     category: "代表設計事例",
-    summary: "企画部門の改善提案を受け、顧客向けQAの新規開発で、検索対象の適格性と自動回答の許可を分け、RAG・有人引継ぎを方式設計。目標実現の見込みを立てました。",
+    summary: "業務要求を、追加質問・検索・RAG・有人引継ぎへ具体化。検索対象の適格性と回答許可を分け、自己解決と専門対応を両立するQAの方式を設計しました。",
   },
 ] as const;
 

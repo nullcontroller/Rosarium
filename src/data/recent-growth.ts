@@ -45,13 +45,13 @@ const curatedRecentGrowth = [
   {
     date: "2026-10-18", type: "revised", title: "顧客サポートDXを代表設計事例として整理",
     changes: [
-      { action: "revised", text: "改訂。顧客サポートDXを代表設計事例として先頭に置き、Book冒頭で業務要求・担当範囲・方式判断・到達点を要約。Careerの実績紹介も同じ優先順位に揃えた。専用の支援システムがない業務からQAを新規開発する前提で、二段階制御、PoCの検証シナリオ、独立した適格性確認テストと合格条件、運用設計、効果試算を本番実測と区別して整理した。PoC詳細を補完記事へ分離し、第03章は方式判断と厳格な適格性確認へ集中した", contentIds: ["cases/customer-support-ai-dx", "career/overview", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/continuous-improvement", "cases/customer-support-ai-dx/design-principles", "cases/customer-support-ai-dx/customer-experience"] },
-      { action: "published", text: "公開。顧客サポートDXのPoC詳細を補完記事へ分離し、失敗分析・二段階制御・別々の評価指標・効果試算を整理。本編第03章は方式判断と適格性確認テストへ集中した", contentIds: ["evaluation-hitl/customer-support-qa-poc"] },
+      { action: "revised", text: "改訂。顧客サポートDXを代表設計事例として先頭に置き、Book冒頭の業務要求・担当範囲・方式判断・到達点とCareerの実績紹介を整理した。新規QAの二段階制御とPoCによる方式改善を中心に、本編と検証詳細の補完記事を分け、効果試算を本番実測と区別した。同日に扱った適格性確認テストの説明は公開対象から除外した", contentIds: ["cases/customer-support-ai-dx", "career/overview", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/continuous-improvement", "cases/customer-support-ai-dx/design-principles", "cases/customer-support-ai-dx/customer-experience"] },
+      { action: "published", text: "公開。顧客サポートDXのPoC詳細を補完記事へ分離し、失敗分析・二段階制御・別々の評価指標・効果試算を整理。本編第03章はPoCによる方式判断へ集中した", contentIds: ["evaluation-hitl/customer-support-qa-poc"] },
       { action: "revised", text: "改訂。終了順序の記事を、本人が確認した調査・判断の記録に整理した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] },
     ],
     summaryChanges: [
       "顧客サポートDXを代表設計事例としてHome・Cases・Careerの先頭に配置",
-      "業務要求・担当範囲・方式判断・到達点に加え、新規QAの二段階制御・適格性確認テストを整理し、PoC詳細を補完記事へ分離",
+      "業務要求・担当範囲・方式判断・到達点に加え、新規QAの二段階制御・PoCによる方式改善を整理し、検証詳細を補完記事へ分離",
       "終了順序の記事を、本人が確認した調査・判断の記録に整理",
     ],
     category: "Rosarium", icon: "updates",
@@ -71,11 +71,11 @@ const curatedRecentGrowth = [
       { action: "revised", text: "改訂。公開済みのレガシー保守の成果と、過去の参考事例の位置付けを明確にした", contentIds: ["career/overview"] },
       { action: "published", text: "新規公開。業務要求から機能要件・技術方式・責任分担を導き、PoCで採否を判断する方法を整理した", contentIds: ["architecture/requirements-to-system-method"] },
       { action: "revised", text: "改訂。方式検証の仮説・評価分担・試算と実測の区別、属性による検索対象制御と記事間の接続を補強した", contentIds: ["architecture/reference-architecture", "evaluation-hitl/qa-evaluation"] },
-      { action: "revised", text: "改訂。顧客サポートQAのBookを、企画部門からの改善提案を受けたシステム方式設計の事例として整理。業務要求から機能分担・検索対象制御・有人引継ぎを具体化し、目標実現への見込みを提示した。図解も比較・機能分担・判断フローとして見直した。回答可否の分岐矢印と調査結果を引き継ぐ有人対応を具体化し、三つの処理経路による適格性確認テストとテスター・業務専門家の判定分担を追加した", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/customer-experience", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/continuous-improvement", "cases/customer-support-ai-dx/design-principles"] },
+      { action: "revised", text: "改訂。企画部門の改善提案を受けた方式設計として、業務要求から機能分担・検索対象制御・有人引継ぎを具体化し、目標実現への見込みを提示した。図解と回答可否の分岐、調査結果を引き継ぐ有人対応を整理した。当時追加した適格性確認テストの説明は、10月18日の改訂で公開対象から除外した", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/customer-experience", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/continuous-improvement", "cases/customer-support-ai-dx/design-principles"] },
     ],
     summaryChanges: [
       "Careerでレガシー保守の成果と担当範囲を整理",
-      "顧客サポートQAの方式設計・有人引継ぎ・適格性確認テストを改訂",
+      "顧客サポートQAの方式設計・有人引継ぎを改訂",
       "業務要求からシステム方式を導く記事を新規公開",
       "参照アーキテクチャとQA評価の記事を改訂",
     ],
