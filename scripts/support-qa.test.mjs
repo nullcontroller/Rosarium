@@ -68,13 +68,14 @@ test("support case consistently starts from manual work and a newly developed cu
   assert(read("knowledge-design").includes("資料の保管方式や管理製品は特定しません"));
 });
 
-test("Book and PoC keep qualification details in a separate linked article", () => {
+test("Book and PoC exclude the removed qualification plan", () => {
   const files = fs.readdirSync(path.join(root, "customer-support-ai-dx")).filter(file => file.endsWith(".md"));
   const sources = [read(""), ...files.map(file => read(file.slice(0, -3))), readDetail()];
   for (const source of sources) {
     assert(!/システムの適格性確認|テスター|自動照合|経路1・2|経路3|適切な有人引継ぎ100％|support-validation-stages/.test(source));
   }
-  for (const source of [read(""), readDetail()]) assert(source.includes("](/evaluation-hitl/customer-support-qa-qualification-test/)"));
+  assert(!fs.existsSync("src/content/evaluation-hitl/customer-support-qa-qualification-test.md"));
+  for (const source of sources) assert(!/適格性確認|qualification-test|ほぼ同数|自動実行/.test(source));
   const chapter = read("poc-evaluation");
   assert.match(chapter, /^title: 03\. PoCによる方式の検証$/m);
   for (const value of ["本格開発前にPoCを行い", "類似する別機種", "専門判断が必要", "別々に制御", "再検証", "本格開発へ進める方式と判断"])
@@ -182,4 +183,13 @@ test("PoC detail remains a complementary article outside the ten-chapter Case", 
   }
   assert(!chapter.includes('data-case-diagram="support-validation-stages"'));
   assert(chapter.length < article.length);
+});
+
+ test("PoC leads with failure analysis and scoped before-after results", () => {
+  const source = readDetail();
+  const lead = source.split("## PoCの目的と検証仮説")[0];
+  for (const value of ["目標未達", "72％", "80％", "96％", "24／400件", "0／400件", "評価系列を分けた比較"])
+    assert(lead.includes(value), value);
+  assert(source.includes("検索できることと、回答してよいことを分離"));
+  assert(source.includes("改善した方式を本格開発へ進めると判断"));
 });

@@ -71,7 +71,7 @@ test("the article revision appears once, independently of the daily title", () =
 test("separated PoC detail is recorded once as an article within the existing day", () => {
   const day = recentGrowth.find(item => item.date === "2026-10-18");
   const id = "evaluation-hitl/customer-support-qa-poc";
-  assert.deepEqual(growthPublishedTargets(day), [id, "evaluation-hitl/customer-support-qa-qualification-test"]);
+  assert.deepEqual(growthPublishedTargets(day), [id]);
   assert.equal(day.changes.flatMap(growthChangeTargets).filter(target => target === id).length, 1);
   const source = fs.readFileSync(`src/content/${id}.md`, "utf8");
   const data = YAML.parse(source.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
@@ -81,10 +81,10 @@ test("separated PoC detail is recorded once as an article within the existing da
   assert.equal(contentHistory(id, data).filter(event => event.type === "published").length, 1);
 });
 
-test("public histories keep the Book concise while linking the independent test article", () => {
+test("public histories focus on PoC failures and improvements", () => {
   const id = "cases/customer-support-ai-dx/poc-evaluation";
   const items = recentGrowth.flatMap(entry => entry.changes).filter(change => growthChangeTargets(change).includes(id));
-  assert(items.some(change => growthChangeText(change).includes("独立した補完記事へ整理")));
+  assert(items.some(change => growthChangeText(change).includes("初回PoCの目標未達・誤自動回答")));
   for (const change of items) assert(!/三つの処理経路|テスター・業務専門家|合格条件|独立した500件/.test(growthChangeText(change)));
   const day = recentGrowth.find(entry => entry.date === "2026-10-18");
   assert(day.summaryChanges.some(text => text.includes("PoCによる方式改善")));

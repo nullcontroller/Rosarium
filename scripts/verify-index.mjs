@@ -1146,15 +1146,3 @@ for (const value of ['検索対象の適格性と、自動回答の許可を分�
   assert(supportOverview('.prose strong').toArray().some(el => supportOverview(el).text().includes(value)), value);
 for (const value of ['480／500件', '0／400件', '72％ → 98％'])
   assert(pocDetail('.prose table strong').toArray().some(el => pocDetail(el).text().includes(value)), value);
-
-const qualificationRoute = 'evaluation-hitl/customer-support-qa-qualification-test';
-const qualificationPage = page(qualificationRoute);
-assert(supportOverview(`.prose a[href="/${qualificationRoute}/"]`).length);
-assert(pocDetail(`.prose a[href="/${qualificationRoute}/"]`).length);
-for (const route of ['cases/customer-support-ai-dx', 'evaluation-hitl/customer-support-qa-poc'])
-  assert(qualificationPage(`.prose a[href="/${route}/"]`).length);
-assert.equal(qualificationPage('h1').text(), '顧客サポートQAのシステム適格性確認テスト：テスト設計と合否判定');
-assert.equal(qualificationPage('.book-toc, .pagination').length, 0);
-for (const value of ['三つの処理経路をほぼ同数', '自動実行', '自動照合', '不一致ケースを調査する', '自動回答80％以上', '適切な有人引継ぎ100％', '500件の実施完了・合格実績や本番効果を示すものではありません'])
-  assert(qualificationPage('.prose').text().includes(value), value);
-assert(gardenNotes(`[data-growth-date="2026-10-18"] a[href="/${qualificationRoute}/"]`).length);
