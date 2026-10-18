@@ -6,7 +6,7 @@ title: 生成AI / RAGによる顧客サポートDX
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-12"
+last_updated: "2026-10-18"
 entry_points:
   - ai
   - dx
@@ -35,12 +35,23 @@ show_cover: false
 cover_alt: 顧客問い合わせからKnowledge検索、RAG、生成AI、人間レビュー、回答、評価・改善までの顧客サポートDX全体フロー
 ---
 
-<div data-support-dx-diagram></div>
-
 ## このBookについて
 
 人間の判断に依存していた問い合わせ処理を分析し、必要な機能を生成AI・検索・既存Knowledge・人間へ分配したシステム方式設計の事例です。  
 企画部門から提案された業務改善方針を受け、システムアーキテクトとして、システム要件、機能分担、処理方式、責任境界、評価条件へ具体化しました。
+
+## 代表設計事例の要点
+
+- **業務要求：** 企画部門から提示された、定型問い合わせの自己解決と対応工数削減。
+- **担当範囲：** 要求をシステム要件へ具体化し、生成AI・検索・既存Knowledge・人間の機能分担と評価条件を設計。
+- **重要な判断：** 追加質問で対象機種を特定し、検索対象を制限してから根拠取得・RAGへ渡す。根拠不足・専門判断では回答を止め、調査結果を人へ引き継ぐ。
+- **到達点：** 業務目標の実現に向けた方式上の見込み。ここで示すのは方式設計の到達点であり、本番導入の実測効果ではありません。
+
+## 全体アーキテクチャ
+
+<div data-support-dx-diagram></div>
+
+[業務要求と変更前後を読む](/cases/customer-support-ai-dx/executive-summary/) · [機能分担と責任境界](/cases/customer-support-ai-dx/responsibility-boundary/) · [PoCと適格性確認テスト](/cases/customer-support-ai-dx/poc-evaluation/)
 
 ## 業務背景・現行システム・与えられた要求
 

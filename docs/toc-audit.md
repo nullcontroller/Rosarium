@@ -36,7 +36,7 @@
 | /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/profile/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/ | 実践事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 19 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/continuous-improvement/ | 08. 導入後にどう育てるか | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/customer-experience/ | 06. 顧客体験をどう変えたか | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/design-principles/ | 09. この事例から得た設計原則 | あり | あり | あり | 21 | 主要見出しが複数 |
@@ -149,7 +149,7 @@
 | /software-engineering/code-generation-models/ | コード生成AIの正体 | あり | あり | あり | 24 | 長文の複数h3セクション |
 | /software-engineering/code-maintenance-context/ | なぜAIは新規コードよりコード保守に強いのか | あり | あり | あり | 23 | 長文の複数h3セクション |
 | /software-engineering/development-workflow/ | AIを開発工程に組み込む | あり | あり | あり | 27 | 長文の複数h3セクション |
-| /software-engineering/engineering-judgment-in-ai-code-review/ | AIがコードを読めても、違和感に気づくには技術力がいる | あり | あり | あり | 7 | 主要見出しが複数 |
+| /software-engineering/engineering-judgment-in-ai-code-review/ | AIがコードを読めても、違和感に気づくには技術力がいる | あり | あり | あり | 6 | 主要見出しが複数 |
 | /software-engineering/multi-ai-orchestration/ | 複数AIの役割分担と工程設計 | あり | あり | あり | 27 | 主要見出しが複数 |
 | /start-here/ | Start Here | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /updates/ | 庭をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |

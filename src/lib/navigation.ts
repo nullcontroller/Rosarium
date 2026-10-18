@@ -322,7 +322,16 @@ const caseStudyEntries: CaseStudy[] = [
     ],
   },
 ];
-export const caseStudies = caseStudyEntries;
+export const representativeCaseIds = [
+  "cases/customer-support-ai-dx",
+  "cases/specification-debt-review",
+  "cases/three-ai-maintenance",
+] as const;
+export const representativeCaseRank = (id: string) => {
+  const rank = representativeCaseIds.indexOf(id as typeof representativeCaseIds[number]);
+  return rank < 0 ? representativeCaseIds.length : rank;
+};
+export const caseStudies = [...caseStudyEntries].sort((a, b) => representativeCaseRank(a.book) - representativeCaseRank(b.book));
 
 export const mathematicsReadingIds = [
   "foundations/conditional-probability",
@@ -358,7 +367,7 @@ export const navigationItemForPath = (path: string) =>
   navigation.flat().find((item) => item.path === path);
 
 // Shared compact evidence summaries for Home and Cases.
-export const featuredCaseHighlights = [
+const caseHighlights = [
   {
     id: "cases/specification-debt-review",
     title: "仕様書横断レビュー",
@@ -374,7 +383,9 @@ export const featuredCaseHighlights = [
   {
     id: "cases/customer-support-ai-dx",
     title: "顧客サポートQAの要件・方式設計",
-    category: "設計事例",
+    category: "代表設計事例",
     summary: "企画部門の改善提案を受け、追加質問・検索対象制御・RAG・有人引継ぎを方式設計。目標実現の見込みを立てました。",
   },
 ] as const;
+
+export const featuredCaseHighlights = [...caseHighlights].sort((a, b) => representativeCaseRank(a.id) - representativeCaseRank(b.id));

@@ -157,7 +157,7 @@ const bookNavigation = series.length
       {(d.publication_format || d.layer === "publication") && (
         <span hidden data-pagefind-meta="publication">{timing.value}</span>
       )}
-      {d.layer !== "reference" && <ContentHistory id={entry.id} data={d} />}
+      {d.layer !== "reference" && entry.id !== "cases/customer-support-ai-dx" && <ContentHistory id={entry.id} data={d} />}
       <p class="tags" data-pagefind-meta="tags">
         {d.tags.join(" / ")}
       </p>
@@ -194,6 +194,7 @@ const bookNavigation = series.length
       <h2 id="evidence-links-heading">{d.section === "cases" ? "この事例で使う設計原則" : "この原則を使う実践事例"}</h2>
       <ul>{evidenceLinks.map(item => <li><a href={url(item.id)}>{item.data.title}</a></li>)}</ul>
     </section>}
+    {entry.id === "cases/customer-support-ai-dx" && <ContentHistory id={entry.id} data={d} />}
   </article>
   {readingSequence.length > 0 && (
     <nav

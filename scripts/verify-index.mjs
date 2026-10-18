@@ -432,7 +432,7 @@ for (const [id, expected] of [
 const cases = page("cases");
 assert.deepEqual(
   cases("[data-series-index]").map((_, element) => cases(element).attr("data-series-index")).get(),
-  ["cases/specification-debt-review", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"],
+  ["cases/customer-support-ai-dx", "cases/specification-debt-review", "cases/three-ai-maintenance"],
 );
 assert.equal(cases(".case-reference-note").length, 0);
 assert.equal(cases("#active-cases .case-study-index").length, 3);
@@ -547,9 +547,9 @@ assert.equal(
   0,
 );
 const expectedBooks = [
+  "cases/customer-support-ai-dx",
   "cases/specification-debt-review",
   "cases/three-ai-maintenance",
-  "cases/customer-support-ai-dx",
 ];
 for (const route of ["cases"]) {
   const $ = page(route);
@@ -620,7 +620,7 @@ for (const [id, data] of entries) {
   assert.equal(history.length, 1, id + ": independent history");
   assert.equal(document(".update-note").length, 0);
   assert(!document("main").text().includes("今回の更新："));
-  assert(history.parents("header").length || id === "career/overview", id + ": history near metadata");
+  assert(history.parents("header").length || id === "career/overview" || id === "cases/customer-support-ai-dx", id + ": history near metadata");
   if (data.update_note) assert(history.text().includes(data.update_note), id + ": update note preserved");
   assert(history.is("[data-pagefind-ignore][data-toc-exclude]"));
   const expected = contentHistory(id, data).reverse();
@@ -1060,7 +1060,7 @@ assert(debtCase('main').text().includes("削減率・短縮率・ROIは未評価
 assert(!debtCase('main').text().includes("1日"));
 assert(cases('[data-series-index="cases/specification-debt-review"]').text().includes("Case"));
 console.log("Verified documentation debt Case metrics, limitations, human decisions and static SVG fallbacks.");
-assert.equal(top('[aria-labelledby="home-cases-heading"] li').length, 3);
+assert.equal(top('[aria-labelledby="home-cases-heading"] li').length, 2);
 assert.equal(top('[aria-labelledby="home-cases-heading"] a[href="/cases/customer-support-ai-dx/"]').length, 1);
 assert(top('[aria-labelledby="home-cases-heading"]').text().includes("設計事例"));
 assert.equal(page("software-engineering/code-maintenance-context")('.prose a[href="/cases/specification-debt-review/"]').length, 1, "Authored Case evidence remains clickable");
@@ -1074,11 +1074,13 @@ for (const [id, data] of entries) {
   assert.equal(new Set(links).size, links.length, id);
   for (const href of links) assert.equal($(`.prose a[href="${href}"]`).length, 0, `${id}: no repeated evidence link`);
 }
-const judgmentExample = page("software-engineering/engineering-judgment-in-ai-code-review")('.prose').text();
-assert(judgmentExample.includes("説明用の架空の疑似コード"));
-assert(judgmentExample.includes("不適切な終了順序"));
-assert(judgmentExample.includes("正常完了を確認してから"));
-assert(judgmentExample.includes("待機の失敗・取消し"));
+const judgmentPage = page("software-engineering/engineering-judgment-in-ai-code-review");
+assert.equal(judgmentPage('.prose pre').length, 0, "The withdrawn invented shutdown examples must not return");
+const judgmentText = judgmentPage('.prose').text();
+for (const fact of ["プラグインについて、不具合調査の依頼を受けた", "AIを活用してソースコードを調査", "私自身がコードを読んで", "リソース解放の呼び出し順序", "初期化と終了処理が整合しているか", "問題箇所の特定につながった"]) assert(judgmentText.includes(fact), fact);
+assert(!judgmentText.includes("作業処理が、終了時の残処理を保存先へ書き出す"));
+assert(judgmentPage('[data-content-history]').text().includes("同日訂正"));
+assert(gardenNotes('[data-growth-date="2026-10-18"]').text().includes("架空の疑似コードとその説明を撤去"));
 const practiceGateway = page("practices");
 assert.equal(practiceGateway("#adoption-questions tbody tr").length, 7);
 assert.equal(practiceGateway('main a[href="/practices/ai-adoption-and-effective-use/"]').length, 0);
@@ -1100,3 +1102,17 @@ for (const [id, data] of entries) {
   }
 }
 console.log("Verified AI article links inside existing themes without a standalone new-article section.");
+
+// The same representative order is visible at all three reader entry points.
+const representativeUrls = ["/cases/customer-support-ai-dx/", "/cases/specification-debt-review/", "/cases/three-ai-maintenance/"];
+assert.deepEqual(top('[aria-labelledby="home-cases-heading"] a').map((_, el) => top(el).attr('href')).get(), representativeUrls);
+assert.equal(cases('.case-highlight-list a').first().attr('href'), '#case-customer-support-ai-dx');
+assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'cases/customer-support-ai-dx');
+// Keep source block order visible even when semantic directive class naming changes.
+const careerAllCaseUrls = page('career')('.prose a[href^="/cases/"]').map((_, el) => page('career')(el).attr('href')).get();
+assert.deepEqual(careerAllCaseUrls.filter(href => representativeUrls.includes(href)).slice(0, 3), representativeUrls);
+const supportOverview = page('cases/customer-support-ai-dx');
+assert(supportOverview('.prose').text().includes('本番導入の実測効果ではありません'));
+assert.equal(supportOverview('header [data-content-history]').length, 0);
+assert(supportOverview('.prose').index() < supportOverview('[data-content-history]').index());
+assert.equal(supportOverview('[data-support-dx]').length, 1);
