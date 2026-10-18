@@ -11,12 +11,9 @@ test('shutdown article preserves the reported investigation without the withdraw
   for (const fact of ['プラグインについて、不具合調査の依頼を受けた', '候補を絞った', '私自身がコードを読んで', 'リソース解放の呼び出し順序', '初期化と終了処理が整合しているか', '問題箇所の特定につながった']) assert(body.includes(fact), fact);
 });
 
-test('same-day correction retains the addition record and explains its withdrawal', () => {
+test('daily article revision describes the reported investigation', () => {
   const rows = recentGrowth.filter(entry => entry.date === '2026-10-18');
   assert.equal(rows.length, 1);
   const revision = rows[0].changes.find(change => typeof change !== 'string' && change.contentIds.includes('software-engineering/engineering-judgment-in-ai-code-review'));
-  assert(revision.text.includes('架空の疑似コードを追加した'));
-  assert(revision.text.includes('同日訂正'));
-  assert(revision.text.includes('架空の疑似コードとその説明を撤去'));
-  assert(revision.text.includes('実際の調査・判断の記録を維持'));
+  assert.equal(revision.text, '改訂。終了順序の記事を、本人が確認した調査・判断の記録に整理した');
 });

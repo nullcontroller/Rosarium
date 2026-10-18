@@ -9,7 +9,7 @@ status: published
 published_at: "2026-10-16"
 last_updated: "2026-10-18"
 update_type: revised
-update_note: "訂正。追加した架空の疑似コードとその説明を撤去し、実際の調査・判断の記録を維持"
+update_note: "本人が確認した調査・判断の記録に整理"
 ai_theme: practices
 entry_points: [ai]
 tags: [ソフトウェア設計, 保守開発, リソース管理, 検証]

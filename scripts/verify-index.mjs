@@ -1079,8 +1079,8 @@ assert.equal(judgmentPage('.prose pre').length, 0, "The withdrawn invented shutd
 const judgmentText = judgmentPage('.prose').text();
 for (const fact of ["プラグインについて、不具合調査の依頼を受けた", "AIを活用してソースコードを調査", "私自身がコードを読んで", "リソース解放の呼び出し順序", "初期化と終了処理が整合しているか", "問題箇所の特定につながった"]) assert(judgmentText.includes(fact), fact);
 assert(!judgmentText.includes("作業処理が、終了時の残処理を保存先へ書き出す"));
-assert(judgmentPage('[data-content-history]').text().includes("同日訂正"));
-assert(gardenNotes('[data-growth-date="2026-10-18"]').text().includes("架空の疑似コードとその説明を撤去"));
+assert(judgmentPage('[data-content-history]').text().includes("本人が確認した調査・判断の記録に整理"));
+assert(gardenNotes('[data-growth-date="2026-10-18"]').text().includes("本人が確認した調査・判断の記録に整理"));
 const practiceGateway = page("practices");
 assert.equal(practiceGateway("#adoption-questions tbody tr").length, 7);
 assert.equal(practiceGateway('main a[href="/practices/ai-adoption-and-effective-use/"]').length, 0);

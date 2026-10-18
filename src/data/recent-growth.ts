@@ -46,12 +46,12 @@ const curatedRecentGrowth = [
     date: "2026-10-18", type: "revised", title: "顧客サポートDXを代表設計事例として整理",
     changes: [
       { action: "revised", text: "改訂。顧客サポートDXを代表設計事例として先頭に置き、Book冒頭で業務要求・担当範囲・方式判断・到達点を要約。Careerの実績紹介も同じ優先順位に揃えた", contentIds: ["cases/customer-support-ai-dx", "career/overview"] },
-      { action: "revised", text: "改訂。架空の疑似コードを追加したが、同日訂正。追加した架空の疑似コードとその説明を撤去し、実際の調査・判断の記録を維持。公開できないコードを創作で補わないため。", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] },
+      { action: "revised", text: "改訂。終了順序の記事を、本人が確認した調査・判断の記録に整理した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] },
     ],
     summaryChanges: [
       "顧客サポートDXを代表設計事例としてHome・Cases・Careerの先頭に配置",
       "Book冒頭で業務要求・担当範囲・方式判断・到達点を整理",
-      "訂正：追加した架空の疑似コードとその説明を撤去",
+      "終了順序の記事を、本人が確認した調査・判断の記録に整理",
     ],
     category: "Rosarium", icon: "updates",
   },
