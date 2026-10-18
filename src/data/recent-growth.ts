@@ -43,11 +43,11 @@ export const growthPublishedTargets = (entry: RecentGrowthItem): string[] =>
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
-    date: "2026-10-19", type: "revised", title: "実務成果と担当経験から読めるポートフォリオへ整理",
+    date: "2026-10-19", type: "revised", title: "システム設計と実務成果が伝わるポートフォリオへ整理",
     changes: [
-      { action: "revised", text: "改訂。担当できる仕事と確認済みの成果を先に示し、仕様書レビュー・保守開発の実務実績と顧客サポートQAの設計事例を区別。Careerの強みと今後の方向性、各事例の成果と比較条件を整理した", contentIds: ["career/overview", "cases/specification-debt-review", "cases/three-ai-maintenance"] },
+      { action: "revised", text: "改訂。顧客サポートQAを代表設計事例の先頭に置き、仕様書レビュー・保守開発の確認済み成果を設計力の裏付けとして配置。Careerの強みと今後の方向性、各事例の成果と比較条件を整理した", contentIds: ["career/overview", "cases/specification-debt-review", "cases/three-ai-maintenance"] },
     ],
-    summaryChanges: ["担当経験・確認済みの成果から実務事例へ進める入口に整理", "実務実績、設計・検証シナリオ、今後の方向性を区別"],
+    summaryChanges: ["要件・方式設計を入口に、開発・保守の実務成果へ進める構成に整理", "実務実績、設計・検証シナリオ、今後の方向性を区別"],
     category: "Rosarium", icon: "updates",
   },
   {

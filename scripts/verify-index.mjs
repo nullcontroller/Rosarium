@@ -416,7 +416,7 @@ assert(dxEssay('[data-related-content] a').length <= 4);
 const cases = page("cases");
 assert.deepEqual(
   cases("[data-series-index]").map((_, element) => cases(element).attr("data-series-index")).get(),
-  ["cases/specification-debt-review", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"],
+  ["cases/customer-support-ai-dx", "cases/specification-debt-review", "cases/three-ai-maintenance"],
 );
 assert.equal(cases(".case-reference-note").length, 0);
 assert.equal(cases("#active-cases .case-study-index").length, 3);
@@ -531,9 +531,9 @@ assert.equal(
   0,
 );
 const expectedBooks = [
+  "cases/customer-support-ai-dx",
   "cases/specification-debt-review",
   "cases/three-ai-maintenance",
-  "cases/customer-support-ai-dx",
 ];
 for (const route of ["cases"]) {
   const $ = page(route);
@@ -1083,10 +1083,10 @@ for (const [id, data] of entries) {
 console.log("Verified AI article links inside existing themes without a standalone new-article section.");
 
 // The same representative order is visible at all three reader entry points.
-const representativeUrls = ["/cases/specification-debt-review/", "/cases/three-ai-maintenance/", "/cases/customer-support-ai-dx/"];
+const representativeUrls = ["/cases/customer-support-ai-dx/", "/cases/specification-debt-review/", "/cases/three-ai-maintenance/"];
 assert.deepEqual(top('[aria-labelledby="home-cases-heading"] a[href^="/cases/"]').map((_, el) => top(el).attr('href')).get(), representativeUrls);
-assert.equal(cases('.case-highlight-list a').first().attr('href'), '#case-specification-debt-review');
-assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'cases/specification-debt-review');
+assert.equal(cases('.case-highlight-list a').first().attr('href'), '#case-customer-support-ai-dx');
+assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'cases/customer-support-ai-dx');
 // Keep source block order visible even when semantic directive class naming changes.
 const careerAllCaseUrls = page('career')('.prose a[href^="/cases/"]').map((_, el) => page('career')(el).attr('href')).get();
 assert.deepEqual(careerAllCaseUrls.filter(href => representativeUrls.includes(href)).slice(0, 3), representativeUrls);
@@ -1123,7 +1123,7 @@ for (const value of ['検索対象の適格性と、自動回答の許可を分�
 for (const value of ['480／500件', '0／400件', '72％ → 98％'])
   assert(pocDetail('.prose table strong').toArray().some(el => pocDetail(el).text().includes(value)), value);
 
-// Recruiter entrances show confirmed work before design scenarios, with scope intact.
+// Recruiter entrances lead with architecture while preserving confirmed work and scope.
 for (const route of ['', 'career', 'cases']) {
   const $ = page(route);
   for (const value of ['約40件', '約7割', '当初想定']) assert($('main').text().includes(value), route+': '+value);
@@ -1140,3 +1140,9 @@ for (const route of ['about', 'start-here']) {
  for (const target of ['career','cases']) assert($(`main a[href="/${target}/"]`).length, route+': '+target);
 }
 console.log('Verified recruiter reading routes, consistent evidence order and work/scenario distinctions.');
+
+assert.equal(top('#featured-case-heading a').attr('href'), '/cases/customer-support-ai-dx/');
+assert(top('.entrance-hero > .lead').text().includes('業務要求をシステム要件へ具体化'));
+assert(top('[aria-labelledby="home-cases-heading"] h3').text().includes('設計を支える実務実績'));
+assert.equal(top('[aria-labelledby="featured-case-heading"] strong').length, 1);
+assert(top('[aria-labelledby="featured-case-heading"]').text().includes('設計・検証シナリオ'));

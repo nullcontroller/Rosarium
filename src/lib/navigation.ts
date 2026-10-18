@@ -323,9 +323,9 @@ const caseStudyEntries: CaseStudy[] = [
   },
 ];
 export const representativeCaseIds = [
+  "cases/customer-support-ai-dx",
   "cases/specification-debt-review",
   "cases/three-ai-maintenance",
-  "cases/customer-support-ai-dx",
 ] as const;
 export const representativeCaseRank = (id: string) => {
   const rank = representativeCaseIds.indexOf(id as typeof representativeCaseIds[number]);
