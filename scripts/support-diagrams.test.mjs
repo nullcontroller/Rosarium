@@ -3,6 +3,22 @@ import assert from "node:assert/strict";
 import { caseDiagrams } from "../src/data/case-diagrams.ts";
 
 const support = Object.entries(caseDiagrams).filter(([id]) => id.startsWith("support-"));
+
+test("overview separates search eligibility from item-level answer authorization", () => {
+  const model = caseDiagrams["support-overview"];
+  const search = model.nodes.find(node => node.id === "search");
+  const decision = model.nodes.find(node => node.id === "decision");
+  assert(search.description.includes("判定A"));
+  for (const field of ["対象機種", "利用環境", "対応版数"]) assert(search.description.includes(field));
+  assert(decision.description.includes("判定B"));
+  for (const field of ["自動回答可否", "適用条件", "専門判断条件"]) assert(decision.description.includes(field));
+  const order = model.explanation.panels[0].nodeIds;
+  assert(order.indexOf("search") < order.indexOf("answer"));
+  assert(order.indexOf("answer") < order.indexOf("decision"));
+  const stop = caseDiagrams["support-stopping-conditions"].explanation.checks;
+  assert(stop[1].question.includes("判定A"));
+  assert(stop[2].question.includes("判定B") && stop[2].question.includes("許可"));
+});
 test("support explanations separate comparison, functional selection, responsibility and conditional stopping", () => {
   assert.equal(caseDiagrams["support-executive-summary"].explanation.format, "comparison");
   assert.equal(caseDiagrams["support-executive-summary"].explanation.panels.length, 2);
@@ -20,7 +36,7 @@ test("support explanations separate comparison, functional selection, responsibi
 });
 
 test("support explanations stay Japanese, static and distinguish design from public production results", () => {
-  assert.equal(support.length, 11);
+  assert.equal(support.length, 12);
   for (const [id, model] of support) {
     assert(model.title && model.description && model.explanation.note && model.explanation.scope, id);
     assert(!model.edges?.length && !model.messages?.length, `${id}: no overloaded SVG edges`);
@@ -39,11 +55,23 @@ test("support explanations stay Japanese, static and distinguish design from pub
   }
 });
 
+test("validation stages distinguish pre-development exploration from system acceptance", () => {
+  const phases = caseDiagrams["support-validation-stages"].explanation;
+  assert.equal(phases.format, "table");
+  assert.equal(phases.records.length, 2);
+  assert(phases.records[0][0].includes("本格開発前"));
+  assert(phases.records[0][1].includes("1,000件"));
+  assert(phases.records[1][0].includes("開発後"));
+  assert(phases.records[1][1].includes("独立した500件"));
+  assert(phases.records[1][2].includes("80％以上") && phases.records[1][2].includes("100％"));
+  assert(phases.note.includes("合格へ転用しません"));
+});
+
 test("comparison forks from one decision into automatic reply and continued human investigation", () => {
   const [before, after] = caseDiagrams["support-executive-summary"].explanation.panels;
   assert(!before.branches, "before and after must not share processing edges");
   assert.deepEqual(after.branches.map(branch => branch.from), ["after-judge", "after-judge"]);
-  assert.deepEqual(after.branches.map(branch => branch.condition), ["回答可能", "根拠不足・専門判断が必要"]);
+  assert.deepEqual(after.branches.map(branch => branch.condition), ["回答可能", "根拠不足・条件不一致・専門判断が必要"]);
   assert.deepEqual(after.branches.map(branch => branch.nodeIds), [
     ["after-answer"], ["after-handoff", "after-investigate", "after-human-answer"],
   ]);

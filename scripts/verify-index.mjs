@@ -1001,7 +1001,7 @@ assert.equal(comparison(".support-comparison > section").first().find(".support-
 const routes = comparison('[data-flow-from="after-judge"]');
 assert.equal(routes.length, 2);
 assert.deepEqual(routes.map((_, node) => comparison(node).attr("data-flow-to")).get(), ["after-answer", "after-handoff"]);
-assert.deepEqual(routes.map((_, node) => comparison(node).attr("data-flow-condition")).get(), ["回答可能", "根拠不足・専門判断が必要"]);
+assert.deepEqual(routes.map((_, node) => comparison(node).attr("data-flow-condition")).get(), ["回答可能", "根拠不足・条件不一致・専門判断が必要"]);
 assert.equal(routes.find(".support-branch-connector").length, 2);
 assert.deepEqual(routes.last().find("[data-support-step]").map((_, node) => comparison(node).attr("data-support-step")).get(),
   ["after-handoff", "after-investigate", "after-human-answer"]);
@@ -1116,3 +1116,10 @@ assert(supportOverview('.prose').text().includes('本番導入の実測効果で
 assert.equal(supportOverview('header [data-content-history]').length, 0);
 assert(supportOverview('.prose').index() < supportOverview('[data-content-history]').index());
 assert.equal(supportOverview('[data-support-dx]').length, 1);
+
+const revisedPoc = page('cases/customer-support-ai-dx/poc-evaluation');
+for (const value of ['1,000件', '検証シナリオの再検証結果', '72％ → 98％', '480／500件', '0／400件', '改善後280時間／月の試算', '追加負荷を含む総工数も未確認']) assert(revisedPoc('.prose').text().includes(value), value);
+assert(page('cases/customer-support-ai-dx')('.prose').text().includes('設計を検討する検証シナリオ'));
+const revisedSupportDiagram = page('cases/customer-support-ai-dx')('[data-support-dx]');
+assert(revisedSupportDiagram.find('[data-support-step="search"]').text().includes('判定A'));
+assert(revisedSupportDiagram.find('[data-support-step="decision"]').text().includes('判定B'));

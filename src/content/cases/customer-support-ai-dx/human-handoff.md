@@ -5,7 +5,7 @@ title: 07. AIから人間へどう引き継ぐか
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-12"
+last_updated: "2026-10-18"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []
@@ -47,6 +47,10 @@ HITLを成立させるには、対応の主体だけでなく、途中まで集�
 <div data-case-diagram="support-human-handoff"></div>
 
 <div data-case-diagram="support-handoff-information"></div>
+
+検索対象の条件不一致、回答項目の自動回答不可、適用条件の不成立、専門判断の必要性を引継ぎ理由として分けます。  
+CS部は、確認済みの機種・環境・版数、取得根拠、回答項目の許可と条件の照合結果を受け取り、未解決事項から対応を続けます。  
+根拠不足で既存情報から回答できない場合は、CS部を通じて開発担当者等へ確認します。
 
 ## 担当者が調査の続きを行う
 

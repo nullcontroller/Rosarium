@@ -45,12 +45,12 @@ const curatedRecentGrowth = [
   {
     date: "2026-10-18", type: "revised", title: "顧客サポートDXを代表設計事例として整理",
     changes: [
-      { action: "revised", text: "改訂。顧客サポートDXを代表設計事例として先頭に置き、Book冒頭で業務要求・担当範囲・方式判断・到達点を要約。Careerの実績紹介も同じ優先順位に揃えた", contentIds: ["cases/customer-support-ai-dx", "career/overview"] },
+      { action: "revised", text: "改訂。顧客サポートDXを代表設計事例として先頭に置き、Book冒頭で業務要求・担当範囲・方式判断・到達点を要約。Careerの実績紹介も同じ優先順位に揃えた。専用の支援システムがない業務からQAを新規開発する前提で、二段階制御、PoCの検証シナリオ、独立した適格性確認テストと合格条件、運用設計、効果試算を本番実測と区別して整理した", contentIds: ["cases/customer-support-ai-dx", "career/overview", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/continuous-improvement", "cases/customer-support-ai-dx/design-principles", "cases/customer-support-ai-dx/customer-experience"] },
       { action: "revised", text: "改訂。終了順序の記事を、本人が確認した調査・判断の記録に整理した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] },
     ],
     summaryChanges: [
       "顧客サポートDXを代表設計事例としてHome・Cases・Careerの先頭に配置",
-      "Book冒頭で業務要求・担当範囲・方式判断・到達点を整理",
+      "業務要求・担当範囲・方式判断・到達点に加え、新規QAの二段階制御・PoC再検証・適格性確認テスト・効果試算を整理",
       "終了順序の記事を、本人が確認した調査・判断の記録に整理",
     ],
     category: "Rosarium", icon: "updates",

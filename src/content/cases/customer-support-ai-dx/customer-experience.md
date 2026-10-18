@@ -5,7 +5,7 @@ title: 06. 顧客体験をどう変えたか
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-12"
+last_updated: "2026-10-18"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []
@@ -21,7 +21,7 @@ order: 7
 
 ## 内部分類を利用者へ押し付けない
 
-従来型のQAでは、「印刷」「ネットワーク」「ドライバ」といったカテゴリや、接続方式、機種名を先に入力させることがあります。
+新規にQAを設計するとき、「印刷」「ネットワーク」「ドライバ」といったカテゴリや、接続方式、機種名を先に入力させる方式も選択肢になります。
 
 しかし、困っている利用者が、原因や製品分類を理解しているとは限りません。
 

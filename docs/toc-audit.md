@@ -36,17 +36,17 @@
 | /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/profile/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/ | 実践事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 19 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 21 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/continuous-improvement/ | 08. 導入後にどう育てるか | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/customer-experience/ | 06. 顧客体験をどう変えたか | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/design-principles/ | 09. この事例から得た設計原則 | あり | あり | あり | 21 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/executive-summary/ | 00. このケーススタディについて | あり | あり | あり | 15 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/human-handoff/ | 07. AIから人間へどう引き継ぐか | あり | あり | あり | 17 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/knowledge-design/ | 04. RAG / Knowledgeをどう設計したか | あり | あり | あり | 20 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/poc-evaluation/ | 03. PoCで「使えるか」をどう判断したか | あり | あり | あり | 23 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/responsibility-boundary/ | 02. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/knowledge-design/ | 04. RAG / Knowledgeをどう設計したか | あり | あり | あり | 21 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/poc-evaluation/ | 03. PoCで「使えるか」をどう判断したか | あり | あり | あり | 29 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/responsibility-boundary/ | 02. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 19 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/stopping-conditions/ | 05. AIをどこで止めるか | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/why-ai/ | 01. なぜAIを導入したのか | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/why-ai/ | 01. なぜAIを導入したのか | あり | あり | あり | 18 | 主要見出しが複数 |
 | /cases/specification-debt-review/ | 3万文字・68ページの仕様書をAIで横断レビューする | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/system-understanding/ | 理解しにくいレガシーシステムを、変更判断できる状態へ変える | あり | あり | あり | 19 | 主要見出しが複数 |
 | /cases/system-understanding/connecting-ui-and-internals/ | 第7章 UI操作と内部処理を結び付け、操作結果を追えるようにする | あり | あり | あり | 15 | 主要見出しが複数 |
