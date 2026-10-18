@@ -2377,7 +2377,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "improve",
         "label": "担当領域ごとに知識・検索・方式を改善する",
         "kind": "system",
-        "description": "Knowledge管理の担当は機種・版・許可条件、設計・開発側は検索や処理、CS部は専門対応と適用範囲を見直す運用を設計します。"
+        "description": "参照資料の管理担当者は機種・版・許可条件、設計・開発側は検索や処理、CS部は専門対応と適用範囲を見直す運用を設計します。"
       },
       {
         "id": "reevaluate",

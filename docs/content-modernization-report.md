@@ -194,3 +194,7 @@
 
 - `src/content/software-engineering/engineering-judgment-in-ai-code-review.md`：NEW。所有権・ライフサイクル・依存関係から期待条件を定め、不整合を仮説と検証へ変える独立した技術記事。保守Contextの利用条件、開発工程の構成、コードの受入判定とは主題を分ける。説明用の架空例のみを用い、内部障害の組合せや未確認成果を掲載しない。
 - `src/content/essays/from-ai-efficiency-to-value.md`：NEW。効率化確認後の余力の再配分について、決定主体、業務量調整、使途ごとの指標と見直しを扱う論考。DXの価値観、総工数の計測、システム廃止判断の再説明は既存記事へ委ねる。数値は明示した仮例であり、業務実績ではない。
+
+## 2026-10-18：顧客サポートDXのPoC詳細を分離
+
+- `src/content/evaluation-hitl/customer-support-qa-poc.md`：NEW。既存Caseの検証詳細を補完するArticle。本編第03章のURLと10章構成を維持し、方式判断・適格性確認テストと、PoCの評価方法・失敗分析・再検証・効果試算を分離する。独立したCaseや職務実績としては扱わず、一般的なQA評価原則は既存記事へ委ねる。

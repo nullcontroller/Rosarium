@@ -67,3 +67,16 @@ test("the article revision appears once, independently of the daily title", () =
   assert.equal(revisions[0].text, "終了順序の記事を、本人が確認した調査・判断の記録に整理した");
   assert.equal(revisions[0].text.split(data.update_note).length - 1, 1);
 });
+
+test("separated PoC detail is recorded once as an article within the existing day", () => {
+  const day = recentGrowth.find(item => item.date === "2026-10-18");
+  const id = "evaluation-hitl/customer-support-qa-poc";
+  assert.deepEqual(growthPublishedTargets(day), [id]);
+  assert.equal(day.changes.flatMap(growthChangeTargets).filter(target => target === id).length, 1);
+  const source = fs.readFileSync(`src/content/${id}.md`, "utf8");
+  const data = YAML.parse(source.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
+  assert.equal(data.kind, "guide");
+  assert.equal(data.publication_format, "article");
+  assert.equal(data.series, undefined);
+  assert.equal(contentHistory(id, data).filter(event => event.type === "published").length, 1);
+});
