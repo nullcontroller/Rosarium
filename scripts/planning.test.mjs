@@ -37,7 +37,8 @@ test("planning references preserve existing classification; support QA records t
   assert(text.includes("システム方針・方式を設計しました"));
   assert(text.includes("月400時間から300時間以下"));
   assert(text.includes("750件のうち600件以上"));
-  assert.equal(contentHistory("cases/customer-support-ai-dx", {}).at(-1).date, "2026-10-12");
+  assert(contentHistory("cases/customer-support-ai-dx", {}).some(event => event.date === "2026-10-12"));
+  assert.equal(contentHistory("cases/customer-support-ai-dx", {}).at(-1).date, "2026-10-18");
 });
 
 test("planning publication and Career aspirations retain distinct histories", () => {
@@ -46,7 +47,8 @@ test("planning publication and Career aspirations retain distinct histories", ()
   const data = YAML.parse(text.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
   const events = contentHistory("career/overview", data);
   assert.equal(events[0].date, "2026-09-23");
-  assert.equal(events.at(-1).date, "2026-10-12");
+  assert(events.some(event => event.date === "2026-10-12"));
+  assert.equal(events.at(-1).date, "2026-10-18");
   assert(events.some(event => event.text?.includes("今後深めたい")));
   const direction = text.split("## 今後広げたい判断領域")[1]?.split("\n## ")[0];
   assert(direction, "Career must have a forward-looking planning direction");

@@ -36,8 +36,15 @@ const recent = recentGrowth.slice(0, 3);
 
   <section class="home-section home-panel" aria-labelledby="home-cases-heading">
     <SectionHeading icon="cases" title="代表実績・設計事例" id="home-cases-heading" />
+    <section aria-labelledby="featured-case-heading">
+      <p class="eyebrow">{featuredCaseHighlights[0].category}</p>
+      <h3 id="featured-case-heading"><a href={url(featuredCaseHighlights[0].id)}>生成AI / RAGによる顧客サポートDX</a></h3>
+      <p>{featuredCaseHighlights[0].summary}</p>
+      <p class="meta">要求から機能分担・検索対象制御・停止条件・評価条件を具体化した方式設計です。</p>
+    </section>
+    <h3>設計を支える実務実績</h3>
     <ul>
-      {featuredCaseHighlights.map((item) => <li>
+      {featuredCaseHighlights.slice(1).map((item) => <li>
         <a href={url(item.id)}>{item.title}</a> <span class="meta">{item.category}</span>
         <p>{item.summary}</p>
       </li>)}
