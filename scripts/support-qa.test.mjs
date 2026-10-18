@@ -5,6 +5,8 @@ import path from "node:path";
 
 const root = "src/content/cases";
 const read = (name) => fs.readFileSync(`${root}/customer-support-ai-dx${name ? `/${name}` : ""}.md`, "utf8");
+const detailId = "evaluation-hitl/customer-support-qa-poc";
+const readDetail = () => fs.readFileSync(`src/content/${detailId}.md`, "utf8");
 
 test("support QA presents the proposal, system architecture decisions and feasibility outlook", () => {
   const overview = read("");
@@ -16,8 +18,8 @@ test("support QA presents the proposal, system architecture decisions and feasib
     assert(overview.includes(text), text);
   assert(introduction.includes("企画部門から業務改善の提案を受け"));
   assert(introduction.includes("実現に向けた見込みが立ちました"));
-  assert(poc.includes("対象機種メタデータで検索対象を制御"));
-  assert(poc.includes("検証する事項"));
+  assert(poc.includes("検索対象の適格性と、自動回答の許可は別々に制御"));
+  assert(poc.includes("本格開発へ進める方式と判断"));
   assert(knowledge.includes("機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAG"));
   assert(!overview.includes("SAとして"));
 });
@@ -25,11 +27,11 @@ test("support QA presents the proposal, system architecture decisions and feasib
 test("support QA labels scenario evaluation separately from production achievements", () => {
   const base = path.join(root, "customer-support-ai-dx");
   const chapters = fs.readdirSync(base).filter((entry) => entry.endsWith(".md"));
-  const contents = [read(""), ...chapters.map((file) => read(file.slice(0, -3)))].join("\n");
+  const contents = [read(""), ...chapters.map((file) => read(file.slice(0, -3))), readDetail()].join("\n");
   assert(!/原典|原点|母艦|論述資料|補足設計|R[1-7]-[1-2]|\.md\b/.test(contents));
   assert(read("").includes("設計を検討する検証シナリオ"));
-  assert(read("poc-evaluation").includes("本人が実業務で測定した成果や、本番運用の自己解決率としては扱いません"));
-  assert(read("poc-evaluation").includes("検証シナリオの再検証結果"));
+  assert(readDetail().includes("本人が実業務で測定した成果や、本番運用の自己解決率としては扱いません"));
+  assert(readDetail().includes("検証シナリオの再検証結果"));
   assert(!/本番導入済み|実測で達成|導入成果を達成/.test(contents));
 });
 
@@ -51,7 +53,7 @@ test("qualification plan covers three processing paths and separates tester chec
     "完全一致では品質を判定できません", "専門知識が必要な項目だけ", "未解決事項", "引継ぎ理由"])
     assert(plan.includes(text), text);
   assert(!/500件.*(?:実施した|完了した|達成した)/.test(plan));
-  assert(plan.includes("方式の成立性と、構築するシステムの適格性"));
+  assert(poc.includes("方式の成立性と、構築するシステムの適格性"));
   const handoff = read("human-handoff");
   for (const text of ["一次調査", "調査結果", "未解決事項から", "顧客へ回答する", "AIの推測を事実として扱わない"])
     assert(handoff.includes(text), text);
@@ -76,11 +78,38 @@ test("support case consistently starts from manual work and a newly developed cu
 
 test("qualification test design fixes inputs, automates objective checks and separates acceptance", () => {
   const plan = read("poc-evaluation").split("## システム適格性確認テスト：")[1];
-  for (const term of ["入力データ", "Knowledge", "メタデータ", "モデル・指示文", "期待結果・実行記録", "自動照合", "自動回答80％以上", "適切な有人引継ぎ100％", "経路1・2", "経路3", "顧客提示可能", "実施結果・合格結果は確認できない"]) assert(plan.includes(term), term);
-  assert(plan.includes("PoCで96％が得られた記述を、そのまま適格性確認テストの合格結果へ転用しません"));
-  assert(read("poc-evaluation").includes("自動回答可能率」という別の評価記述"));
+  for (const term of ["入力データ", "参照資料", "メタデータ", "モデル・指示文", "期待結果・実行記録", "自動照合", "自動回答80％以上", "適切な有人引継ぎ100％", "経路1・2", "経路3", "顧客提示可能", "実施結果・合格結果は確認できない"]) assert(plan.includes(term), term);
+  assert(plan.includes("PoCの結果を適格性確認テストの合格結果へ転用しません"));
   assert(read("continuous-improvement").includes("引継ぎ後の対応工数"));
   assert(read("continuous-improvement").includes("重複質問"));
+});
+
+test("operation changes pair each problem with a specific action and acceptance condition", () => {
+  const operation = read("continuous-improvement");
+  const rows = tableRows(operation.split("| 問題が起きた箇所 |")[1]);
+  const changes = rows.filter(row => !row.every(cell => /^-+$/.test(cell)));
+  assert.equal(changes.length, 6);
+  for (const row of changes) {
+    assert.equal(row.length, 3);
+    assert(row.every(cell => cell.length > 10), row.join(" | "));
+  }
+  assert(changes.at(-1)[1].includes("CS部") && changes.at(-1)[1].includes("設計・開発側"));
+  assert(changes.at(-1)[2].includes("自動回答を許可した問い合わせだけ"));
+  assert(changes.at(-1)[2].includes("調査結果を担当者へ引き継げる"));
+  assert(!/Failureの所在|Retrieval不良|Generation逸脱|Packet|Ranking|Chunk/.test(operation));
+});
+
+test("stop reasons explain retained facts rather than presenting implementation codes", () => {
+  const stop = read("stopping-conditions");
+  const rows = tableRows(stop.split("| 段階 |")[1]).filter(row => !row.every(cell => /^-+$/.test(cell)));
+  assert.equal(rows.length, 6);
+  for (const row of rows) assert(row.length === 3 && row.every(cell => cell.length > 2));
+  assert.deepEqual(rows.map(row => row[0]), ["問い合わせ内容の確認", "参照資料の検索", "回答根拠の確認", "自動回答の可否判定", "専門判断の必要性確認", "回答内容の確認"]);
+  assert(!/target_unresolved|evidence_missing|evidence_conflict|human_judgment_required|unsupported_claim/.test(stop));
+  assert(stop.includes("AIの自己評価と、検索結果の類似度は異なる情報"));
+  assert(stop.includes("スコアの高さだけでは、回答の正しさや自動回答の許可を保証できません"));
+  assert(stop.includes("機種・環境・版数と、回答項目の許可・適用条件"));
+  assert(stop.includes("CS部が専門調査と判断を引き継ぎます"));
 });
 
 test("scenario inquiry categories reconcile annual volume, monthly workload and the target", () => {
@@ -99,7 +128,7 @@ test("scenario inquiry categories reconcile annual volume, monthly workload and 
 });
 
 test("PoC samples, stage results and projections retain their distinct denominators", () => {
-  const poc = read("poc-evaluation");
+  const poc = readDetail();
   const rows = tableRows(poc);
   assert(poc.includes("1,000件") && poc.includes("定型回答可能500件、専門判断が必要400件、回答根拠不足100件"));
   assert.equal(500 + 400 + 100, 1000);
@@ -120,5 +149,24 @@ test("PoC samples, stage results and projections retain their distinct denominat
   assert(poc.includes("将来の全問い合わせで誤回答が起こらない保証ではありません"));
   assert(poc.includes("Precision@k等の指標へ読み替えず"));
   assert(poc.includes("追加負荷を含む総工数も未確認"));
-  assert(poc.includes("独立した適格性確認テスト計画"));
+});
+
+test("PoC detail remains a complementary article outside the ten-chapter Case", () => {
+  const chapter = read("poc-evaluation");
+  const article = readDetail();
+  assert(chapter.includes(`](/${detailId}/)`));
+  assert(article.includes("](/cases/customer-support-ai-dx/)"));
+  assert(article.includes("](/cases/customer-support-ai-dx/poc-evaluation/)"));
+  assert.match(article, /^publication_format: article$/m);
+  assert.match(article, /^kind: guide$/m);
+  assert.match(article, /^section: evaluation-hitl$/m);
+  assert(!/^series:|^series_title:/m.test(article));
+  assert(!/^kind: case$/m.test(article));
+  assert(!/^\|.*(?:72％|96％|480／500|0／400|280時間)/m.test(chapter));
+  for (const id of ["support-poc-checks", "support-poc-evaluation"]) {
+    assert(article.includes(`data-case-diagram="${id}"`));
+    assert(!chapter.includes(`data-case-diagram="${id}"`));
+  }
+  assert(chapter.includes('data-case-diagram="support-validation-stages"'));
+  assert(chapter.length < article.length);
 });

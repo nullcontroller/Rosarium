@@ -820,7 +820,7 @@ assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
     '.book-toc a[aria-current="page"]',
   ).text(),
-  "03. PoCで「使えるか」をどう判断したか",
+  "03. 方式の検証とシステムの適格性確認",
 );
 assert(
   customerSupportBook("main")
@@ -1008,7 +1008,7 @@ assert.deepEqual(routes.last().find("[data-support-step]").map((_, node) => comp
 assert.equal(page("cases/customer-support-ai-dx/why-ai")(".support-table tbody tr").length, 5);
 assert.equal(page("cases/customer-support-ai-dx/responsibility-boundary")(".support-table tbody tr").length, 3);
 assert.equal(page("cases/customer-support-ai-dx/stopping-conditions")(".support-checks > li").length, 3);
-assert.equal(page("cases/customer-support-ai-dx/poc-evaluation")('[data-explanation-id="support-poc-checks"] tbody tr').length, 5);
+assert.equal(page("evaluation-hitl/customer-support-qa-poc")('[data-explanation-id="support-poc-checks"] tbody tr').length, 5);
 assert.equal(page("cases/customer-support-ai-dx/human-handoff")('[data-explanation-id="support-handoff-information"] tbody tr').length, 7);
 assert.equal(page("about")('meta[http-equiv="refresh"]').length, 0);
 assert(!page("about")('meta[name="robots"]').attr("content")?.includes("noindex"));
@@ -1118,7 +1118,14 @@ assert(supportOverview('.prose').index() < supportOverview('[data-content-histor
 assert.equal(supportOverview('[data-support-dx]').length, 1);
 
 const revisedPoc = page('cases/customer-support-ai-dx/poc-evaluation');
-for (const value of ['1,000件', '検証シナリオの再検証結果', '72％ → 98％', '480／500件', '0／400件', '改善後280時間／月の試算', '追加負荷を含む総工数も未確認']) assert(revisedPoc('.prose').text().includes(value), value);
+const pocDetail = page('evaluation-hitl/customer-support-qa-poc');
+for (const value of ['1,000件', '検証シナリオの再検証結果', '72％ → 98％', '480／500件', '0／400件', '改善後280時間／月の試算', '追加負荷を含む総工数も未確認']) assert(pocDetail('.prose').text().includes(value), value);
+assert(revisedPoc('.prose a[href="/evaluation-hitl/customer-support-qa-poc/"]').length);
+assert(pocDetail('.prose a[href="/cases/customer-support-ai-dx/poc-evaluation/"]').length);
+assert.equal(revisedPoc('[data-explanation-id="support-poc-checks"], [data-explanation-id="support-poc-evaluation"]').length, 0);
+assert.equal(pocDetail('[data-explanation-id="support-poc-evaluation"]').length, 1);
+assert.equal(pocDetail('.book-toc, .pagination').length, 0);
+assert.equal(cases('.case-study-index').length, 3);
 assert(page('cases/customer-support-ai-dx')('.prose').text().includes('設計を検討する検証シナリオ'));
 const revisedSupportDiagram = page('cases/customer-support-ai-dx')('[data-support-dx]');
 assert(revisedSupportDiagram.find('[data-support-step="search"]').text().includes('判定A'));
