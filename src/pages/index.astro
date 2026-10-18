@@ -17,8 +17,8 @@ const recent = recentGrowth.slice(0, 3);
       navigationPath=""
       title="Rosarium"
       summaryParagraphs={[
-        "Rosariumは、立林裕太朗個人の技術サイトです。",
-        "2016年からのC# / .NETによるWindowsソフトウェア開発・保守を基盤に、要件定義・システム設計、Applied AIに取り組んでいます。\n既存システムの理解・改善と、AIを業務へ組み込む設計の知識と実践事例を整理しています。",
+        "既存ソフトウェアの問題を調べ、設計・改修・検証につなぐ。",
+        "立林裕太朗は、2016年からC# / .NETによるWindowsソフトウェアを開発・保守。AIを調査に活用し、コードと仕様を確認して要件整理から設計・実装・評価までつなぎます。",
       ]}
     >
       <p class="meta">
@@ -29,7 +29,7 @@ const recent = recentGrowth.slice(0, 3);
     </PageHeader>
     <aside class="home-career" aria-labelledby="home-career-heading">
       <h2 class="eyebrow" id="home-career-heading">PROFILE / CAREER</h2>
-      <p class="career-overview"><span>AI・人間・既存システムの役割を整理し、</span><span>業務要求から要件・設計・運用までをつなぐ仕組みを考えています。</span><span>仕事の考え方と専門性を紹介します。</span></p>
+      <p class="career-overview"><span><strong>仕様書の問題約40件を確認。保守開発を内製。</strong></span><span>担当経験と実務成果、今後の方向性を紹介します。</span></p>
       <a class="cta-link" href={url("career")}>キャリアを見る <span aria-hidden="true">→</span></a>
     </aside>
   </div>
@@ -38,17 +38,17 @@ const recent = recentGrowth.slice(0, 3);
     <SectionHeading icon="cases" title="代表実績・設計事例" id="home-cases-heading" />
     <section aria-labelledby="featured-case-heading">
       <p class="eyebrow">{featuredCaseHighlights[0].category}</p>
-      <h3 id="featured-case-heading"><a href={url(featuredCaseHighlights[0].id)}>生成AI / RAGによる顧客サポートDX</a></h3>
-      <p>{featuredCaseHighlights[0].summary}</p>
-      <p class="meta">要求から機能分担・検索対象制御・停止条件・評価条件を具体化した方式設計です。</p>
+      <h3 id="featured-case-heading"><a href={url(featuredCaseHighlights[0].id)}>{featuredCaseHighlights[0].title}</a></h3>
+      <p><strong>{featuredCaseHighlights[0].summary}</strong></p>
     </section>
-    <h3>設計を支える実務実績</h3>
+    <h3>開発・保守とシステム設計</h3>
     <ul>
       {featuredCaseHighlights.slice(1).map((item) => <li>
         <a href={url(item.id)}>{item.title}</a> <span class="meta">{item.category}</span>
         <p>{item.summary}</p>
       </li>)}
     </ul>
+    <p class="meta"><a href={url("software-engineering/engineering-judgment-in-ai-code-review")}>AIで調査候補を絞り、終了処理の順序から問題箇所を特定した経験</a></p>
   </section>
   <section class="home-section home-panel home-garden-notes" aria-labelledby="recent-growth-heading">
     <SectionHeading icon="updates" eyebrow="GARDEN NOTES" title="最近の手入れ" id="recent-growth-heading" />
@@ -77,7 +77,7 @@ const recent = recentGrowth.slice(0, 3);
   @media (min-width: 1100px) {
     .home-hero-layout { grid-template-columns: minmax(0, 1fr) 34rem; max-width: 84rem; margin-inline: auto; }
     .home-career { justify-self: end; width: 100%; }
-    .career-overview > span { white-space: nowrap; }
+
   }
   @media (max-width: 800px) {
     .home-hero-layout { grid-template-columns: minmax(0, 1fr); gap: .75rem; }

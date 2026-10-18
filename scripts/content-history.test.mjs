@@ -19,7 +19,9 @@ test("publication starts history and preserves original date precision", () => {
 
 test("new publication is not duplicated as a revision; revisions stay chronological", () => {
   const events = contentHistory("cases/specification-debt-review", { published_at: "2026-10-07" });
-  assert.equal(events.length, 2);
+  assert.equal(events.length, 3);
+  assert.equal(events[2].date, "2026-10-19");
+  assert.equal(events[2].type, "revised");
   assert.equal(events[0].type, "published");
   assert.equal(events[1].date, "2026-10-08");
   assert.equal(events[1].type, "revised");

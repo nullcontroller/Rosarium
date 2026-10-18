@@ -43,6 +43,14 @@ export const growthPublishedTargets = (entry: RecentGrowthItem): string[] =>
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-19", type: "revised", title: "実務成果と担当経験から読めるポートフォリオへ整理",
+    changes: [
+      { action: "revised", text: "改訂。担当できる仕事と確認済みの成果を先に示し、仕様書レビュー・保守開発の実務実績と顧客サポートQAの設計事例を区別。Careerの強みと今後の方向性、各事例の成果と比較条件を整理した", contentIds: ["career/overview", "cases/specification-debt-review", "cases/three-ai-maintenance"] },
+    ],
+    summaryChanges: ["担当経験・確認済みの成果から実務事例へ進める入口に整理", "実務実績、設計・検証シナリオ、今後の方向性を区別"],
+    category: "Rosarium", icon: "updates",
+  },
+  {
     date: "2026-10-18", type: "revised", title: "顧客サポートDXを代表設計事例として整理",
     changes: [
       { action: "revised", text: "改訂。顧客サポートDXを代表設計事例として先頭に置き、Book冒頭の業務要求・担当範囲・方式判断・到達点とCareerの実績紹介を整理した。新規QAの二段階制御とPoCによる方式改善を中心に、本編と検証詳細の補完記事を分け、効果試算を本番実測と区別した。初回PoCの目標未達・誤自動回答を原因分析と二段階制御の改善へつなげ、再検証結果を明確にした", contentIds: ["cases/customer-support-ai-dx", "career/overview", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/continuous-improvement", "cases/customer-support-ai-dx/design-principles", "cases/customer-support-ai-dx/customer-experience"] },

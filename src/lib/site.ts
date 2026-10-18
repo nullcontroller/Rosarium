@@ -26,7 +26,7 @@ export const sections = [
 ] as const;
 export const base = "";
 export const siteDescription =
-  "Rosariumは、立林裕太朗個人の技術サイトです。AIを主軸に、システム企画・業務要件、アーキテクチャ、ソフトウェア開発の知識と実践事例を整理する技術ポートフォリオです。";
+  "立林裕太朗の技術ポートフォリオ。2016年からのC# / .NETによるWindowsソフトウェア開発・保守を基盤に、既存コードの調査、仕様書レビュー、要件整理・設計・実装・評価とAI活用の実務成果を紹介します。";
 
 // Reader-facing introductions are shared by page headings and SEO descriptions.
 export const pageIntroductions: Record<string, string> = {
@@ -47,7 +47,7 @@ export const pageIntroductions: Record<string, string> = {
   practices:
     "AIを現場で使い続けるために、教え方、情報の渡し方、確認の手順を考えます。導入・教育・開発・組織での実践を扱います。",
   cases:
-    "実際の業務課題に対して、何を変え、なぜその設計を選んだかをまとめています。現在の主要事例を掲載しています。",
+    "仕様書レビューと保守開発の実務成果、顧客サポートQAの設計事例を紹介します。本人の担当・判断・確認できた結果を事例ごとに示します。",
   books:
     "業務の課題から、設計・確認・改善までを章ごとに追う実務事例です。現在の主要事例から、判断の理由と役割分担を確かめられます。",
   dx: "価値設計、業務変革、選択と廃止、システム変革、継続的価値創出。DXを技術導入ではなく、業務・サービス・システムの変化として考えるための記事を整理しています。",
@@ -75,7 +75,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   // Retired Details compatibility redirect; excluded from the sitemap.
   "career/details": "2026-10-04",
   // Site-wide last public change; independent of Garden Notes and individual page histories.
-  "": "2026-10-18",
+  "": "2026-10-19",
   ai: "2026-10-17",
   "ai-design": "2026-10-10",
   "ai-design/applicability": "2026-10-08",
@@ -87,7 +87,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "ai-design/lifecycle-operations": "2026-10-08",
   "ai-mathematics": "2026-10-04",
   books: "2026-10-05",
-  cases: "2026-10-12",
+  cases: "2026-10-19",
   dx: "2026-10-10",
   planning: "2026-10-10",
   "dx/value-design": "2026-10-03",
@@ -99,7 +99,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   practices: "2026-10-16",
   reference: "2026-10-04",
   series: "2026-10-04",
-  "start-here": "2026-10-10",
+  "start-here": "2026-10-19",
   architecture: "2026-10-04",
   "knowledge-context": "2026-10-04",
   "software-engineering": "2026-10-04",
@@ -109,12 +109,12 @@ export const staticPageLastUpdated: Record<string, string> = {
   career: "2026-10-04",
   "career/profile": "2026-09-28",
   search: "2026-09-28",
-  about: "2026-10-10",
+  about: "2026-10-19",
   retired: "2026-10-05",
   "retired/obsolete": "2026-10-05",
   "retired/obsolete-cases": "2026-10-05",
   "retired/retired": "2026-10-05",
-  "garden-notes": "2026-10-18",
+  "garden-notes": "2026-10-19",
   articles: "2026-10-04",
   overview: "2026-09-28",
   updates: "2026-09-28",

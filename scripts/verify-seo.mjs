@@ -206,8 +206,8 @@ for (const [route, destination] of [["practices/ai-education-principles","practi
 const home = load(fs.readFileSync("dist/index.html", "utf8"));
 assert.equal(home("title").text(), "Rosarium | 立林 裕太朗");
 const homeDescription = home('meta[name="description"]').attr("content");
-assert(homeDescription.includes("立林裕太朗個人の技術サイト"));
-assert(homeDescription.includes("システム企画・業務要件"));
+assert(homeDescription.includes("立林裕太朗の技術ポートフォリオ"));
+assert(homeDescription.includes("2016年からのC# / .NET"));
 for (const [selector, expected] of [
   ['meta[property="og:title"]', home("title").text()],
   ['meta[name="twitter:title"]', home("title").text()],

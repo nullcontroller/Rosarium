@@ -1,12 +1,12 @@
 ---
-summary: "仕様・コード・過去背景を参照できるAIを使い分け、調査から実装までをつないだ保守事例です。成果物の受け渡しごとに人間が前提を確認し、AIを使える業務範囲を広げました。"
+summary: "要件整理から単体テストまで内製し、外部委託を不要にした保守事例です。開発期間は当初想定との比較で約7割短縮。複数AIの調査支援と、人間の仕様・異常系の判断をつなぎました。"
 publication_format: book
 layer: publication
 title: 複数AIを使い分けるレガシー保守
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-10-19"
 entry_points:
   - ai
   - dx
@@ -19,7 +19,7 @@ tags: &a1
   - hitl
   - 保守開発
 published_at: "2026-07"
-updated_at: "2026-09-22"
+updated_at: "2026-10-19"
 canonical: https://zenn.dev/nullcontroller/books/b9a9feaefb4001
 source:
   type: zenn
@@ -71,6 +71,9 @@ cover: /assets/cases/three-ai-maintenance-hero.jpg
 show_cover: false
 cover_alt: 複数AIを仕様調査・コード探索・実装支援へ分担し、人間がレビューと最終判断を行う保守フロー
 ---
+
+**要件整理から単体テストまで内製し、外部委託を不要にした。開発期間は当初想定との比較で約7割短縮した。** 複数AIを使って調査・仕様検討・実装を進め、人間が前提と採否を確認した保守事例である。各AIや個別工程だけの効果を切り分けた値ではない。
+
 ## 暗号方式の変更を、保守工程全体の問題として捉える
 
 CRA対応に伴うセキュリティ要件の強化を契機に、既存システムの暗号処理と異常系を見直した。対象はパスワードを暗号化してレジストリへ保存し、利用時に読み出して復号する仕組みだった。

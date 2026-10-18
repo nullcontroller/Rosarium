@@ -12,8 +12,8 @@ test("Career emphasis renders without literal Markdown delimiters", async () => 
   const processor = await createMarkdownProcessor({ remarkPlugins: [directive, semanticDirectives] });
   const { code } = await processor.render(body);
   const $ = load(code);
-  assert.equal($("strong").filter((_, node) => $(node).text() === "技術専門職").length, 1);
-  assert.match(code, /<strong>技術専門職<\/strong>（Individual Contributor）/);
+  assert.equal($("strong").filter((_, node) => $(node).text().includes("技術専門職")).length, 1);
+  assert.match(code, /<strong>要件整理、AIの業務適用、既存システムの改善を継続的に担う技術専門職<\/strong>/);
   assert.equal($.text().includes("**"), false);
   assert.equal($("strong a[href*='linkedin.com']").length, 1);
 });

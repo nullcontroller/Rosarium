@@ -151,12 +151,12 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file
 assert.equal(top(".entrance-hero-actions a").length, 2);
 assert.equal(top('.entrance-hero-actions a[href="/about/"]').length, 1);
 assert.equal(top('.entrance-hero-actions a[href="/cases/"]').length, 1);
-assert(top(".entrance-hero > .lead").text().includes("2016年からのC# / .NET"));
+assert(top(".entrance-hero > .lead").text().includes("2016年からC# / .NET"));
 assert(
-  top(".entrance-hero > .lead").text().includes("要件定義・システム設計、Applied AI"),
+  top(".entrance-hero > .lead").text().includes("要件整理から設計・実装・評価"),
 );
 assert(!top("main").text().includes("Applied AI / System Architecture"));
-assert(top(".entrance-hero > .lead").text().includes("知識と実践事例"));
+assert(top(".entrance-hero > .lead").text().includes("コードと仕様を確認"));
 assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
@@ -213,6 +213,7 @@ assert.equal(top(".sidebar .nav-children .icon").length, 0);
 assert.equal(top(".sidebar").length, 1);
 assert.equal(career(".sidebar").length, 0);
 assert.equal(career("#page-toc-tab").length, 1);
+assert.equal(career("details[data-page-heading-toc][open]").length, 0, "Career introduction must precede an expanded mobile TOC");
 assert.equal(career("#reference-sidebar-tab").length, 0);
 assert.equal(career(".global-search").length, 1);
 assert.equal(career(".header-primary").length, 1);
@@ -415,7 +416,7 @@ assert(dxEssay('[data-related-content] a').length <= 4);
 const cases = page("cases");
 assert.deepEqual(
   cases("[data-series-index]").map((_, element) => cases(element).attr("data-series-index")).get(),
-  ["cases/customer-support-ai-dx", "cases/specification-debt-review", "cases/three-ai-maintenance"],
+  ["cases/specification-debt-review", "cases/three-ai-maintenance", "cases/customer-support-ai-dx"],
 );
 assert.equal(cases(".case-reference-note").length, 0);
 assert.equal(cases("#active-cases .case-study-index").length, 3);
@@ -429,7 +430,7 @@ for (const id of ["specification-debt-review", "three-ai-maintenance", "customer
 }
 assert(caseHighlights.text().includes("実務実績"));
 assert(caseHighlights.text().includes("設計事例"));
-assert(caseHighlights.text().includes("自己解決と専門対応を両立するQAの方式を設計しました"));
+assert(caseHighlights.text().includes("自己解決と専門対応を両立する設計・検証シナリオ"));
 
 
 
@@ -530,9 +531,9 @@ assert.equal(
   0,
 );
 const expectedBooks = [
-  "cases/customer-support-ai-dx",
   "cases/specification-debt-review",
   "cases/three-ai-maintenance",
+  "cases/customer-support-ai-dx",
 ];
 for (const route of ["cases"]) {
   const $ = page(route);
@@ -1006,7 +1007,7 @@ for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "
 }
 assert.equal(page("about")('main h2').filter((_, node) => page("about")(node).text() === "次に読む").length, 0);
 assert.equal(page("about")('main a[href="/"]').text(), "庭に戻る");
-assert.equal(page("")('.home-career .career-overview').text(), 'AI・人間・既存システムの役割を整理し、業務要求から要件・設計・運用までをつなぐ仕組みを考えています。仕事の考え方と専門性を紹介します。');
+assert.equal(page("")('.home-career .career-overview').text(), '仕様書の問題約40件を確認。保守開発を内製。担当経験と実務成果、今後の方向性を紹介します。');
 assert.equal(page("")('.home-career .career-background').length, 0);
 assert.equal(page("")('.home-career a').text(), 'キャリアを見る →');
 assert.equal(page("")('.home-career .meaning-line').length, 0);
@@ -1082,10 +1083,10 @@ for (const [id, data] of entries) {
 console.log("Verified AI article links inside existing themes without a standalone new-article section.");
 
 // The same representative order is visible at all three reader entry points.
-const representativeUrls = ["/cases/customer-support-ai-dx/", "/cases/specification-debt-review/", "/cases/three-ai-maintenance/"];
-assert.deepEqual(top('[aria-labelledby="home-cases-heading"] a').map((_, el) => top(el).attr('href')).get(), representativeUrls);
-assert.equal(cases('.case-highlight-list a').first().attr('href'), '#case-customer-support-ai-dx');
-assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'cases/customer-support-ai-dx');
+const representativeUrls = ["/cases/specification-debt-review/", "/cases/three-ai-maintenance/", "/cases/customer-support-ai-dx/"];
+assert.deepEqual(top('[aria-labelledby="home-cases-heading"] a[href^="/cases/"]').map((_, el) => top(el).attr('href')).get(), representativeUrls);
+assert.equal(cases('.case-highlight-list a').first().attr('href'), '#case-specification-debt-review');
+assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'cases/specification-debt-review');
 // Keep source block order visible even when semantic directive class naming changes.
 const careerAllCaseUrls = page('career')('.prose a[href^="/cases/"]').map((_, el) => page('career')(el).attr('href')).get();
 assert.deepEqual(careerAllCaseUrls.filter(href => representativeUrls.includes(href)).slice(0, 3), representativeUrls);
@@ -1121,3 +1122,21 @@ for (const value of ['検索対象の適格性と、自動回答の許可を分�
   assert(supportOverview('.prose strong').toArray().some(el => supportOverview(el).text().includes(value)), value);
 for (const value of ['480／500件', '0／400件', '72％ → 98％'])
   assert(pocDetail('.prose table strong').toArray().some(el => pocDetail(el).text().includes(value)), value);
+
+// Recruiter entrances show confirmed work before design scenarios, with scope intact.
+for (const route of ['', 'career', 'cases']) {
+  const $ = page(route);
+  for (const value of ['約40件', '約7割', '当初想定']) assert($('main').text().includes(value), route+': '+value);
+  assert($('main').text().includes('設計事例'), route);
+}
+const judgmentRoute = '/software-engineering/engineering-judgment-in-ai-code-review/';
+for (const route of ['', 'career']) assert(page(route)(`main a[href="${judgmentRoute}"]`).length, route);
+const careerIntro = page('career')('.prose').text().split('技術的バックグラウンド')[0];
+for (const value of ['既存ソフトウェアの問題', '要件整理から実装・評価', '自分で行います']) assert(careerIntro.includes(value), value);
+assert(!page('career')('.prose').text().includes('FDE'));
+assert(page('career')('.prose').text().includes('設計事例（検証シナリオ）'));
+for (const route of ['about', 'start-here']) {
+ const $ = page(route);
+ for (const target of ['career','cases']) assert($(`main a[href="/${target}/"]`).length, route+': '+target);
+}
+console.log('Verified recruiter reading routes, consistent evidence order and work/scenario distinctions.');

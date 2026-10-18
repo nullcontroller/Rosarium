@@ -253,7 +253,7 @@ const caseStudyEntries: CaseStudy[] = [
     referenceNote: "実務実績",
     topics: ["Documentation Debt", "Context / Human Review"],
     challenge: "変換レビューで、長期保守された仕様書と現在の実装の整合確認が必要になった。",
-    designSummary: "仕様書と現在のコードをAIが横断調査し、人間がEvidenceとBefore / Afterを確認して変更を判断した。",
+    designSummary: "仕様書と現在のコードをAIが横断調査し、人間が根拠と変更前後を確認して修正を判断した。",
     result: "約40件の問題を確認し、修正するものと現状維持するものを人間が判断した。工数削減率は未測定。",
     chapters: [],
     design: ["knowledge-context/context-before-model-performance", "evaluation-hitl/responsibility-and-hitl"],
@@ -323,9 +323,9 @@ const caseStudyEntries: CaseStudy[] = [
   },
 ];
 export const representativeCaseIds = [
-  "cases/customer-support-ai-dx",
   "cases/specification-debt-review",
   "cases/three-ai-maintenance",
+  "cases/customer-support-ai-dx",
 ] as const;
 export const representativeCaseRank = (id: string) => {
   const rank = representativeCaseIds.indexOf(id as typeof representativeCaseIds[number]);
@@ -372,19 +372,19 @@ const caseHighlights = [
     id: "cases/specification-debt-review",
     title: "仕様書横断レビュー",
     category: "実務実績",
-    summary: "仕様書とコードを横断レビューし、約40件の問題を確認。根拠をもとに修正と現状維持を判断しました。",
+    summary: "68ファイル・約3万文字の仕様書をAIと現在のコードで照合し、約40件の問題を確認。修正と現状維持を人間が判断しました。",
   },
   {
     id: "cases/three-ai-maintenance",
     title: "複数AIを使い分けたレガシー保守",
     category: "実務実績",
-    summary: "暗号処理・異常系の保守を複数AIと人間の確認で内製し、外部委託を不要にしました。",
+    summary: "要件整理から単体テストまで内製し、外部委託を不要にしました。開発期間は当初想定との比較で約7割短縮しました。",
   },
   {
     id: "cases/customer-support-ai-dx",
     title: "顧客サポートQAの要件・方式設計",
     category: "代表設計事例",
-    summary: "業務要求を、追加質問・検索・RAG・有人引継ぎへ具体化。検索対象の適格性と回答許可を分け、自己解決と専門対応を両立するQAの方式を設計しました。",
+    summary: "業務要求をシステム要件・機能分担・処理方式・評価条件へ具体化。自己解決と専門対応を両立する設計・検証シナリオです。",
   },
 ] as const;
 

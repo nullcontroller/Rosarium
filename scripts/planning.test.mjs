@@ -48,7 +48,7 @@ test("planning publication and Career aspirations retain distinct histories", ()
   const events = contentHistory("career/overview", data);
   assert.equal(events[0].date, "2026-09-23");
   assert(events.some(event => event.date === "2026-10-12"));
-  assert.equal(events.at(-1).date, "2026-10-18");
+  assert.equal(events.at(-1).date, "2026-10-19");
   assert(events.some(event => event.text?.includes("今後深めたい")));
   const direction = text.split("## 今後広げたい判断領域")[1]?.split("\n## ")[0];
   assert(direction, "Career must have a forward-looking planning direction");

@@ -1,13 +1,13 @@
 ---
 title: "3万文字・68ページの仕様書をAIで横断レビューする"
-summary: "分割されたMarkdown仕様書をPythonで統合し、GitHub Copilotで横断レビューした実務事例です。現在のコードを正本に仕様書を照合し、コードだけでは決まらない部分を人間が判断して、最終修正を行いました。"
+summary: "68ファイル・約3万文字の仕様書をAIと現在のコードで照合し、約40件の問題を確認した実務事例です。人間が根拠を確認し、修正と現状維持を判断しました。"
 layer: case
 kind: case
 section: cases
 status: published
 lifecycle: active
-last_updated: "2026-10-08"
-updated_at: "2026-10-08"
+last_updated: "2026-10-19"
+updated_at: "2026-10-19"
 update_type: revised
 published_at: "2026-10-07"
 entry_points: [ai, dx]
@@ -15,6 +15,8 @@ primaryCategory: system-transformation
 secondaryCategories: [continuous-value]
 tags: [ドキュメントの負債, コンテキスト設計, HITL, 保守開発]
 ---
+
+**68ファイル・約3万文字の仕様書を現行コードと照合し、約40件の問題を確認した。** AIによる横断調査と、人間による根拠確認・修正判断を組み合わせた実務事例である。従来手法との工数削減率は評価していない。
 
 ## 背景
 
