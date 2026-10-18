@@ -36,7 +36,7 @@ test("support explanations separate comparison, functional selection, responsibi
 });
 
 test("support explanations stay Japanese, static and distinguish design from public production results", () => {
-  assert.equal(support.length, 12);
+  assert.equal(support.length, 11);
   for (const [id, model] of support) {
     assert(model.title && model.description && model.explanation.note && model.explanation.scope, id);
     assert(!model.edges?.length && !model.messages?.length, `${id}: no overloaded SVG edges`);
@@ -55,16 +55,9 @@ test("support explanations stay Japanese, static and distinguish design from pub
   }
 });
 
-test("validation stages distinguish pre-development exploration from system acceptance", () => {
-  const phases = caseDiagrams["support-validation-stages"].explanation;
-  assert.equal(phases.format, "table");
-  assert.equal(phases.records.length, 2);
-  assert(phases.records[0][0].includes("本格開発前"));
-  assert(phases.records[0][1].includes("1,000件"));
-  assert(phases.records[1][0].includes("開発後"));
-  assert(phases.records[1][1].includes("独立した500件"));
-  assert(phases.records[1][2].includes("80％以上") && phases.records[1][2].includes("100％"));
-  assert(phases.note.includes("合格へ転用しません"));
+test("removed validation-stage comparison is no longer registered", () => {
+  assert.equal(caseDiagrams["support-validation-stages"], undefined);
+  assert(caseDiagrams["support-poc-checks"] && caseDiagrams["support-poc-evaluation"]);
 });
 
 test("comparison forks from one decision into automatic reply and continued human investigation", () => {

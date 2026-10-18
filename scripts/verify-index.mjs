@@ -446,7 +446,7 @@ for (const id of ["specification-debt-review", "three-ai-maintenance", "customer
 }
 assert(caseHighlights.text().includes("実務実績"));
 assert(caseHighlights.text().includes("設計事例"));
-assert(caseHighlights.text().includes("目標実現の見込みを立てました"));
+assert(caseHighlights.text().includes("自己解決と専門対応を両立するQAの方式を設計しました"));
 
 
 
@@ -820,7 +820,7 @@ assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
     '.book-toc a[aria-current="page"]',
   ).text(),
-  "03. 方式の検証とシステムの適格性確認",
+  "03. PoCによる方式の検証",
 );
 assert(
   customerSupportBook("main")
@@ -984,8 +984,11 @@ for (const id of ["system-understanding", "three-ai-maintenance", "specification
  assert($("[data-case-flow] desc").text());
  for(const link of $("[data-case-flow] [data-node]").toArray()) assert($( $(link).attr("href") ).length);
 }
-for (const slug of ["why-ai", "responsibility-boundary", "poc-evaluation", "knowledge-design", "stopping-conditions", "human-handoff", "continuous-improvement", "executive-summary"]) {
- const $ = page("cases/customer-support-ai-dx/" + slug);
+for (const route of [
+ ...["why-ai", "responsibility-boundary", "knowledge-design", "stopping-conditions", "human-handoff", "continuous-improvement", "executive-summary"].map(slug => "cases/customer-support-ai-dx/" + slug),
+ "evaluation-hitl/customer-support-qa-poc",
+]) {
+ const $ = page(route);
  assert($("[data-explanation-id]").length >= 1);
  assert.equal($("[data-explanation-id] svg, [data-explanation-id] [hidden], [data-explanation-id] button").length, 0);
  for (const figure of $("[data-explanation-id]").toArray()) {
@@ -1130,3 +1133,16 @@ assert(page('cases/customer-support-ai-dx')('.prose').text().includes('設計を
 const revisedSupportDiagram = page('cases/customer-support-ai-dx')('[data-support-dx]');
 assert(revisedSupportDiagram.find('[data-support-step="search"]').text().includes('判定A'));
 assert(revisedSupportDiagram.find('[data-support-step="decision"]').text().includes('判定B'));
+
+for (const route of ['cases/customer-support-ai-dx', 'cases/customer-support-ai-dx/poc-evaluation', 'evaluation-hitl/customer-support-qa-poc']) {
+  const $ = page(route);
+  assert(!/適格性確認テスト|システムの適格性確認|テスター|自動照合/.test($('.prose').text()), route);
+  assert.equal($('[data-explanation-id="support-validation-stages"]').length, 0);
+}
+for (const value of ['定型回答可能500件、専門判断が必要400件、回答根拠不足100件', '400件のうち24件', '72％から96％'])
+  assert(pocDetail('.prose').text().includes(value), value);
+
+for (const value of ['検索対象の適格性と、自動回答の許可を分離', '96％', '月400時間から280時間相当へ削減する試算'])
+  assert(supportOverview('.prose strong').toArray().some(el => supportOverview(el).text().includes(value)), value);
+for (const value of ['480／500件', '0／400件', '72％ → 98％'])
+  assert(pocDetail('.prose table strong').toArray().some(el => pocDetail(el).text().includes(value)), value);

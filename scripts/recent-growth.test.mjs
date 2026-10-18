@@ -80,3 +80,12 @@ test("separated PoC detail is recorded once as an article within the existing da
   assert.equal(data.series, undefined);
   assert.equal(contentHistory(id, data).filter(event => event.type === "published").length, 1);
 });
+
+test("public histories record the scope reduction without retaining the removed test details", () => {
+  const id = "cases/customer-support-ai-dx/poc-evaluation";
+  const items = recentGrowth.flatMap(entry => entry.changes).filter(change => growthChangeTargets(change).includes(id));
+  assert(items.some(change => growthChangeText(change).includes("公開対象から除外")));
+  for (const change of items) assert(!/三つの処理経路|テスター・業務専門家|合格条件|独立した500件/.test(growthChangeText(change)));
+  const day = recentGrowth.find(entry => entry.date === "2026-10-18");
+  assert(day.summaryChanges.some(text => text.includes("PoCによる方式改善")));
+});
