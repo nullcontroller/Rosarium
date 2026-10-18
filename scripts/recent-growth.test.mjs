@@ -1,6 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { recentGrowth, growthChangeText, growthChangeTargets, growthPublishedTargets, validateRecentGrowth } from "../src/data/recent-growth.ts";
+import fs from "node:fs";
+import YAML from "yaml";
+import { contentHistory } from "../src/data/content-history.ts";
+import { recentGrowth, growthChangeText, growthChangeTargets, growthPublishedTargets, growthSummary, validateRecentGrowth } from "../src/data/recent-growth.ts";
 const entry = changes => ({ date: "2026-10-06", type: "integrated", title: "Integration", changes, category: "Rosarium" });
 test("plain history stays compatible and today's seven substantive revisions are linked once", () => {
   assert.equal(growthChangeText("UI adjustment"), "UI adjustment");
@@ -34,4 +37,36 @@ test("Garden Notes links newly published content without a per-date flag", () =>
     { action: "published", text: "new", contentIds: ["essays/new"] },
     "UI only",
   ])), ["essays/new"]);
+});
+
+test("October 18 highlights the remaining design revision with a short correction", () => {
+  const rows = recentGrowth.filter(item => item.date === "2026-10-18");
+  assert.equal(rows.length, 1);
+  const item = rows[0];
+  assert.equal(item.title, "顧客サポートDXを代表設計事例として整理");
+  assert.equal(item.type, "revised");
+  assert.deepEqual(growthSummary(item, id => id.startsWith("cases/")), item.summaryChanges);
+  assert.equal(item.summaryChanges.length, 3);
+  assert(item.summaryChanges[0].includes("顧客サポートDX"));
+  assert(item.summaryChanges[1].includes("担当範囲・方式判断・到達点"));
+  assert.equal(item.summaryChanges.filter(text => text.includes("疑似コード")).length, 1);
+  assert(item.summaryChanges[2].includes("撤去"));
+  assert.equal(item.changes[0].contentIds[0], "cases/customer-support-ai-dx");
+  assert.equal(new Set(item.changes.flatMap(growthChangeTargets)).size, 3);
+  for (const id of item.changes.flatMap(growthChangeTargets)) assert(fs.existsSync(`src/content/${id}.md`), id);
+  validateRecentGrowth(recentGrowth);
+});
+
+test("the article keeps the addition and correction once, independently of the daily title", () => {
+  const id = "software-engineering/engineering-judgment-in-ai-code-review";
+  const source = fs.readFileSync(`src/content/${id}.md`, "utf8");
+  const data = YAML.parse(source.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
+  const events = contentHistory(id, data);
+  assert.equal(events[0].date, "2026-10-16");
+  const revisions = events.filter(event => event.date === "2026-10-18" && event.type === "revised");
+  assert.equal(revisions.length, 1);
+  assert(revisions[0].text.includes("架空の疑似コードを追加した"));
+  assert(revisions[0].text.includes("同日訂正"));
+  assert(revisions[0].text.includes("公開できないコードを創作で補わないため"));
+  assert.equal(revisions[0].text.split(data.update_note).length - 1, 1);
 });

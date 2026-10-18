@@ -15,8 +15,8 @@ test('same-day correction retains the addition record and explains its withdrawa
   const rows = recentGrowth.filter(entry => entry.date === '2026-10-18');
   assert.equal(rows.length, 1);
   const revision = rows[0].changes.find(change => typeof change !== 'string' && change.contentIds.includes('software-engineering/engineering-judgment-in-ai-code-review'));
-  assert(revision.text.includes('疑似コードで、不適切な終了順序と修正例'));
+  assert(revision.text.includes('架空の疑似コードを追加した'));
   assert(revision.text.includes('同日訂正'));
-  assert(revision.text.includes('架空の疑似コードとそれに依存する説明を撤去'));
-  assert(revision.text.includes('実際の技術経験と確認した事実を優先'));
+  assert(revision.text.includes('架空の疑似コードとその説明を撤去'));
+  assert(revision.text.includes('実際の調査・判断の記録を維持'));
 });

@@ -43,10 +43,16 @@ export const growthPublishedTargets = (entry: RecentGrowthItem): string[] =>
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
-    date: "2026-10-18", type: "expanded", title: "終了順序の技術判断を架空例で具体化",
-    changes: [{ action: "revised", text: "改訂。実際の調査とは分離した疑似コードで、不適切な終了順序と修正例、依存関係と安全を確認する条件を追加した。同日訂正：その後、架空の疑似コードとそれに依存する説明を撤去した。実際の技術経験と確認した事実を優先し、公開できないコードを創作で補わないため", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] },
-      { action: "revised", text: "改訂。顧客サポートDXを代表設計事例として先頭に置き、Book冒頭で業務要求・担当範囲・方式判断・到達点を要約。Careerの実績紹介も同じ優先順位に揃えた", contentIds: ["cases/customer-support-ai-dx", "career/overview"] }],
-    summaryChanges: ["終了順序の記事に、実務とは分離した架空の疑似コードを追加", "不適切な順序と修正例、リソースの依存関係、安全を確認する条件を具体化", "同日訂正：追加した架空の疑似コードとその説明を撤去。実際の調査・判断の記録を優先", "顧客サポートDXを代表設計事例として優先し、要求・担当範囲・設計判断・到達点を冒頭で整理"],
+    date: "2026-10-18", type: "revised", title: "顧客サポートDXを代表設計事例として整理",
+    changes: [
+      { action: "revised", text: "改訂。顧客サポートDXを代表設計事例として先頭に置き、Book冒頭で業務要求・担当範囲・方式判断・到達点を要約。Careerの実績紹介も同じ優先順位に揃えた", contentIds: ["cases/customer-support-ai-dx", "career/overview"] },
+      { action: "revised", text: "改訂。架空の疑似コードを追加したが、同日訂正。追加した架空の疑似コードとその説明を撤去し、実際の調査・判断の記録を維持。公開できないコードを創作で補わないため。", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] },
+    ],
+    summaryChanges: [
+      "顧客サポートDXを代表設計事例としてHome・Cases・Careerの先頭に配置",
+      "Book冒頭で業務要求・担当範囲・方式判断・到達点を整理",
+      "訂正：追加した架空の疑似コードとその説明を撤去",
+    ],
     category: "Rosarium", icon: "updates",
   },
   {
