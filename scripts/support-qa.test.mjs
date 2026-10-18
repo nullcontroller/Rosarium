@@ -68,12 +68,13 @@ test("support case consistently starts from manual work and a newly developed cu
   assert(read("knowledge-design").includes("資料の保管方式や管理製品は特定しません"));
 });
 
-test("public support content focuses on PoC without a separate qualification-test plan", () => {
+test("Book and PoC keep qualification details in a separate linked article", () => {
   const files = fs.readdirSync(path.join(root, "customer-support-ai-dx")).filter(file => file.endsWith(".md"));
   const sources = [read(""), ...files.map(file => read(file.slice(0, -3))), readDetail()];
   for (const source of sources) {
-    assert(!/適格性確認テスト|システムの適格性確認|テスター|自動照合|経路1・2|経路3|適切な有人引継ぎ100％|support-validation-stages/.test(source));
+    assert(!/システムの適格性確認|テスター|自動照合|経路1・2|経路3|適切な有人引継ぎ100％|support-validation-stages/.test(source));
   }
+  for (const source of [read(""), readDetail()]) assert(source.includes("](/evaluation-hitl/customer-support-qa-qualification-test/)"));
   const chapter = read("poc-evaluation");
   assert.match(chapter, /^title: 03\. PoCによる方式の検証$/m);
   for (const value of ["本格開発前にPoCを行い", "類似する別機種", "専門判断が必要", "別々に制御", "再検証", "本格開発へ進める方式と判断"])

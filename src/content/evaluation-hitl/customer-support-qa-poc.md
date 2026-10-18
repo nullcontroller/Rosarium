@@ -36,6 +36,9 @@ tags: [PoC, AI Evaluation, RAG, 検索対象制御]
 PoCの目標は定型問い合わせの自動回答可能率80％以上とし、誤自動回答の原因と停止・引継ぎの成立性も確認します。  
 検証結果を方式の修正と採否判断へつなげる流れは、[本編第03章：PoCによる方式の検証](/cases/customer-support-ai-dx/poc-evaluation/)で要約しています。
 
+開発後に確定した要求・仕様への適合と合否を確認する工程は、[システム適格性確認テスト記事](/evaluation-hitl/customer-support-qa-qualification-test/)で扱います。  
+方式を試して改善するPoCと、システム全体の合否を判定するテストは別の工程です。
+
 ## 検証シナリオの初期評価と原因分析
 
 以下は検証シナリオ内のPoC評価です。  

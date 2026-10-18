@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 146ページ。目次あり 114、なし 32。Referenceあり 113、なし 33。
+対象 147ページ。目次あり 115、なし 32。Referenceあり 114、なし 33。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -72,7 +72,7 @@
 | /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /dx/ | DX | あり | あり | あり | 5 | 主要見出しが複数 |
 | /dx/business-transformation/ | 業務変革 | あり | あり | あり | 4 | 主要見出しが複数 |
-| /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 6 | 主要見出しが複数 |
+| /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 7 | 主要見出しが複数 |
 | /dx/selection-retirement/ | 選択と廃止 | あり | あり | あり | 2 | 主要見出しが複数 |
 | /dx/system-transformation/ | システム変革 | あり | あり | あり | 5 | 主要見出しが複数 |
 | /dx/value-design/ | 価値設計 | あり | あり | あり | 3 | 主要見出しが複数 |
@@ -91,6 +91,7 @@
 | /evaluation-hitl/ | 評価・ヒューマンレビュー | なし | あり | あり | 5 | 主要見出しが複数 |
 | /evaluation-hitl/code-evaluation-acceptance/ | コード生成AIの評価と採用設計 | あり | あり | あり | 23 | 長文の複数h3セクション |
 | /evaluation-hitl/customer-support-qa-poc/ | 生成AI / RAGによる顧客サポートQAのPoC：失敗分析と方式改善 | あり | あり | あり | 12 | 主要見出しが複数 |
+| /evaluation-hitl/customer-support-qa-qualification-test/ | 顧客サポートQAのシステム適格性確認テスト：テスト設計と合否判定 | あり | あり | あり | 12 | 主要見出しが複数 |
 | /evaluation-hitl/datasets-and-regression/ | AI評価データセットと回帰評価設計 | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /evaluation-hitl/human-review-capability/ | AI時代において「レビューできる人」が価値を持つ理由 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /evaluation-hitl/qa-evaluation/ | QAチャット評価設計思想 | あり | あり | あり | 17 | 長文の複数h3セクション |

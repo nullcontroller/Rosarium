@@ -198,3 +198,4 @@
 ## 2026-10-18：顧客サポートDXのPoC詳細を分離
 
 - `src/content/evaluation-hitl/customer-support-qa-poc.md`：NEW。既存Caseの検証詳細を補完するArticle。本編第03章のURLと10章構成を維持し、PoCに基づく方式判断と、その評価方法・失敗分析・再検証・効果試算を分離する。独立したCaseや職務実績としては扱わず、一般的なQA評価原則は既存記事へ委ねる。
+- `src/content/evaluation-hitl/customer-support-qa-qualification-test.md`：NEW。同じCaseを開発後の要求適合性と合否判定から補完するArticle。PoCとは別の500件、条件管理、自動実行・照合と専門判定を扱う。本編には短いリンクだけを置き、未確認の実施完了・合格結果や経路別の正確な配分を追加しない。
