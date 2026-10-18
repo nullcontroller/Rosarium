@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
-import ContentHistory from "../components/ContentHistory.astro";
 import { activeEntry, url } from "../lib/site";
 import { isPlanningKnowledge, planningQuestions, planningPublishedAt } from "../lib/planning";
 const articles = (await getCollection("pages", activeEntry)).filter(isPlanningKnowledge);
@@ -17,7 +16,6 @@ const headings = [
   <PageHeader alignHero navigationPath="planning" title="企画" eyebrow="SYSTEM PLANNING" />
   <p>企画の問いは「何を、なぜ、どこまで実現するか」です。業務課題や経営課題を受け、業務上の目的・業務要件・業務目標・対象範囲と投資の優先順位を決めます。</p>
   <p><a href={url("dx")}>DX</a>は業務・価値・組織の変化、<a href={url("ai-design")}>AI設計</a>はAI・人間・既存システムを組み合わせる要件・方式・責任の設計を扱います。企画はDXに限らず、既存業務の改善や継続・廃止の判断にも必要です。</p>
-  <ContentHistory id="planning" data={{ published_at: planningPublishedAt }} />
   <section aria-labelledby="purpose">
     <h2 id="purpose">価値発見と業務要件を、専門領域として深めたい</h2>
     <p>私は、与えられた課題をどうシステム化するかだけでなく、そもそも何を変える価値があるのかを見つけるところから関わりたいと考えています。そのためRosariumでは、企画を独立した知識・判断の領域として設けました。</p>

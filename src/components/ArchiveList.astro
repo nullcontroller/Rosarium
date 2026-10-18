@@ -15,7 +15,6 @@ const categories = groupArchiveEntries(entries);
     <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>
     <p>{entry.data.summary}</p>
     <p class="retired-reason">{entry.data.lifecycle_reason}</p>
-    {entry.data.published_at ? <p class="retired-date">元の公開日：<time datetime={entry.data.published_at.slice(0, 10)}>{formatDateJa(entry.data.published_at)}</time></p> : <p class="retired-date">元の公開時期：{entry.data.source?.publication_month ?? "未確認"}</p>}
     <p class="retired-date">最終更新：<time datetime={entry.data.last_updated}>{formatDateJa(entry.data.last_updated)}</time></p>
   </li>)}
   </ul>

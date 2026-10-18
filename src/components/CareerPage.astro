@@ -4,7 +4,6 @@ import Site from "../layouts/Site.astro";
 import MarkdownBody from "./MarkdownBody.astro";
 import { url } from "../lib/site";
 import { statusLabel } from "../lib/site";
-import ContentHistory from "./ContentHistory.astro";
 import Icon from "./Icon.astro";
 const entry = await getEntry("career", "overview");
 if (!entry) throw new Error("Career content missing");
@@ -51,7 +50,6 @@ const d = entry.data;
       <span data-pagefind-meta="category">キャリア</span> ·{" "}
       <span data-pagefind-meta="status">{statusLabel(d.status)}</span>
     </p>
-    <ContentHistory id="career/overview" data={{ layer: d.layer }} />
     <div class="prose">
       <MarkdownBody html={entry.rendered?.html || ""} />
     </div>

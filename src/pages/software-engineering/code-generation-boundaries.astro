@@ -1,6 +1,5 @@
 ---
 import Site from "../../layouts/Site.astro";
-import ContentHistory from "../../components/ContentHistory.astro";
 import { getEntry } from "astro:content";
 import { url } from "../../lib/site";
 const entry = await getEntry("pages", "software-engineering/code-generation-boundaries");
@@ -14,6 +13,5 @@ const canonical = new URL(destination, Astro.site).toString();
   <header>
   <h1>{entry!.data.title}</h1>
   <p><a href={destination}>AIを開発工程に組み込むへ移動する</a></p>
-  {entry && <ContentHistory id={entry.id} data={entry.data} />}
   </header>
 </Site>

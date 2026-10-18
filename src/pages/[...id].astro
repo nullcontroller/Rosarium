@@ -15,8 +15,8 @@ import ContentLink from "../components/ContentLink.astro";
 import MarkdownBody from "../components/MarkdownBody.astro";
 import { imageDimensions } from "../lib/image-metadata";
 import { contentUseCases } from "../lib/use-cases";
-import { formatDateJa, url, layerLabel, publicEntry, publishedEntry } from "../lib/site";
 import ContentHistory from "../components/ContentHistory.astro";
+import { url, layerLabel, publicEntry, publishedEntry } from "../lib/site";
 import LifecycleNote from "../components/LifecycleNote.astro";
 import { iconForEntry } from "../lib/icons";
 import Icon from "../components/Icon.astro";
@@ -137,27 +137,13 @@ const bookNavigation = series.length
       )}
       <p class="meta">
         <span hidden data-pagefind-meta="status">公開</span>
-        {(d.publication_format || d.layer === "publication") && (
-          <>
-            {publicationState && <span>状態：{publicationState}</span>}
-            <span>
-              {timing.label}：{timing.datetime ? (
-                <time datetime={timing.datetime}>{timing.value}</time>
-              ) : (
-                timing.value
-              )}
-            </span>
-          </>
-        )}
-        <span class="content-last-updated">
-          最終更新：<time datetime={d.last_updated}>{formatDateJa(d.last_updated)}</time>
-        </span>
+        {publicationState && <span>状態：{publicationState}</span>}
+        <ContentHistory lastUpdated={d.last_updated} />
         <span hidden data-pagefind-meta="last_updated">{d.last_updated}</span>
       </p>
       {(d.publication_format || d.layer === "publication") && (
         <span hidden data-pagefind-meta="publication">{timing.value}</span>
       )}
-      {d.layer !== "reference" && entry.id !== "cases/customer-support-ai-dx" && <ContentHistory id={entry.id} data={d} />}
       <p class="tags" data-pagefind-meta="tags">
         {d.tags.join(" / ")}
       </p>
@@ -194,7 +180,6 @@ const bookNavigation = series.length
       <h2 id="evidence-links-heading">{d.section === "cases" ? "この事例で使う設計原則" : "この原則を使う実践事例"}</h2>
       <ul>{evidenceLinks.map(item => <li><a href={url(item.id)}>{item.data.title}</a></li>)}</ul>
     </section>}
-    {entry.id === "cases/customer-support-ai-dx" && <ContentHistory id={entry.id} data={d} />}
   </article>
   {readingSequence.length > 0 && (
     <nav

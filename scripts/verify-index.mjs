@@ -1,4 +1,3 @@
-import { contentHistory } from "../src/data/content-history.ts";
 import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
 import { formatDateJa, staticPageLastUpdated } from "../src/lib/site.ts";
 import { recentGrowth, growthChangeText, growthPublishedTargets, growthSummary } from "../src/data/recent-growth.ts";
@@ -413,22 +412,6 @@ assert(!dx('a[href="/foundations/conditional-probability/"]').length);
 const dxEssay = page("essays/dx-and-value");
 assert.equal(dxEssay('[data-related-content] a[href="/cases/customer-support-ai-dx/"]').length, 0);
 assert(dxEssay('[data-related-content] a').length <= 4);
-for (const [id, expected] of [
-  ["foundations/ai-business-design", ["公開：2026年2月"]],
-  ["cases/three-ai-maintenance", ["公開：2026年7月"]],
-  ["cases/customer-support-ai-dx", ["公開：2026-09-28"]],
-  ["cases/customer-support-ai-dx", ["公開：2026-09-28"]],
-]) {
-  for (const route of [id.startsWith("cases/") ? "cases" : id]) {
-    const $ = page(route);
-    const metadata = $(route === id ? "main .document-header" : '[data-content-id="' + id + '"] .publication-date')
-      .text()
-      .replace(/\s+/g, " ")
-      .trim();
-    for (const value of expected)
-      assert(metadata.includes(value), `${route}: ${id} must display ${value}`);
-  }
-}
 const cases = page("cases");
 assert.deepEqual(
   cases("[data-series-index]").map((_, element) => cases(element).attr("data-series-index")).get(),
@@ -613,20 +596,18 @@ function assertGrowthChanges($, row, entry) {
 }
 
 for (const [id, data] of entries) {
-  if (data.public === false || data.status === "draft" || data.layer === "reference") continue;
+  if (data.public === false || data.status === "draft") continue;
   // Career has a dedicated route; other public content uses the shared document route.
   const document = page(id === "career/overview" ? "career" : id);
   const history = document("[data-content-history]");
-  assert.equal(history.length, 1, id + ": independent history");
+  assert.equal(history.length, 0, id + ": history belongs only in Garden Notes");
   assert.equal(document(".update-note").length, 0);
-  assert(!document("main").text().includes("今回の更新："));
-  assert(history.parents("header").length || id === "career/overview" || id === "cases/customer-support-ai-dx", id + ": history near metadata");
-  if (data.update_note) assert(history.text().includes(data.update_note), id + ": update note preserved");
-  assert(history.is("[data-pagefind-ignore][data-toc-exclude]"));
-  const expected = contentHistory(id, data).reverse();
-  assert.equal(history.find("li").length, expected.length, id);
-  assert(history.find("li").last().text().includes("公開"), id + ": first event is publication");
-  assert.deepEqual(history.find("time").map((_, item) => document(item).attr("datetime")).get(), expected.filter(event => event.date).map(event => event.date));
+  if (document('meta[http-equiv="refresh"]').length) continue;
+  const latest = document(".content-last-updated time, .site-last-updated time");
+  assert.equal(latest.length, 1, id + ": exactly one current date");
+  assert.equal(latest.attr("datetime"), data.last_updated, id);
+  assert.equal(latest.text().trim(), formatDateJa(data.last_updated), id);
+  assert.equal(document(".document-header .meta time").length, id === "career/overview" ? 0 : 1);
   assert.equal(document('#page-toc-panel a').filter((_, item) => document(item).text().trim() === "更新履歴").length, 0);
 }
 
@@ -766,19 +747,13 @@ assert.equal(page("practices")("[data-related-publications]").length, 0);
 for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(html, "utf8"));
   assert(!$("main").text().includes("Related Publications"), html);
+  assert.equal($("[data-content-history], .content-history, .update-note").length, 0, html + ": no per-page history");
+  assert(!/元の公開日：|元の公開時期：/.test($("main").text()), html);
+  assert(!/公開：|公開日：/.test($(".document-header .meta, .publication-date").text()), html);
   assert(
     !$.root().text().includes("\u66f4\u65b0\u4e2d"),
     `${html}: deprecated status remains`,
   );
-}
-for (const [id, expected] of [
-  ["foundations/ai-business-design", ["公開：2026年2月"]],
-  ["cases/three-ai-maintenance", ["公開：2026年7月"]],
-  ["cases/system-understanding", ["状態：公開", "公開：2026年2月"]],
-]) {
-  const $ = page(id);
-  const text = $.root().text().replace(/\s+/g, " ");
-  for (const value of expected) assert(text.includes(value), `${id}: ${value}`);
 }
 assert(
   page("cases/system-understanding")("main")
@@ -836,7 +811,7 @@ for (const id of ["specification-debt-review", "three-ai-maintenance", "system-u
   assert.equal(page("career")(`main a[href="/cases/${id}/"]`).length, 1);
 assert.equal(page("career")('[data-directive="case"]').length, 4);
 assert.equal(page("career")('main a[href="https://github.com/nullcontroller/Rosarium"]').length, 1);
-console.log("Verified recent growth and exact Book publication presentation.");
+console.log("Verified Garden Notes history and single latest-update display without publication dates.");
 
 for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
   const $ = page(route);
@@ -1082,7 +1057,7 @@ assert.equal(judgmentPage('.prose pre').length, 0, "The withdrawn invented shutd
 const judgmentText = judgmentPage('.prose').text();
 for (const fact of ["プラグインについて、不具合調査の依頼を受けた", "AIを活用してソースコードを調査", "私自身がコードを読んで", "リソース解放の呼び出し順序", "初期化と終了処理が整合しているか", "問題箇所の特定につながった"]) assert(judgmentText.includes(fact), fact);
 assert(!judgmentText.includes("作業処理が、終了時の残処理を保存先へ書き出す"));
-assert(judgmentPage('[data-content-history]').text().includes("本人が確認した調査・判断の記録に整理"));
+assert.equal(judgmentPage("[data-content-history]").length, 0);
 assert(gardenNotes('[data-growth-date="2026-10-18"]').text().includes("本人が確認した調査・判断の記録に整理"));
 const practiceGateway = page("practices");
 assert.equal(practiceGateway("#adoption-questions tbody tr").length, 7);
@@ -1117,7 +1092,7 @@ assert.deepEqual(careerAllCaseUrls.filter(href => representativeUrls.includes(hr
 const supportOverview = page('cases/customer-support-ai-dx');
 assert(supportOverview('.prose').text().includes('本番導入の実測効果ではありません'));
 assert.equal(supportOverview('header [data-content-history]').length, 0);
-assert(supportOverview('.prose').index() < supportOverview('[data-content-history]').index());
+assert.equal(supportOverview('[data-content-history]').length, 0);
 assert.equal(supportOverview('[data-support-dx]').length, 1);
 
 const revisedPoc = page('cases/customer-support-ai-dx/poc-evaluation');

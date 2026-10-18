@@ -3,7 +3,6 @@ import type { Entry } from "../lib/navigation";
 import {
   publicationType,
   publicationStatus,
-  publicationTiming,
   caseStudies,
 } from "../lib/navigation";
 import { iconForEntry } from "../lib/icons";
@@ -18,7 +17,6 @@ interface Props {
 const { entry, heading: Heading = "h3", showIcon = true } = Astro.props;
 const d = entry.data;
 const purposes = contentUseCases(entry);
-const timing = publicationTiming(entry);
 const publicationState = publicationStatus(entry);
 const caseStudy = caseStudies.find((study) => study.book === entry.id);
 ---
@@ -41,11 +39,6 @@ const caseStudy = caseStudies.find((study) => study.book === entry.id);
     )}
     <p class="meta publication-date">
       {publicationState && <span>状態：{publicationState}</span>}
-      <span>{timing.label}：{timing.datetime ? (
-        <time datetime={timing.datetime}>{timing.value}</time>
-      ) : (
-        timing.value
-      )}</span>
       <span>{publicationType(entry)}</span>
       最終更新：{formatDateJa(d.last_updated)}
     </p>

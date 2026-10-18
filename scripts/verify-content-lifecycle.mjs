@@ -135,7 +135,8 @@ for (const record of report.entries) {
     assert.equal(item.find("h3 a").attr("href"), `/${record.destination}/`);
     assert(item.text().includes(data.summary));
     assert(item.text().includes(data.lifecycle_reason));
-    assert.equal(item.find("time").attr("datetime"), data.published_at.slice(0, 10));
+    assert.equal(item.find("time").length, 1);
+    assert.equal(item.find("time").attr("datetime"), data.last_updated);
     assert.equal(publicEntry({ data }), false);
     assert.match($('meta[name="robots"]').attr("content"), /noindex/);
     assert.equal($("[data-pagefind-body]").length, 1);
