@@ -19,7 +19,7 @@ test("support QA presents the proposal, system architecture decisions and feasib
   assert(introduction.includes("企画部門から業務改善の提案を受け"));
   assert(introduction.includes("実現に向けた見込みが立ちました"));
   assert(poc.includes("検索対象の適格性と、自動回答の許可は別々に制御"));
-  assert(poc.includes("本格開発へ進める方式と判断"));
+  assert(poc.includes("本格開発へ進める方式かを判断"));
   assert(knowledge.includes("機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAG"));
   assert(!overview.includes("SAとして"));
 });
@@ -30,9 +30,9 @@ test("support QA labels scenario evaluation separately from production achieveme
   const contents = [read(""), ...chapters.map((file) => read(file.slice(0, -3))), readDetail()].join("\n");
   assert(!/原典|原点|母艦|論述資料|補足設計|R[1-7]-[1-2]|\.md\b/.test(contents));
   assert(read("").includes("設計を検討する検証シナリオ"));
-  assert(readDetail().includes("検証シナリオ内のPoC評価"));
-  assert(readDetail().includes("PoCの評価結果は、本番運用の自己解決率とは区別します"));
-  assert(readDetail().includes("検証シナリオの再検証結果"));
+  assert(readDetail().includes("新しく設計した検証シナリオ上の仮定値"));
+  assert(readDetail().includes("PoCの観測結果や本番の実測値ではありません"));
+  assert(readDetail().includes("過去のPoCデータの再集計や、新たに観測した結果ではありません"));
   assert(!/本番導入済み|実測で達成|導入成果を達成/.test(contents));
 });
 
@@ -78,7 +78,7 @@ test("Book and PoC exclude the removed qualification plan", () => {
   for (const source of sources) assert(!/適格性確認|qualification-test|ほぼ同数|自動実行/.test(source));
   const chapter = read("poc-evaluation");
   assert.match(chapter, /^title: 03\. PoCによる方式の検証$/m);
-  for (const value of ["本格開発前にPoCを行い", "類似する別機種", "専門判断が必要", "別々に制御", "再検証", "本格開発へ進める方式と判断"])
+  for (const value of ["本格開発前にPoCを行い", "類似する別機種", "専門判断が必要", "別々に制御", "再検証", "本格開発へ進める方式かを判断"])
     assert(chapter.includes(value), value);
   assert(read("continuous-improvement").includes("引継ぎ後の対応工数"));
   assert(read("continuous-improvement").includes("重複質問"));
@@ -127,42 +127,46 @@ test("scenario inquiry categories reconcile annual volume, monthly workload and 
   assert(read("why-ai").includes("文書が存在することだけでは、自動回答の資格になりません"));
 });
 
-test("PoC samples, stage results and projections retain their distinct denominators", () => {
+test("PoC uses one dataset and keeps assumptions separate from observed results", () => {
   const poc = readDetail();
   const rows = tableRows(poc);
-  assert(poc.includes("1,000件") && poc.includes("定型回答可能500件、専門判断が必要400件、回答根拠不足100件"));
-  assert.equal(500 + 400 + 100, 1000);
-  assert.equal(rows.find(row => row[0] === "追加質問の適合率")[1], "98％");
-  assert.equal(rows.find(row => row[0] === "回答生成の適合率")[1], "98％");
-  assert.deepEqual(rows.filter(row => row[0] === "文書検索の適合率").map(row => row[1]), ["72％", "72％ → 98％"]);
-  assert.deepEqual(rows.find(row => row[0] === "定型500件の一連処理の自動回答可能率").slice(1), ["72％", "96％"]);
-  assert(poc.includes("同一指標の測定系列へまとめません"));
-  assert(poc.includes("検証シナリオ内のPoC評価"));
-  assert.equal(rows.find(row => row[0] === "定型問い合わせの自動回答")[1], "480／500件");
-  assert.equal(rows.find(row => row[0] === "専門判断が必要な問い合わせの誤自動回答")[1], "0／400件");
-  assert(poc.includes("400件のうち24件"));
-  assert.equal(480 / 500 * 100, 96);
-  assert.equal(750 * 0.96, 720);
+  const dataset = rows.filter(row => ["定型問い合わせ", "有人対応案件", "合計"].includes(row[0]));
+  assert.deepEqual(dataset.map(row => row.slice(0, 2)), [["定型問い合わせ", "250"], ["有人対応案件", "250"], ["合計", "500"]]);
+  const number = value => Number(value.replace(/[^0-9]/g, ""));
+  assert.equal(dataset.slice(0, 2).reduce((sum, row) => sum + number(row[1]), 0), number(dataset[2][1]));
+  assert(poc.includes("専門判断200件・回答根拠不足50件"));
+  assert.equal(200 / 500, .4);
+  assert.equal(50 / 500, .1);
+  assert.deepEqual(rows.find(row => row[0] === "修正なしで顧客へ提示できる自動回答").slice(1), ["180／250件", "240／250件"]);
+  assert(poc.includes("新しく設計した検証シナリオ上の仮定値"));
+  assert(poc.includes("過去のPoCデータの再集計や、新たに観測した結果ではありません"));
+  assert.equal(180 / 250 * 100, 72);
+  assert.equal(240 / 250 * 100, 96);
+  assert.equal(250 * .8, 200);
+  assert(poc.includes("有人案件の誤自動回答件数と引継ぎ成功件数は未設定"));
+  assert(poc.includes("誤自動回答0件と、引継ぎ成功250件は同義ではありません"));
+  for (const metric of ["有人案件の誤自動回答", "有人案件の引継ぎ成功"]) {
+    assert(rows.find(row => row[0] === metric)[1].includes("有人250件"));
+  }
+  assert(poc.includes("工程別の数値は今回未設定"));
+  assert(poc.includes("工程別の適合率と、問い合わせ単位"));
+  assert.equal(750 * (240 / 250), 720);
   assert.equal(720 * 10 / 60, 120);
   assert.equal(400 - 120, 280);
   assert(poc.includes("改善後280時間／月の試算"));
-  assert(poc.includes("将来の全問い合わせで誤回答が起こらない保証ではありません"));
-  assert(poc.includes("Precision@k等の指標へ読み替えず"));
+  assert(poc.includes("改善後240／250件という仮定を月間構成へ適用した試算"));
   assert(poc.includes("追加負荷を含む総工数も未確認"));
+  const current = [poc, read(""), read("poc-evaluation")].join("\n");
+  assert(!/1,000件|定型500件|480[／÷]500|24／400|0／400|400件のうち24件|72％ → 98％/.test(current));
 });
 
-test("design outcomes and scoped PoC results remain visible without adding production claims", () => {
+test("design outcomes remain visible without promoting assumed values to results", () => {
   const overview = read("");
-  assert(overview.indexOf("## このBookについて") < overview.indexOf('id="数値と設計事例の位置付け"'));
-  for (const value of ["**検索対象の適格性と、自動回答の許可を分離**", "**96％**", "**月400時間から280時間相当へ削減する試算**"])
+  for (const value of ["**検索対象の適格性と、自動回答の許可を分離**", "共通500件", "定型250件中240件を自動回答可能と仮定", "**月400時間から280時間相当へ削減する試算**"])
     assert(overview.includes(value), value);
+  assert(overview.includes("共通500件の評価結果は未確定"));
   const names = fs.readdirSync(path.join(root, "customer-support-ai-dx")).filter(file => file.endsWith(".md"));
   for (const name of names) assert(/\*\*[^\n]+\*\*/.test(read(name.slice(0, -3)).split("---").slice(2).join("---")), name);
-  const detail = readDetail();
-  assert(detail.includes("**480／500件**") && detail.includes("**0／400件**"));
-  assert(detail.includes("二段階制御を併用した検証シナリオ"));
-  assert(detail.includes("0／400件は、この評価集合で観測された結果"));
-  assert(detail.includes("本番の実測値ではなく、PoC結果を月間構成へ適用した試算"));
 });
 
 test("PoC detail remains a complementary article outside the ten-chapter Case", () => {
@@ -185,11 +189,11 @@ test("PoC detail remains a complementary article outside the ten-chapter Case", 
   assert(chapter.length < article.length);
 });
 
- test("PoC leads with failure analysis and scoped before-after results", () => {
+test("PoC leads with the shared dataset and separates routing from answer quality", () => {
   const source = readDetail();
   const lead = source.split("## PoCの目的と検証仮説")[0];
-  for (const value of ["目標未達", "72％", "80％", "96％", "24／400件", "0／400件", "評価系列を分けた比較"])
+  for (const value of ["250", "500", "180／250件", "240／250件", "仮定値", "誤自動回答件数と引継ぎ成功件数は未設定"])
     assert(lead.includes(value), value);
   assert(source.includes("検索できることと、回答してよいことを分離"));
-  assert(source.includes("改善した方式を本格開発へ進めると判断"));
+  assert(source.includes("有人案件の停止・引継ぎも確認してから"));
 });

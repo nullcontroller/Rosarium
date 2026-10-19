@@ -2029,7 +2029,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "test",
         "label": "開発担当者と業務担当者が検証する",
         "kind": "feedback",
-        "description": "追加質問・取得文書・根拠との整合・顧客への提示可否を、評価表の項目に沿って確認します。"
+        "description": "共通500件（定型250件・有人250件）で、追加質問・取得文書・根拠との整合・顧客への提示可否を確認します。"
       },
       {
         "id": "failure",
@@ -2053,7 +2053,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "retest",
         "label": "同じ評価条件で再検証する",
         "kind": "feedback",
-        "description": "適合文書の取得、自動回答の成立、専門判断・根拠不足時の停止をそれぞれ再確認します。"
+        "description": "同じ500件で、自動回答の成立と有人案件の停止・引継ぎを別々に再確認します。回答を止めただけでは引継ぎ成功に数えません。"
       },
       {
         "id": "accept",

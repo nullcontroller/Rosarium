@@ -1118,14 +1118,14 @@ assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'ca
 const careerAllCaseUrls = page('career')('.prose a[href^="/cases/"]').map((_, el) => page('career')(el).attr('href')).get();
 assert.deepEqual(careerAllCaseUrls.filter(href => representativeUrls.includes(href)).slice(0, 3), representativeUrls);
 const supportOverview = page('cases/customer-support-ai-dx');
-assert(supportOverview('.prose').text().includes('本番導入の実測効果ではありません'));
+assert(supportOverview('.prose').text().includes('仮定した回答率と工数試算を、本番導入の実測効果とは扱いません'));
 assert.equal(supportOverview('header [data-content-history]').length, 0);
 assert.equal(supportOverview('[data-content-history]').length, 0);
 assert.equal(supportOverview('[data-support-dx]').length, 1);
 
 const revisedPoc = page('cases/customer-support-ai-dx/poc-evaluation');
 const pocDetail = page('evaluation-hitl/customer-support-qa-poc');
-for (const value of ['1,000件', '検証シナリオの再検証結果', '72％ → 98％', '480／500件', '0／400件', '改善後280時間／月の試算', '追加負荷を含む総工数も未確認']) assert(pocDetail('.prose').text().includes(value), value);
+for (const value of ['共通の500件', '定型問い合わせ', '有人対応案件', '180／250件', '240／250件', '仮定値', '改善後280時間／月の試算', '追加負荷を含む総工数も未確認']) assert(pocDetail('.prose').text().includes(value), value);
 assert(revisedPoc('.prose a[href="/evaluation-hitl/customer-support-qa-poc/"]').length);
 assert(pocDetail('.prose a[href="/cases/customer-support-ai-dx/poc-evaluation/"]').length);
 assert.equal(revisedPoc('[data-explanation-id="support-poc-checks"], [data-explanation-id="support-poc-evaluation"]').length, 0);
@@ -1142,12 +1142,12 @@ for (const route of ['cases/customer-support-ai-dx', 'cases/customer-support-ai-
   assert(!/システムの適格性確認|テスター|自動照合|適切な有人引継ぎ100％/.test($('.prose').text()), route);
   assert.equal($('[data-explanation-id="support-validation-stages"]').length, 0);
 }
-for (const value of ['定型回答可能500件、専門判断が必要400件、回答根拠不足100件', '400件のうち24件', '72％から96％'])
+for (const value of ['専門判断200件・回答根拠不足50件', '誤自動回答0件と、引継ぎ成功250件は同義ではありません', '有人案件の誤自動回答件数と引継ぎ成功件数は未設定'])
   assert(pocDetail('.prose').text().includes(value), value);
 
-for (const value of ['検索対象の適格性と、自動回答の許可を分離', '96％', '月400時間から280時間相当へ削減する試算'])
+for (const value of ['検索対象の適格性と、自動回答の許可を分離', '正しい自動回答と、誤自動回答の防止・適切な引継ぎを別々に評価', '月400時間から280時間相当へ削減する試算'])
   assert(supportOverview('.prose strong').toArray().some(el => supportOverview(el).text().includes(value)), value);
-for (const value of ['480／500件', '0／400件', '72％ → 98％'])
+for (const value of ['180／250件', '240／250件', '自動回答可能率96％'])
   assert(pocDetail('.prose table strong').toArray().some(el => pocDetail(el).text().includes(value)), value);
 
 // Recruiter entrances lead with architecture while preserving confirmed work and scope.
