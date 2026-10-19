@@ -1033,7 +1033,7 @@ assert(homeHero.find('.home-main-case .meta').text().includes('本番導入済�
 assert.equal(homeHero.find('.home-main-case a').attr('href'), '/cases/customer-support-ai-dx/');
 assert.equal(homeHero.find('.home-main-case a').text().trim(), '問い合わせDXの設計事例を見る →');
 assert.equal(homeHero.find('.home-career-link a').attr('href'), '/career/');
-assert.equal(homeHero.find('.home-career-link a').text(), 'キャリアを見る');
+assert.equal(homeHero.find('.home-career-link a').text(), '作者のキャリア');
 assert.equal(homeHero.find('.lead').length, 2);
 assert.equal(homeHero.find('.home-career').length, 0);
 assert.equal(homeHero.children().first().is('header.page-heading'), true);
