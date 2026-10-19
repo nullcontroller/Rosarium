@@ -1,9 +1,9 @@
 // Pure layout policy: no route parsing or client state belongs here.
 export const readingSections = new Set([
-  "ai", "articles", "ai-design", "ai-mathematics", "practices", "books", "series", "essays",
+  "ai", "articles", "ai-design", "ai-mathematics", "ai-theory", "practices", "books", "series", "essays",
 ]);
 const collectionSections = new Set([
-  "ai-design", "ai-mathematics", "ai", "practices", "cases", "articles", "dx",
+  "ai-design", "ai-mathematics", "ai-theory", "ai", "practices", "cases", "articles", "dx",
   "books", "series", "essays", "overview", "reference", "updates", "planning",
 ]);
 /** @param {{ogType: string, section?: string}} page */

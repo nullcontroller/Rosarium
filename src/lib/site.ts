@@ -43,7 +43,9 @@ export const pageIntroductions: Record<string, string> = {
   "ai-design":
     "与えられた業務要求を、AI・人間・既存システムの役割、必要な情報、要件・方式、検証・運用へ具体化する設計領域です。",
   "ai-mathematics":
-    "AIの答えはなぜ変わるのか、どこまで制御できるのか。生成の仕組みを確率や数学から理解します。",
+    "生成AIの振る舞いを理解するために、確率、分布、数式などの数学的な基礎を整理します。理論上の定義と、実際のAIシステム設計で使う説明モデルを区別して扱います。",
+  "ai-theory":
+    "生成AIの回答が変わる理由、もっともらしい誤答、コード生成モデルの仕組みを理解します。数式を詳しく学ぶ数学と分け、モデルと周辺システムの振る舞いを扱います。",
   practices:
     "AIを現場で使い続けるために、教え方、情報の渡し方、確認の手順を考えます。導入・教育・開発・組織での実践を扱います。",
   cases:
@@ -76,7 +78,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "career/details": "2026-10-04",
   // Site-wide last public change; independent of Garden Notes and individual page histories.
   "": "2026-10-19",
-  ai: "2026-10-17",
+  ai: "2026-10-19",
   "ai-design": "2026-10-10",
   "ai-design/applicability": "2026-10-08",
   "ai-design/responsibility-control": "2026-10-08",
@@ -85,7 +87,8 @@ export const staticPageLastUpdated: Record<string, string> = {
   "ai-design/evaluation-hitl": "2026-10-08",
   "ai-design/software-engineering": "2026-10-08",
   "ai-design/lifecycle-operations": "2026-10-08",
-  "ai-mathematics": "2026-10-04",
+  "ai-mathematics": "2026-10-19",
+  "ai-theory": "2026-10-19",
   books: "2026-10-05",
   cases: "2026-10-19",
   dx: "2026-10-10",
@@ -159,7 +162,8 @@ export const activeEntry = (e: { data: { status: string; public?: boolean; lifec
   publishedEntry(e) && (!e.data.lifecycle || e.data.lifecycle === "active");
 
 export const layers = {
-  "ai-mathematics": "AI理論",
+  "ai-mathematics": "数学",
+  "ai-theory": "AI理論",
   "ai-design": "AI設計",
   career: "キャリア",
   reference: "Reference",

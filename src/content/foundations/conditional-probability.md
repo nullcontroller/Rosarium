@@ -1,6 +1,7 @@
 ---
 summary: "同じAIでも、渡す情報や指示が変わると答えが変わります。その仕組みを条件付き確率から整理し、回答のばらつきと、RAG・ガードレール・評価で制御できる範囲を考えます。"
 layer: ai-mathematics
+ai_theme: ai-mathematics
 title: 生成AIの条件付き確率モデル基礎
 kind: principle
 section: foundations

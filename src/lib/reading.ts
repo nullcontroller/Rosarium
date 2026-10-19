@@ -4,7 +4,7 @@ import { caseStudies, designTopics } from "./navigation";
 import { aiDesignTopicGuides, aiDesignTopicOrder } from "./ai-design";
 
 export type ReadingPath =
-  "ai-design" | "ai-mathematics" | "practices" | "cases";
+  "ai-design" | "ai-mathematics" | "ai-theory" | "practices" | "cases";
 
 export type ReadingGroup = {
   title: string;
@@ -36,19 +36,17 @@ export const readingGroups: Record<
   ],
   "ai-mathematics": [
     {
-      title: "確率と生成",
+      title: "確率と分布",
       ids: [
         "foundations/conditional-probability",
         "foundations/temperature-design",
       ],
     },
+  ],
+  "ai-theory": [
     {
-      title: "誤りと制御",
-      ids: [
-        "foundations/hallucination-mechanisms",
-        "foundations/layered-hallucination-controls",
-        "foundations/guardrail-models",
-      ],
+      title: "生成と誤りの仕組み",
+      ids: ["foundations/hallucination-mechanisms"],
     },
     {
       title: "生成モデルと変化",
@@ -147,9 +145,11 @@ export function readingPathForEntry(
       ? "ai-design"
       : entry.data.layer === "ai-mathematics"
         ? "ai-mathematics"
-        : entry.data.layer === "practice"
-          ? "practices"
-          : undefined;
+        : entry.data.layer === "ai-theory"
+          ? "ai-theory"
+          : entry.data.layer === "practice"
+            ? "practices"
+            : undefined;
   if (canonical) return canonical;
 
   const parentId = entry.data.series

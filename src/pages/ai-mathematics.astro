@@ -2,29 +2,23 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import ContentIndex from "../components/ContentIndex.astro";
-import { activeEntry } from "../lib/site";
+import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 import { readingEntries } from "../lib/reading";
 const all = await getCollection("pages", activeEntry);
 const discoverable = readingEntries(all, "ai-mathematics");
 ---
 
-<Site
-  title="AI理論"
-  section="ai-mathematics"
-  ogImage="og/site.png"
->
-  <PageHeader title="AI理論" />
-  <p>
-    出力の揺らぎ、条件付き確率、Temperature、Hallucination、コード生成モデルの仕組みを扱います。
-  </p>
-  <h2>AIは数学である</h2>
-  <p>
-    生成AIやLLMは言葉を理解しているように見えますが、内部では数値・ベクトル・確率分布・行列演算として処理されています。AI理論では、AIを人格や直感で説明せず、数学的な対象として分解して考えます。
-  </p>
-  <p>
-    確率、条件付き確率、分布、Sampling、Temperature、Optimization、Representationを手掛かりに、「なぜ答えが揺らぐのか」「なぜHallucinationが起こるのか」「生成条件が出力をどう変えるのか」を理解し、設計上の含意へつなげます。
-  </p>
-  <h2>AI理論から読めるもの</h2>
+<Site title="数学" section="ai-mathematics" ogImage="og/site.png">
+  <PageHeader title="数学" />
+  <span id="aiは数学である"></span>
+  <h2>生成AIの振る舞いを数学で理解する</h2>
+  <p>条件付き確率の記事では、入力や参照情報を条件として生成を捉える考え方を整理します。Temperatureの記事では、Softmax、確率分布、エントロピーと、生成設定の関係を確認できます。</p>
+  <p>数学的な定義、設計用の簡略モデル、設定値についての仮説、実測結果を区別します。式が成り立つことを、実システムの正しさや安全性の証明にはしません。</p>
+  <span id="ai理論から読めるもの"></span>
+  <h2>確率と分布を学ぶ</h2>
   <ContentIndex entries={discoverable} showIcons={false} />
+  <h2>仕組みと設計へつなぐ</h2>
+  <p>式の意味を確認するときは<a href={url("reference/mathematical-reference")}>数式・記号リファレンス</a>を参照してください。数式の正本はReferenceで管理します。</p>
+  <p>生成や誤答の仕組みは<a href={url("ai-theory")}>AI理論</a>、回答・実行の制約と責任分担は<a href={url("ai-design")}>AI設計</a>で扱います。</p>
 </Site>

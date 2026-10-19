@@ -41,7 +41,8 @@ layerは知識の役割、sectionは既存のテーマとURL用分類、source.t
 | layer          | 役割                                   |
 | -------------- | -------------------------------------- |
 | ai-design      | 現在の設計知識の正本                   |
-| ai-mathematics | AIの振る舞いを説明する数学・モデル基礎 |
+| ai-mathematics | 確率・条件付き確率・分布などの数学的基礎 |
+| ai-theory | 生成AI・LLMの生成原理、誤答の要因、モデルと周辺システムの仕組み |
 | practice       | 組織・業務・開発への適用               |
 | case           | 実務事例                               |
 | publication    | 独立した記事・Book・Essay              |
@@ -250,8 +251,10 @@ DXとの関係があれば、同じ知識記事をDXと企画の両入口から�
 
 ## AIトップのカテゴリ内関連記事
 
-`/ai/` の「最初に読む」は既存の代表記事を維持します。カテゴリ内の関連リンクへ掲載する記事には、Front Matterの任意項目 `ai_theme` を明示します。値は `ai-design`（AI設計）、`ai-mathematics`（AIの性質・理論）、`knowledge-context`（ナレッジ / コンテキスト）、`evaluation-hitl`（評価・ヒューマンレビュー）、`practices`（実践・開発）のいずれかです。
+`/ai/` の「最初に読む」は既存の代表記事を維持します。カテゴリ内の関連リンクへ掲載する記事には、Front Matterの任意項目 `ai_theme` を明示します。値は `ai-design`（AI設計）、`ai-mathematics`（数学）、`ai-theory`（AI理論）、`knowledge-context`（ナレッジ / コンテキスト）、`evaluation-hitl`（評価・ヒューマンレビュー）、`practices`（実践・開発）のいずれかです。
 
 `entry_points` に `ai` を含み、公開中かつactiveで `published_at` がある記事だけを、初版公開日の降順で各カテゴリ最大3件表示します。同日ならID順とし、改訂日は並び順に使いません。代表記事や同一IDは重複掲載しません。未指定の記事は自動分類しません。
 
 Garden Notesの公開記録は引き続き `src/data/recent-growth.ts` への手動登録です。`action: published` の記事タイトル・リンクがメタデータから表示されることと、公開記録そのものの自動生成は別です。配置変更などの開発ログは追加しません。
+
+数学とAI理論は記事の主目的で分ける。数式があっても、ガードレール・権限・責任境界などの方式設計が主題なら `ai-design` に残す。`section` と記事URLは維持し、`layer` を正本分類、`readingGroups` を読書導線として扱う。数式・記号リファレンスの正本はReferenceに置き、入口からリンクする。退役・旧記事をカテゴリ充足のために現役へ戻さない。

@@ -82,7 +82,7 @@ export const useCases = [
     shortTitle: "AI理論・モデルの性質",
     description:
       "AIがなぜそのように振る舞うのかを、確率、生成条件、Temperature、Hallucination、モデルの性質から理解します。",
-    path: "ai-mathematics",
+    path: "ai-theory",
     home: true,
     featured: [
       "foundations/conditional-probability",
@@ -196,7 +196,7 @@ export function contentUseCaseIds(entry: Entry): UseCaseId[] {
     result.add("software-engineering");
 
   if (
-    data.layer === "ai-mathematics" ||
+    data.layer === "ai-mathematics" || data.layer === "ai-theory" ||
     [...tags].some((tag) => ["数学", "機械学習"].includes(tag))
   )
     result.add("understand-ai");

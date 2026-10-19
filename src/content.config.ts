@@ -33,6 +33,7 @@ const pages = defineCollection({
       layer: z.enum([
         "ai-design",
         "ai-mathematics",
+        "ai-theory",
         "practice",
         "case",
         "publication",

@@ -38,6 +38,7 @@ export const sectionIcons: Record<string, IconName> = {
   cases: "cases",
   "ai-design": "ai-design",
   "ai-mathematics": "ai-mathematics",
+  "ai-theory": "articles",
   practices: "practices",
   reference: "reference",
   retired: "archive",
@@ -67,6 +68,7 @@ export const useCaseIcons: Record<string, IconName> = {
 export const layerIcons: Record<string, IconName> = {
   "ai-design": "ai-design",
   "ai-mathematics": "ai-mathematics",
+  "ai-theory": "articles",
   practice: "practices",
   case: "cases",
   publication: "articles",

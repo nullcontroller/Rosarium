@@ -299,14 +299,8 @@ for (const [route, layer] of [["reference", "reference"]]) {
   for (const id of primaryIds($)) assert.equal(entries.get(id).layer, layer);
 }
 for (const [route, layer, crossListed] of [
-  [
-    "ai-mathematics",
-    "ai-mathematics",
-    [
-      "foundations/guardrail-models",
-      "foundations/layered-hallucination-controls",
-    ],
-  ],
+  ["ai-mathematics", "ai-mathematics", []],
+  ["ai-theory", "ai-theory", []],
   [
     "practices",
     "practice",
@@ -341,14 +335,14 @@ assert.equal(pubs("#current-topics-heading").length, 0);
 assert.equal(pubs("[data-publication]").length, 0);
 assert.equal(pubs("[data-use-case-shortcut]").length, 0);
 assert.equal(pubs("[data-content-id]").length, 0);
-assert.equal(pubs("#ai-themes-heading").text(), "AIを考える5つのテーマ");
+assert.equal(pubs("#ai-themes-heading").text(), "AIを考える6つのテーマ");
 const aiSections = pubs('[data-domain-theme="ai"]');
-assert.equal(aiSections.length, 5);
+assert.equal(aiSections.length, 6);
 assert.deepEqual(aiSections.find(".dx-theme-introduction h2").map((_, el) => pubs(el).text()).get(),
-  ["AI設計", "AIの性質・理論", "ナレッジ / コンテキスト", "評価・ヒューマンレビュー", "実践・開発"]);
+  ["AI設計", "AI理論", "数学", "ナレッジ / コンテキスト", "評価・ヒューマンレビュー", "実践・開発"]);
 const aiFeatured = pubs("[data-ai-featured]").map((_, el) => pubs(el).attr("data-ai-featured")).get();
-assert.equal(aiFeatured.length, 5);
-assert.equal(new Set(aiFeatured).size, 5);
+assert.equal(aiFeatured.length, 6);
+assert.equal(new Set(aiFeatured).size, 6);
 for (const element of aiSections.toArray()) {
   const theme = pubs(element);
   assert.equal(theme.find(".dx-theme-questions li").length, 3);
@@ -518,9 +512,31 @@ console.log(
 assert.equal(design("[data-related-publications]").length, 0);
 const mathematics = page("ai-mathematics");
 assert.equal(mathematics("[data-mathematics-reading]").length, 0);
-for (const id of ["foundations/conditional-probability", "foundations/temperature-design", "foundations/hallucination-mechanisms", "software-engineering/code-generation-models"]) {
-  assert(primaryIds(mathematics).includes(id), `${id}: actual theory index remains`);
-  assert.equal(page(id)(".pagination").length, 0, `${id}: standalone article has no recommended sequence`);
+const theory = page("ai-theory");
+for (const [route, title, ids] of [
+  ["ai-mathematics", "数学", ["foundations/conditional-probability", "foundations/temperature-design"]],
+  ["ai-theory", "AI理論", ["foundations/hallucination-mechanisms", "software-engineering/code-generation-models"]],
+]) {
+  const $ = page(route);
+  assert.equal($("h1").text(), title);
+  assert.deepEqual(primaryIds($).sort(), [...ids].sort(), route + ": canonical article membership");
+  assert.equal($("[data-content-id]").length, ids.length, route + ": no duplicate registration");
+  assert(pubs(`main a[href="/${route}/"]`).length);
+  assert(page("start-here")(`main a[href="/${route}/"]`).length);
+  for (const id of ids) {
+    assert.equal(page(id)(".pagination").length, 0);
+    assert(page(id)(`a[href="/${route}/"]`).length, id+": canonical breadcrumb");
+    assert(page(id)(".katex").length > 0, id+": math rendering preserved");
+  }
+}
+assert(mathematics('main a[href="/reference/mathematical-reference/"]').length);
+assert(mathematics('main a[href="/ai-theory/"]').length);
+assert(theory('main a[href="/ai-mathematics/"]').length);
+for (const id of ["foundations/guardrail-models", "foundations/layered-hallucination-controls"]) {
+ assert.equal(entries.get(id).layer, "ai-design");
+ assert(!primaryIds(mathematics).includes(id));
+ assert(!primaryIds(theory).includes(id));
+ assert(primaryIds(design).includes(id));
 }
 const reference = page("reference");
 assert.equal(reference("[data-reference-archive]").length, 0);
@@ -683,7 +699,7 @@ assert(
   !fs.readFileSync("dist/feed.xml", "utf8").includes("Rosarium 公開"),
   "Curated Recent Growth must remain separate from the content RSS feed",
 );
-for (const route of ["ai-mathematics", "practices"]) {
+for (const route of ["ai-mathematics", "ai-theory", "practices"]) {
   const $ = page(route);
   assert.equal($(".page-status").length, 0, `${route}: no terminal status`);
   assert.equal(
@@ -702,7 +718,7 @@ for (const route of ["career", "ai", "reference"])
     page(route)("main .icon").length,
     route + " must use the icon language",
   );
-for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
+for (const route of ["ai-design", "ai-mathematics", "ai-theory", "practices", "cases"]) {
   const $ = page(route);
   assert.equal(
     $(
@@ -814,7 +830,7 @@ assert.equal(page("career")('[data-directive="case"]').length, 4);
 assert.equal(page("career")('main a[href="https://github.com/nullcontroller/Rosarium"]').length, 1);
 console.log("Verified Garden Notes history and single latest-update display without publication dates.");
 
-for (const route of ["ai-design", "ai-mathematics", "practices", "cases"]) {
+for (const route of ["ai-design", "ai-mathematics", "ai-theory", "practices", "cases"]) {
   const $ = page(route);
   assert.equal($(".theme-toc,.theme-toc-mobile").length, 0, `${route}: no duplicated recommendations`);
   if (route === "practices") {
@@ -1069,7 +1085,7 @@ assert(page("essays/trust-in-ai-generated-content")(".prose").text().trim());
 
 // Explicit AI theme assignments add related links without replacing the reading entry point.
 const aiRelatedPage = load(fs.readFileSync("dist/ai/index.html", "utf8"));
-assert.equal(aiRelatedPage("[data-domain-theme=ai]").length, 5);
+assert.equal(aiRelatedPage("[data-domain-theme=ai]").length, 6);
 assert.equal(aiRelatedPage("[data-ai-practice-links]").length, 0);
 for (const [id, data] of entries) {
   if (!data.ai_theme || data.public === false || data.status === "draft") continue;

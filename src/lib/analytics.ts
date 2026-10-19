@@ -19,7 +19,7 @@ export function analyticsMetadata(pathname: string, title: string, entry?: Colle
       : root === "dx" ? slug.includes("/") ? "theme" : "dx"
       : root === "planning" ? "planning"
       : root === "ai" ? "ai"
-      : root === "ai-design" || root === "ai-mathematics" ? "theme" : "index";
+      : root === "ai-design" || root === "ai-mathematics" || root === "ai-theory" ? "theme" : "index";
   const study = caseStudies.find((study) => slug === study.book || slug.startsWith(`${study.book}/`));
   return {
     page_title: data?.title ?? (title === "Home" ? "Rosarium" : title),
@@ -27,9 +27,9 @@ export function analyticsMetadata(pathname: string, title: string, entry?: Colle
     content_type: contentType,
     content_domain: contentType === "case" ? "case" : contentType === "career" ? "career" : root === "planning" ? "planning" :
       data?.primaryCategory || root === "dx" ? "dx" :
-      data || ["ai", "ai-design", "ai-mathematics", "practices", "architecture", "foundations", "knowledge-context", "evaluation-hitl", "software-engineering", "essays"].includes(root) ? "ai" : "site",
+      data || ["ai", "ai-design", "ai-mathematics", "ai-theory", "practices", "architecture", "foundations", "knowledge-context", "evaluation-hitl", "software-engineering", "essays"].includes(root) ? "ai" : "site",
     primary_category: data?.primaryCategory ?? data?.design_topic ??
-      (data?.layer === "ai-mathematics" ? "ai-mathematics" : data?.layer === "practice" ? "practice" :
+      (data?.layer === "ai-mathematics" || data?.layer === "ai-theory" ? data.layer : data?.layer === "practice" ? "practice" :
         root === "dx" ? slug.split("/")[1] ?? "dx" :
         root === "ai-design" ? slug.split("/")[1] ?? "ai-design" : root || "home"),
     ...(entry ? { article_slug: entry.id } : {}),

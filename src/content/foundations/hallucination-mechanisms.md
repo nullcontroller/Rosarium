@@ -1,6 +1,7 @@
 ---
 summary: "もっともらしい出力が必要な根拠に支えられない状態を、ハルシネーションとして整理する。知識不足・検索失敗・根拠の誤読・未検証の採用など、発生要因を分けて考える。"
-layer: ai-mathematics
+layer: ai-theory
+ai_theme: ai-theory
 title: ハルシネーションの発生原理
 kind: principle
 section: foundations

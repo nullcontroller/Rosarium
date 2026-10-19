@@ -1,6 +1,7 @@
 ---
 summary: "AIの答えの出方を変える設定は、正しさを保証する設定ではありません。Temperatureが生成の確率分布へ与える影響を説明し、用途に合う値を評価と実験で選びます。"
 layer: ai-mathematics
+ai_theme: ai-mathematics
 title: Temperature設計指針
 kind: principle
 section: foundations

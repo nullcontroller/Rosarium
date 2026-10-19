@@ -1,6 +1,7 @@
 ---
 summary: "コード生成AIは、文章を出すモデルだけで成り立つわけではありません。必要情報（Context）、編集ツール、権限、テストを分け、生成から採用までの仕組みと失敗箇所を説明します。"
-layer: ai-mathematics
+layer: ai-theory
+ai_theme: ai-theory
 title: コード生成AIの正体
 kind: guide
 section: software-engineering

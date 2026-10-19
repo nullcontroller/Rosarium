@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import Site from "../layouts/Site.astro";
+import PageHeader from "../components/PageHeader.astro";
+import ContentIndex from "../components/ContentIndex.astro";
+import { activeEntry, url } from "../lib/site";
+import { readingEntries } from "../lib/reading";
+const entries = readingEntries(await getCollection("pages", activeEntry), "ai-theory");
+---
+
+<Site title="AI理論" section="ai-theory" ogImage="og/site.png">
+  <PageHeader title="AI理論" />
+  <h2>生成AIの仕組みから振る舞いを理解する</h2>
+  <p>数学が確率や分布の基礎を深く扱うのに対し、ここでは生成AIが何をしていて、どこで誤りが生じるかを考えます。数学を先に通読する必要はなく、必要な式や用語から参照できます。</p>
+  <ul>
+    <li>同じ質問への回答が変わる理由を、次のトークンの生成と条件付けから理解する。</li>
+    <li>もっともらしい誤答を、知識不足・検索失敗・根拠の読み違いなどの要因に分ける。</li>
+    <li>コードを生成するモデルと、情報収集・編集・検証を行う周辺システムを区別する。</li>
+  </ul>
+  <h2>生成・誤答・コード生成の仕組み</h2>
+  <ContentIndex entries={entries} showIcons={false} />
+  <h2>数理の基礎とシステム設計へ進む</h2>
+  <p>生成を確率で捉える背景は<a href={url("foundations/conditional-probability")}>条件付き確率</a>、分布と出力の変動は<a href={url("foundations/temperature-design")}>Temperature</a>から確認できます。数理の入口は<a href={url("ai-mathematics")}>数学</a>です。</p>
+  <p>誤りを業務へ流出させないためのガードレール、RAG、評価、人間の判断、実行権限は<a href={url("ai-design")}>AI設計</a>で扱います。仕組みの理解と、安全に利用する方式の設計を分けて読み進められます。</p>
+</Site>

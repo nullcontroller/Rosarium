@@ -17,7 +17,7 @@ export function getArchiveCategory(entry: CollectionEntry<"pages">) {
   if (isCaseEntry(entry)) return "実践事例";
   if (d.section === "essays") return "考察";
   if (d.primaryCategory || d.entry_points.includes("dx")) return "DX";
-  if (d.entry_points.includes("ai") || ["ai-design", "ai-mathematics", "practice"].includes(d.layer)) return "AI";
+  if (d.entry_points.includes("ai") || ["ai-design", "ai-mathematics", "ai-theory", "practice"].includes(d.layer)) return "AI";
   return "その他";
 }
 

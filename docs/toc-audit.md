@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 146ページ。目次あり 114、なし 32。Referenceあり 113、なし 33。
+対象 147ページ。目次あり 115、なし 32。Referenceあり 114、なし 33。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -19,8 +19,9 @@
 | /ai-design/lifecycle-operations/ | ライフサイクル・運用 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /ai-design/responsibility-control/ | 責任境界・制御 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /ai-design/software-engineering/ | ソフトウェア開発 | あり | あり | あり | 3 | 主要見出しが複数 |
-| /ai-mathematics/ | AI理論 | あり | あり | あり | 8 | 主要見出しが複数 |
-| /ai/ | AI | あり | あり | あり | 5 | 主要見出しが複数 |
+| /ai-mathematics/ | 数学 | あり | あり | あり | 5 | 主要見出しが複数 |
+| /ai-theory/ | AI理論 | あり | あり | あり | 5 | 主要見出しが複数 |
+| /ai/ | AI | あり | あり | あり | 6 | 主要見出しが複数 |
 | /architecture/ | システムアーキテクチャ | なし | あり | あり | 8 | 主要見出しが複数 |
 | /architecture/agents-tools-and-workflows/ | 「AIエージェントを0から作る時代」は本当に来るのか？ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /architecture/change-and-reevaluation/ | AIシステムの変更・再評価設計 | あり | あり | あり | 18 | 長文の複数h3セクション |
@@ -95,7 +96,7 @@
 | /evaluation-hitl/human-review-capability/ | AI時代において「レビューできる人」が価値を持つ理由 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /evaluation-hitl/qa-evaluation/ | QAチャット評価設計思想 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /evaluation-hitl/responsibility-and-hitl/ | AI出力の責任境界とHITL | あり | あり | あり | 29 | 主要見出しが複数 |
-| /foundations/ | 設計資料アーカイブ | なし | あり | あり | 9 | 主要見出しが複数 |
+| /foundations/ | 設計資料アーカイブ | なし | あり | あり | 10 | 主要見出しが複数 |
 | /foundations/ai-business-design/ | 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』 | あり | あり | あり | 6 | Book章構造 |
 | /foundations/ai-business-design/asking-versus-delegating/ | 第3章　AIに聞くことと、AIに仕事を任せることは違う | あり | あり | あり | 13 | 長文の複数h3セクション |
 | /foundations/ai-business-design/delegation-and-responsibility/ | 第1章　AIに仕事を任せても、責任は消えない | あり | あり | あり | 15 | 長文の複数h3セクション |

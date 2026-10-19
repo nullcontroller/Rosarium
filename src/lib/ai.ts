@@ -1,6 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 
-export const aiThemeIds = ["ai-design", "ai-mathematics", "knowledge-context", "evaluation-hitl", "practices"] as const;
+export const aiThemeIds = ["ai-design", "ai-theory", "ai-mathematics", "knowledge-context", "evaluation-hitl", "practices"] as const;
 export const AI_RELATED_LIMIT = 3;
 
 // Reuse existing primary classifications; secondary relationships stay internal.
@@ -15,12 +15,21 @@ export const aiThemes = [
     article: "foundations/applicability-and-delegation", layer: "ai-design", topic: "applicability",
   },
   {
-    id: "ai-mathematics", title: "AIの性質・理論", path: "ai-mathematics",
+    id: "ai-theory", title: "AI理論", path: "ai-theory",
     paragraphs: [
-      "同じ質問でも答えが変わるのはなぜかを、生成の仕組みから考えます。条件付き確率や出力のばらつきを手掛かりに、AIの振る舞いを理解します。",
-      "Temperatureや指示で制御できる範囲と、完全には固定できない部分を分けます。もっともらしい回答を、そのまま正しい回答と扱わないための基礎です。",
+      "なぜ回答が変わり、もっともらしい誤答が生まれるのか。生成AIの振る舞いを、モデルと周辺システムの仕組みから理解します。",
+      "数学の履修を前提にせず、ハルシネーションの発生要因やコード生成支援の構成を整理します。数式を深く確認したい場合は数学へ進めます。",
     ],
-    questions: ["なぜ同じ質問でも答えが変わるのか。", "設定や指示で、何を制御できるのか。", "正しそうな回答と正しい回答をどう区別するか。"],
+    questions: ["なぜ同じ質問でも回答が変わるのか。", "なぜもっともらしい誤答が生まれるのか。", "モデルと検索・実行・検証の役割はどう違うか。"],
+    article: "foundations/hallucination-mechanisms", layer: "ai-theory",
+  },
+  {
+    id: "ai-mathematics", title: "数学", path: "ai-mathematics",
+    paragraphs: [
+      "生成AIの振る舞いを深く理解するため、確率・条件付き確率と分布を整理します。Softmax、Temperature、エントロピーを既存の記事から学べます。",
+      "数学的な定義と設計の説明に使う簡略モデルを分けます。式が示す性質を、実システムの品質保証や実測結果へ読み替えません。",
+    ],
+    questions: ["条件付き確率は何を表すか。", "Temperatureは確率分布をどう変えるか。", "数式上の性質と、設計用の説明モデルをどう区別するか。"],
     article: "foundations/conditional-probability", layer: "ai-mathematics",
   },
   {

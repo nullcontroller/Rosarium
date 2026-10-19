@@ -29,11 +29,17 @@ export const readingCategories = [
   },
   {
     path: "ai-mathematics",
+    title: "数学",
+    question: "確率や分布から何が分かる？",
+    summary: "生成AIの理解を支える、条件付き確率・分布・数式の基礎。",
+    icon: iconForPath("ai-mathematics"),
+  },
+  {
+    path: "ai-theory",
     title: "AI理論",
     question: "生成AIはなぜそう振る舞う？",
-    summary:
-      "AIの答えが変わる理由と、制御できる範囲を数学・理論から理解します。",
-    icon: iconForPath("ai-mathematics"),
+    summary: "生成原理、もっともらしい誤答、コード生成モデルの仕組み。",
+    icon: iconForPath("ai-theory"),
   },
   {
     path: "practices",
@@ -66,7 +72,7 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
       title: "AI",
       summary: "AIを仕事へ組み込む設計・実践。",
       icon: iconForPath("articles"),
-      sections: ["ai", "articles", "ai-design", "ai-mathematics", "practices"],
+      sections: ["ai", "articles", "ai-design", "ai-mathematics", "ai-theory", "practices"],
     },
     {
       path: "dx",
@@ -150,16 +156,19 @@ export const contentCategory = (e: Entry) =>
   e.data.layer === "ai-design"
     ? topicLabel(e.data.design_topic)!
     : e.data.layer === "ai-mathematics"
-      ? "モデル・確率・振る舞い"
-      : e.data.layer === "reference"
-        ? "用語・参照資料"
-        : e.data.layer === "practice"
-          ? "業務・開発プロセス"
-          : label(e.data.section);
+      ? "確率・分布・数理の基礎"
+      : e.data.layer === "ai-theory"
+        ? "生成モデルの仕組みと振る舞い"
+        : e.data.layer === "reference"
+          ? "用語・参照資料"
+          : e.data.layer === "practice"
+            ? "業務・開発プロセス"
+            : label(e.data.section);
 export const layerPath = (layer: string) =>
   ({
     "ai-design": "ai-design",
     "ai-mathematics": "ai-mathematics",
+    "ai-theory": "ai-theory",
     practice: "practices",
     case: "cases",
     publication: "ai",
@@ -336,12 +345,10 @@ export const caseStudies = [...caseStudyEntries].sort((a, b) => representativeCa
 export const mathematicsReadingIds = [
   "foundations/conditional-probability",
   "foundations/temperature-design",
-  "foundations/hallucination-mechanisms",
-  "software-engineering/code-generation-models",
 ] as const;
 
 export const publicationTopic = (e: Entry) =>
-  e.data.layer === "ai-mathematics" ? "AI理論" : label(e.data.section);
+  e.data.layer === "ai-mathematics" ? "数学" : e.data.layer === "ai-theory" ? "AI理論" : label(e.data.section);
 
 export const publicationTopics = (entry: Entry) => [
   ...new Set([
