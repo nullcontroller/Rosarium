@@ -2063,7 +2063,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
           ]
         }
       ],
-      "note": "改善策とPoC再実施による到達点は第09章で説明します。",
+      "note": "改善策とPoC再実施による到達点は第10章で説明します。",
       "scope": "第2回PoCの初期評価と問題発見を示します。"
     }
   },

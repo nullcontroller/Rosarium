@@ -1,7 +1,7 @@
 ---
 summary: "会話履歴、機種、環境、エラー、確認済み事項、検索結果、参照文書を失わず、AIから人間へ対応を継続する設計を示す。"
 layer: publication
-title: 06. AIから人間へどう引き継ぐか
+title: 07. AIから人間へどう引き継ぐか
 kind: case
 section: cases
 status: published
@@ -85,4 +85,4 @@ AIから人間への移行は、自己解決できなかった後の退避先で
 低リスクな自己解決と専門対応を一つのサービスとして接続する、主要な業務の流れです。
 
 引継ぎの品質は、転送件数ではなく、担当者がどこから調査を再開できたか、顧客へ同じ説明を求めたか、根拠と停止理由を追跡できたかで評価します。  
-これを[第10章の継続改善](/cases/customer-support-ai-dx/continuous-improvement/)で観測対象にします。
+これを[第11章の継続改善](/cases/customer-support-ai-dx/continuous-improvement/)で観測対象にします。

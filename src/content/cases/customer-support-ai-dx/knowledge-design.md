@@ -1,7 +1,7 @@
 ---
 summary: "対象機種・利用環境・版数による検索対象制御と、回答項目の自動回答許可・適用条件を分け、RAGで使う参照資料と回答の境界を設計します。"
 layer: publication
-title: 04. RAGで使う参照資料をどう設計したか
+title: 05. RAGで使う参照資料をどう設計したか
 kind: case
 section: cases
 status: published
@@ -19,7 +19,7 @@ series_title: 生成AI / RAGによる顧客サポートDX
 order: 5
 ---
 
-本章から第07章までは、評価後の改善を反映した最終設計を示します。初期方式の問題発見は[第08章](/cases/customer-support-ai-dx/poc-effect-evaluation/)、メタデータ追加と再実施は[第09章](/cases/customer-support-ai-dx/poc-metadata-improvement/)で説明します。
+本章から第08章までは、評価後の改善を反映した最終設計を示します。初期方式の問題発見は[第09章](/cases/customer-support-ai-dx/poc-effect-evaluation/)、メタデータ追加と再実施は[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)で説明します。
 
 ## 方式判断：機種を絞ってから検索する
 

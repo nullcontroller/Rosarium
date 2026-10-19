@@ -12,13 +12,13 @@ const legacyPocFragments = Object.fromEntries(Object.entries(supportPocLegacyFra
 const canonical = new URL(destination, Astro.site).toString();
 ---
 
-<Site title="PoC詳細は第09章へ移転しました" summary={entry!.data.summary} canonical={canonical} noindex showRightSidebar={false} showLastUpdated={false} lastUpdated={entry!.data.last_updated}>
+<Site title="PoC詳細は第10章へ移転しました" summary={entry!.data.summary} canonical={canonical} noindex showRightSidebar={false} showLastUpdated={false} lastUpdated={entry!.data.last_updated}>
   <meta slot="head" http-equiv="refresh" content={`0;url=${destination}`} />
   <script is:inline define:vars={{ destination, legacyPocFragments }}>
     let alias;
     try { alias = decodeURIComponent(location.hash.slice(1)); } catch { alias = ""; }
     location.replace(Object.hasOwn(legacyPocFragments, alias) ? legacyPocFragments[alias] : destination + location.hash);
   </script>
-  <h1>PoC詳細は第09章へ移転しました</h1>
-  <p><a href={destination}>第09章：RAGのメタデータ追加とPoC再実施へ移動する</a></p>
+  <h1>PoC詳細は第10章へ移転しました</h1>
+  <p><a href={destination}>第10章：RAGのメタデータ追加とPoC再実施へ移動する</a></p>
 </Site>

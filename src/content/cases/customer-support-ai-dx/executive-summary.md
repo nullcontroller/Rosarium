@@ -1,7 +1,7 @@
 ---
 summary: "企画部門からの業務改善提案を受け、システムアーキテクトとして要件・機能分担・処理方式・評価条件を設計し、業務目標の実現に向けた見込みを整理します。"
 layer: publication
-title: 00. このケーススタディについて
+title: 01. このケーススタディについて
 kind: case
 section: cases
 status: published
@@ -58,4 +58,4 @@ order: 1
 
 生成AIと検索、既存の製品情報、人間の役割を分担し、検索対象制御と有人引継ぎを含むシステム方式を設計しました。  
 **自己解決と専門対応を両立する方式を定め、企画部門から提示された業務目標の実現に向けた見込みが立ちました。**  
-検証シナリオ上の自動回答目標の達成と業務効果の試算は[第09章](/cases/customer-support-ai-dx/poc-metadata-improvement/)で、本番実測と区別して説明します。
+文書検索の適合率改善と業務効果の試算は[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)で、本番実測と区別して説明します。

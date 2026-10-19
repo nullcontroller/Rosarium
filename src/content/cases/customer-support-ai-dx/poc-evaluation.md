@@ -1,7 +1,7 @@
 ---
 summary: "本格開発前に過去の問い合わせ500件を用い、逆質問・ベクトル検索・RAGによる回答生成の3機能を確認。構想したQAシステムの技術的な実現可能性と開発へ進む見込みを示します。"
 layer: publication
-title: 03. 第1回PoC：技術的実現可能性の確認
+title: 04. 第1回PoC：技術的実現可能性の確認
 kind: case
 section: cases
 status: published
@@ -34,4 +34,4 @@ order: 4
 
 **過去の問い合わせ500件でこの3機能を確認した結果、構想したQAシステムについて技術的な実現可能性の見込みが立ち、本格開発へ進む判断につながりました。**
 
-本章は設計・検証シナリオにおける技術確認です。第1回PoCは業務効果や安全性を評価したものではありません。開発したQAシステムの業務への適合性は、[第8章：第2回PoC](/cases/customer-support-ai-dx/poc-effect-evaluation/)で確認します。
+本章は設計・検証シナリオにおける技術確認です。第1回PoCは業務効果や安全性を評価したものではありません。開発したQAシステムの業務への適合性は、[第9章：第2回PoC](/cases/customer-support-ai-dx/poc-effect-evaluation/)で確認します。

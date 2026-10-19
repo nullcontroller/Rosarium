@@ -17,11 +17,11 @@ test("support QA presents the proposal, system architecture decisions and feasib
   const poc = read("poc-evaluation");
   const knowledge = read("knowledge-design");
 
-  for (const text of ["企画部門から提案された", "システムアーキテクトとして", "業務適用に向けた方式の妥当性を確認しました"])
+  for (const text of ["企画部門から提案された", "システムアーキテクトとして", "文書検索の適合率が98％へ改善しました"])
     assert(overview.includes(text), text);
   assert(introduction.includes("企画部門から業務改善の提案を受け"));
   assert(introduction.includes("実現に向けた見込みが立ちました"));
-  assert(readImprovement().includes("検索対象制御と回答許可判定を分離"));
+  assert(readImprovement().includes("回答許可判定も検索対象制御から独立"));
   assert(poc.includes("技術的な実現可能性の見込みが立ち"));
   assert(knowledge.includes("機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAG"));
   assert(!overview.includes("SAとして"));
@@ -33,8 +33,8 @@ test("support QA labels scenario evaluation separately from production achieveme
   const contents = [read(""), ...chapters.map((file) => read(file.slice(0, -3))), readDetail()].join("\n");
   assert(!/原典|原点|母艦|論述資料|補足設計|R[1-7]-[1-2]|\.md\b/.test(contents));
   assert(read("").includes("設計を検討する検証シナリオ"));
-  assert(readImprovement().includes("検証シナリオ内の評価であり、本番運用の実測ではありません"));
-  assert(readImprovement().includes("80％以上を適切に自動回答する目標を達成"));
+  assert(readImprovement().includes("設計・検証シナリオ内の評価であり、本番運用の実測成果とは区別"));
+  assert(readImprovement().includes("文書検索の適合率は72％から98％へ改善"));
   assert(!/本番導入済み|実測で達成|導入成果を達成/.test(contents));
 });
 
@@ -79,7 +79,7 @@ test("Book and PoC exclude the removed qualification plan", () => {
   assert(!fs.existsSync("src/content/evaluation-hitl/customer-support-qa-qualification-test.md"));
   for (const source of sources) assert(!/適格性確認|qualification-test|ほぼ同数|自動実行/.test(source));
   const chapter = read("poc-evaluation");
-  assert.match(chapter, /^title: 03\. 第1回PoC：技術的実現可能性の確認$/m);
+  assert.match(chapter, /^title: 04\. 第1回PoC：技術的実現可能性の確認$/m);
   for (const value of ["新規開発に先立ち", "過去の問い合わせ500件", "逆質問", "ベクトル検索", "RAG", "技術的な実現可能性の見込み"])
     assert(chapter.includes(value), value);
   assert(read("continuous-improvement").includes("引継ぎ後の対応工数"));
@@ -139,11 +139,11 @@ test("two PoCs separate technical feasibility from developed-system effects", ()
   const data = tableRows(second).filter(row => ["定型問い合わせ", "専門判断が必要", "回答根拠不足", "合計"].includes(row[0]));
   assert.deepEqual(data.map(row => row.slice(0, 2)), [["定型問い合わせ", "250"], ["専門判断が必要", "200"], ["回答根拠不足", "50"], ["合計", "500"]]);
   assert.equal(data.slice(0, 3).reduce((sum, row) => sum + Number(row[1]), 0), 500);
-  assert(second.includes("検索対象の適格性と自動回答の許可を制御する必要"));
+  assert(second.includes("検索対象と回答許可の制御を見直す必要"));
   assert(!/目標を達成|100時間|300時間|再実施した結果/.test(second));
   const improved = readImprovement();
-  for (const phrase of ["80％以上を適切に自動回答する目標を達成", "データセットと実行環境の同一性", "有人引継ぎの成功率まで達成したという意味ではありません"]) assert(improved.includes(phrase),phrase);
-  for (const text of [second, improved]) assert(!/1,000件|72％|96％|94％|180／250|240／250|480／500|24件.*0件/.test(text));
+  for (const phrase of ["文書検索の適合率は72％から98％へ改善", "データセット・実行環境の同一性", "自動回答率や有人引継ぎ成功率ではありません"]) assert(improved.includes(phrase),phrase);
+  for (const text of [second, improved]) assert(!/1,000件|96％|94％|180／250|240／250|480／500|24件.*0件/.test(text));
 
 });
 
@@ -164,33 +164,23 @@ test("first PoC verifies exactly three functions in body, diagram and Book overv
   assert(readDetail().includes("引継ぎに成功したことは別の評価"));
 });
  
-test("business projections use monthly 750 inquiries and the 600-resolution target", () => {
-  const second = readImprovement();
-  const business = second.split("## 9.5 ")[1].replace(/<span[^>]*><\/span>/g, "");
-  assert(!/250|72％|96％|280時間|180|240|750件 × r/.test(business));
-  for (const phrase of ["月間問い合わせは1,500件", "定型750件・専門判断600件・回答根拠不足150件", "600件以上", "100時間相当", "試算", "本番で達成した実測値ではありません", "追加負荷"])
-    assert(business.includes(phrase), phrase);
-  const rows = tableRows(business);
-  assert.equal(rows.find(row => row[0] === "改善対象")[1], "定型問い合わせ750件／月");
-  assert.equal(rows.find(row => row[0] === "自己解決の目標")[1], "750件のうち600件以上／月");
-  assert.equal(rows.find(row => row[0] === "対応工数の削減")[1], "600件 × 10分 ÷ 60 ＝ 100時間／月");
-  assert.equal(rows.find(row => row[0] === "改善後の対応工数")[1], "400時間 − 100時間 ＝ 300時間／月");
-  assert.equal(600 / 750, .8);
-  assert.equal(600 * 10 / 60, 100);
-  assert.equal(400 - (600 * 10 / 60), 300);
-  const lead = read("").split("## 代表設計事例の要点")[1].split('id="数値と設計事例の位置付け"')[0];
-  assert(!/250|96％|280時間|180件|240件/.test(lead));
-  assert(lead.includes("月750件の定型問い合わせのうち600件以上"));
+test("business projections separate retrieval accuracy from monthly self-resolution assumptions", () => {
+ const improved=readImprovement();
+ for(const text of ["月間1,500件", "750件", "月720件", "720件はPoCの実測件数ではありません", "720件 × 10分 ÷ 60", "400時間 − 120時間", "月280時間相当", "条件付きの見込み", "本番総工数の実測ではありません"]) assert(improved.includes(text), text);
+ assert.equal(720*10/60,120);assert.equal(400-720*10/60,280);
+ assert(improved.includes("検索適合率98％とは別の試算前提"));
+ assert(!/250|180件|240件|96％/.test(improved));
+ assert(improved.trim().endsWith("削減できる見込みが立ちました。**"));
 });
- 
+
 test("Book exposes two PoCs without claiming unmeasured production outcomes", () => {
   const overview = read("");
-  for (const text of ["**検索対象の適格性と、自動回答の許可を分離**", "**第1回PoC：**", "**第2回PoC：**", "自動回答目標の達成は検証シナリオ内の評価", "00〜11の12章構成"])
+  for (const text of ["**検索対象の適格性と、自動回答の許可を分離**", "**第1回PoC：**", "**第2回PoC：**", "検索適合率の改善は検証シナリオ内の評価", "01〜12の12章構成"])
     assert(overview.includes(text), text);
-  assert(!/96％|280時間|180件|240件/.test(overview));
+  assert(!/96％|180件|240件/.test(overview));
   const names = fs.readdirSync(path.join(root, "customer-support-ai-dx")).filter(file => file.endsWith(".md"));
   const ordered = names.map(file => ({file, text:read(file.slice(0,-3))})).sort((a,b)=>Number(a.text.match(/^order: (\d+)/m)[1])-Number(b.text.match(/^order: (\d+)/m)[1]));
-  assert.deepEqual(ordered.map(x=>Number(x.text.match(/^title: (\d+)/m)[1])), Array.from({length:12},(_,i)=>i));
+  assert.deepEqual(ordered.map(x=>Number(x.text.match(/^title: (\d+)/m)[1])), Array.from({length:12},(_,i)=>i+1));
   assert.deepEqual(ordered.map(x=>Number(x.text.match(/^order: (\d+)/m)[1])), Array.from({length:12},(_,i)=>i+1));
   assert.equal(ordered[3].file, "poc-evaluation.md");
   assert.deepEqual(ordered.map(x=>x.file), [
@@ -200,10 +190,10 @@ test("Book exposes two PoCs without claiming unmeasured production outcomes", ()
   ]);
 });
 
-test("PoC details remain inside the Book and the old independent URL targets chapter 09", () => {
+test("PoC details remain inside the Book and the old independent URL targets chapter 10", () => {
   const first=read("poc-evaluation"),second=readDetail();
   const old=fs.readFileSync(`src/content/${oldDetailId}.md`, "utf8");
-  assert.match(second, /^title: 08\. 第2回PoC：開発したQAシステムの効果確認$/m);
+  assert.match(second, /^title: 09\. 第2回PoC：開発したQAシステムの効果確認$/m);
   assert.match(second, /^series: customer-support-ai-dx$/m);
   assert.match(second, /^order: 9$/m);
   assert(first.includes('data-case-diagram="support-poc-checks"'));
@@ -219,16 +209,16 @@ test("PoC details remain inside the Book and the old independent URL targets cha
 });
 
 
-test("design chapters explain the final design while chapters 08 and 09 separate discovery and improvement", () => {
+test("design chapters explain the final design while chapters 09 and 10 separate discovery and improvement", () => {
   const knowledge = read("knowledge-design");
   const boundary = read("responsibility-boundary");
-  assert(knowledge.includes("本章から第07章までは、評価後の改善を反映した最終設計"));
+  assert(knowledge.includes("本章から第08章までは、評価後の改善を反映した最終設計"));
   assert(boundary.includes("評価後の見直しを反映した最終的な責任分担"));
   assert(!/初期方式では|当初のベクトル検索/.test(knowledge + boundary));
-  for (const source of [knowledge, boundary]) assert(source.includes("[第08章](/cases/customer-support-ai-dx/poc-effect-evaluation/)"));
+  for (const source of [knowledge, boundary]) assert(source.includes("[第09章](/cases/customer-support-ai-dx/poc-effect-evaluation/)"));
   assert(readDetail().includes("初期方式の問題"));
-  assert(readImprovement().includes("メタデータと回答許可判定の変更"));
-  assert(read("").includes("第04〜07章の参照資料・停止条件・有人引継ぎ・顧客体験"));
+  assert(readImprovement().includes("対象機種・利用環境・対応版数のメタデータ"));
+  assert(read("").includes("第05〜08章の参照資料・停止条件・有人引継ぎ・顧客体験"));
 });
 
 
@@ -238,3 +228,22 @@ test("initial PoC evaluation diagram stops at problem discovery", () => {
  assert(!/目標を達成|同じ500件|再検証する/.test(JSON.stringify(diagram)));
  assert(!/<span[^>]*><\/span>/.test(readDetail()+readImprovement()));
 });
+
+test("all published Books use chapter one as the first displayed chapter", () => {
+ const groups=new Map();
+ for(const file of fs.readdirSync('src/content',{recursive:true}).filter(x=>x.endsWith('.md'))){
+  const text=fs.readFileSync(path.join('src/content',file),'utf8');
+  const series=text.match(/^series: (.+)$/m)?.[1], order=Number(text.match(/^order: (\d+)$/m)?.[1]);
+  if(!series || !(order>0)) continue;
+  const title=text.match(/^title: (.+)$/m)[1];
+  const n=Number(title.match(/^(?:["']?)(?:第)?(\d+)(?:章|\.)/)?.[1]);
+  assert(Number.isInteger(n)&&n>0,file);
+  if(!groups.has(series))groups.set(series,[]);groups.get(series).push(n);
+ }
+ assert(groups.size>=4);
+ for(const [series,nums]of groups)assert.deepEqual(nums.sort((a,b)=>a-b),Array.from({length:nums.length},(_,i)=>i+1),series);
+ const rows=tableRows(readDetail());
+ assert.deepEqual(["生成AIによる逆質問の適合率","文書検索の適合率","根拠に基づく回答生成の適合率"].map(x=>rows.find(r=>r[0]===x)?.[1]),["98％","72％","98％"]);
+ assert(readDetail().includes("必要な品質に未達"));assert(!readDetail().includes("280時間"));
+});
+

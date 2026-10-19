@@ -363,7 +363,7 @@ export const publicationTopics = (entry: Entry) => [
   ]),
 ];
 
-// Displayed 00 is an introduction; order remains the sequence for navigation.
+// Display chapter labels independently from the internal cover order (0).
 export const bookChapterNumber = (entry: Entry) => {
   const number = entry.data.title.match(/^(\d{2})\.\s/);
   return number ? Number(number[1]) : (entry.data.order ?? 0);

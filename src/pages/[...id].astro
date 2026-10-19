@@ -60,7 +60,7 @@ const previous = readingSequence[position - 1],
 const chapterCount = series.filter((item) => (item.data.order ?? 0) > 0).length;
 const chapterNumber = bookChapterNumber(entry);
 const seriesPosition = series.length > 0
-  ? `現在位置：${(d.order ?? 0) === 0 ? "全体構成" : chapterNumber === 0 ? "導入" : `第${chapterNumber}章`}・全${chapterCount}章`
+  ? `現在位置：${(d.order ?? 0) === 0 ? "全体構成" : `第${chapterNumber}章`}・全${chapterCount}章`
   : undefined;
 const coverDimensions = imageDimensions(
   d.cover ? d.cover : undefined,

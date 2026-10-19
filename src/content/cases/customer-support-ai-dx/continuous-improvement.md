@@ -1,7 +1,7 @@
 ---
 summary: "誤回答・検索失敗・途中離脱・引継ぎ不足を分け、担当者ごとに何を直すか設計します。参照資料や回答許可の変更を再評価し、回答品質と業務負荷を確認する運用を示します。"
 layer: publication
-title: 10. 導入後にどう育てるか
+title: 11. 導入後にどう育てるか
 kind: case
 section: cases
 status: published
