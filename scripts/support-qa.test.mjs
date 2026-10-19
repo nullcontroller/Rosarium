@@ -33,7 +33,6 @@ test("support QA labels scenario evaluation separately from production achieveme
   const contents = [read(""), ...chapters.map((file) => read(file.slice(0, -3))), readDetail()].join("\n");
   assert(!/原典|原点|母艦|論述資料|補足設計|R[1-7]-[1-2]|\.md\b/.test(contents));
   assert(read("").includes("本事例は設計・検証シナリオです"));
-  assert(readImprovement().includes("公開用の設計・検証シナリオ"));
   assert(readImprovement().includes("文書検索の適合率は72％から98％へ"));
   assert(!/本番導入済み|実測で達成|導入成果を達成/.test(contents));
 });
@@ -62,7 +61,7 @@ test("support case consistently starts from manual work and a newly developed cu
   assert(read("").includes("QAシステムを設計"));
   assert(read("why-ai").includes("専用の問い合わせ支援システムはなく"));
   const files = fs.readdirSync(path.join(root, "customer-support-ai-dx")).filter(file => file.endsWith(".md"));
-  assert.equal(files.length, 12);
+  assert.equal(files.length, 11);
   for (const source of [read(""), ...files.map(file => read(file.slice(0, -3)))]) {
     const text = source.replace(/<[^>]*>/g, "");
     assert(!/既存システム|旧システム|リプレース|データ移行|Web支援システムで|必要なAPI・状態参照/.test(text));
@@ -82,20 +81,18 @@ test("Book and PoC exclude the removed qualification plan", () => {
   assert.match(chapter, /^title: 04\. 第1回PoC：フィージビリティ確認$/m);
   for (const value of ["新規開発に先立ち", "少数の問い合わせ例", "逆質問", "ベクトル検索", "RAG", "基本動作を確認"])
     assert(chapter.includes(value), value);
-  assert(read("continuous-improvement").includes("引継ぎ後の対応工数"));
-  assert(read("continuous-improvement").includes("重複質問"));
 });
 
-test("chapter 11 connects scenario achievements to three pre-production checks", () => {
- const chapter=read("continuous-improvement");
- const body=chapter.split("---").slice(2).join("---");
- assert.match(chapter,/^title: 11\. 本番適用に向けて残る課題$/m);
- assert.match(chapter,/^order: 11$/m);
- assert.deepEqual([...body.matchAll(/^## (.+)$/gm)].map(match=>match[1]),["実際の業務効果","回答品質の維持","運用負荷"]);
- for(const value of["文書検索の適合率98％","有人振り分け率100％","280時間／月","月720件の自己解決を前提","本番運用の実績はまだなく","条件付き試算"]) assert(body.includes(value),value);
- assert(body.includes("[第12章：この事例から得た設計原則](/cases/customer-support-ai-dx/design-principles/)"));
- assert(!/^\||data-case-diagram|失敗を分類|運用を設計しました/m.test(body));
- assert(body.length<650);
+test("Book ends with PoC success and chapter 11 principles; the removed route only redirects", () => {
+ assert(!fs.existsSync("src/content/cases/customer-support-ai-dx/continuous-improvement.md"));
+ assert.match(read("design-principles"),/^title: 11\. この事例から得た設計原則$/m);
+ assert.match(read("design-principles"),/^order: 11$/m);
+ const body=readImprovement().split("---").slice(2).join("---").trim();
+ assert(body.endsWith("対応工数を月400時間から280時間へ削減できる見込みが立ちました。**"));
+ assert(!/本番適用前|本番実測ではありません|商用運用で別途/.test(body));
+ const redirect=fs.readFileSync("src/pages/cases/customer-support-ai-dx/continuous-improvement.astro","utf8");
+ for(const phrase of ["http-equiv=\"refresh\"","location.replace(destination)","canonical={canonical}","noindex"]) assert(redirect.includes(phrase));
+ assert(redirect.includes('url("cases/customer-support-ai-dx/poc-metadata-improvement")'));
  assert.equal(caseDiagrams["support-continuous-improvement"],undefined);
 });
 
@@ -161,9 +158,9 @@ test("first PoC verifies exactly three functions in body, diagram and Book overv
  
 test("business projections separate retrieval accuracy from monthly self-resolution assumptions", () => {
  const improved=readImprovement();
- for(const text of ["750件／月", "720件／月", "96％", "PoCで観測した成功率ではありません", "125時間／月 × 0.96", "400時間／月 − 120時間／月", "280時間／月", "本番実測ではありません"]) assert(improved.includes(text), text);
+ for(const text of ["750件／月", "720件／月", "96％", "125時間／月 × 0.96", "400時間／月 − 120時間／月", "280時間／月"]) assert(improved.includes(text), text);
  assert.equal(750*10/60,125);assert.equal(125*.96,120);assert.equal(750*.96,720);assert.equal(720*10/60,120);assert.equal(400-720*10/60,280);
- assert(improved.includes("文書検索の適合率98％から導出した値でもありません"));
+ assert(improved.includes("文書検索の適合率98％とは別の試算前提"));
  assert(!/連続して成功する割合は96％|連続成功率96％|250|180件|240件/.test(improved));
 
 });
@@ -174,13 +171,13 @@ test("Book exposes two PoCs without claiming unmeasured production outcomes", ()
   assert(!/180件|240件/.test(overview));
   const names = fs.readdirSync(path.join(root, "customer-support-ai-dx")).filter(file => file.endsWith(".md"));
   const ordered = names.map(file => ({file, text:read(file.slice(0,-3))})).sort((a,b)=>Number(a.text.match(/^order: (\d+)/m)[1])-Number(b.text.match(/^order: (\d+)/m)[1]));
-  assert.deepEqual(ordered.map(x=>Number(x.text.match(/^title: (\d+)/m)[1])), Array.from({length:12},(_,i)=>i+1));
-  assert.deepEqual(ordered.map(x=>Number(x.text.match(/^order: (\d+)/m)[1])), Array.from({length:12},(_,i)=>i+1));
+  assert.deepEqual(ordered.map(x=>Number(x.text.match(/^title: (\d+)/m)[1])), Array.from({length:11},(_,i)=>i+1));
+  assert.deepEqual(ordered.map(x=>Number(x.text.match(/^order: (\d+)/m)[1])), Array.from({length:11},(_,i)=>i+1));
   assert.equal(ordered[3].file, "poc-evaluation.md");
   assert.deepEqual(ordered.map(x=>x.file), [
     "executive-summary.md", "why-ai.md", "responsibility-boundary.md", "poc-evaluation.md",
     "human-handoff.md", "customer-experience.md", "poc-effect-evaluation.md",
-    "knowledge-design.md", "stopping-conditions.md", "poc-metadata-improvement.md", "continuous-improvement.md", "design-principles.md",
+    "knowledge-design.md", "stopping-conditions.md", "poc-metadata-improvement.md", "design-principles.md",
   ]);
 });
 
@@ -206,7 +203,7 @@ test("PoC details remain inside the Book and the old independent URL targets cha
 test("design chapters distinguish the final design from discovery and improvements in chapters 07 through 10", () => {
   const knowledge = read("knowledge-design");
   const boundary = read("responsibility-boundary");
-  assert(knowledge.includes("初期状態と変更内容は設計・検証シナリオ上の設定"));
+  assert(knowledge.includes("参照資料を整備して検索方式を再設計しました"));
   assert(boundary.includes("評価後の検索対象制御・停止条件の強化を反映した最終的な責任分担"));
   assert(boundary.includes("初期方式ではその判定が十分に機能しませんでした"));
   assert(boundary.includes("[第07章](/cases/customer-support-ai-dx/poc-effect-evaluation/)"));
@@ -250,7 +247,7 @@ test("specialist routing has its own scenario requirement and improvement", () =
  const after=tableRows(readImprovement()).find(row=>row[0]==="専門判断案件の適切な有人振り分け率");
  assert.deepEqual(after.slice(0,3),["専門判断案件の適切な有人振り分け率","94％","100％"]);
  assert(!readDetail().includes("94％から100％"));
- assert(readImprovement().includes("公開用の設計・検証シナリオ"));
+ assert(read("").includes("本事例は設計・検証シナリオです"));
  assert(readImprovement().includes("引継ぎ情報の受渡し成功率"));
  assert(!/400件|24件|12件|200件中/.test(readImprovement()));
 });

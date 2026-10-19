@@ -1,6 +1,7 @@
 // Compatibility for published Book headings after local editing.
 export const bookChapterLegacyFragments: Record<string, Record<string, string>> = {
   "cases/customer-support-ai-dx/design-principles": {
+    "9-導入後の評価と改善まで設計する": "cases/customer-support-ai-dx/design-principles#9-評価で見つかった問題を方式改善へ戻す",
     "7-技術的実現可能性と業務成立性を段階的に確認する": "cases/customer-support-ai-dx/design-principles#7-フィージビリティ確認と業務上の評価を分ける"
   },
   "foundations/ai-business-design/delegation-and-responsibility": {
@@ -50,12 +51,5 @@ export const bookChapterLegacyFragments: Record<string, Record<string, string>> 
     "本格開発前に技術的な実現可能性を確認する": "cases/customer-support-ai-dx/poc-evaluation#本格開発前に基本動作を確認する",
     "検証した3機能": "cases/customer-support-ai-dx/poc-evaluation#確認した3機能",
     "技術的な実現見込みを本格開発へつなぐ": "cases/customer-support-ai-dx/poc-evaluation#本格開発前に基本動作を確認する"
-  },
-  "cases/customer-support-ai-dx/continuous-improvement": {
-    "導入を完成にしない": "cases/customer-support-ai-dx/continuous-improvement#実際の業務効果",
-    "観測するもの": "cases/customer-support-ai-dx/continuous-improvement#実際の業務効果",
-    "失敗を分類して改善する": "cases/customer-support-ai-dx/continuous-improvement#回答品質の維持",
-    "変更単位と責任者を分ける": "cases/customer-support-ai-dx/continuous-improvement#運用負荷",
-    "同じ条件で再評価する": "cases/customer-support-ai-dx/continuous-improvement#回答品質の維持"
   }
 };

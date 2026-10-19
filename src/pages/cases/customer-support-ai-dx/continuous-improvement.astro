@@ -1,0 +1,12 @@
+---
+import Site from "../../../layouts/Site.astro";
+import { url } from "../../../lib/site";
+const destination = url("cases/customer-support-ai-dx/poc-metadata-improvement");
+const canonical = new URL(destination, Astro.site).toString();
+---
+<Site title="顧客サポートDXの結末は第10章へ" summary="顧客サポートDXは、方式改善とPoC再実施による評価目標の達成で完結します。" canonical={canonical} noindex showRightSidebar={false} showLastUpdated={false} lastUpdated="2026-10-19">
+  <meta slot="head" http-equiv="refresh" content={`0;url=${destination}`} />
+  <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
+  <h1>顧客サポートDXの結末は第10章へ</h1>
+  <p><a href={destination}>第10章：改善後のPoC再実施へ移動する</a></p>
+</Site>

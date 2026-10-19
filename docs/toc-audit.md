@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 149ページ。目次あり 116、なし 33。Referenceあり 115、なし 34。
+対象 149ページ。目次あり 115、なし 34。Referenceあり 114、なし 35。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -37,19 +37,19 @@
 | /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/profile/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/ | 実践事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 13 | Book章構造 |
-| /cases/customer-support-ai-dx/continuous-improvement/ | 11. 本番適用に向けて残る課題 | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/customer-experience/ | 06. 顧客体験をどう変えたか | あり | あり | あり | 17 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/design-principles/ | 12. この事例から得た設計原則 | あり | あり | あり | 23 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/executive-summary/ | 01. このケーススタディについて | あり | あり | あり | 17 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/human-handoff/ | 05. AIから人間へどう引き継ぐか | あり | あり | あり | 19 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/knowledge-design/ | 08. RAGの参照資料整備と検索方式の再設計 | あり | あり | あり | 18 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/poc-effect-evaluation/ | 07. 第2回PoC：開発したQAシステムの評価 | あり | あり | あり | 17 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/poc-evaluation/ | 04. 第1回PoC：フィージビリティ確認 | あり | あり | あり | 15 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/poc-metadata-improvement/ | 10. 改善後のPoC再実施 | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/responsibility-boundary/ | 03. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 22 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/stopping-conditions/ | 09. AIをどこで止めるか | あり | あり | あり | 19 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/why-ai/ | 02. なぜAIを導入したのか | あり | あり | あり | 20 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 12 | Book章構造 |
+| /cases/customer-support-ai-dx/continuous-improvement/ | 顧客サポートDXの結末は第10章へ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /cases/customer-support-ai-dx/customer-experience/ | 06. 顧客体験をどう変えたか | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/design-principles/ | 11. この事例から得た設計原則 | あり | あり | あり | 22 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/executive-summary/ | 01. このケーススタディについて | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/human-handoff/ | 05. AIから人間へどう引き継ぐか | あり | あり | あり | 18 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/knowledge-design/ | 08. RAGの参照資料整備と検索方式の再設計 | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/poc-effect-evaluation/ | 07. 第2回PoC：開発したQAシステムの評価 | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/poc-evaluation/ | 04. 第1回PoC：フィージビリティ確認 | あり | あり | あり | 14 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/poc-metadata-improvement/ | 10. 改善後のPoC再実施 | あり | あり | あり | 15 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/responsibility-boundary/ | 03. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 21 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/stopping-conditions/ | 09. AIをどこで止めるか | あり | あり | あり | 18 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/why-ai/ | 02. なぜAIを導入したのか | あり | あり | あり | 19 | 主要見出しが複数 |
 | /cases/specification-debt-review/ | 3万文字・68ページの仕様書をAIで横断レビューする | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/system-understanding/ | 理解しにくいレガシーシステムを、変更判断できる状態へ変える | あり | あり | あり | 19 | 主要見出しが複数 |
 | /cases/system-understanding/connecting-ui-and-internals/ | 07. UI操作と内部処理を結び付け、操作結果を追えるようにする | あり | あり | あり | 15 | 主要見出しが複数 |

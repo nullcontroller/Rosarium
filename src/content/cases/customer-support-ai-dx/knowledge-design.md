@@ -19,7 +19,7 @@ series_title: 生成AI / RAGによる顧客サポートDX
 order: 8
 ---
 
-第07章の評価で見つかった別機種文書の誤検索に対し、参照資料を整備して検索方式を再設計しました。初期状態と変更内容は設計・検証シナリオ上の設定です。改善後の評価結果は[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)にまとめます。
+第07章の評価で見つかった別機種文書の誤検索に対し、参照資料を整備して検索方式を再設計しました。改善後の評価結果は[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)にまとめます。
 
 ## 最低限の登録では対象条件をそろえられない
 

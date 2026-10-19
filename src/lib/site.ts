@@ -71,6 +71,7 @@ export const introductionForPath = (pathname: string) =>
 export const fallbackLastUpdated = "2026-09-28";
 // Page dates are explicit. Home tracks the latest site-wide public change separately.
 export const staticPageLastUpdated: Record<string, string> = {
+  "cases/customer-support-ai-dx/continuous-improvement": "2026-10-19",
   "software-engineering/code-generation-and-work-design": "2026-10-08",
   "software-engineering/code-generation-boundaries": "2026-10-08",
   "practices/ai-generation-and-work-completion": "2026-10-08",

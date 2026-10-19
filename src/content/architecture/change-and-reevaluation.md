@@ -334,7 +334,7 @@ Incident Caseに個人情報や機密が含まれる場合は、再利用用Test
 - 後継Systemへの責任移管
 - 利用者への通知と代替手段
 
-[顧客サポートDXの本番適用前の確認事項](/cases/customer-support-ai-dx/continuous-improvement/)では、実際の業務効果・回答品質の維持・運用負荷を整理しています。変更管理は、その改善を安全に反映する仕組みであると同時に、維持する価値を見直す機会でもあります。
+[顧客サポートDXの方式改善とPoC再実施](/cases/customer-support-ai-dx/poc-metadata-improvement/)では、検索対象と回答許可の制御を見直して再評価しています。変更管理は、その改善を安全に反映する仕組みであると同時に、維持する価値を見直す機会でもあります。
 
 ---
 

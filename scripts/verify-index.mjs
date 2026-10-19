@@ -797,18 +797,18 @@ assert(
 );
 const customerSupportBook = page("cases/customer-support-ai-dx");
 assert.equal(customerSupportBook(".series").length, 0);
-assert.equal(customerSupportBook(".book-toc .page-toc-panel > ol > li").length, 13);
-assert.equal(customerSupportBook(".book-toc-mobile:not([data-page-heading-toc]) > ol > li").length, 13);
+assert.equal(customerSupportBook(".book-toc .page-toc-panel > ol > li").length, 12);
+assert.equal(customerSupportBook(".book-toc-mobile:not([data-page-heading-toc]) > ol > li").length, 12);
 assert.equal(customerSupportBook(".book-toc .content-entry").length, 0);
 assert.equal(
   customerSupportBook(".series-position-inline").text(),
-  "現在位置：全体構成・全12章",
+  "現在位置：全体構成・全11章",
 );
 assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
     ".series-position-inline",
   ).text(),
-  "現在位置：第04章・全12章",
+  "現在位置：第04章・全11章",
 );
 assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
@@ -823,7 +823,7 @@ assert(
 );
 assert.equal(
   page("cases/customer-support-ai-dx/design-principles")(".series-position-inline").text(),
-  "現在位置：第12章・全12章",
+  "現在位置：第11章・全11章",
 );
 assert.equal(customerSupportBook('a[href*="outcomes-and-evidence"]').length, 0);
 for (const id of ["specification-debt-review", "three-ai-maintenance", "system-understanding", "customer-support-ai-dx"])
@@ -962,12 +962,12 @@ for (const file of walk("dist").filter((file) => file.endsWith("index.html"))) {
 console.log("Verified quiet Case endings and preserved Practice discovery.");
 
 const supportTitles = customerSupportBook(".book-toc .page-toc-panel > ol a").map((_, node) => customerSupportBook(node).text().trim()).get();
-assert.deepEqual(supportTitles.slice(2).map((title) => title.slice(0, 2)), ["02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]);
-assert(customerSupportBook(".book-toc-mobile summary").text().includes("全12章"));
-assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".series-position-inline").text(), "現在位置：第01章・全12章");
+assert.deepEqual(supportTitles.slice(2).map((title) => title.slice(0, 2)), ["02", "03", "04", "05", "06", "07", "08", "09", "10", "11"]);
+assert(customerSupportBook(".book-toc-mobile summary").text().includes("全11章"));
+assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".series-position-inline").text(), "現在位置：第01章・全11章");
 const lastSupportChapter = page("cases/customer-support-ai-dx/design-principles");
 assert(!lastSupportChapter(".pagination").text().includes("次のページ"));
-assert(lastSupportChapter('.pagination a[href="/cases/customer-support-ai-dx/continuous-improvement/"]').length);
+assert(lastSupportChapter('.pagination a[href="/cases/customer-support-ai-dx/poc-metadata-improvement/"]').length);
 
 // Portfolio explanation diagrams are static first and keep meaningful reading exits.
 for (const id of ["system-understanding", "three-ai-maintenance", "specification-debt-review"]) {
@@ -1144,11 +1144,11 @@ assert.equal(firstPoc('[data-explanation-id="support-poc-checks"]').length,1);
 assert.equal(firstPoc('[data-explanation-id="support-poc-evaluation"]').length,0);
 assert.equal(secondPoc('[data-explanation-id="support-poc-evaluation"]').length,1);
 assert.equal(secondPoc('.book-toc').length,1);
-assert.equal(secondPoc('.series-position-inline').text(),'現在位置：第07章・全12章');
+assert.equal(secondPoc('.series-position-inline').text(),'現在位置：第07章・全11章');
 const supportChapterSlugs = [
  'executive-summary', 'why-ai', 'responsibility-boundary', 'poc-evaluation',
  'human-handoff', 'customer-experience', 'poc-effect-evaluation',
- 'knowledge-design', 'stopping-conditions', 'poc-metadata-improvement', 'continuous-improvement', 'design-principles',
+ 'knowledge-design', 'stopping-conditions', 'poc-metadata-improvement', 'design-principles',
 ];
 for (const [index, slug] of supportChapterSlugs.entries()) {
  const $ = page('cases/customer-support-ai-dx/' + slug);
@@ -1206,7 +1206,7 @@ assert(improvedPoc('.prose').text().includes('文書検索の適合率は72％�
 assert(!secondPoc('.prose').text().includes('目標を達成'));
 
 assert(improvedPoc(".prose").text().includes("125時間／月 × 0.96 ＝ 120時間／月"));
-assert(improvedPoc(".prose").text().includes("PoCで観測した成功率ではありません"));
+assert(improvedPoc(".prose").text().includes("文書検索の適合率98％とは別の試算前提"));
 
 for(const [route, aliases] of Object.entries(bookChapterLegacyFragments)) {
  for(const [old,target]of Object.entries(aliases)){
@@ -1243,9 +1243,14 @@ for(const row of secondPoc('.prose table').eq(1).find('tbody tr').toArray()) {
  if(cells.eq(1).text().trim()==='98％')assert.equal(secondPoc(row).find('.evaluation-unmet').length,0);
 }
 
-const preProduction=page("cases/customer-support-ai-dx/continuous-improvement");
-assert.equal(preProduction('h1').text().trim(),'11. 本番適用に向けて残る課題');
-assert.deepEqual(preProduction('.prose > h2').map((_,node)=>preProduction(node).text()).get(),['実際の業務効果','回答品質の維持','運用負荷']);
-assert.equal(preProduction('.prose table, .prose [data-explanation-id]').length,0);
-assert(preProduction('.prose').text().includes('本番運用の実績はまだなく'));
-assert(preProduction('.pagination a').last().attr('href').endsWith('/design-principles/'));
+const removedChapter=page("cases/customer-support-ai-dx/continuous-improvement");
+assert(removedChapter('meta[http-equiv="refresh"]').attr("content").endsWith("/cases/customer-support-ai-dx/poc-metadata-improvement/"));
+assert(removedChapter('link[rel="canonical"]').attr("href").endsWith("/cases/customer-support-ai-dx/poc-metadata-improvement/"));
+assert(removedChapter('meta[name="robots"]').attr("content").includes("noindex"));
+assert.equal(removedChapter("[data-pagefind-body],.book-toc").length,0);
+assert(!fs.readFileSync("dist/sitemap.xml","utf8").includes("/cases/customer-support-ai-dx/continuous-improvement/"));
+
+for(const file of walk("dist").filter(file=>file.endsWith(".html"))) {
+ const $=load(fs.readFileSync(file,"utf8"));
+ assert.equal($('a[href="/cases/customer-support-ai-dx/continuous-improvement/"]').length,0,file+": removed chapter must not be linked");
+}
