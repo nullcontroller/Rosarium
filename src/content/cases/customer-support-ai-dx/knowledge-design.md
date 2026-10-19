@@ -1,7 +1,7 @@
 ---
 summary: "対象機種・利用環境・版数による検索対象制御と、回答項目の自動回答許可・適用条件を分け、RAGで使う参照資料と回答の境界を設計します。"
 layer: publication
-title: 05. RAGで使う参照資料をどう設計したか
+title: 04. RAGで使う参照資料をどう設計したか
 kind: case
 section: cases
 status: published
@@ -16,20 +16,20 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 6
+order: 5
 ---
+
+本章から第07章までは、評価後の改善を反映した最終設計を示します。初期方式の問題発見は[第08章](/cases/customer-support-ai-dx/poc-effect-evaluation/)、メタデータ追加と再実施は[第09章](/cases/customer-support-ai-dx/poc-metadata-improvement/)で説明します。
 
 ## 方式判断：機種を絞ってから検索する
 
-検証シナリオの当初のベクトル検索は、意味的には近くても対象と異なる類似機種の文書を取得することがありました。  
-従来は担当者が適合性を判断していましたが、取得文書を生成AIが直接根拠に使う方式では、誤検索が誤回答へつながります。
+意味的に近い文書でも、対象機種や適用条件が一致するとは限りません。取得文書を生成AIが回答根拠に使うため、検索前に適用できる文書の範囲を定めます。
 
 **機種・環境・版数で検索対象を先に制限する方式を採用しました。**  
 製品仕様書・FAQ・障害情報へメタデータを付与し、追加質問で確認した条件と照合してから検索します。  
 機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAGによる回答、という依存関係です。  
 回答生成後の誤り検出だけに頼らず、生成へ渡してよい根拠を先に制御する方式です。
 
-この方式の検証観点は、[第04章：失敗分析と方式改善](/cases/customer-support-ai-dx/poc-effect-evaluation/)で説明します。
 
 ## 機種以外の適合性とナレッジ運用
 

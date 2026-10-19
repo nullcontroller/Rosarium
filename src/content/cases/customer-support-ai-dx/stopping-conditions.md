@@ -1,7 +1,7 @@
 ---
 summary: "機種・環境・版数、回答許可、専門判断の必要性を確認し、条件を満たさなければ自動回答を止めます。停止理由と調査情報をCS部へ引き継ぎ、AIの自己評価や検索スコアだけに判断を委ねません。"
 layer: publication
-title: 06. AIをどこで止めるか
+title: 05. AIをどこで止めるか
 kind: case
 section: cases
 status: published
@@ -16,7 +16,7 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 7
+order: 6
 ---
 
 ## 回答できそうかではなく、回答してよいか
@@ -89,4 +89,4 @@ AIが自信のある回答をしていても誤ることがあり、類似度が
 条件を満たさない場合は停止し、CS部が専門調査と判断を引き継ぎます。  
 スコアは検索結果の順位付けや調査支援に利用できますが、明確な条件の確認を省略する理由にはしません。
 
-次章では、この停止から担当者の対応へ、顧客が迷わず進める案内を設計します。
+次章では、停止理由と確認済み情報を担当者へ渡し、調査を再開できる引継ぎの仕組みを説明します。

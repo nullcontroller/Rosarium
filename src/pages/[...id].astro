@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Site from "../layouts/Site.astro";
+import { supportPocLegacyFragments } from "../data/support-poc-fragments";
 import { splitRelatedContent, caseEvidenceLinks } from "../lib/related-content.mjs";
 import {
   layerPath,
@@ -30,6 +31,13 @@ export async function getStaticPaths() {
   }));
 }
 const { entry } = Astro.props;
+const legacyPocFragments = ["cases/customer-support-ai-dx/poc-effect-evaluation", "cases/customer-support-ai-dx/poc-metadata-improvement"].includes(entry.id)
+  ? Object.fromEntries(Object.entries(supportPocLegacyFragments).map(([alias, target]) => {
+      const [path, fragment] = target.split("#");
+      return [alias, url(path) + "#" + encodeURIComponent(fragment)];
+    }))
+  : undefined;
+
 const d = entry.data;
 const content = splitRelatedContent(entry.rendered?.html || "");
 const primaryPath = d.section === "cases" ? "cases" : layerPath(d.layer);
@@ -202,4 +210,13 @@ const bookNavigation = series.length
       )}
     </nav>
   )}
+  {legacyPocFragments && <script is:inline define:vars={{ legacyPocFragments }}>
+    function followLegacyPocFragment() {
+      let alias;
+      try { alias = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+      if (Object.hasOwn(legacyPocFragments, alias)) location.replace(legacyPocFragments[alias]);
+    }
+    followLegacyPocFragment();
+    window.addEventListener("hashchange", followLegacyPocFragment);
+  </script>}
 </Site>

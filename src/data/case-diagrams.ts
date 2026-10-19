@@ -2022,8 +2022,8 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     }
   },
   "support-poc-evaluation": {
-    "title": "第2回PoCで、課題を改善して再検証する",
-    "description": "開発したQAシステムの誤検索と誤自動回答を分け、検索対象と回答許可を修正して第2回PoC内で再検証します。",
+    "title": "第2回PoCで初期方式の問題を発見する",
+    "description": "開発したQAシステムを評価し、誤検索と誤自動回答を別の問題として分析します。",
     "nodes": [
       {
         "id": "test",
@@ -2044,41 +2044,27 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "description": "意味の近さだけでは適用できず、文書があるだけでは自動回答を許可できないという二つの原因を分けます。"
       },
       {
-        "id": "control",
-        "label": "検索対象と回答項目の許可を制御する",
-        "kind": "system",
-        "description": "文書の適用条件で検索対象を絞り、回答項目の自動回答可否・適用条件・専門判断条件をCS部と定めて提示前に検証します。"
-      },
-      {
-        "id": "retest",
-        "label": "同じ評価条件で再検証する",
-        "kind": "feedback",
-        "description": "第2回内の初期評価と同じ500件で、自動回答の成立と有人案件の停止・引継ぎを別々に再確認します。回答を止めただけでは引継ぎ成功に数えません。"
-      },
-      {
-        "id": "accept",
-        "label": "設計側と業務側が方式の採否を判断する",
+        "id": "decision",
+        "label": "検索対象と回答許可の制御が必要と判断する",
         "kind": "decision",
-        "description": "成功条件と許容できない失敗に照らし、採用・追加修正・棄却を決めます。"
+        "description": "取得する根拠の適格性と、顧客へ自動回答してよい条件を分離する必要があります。"
       }
     ],
     "explanation": {
       "format": "flow",
       "panels": [
         {
-          "title": "検証結果を方式改善へ戻す",
+          "title": "初期評価から必要な制御を特定する",
           "nodeIds": [
             "test",
             "failure",
             "cause",
-            "control",
-            "retest",
-            "accept"
+            "decision"
           ]
         }
       ],
-      "note": "修正対象は検索対象と回答許可の二つの制御です。モデル変更やプロンプト修正だけで解決したという説明にはしません。",
-      "scope": "第2回PoCの改善・再検証です。第1回と同一の問い合わせを使ったとは断定しません。"
+      "note": "改善策とPoC再実施による到達点は第09章で説明します。",
+      "scope": "第2回PoCの初期評価と問題発見を示します。"
     }
   },
   "support-poc-checks": {

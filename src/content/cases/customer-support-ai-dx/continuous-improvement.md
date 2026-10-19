@@ -1,7 +1,7 @@
 ---
 summary: "誤回答・検索失敗・途中離脱・引継ぎ不足を分け、担当者ごとに何を直すか設計します。参照資料や回答許可の変更を再評価し、回答品質と業務負荷を確認する運用を示します。"
 layer: publication
-title: 09. 導入後にどう育てるか
+title: 10. 導入後にどう育てるか
 kind: case
 section: cases
 status: published
@@ -16,7 +16,7 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 10
+order: 11
 ---
 
 **導入後も、何が失敗し、誰が直し、どの条件で反映するかを追跡できる運用を設計しました。**  

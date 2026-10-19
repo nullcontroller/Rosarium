@@ -197,6 +197,8 @@
 
 ## 2026-10-18：顧客サポートDXのPoC詳細を分離
 
-- `src/content/evaluation-hitl/customer-support-qa-poc.md`：RETIRED（2026-10-19統合）。PoC詳細の正規本文を本編第03章・第04章へ集約。公開日と履歴のメタデータだけを保持し、旧URLは第04章へ転送する。通常一覧・検索・サイトマップへ独立記事として掲載しない。
+- `src/content/evaluation-hitl/customer-support-qa-poc.md`：RETIRED（2026-10-19統合）。PoC詳細の正規本文を本編第03章・第08章・第09章へ集約。公開日と履歴のメタデータだけを保持し、旧URLは第09章へ転送する。通常一覧・検索・サイトマップへ独立記事として掲載しない。
 
-- `src/content/cases/customer-support-ai-dx/poc-effect-evaluation.md`：同じCaseの第04章。開発後の第2回PoCで業務効果・安全性、方式改善と再検証を扱う。第1回の技術確認と区別し、成功率・効果の未確定結果を実績として補わない。
+- `src/content/cases/customer-support-ai-dx/poc-effect-evaluation.md`：同じCaseの第08章。開発後の第2回PoCで初期方式の評価と問題発見を扱う。改善と再実施の結果は第09章へ分離する。
+
+- `src/content/cases/customer-support-ai-dx/poc-metadata-improvement.md`：同じCaseの第09章。検索対象制御と回答許可判定の改善、PoC再実施、指定された検証シナリオ上の自動回答目標達成を説明。具体的な成功件数や未確認の安全性指標、商用運用の実測成果は追加しない。
