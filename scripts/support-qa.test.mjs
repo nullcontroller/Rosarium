@@ -22,7 +22,7 @@ test("support QA presents the proposal, system architecture decisions and feasib
   assert(introduction.includes("企画部門から業務改善の提案を受け"));
   assert(introduction.includes("実現に向けた見込みが立ちました"));
   assert(read("knowledge-design").includes("回答許可判定"));
-  assert(poc.includes("基本動作を確認し、本格開発へ進みました"));
+  assert(poc.includes("基本動作を確認できたため、QAシステムの本格開発へ進むことにしました"));
   assert(knowledge.includes("機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAG"));
   assert(!overview.includes("SAとして"));
 });
@@ -79,7 +79,7 @@ test("Book and PoC exclude the removed qualification plan", () => {
   assert(!fs.existsSync("src/content/evaluation-hitl/customer-support-qa-qualification-test.md"));
   for (const source of sources) assert(!/適格性確認|qualification-test|ほぼ同数|自動実行/.test(source));
   const chapter = read("poc-evaluation");
-  assert.match(chapter, /^title: 04\. 第1回PoC：技術的実現可能性の確認$/m);
+  assert.match(chapter, /^title: 04\. 第1回PoC：フィージビリティ確認$/m);
   for (const value of ["新規開発に先立ち", "少数の問い合わせ例", "逆質問", "ベクトル検索", "RAG", "基本動作を確認"])
     assert(chapter.includes(value), value);
   assert(read("continuous-improvement").includes("引継ぎ後の対応工数"));
@@ -179,17 +179,17 @@ test("Book exposes two PoCs without claiming unmeasured production outcomes", ()
   assert.equal(ordered[3].file, "poc-evaluation.md");
   assert.deepEqual(ordered.map(x=>x.file), [
     "executive-summary.md", "why-ai.md", "responsibility-boundary.md", "poc-evaluation.md",
-    "stopping-conditions.md", "human-handoff.md", "customer-experience.md", "poc-effect-evaluation.md",
-    "knowledge-design.md", "poc-metadata-improvement.md", "continuous-improvement.md", "design-principles.md",
+    "human-handoff.md", "customer-experience.md", "poc-effect-evaluation.md",
+    "knowledge-design.md", "stopping-conditions.md", "poc-metadata-improvement.md", "continuous-improvement.md", "design-principles.md",
   ]);
 });
 
 test("PoC details remain inside the Book and the old independent URL targets chapter 10", () => {
   const first=read("poc-evaluation"),second=readDetail();
   const old=fs.readFileSync(`src/content/${oldDetailId}.md`, "utf8");
-  assert.match(second, /^title: 08\. 第2回PoC：開発したQAシステムの効果確認$/m);
+  assert.match(second, /^title: 07\. 第2回PoC：開発したQAシステムの評価$/m);
   assert.match(second, /^series: customer-support-ai-dx$/m);
-  assert.match(second, /^order: 8$/m);
+  assert.match(second, /^order: 7$/m);
   assert(first.includes('data-case-diagram="support-poc-checks"'));
   assert(!first.includes('data-case-diagram="support-poc-evaluation"'));
   assert(second.includes('data-case-diagram="support-poc-evaluation"'));
@@ -203,17 +203,17 @@ test("PoC details remain inside the Book and the old independent URL targets cha
 });
 
 
-test("design chapters explain the final design while chapters 08 through 10 separate discovery and improvement", () => {
+test("design chapters distinguish the final design from discovery and improvements in chapters 07 through 10", () => {
   const knowledge = read("knowledge-design");
   const boundary = read("responsibility-boundary");
   assert(knowledge.includes("初期状態と変更内容は設計・検証シナリオ上の設定"));
-  assert(boundary.includes("評価後の見直しを反映した最終的な責任分担"));
-  assert(!/初期方式では|当初のベクトル検索/.test(knowledge + boundary));
-  assert(boundary.includes("[第08章](/cases/customer-support-ai-dx/poc-effect-evaluation/)"));
+  assert(boundary.includes("評価後の検索対象制御・停止条件の強化を反映した最終的な責任分担"));
+  assert(boundary.includes("初期方式ではその判定が十分に機能しませんでした"));
+  assert(boundary.includes("[第07章](/cases/customer-support-ai-dx/poc-effect-evaluation/)"));
   assert(knowledge.includes("[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)"));
-  assert(readDetail().includes("初期方式の問題"));
+  assert(readDetail().includes("初期方式を評価"));
   assert(read("knowledge-design").includes("対象機種・利用環境・対応版数"));
-  assert(read("poc-effect-evaluation").includes("第05〜07章は停止・引継ぎ・顧客体験の設計"));
+  assert(read("poc-effect-evaluation").includes("第05〜06章の引継ぎ・顧客体験"));
 });
 
 
@@ -284,7 +284,7 @@ test("first PoC is a small functional tryout without an invented sample count or
  const body=chapter.split("---").slice(2).join("---");
  const diagram=JSON.stringify(caseDiagrams["support-poc-checks"]);
  assert(body.includes("少数の問い合わせ例を用いた簡単な動作確認"));
- assert(body.includes("基本動作を確認し、本格開発へ進みました"));
+ assert(body.includes("基本動作を確認できたため、QAシステムの本格開発へ進むことにしました"));
  assert(!/\d+(?:件|％|%|日間|週間|か月)|実証|成功率|適合率|品質保証|有人引継ぎ|安全性/.test(body+diagram));
  assert(!/過去の問い合わせ500件|実現見込み/.test(chapter+diagram));
  assert(body.length<350);
@@ -300,4 +300,16 @@ test("only unmet initial evaluation values and judgments receive color emphasis"
  const rows=source.split(/\r?\n/).filter(line=>line.includes("| 逆質問の適合率 |")||line.includes("| 回答生成の適合率 |"));
  assert.equal(rows.length,2);
  for(const row of rows)assert(!row.includes("evaluation-unmet"));
+});
+
+test("chronology separates initial handoff from post-evaluation search and stop improvements",()=>{
+ const first=read("poc-evaluation"),initial=readDetail(),knowledge=read("knowledge-design"),stop=read("stopping-conditions"),after=readImprovement();
+ assert.match(first,/^title: 04\. 第1回PoC：フィージビリティ確認$/m);
+ assert(initial.includes("初期システムにも")&&initial.includes("十分に振り分けられていません"));
+ assert(knowledge.includes("第07章の評価で見つかった別機種文書の誤検索"));
+ assert(stop.includes("有人振り分け率が94％")&&stop.includes("要件100％"));
+ for(const phrase of ["自動回答の可否","回答の適用条件","専門判断の必要性","回答許可と停止条件を強化"])assert(stop.includes(phrase),phrase);
+ assert(after.includes("[第08章](/cases/customer-support-ai-dx/knowledge-design/)"));
+ assert(after.includes("[第09章](/cases/customer-support-ai-dx/stopping-conditions/)"));
+ for(const chapter of [knowledge,stop]) assert(!/72％から98％|94％から100％|280時間/.test(chapter));
 });

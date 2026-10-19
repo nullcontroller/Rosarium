@@ -814,7 +814,7 @@ assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
     '.book-toc a[aria-current="page"]',
   ).text(),
-  "04. 第1回PoC：技術的実現可能性の確認",
+  "04. 第1回PoC：フィージビリティ確認",
 );
 assert(
   customerSupportBook("main")
@@ -1130,7 +1130,7 @@ const firstPoc = page('cases/customer-support-ai-dx/poc-evaluation');
 const secondPoc = page('cases/customer-support-ai-dx/poc-effect-evaluation');
 const improvedPoc = page('cases/customer-support-ai-dx/poc-metadata-improvement');
 const oldPoc = page('evaluation-hitl/customer-support-qa-poc');
-for(const text of ['少数の問い合わせ例を用いた簡単な動作確認','確認した3機能','基本動作を確認し、本格開発へ進みました']) assert(firstPoc('.prose').text().includes(text));
+for(const text of ['少数の問い合わせ例を用いた簡単な動作確認','確認した3機能','基本動作を確認できたため、QAシステムの本格開発へ進むことにしました']) assert(firstPoc('.prose').text().includes(text));
 for(const text of ['定型問い合わせ','専門判断が必要','回答根拠不足']) assert(secondPoc('.prose').text().includes(text),text);
 assert(!/\d+件|％|誤検索|誤自動回答|再検証/.test(firstPoc('.prose').text()));
 assert(!/有人引継ぎ|回答許可|専門判断|メタデータ|停止判定/.test(firstPoc('.prose').text()));
@@ -1144,11 +1144,11 @@ assert.equal(firstPoc('[data-explanation-id="support-poc-checks"]').length,1);
 assert.equal(firstPoc('[data-explanation-id="support-poc-evaluation"]').length,0);
 assert.equal(secondPoc('[data-explanation-id="support-poc-evaluation"]').length,1);
 assert.equal(secondPoc('.book-toc').length,1);
-assert.equal(secondPoc('.series-position-inline').text(),'現在位置：第08章・全12章');
+assert.equal(secondPoc('.series-position-inline').text(),'現在位置：第07章・全12章');
 const supportChapterSlugs = [
  'executive-summary', 'why-ai', 'responsibility-boundary', 'poc-evaluation',
- 'stopping-conditions', 'human-handoff', 'customer-experience', 'poc-effect-evaluation',
- 'knowledge-design', 'poc-metadata-improvement', 'continuous-improvement', 'design-principles',
+ 'human-handoff', 'customer-experience', 'poc-effect-evaluation',
+ 'knowledge-design', 'stopping-conditions', 'poc-metadata-improvement', 'continuous-improvement', 'design-principles',
 ];
 for (const [index, slug] of supportChapterSlugs.entries()) {
  const $ = page('cases/customer-support-ai-dx/' + slug);

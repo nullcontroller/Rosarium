@@ -1,7 +1,7 @@
 ---
 summary: "会話履歴、機種、環境、エラー、確認済み事項、検索結果、参照文書を失わず、AIから人間へ対応を継続する設計を示す。"
 layer: publication
-title: 06. AIから人間へどう引き継ぐか
+title: 05. AIから人間へどう引き継ぐか
 kind: case
 section: cases
 status: published
@@ -16,8 +16,10 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 6
+order: 5
 ---
+
+初期構想から、自動回答できない問い合わせは人間へ引き継ぐ経路を設けます。以下は情報を保持して対応を続ける設計です。初期方式では振り分けが十分に機能せず、[第07章の評価](/cases/customer-support-ai-dx/poc-effect-evaluation/)を受けて[第09章で回答許可・停止条件を強化](/cases/customer-support-ai-dx/stopping-conditions/)しました。
 
 ## 一次調査を引き継ぎ、専門対応へつなぐ
 

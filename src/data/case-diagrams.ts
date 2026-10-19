@@ -2063,12 +2063,12 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
           ]
         }
       ],
-      "note": "改善策とPoC再実施による到達点は第10章で説明します。",
+      "note": "検索方式の改善は第08章、停止条件の強化は第09章、PoC再実施の結果は第10章で説明します。",
       "scope": "第2回PoCの初期評価と問題発見を示します。"
     }
   },
   "support-poc-checks": {
-    "title": "第1回PoCで確認した3機能",
+    "title": "第1回PoC：3機能のフィージビリティ確認",
     "description": "生成AIによる逆質問、ベクトル検索による関連文書の取得、RAGによる根拠付き回答生成を簡単に試しました。",
     "nodes": [],
     "explanation": {

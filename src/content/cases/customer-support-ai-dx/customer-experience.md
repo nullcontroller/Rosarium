@@ -1,7 +1,7 @@
 ---
 summary: "利用者に製品分類や専門用語を理解させず、自然な言葉と段階的な追加質問で解決へ導く画面と対話の設計を整理する。"
 layer: publication
-title: 07. 顧客体験をどう設計するか
+title: 06. 顧客体験をどう変えたか
 kind: case
 section: cases
 status: published
@@ -16,8 +16,10 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 7
+order: 6
 ---
+
+顧客が問い合わせを始め、回答または有人対応へ進む利用体験を設計します。回答可否の判定は初期方式にも設けますが、その不足と改善は第07〜09章で説明します。
 
 ## 内部分類を利用者へ押し付けない
 

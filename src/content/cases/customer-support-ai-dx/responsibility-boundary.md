@@ -22,7 +22,7 @@ order: 3
 **AIの文章生成、QAシステムの条件照合、人間の専門判断を明確に分離しました。**  
 検索対象として適合する文書を取得しても、回答項目の許可条件を満たさなければ自動回答しません。
 
-以下は評価後の見直しを反映した最終的な責任分担です。問題発見は[第08章](/cases/customer-support-ai-dx/poc-effect-evaluation/)、対策と再実施は[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)で説明します。
+初期構想でも専門判断を人間へ残し、回答判断と有人引継ぎを設けます。ただし、初期方式ではその判定が十分に機能しませんでした。以下の表と図は、評価後の検索対象制御・停止条件の強化を反映した最終的な責任分担です。問題発見は[第07章](/cases/customer-support-ai-dx/poc-effect-evaluation/)、対策は第08〜09章、再実施は[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)で説明します。
 
 ## システムの全体構成
 
@@ -127,4 +127,4 @@ AIの主な対象は1です。
 
 詳しい原則は、[AIと人間の責任境界](/ai-design/responsibility-control/)で扱っています。
 
-次章では、少数の問い合わせ例で3機能の基本動作を試す第1回PoCを説明します。
+次章では、少数の問い合わせ例で3機能の基本動作を試す第1回PoC（フィージビリティ確認）を説明します。

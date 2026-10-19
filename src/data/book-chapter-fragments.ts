@@ -1,5 +1,8 @@
 // Compatibility for published Book headings after local editing.
 export const bookChapterLegacyFragments: Record<string, Record<string, string>> = {
+  "cases/customer-support-ai-dx/design-principles": {
+    "7-技術的実現可能性と業務成立性を段階的に確認する": "cases/customer-support-ai-dx/design-principles#7-フィージビリティ確認と業務上の評価を分ける"
+  },
   "foundations/ai-business-design/delegation-and-responsibility": {
     "第1章aiに仕事を任せても責任は消えない": "foundations/ai-business-design/delegation-and-responsibility#第01章aiに仕事を任せても責任は消えない"
   },
