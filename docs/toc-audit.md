@@ -91,7 +91,7 @@
 | /essays/what-not-to-build-with-ai/ | AIで作れる時代に、何を作らないか | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /evaluation-hitl/ | 評価・ヒューマンレビュー | なし | あり | あり | 5 | 主要見出しが複数 |
 | /evaluation-hitl/code-evaluation-acceptance/ | コード生成AIの評価と採用設計 | あり | あり | あり | 23 | 長文の複数h3セクション |
-| /evaluation-hitl/customer-support-qa-poc/ | 生成AI / RAGによる顧客サポートQAのPoC：失敗分析と方式改善 | あり | あり | あり | 13 | 主要見出しが複数 |
+| /evaluation-hitl/customer-support-qa-poc/ | 生成AI / RAGによる顧客サポートQAのPoC：失敗分析と方式改善 | あり | あり | あり | 11 | 主要見出しが複数 |
 | /evaluation-hitl/datasets-and-regression/ | AI評価データセットと回帰評価設計 | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /evaluation-hitl/human-review-capability/ | AI時代において「レビューできる人」が価値を持つ理由 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /evaluation-hitl/qa-evaluation/ | QAチャット評価設計思想 | あり | あり | あり | 17 | 長文の複数h3セクション |
