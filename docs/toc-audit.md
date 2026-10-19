@@ -37,7 +37,7 @@
 | /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/profile/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/ | 実践事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 22 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 13 | Book章構造 |
 | /cases/customer-support-ai-dx/continuous-improvement/ | 11. 導入後にどう育てるか | あり | あり | あり | 18 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/customer-experience/ | 07. 顧客体験をどう設計するか | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/design-principles/ | 12. この事例から得た設計原則 | あり | あり | あり | 23 | 主要見出しが複数 |
@@ -47,7 +47,7 @@
 | /cases/customer-support-ai-dx/poc-effect-evaluation/ | 08. 第2回PoC：開発したQAシステムの効果確認 | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/poc-evaluation/ | 04. 第1回PoC：技術的実現可能性の確認 | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/poc-metadata-improvement/ | 10. RAGのメタデータ追加とPoC再実施 | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/responsibility-boundary/ | 03. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 21 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/responsibility-boundary/ | 03. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 22 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/stopping-conditions/ | 05. AIをどこで止めるか | あり | あり | あり | 18 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/why-ai/ | 02. なぜAIを導入したのか | あり | あり | あり | 20 | 主要見出しが複数 |
 | /cases/specification-debt-review/ | 3万文字・68ページの仕様書をAIで横断レビューする | あり | あり | あり | 13 | 主要見出しが複数 |

@@ -86,7 +86,7 @@ for (const [id, d] of entries) {
       `${id} search last_updated`,
     );
     assert.equal(
-      $(".document-header .content-last-updated time").attr("datetime"),
+      $(".document-header .content-last-updated time, .book-introduction-metadata .content-last-updated time").attr("datetime"),
       d.last_updated,
       `${id} visible last_updated`,
     );
@@ -626,7 +626,7 @@ for (const [id, data] of entries) {
   assert.equal(latest.length, 1, id + ": exactly one current date");
   assert.equal(latest.attr("datetime"), data.last_updated, id);
   assert.equal(latest.text().trim(), formatDateJa(data.last_updated), id);
-  assert.equal(document(".document-header .meta time").length, id === "career/overview" ? 0 : 1);
+  assert.equal(document(".document-header .meta time, .book-introduction-metadata .meta time").length, id === "career/overview" ? 0 : 1);
   assert.equal(document('#page-toc-panel a').filter((_, item) => document(item).text().trim() === "更新履歴").length, 0);
 }
 
@@ -819,7 +819,7 @@ assert.equal(
 assert(
   customerSupportBook("main")
     .text()
-    .includes("文書検索の適合率が98％へ"),
+    .includes("72％→98％"),
 );
 assert.equal(
   page("cases/customer-support-ai-dx/design-principles")(".series-position-inline").text(),
@@ -931,7 +931,7 @@ console.log(
 );
 
 // Support QA is readable without interaction and keeps the existing cover and fragment targets.
-const supportDiagram = page("cases/customer-support-ai-dx");
+const supportDiagram = page("cases/customer-support-ai-dx/responsibility-boundary");
 assert.equal(supportDiagram("[data-support-dx]").length, 1);
 assert.equal(supportDiagram("[data-support-dx] svg, [data-support-dx] button, [data-support-dx] [hidden]").length, 0);
 assert.equal(supportDiagram("[data-support-step]").length, 6);
@@ -1121,10 +1121,10 @@ assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'ca
 const careerAllCaseUrls = page('career')('.prose a[href^="/cases/"]').map((_, el) => page('career')(el).attr('href')).get();
 assert.deepEqual(careerAllCaseUrls.filter(href => representativeUrls.includes(href)).slice(0, 3), representativeUrls);
 const supportOverview = page('cases/customer-support-ai-dx');
-assert(supportOverview('.prose').text().includes('検索適合率の改善は検証シナリオ内の評価'));
+assert(supportOverview('.prose').text().includes('本Bookは設計・検証シナリオです'));
 assert.equal(supportOverview('header [data-content-history]').length, 0);
 assert.equal(supportOverview('[data-content-history]').length, 0);
-assert.equal(supportOverview('[data-support-dx]').length, 1);
+assert.equal(supportOverview('[data-support-dx]').length, 0);
 
 const firstPoc = page('cases/customer-support-ai-dx/poc-evaluation');
 const secondPoc = page('cases/customer-support-ai-dx/poc-effect-evaluation');
@@ -1166,7 +1166,7 @@ assert.equal(oldPoc('[data-pagefind-body], [data-explanation-id]').length,0);
 assert(!fs.readFileSync('dist/sitemap.xml','utf8').includes('/evaluation-hitl/customer-support-qa-poc/'));
 assert.equal(page('evaluation-hitl')('[data-content-id="evaluation-hitl/customer-support-qa-poc"]').length,0);
 assert.equal(cases('.case-study-index').length,3);
-const revisedSupportDiagram = supportOverview('[data-support-dx]');
+const revisedSupportDiagram = supportDiagram('[data-support-dx]');
 assert(revisedSupportDiagram.find('[data-support-step="search"]').text().includes('判定A'));
 assert(revisedSupportDiagram.find('[data-support-step="decision"]').text().includes('判定B'));
 for(const $ of [supportOverview,firstPoc,secondPoc,improvedPoc]){
@@ -1209,11 +1209,27 @@ assert(improvedPoc(".prose").text().includes("125時間／月 × 0.96 ＝ 120時
 assert(improvedPoc(".prose").text().includes("PoCで観測した成功率ではありません"));
 
 for(const [route, aliases] of Object.entries(bookChapterLegacyFragments)) {
- const $=page(route);
- for(const [old,fragment]of Object.entries(aliases))assert.equal($(`[id="${fragment}"]`).length,1,route+': '+old);
+ for(const [old,target]of Object.entries(aliases)){
+  const [destination,fragment]=target.split("#");
+  assert.equal(page(destination)(`[id="${fragment}"]`).length,1,route+": "+old);
+ }
 }
 for(const file of walk("dist").filter(file=>file.endsWith(".html"))) {
  const $=load(fs.readFileSync(file,"utf8"));
  const position=$('.series-position-inline').text();
  if(position)assert(!/第[1-9]章/.test(position), file+': padded chapter position');
+}
+
+assert.equal(supportOverview('.prose table, .prose figure, .prose ul, .prose ol').length,0);
+assert.equal(supportOverview('.prose > p').length,4);
+assert(supportOverview('.prose').text().replace(/\s/g,'').length<350);
+assert.equal(supportOverview('.prose').text().match(/注記：/g).length,1);
+
+assert(supportOverview('.document-header [data-pagefind-meta="summary"]').is('[hidden]'));
+assert.equal(supportOverview('[data-book-introduction]').next().attr('class'),'book-toc-mobile');
+assert.equal(supportOverview('.book-introduction-metadata .meta').length,1);
+
+for(const file of walk("dist").filter(file=>file.endsWith(".html"))) {
+ const $=load(fs.readFileSync(file,"utf8"));
+ if($('.series-position-inline').length)assert.match($('.series-position-inline').text(), /^現在位置：.+・全\d+章$/,file+': meaningful series position');
 }

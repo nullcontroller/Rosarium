@@ -17,7 +17,7 @@ test("support QA presents the proposal, system architecture decisions and feasib
   const poc = read("poc-evaluation");
   const knowledge = read("knowledge-design");
 
-  for (const text of ["企画部門から提案された", "システムアーキテクトとして", "文書検索の適合率が98％へ"])
+  for (const text of ["QAシステムを新規設計", "72％→98％", "94％→100％", "400→280時間／月"])
     assert(overview.includes(text), text);
   assert(introduction.includes("企画部門から業務改善の提案を受け"));
   assert(introduction.includes("実現に向けた見込みが立ちました"));
@@ -32,7 +32,7 @@ test("support QA labels scenario evaluation separately from production achieveme
   const chapters = fs.readdirSync(base).filter((entry) => entry.endsWith(".md"));
   const contents = [read(""), ...chapters.map((file) => read(file.slice(0, -3))), readDetail()].join("\n");
   assert(!/原典|原点|母艦|論述資料|補足設計|R[1-7]-[1-2]|\.md\b/.test(contents));
-  assert(read("").includes("設計を検討する検証シナリオ"));
+  assert(read("").includes("本Bookは設計・検証シナリオです"));
   assert(readImprovement().includes("公開用の設計・検証シナリオ"));
   assert(readImprovement().includes("文書検索の適合率は72％から98％へ"));
   assert(!/本番導入済み|実測で達成|導入成果を達成/.test(contents));
@@ -58,8 +58,8 @@ const tableRows = text => text.split(/\r?\n/).filter(line => line.startsWith("|"
 const number = text => Number(text.replaceAll(",", "").match(/[\d.]+/)[0]);
 
 test("support case consistently starts from manual work and a newly developed customer QA", () => {
-  assert(read("").includes("専用の問い合わせ支援システムがない業務"));
-  assert(read("").includes("顧客向けQAシステムを新規開発"));
+  assert(read("why-ai").includes("専用の問い合わせ支援システムはなく"));
+  assert(read("").includes("QAシステムを新規設計"));
   assert(read("why-ai").includes("専用の問い合わせ支援システムはなく"));
   const files = fs.readdirSync(path.join(root, "customer-support-ai-dx")).filter(file => file.endsWith(".md"));
   assert.equal(files.length, 12);
@@ -156,11 +156,8 @@ test("first PoC verifies exactly three functions in body, diagram and Book overv
   assert.equal(records.length, 3);
   assert(chapter.includes("回答生成の3機能"));
   assert(chapter.includes("第1回PoCは業務効果や安全性を評価したものではありません"));
-  const firstRow = tableRows(read("")).find(row => row[0] === "第1回PoC");
-  assert(firstRow[1].includes("過去の問い合わせ500件"));
-  assert.equal(firstRow[2], "逆質問・ベクトル検索・RAGによる回答生成の技術的な実現可能性を確認する");
   const prohibited = /有人引継ぎ|有人対応|回答許可|専門判断|根拠不足|停止判定|メタデータ|適格性制御|自動回答可能率/;
-  for (const source of [chapter, JSON.stringify(diagram), firstRow.join(" ")]) assert(!prohibited.test(source));
+  for (const source of [chapter, JSON.stringify(diagram)]) assert(!prohibited.test(source));
   assert(readDetail().includes("引継ぎに成功したことは別の評価"));
 });
  
@@ -175,8 +172,7 @@ test("business projections separate retrieval accuracy from monthly self-resolut
 
 test("Book exposes two PoCs without claiming unmeasured production outcomes", () => {
   const overview = read("");
-  for (const text of ["**検索対象の適格性と、自動回答の許可を分離**", "**第1回PoC：**", "**第2回PoC：**", "検索適合率の改善は検証シナリオ内の評価", "01〜12の12章構成"])
-    assert(overview.includes(text), text);
+  for (const text of ["月720件の自己解決を前提", "400→280時間／月", "設計・検証シナリオ", "工数実測を示すものではありません"]) assert(overview.includes(text),text);
   assert(!/180件|240件/.test(overview));
   const names = fs.readdirSync(path.join(root, "customer-support-ai-dx")).filter(file => file.endsWith(".md"));
   const ordered = names.map(file => ({file, text:read(file.slice(0,-3))})).sort((a,b)=>Number(a.text.match(/^order: (\d+)/m)[1])-Number(b.text.match(/^order: (\d+)/m)[1]));
@@ -219,7 +215,7 @@ test("design chapters explain the final design while chapters 08 through 10 sepa
   assert(knowledge.includes("[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)"));
   assert(readDetail().includes("初期方式の問題"));
   assert(read("knowledge-design").includes("対象機種・利用環境・対応版数"));
-  assert(read("").includes("第05〜07章の停止条件・有人引継ぎ・顧客体験"));
+  assert(read("poc-effect-evaluation").includes("第05〜07章は停止・引継ぎ・顧客体験の設計"));
 });
 
 
@@ -270,4 +266,16 @@ test("monthly workload equations retain dimensions and distinguish the target fr
  assert.equal(600*10/60,100);assert.equal(400-100,300);
  assert.equal(720/750,.96);assert.equal(720*10/60,120);assert.equal(400-120,280);
  assert(!/125＋100＋175|400−100|500件中.*96％/.test(before+readImprovement()));
+});
+
+test("Book entrance is a short pitch with one scenario note and no detailed analysis", () => {
+ const body=read("").split("---").slice(2).join("---");
+ const plain=body.replace(/\[([^\]]+)\]\([^)]+\)/g,"$1").replace(/[#*\s]/g,"");
+ assert(plain.length<350,plain.length);
+ assert.equal((body.match(/注記：/g)||[]).length,1);
+ assert.equal((body.match(/^\*\*(?:設計|改善|業務効果の見込み)：/gm)||[]).length,3);
+ assert(!/^\||^[-*] |data-support-dx|×|÷|＝|<span/m.test(body));
+ assert(body.includes("月720件の自己解決を前提"));
+ assert(body.includes("280時間／月は試算"));
+ assert(read("responsibility-boundary").includes("data-support-dx-diagram"));
 });

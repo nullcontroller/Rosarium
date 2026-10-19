@@ -29,7 +29,7 @@ for (const location of locations) {
   if (!route) assert.equal($('main a[href="/garden-notes/"]').length, 1, "Garden Notes history must remain reachable from the home page");
   const lastUpdated = $('meta[name="last-updated"]').attr("content") ?? "";
   const visibleLastUpdated =
-    $(".site-last-updated time, .document-header .content-last-updated time")
+    $(".site-last-updated time, .document-header .content-last-updated time, .book-introduction-metadata .content-last-updated time")
       .first()
       .attr("datetime") ?? "";
   assert.match(lastUpdated, /^\d{4}-\d{2}-\d{2}$/, `Missing last_updated: ${route || "/"}`);

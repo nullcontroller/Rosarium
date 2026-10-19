@@ -24,6 +24,10 @@ order: 3
 
 以下は評価後の見直しを反映した最終的な責任分担です。問題発見は[第08章](/cases/customer-support-ai-dx/poc-effect-evaluation/)、対策と再実施は[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)で説明します。
 
+## システムの全体構成
+
+<div data-support-dx-diagram></div>
+
 ## システム要件と機能分担
 
 自己解決の目標だけでは方式は決まりません。  

@@ -31,7 +31,7 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html") && !file
   const date = $('meta[name="last-updated"]').attr("content");
   assert.equal(date, expected.date, `Date source mismatch: ${route}`);
   assert.match(date, /^\d{4}-\d{2}-\d{2}$/);
-  const visible = $(".site-last-updated time, .document-header .content-last-updated time").first();
+  const visible = $(".site-last-updated time, .document-header .content-last-updated time, .book-introduction-metadata .content-last-updated time").first();
   if (visible.length) assert.equal(visible.attr("datetime"), date, `Visible date mismatch: ${route}`);
   const graph = JSON.parse($('script[type="application/ld+json"]').first().text())["@graph"];
   const entity = graph.find((item) => item["@id"]?.endsWith("#webpage"));

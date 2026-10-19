@@ -1,26 +1,46 @@
 // Compatibility for published Book headings after local editing.
 export const bookChapterLegacyFragments: Record<string, Record<string, string>> = {
   "foundations/ai-business-design/delegation-and-responsibility": {
-    "第1章aiに仕事を任せても責任は消えない": "第01章aiに仕事を任せても責任は消えない"
+    "第1章aiに仕事を任せても責任は消えない": "foundations/ai-business-design/delegation-and-responsibility#第01章aiに仕事を任せても責任は消えない"
   },
   "foundations/ai-business-design/explainable-delegation": {
-    "第4章説明できない仕事をaiに任せてはいけない": "第04章説明できない仕事をaiに任せてはいけない"
+    "第4章説明できない仕事をaiに任せてはいけない": "foundations/ai-business-design/explainable-delegation#第04章説明できない仕事をaiに任せてはいけない"
   },
   "cases/customer-support-ai-dx/knowledge-design": {
-    "方式判断機種を絞ってから検索する": "対象に合う文書の中でベクトル検索する",
-    "機種以外の適合性とナレッジ運用": "参照資料を継続して管理する",
-    "意味の近さは回答根拠の適合性ではない": "文書とメタデータを整備する",
-    "横断検索の前に揃えるもの": "文書とメタデータを整備する",
-    "文書の適格性と回答項目の許可": "検索対象の適格性と回答許可を分ける",
-    "参照資料を回答に使える条件で分ける": "対象に合う文書の中でベクトル検索する",
-    "回答生成の前に検索対象を制御する": "対象に合う文書の中でベクトル検索する",
-    "文書の分割と検索結果の順位付けを設計する": "対象に合う文書の中でベクトル検索する",
-    "矛盾と廃止を通常系として扱う": "対象に合う文書の中でベクトル検索する",
-    "参照資料を継続して管理する": "参照資料を継続して管理する",
-    "semantic-similarityは回答資格ではない": "検索対象の適格性と回答許可を分ける",
-    "knowledge-sourceを回答資格で分ける": "検索対象の適格性と回答許可を分ける",
-    "retrievalを段階化する": "対象に合う文書の中でベクトル検索する",
-    "chunkとrankingを文書構造に合わせる": "対象に合う文書の中でベクトル検索する",
-    "knowledgeを運用対象にする": "参照資料を継続して管理する"
+    "方式判断機種を絞ってから検索する": "cases/customer-support-ai-dx/knowledge-design#対象に合う文書の中でベクトル検索する",
+    "機種以外の適合性とナレッジ運用": "cases/customer-support-ai-dx/knowledge-design#参照資料を継続して管理する",
+    "意味の近さは回答根拠の適合性ではない": "cases/customer-support-ai-dx/knowledge-design#文書とメタデータを整備する",
+    "横断検索の前に揃えるもの": "cases/customer-support-ai-dx/knowledge-design#文書とメタデータを整備する",
+    "文書の適格性と回答項目の許可": "cases/customer-support-ai-dx/knowledge-design#検索対象の適格性と回答許可を分ける",
+    "参照資料を回答に使える条件で分ける": "cases/customer-support-ai-dx/knowledge-design#対象に合う文書の中でベクトル検索する",
+    "回答生成の前に検索対象を制御する": "cases/customer-support-ai-dx/knowledge-design#対象に合う文書の中でベクトル検索する",
+    "文書の分割と検索結果の順位付けを設計する": "cases/customer-support-ai-dx/knowledge-design#対象に合う文書の中でベクトル検索する",
+    "矛盾と廃止を通常系として扱う": "cases/customer-support-ai-dx/knowledge-design#対象に合う文書の中でベクトル検索する",
+    "参照資料を継続して管理する": "cases/customer-support-ai-dx/knowledge-design#参照資料を継続して管理する",
+    "semantic-similarityは回答資格ではない": "cases/customer-support-ai-dx/knowledge-design#検索対象の適格性と回答許可を分ける",
+    "knowledge-sourceを回答資格で分ける": "cases/customer-support-ai-dx/knowledge-design#検索対象の適格性と回答許可を分ける",
+    "retrievalを段階化する": "cases/customer-support-ai-dx/knowledge-design#対象に合う文書の中でベクトル検索する",
+    "chunkとrankingを文書構造に合わせる": "cases/customer-support-ai-dx/knowledge-design#対象に合う文書の中でベクトル検索する",
+    "knowledgeを運用対象にする": "cases/customer-support-ai-dx/knowledge-design#参照資料を継続して管理する"
+  },
+  "cases/customer-support-ai-dx": {
+    "代表設計事例の要点": "cases/customer-support-ai-dx#このbookについて",
+    "数値と設計事例の位置付け": "cases/customer-support-ai-dx#このbookについて",
+    "全体アーキテクチャ": "cases/customer-support-ai-dx/responsibility-boundary#システムの全体構成",
+    "要件分析から開発検証運用への流れ": "cases/customer-support-ai-dx/executive-summary#担当範囲と事例の主題",
+    "業務背景現行システム与えられた要求": "cases/customer-support-ai-dx/why-ai#現行業務と与えられた要求",
+    "業務背景資料与えられた要求": "cases/customer-support-ai-dx/why-ai#現行業務と与えられた要求",
+    "業務要求から必要なシステム能力へ": "cases/customer-support-ai-dx/responsibility-boundary#システム要件と機能分担",
+    "システム方式と機能間の依存関係": "cases/customer-support-ai-dx/responsibility-boundary#システム要件と機能分担",
+    "システム方式の改善と業務適用への見込み": "cases/customer-support-ai-dx/poc-metadata-improvement#103-月750件への適用から業務改善の見込みを判断する",
+    "読み方到達点と限界": "cases/customer-support-ai-dx#このbookについて",
+    "support-detail-customer": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-customer",
+    "support-detail-knowledge": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-knowledge",
+    "support-detail-rag": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-rag",
+    "support-detail-genai": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-genai",
+    "support-detail-decision": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-decision",
+    "support-detail-human": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-human",
+    "support-detail-response": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-response",
+    "support-detail-feedback": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-feedback"
   }
 };

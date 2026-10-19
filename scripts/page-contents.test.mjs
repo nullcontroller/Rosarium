@@ -62,3 +62,15 @@ test("expanded page contents expose Japanese heading links and exclude history",
   assert.deepEqual($('[data-page-heading-toc] a').map((_, link) => $(link).attr('href')).get(), ['#何をする人か', '#現在の専門性']);
   assert.equal($('[data-page-heading-toc] a').filter((_, link) => $(link).text() === '更新履歴').length, 0);
 });
+
+test("a marked Book pitch precedes mobile contents and retained metadata", () => {
+ const original='<article><header class="document-header"><h1>Book</h1><p class="lead" hidden data-pagefind-meta="summary">SEO summary</p><p class="meta">Last updated</p><p class="tags" data-pagefind-meta="tags">AI</p><p class="content-purpose">Read</p></header><p class="series-position-inline">12 chapters</p><div class="prose" data-book-introduction><p>Short pitch</p></div></article>';
+ const result=pageOpening(original,[],{chapterCount:12,items:[{href:"/book/one/",title:"01. First"}]});
+ const $=load(result.html);
+ assert.equal($('[data-book-introduction]').next().attr('class'),'book-toc-mobile');
+ assert.equal($('.book-introduction-metadata .meta').length,1);
+ assert.equal($('.book-introduction-metadata [data-pagefind-meta="tags"]').text(),'AI');
+ assert.equal($('.document-header [data-pagefind-meta="summary"]').text(),'SEO summary');
+ assert.equal($('.document-header .meta').length,0);
+ assert.equal($('.series-position-inline').length,1);
+});

@@ -88,7 +88,13 @@ export function pageOpening(html, headings = [], bookNavigation, { expanded = fa
     for (const heading of headings) detail.find('ol').append($('<li></li>').toggleClass('sub', heading.depth === 3).append($('<a></a>').attr('href', '#' + heading.slug).text(heading.text)));
     controls.push(detail);
   }
-  const opening = $('.page-heading,.document-header,.hero,.document-title-row').first();
+  const introduction = $('[data-book-introduction]').first();
+  if (introduction.length) {
+    const metadata = $('<div class="book-introduction-metadata"></div>');
+    $('.document-header > .meta, .document-header > .tags, .document-header > .content-purpose, .series-position-inline').appendTo(metadata);
+    introduction.after(metadata);
+  }
+  const opening = introduction.length ? introduction : $('.page-heading,.document-header,.hero,.document-title-row').first();
   if (opening.length) opening.after(...controls);
   else if (controls.length) $('h1').first().after(...controls);
   return {html: $.html(), breadcrumbHtml};
