@@ -42,5 +42,17 @@ export const bookChapterLegacyFragments: Record<string, Record<string, string>> 
     "support-detail-human": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-human",
     "support-detail-response": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-response",
     "support-detail-feedback": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-feedback"
+  },
+  "cases/customer-support-ai-dx/poc-evaluation": {
+    "本格開発前に技術的な実現可能性を確認する": "cases/customer-support-ai-dx/poc-evaluation#本格開発前に基本動作を確認する",
+    "検証した3機能": "cases/customer-support-ai-dx/poc-evaluation#確認した3機能",
+    "技術的な実現見込みを本格開発へつなぐ": "cases/customer-support-ai-dx/poc-evaluation#本格開発前に基本動作を確認する"
+  },
+  "cases/customer-support-ai-dx/continuous-improvement": {
+    "導入を完成にしない": "cases/customer-support-ai-dx/continuous-improvement#実際の業務効果",
+    "観測するもの": "cases/customer-support-ai-dx/continuous-improvement#実際の業務効果",
+    "失敗を分類して改善する": "cases/customer-support-ai-dx/continuous-improvement#回答品質の維持",
+    "変更単位と責任者を分ける": "cases/customer-support-ai-dx/continuous-improvement#運用負荷",
+    "同じ条件で再評価する": "cases/customer-support-ai-dx/continuous-improvement#回答品質の維持"
   }
 };

@@ -22,7 +22,7 @@ test("support QA presents the proposal, system architecture decisions and feasib
   assert(introduction.includes("企画部門から業務改善の提案を受け"));
   assert(introduction.includes("実現に向けた見込みが立ちました"));
   assert(read("knowledge-design").includes("回答許可判定"));
-  assert(poc.includes("技術的な実現可能性の見込みが立ち"));
+  assert(poc.includes("基本動作を確認し、本格開発へ進みました"));
   assert(knowledge.includes("機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAG"));
   assert(!overview.includes("SAとして"));
 });
@@ -54,7 +54,7 @@ test("human handoff retains collected facts and continued specialist investigati
 });
 
 const tableRows = text => text.split(/\r?\n/).filter(line => line.startsWith("|"))
-  .map(line => line.split("|").slice(1, -1).map(cell => cell.replaceAll("**", "").trim()));
+  .map(line => line.split("|").slice(1, -1).map(cell => cell.replaceAll("**", "").replace(/<[^>]+>/g, "").trim()));
 const number = text => Number(text.replaceAll(",", "").match(/[\d.]+/)[0]);
 
 test("support case consistently starts from manual work and a newly developed customer QA", () => {
@@ -80,25 +80,23 @@ test("Book and PoC exclude the removed qualification plan", () => {
   for (const source of sources) assert(!/適格性確認|qualification-test|ほぼ同数|自動実行/.test(source));
   const chapter = read("poc-evaluation");
   assert.match(chapter, /^title: 04\. 第1回PoC：技術的実現可能性の確認$/m);
-  for (const value of ["新規開発に先立ち", "過去の問い合わせ500件", "逆質問", "ベクトル検索", "RAG", "技術的な実現可能性の見込み"])
+  for (const value of ["新規開発に先立ち", "少数の問い合わせ例", "逆質問", "ベクトル検索", "RAG", "基本動作を確認"])
     assert(chapter.includes(value), value);
   assert(read("continuous-improvement").includes("引継ぎ後の対応工数"));
   assert(read("continuous-improvement").includes("重複質問"));
 });
 
-test("operation changes pair each problem with a specific action and acceptance condition", () => {
-  const operation = read("continuous-improvement");
-  const rows = tableRows(operation.split("| 問題が起きた箇所 |")[1]);
-  const changes = rows.filter(row => !row.every(cell => /^-+$/.test(cell)));
-  assert.equal(changes.length, 6);
-  for (const row of changes) {
-    assert.equal(row.length, 3);
-    assert(row.every(cell => cell.length > 10), row.join(" | "));
-  }
-  assert(changes.at(-1)[1].includes("CS部") && changes.at(-1)[1].includes("設計・開発側"));
-  assert(changes.at(-1)[2].includes("自動回答を許可した問い合わせだけ"));
-  assert(changes.at(-1)[2].includes("調査結果を担当者へ引き継げる"));
-  assert(!/Failureの所在|Retrieval不良|Generation逸脱|Packet|Ranking|Chunk/.test(operation));
+test("chapter 11 connects scenario achievements to three pre-production checks", () => {
+ const chapter=read("continuous-improvement");
+ const body=chapter.split("---").slice(2).join("---");
+ assert.match(chapter,/^title: 11\. 本番適用に向けて残る課題$/m);
+ assert.match(chapter,/^order: 11$/m);
+ assert.deepEqual([...body.matchAll(/^## (.+)$/gm)].map(match=>match[1]),["実際の業務効果","回答品質の維持","運用負荷"]);
+ for(const value of["文書検索の適合率98％","有人振り分け率100％","280時間／月","月720件の自己解決を前提","本番運用の実績はまだなく","条件付き試算"]) assert(body.includes(value),value);
+ assert(body.includes("[第12章：この事例から得た設計原則](/cases/customer-support-ai-dx/design-principles/)"));
+ assert(!/^\||data-case-diagram|失敗を分類|運用を設計しました/m.test(body));
+ assert(body.length<650);
+ assert.equal(caseDiagrams["support-continuous-improvement"],undefined);
 });
 
 test("stop reasons explain retained facts rather than presenting implementation codes", () => {
@@ -132,10 +130,10 @@ test("scenario inquiry categories reconcile annual volume, monthly workload and 
 test("two PoCs separate technical feasibility from developed-system effects", () => {
   const first = read("poc-evaluation").split("---").slice(2).join("---").replace(/<span[^>]*><\/span>/g, "");
   const second = readDetail();
-  assert(first.includes("過去の問い合わせ500件"));
-  assert(first.includes("過去の問い合わせ500件でこの3機能を確認した結果"));
+  assert(first.includes("少数の問い合わせ例"));
+  assert(first.includes("少数の問い合わせ例を用いた簡単な動作確認"));
   assert(!/250|％|%|分／件|削減工数|工数削減|280時間|再検証|誤検索|誤自動回答/.test(first));
-  assert(second.includes("第1回PoCとのデータセットの同一性は未確認"));
+  assert(second.includes("第1回PoCで3機能の基本動作を確認した後"));
   const data = tableRows(second).filter(row => ["定型問い合わせ", "専門判断が必要", "回答根拠不足", "合計"].includes(row[0]));
   assert.deepEqual(data.map(row => row.slice(0, 2)), [["定型問い合わせ", "250"], ["専門判断が必要", "200"], ["回答根拠不足", "50"], ["合計", "500"]]);
   assert.equal(data.slice(0, 3).reduce((sum, row) => sum + Number(row[1]), 0), 500);
@@ -154,8 +152,8 @@ test("first PoC verifies exactly three functions in body, diagram and Book overv
   assert.equal(diagram.explanation.format, "table");
   assert.deepEqual(records.map(row => row[0]), ["逆質問", "ベクトル検索", "RAGによる回答生成"]);
   assert.equal(records.length, 3);
-  assert(chapter.includes("回答生成の3機能"));
-  assert(chapter.includes("第1回PoCは業務効果や安全性を評価したものではありません"));
+  assert(chapter.includes("確認した3機能"));
+  assert(chapter.includes("簡単な動作確認"));
   const prohibited = /有人引継ぎ|有人対応|回答許可|専門判断|根拠不足|停止判定|メタデータ|適格性制御|自動回答可能率/;
   for (const source of [chapter, JSON.stringify(diagram)]) assert(!prohibited.test(source));
   assert(readDetail().includes("引継ぎに成功したことは別の評価"));
@@ -279,4 +277,27 @@ test("Book entrance follows the author supplied background-to-outlook introducti
  assert(body.includes("月720件を顧客自身で解決できると想定"));
  assert(body.includes("業務効果は条件付きの試算"));
  assert(read("responsibility-boundary").includes("data-support-dx-diagram"));
+});
+
+test("first PoC is a small functional tryout without an invented sample count or outcomes", () => {
+ const chapter=read("poc-evaluation");
+ const body=chapter.split("---").slice(2).join("---");
+ const diagram=JSON.stringify(caseDiagrams["support-poc-checks"]);
+ assert(body.includes("少数の問い合わせ例を用いた簡単な動作確認"));
+ assert(body.includes("基本動作を確認し、本格開発へ進みました"));
+ assert(!/\d+(?:件|％|%|日間|週間|か月)|実証|成功率|適合率|品質保証|有人引継ぎ|安全性/.test(body+diagram));
+ assert(!/過去の問い合わせ500件|実現見込み/.test(chapter+diagram));
+ assert(body.length<350);
+ assert(readDetail().includes("| 定型問い合わせ | 250 |"));
+ assert(readDetail().includes("| 専門判断が必要 | 200 |"));
+ assert(readDetail().includes("| 回答根拠不足 | 50 |"));
+});
+
+test("only unmet initial evaluation values and judgments receive color emphasis", () => {
+ const source=readDetail();
+ const marked=[...source.matchAll(/<span class="evaluation-unmet">([^<]+)<\/span>/g)].map(match=>match[1]);
+ assert.deepEqual(marked,["72％","必要な品質に未達","94％","要件100％に未達"]);
+ const rows=source.split(/\r?\n/).filter(line=>line.includes("| 逆質問の適合率 |")||line.includes("| 回答生成の適合率 |"));
+ assert.equal(rows.length,2);
+ for(const row of rows)assert(!row.includes("evaluation-unmet"));
 });

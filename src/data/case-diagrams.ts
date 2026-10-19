@@ -2069,18 +2069,18 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   },
   "support-poc-checks": {
     "title": "第1回PoCで確認した3機能",
-    "description": "過去の問い合わせ500件を用い、逆質問・ベクトル検索・RAGによる回答生成の技術的な実現可能性を確認しました。",
+    "description": "生成AIによる逆質問、ベクトル検索による関連文書の取得、RAGによる根拠付き回答生成を簡単に試しました。",
     "nodes": [],
     "explanation": {
       "format": "table",
-      "columns": ["確認項目", "検証したこと"],
+      "columns": ["確認項目", "試した基本動作"],
       "records": [
         ["逆質問", "問い合わせに不足している情報を生成AIが聞き返せるか。"],
         ["ベクトル検索", "問い合わせに関連する文書を検索・取得できるか。"],
         ["RAGによる回答生成", "取得した文書を根拠に、RAGで回答を生成できるか。"]
       ],
-      "note": "この3機能を確認し、構想したQAシステムの実現見込みを本格開発の判断へつなげました。",
-      "scope": "第1回PoCで確認した技術的な実現可能性の範囲です。"
+      "note": "追加質問から文書取得、根拠付き回答の生成までの基本動作を試します。",
+      "scope": "本格開発前の簡単な動作確認です。"
     }
   },
   "support-handoff-information": {
@@ -2276,66 +2276,6 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       ],
       "note": "担当者はAIの回答を承認するだけではなく、一次調査の続きを引き受けます。同じ質問や文書検索のやり直しを減らす設計です。",
       "scope": "有人引継ぎで必要な情報と、担当者が対応を再開できる状態を整理した設計案です。"
-    }
-  },
-  "support-continuous-improvement": {
-    "title": "利用結果から原因を分け、再評価して改善を反映する",
-    "description": "記録から原因を分析し、知識・検索・処理方式のどこを直すか人間が判断する改善サイクルを示します。",
-    "nodes": [
-      {
-        "id": "design",
-        "label": "設計側が方式と判断条件を定める",
-        "kind": "system",
-        "description": "業務担当者と回答可能な範囲、停止条件、評価基準を確認します。"
-      },
-      {
-        "id": "use",
-        "label": "顧客と担当者がシステムを利用する",
-        "kind": "human",
-        "description": "自己解決と専門対応の両方の結果を確認できるようにします。"
-      },
-      {
-        "id": "record",
-        "label": "システムが利用結果と失敗を記録する",
-        "kind": "system",
-        "description": "問い合わせ条件、根拠、停止理由、引継ぎ後の対応工数・重複質問を記録する計画です。"
-      },
-      {
-        "id": "analyse",
-        "label": "設計側と業務側が原因を分析する",
-        "kind": "decision",
-        "description": "知識不足、機種属性、検索条件、対話、回答生成、業務分担のどこに問題があるか判断します。"
-      },
-      {
-        "id": "improve",
-        "label": "担当領域ごとに知識・検索・方式を改善する",
-        "kind": "system",
-        "description": "参照資料の管理担当者は機種・版・許可条件、設計・開発側は検索や処理、CS部は専門対応と適用範囲を見直す運用を設計します。"
-      },
-      {
-        "id": "reevaluate",
-        "label": "設計側と業務側が再評価して反映する",
-        "kind": "feedback",
-        "description": "同じ条件で安全性と回帰を確認し、受入基準を通過した変更だけを利用へ戻します。"
-      }
-    ],
-    "explanation": {
-      "format": "flow",
-      "panels": [
-        {
-          "title": "改善判断から再評価まで",
-          "nodeIds": [
-            "design",
-            "use",
-            "record",
-            "analyse",
-            "improve",
-            "reevaluate"
-          ]
-        }
-      ],
-      "note": "改善後は先頭の設計・判断条件へ戻ります。データを自動収集しても、変更の採否と適用範囲は設計側・業務側が判断します。",
-      "scope": "検索・回答の品質を観測し、改善・再評価へつなぐ運用設計を示します。"
     }
   },
   "system-understanding": {

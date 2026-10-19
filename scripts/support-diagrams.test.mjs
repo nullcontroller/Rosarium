@@ -36,7 +36,7 @@ test("support explanations separate comparison, functional selection, responsibi
 });
 
 test("support explanations stay Japanese, static and distinguish design from public production results", () => {
-  assert.equal(support.length, 11);
+  assert.equal(support.length, 10);
   for (const [id, model] of support) {
     assert(model.title && model.description && model.explanation.note && model.explanation.scope, id);
     assert(!model.edges?.length && !model.messages?.length, `${id}: no overloaded SVG edges`);

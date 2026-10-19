@@ -5,6 +5,7 @@
   --muted: #4a6057;
   --line: #9eafa4;
   --accent: #145b4f;
+  --evaluation-unmet: #9c2549;
   --soft: #d8e6dc;
   --aux-surface: #dce8e3;
   --aux-border: color-mix(in srgb, var(--accent) 30%, var(--line));
@@ -36,6 +37,7 @@
     --muted: #a6b9ba;
     --line: #3c5052;
     --accent: #92d5c1;
+    --evaluation-unmet: #ff9db7;
     --soft: #263c38;
     --aux-surface: #24373c;
     --obsolete-bg: #242a32;
@@ -55,6 +57,7 @@
   --muted: #a6b9ba;
   --line: #3c5052;
   --accent: #92d5c1;
+  --evaluation-unmet: #ff9db7;
   --soft: #263c38;
     --aux-surface: #24373c;
   --obsolete-bg: #242a32;
@@ -2593,3 +2596,6 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
   background-position: center bottom;
   background-repeat: no-repeat;
 }
+
+/* Only explicitly marked unmet evaluation values and judgments receive emphasis. */
+.prose .evaluation-unmet { color: var(--evaluation-unmet); font-weight: 700; }

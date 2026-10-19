@@ -979,7 +979,7 @@ for (const id of ["system-understanding", "three-ai-maintenance", "specification
  for(const link of $("[data-case-flow] [data-node]").toArray()) assert($( $(link).attr("href") ).length);
 }
 for (const route of [
- ...["why-ai", "responsibility-boundary", "knowledge-design", "stopping-conditions", "human-handoff", "continuous-improvement", "executive-summary"].map(slug => "cases/customer-support-ai-dx/" + slug),
+ ...["why-ai", "responsibility-boundary", "knowledge-design", "stopping-conditions", "human-handoff", "executive-summary"].map(slug => "cases/customer-support-ai-dx/" + slug),
  "cases/customer-support-ai-dx/poc-evaluation",
  "cases/customer-support-ai-dx/poc-effect-evaluation",
 ]) {
@@ -1130,9 +1130,9 @@ const firstPoc = page('cases/customer-support-ai-dx/poc-evaluation');
 const secondPoc = page('cases/customer-support-ai-dx/poc-effect-evaluation');
 const improvedPoc = page('cases/customer-support-ai-dx/poc-metadata-improvement');
 const oldPoc = page('evaluation-hitl/customer-support-qa-poc');
-for(const text of ['過去の問い合わせ500件','回答生成の3機能','技術的な実現可能性の見込み']) assert(firstPoc('.prose').text().includes(text));
-for(const text of ['定型問い合わせ','専門判断が必要','回答根拠不足','第1回PoCとのデータセットの同一性は未確認']) assert(secondPoc('.prose').text().includes(text),text);
-assert(!/250|％|誤検索|誤自動回答|再検証/.test(firstPoc('.prose').text()));
+for(const text of ['少数の問い合わせ例を用いた簡単な動作確認','確認した3機能','基本動作を確認し、本格開発へ進みました']) assert(firstPoc('.prose').text().includes(text));
+for(const text of ['定型問い合わせ','専門判断が必要','回答根拠不足']) assert(secondPoc('.prose').text().includes(text),text);
+assert(!/\d+件|％|誤検索|誤自動回答|再検証/.test(firstPoc('.prose').text()));
 assert(!/有人引継ぎ|回答許可|専門判断|メタデータ|停止判定/.test(firstPoc('.prose').text()));
 assert.deepEqual(firstPoc('[data-explanation-id="support-poc-checks"] tbody th').map((_,el)=>firstPoc(el).text()).get(), ['逆質問','ベクトル検索','RAGによる回答生成']);
 
@@ -1236,3 +1236,16 @@ for(const file of walk("dist").filter(file=>file.endsWith(".html"))) {
 }
 
 assert.equal(supportOverview('.book-toc-mobile[data-page-heading-toc]').length,0);
+
+assert.deepEqual(secondPoc('.evaluation-unmet').map((_,node)=>secondPoc(node).text()).get(),["72％","必要な品質に未達","94％","要件100％に未達"]);
+for(const row of secondPoc('.prose table').eq(1).find('tbody tr').toArray()) {
+ const cells=secondPoc(row).find('td');
+ if(cells.eq(1).text().trim()==='98％')assert.equal(secondPoc(row).find('.evaluation-unmet').length,0);
+}
+
+const preProduction=page("cases/customer-support-ai-dx/continuous-improvement");
+assert.equal(preProduction('h1').text().trim(),'11. 本番適用に向けて残る課題');
+assert.deepEqual(preProduction('.prose > h2').map((_,node)=>preProduction(node).text()).get(),['実際の業務効果','回答品質の維持','運用負荷']);
+assert.equal(preProduction('.prose table, .prose [data-explanation-id]').length,0);
+assert(preProduction('.prose').text().includes('本番運用の実績はまだなく'));
+assert(preProduction('.pagination a').last().attr('href').endsWith('/design-principles/'));
