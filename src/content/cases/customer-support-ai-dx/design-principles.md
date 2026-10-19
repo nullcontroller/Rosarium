@@ -1,11 +1,11 @@
 ---
 summary: "問い合わせ対応の設計から、他の業務でも使える判断原則を整理します。価値を起点に、AIと人の責任、回答根拠、停止条件、人間による判断、評価・改善をどう組み合わせるか考えます。"
 layer: publication
-title: 09. この事例から得た設計原則
+title: 10. この事例から得た設計原則
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-18"
+last_updated: "2026-10-19"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []
@@ -16,7 +16,7 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 10
+order: 11
 ---
 
 ## 1. AIから始めず、価値と業務課題から始める
@@ -59,7 +59,9 @@ AIは対話と根拠利用、新規QAシステムは条件照合と状態保持�
 会話履歴だけでなく、確認済みの顧客情報、根拠、未確認事項、停止理由を人間へ渡します。  
 顧客にも引継ぎ済みであることを示します。
 
-## 7. PoCではモデル性能より業務成立性を見る
+## 7. 技術的実現可能性と業務成立性を段階的に確認する
+
+第1回PoCでは構想した方式を技術的に実現できるかを確認し、QAシステムを開発した後の第2回PoCでは業務効果と安全性を確認します。前者の実現見込みを、そのまま後者の目標達成とは扱いません。
 
 文書検索、追加質問、回答生成を分けて評価し、自己解決と有人対応を含む業務全体が成立するかを確認します。  
 工程別の適合率、定型サンプルの自動回答可能率、月間工数の試算、本番実測は同じ成果指標ではありません。  

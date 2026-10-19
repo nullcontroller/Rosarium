@@ -1,11 +1,11 @@
 ---
 summary: "会話履歴、機種、環境、エラー、確認済み事項、検索結果、参照文書を失わず、AIから人間へ対応を継続する設計を示す。"
 layer: publication
-title: 07. AIから人間へどう引き継ぐか
+title: 08. AIから人間へどう引き継ぐか
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-18"
+last_updated: "2026-10-19"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []
@@ -16,7 +16,7 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 8
+order: 9
 ---
 
 ## 一次調査を引き継ぎ、専門対応へつなぐ

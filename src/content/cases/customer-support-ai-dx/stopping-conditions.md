@@ -1,11 +1,11 @@
 ---
 summary: "機種・環境・版数、回答許可、専門判断の必要性を確認し、条件を満たさなければ自動回答を止めます。停止理由と調査情報をCS部へ引き継ぎ、AIの自己評価や検索スコアだけに判断を委ねません。"
 layer: publication
-title: 05. AIをどこで止めるか
+title: 06. AIをどこで止めるか
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-18"
+last_updated: "2026-10-19"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: [system-transformation]
@@ -16,7 +16,7 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 6
+order: 7
 ---
 
 ## 回答できそうかではなく、回答してよいか

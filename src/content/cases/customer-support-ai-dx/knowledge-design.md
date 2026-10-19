@@ -1,7 +1,7 @@
 ---
 summary: "対象機種・利用環境・版数による検索対象制御と、回答項目の自動回答許可・適用条件を分け、RAGで使う参照資料と回答の境界を設計します。"
 layer: publication
-title: 04. RAGで使う参照資料をどう設計したか
+title: 05. RAGで使う参照資料をどう設計したか
 kind: case
 section: cases
 status: published
@@ -16,7 +16,7 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 5
+order: 6
 ---
 
 ## 方式判断：機種を絞ってから検索する
@@ -29,7 +29,7 @@ order: 5
 機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAGによる回答、という依存関係です。  
 回答生成後の誤り検出だけに頼らず、生成へ渡してよい根拠を先に制御する方式です。
 
-この方式の検証観点は、[第03章：失敗分析と方式改善](/cases/customer-support-ai-dx/poc-evaluation/)で説明します。
+この方式の検証観点は、[第04章：失敗分析と方式改善](/cases/customer-support-ai-dx/poc-effect-evaluation/)で説明します。
 
 ## 機種以外の適合性とナレッジ運用
 

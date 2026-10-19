@@ -49,7 +49,7 @@ const readingSequence = series;
 const position = readingSequence.findIndex((e) => e.id === entry.id);
 const previous = readingSequence[position - 1],
   next = readingSequence[position + 1];
-const chapterCount = series.filter((item) => bookChapterNumber(item) > 0).length;
+const chapterCount = series.filter((item) => (item.data.order ?? 0) > 0).length;
 const chapterNumber = bookChapterNumber(entry);
 const seriesPosition = series.length > 0
   ? `現在位置：${(d.order ?? 0) === 0 ? "全体構成" : chapterNumber === 0 ? "導入" : `第${chapterNumber}章`}・全${chapterCount}章`

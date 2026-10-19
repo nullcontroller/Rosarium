@@ -795,24 +795,24 @@ assert(
 );
 const customerSupportBook = page("cases/customer-support-ai-dx");
 assert.equal(customerSupportBook(".series").length, 0);
-assert.equal(customerSupportBook(".book-toc .page-toc-panel > ol > li").length, 11);
-assert.equal(customerSupportBook(".book-toc-mobile:not([data-page-heading-toc]) > ol > li").length, 11);
+assert.equal(customerSupportBook(".book-toc .page-toc-panel > ol > li").length, 12);
+assert.equal(customerSupportBook(".book-toc-mobile:not([data-page-heading-toc]) > ol > li").length, 12);
 assert.equal(customerSupportBook(".book-toc .content-entry").length, 0);
 assert.equal(
   customerSupportBook(".series-position-inline").text(),
-  "現在位置：全体構成・全9章",
+  "現在位置：全体構成・全11章",
 );
 assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
     ".series-position-inline",
   ).text(),
-  "現在位置：第3章・全9章",
+  "現在位置：第3章・全11章",
 );
 assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
     '.book-toc a[aria-current="page"]',
   ).text(),
-  "03. PoCによる方式の検証",
+  "03. 第1回PoC：技術的実現可能性の確認",
 );
 assert(
   customerSupportBook("main")
@@ -821,7 +821,7 @@ assert(
 );
 assert.equal(
   page("cases/customer-support-ai-dx/design-principles")(".series-position-inline").text(),
-  "現在位置：第9章・全9章",
+  "現在位置：第10章・全11章",
 );
 assert.equal(customerSupportBook('a[href*="outcomes-and-evidence"]').length, 0);
 for (const id of ["specification-debt-review", "three-ai-maintenance", "system-understanding", "customer-support-ai-dx"])
@@ -960,9 +960,9 @@ for (const file of walk("dist").filter((file) => file.endsWith("index.html"))) {
 console.log("Verified quiet Case endings and preserved Practice discovery.");
 
 const supportTitles = customerSupportBook(".book-toc .page-toc-panel > ol a").map((_, node) => customerSupportBook(node).text().trim()).get();
-assert.deepEqual(supportTitles.slice(2).map((title) => title.slice(0, 2)), ["01", "02", "03", "04", "05", "06", "07", "08", "09"]);
-assert(customerSupportBook(".book-toc-mobile summary").text().includes("全9章"));
-assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".series-position-inline").text(), "現在位置：導入・全9章");
+assert.deepEqual(supportTitles.slice(2).map((title) => title.slice(0, 2)), ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]);
+assert(customerSupportBook(".book-toc-mobile summary").text().includes("全11章"));
+assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".series-position-inline").text(), "現在位置：導入・全11章");
 const lastSupportChapter = page("cases/customer-support-ai-dx/design-principles");
 assert(!lastSupportChapter(".pagination").text().includes("次のページ"));
 assert(lastSupportChapter('.pagination a[href="/cases/customer-support-ai-dx/continuous-improvement/"]').length);
@@ -979,6 +979,7 @@ for (const id of ["system-understanding", "three-ai-maintenance", "specification
 for (const route of [
  ...["why-ai", "responsibility-boundary", "knowledge-design", "stopping-conditions", "human-handoff", "continuous-improvement", "executive-summary"].map(slug => "cases/customer-support-ai-dx/" + slug),
  "cases/customer-support-ai-dx/poc-evaluation",
+ "cases/customer-support-ai-dx/poc-effect-evaluation",
 ]) {
  const $ = page(route);
  assert($("[data-explanation-id]").length >= 1);
@@ -1003,7 +1004,7 @@ assert.deepEqual(routes.last().find("[data-support-step]").map((_, node) => comp
 assert.equal(page("cases/customer-support-ai-dx/why-ai")(".support-table tbody tr").length, 5);
 assert.equal(page("cases/customer-support-ai-dx/responsibility-boundary")(".support-table tbody tr").length, 3);
 assert.equal(page("cases/customer-support-ai-dx/stopping-conditions")(".support-checks > li").length, 3);
-assert.equal(page("cases/customer-support-ai-dx/poc-evaluation")('[data-explanation-id="support-poc-checks"] tbody tr').length, 5);
+assert.equal(page("cases/customer-support-ai-dx/poc-evaluation")('[data-explanation-id="support-poc-checks"] tbody tr').length, 4);
 assert.equal(page("cases/customer-support-ai-dx/human-handoff")('[data-explanation-id="support-handoff-information"] tbody tr').length, 7);
 assert.equal(page("about")('meta[http-equiv="refresh"]').length, 0);
 assert(!page("about")('meta[name="robots"]').attr("content")?.includes("noindex"));
@@ -1118,43 +1119,45 @@ assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'ca
 const careerAllCaseUrls = page('career')('.prose a[href^="/cases/"]').map((_, el) => page('career')(el).attr('href')).get();
 assert.deepEqual(careerAllCaseUrls.filter(href => representativeUrls.includes(href)).slice(0, 3), representativeUrls);
 const supportOverview = page('cases/customer-support-ai-dx');
-assert(supportOverview('.prose').text().includes('仮定した回答率と工数試算を、本番導入の実測効果とは扱いません'));
+assert(supportOverview('.prose').text().includes('第2回PoCの評価結果と業務工数への効果は未確定'));
 assert.equal(supportOverview('header [data-content-history]').length, 0);
 assert.equal(supportOverview('[data-content-history]').length, 0);
 assert.equal(supportOverview('[data-support-dx]').length, 1);
 
-const revisedPoc = page('cases/customer-support-ai-dx/poc-evaluation');
-const pocDetail = revisedPoc;
+const firstPoc = page('cases/customer-support-ai-dx/poc-evaluation');
+const secondPoc = page('cases/customer-support-ai-dx/poc-effect-evaluation');
 const oldPoc = page('evaluation-hitl/customer-support-qa-poc');
-for (const value of ['共通の500件', '定型問い合わせ', '有人対応案件', '180／250件', '240／250件', '仮定値', '改善後280時間／月の試算', '追加負荷を含む総工数も未確認']) assert(pocDetail('.prose').text().includes(value), value);
-assert.equal(revisedPoc('.prose a[href="/evaluation-hitl/customer-support-qa-poc/"]').length, 0);
-assert(oldPoc('meta[http-equiv="refresh"]').attr("content").endsWith("/cases/customer-support-ai-dx/poc-evaluation/"));
-assert.equal(oldPoc("[data-pagefind-body], [data-explanation-id]").length, 0);
-assert(oldPoc('link[rel="canonical"]').attr("href").endsWith("/cases/customer-support-ai-dx/poc-evaluation/"));
-assert(!fs.readFileSync("dist/sitemap.xml", "utf8").includes("/evaluation-hitl/customer-support-qa-poc/"));
-assert.equal(page("evaluation-hitl")('[data-content-id="evaluation-hitl/customer-support-qa-poc"]').length, 0);
-assert.equal(revisedPoc('[data-explanation-id="support-poc-checks"], [data-explanation-id="support-poc-evaluation"]').length, 2);
-assert.equal(pocDetail('[data-explanation-id="support-poc-evaluation"]').length, 1);
-assert.equal(pocDetail(".book-toc").length, 1);
-assert.equal(cases('.case-study-index').length, 3);
-assert(page('cases/customer-support-ai-dx')('.prose').text().includes('設計を検討する検証シナリオ'));
-const revisedSupportDiagram = page('cases/customer-support-ai-dx')('[data-support-dx]');
+for(const text of ['過去の問い合わせ500件','構想したQAシステムは実現できる見込み']) assert(firstPoc('.prose').text().includes(text));
+for(const text of ['定型問い合わせ','専門判断が必要','回答根拠不足','第1回PoCの500件と同一の問い合わせを用いたかは未確認','未確定','600件 × 10分 ÷ 60 ＝ 100時間／月']) assert(secondPoc('.prose').text().includes(text),text);
+assert(!/250|％|誤検索|誤自動回答|再検証/.test(firstPoc('.prose').text()));
+const secondBusiness = secondPoc('.prose').text().split('4.6 月750件')[1];
+assert(secondBusiness && !/250|96％|280時間/.test(secondBusiness));
+assert(secondBusiness.includes('400時間 − 100時間 ＝ 300時間／月'));
+assert(!/250|96％|280時間/.test(supportOverview('.prose').text()));
+assert.equal(firstPoc('[data-explanation-id="support-poc-checks"]').length,1);
+assert.equal(firstPoc('[data-explanation-id="support-poc-evaluation"]').length,0);
+assert.equal(secondPoc('[data-explanation-id="support-poc-evaluation"]').length,1);
+assert.equal(secondPoc('.book-toc').length,1);
+assert.equal(secondPoc('.series-position-inline').text(),'現在位置：第4章・全11章');
+assert(firstPoc('.pagination a[href="/cases/customer-support-ai-dx/poc-effect-evaluation/"]').length);
+assert(secondPoc('.pagination a[href="/cases/customer-support-ai-dx/poc-evaluation/"]').length);
+assert(secondPoc('.pagination a[href="/cases/customer-support-ai-dx/knowledge-design/"]').length);
+assert(page('cases/customer-support-ai-dx/knowledge-design')('.pagination a[href="/cases/customer-support-ai-dx/poc-effect-evaluation/"]').length);
+
+assert(oldPoc('meta[http-equiv="refresh"]').attr('content').endsWith('/cases/customer-support-ai-dx/poc-effect-evaluation/'));
+assert(oldPoc('link[rel="canonical"]').attr('href').endsWith('/cases/customer-support-ai-dx/poc-effect-evaluation/'));
+assert.equal(oldPoc('[data-pagefind-body], [data-explanation-id]').length,0);
+assert(!fs.readFileSync('dist/sitemap.xml','utf8').includes('/evaluation-hitl/customer-support-qa-poc/'));
+assert.equal(page('evaluation-hitl')('[data-content-id="evaluation-hitl/customer-support-qa-poc"]').length,0);
+assert.equal(cases('.case-study-index').length,3);
+const revisedSupportDiagram = supportOverview('[data-support-dx]');
 assert(revisedSupportDiagram.find('[data-support-step="search"]').text().includes('判定A'));
 assert(revisedSupportDiagram.find('[data-support-step="decision"]').text().includes('判定B'));
-
-for (const route of ['cases/customer-support-ai-dx', 'cases/customer-support-ai-dx/poc-evaluation', 'evaluation-hitl/customer-support-qa-poc']) {
-  const $ = page(route);
-  assert(!/システムの適格性確認|テスター|自動照合|適切な有人引継ぎ100％/.test($('.prose').text()), route);
-  assert.equal($('[data-explanation-id="support-validation-stages"]').length, 0);
+for(const $ of [supportOverview,firstPoc,secondPoc]){
+ assert.equal($('.prose a[href="/evaluation-hitl/customer-support-qa-poc/"]').length,0);
+ assert(!/72％|96％|94％|180／250|240／250|1,000件/.test($('.prose').text()));
+ assert.equal($('[data-explanation-id="support-validation-stages"]').length,0);
 }
-for (const value of ['専門判断200件・回答根拠不足50件', '誤自動回答0件と、引継ぎ成功250件は同義ではありません', '有人案件の誤自動回答件数と引継ぎ成功件数は未設定'])
-  assert(pocDetail('.prose').text().includes(value), value);
-
-for (const value of ['検索対象の適格性と、自動回答の許可を分離', '正しい自動回答と、誤自動回答の防止・適切な引継ぎを別々に評価', '月400時間から280時間相当へ削減する試算'])
-  assert(supportOverview('.prose strong').toArray().some(el => supportOverview(el).text().includes(value)), value);
-for (const value of ['180／250件', '240／250件', '自動回答可能率96％'])
-  assert(pocDetail('.prose table strong').toArray().some(el => pocDetail(el).text().includes(value)), value);
-
 // Recruiter entrances lead with architecture while preserving confirmed work and scope.
 for (const route of ['', 'career', 'cases']) {
   const $ = page(route);

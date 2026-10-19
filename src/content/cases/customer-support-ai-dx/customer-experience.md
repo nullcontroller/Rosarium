@@ -1,11 +1,11 @@
 ---
 summary: "利用者に製品分類や専門用語を理解させず、自然な言葉と段階的な追加質問で解決へ導く画面と対話の設計を整理する。"
 layer: publication
-title: 06. 顧客体験をどう変えたか
+title: 07. 顧客体験をどう変えたか
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-18"
+last_updated: "2026-10-19"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []
@@ -16,7 +16,7 @@ source:
   url: https://github.com/nullcontroller/Rosarium
 series: customer-support-ai-dx
 series_title: 生成AI / RAGによる顧客サポートDX
-order: 7
+order: 8
 ---
 
 ## 内部分類を利用者へ押し付けない

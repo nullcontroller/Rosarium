@@ -1,6 +1,6 @@
 ---
 title: 生成AI / RAGによる顧客サポートQAのPoC：失敗分析と方式改善
-summary: "PoCの評価設計と方式改善は、顧客サポートDXの第03章へ統合しました。"
+summary: "PoCの評価設計と方式改善は、顧客サポートDXの第04章へ統合しました。"
 section: evaluation-hitl
 layer: publication
 kind: guide
@@ -13,7 +13,7 @@ entry_points: [ai, dx]
 primaryCategory: continuous-value
 tags: [PoC, AI Evaluation, RAG, 検索対象制御]
 lifecycle: retired
-lifecycle_reason: "PoC詳細を顧客サポートDXの第03章へ統合したため。旧URLは統合先へ転送します。"
+lifecycle_reason: "PoC詳細を顧客サポートDXの第04章へ統合したため。旧URLは統合先へ転送します。"
 ---
 
-PoC詳細は[第03章：PoCによる方式の検証](/cases/customer-support-ai-dx/poc-evaluation/)へ統合しました。
+PoC詳細は[第04章：第2回PoC：開発したQAシステムの効果確認](/cases/customer-support-ai-dx/poc-effect-evaluation/)へ統合しました。

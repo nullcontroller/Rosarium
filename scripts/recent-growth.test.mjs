@@ -68,7 +68,7 @@ test("the article revision appears once, independently of the daily title", () =
   assert.equal(revisions[0].text.split(data.update_note).length - 1, 1);
 });
 
-test("PoC publication history is preserved when its body is integrated into chapter 03", () => {
+test("PoC publication history is preserved when its body is kept in the two Book PoC chapters", () => {
   const day = recentGrowth.find(item => item.date === "2026-10-18");
   const id = "evaluation-hitl/customer-support-qa-poc";
   assert.deepEqual(growthPublishedTargets(day), [id]);
