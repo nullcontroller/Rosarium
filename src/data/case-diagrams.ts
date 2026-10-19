@@ -1820,8 +1820,8 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     }
   },
   "support-executive-summary": {
-    "title": "変更前と改善後：人間の対応をどこまでシステムへ移すか",
-    "description": "変更前と改善後を独立した流れとして比較します。上下の矢印は各方式の処理順序であり、変更前から改善後へ処理が流れる意味ではありません。",
+    "title": "現行の有人対応と、顧客向けQAの初期構想",
+    "description": "担当者がすべて対応する現行業務と、定型回答を自動化して専門判断を人間へ残す初期構想を比較します。",
     "nodes": [
       {
         "id": "before-customer",
@@ -1869,13 +1869,13 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "after-search",
         "label": "QAシステムが根拠文書を検索する",
         "kind": "knowledge",
-        "description": "機種で文書を絞り、その範囲で関連する根拠を検索します。"
+        "description": "ベクトル検索で問い合わせに関連する製品資料を取得します。"
       },
       {
         "id": "after-judge",
-        "label": "QAシステムが回答可能か判定する",
+        "label": "QAシステムが回答可否を判断する",
         "kind": "decision",
-        "description": "回答項目の自動回答許可と適用条件を照合し、専門判断が必要なら確定しません。"
+        "description": "定型問い合わせは自動回答し、回答できない場合は担当者へ渡す方針です。"
       },
       {
         "id": "after-answer",
@@ -1916,7 +1916,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
           ]
         },
         {
-          "title": "改善後：回答と専門対応を分ける",
+          "title": "初期構想：定型回答と専門対応を分ける",
           "nodeIds": [
             "after-customer",
             "after-questions",
@@ -1933,7 +1933,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
             },
             {
               "from": "after-judge",
-              "condition": "根拠不足・条件不一致・専門判断が必要",
+              "condition": "自動回答できない・専門判断が必要",
               "nodeIds": [
                 "after-handoff",
                 "after-investigate",
@@ -1944,7 +1944,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "判定から伸びる二つの矢印は、回答可能なら自動回答、根拠不足・原因未特定・専門判断が必要なら調査結果を引き継いだ有人対応へ進むことを示します。",
-      "scope": "従来の有人対応と、顧客の自己解決を支援する設計方式の違いを示します。"
+      "scope": "初期要件として目指す機能分担です。振り分け判定の十分さは開発後の評価で確認します。"
     }
   },
   "support-why-ai": {
@@ -1970,11 +1970,6 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
           "分散した仕様書・FAQ・障害情報から、問い合わせに関連する情報を探す。"
         ],
         [
-          "対象条件の制御",
-          "メタデータによる絞込み",
-          "対象機種が異なる文書を、意味検索の前に除外する。"
-        ],
-        [
           "根拠に基づく回答",
           "検索結果を参照する回答生成（RAG）",
           "社内の製品情報を根拠として与え、生成AIの内部知識だけに依存しない。"
@@ -1985,40 +1980,40 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
           "自動回答できない問い合わせでも、専門的な調査と判断を続ける。"
         ]
       ],
-      "note": "技術は機能要件を実現する手段です。生成AIは対話と文章生成、検索は文書取得、メタデータは検索範囲の制御を担います。",
-      "scope": "業務要件から実現方式を選ぶ設計上の整理です。比較対象と採用理由は本文で説明します。"
+      "note": "生成AIは追加質問、ベクトル検索は関連文書の取得、RAGは取得文書に基づく回答生成を担います。専門判断は人間へ残します。",
+      "scope": "業務要求から初期構想の機能と方式を選ぶ整理です。判定方法の具体化と評価は後続の章で扱います。"
     }
   },
   "support-responsibility-boundary": {
-    "title": "AI・新規QA・人間・Knowledgeの役割分担",
-    "description": "処理順序ではなく、三者が担う機能と確定してはいけない境界を示します。",
+    "title": "初期構想におけるAI・QAシステム・人間の分担",
+    "description": "定型問い合わせの自動回答と、人間による専門判断・個別調査の役割を分けます。",
     "nodes": [],
     "explanation": {
       "format": "table",
       "columns": [
-        "担当主体",
-        "担う処理",
-        "責任の境界"
+        "構成要素",
+        "担う機能・用途",
+        "初期構想での位置付け"
       ],
       "records": [
         [
           "AI・QAシステム",
-          "不足情報の収集、対象条件の確認、関連文書の検索、根拠に基づく回答案の生成。",
-          "回答項目の許可・適用条件を照合し、根拠不足・条件不一致・専門判断では回答を止めて担当者へ引き継ぐ。"
+          "不足情報の追加質問、関連文書のベクトル検索、RAGによる根拠付き回答生成。",
+          "定型回答を担い、自動回答できない場合は担当者へ引き継ぐ。"
         ],
         [
           "サポート担当者",
-          "専門判断、個別調査、影響が大きい操作の判断、例外への対応。",
-          "元の問い合わせと確認済み情報を確認し、調査と顧客への案内を引き受ける。"
+          "専門判断、個別調査、必要な部門への確認、顧客への回答。",
+          "問い合わせと確認済み情報を受け取り、未解決事項から調査を続ける。"
         ],
         [
-          "新規QAシステム・Knowledge管理",
-          "既存の製品資料をKnowledgeへ整備し、対象条件・回答許可・公開範囲・確認済み事項を管理する。",
-          "条件の照合と回答許可を生成AIの推測へ任せず、回答・停止・引継ぎを制御する。"
+          "製品仕様書・FAQ・障害情報",
+          "QAシステムが検索する回答根拠。",
+          "生成AIの内部知識だけに回答を任せず、参照する資料として登録する。"
         ]
       ],
-      "note": "AIにすべてを委任する方式でも、すべての回答を人間が承認する方式でもありません。問い合わせの条件で担当範囲を分けます。",
-      "scope": "検索対象の適格性と回答項目の許可を別々に判定します。公開範囲・業務状態・権限の詳細は運用へ展開する際の設計条件です。"
+      "note": "初期構想で定める責任分担であり、判定が十分に機能するかは開発後に評価します。",
+      "scope": "第1回PoC前の要件と役割分担を示します。"
     }
   },
   "support-poc-evaluation": {
@@ -2238,7 +2233,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "stop",
         "label": "QAシステムが自動回答を中止する",
         "kind": "decision",
-        "description": "根拠不足・原因未特定・専門判断などの停止理由を記録し、推測による回答を止めます。"
+        "description": "自動回答できない場合は、理由と確認済み情報を担当者へ渡す方針です。"
       },
       {
         "id": "transfer",
@@ -2275,7 +2270,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         }
       ],
       "note": "担当者はAIの回答を承認するだけではなく、一次調査の続きを引き受けます。同じ質問や文書検索のやり直しを減らす設計です。",
-      "scope": "有人引継ぎで必要な情報と、担当者が対応を再開できる状態を整理した設計案です。"
+      "scope": "初期構想で必要とする情報の受渡しを示します。振り分け判定の十分さは後続のPoCで評価します。"
     }
   },
   "system-understanding": {

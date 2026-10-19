@@ -20,7 +20,7 @@ test("support QA presents the proposal, system architecture decisions and feasib
   for (const text of ["QAシステムを設計", "72％ → 98％", "94％ → 100％", "月400時間から280時間"])
     assert(overview.includes(text), text);
   assert(introduction.includes("企画部門から業務改善の提案を受け"));
-  assert(introduction.includes("実現に向けた見込みが立ちました"));
+  assert(introduction.includes("以下は、業務目標を受けて定めた初期構想です"));
   assert(read("knowledge-design").includes("回答許可判定"));
   assert(poc.includes("基本動作を確認できたため、QAシステムの本格開発へ進むことにしました"));
   assert(knowledge.includes("機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAG"));
@@ -204,8 +204,8 @@ test("design chapters distinguish the final design from discovery and improvemen
   const knowledge = read("knowledge-design");
   const boundary = read("responsibility-boundary");
   assert(knowledge.includes("参照資料を整備して検索方式を再設計しました"));
-  assert(boundary.includes("評価後の検索対象制御・停止条件の強化を反映した最終的な責任分担"));
-  assert(boundary.includes("初期方式ではその判定が十分に機能しませんでした"));
+  assert(boundary.includes("この分担を初期要件とし"));
+  assert(boundary.includes("初期システムの判定不足"));
   assert(boundary.includes("[第07章](/cases/customer-support-ai-dx/poc-effect-evaluation/)"));
   assert(knowledge.includes("[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)"));
   assert(readDetail().includes("初期方式を評価"));
@@ -273,7 +273,7 @@ test("Book entrance follows the author supplied background-to-outlook introducti
  assert.equal((body.match(/^- /gm)||[]).length,2);
  assert(body.includes("月720件を顧客自身で解決できると想定"));
  assert(body.includes("業務効果は条件付きの試算"));
- assert(read("responsibility-boundary").includes("data-support-dx-diagram"));
+ assert(read("stopping-conditions").includes("data-support-dx-diagram"));
 });
 
 test("first PoC is a small functional tryout without an invented sample count or outcomes", () => {
@@ -309,4 +309,19 @@ test("chronology separates initial handoff from post-evaluation search and stop 
  assert(after.includes("[第08章](/cases/customer-support-ai-dx/knowledge-design/)"));
  assert(after.includes("[第09章](/cases/customer-support-ai-dx/stopping-conditions/)"));
  for(const chapter of [knowledge,stop]) assert(!/72％から98％|94％から100％|280時間/.test(chapter));
+});
+
+test("chapters 01 through 06 present initial requirements without post-PoC controls",()=>{
+ const early=["executive-summary","why-ai","responsibility-boundary","poc-evaluation","human-handoff","customer-experience"];
+ for(const name of early){const body=read(name).split("---").slice(2).join("---");assert(!/メタデータ|判定A|判定B|72％|94％|98％|100％|厳密な照合/.test(body),name);}
+ const initial=read("responsibility-boundary");
+ for(const phrase of ["定型問い合わせはAIで自動回答","専門判断・個別調査は人間","顧客向けWeb QA","追加質問","ベクトル検索","RAG","担当者へ引き継ぐ","初期システムの判定不足"])assert(initial.includes(phrase),phrase);
+ assert(!/data-support-dx-diagram|導入後の更新|回答項目の許可|専門判断条件との照合/.test(initial));
+ const modelIds=["support-executive-summary","support-why-ai","support-responsibility-boundary","support-poc-checks","support-human-handoff","support-handoff-information"];
+ for(const id of modelIds)assert(!/メタデータ|判定A|判定B|適用条件を照合|72％|94％|98％/.test(JSON.stringify(caseDiagrams[id])),id);
+});
+test("post-PoC chapters retain search eligibility and independent answer authorization",()=>{
+ const search=read("knowledge-design"),stop=read("stopping-conditions");
+ for(const phrase of["重複・旧版","適用できる文書へ検索対象を限定","メタデータ"])assert(search.includes(phrase),phrase);
+ for(const phrase of["自動回答の可否","回答の適用条件","専門判断の必要性","判定A","判定B","CS部と協議","data-support-dx-diagram"])assert(stop.includes(phrase),phrase);
 });

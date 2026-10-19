@@ -47,8 +47,8 @@
 | /cases/customer-support-ai-dx/poc-effect-evaluation/ | 07. 第2回PoC：開発したQAシステムの評価 | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/poc-evaluation/ | 04. 第1回PoC：フィージビリティ確認 | あり | あり | あり | 14 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/poc-metadata-improvement/ | 10. 改善後のPoC再実施 | あり | あり | あり | 15 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/responsibility-boundary/ | 03. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 21 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/stopping-conditions/ | 09. AIをどこで止めるか | あり | あり | あり | 18 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/responsibility-boundary/ | 03. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 20 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/stopping-conditions/ | 09. AIをどこで止めるか | あり | あり | あり | 20 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/why-ai/ | 02. なぜAIを導入したのか | あり | あり | あり | 19 | 主要見出しが複数 |
 | /cases/specification-debt-review/ | 3万文字・68ページの仕様書をAIで横断レビューする | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/system-understanding/ | 理解しにくいレガシーシステムを、変更判断できる状態へ変える | あり | あり | あり | 19 | 主要見出しが複数 |

@@ -931,7 +931,7 @@ console.log(
 );
 
 // Support QA is readable without interaction and keeps the existing cover and fragment targets.
-const supportDiagram = page("cases/customer-support-ai-dx/responsibility-boundary");
+const supportDiagram = page("cases/customer-support-ai-dx/stopping-conditions");
 assert.equal(supportDiagram("[data-support-dx]").length, 1);
 assert.equal(supportDiagram("[data-support-dx] svg, [data-support-dx] button, [data-support-dx] [hidden]").length, 0);
 assert.equal(supportDiagram("[data-support-step]").length, 6);
@@ -999,11 +999,11 @@ assert.equal(comparison(".support-comparison > section").first().find(".support-
 const routes = comparison('[data-flow-from="after-judge"]');
 assert.equal(routes.length, 2);
 assert.deepEqual(routes.map((_, node) => comparison(node).attr("data-flow-to")).get(), ["after-answer", "after-handoff"]);
-assert.deepEqual(routes.map((_, node) => comparison(node).attr("data-flow-condition")).get(), ["回答可能", "根拠不足・条件不一致・専門判断が必要"]);
+assert.deepEqual(routes.map((_, node) => comparison(node).attr("data-flow-condition")).get(), ["回答可能", "自動回答できない・専門判断が必要"]);
 assert.equal(routes.find(".support-branch-connector").length, 2);
 assert.deepEqual(routes.last().find("[data-support-step]").map((_, node) => comparison(node).attr("data-support-step")).get(),
   ["after-handoff", "after-investigate", "after-human-answer"]);
-assert.equal(page("cases/customer-support-ai-dx/why-ai")(".support-table tbody tr").length, 5);
+assert.equal(page("cases/customer-support-ai-dx/why-ai")(".support-table tbody tr").length, 4);
 assert.equal(page("cases/customer-support-ai-dx/responsibility-boundary")(".support-table tbody tr").length, 3);
 assert.equal(page("cases/customer-support-ai-dx/stopping-conditions")(".support-checks > li").length, 3);
 assert.equal(page("cases/customer-support-ai-dx/poc-evaluation")('[data-explanation-id="support-poc-checks"] tbody tr').length, 3);
@@ -1253,4 +1253,10 @@ assert(!fs.readFileSync("dist/sitemap.xml","utf8").includes("/cases/customer-sup
 for(const file of walk("dist").filter(file=>file.endsWith(".html"))) {
  const $=load(fs.readFileSync(file,"utf8"));
  assert.equal($('a[href="/cases/customer-support-ai-dx/continuous-improvement/"]').length,0,file+": removed chapter must not be linked");
+}
+
+for(const slug of ["executive-summary","why-ai","responsibility-boundary","poc-evaluation","human-handoff","customer-experience"]) {
+ const $=page("cases/customer-support-ai-dx/"+slug);
+ assert.equal($("[data-support-dx]").length,0,slug+": final controlled architecture belongs to chapter 09");
+ assert(!/メタデータ|判定A|判定B|72％|94％|98％/.test($(".prose").text()),slug+": initial design must not anticipate post-PoC controls");
 }

@@ -1,5 +1,22 @@
 // Compatibility for published Book headings after local editing.
 export const bookChapterLegacyFragments: Record<string, Record<string, string>> = {
+  "cases/customer-support-ai-dx/executive-summary": {
+    "方式設計の到達点": "cases/customer-support-ai-dx/executive-summary#設計と評価の進め方"
+  },
+  "cases/customer-support-ai-dx/responsibility-boundary": {
+    "support-detail-customer": "cases/customer-support-ai-dx/stopping-conditions#support-detail-customer",
+    "support-detail-knowledge": "cases/customer-support-ai-dx/stopping-conditions#support-detail-knowledge",
+    "support-detail-rag": "cases/customer-support-ai-dx/stopping-conditions#support-detail-rag",
+    "support-detail-genai": "cases/customer-support-ai-dx/stopping-conditions#support-detail-genai",
+    "support-detail-decision": "cases/customer-support-ai-dx/stopping-conditions#support-detail-decision",
+    "support-detail-human": "cases/customer-support-ai-dx/stopping-conditions#support-detail-human",
+    "support-detail-response": "cases/customer-support-ai-dx/stopping-conditions#support-detail-response",
+    "support-detail-feedback": "cases/customer-support-ai-dx/stopping-conditions#support-detail-feedback",
+    "support-dx-flow": "cases/customer-support-ai-dx/stopping-conditions#support-dx-flow",
+    "support-dx-flow-title": "cases/customer-support-ai-dx/stopping-conditions#support-dx-flow-title",
+    "検索対象の適格性と自動回答の許可を分ける": "cases/customer-support-ai-dx/stopping-conditions#検索対象の適格性と自動回答の許可を分ける",
+    "問い合わせごとに実行権限を変える": "cases/customer-support-ai-dx/responsibility-boundary#問い合わせごとに回答の責任を分ける"
+  },
   "cases/customer-support-ai-dx/design-principles": {
     "9-導入後の評価と改善まで設計する": "cases/customer-support-ai-dx/design-principles#9-評価で見つかった問題を方式改善へ戻す",
     "7-技術的実現可能性と業務成立性を段階的に確認する": "cases/customer-support-ai-dx/design-principles#7-フィージビリティ確認と業務上の評価を分ける"
@@ -38,14 +55,14 @@ export const bookChapterLegacyFragments: Record<string, Record<string, string>> 
     "システム方式と機能間の依存関係": "cases/customer-support-ai-dx/responsibility-boundary#システム要件と機能分担",
     "システム方式の改善と業務適用への見込み": "cases/customer-support-ai-dx/poc-metadata-improvement#103-月750件への適用から業務改善の見込みを判断する",
     "読み方到達点と限界": "cases/customer-support-ai-dx#このbookについて",
-    "support-detail-customer": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-customer",
-    "support-detail-knowledge": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-knowledge",
-    "support-detail-rag": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-rag",
-    "support-detail-genai": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-genai",
-    "support-detail-decision": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-decision",
-    "support-detail-human": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-human",
-    "support-detail-response": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-response",
-    "support-detail-feedback": "cases/customer-support-ai-dx/responsibility-boundary#support-detail-feedback"
+    "support-detail-customer": "cases/customer-support-ai-dx/stopping-conditions#support-detail-customer",
+    "support-detail-knowledge": "cases/customer-support-ai-dx/stopping-conditions#support-detail-knowledge",
+    "support-detail-rag": "cases/customer-support-ai-dx/stopping-conditions#support-detail-rag",
+    "support-detail-genai": "cases/customer-support-ai-dx/stopping-conditions#support-detail-genai",
+    "support-detail-decision": "cases/customer-support-ai-dx/stopping-conditions#support-detail-decision",
+    "support-detail-human": "cases/customer-support-ai-dx/stopping-conditions#support-detail-human",
+    "support-detail-response": "cases/customer-support-ai-dx/stopping-conditions#support-detail-response",
+    "support-detail-feedback": "cases/customer-support-ai-dx/stopping-conditions#support-detail-feedback"
   },
   "cases/customer-support-ai-dx/poc-evaluation": {
     "本格開発前に技術的な実現可能性を確認する": "cases/customer-support-ai-dx/poc-evaluation#本格開発前に基本動作を確認する",

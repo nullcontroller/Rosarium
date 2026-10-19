@@ -67,7 +67,7 @@ test("comparison forks from one decision into automatic reply and continued huma
   const [before, after] = caseDiagrams["support-executive-summary"].explanation.panels;
   assert(!before.branches, "before and after must not share processing edges");
   assert.deepEqual(after.branches.map(branch => branch.from), ["after-judge", "after-judge"]);
-  assert.deepEqual(after.branches.map(branch => branch.condition), ["回答可能", "根拠不足・条件不一致・専門判断が必要"]);
+  assert.deepEqual(after.branches.map(branch => branch.condition), ["回答可能", "自動回答できない・専門判断が必要"]);
   assert.deepEqual(after.branches.map(branch => branch.nodeIds), [
     ["after-answer"], ["after-handoff", "after-investigate", "after-human-answer"],
   ]);
