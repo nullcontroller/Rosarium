@@ -1004,7 +1004,7 @@ assert.deepEqual(routes.last().find("[data-support-step]").map((_, node) => comp
 assert.equal(page("cases/customer-support-ai-dx/why-ai")(".support-table tbody tr").length, 5);
 assert.equal(page("cases/customer-support-ai-dx/responsibility-boundary")(".support-table tbody tr").length, 3);
 assert.equal(page("cases/customer-support-ai-dx/stopping-conditions")(".support-checks > li").length, 3);
-assert.equal(page("cases/customer-support-ai-dx/poc-evaluation")('[data-explanation-id="support-poc-checks"] tbody tr').length, 4);
+assert.equal(page("cases/customer-support-ai-dx/poc-evaluation")('[data-explanation-id="support-poc-checks"] tbody tr').length, 3);
 assert.equal(page("cases/customer-support-ai-dx/human-handoff")('[data-explanation-id="support-handoff-information"] tbody tr').length, 7);
 assert.equal(page("about")('meta[http-equiv="refresh"]').length, 0);
 assert(!page("about")('meta[name="robots"]').attr("content")?.includes("noindex"));
@@ -1127,9 +1127,12 @@ assert.equal(supportOverview('[data-support-dx]').length, 1);
 const firstPoc = page('cases/customer-support-ai-dx/poc-evaluation');
 const secondPoc = page('cases/customer-support-ai-dx/poc-effect-evaluation');
 const oldPoc = page('evaluation-hitl/customer-support-qa-poc');
-for(const text of ['過去の問い合わせ500件','構想したQAシステムは実現できる見込み']) assert(firstPoc('.prose').text().includes(text));
+for(const text of ['過去の問い合わせ500件','回答生成の3機能','技術的な実現可能性の見込み']) assert(firstPoc('.prose').text().includes(text));
 for(const text of ['定型問い合わせ','専門判断が必要','回答根拠不足','第1回PoCの500件と同一の問い合わせを用いたかは未確認','未確定','600件 × 10分 ÷ 60 ＝ 100時間／月']) assert(secondPoc('.prose').text().includes(text),text);
 assert(!/250|％|誤検索|誤自動回答|再検証/.test(firstPoc('.prose').text()));
+assert(!/有人引継ぎ|回答許可|専門判断|メタデータ|停止判定/.test(firstPoc('.prose').text()));
+assert.deepEqual(firstPoc('[data-explanation-id="support-poc-checks"] tbody th').map((_,el)=>firstPoc(el).text()).get(), ['逆質問','ベクトル検索','RAGによる回答生成']);
+
 const secondBusiness = secondPoc('.prose').text().split('4.6 月750件')[1];
 assert(secondBusiness && !/250|96％|280時間/.test(secondBusiness));
 assert(secondBusiness.includes('400時間 − 100時間 ＝ 300時間／月'));

@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { caseDiagrams } from "../src/data/case-diagrams.ts";
 
 const root = "src/content/cases";
 const read = (name) => fs.readFileSync(`${root}/customer-support-ai-dx${name ? `/${name}` : ""}.md`, "utf8");
@@ -20,7 +21,7 @@ test("support QA presents the proposal, system architecture decisions and feasib
   assert(introduction.includes("企画部門から業務改善の提案を受け"));
   assert(introduction.includes("実現に向けた見込みが立ちました"));
   assert(readDetail().includes("検索対象の適格性と、回答許可を分離"));
-  assert(poc.includes("構想したQAシステムは実現できる見込みが立ちました"));
+  assert(poc.includes("技術的な実現可能性の見込みが立ち"));
   assert(knowledge.includes("機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAG"));
   assert(!overview.includes("SAとして"));
 });
@@ -79,7 +80,7 @@ test("Book and PoC exclude the removed qualification plan", () => {
   for (const source of sources) assert(!/適格性確認|qualification-test|ほぼ同数|自動実行/.test(source));
   const chapter = read("poc-evaluation");
   assert.match(chapter, /^title: 03\. 第1回PoC：技術的実現可能性の確認$/m);
-  for (const value of ["本格開発前に", "過去の問い合わせ500件", "追加質問", "RAG", "有人引継ぎ", "構想したQAシステムは実現できる見込み"])
+  for (const value of ["新規開発に先立ち", "過去の問い合わせ500件", "逆質問", "ベクトル検索", "RAG", "技術的な実現可能性の見込み"])
     assert(chapter.includes(value), value);
   assert(read("continuous-improvement").includes("引継ぎ後の対応工数"));
   assert(read("continuous-improvement").includes("重複質問"));
@@ -132,7 +133,7 @@ test("two PoCs separate technical feasibility from developed-system effects", ()
   const first = read("poc-evaluation").split("---").slice(2).join("---").replace(/<span[^>]*><\/span>/g, "");
   const second = readDetail();
   assert(first.includes("過去の問い合わせ500件"));
-  assert(first.includes("500件の問い合わせを用いて技術的な実現可能性を検証し、構想したQAシステムは実現できる見込みが立ちました"));
+  assert(first.includes("過去の問い合わせ500件でこの3機能を確認した結果"));
   assert(!/250|％|%|分／件|削減工数|工数削減|280時間|再検証|誤検索|誤自動回答/.test(first));
   assert(second.includes("第1回PoCの500件と同一の問い合わせを用いたかは未確認"));
   assert(second.includes("第2回PoC内の作業であり、第3回PoCではありません"));
@@ -151,6 +152,23 @@ test("two PoCs separate technical feasibility from developed-system effects", ()
   assert(second.includes("引継ぎ後の調査工数"));
 });
 
+test("first PoC verifies exactly three functions in body, diagram and Book overview", () => {
+  const chapter = read("poc-evaluation");
+  const diagram = caseDiagrams["support-poc-checks"];
+  const records = diagram.explanation.records;
+  assert.equal(diagram.explanation.format, "table");
+  assert.deepEqual(records.map(row => row[0]), ["逆質問", "ベクトル検索", "RAGによる回答生成"]);
+  assert.equal(records.length, 3);
+  assert(chapter.includes("回答生成の3機能"));
+  assert(chapter.includes("第1回PoCは業務効果や安全性を評価したものではありません"));
+  const firstRow = tableRows(read("")).find(row => row[0] === "第1回PoC");
+  assert(firstRow[1].includes("過去の問い合わせ500件"));
+  assert.equal(firstRow[2], "逆質問・ベクトル検索・RAGによる回答生成の技術的な実現可能性を確認する");
+  const prohibited = /有人引継ぎ|有人対応|回答許可|専門判断|根拠不足|停止判定|メタデータ|適格性制御|自動回答可能率/;
+  for (const source of [chapter, JSON.stringify(diagram), firstRow.join(" ")]) assert(!prohibited.test(source));
+  assert(readDetail().includes("有人250件"));
+});
+ 
 test("business projections use monthly 750 inquiries and the 600-resolution target", () => {
   const second = readDetail();
   const business = second.split("## 4.6 ")[1].replace(/<span[^>]*><\/span>/g, "");
