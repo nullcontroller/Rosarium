@@ -46,7 +46,7 @@ const curatedRecentGrowth = [
     date: "2026-10-19", type: "revised", title: "代表設計事例と、数学・AI理論の入口を整理",
     changes: [
       { action: "revised", text: "改訂。顧客サポートQAを代表設計事例の先頭に置き、仕様書レビュー・保守開発の確認済み成果を設計力の裏付けとして配置。Careerの強みと今後の方向性、各事例の成果と比較条件を整理した", contentIds: ["career/overview", "cases/specification-debt-review", "cases/three-ai-maintenance"] },
-      { action: "revised", text: "改訂。顧客サポートQAのPoCを定型250件・有人対応250件の共通評価条件に整理。自動回答、誤自動回答、引継ぎ成功を区別し、仮定値と条件付きの工数試算を明示した", contentIds: ["evaluation-hitl/customer-support-qa-poc", "cases/customer-support-ai-dx", "cases/customer-support-ai-dx/poc-evaluation"] },
+      { action: "integrated", text: "統合。顧客サポートQAのPoCを定型250件・有人対応250件の共通評価条件に整理。自動回答、誤自動回答、引継ぎ成功を区別し、仮定値と条件付きの工数試算を明示。PoC詳細の本文・表・図を本編第03章へ統合し、評価から採否条件まで章内で読めるようにした", contentIds: ["evaluation-hitl/customer-support-qa-poc", "cases/customer-support-ai-dx", "cases/customer-support-ai-dx/poc-evaluation"] },
       "数学とAI理論の入口を分離。条件付き確率・分布の基礎と、生成・誤答・コード生成モデルの仕組みを分け、AI設計と数式リファレンスへの導線を整理した",
     ],
     summaryChanges: ["要件・方式設計を入口に、開発・保守の実務成果へ進める構成に整理", "実務実績、設計・検証シナリオ、今後の方向性を区別", "数学とAI理論を分け、数理の基礎と生成の仕組みを別々に辿れる入口を整備"],

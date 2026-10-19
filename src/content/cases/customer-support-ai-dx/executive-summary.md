@@ -5,7 +5,7 @@ title: 00. このケーススタディについて
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-18"
+last_updated: "2026-10-19"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []
@@ -58,4 +58,4 @@ order: 1
 
 生成AIと検索、既存の製品情報、人間の役割を分担し、検索対象制御と有人引継ぎを含むシステム方式を設計しました。  
 **自己解決と専門対応を両立する方式を定め、企画部門から提示された業務目標の実現に向けた見込みが立ちました。**  
-検証シナリオの評価値と効果試算は[PoC詳細記事](/evaluation-hitl/customer-support-qa-poc/)で説明し、本番実測とは区別します。
+検証シナリオの評価値と効果試算は[第03章：PoCによる方式の検証](/cases/customer-support-ai-dx/poc-evaluation/)で説明し、本番実測とは区別します。

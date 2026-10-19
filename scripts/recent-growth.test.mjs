@@ -68,7 +68,7 @@ test("the article revision appears once, independently of the daily title", () =
   assert.equal(revisions[0].text.split(data.update_note).length - 1, 1);
 });
 
-test("separated PoC detail is recorded once as an article within the existing day", () => {
+test("PoC publication history is preserved when its body is integrated into chapter 03", () => {
   const day = recentGrowth.find(item => item.date === "2026-10-18");
   const id = "evaluation-hitl/customer-support-qa-poc";
   assert.deepEqual(growthPublishedTargets(day), [id]);
@@ -78,6 +78,9 @@ test("separated PoC detail is recorded once as an article within the existing da
   assert.equal(data.kind, "guide");
   assert.equal(data.publication_format, "article");
   assert.equal(data.series, undefined);
+  assert.equal(data.lifecycle, "retired");
+  assert(!/^## |^\|/m.test(source));
+  assert(contentHistory(id, data).some(event => event.type === "integrated"));
   assert.equal(contentHistory(id, data).filter(event => event.type === "published").length, 1);
 });
 

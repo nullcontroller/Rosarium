@@ -5,7 +5,7 @@ title: 04. RAGで使う参照資料をどう設計したか
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-18"
+last_updated: "2026-10-19"
 entry_points: [ai, dx]
 primaryCategory: system-transformation
 secondaryCategories: []
@@ -29,7 +29,7 @@ order: 5
 機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAGによる回答、という依存関係です。  
 回答生成後の誤り検出だけに頼らず、生成へ渡してよい根拠を先に制御する方式です。
 
-この方式の検証観点は、[PoC詳細：失敗分析と方式改善](/evaluation-hitl/customer-support-qa-poc/)で説明します。
+この方式の検証観点は、[第03章：失敗分析と方式改善](/cases/customer-support-ai-dx/poc-evaluation/)で説明します。
 
 ## 機種以外の適合性とナレッジ運用
 

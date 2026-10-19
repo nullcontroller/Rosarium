@@ -5,7 +5,7 @@ title: 02. 何をAIに任せ、何を人間に残したか
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-18"
+last_updated: "2026-10-19"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: [system-transformation]
@@ -58,7 +58,7 @@ CS部と協議し、回答項目ごとに自動回答可否・回答の適用条
 **回答許可は、業務側が定めた条件へQAシステムが照合して判定します。**  
 生成AIの自己評価に許可の決定を委ねません。  
 根拠取得後にRAGで候補を作れても、判定Bを満たすまでは顧客へ提示しません。  
-数値の位置付けと再検証は[PoC詳細記事](/evaluation-hitl/customer-support-qa-poc/)で扱います。
+数値の位置付けと再検証は[第03章：PoCによる方式の検証](/cases/customer-support-ai-dx/poc-evaluation/)で扱います。
 
 ## 問い合わせを一律に自動化しない
 

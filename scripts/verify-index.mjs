@@ -978,7 +978,7 @@ for (const id of ["system-understanding", "three-ai-maintenance", "specification
 }
 for (const route of [
  ...["why-ai", "responsibility-boundary", "knowledge-design", "stopping-conditions", "human-handoff", "continuous-improvement", "executive-summary"].map(slug => "cases/customer-support-ai-dx/" + slug),
- "evaluation-hitl/customer-support-qa-poc",
+ "cases/customer-support-ai-dx/poc-evaluation",
 ]) {
  const $ = page(route);
  assert($("[data-explanation-id]").length >= 1);
@@ -1003,7 +1003,7 @@ assert.deepEqual(routes.last().find("[data-support-step]").map((_, node) => comp
 assert.equal(page("cases/customer-support-ai-dx/why-ai")(".support-table tbody tr").length, 5);
 assert.equal(page("cases/customer-support-ai-dx/responsibility-boundary")(".support-table tbody tr").length, 3);
 assert.equal(page("cases/customer-support-ai-dx/stopping-conditions")(".support-checks > li").length, 3);
-assert.equal(page("evaluation-hitl/customer-support-qa-poc")('[data-explanation-id="support-poc-checks"] tbody tr').length, 5);
+assert.equal(page("cases/customer-support-ai-dx/poc-evaluation")('[data-explanation-id="support-poc-checks"] tbody tr').length, 5);
 assert.equal(page("cases/customer-support-ai-dx/human-handoff")('[data-explanation-id="support-handoff-information"] tbody tr').length, 7);
 assert.equal(page("about")('meta[http-equiv="refresh"]').length, 0);
 assert(!page("about")('meta[name="robots"]').attr("content")?.includes("noindex"));
@@ -1124,13 +1124,18 @@ assert.equal(supportOverview('[data-content-history]').length, 0);
 assert.equal(supportOverview('[data-support-dx]').length, 1);
 
 const revisedPoc = page('cases/customer-support-ai-dx/poc-evaluation');
-const pocDetail = page('evaluation-hitl/customer-support-qa-poc');
+const pocDetail = revisedPoc;
+const oldPoc = page('evaluation-hitl/customer-support-qa-poc');
 for (const value of ['共通の500件', '定型問い合わせ', '有人対応案件', '180／250件', '240／250件', '仮定値', '改善後280時間／月の試算', '追加負荷を含む総工数も未確認']) assert(pocDetail('.prose').text().includes(value), value);
-assert(revisedPoc('.prose a[href="/evaluation-hitl/customer-support-qa-poc/"]').length);
-assert(pocDetail('.prose a[href="/cases/customer-support-ai-dx/poc-evaluation/"]').length);
-assert.equal(revisedPoc('[data-explanation-id="support-poc-checks"], [data-explanation-id="support-poc-evaluation"]').length, 0);
+assert.equal(revisedPoc('.prose a[href="/evaluation-hitl/customer-support-qa-poc/"]').length, 0);
+assert(oldPoc('meta[http-equiv="refresh"]').attr("content").endsWith("/cases/customer-support-ai-dx/poc-evaluation/"));
+assert.equal(oldPoc("[data-pagefind-body], [data-explanation-id]").length, 0);
+assert(oldPoc('link[rel="canonical"]').attr("href").endsWith("/cases/customer-support-ai-dx/poc-evaluation/"));
+assert(!fs.readFileSync("dist/sitemap.xml", "utf8").includes("/evaluation-hitl/customer-support-qa-poc/"));
+assert.equal(page("evaluation-hitl")('[data-content-id="evaluation-hitl/customer-support-qa-poc"]').length, 0);
+assert.equal(revisedPoc('[data-explanation-id="support-poc-checks"], [data-explanation-id="support-poc-evaluation"]').length, 2);
 assert.equal(pocDetail('[data-explanation-id="support-poc-evaluation"]').length, 1);
-assert.equal(pocDetail('.book-toc, .pagination').length, 0);
+assert.equal(pocDetail(".book-toc").length, 1);
 assert.equal(cases('.case-study-index').length, 3);
 assert(page('cases/customer-support-ai-dx')('.prose').text().includes('設計を検討する検証シナリオ'));
 const revisedSupportDiagram = page('cases/customer-support-ai-dx')('[data-support-dx]');
