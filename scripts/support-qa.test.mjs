@@ -22,7 +22,7 @@ test("support QA presents the proposal, system architecture decisions and feasib
   assert(introduction.includes("企画部門から業務改善の提案を受け"));
   assert(introduction.includes("以下は、業務目標を受けて定めた初期構想です"));
   assert(read("knowledge-design").includes("回答許可判定"));
-  assert(poc.includes("基本動作を確認できたため、QAシステムの本格開発へ進むことにしました"));
+  assert(poc.includes("技術的な実現可能性を確認しました。この結果を踏まえ、QAシステムの本格開発へ進みました"));
   assert(knowledge.includes("機種特定 → 検索対象制限 → ベクトル検索 → 根拠文書取得 → RAG"));
   assert(!overview.includes("SAとして"));
 });
@@ -79,7 +79,7 @@ test("Book and PoC exclude the removed qualification plan", () => {
   for (const source of sources) assert(!/適格性確認|qualification-test|ほぼ同数|自動実行/.test(source));
   const chapter = read("poc-evaluation");
   assert.match(chapter, /^title: 04\. 第1回PoC：フィージビリティ確認$/m);
-  for (const value of ["新規開発に先立ち", "少数の問い合わせ例", "逆質問", "ベクトル検索", "RAG", "基本動作を確認"])
+  for (const value of ["新規開発に先立ち", "逆質問", "ベクトル検索", "RAG", "技術的な実現可能性を確認"])
     assert(chapter.includes(value), value);
 });
 
@@ -127,17 +127,17 @@ test("scenario inquiry categories reconcile annual volume, monthly workload and 
 test("two PoCs separate technical feasibility from developed-system effects", () => {
   const first = read("poc-evaluation").split("---").slice(2).join("---").replace(/<span[^>]*><\/span>/g, "");
   const second = readDetail();
-  assert(first.includes("少数の問い合わせ例"));
-  assert(first.includes("少数の問い合わせ例を用いた簡単な動作確認"));
+  assert(first.includes("技術的な実現可能性を確認しました"));
+  assert(first.includes("構想した3機能が技術的に実現可能かを確認する"));
   assert(!/250|％|%|分／件|削減工数|工数削減|280時間|再検証|誤検索|誤自動回答/.test(first));
-  assert(second.includes("第1回PoCで3機能の基本動作を確認した後"));
+  assert(second.includes("第1回PoCで3機能の実現可能性を確認した後"));
   const data = tableRows(second).filter(row => ["定型問い合わせ", "専門判断が必要", "回答根拠不足", "合計"].includes(row[0]));
   assert.deepEqual(data.map(row => row.slice(0, 2)), [["定型問い合わせ", "250"], ["専門判断が必要", "200"], ["回答根拠不足", "50"], ["合計", "500"]]);
   assert.equal(data.slice(0, 3).reduce((sum, row) => sum + Number(row[1]), 0), 500);
   assert(second.includes("検索対象の制御と回答許可判定の両方に課題"));
   assert(!/目標を達成|100時間|300時間|再実施した結果/.test(second));
   const improved = readImprovement();
-  for (const phrase of ["文書検索の適合率は72％から98％へ", "データセット・実行環境の同一性", "全問い合わせの正答率、引継ぎ情報の受渡し成功率"]) assert(improved.includes(phrase),phrase);
+  for (const phrase of ["文書検索の適合率は72％から98％へ", "同じ問い合わせデータ・評価基準", "全問い合わせの正答率、引継ぎ情報の受渡し成功率"]) assert(improved.includes(phrase),phrase);
   for (const text of [second, improved]) assert(!/1,000件|180／250|240／250|480／500|24件.*0件/.test(text));
 
 });
@@ -150,7 +150,7 @@ test("first PoC verifies exactly three functions in body, diagram and Book overv
   assert.deepEqual(records.map(row => row[0]), ["逆質問", "ベクトル検索", "RAGによる回答生成"]);
   assert.equal(records.length, 3);
   assert(chapter.includes("確認した3機能"));
-  assert(chapter.includes("簡単な動作確認"));
+  assert(chapter.includes("技術的な実現可能性を確認しました"));
   const prohibited = /有人引継ぎ|有人対応|回答許可|専門判断|根拠不足|停止判定|メタデータ|適格性制御|自動回答可能率/;
   for (const source of [chapter, JSON.stringify(diagram)]) assert(!prohibited.test(source));
   assert(readDetail().includes("引継ぎに成功したことは別の評価"));
@@ -276,12 +276,12 @@ test("Book entrance follows the author supplied background-to-outlook introducti
  assert(read("stopping-conditions").includes("data-support-dx-diagram"));
 });
 
-test("first PoC is a small functional tryout without an invented sample count or outcomes", () => {
+test("first PoC assesses three-function feasibility without invented performance metrics", () => {
  const chapter=read("poc-evaluation");
  const body=chapter.split("---").slice(2).join("---");
  const diagram=JSON.stringify(caseDiagrams["support-poc-checks"]);
- assert(body.includes("少数の問い合わせ例を用いた簡単な動作確認"));
- assert(body.includes("基本動作を確認できたため、QAシステムの本格開発へ進むことにしました"));
+ assert(body.includes("構想した3機能が技術的に実現可能かを確認する"));
+ assert(body.includes("技術的な実現可能性を確認しました。この結果を踏まえ、QAシステムの本格開発へ進みました"));
  assert(!/\d+(?:件|％|%|日間|週間|か月)|実証|成功率|適合率|品質保証|有人引継ぎ|安全性/.test(body+diagram));
  assert(!/過去の問い合わせ500件|実現見込み/.test(chapter+diagram));
  assert(body.length<350);
@@ -324,4 +324,19 @@ test("post-PoC chapters retain search eligibility and independent answer authori
  const search=read("knowledge-design"),stop=read("stopping-conditions");
  for(const phrase of["重複・旧版","適用できる文書へ検索対象を限定","メタデータ"])assert(search.includes(phrase),phrase);
  for(const phrase of["自動回答の可否","回答の適用条件","専門判断の必要性","判定A","判定B","CS部と協議","data-support-dx-diagram"])assert(stop.includes(phrase),phrase);
+});
+
+test("specialist judgment means deciding whether documents and candidates can become formal customer answers",()=>{
+ const business=read("why-ai");
+ for(const phrase of ["取得した資料や回答候補を、顧客への正式な回答に使用してよいか","対象機種・利用環境・版数に適用できるか","今回の問い合わせへの回答根拠として使用してよいか","回答候補が妥当で、顧客へ案内して問題ないか","追加調査や開発部門への確認が必要か","条件をQAシステムが満たせば自動回答"]) assert(business.includes(phrase),phrase);
+ assert(read("responsibility-boundary").includes("取得文書の適用可否と回答候補の妥当性"));
+ assert(read("human-handoff").includes("回答候補を正式な案内に使ってよいか判断"));
+ assert(read("stopping-conditions").includes("個別の資料の適用可否や回答内容に人間の判断が必要ならCS部"));
+ assert(read("design-principles").includes("人間が資料・回答候補の採否を判断する案件"));
+});
+test("re-evaluation compares identical questions and criteria under equivalent execution conditions",()=>{
+ const improved=readImprovement();
+ for(const phrase of["初期評価と同じ問い合わせデータ・評価基準","同等の実行環境・同じ実行条件","変更したのは、第08章の参照資料整備・検索対象制御と、第09章の回答許可・停止条件"])assert(improved.includes(phrase),phrase);
+ assert(!/同一性は未確認|データセット・実行環境の同一性/.test(improved));
+ assert(!/実施日時|測定ログ|実施証跡/.test(improved));
 });

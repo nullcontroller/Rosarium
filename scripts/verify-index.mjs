@@ -1130,7 +1130,7 @@ const firstPoc = page('cases/customer-support-ai-dx/poc-evaluation');
 const secondPoc = page('cases/customer-support-ai-dx/poc-effect-evaluation');
 const improvedPoc = page('cases/customer-support-ai-dx/poc-metadata-improvement');
 const oldPoc = page('evaluation-hitl/customer-support-qa-poc');
-for(const text of ['少数の問い合わせ例を用いた簡単な動作確認','確認した3機能','基本動作を確認できたため、QAシステムの本格開発へ進むことにしました']) assert(firstPoc('.prose').text().includes(text));
+for(const text of ['構想した3機能が技術的に実現可能かを確認する','確認した3機能','技術的な実現可能性を確認しました。この結果を踏まえ、QAシステムの本格開発へ進みました']) assert(firstPoc('.prose').text().includes(text));
 for(const text of ['定型問い合わせ','専門判断が必要','回答根拠不足']) assert(secondPoc('.prose').text().includes(text),text);
 assert(!/\d+件|％|誤検索|誤自動回答|再検証/.test(firstPoc('.prose').text()));
 assert(!/有人引継ぎ|回答許可|専門判断|メタデータ|停止判定/.test(firstPoc('.prose').text()));

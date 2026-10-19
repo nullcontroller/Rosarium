@@ -65,8 +65,9 @@ export const bookChapterLegacyFragments: Record<string, Record<string, string>> 
     "support-detail-feedback": "cases/customer-support-ai-dx/stopping-conditions#support-detail-feedback"
   },
   "cases/customer-support-ai-dx/poc-evaluation": {
-    "本格開発前に技術的な実現可能性を確認する": "cases/customer-support-ai-dx/poc-evaluation#本格開発前に基本動作を確認する",
+    "本格開発前に基本動作を確認する": "cases/customer-support-ai-dx/poc-evaluation#本格開発前に3機能の実現可能性を確認する",
+    "本格開発前に技術的な実現可能性を確認する": "cases/customer-support-ai-dx/poc-evaluation#本格開発前に3機能の実現可能性を確認する",
     "検証した3機能": "cases/customer-support-ai-dx/poc-evaluation#確認した3機能",
-    "技術的な実現見込みを本格開発へつなぐ": "cases/customer-support-ai-dx/poc-evaluation#本格開発前に基本動作を確認する"
+    "技術的な実現見込みを本格開発へつなぐ": "cases/customer-support-ai-dx/poc-evaluation#本格開発前に3機能の実現可能性を確認する"
   }
 };

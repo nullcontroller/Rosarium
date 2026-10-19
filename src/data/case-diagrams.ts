@@ -2003,7 +2003,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         ],
         [
           "サポート担当者",
-          "専門判断、個別調査、必要な部門への確認、顧客への回答。",
+          "取得文書の適用可否と回答候補の妥当性の判断、追加調査・必要な部門への確認、顧客への回答。",
           "問い合わせと確認済み情報を受け取り、未解決事項から調査を続ける。"
         ],
         [
@@ -2064,18 +2064,18 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   },
   "support-poc-checks": {
     "title": "第1回PoC：3機能のフィージビリティ確認",
-    "description": "生成AIによる逆質問、ベクトル検索による関連文書の取得、RAGによる根拠付き回答生成を簡単に試しました。",
+    "description": "生成AIによる逆質問、ベクトル検索による関連文書の取得、RAGによる根拠付き回答生成が技術的に実現可能か確認しました。",
     "nodes": [],
     "explanation": {
       "format": "table",
-      "columns": ["確認項目", "試した基本動作"],
+      "columns": ["確認項目", "実現可能性を確認した内容"],
       "records": [
         ["逆質問", "問い合わせに不足している情報を生成AIが聞き返せるか。"],
         ["ベクトル検索", "問い合わせに関連する文書を検索・取得できるか。"],
         ["RAGによる回答生成", "取得した文書を根拠に、RAGで回答を生成できるか。"]
       ],
-      "note": "追加質問から文書取得、根拠付き回答の生成までの基本動作を試します。",
-      "scope": "本格開発前の簡単な動作確認です。"
+      "note": "問い合わせから不足情報を取得し、関連文書を検索して、取得文書に基づく回答を生成できるか確認します。",
+      "scope": "本格開発に進むためのフィージビリティ確認です。"
     }
   },
   "support-handoff-information": {
@@ -2245,7 +2245,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "resume",
         "label": "担当者が未解決事項から専門調査を続ける",
         "kind": "human",
-        "description": "顧客情報と参照文書を確認し、未解決の条件への追加調査と専門判断を行います。"
+        "description": "参照文書を今回の根拠として使えるか、回答候補を顧客へ案内してよいか判断し、必要な追加調査を行います。"
       },
       {
         "id": "reply",
