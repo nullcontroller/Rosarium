@@ -17,20 +17,23 @@ const recent = recentGrowth.slice(0, 3);
       navigationPath=""
       title="Rosarium"
       summaryParagraphs={[
-        "業務要求をシステム要件へ具体化し、AI・人間・既存システムの役割を設計する。",
-        "立林裕太朗は、2016年からC# / .NETによるWindowsソフトウェアを開発・保守。AIを調査に活用し、コードと仕様を確認して要件整理から設計・実装・評価までつなぎます。",
+        "問い合わせDXを、業務要求からシステム方式へ。",
+        "顧客の自己解決と専門サポートを両立するため、生成AI・RAG・検索対象制御・有人引継ぎを組み合わせたシステム方式を設計。要件定義から評価条件まで具体化した設計・検証シナリオを紹介します。",
       ]}
     >
+      <p class="meta home-career-link"><span>2016年からC# / .NETによるソフトウェア開発・保守を経験。</span><a class="action-link" href={url("career")}>キャリアを見る</a></p>
       <p class="meta">
         <a class="action-link" href={url("about")}>Rosariumとは？</a>
         <span aria-hidden="true"> · </span>
         <a class="action-link" href={url("cases")}>実践事例を見る</a>
       </p>
     </PageHeader>
-    <aside class="home-career" aria-labelledby="home-career-heading">
-      <h2 class="eyebrow" id="home-career-heading">PROFILE / CAREER</h2>
-      <p class="career-overview"><span><strong>仕様書の問題約40件を確認。保守開発を内製。</strong></span><span>担当経験と実務成果、今後の方向性を紹介します。</span></p>
-      <a class="cta-link" href={url("career")}>キャリアを見る <span aria-hidden="true">→</span></a>
+    <aside class="home-main-case" aria-labelledby="home-main-case-heading">
+      <p class="eyebrow">MAIN CASE / 代表設計事例</p>
+      <h2 id="home-main-case-heading">問い合わせDXの要件・方式設計</h2>
+      <p>業務要求をシステム要件へ具体化。生成AI・RAG・検索対象制御・回答許可判定・有人引継ぎ・評価条件を設計しました。</p>
+      <p class="meta">設計・検証シナリオであり、本番導入済みの実績ではありません。</p>
+      <a class="cta-link" href={url("cases/customer-support-ai-dx")}>問い合わせDXの設計事例を見る <span aria-hidden="true">→</span></a>
     </aside>
   </div>
 
@@ -39,7 +42,7 @@ const recent = recentGrowth.slice(0, 3);
     <section aria-labelledby="featured-case-heading">
       <p class="eyebrow">{featuredCaseHighlights[0].category}</p>
       <h3 id="featured-case-heading"><a href={url(featuredCaseHighlights[0].id)}>{featuredCaseHighlights[0].title}</a></h3>
-      <p><strong>{featuredCaseHighlights[0].summary}</strong></p>
+      <p>業務要件、検索と回答許可の責任境界、PoCでの方式改善をBookで説明します。</p>
     </section>
     <h3>設計を支える実務実績</h3>
     <ul>
@@ -64,24 +67,25 @@ const recent = recentGrowth.slice(0, 3);
 </Site>
 
 <style>
-  .career-overview > span { display: block; }
+  .home-career-link { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem; }
   .home-hero-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 1.5rem; align-items: stretch; margin-bottom: 1.3rem; }
   .home-hero-layout :global(.page-heading) { min-width: 0; margin-bottom: 0; }
   .home-hero-layout :global(.lead) { white-space: pre-line; }
-  .home-career { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 1.125rem 1.375rem; border: 1px solid var(--accent); border-radius: var(--home-panel-radius, .35rem); background: color-mix(in srgb, var(--home-panel-surface, var(--surface)) 94%, var(--accent)); }
-  .home-career h2 { margin: 0; font-size: .875rem; letter-spacing: .12em; }
-  .home-career p { margin-block: .75rem .5rem; color: var(--muted); font-size: .95rem; line-height: 1.65; }
-  .home-career a { display: inline-flex; align-items: center; align-self: flex-start; gap: .5rem; min-height: 44px; color: var(--accent); font-size: .95rem; font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .25em; }
-  .home-career:hover, .home-career:focus-within { border-color: var(--accent); }
-  .home-career a:hover { color: var(--ink); }
+  .home-main-case { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 1.125rem 1.375rem; border: 1px solid var(--accent); border-radius: var(--home-panel-radius, .35rem); background: color-mix(in srgb, var(--home-panel-surface, var(--surface)) 94%, var(--accent)); }
+  .home-main-case h2 { margin: .75rem 0 0; font-size: 1.25rem; line-height: 1.5; }
+  .home-main-case .eyebrow { margin: 0; font-size: .875rem; letter-spacing: .08em; }
+  .home-main-case p { margin-block: .75rem .5rem; color: var(--muted); font-size: .95rem; line-height: 1.65; }
+  .home-main-case a { display: inline-flex; align-items: center; align-self: flex-start; gap: .5rem; min-height: 44px; color: var(--accent); font-size: .95rem; font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .25em; }
+  .home-main-case:hover, .home-main-case:focus-within { border-color: var(--accent); }
+  .home-main-case a:hover { color: var(--ink); }
   @media (min-width: 1100px) {
     .home-hero-layout { grid-template-columns: minmax(0, 1fr) 34rem; max-width: 84rem; margin-inline: auto; }
-    .home-career { justify-self: end; width: 100%; }
+    .home-main-case { justify-self: end; width: 100%; }
 
   }
   @media (max-width: 800px) {
     .home-hero-layout { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
-    .home-career { padding: 1rem; }
+    .home-main-case { padding: 1rem; }
   }
 
   .home-garden-notes { width: 100%; max-width: none; box-sizing: border-box; }
