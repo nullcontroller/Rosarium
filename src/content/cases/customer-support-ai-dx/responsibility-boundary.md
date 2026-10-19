@@ -22,7 +22,7 @@ order: 3
 **AIの文章生成、QAシステムの条件照合、人間の専門判断を明確に分離しました。**  
 検索対象として適合する文書を取得しても、回答項目の許可条件を満たさなければ自動回答しません。
 
-以下は評価後の見直しを反映した最終的な責任分担です。問題発見は[第09章](/cases/customer-support-ai-dx/poc-effect-evaluation/)、対策と再実施は[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)で説明します。
+以下は評価後の見直しを反映した最終的な責任分担です。問題発見は[第08章](/cases/customer-support-ai-dx/poc-effect-evaluation/)、対策と再実施は[第10章](/cases/customer-support-ai-dx/poc-metadata-improvement/)で説明します。
 
 ## システム要件と機能分担
 

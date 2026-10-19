@@ -2035,7 +2035,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         "id": "failure",
         "label": "別機種の誤検索と専門判断の誤自動回答を発見する",
         "kind": "feedback",
-        "description": "対象機種と異なる文書の取得と、専門判断が必要なのに回答するケースを別の問題として区別します。"
+        "description": "検索適合率72％と、専門判断案件の有人振り分け率94％（要件100％）の未達を別の問題として区別します。"
       },
       {
         "id": "cause",

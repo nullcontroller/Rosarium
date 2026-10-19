@@ -197,8 +197,8 @@
 
 ## 2026-10-18：顧客サポートDXのPoC詳細を分離
 
-- `src/content/evaluation-hitl/customer-support-qa-poc.md`：RETIRED（2026-10-19統合）。PoC詳細の正規本文を本編第04章・第09章・第10章へ集約。公開日と履歴のメタデータだけを保持し、旧URLは第10章へ転送する。通常一覧・検索・サイトマップへ独立記事として掲載しない。
+- `src/content/evaluation-hitl/customer-support-qa-poc.md`：RETIRED（2026-10-19統合）。PoC詳細の正規本文を本編第04章・第08章・第10章へ集約。公開日と履歴のメタデータだけを保持し、旧URLは第10章へ転送する。通常一覧・検索・サイトマップへ独立記事として掲載しない。
 
-- `src/content/cases/customer-support-ai-dx/poc-effect-evaluation.md`：同じCaseの第09章。開発後の第2回PoCで初期方式の評価と問題発見を扱う。改善と再実施の結果は第10章へ分離する。
+- `src/content/cases/customer-support-ai-dx/poc-effect-evaluation.md`：同じCaseの第08章。開発後の第2回PoCで初期方式の評価と問題発見を扱う。改善と再実施の結果は第10章へ分離する。
 
 - `src/content/cases/customer-support-ai-dx/poc-metadata-improvement.md`：同じCaseの第10章。検索対象制御と回答許可判定の改善、PoC再実施、文書検索の適合率98％への改善と月280時間相当の試算を説明。具体的な成功件数や未確認の安全性指標、商用運用の実測成果は追加しない。

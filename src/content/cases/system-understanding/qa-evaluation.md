@@ -1,7 +1,7 @@
 ---
 summary: "構築したQAを、正しさ・出典・一貫性・耐誘導性などの観点で評価する。誤情報、粒度、根拠不足、推測による回答を見つけ、改善対象を明確にする。"
 layer: publication
-title: 第9章 正しさ・出典・回答拒否から、QAの利用可否を評価する
+title: 09. 正しさ・出典・回答拒否から、QAの利用可否を評価する
 kind: case
 section: cases
 status: published

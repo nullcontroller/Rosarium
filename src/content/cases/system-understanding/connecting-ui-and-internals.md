@@ -1,7 +1,7 @@
 ---
 summary: "内部構造の知識をUI操作と結び付け、操作・実行処理・結果の対応を整理する。利用者が機能へ到達し、操作結果を理解できる状態へ知識をつなぐ。"
 layer: publication
-title: 第7章 UI操作と内部処理を結び付け、操作結果を追えるようにする
+title: 07. UI操作と内部処理を結び付け、操作結果を追えるようにする
 kind: case
 section: cases
 status: published

@@ -1,7 +1,7 @@
 ---
 summary: "処理を止める条件と責務を決めた後、GitHub Copilotで関連コードを探索した。文字列の一致だけではなく、暗号化・復号、レジストリの保存・読出し、値の利用先という意味から、呼出し関係と変更影響の候補を調べた。"
 layer: publication
-title: 第3章 コード探索と人間の確認で、変更箇所と実現方法を絞る
+title: 03. コード探索と人間の確認で、変更箇所と実現方法を絞る
 kind: case
 section: cases
 status: published

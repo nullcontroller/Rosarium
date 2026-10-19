@@ -1,7 +1,7 @@
 ---
 summary: "承認済み仕様を基に、GitHub Copilotへ処理全体の構造や関数間の関係、必要なUI情報を共有した。関数だけを切り出すと、入力の前提や後続処理への影響が抜けやすい。ただし、情報を渡したことをもってAIが全体を完全に理解したと"
 layer: publication
-title: 第6章　全体像を共有しながら、コード生成と単体テストを進める
+title: 06. 全体像を共有しながら、コード生成と単体テストを進める
 kind: case
 section: cases
 status: published

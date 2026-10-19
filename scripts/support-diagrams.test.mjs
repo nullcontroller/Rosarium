@@ -42,7 +42,10 @@ test("support explanations stay Japanese, static and distinguish design from pub
     assert(!model.edges?.length && !model.messages?.length, `${id}: no overloaded SVG edges`);
     const text = [model.title, model.description, ...model.nodes.flatMap(n => [n.label, n.description]), ...model.explanation.records?.flat() ?? []].join(" ");
     assert(!/Before|After|Collecting|Retrieving|Answering|Find Failure|Business Acceptance|次の工程：/.test(text), id);
-    assert(!/72[%％]|96[%％]|720件/.test(text), `${id}: no essay numbers presented as diagram outcomes`);
+    if (id === "support-poc-evaluation") {
+      assert(text.includes("検索適合率72％") && text.includes("有人振り分け率94％"));
+      assert(!/目標を達成|98[%％]|96[%％]|720件/.test(text));
+    } else assert(!/72[%％]|96[%％]|720件/.test(text), `${id}: no unrelated evaluation values`);
     const ids = new Set(model.nodes.map(node => node.id));
     assert.equal(ids.size, model.nodes.length);
     for (const panel of model.explanation.panels ?? []) {

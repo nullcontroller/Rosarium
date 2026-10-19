@@ -1,7 +1,7 @@
 ---
 summary: "Excel仕様書のレビューで現行仕様の認識違いが見つかった。Microsoft 365 Copilotへ各行を説明し直すだけでは、処理の前後関係まで伝えるやり取りが増える。そこで、コードを参照できるGitHub Copilotで必"
 layer: publication
-title: 第5章　確認した現行仕様をAI間で渡し、仕様書へ反映する
+title: 05. 確認した現行仕様をAI間で渡し、仕様書へ反映する
 kind: case
 section: cases
 status: published

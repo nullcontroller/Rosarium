@@ -1,7 +1,7 @@
 ---
 summary: "要件をAIで文章化した後、理解・説明・合意形成が不足して手戻りになった経験から、業務全体の効率を考えます。レビューしやすさ、確認コスト、総工数と経過時間を区別した評価、改善後の業務の流れを扱います。"
 layer: publication
-title: 第2章　AI導入は効率化とは限らない
+title: 02. AI導入は効率化とは限らない
 kind: principle
 section: foundations
 status: published
@@ -131,4 +131,4 @@ AIが理解したように見える文章を生成することと、自分が理
 
 AI導入は、一工程へのツール追加ではなく、AIを含む業務の開始から完了までを設計し直すことです。再設計しても必ず効率化するとは限らないため、導入後の結果を評価し、必要なら既存の方法へ戻すことも選びます。
 
-次の[第3章　AIに聞くことと、AIに仕事を任せることは違う](/foundations/ai-business-design/asking-versus-delegating/)では、仕事に必要な情報をAIが利用できる条件を考えます。
+次の[第03章　AIに聞くことと、AIに仕事を任せることは違う](/foundations/ai-business-design/asking-versus-delegating/)では、仕事に必要な情報をAIが利用できる条件を考えます。

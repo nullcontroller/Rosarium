@@ -1,7 +1,7 @@
 ---
 summary: "クラスやモジュールの構造に加え、順序・分岐・呼出し関係を図で可視化する。代表的なフローを抽出し、動きと変更影響を人間が把握できる状態にする。"
 layer: publication
-title: 第5章 処理の流れを復元し、変更影響を追えるようにする
+title: 05. 処理の流れを復元し、変更影響を追えるようにする
 kind: case
 section: cases
 status: published

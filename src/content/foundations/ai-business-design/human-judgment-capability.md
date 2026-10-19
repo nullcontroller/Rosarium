@@ -2,7 +2,7 @@
 summary: AIが定型作業を担った後に残る難しい判断を、人間が根拠・影響・権限をもって行うための能力を整理する。Human in the
   Loopと教育をAI導入の一部として扱う。
 layer: publication
-title: 第5章　AI時代、人間には「判断する力」が求められる
+title: 05. AI時代、人間には「判断する力」が求められる
 kind: principle
 section: foundations
 status: published

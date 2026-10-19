@@ -1,7 +1,7 @@
 ---
 summary: "資格学習でAIへ聞くことと、組織固有の仕事を任せることの違いを、必要な知識から考える。必要な情報をAIへ届け、不足する場合は人間へ戻す設計を扱う。"
 layer: publication
-title: 第3章　AIに聞くことと、AIに仕事を任せることは違う
+title: 03. AIに聞くことと、AIに仕事を任せることは違う
 kind: principle
 section: foundations
 status: published
@@ -267,4 +267,4 @@ AIへプロンプトを渡すだけでは、仕事を任せたことにはなり
   <img class="diagram-dark" src="/Rosarium/diagrams/static/foundations--ai-business-design--asking-versus-delegating-1-dark.svg" alt="AIを広く使いながら、業務では境界を作るの構造図" width="531.453125" height="843.265625" loading="lazy" />
 </figure>
 
-必要な情報がAIから見えないなら、その部分をAIだけへ任せることはできません。資料が不足・矛盾している場合の境界は、次の[第4章　AIに任せない条件を、先に決める](/foundations/ai-business-design/explainable-delegation/)で考えます。
+必要な情報がAIから見えないなら、その部分をAIだけへ任せることはできません。資料が不足・矛盾している場合の境界は、次の[第04章　AIに任せない条件を、先に決める](/foundations/ai-business-design/explainable-delegation/)で考えます。

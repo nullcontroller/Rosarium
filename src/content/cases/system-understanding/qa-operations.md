@@ -1,7 +1,7 @@
 ---
 summary: "仕様や運用環境の変化に合わせ、RAG・人間向け資料・UI操作手順を更新する方法を整理する。古い情報による誤案内を防ぎ、継続的に正しい状態を維持する運用を考える。"
 layer: publication
-title: 第11章 仕様変更に追従できるKnowledge更新フローを作る
+title: 11. 仕様変更に追従できるKnowledge更新フローを作る
 kind: case
 section: cases
 status: published

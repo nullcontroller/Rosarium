@@ -1,7 +1,7 @@
 ---
 summary: AI出力を業務で採用する人間が、採用理由と誤りへの対応を説明できる範囲に委任を限定する。説明できない場合の役割縮小、停止・エスカレーション条件を扱う。
 layer: publication
-title: 第4章　AIに任せない条件を、先に決める
+title: 04. AIに任せない条件を、先に決める
 kind: principle
 section: foundations
 status: published
@@ -41,7 +41,7 @@ update_type: revised
 publication_date_basis: fallback
 ---
 
-## 第4章　説明できない仕事を、AIに任せてはいけない
+## 第04章　説明できない仕事を、AIに任せてはいけない
 
 前章では、
 
@@ -160,7 +160,7 @@ AIを使えるかどうかは、モデルの性能だけでは決まりません
 
 ### 人間が確認しても、説明できるとは限らない
 
-承認ボタンを押せることと、根拠や業務への影響を判断できることは別です。確認者に必要な知識・情報・時間・権限をどう残すかは[第5章　AI時代、人間には「判断する力」が求められる](/foundations/ai-business-design/human-judgment-capability/)で考えます。
+承認ボタンを押せることと、根拠や業務への影響を判断できることは別です。確認者に必要な知識・情報・時間・権限をどう残すかは[第05章　AI時代、人間には「判断する力」が求められる](/foundations/ai-business-design/human-judgment-capability/)で考えます。
 
 ---
 
@@ -230,4 +230,4 @@ AIを導入するときは、何を自動化できるかに注目しがちです
 
 根拠を確認し、採用理由を説明し、誤りへ対応できない場合は、AIの役割を候補提示・検索・整理へ戻します。停止や移管を正常な動作として設計することで、責任を持てる境界の内側で使い続けられます。
 
-次の[第5章　AI時代、人間には「判断する力」が求められる](/foundations/ai-business-design/human-judgment-capability/)では、その判断を担う人間の能力と教育を考えます。
+次の[第05章　AI時代、人間には「判断する力」が求められる](/foundations/ai-business-design/human-judgment-capability/)では、その判断を担う人間の能力と教育を考えます。

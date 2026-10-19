@@ -39,39 +39,39 @@
 | /cases/ | 実践事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 22 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/continuous-improvement/ | 11. 導入後にどう育てるか | あり | あり | あり | 18 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/customer-experience/ | 08. 顧客体験をどう変えたか | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/customer-experience/ | 07. 顧客体験をどう設計するか | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/design-principles/ | 12. この事例から得た設計原則 | あり | あり | あり | 23 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/executive-summary/ | 01. このケーススタディについて | あり | あり | あり | 17 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/human-handoff/ | 07. AIから人間へどう引き継ぐか | あり | あり | あり | 19 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/knowledge-design/ | 05. RAGで使う参照資料をどう設計したか | あり | あり | あり | 23 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/poc-effect-evaluation/ | 09. 第2回PoC：開発したQAシステムの効果確認 | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/human-handoff/ | 06. AIから人間へどう引き継ぐか | あり | あり | あり | 19 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/knowledge-design/ | 09. RAGの参照資料を整備し、検索方式を再設計した | あり | あり | あり | 18 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/poc-effect-evaluation/ | 08. 第2回PoC：開発したQAシステムの効果確認 | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/poc-evaluation/ | 04. 第1回PoC：技術的実現可能性の確認 | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/poc-metadata-improvement/ | 10. RAGのメタデータ追加とPoC再実施 | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/responsibility-boundary/ | 03. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 21 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/stopping-conditions/ | 06. AIをどこで止めるか | あり | あり | あり | 18 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/stopping-conditions/ | 05. AIをどこで止めるか | あり | あり | あり | 18 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/why-ai/ | 02. なぜAIを導入したのか | あり | あり | あり | 20 | 主要見出しが複数 |
 | /cases/specification-debt-review/ | 3万文字・68ページの仕様書をAIで横断レビューする | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/system-understanding/ | 理解しにくいレガシーシステムを、変更判断できる状態へ変える | あり | あり | あり | 19 | 主要見出しが複数 |
-| /cases/system-understanding/connecting-ui-and-internals/ | 第7章 UI操作と内部処理を結び付け、操作結果を追えるようにする | あり | あり | あり | 15 | 主要見出しが複数 |
-| /cases/system-understanding/human-and-ai-knowledge/ | 第6章 人が読む仕様とAIが使うKnowledgeを分ける | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/system-understanding/project-structure/ | 第3章 調査の起点を作るため、ファイルとクラスの役割を整理する | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/system-understanding/qa-case-study-revisited/ | 第12章 QAで暗号処理を調査し、人間の変更判断へつなぐ | あり | あり | あり | 17 | 主要見出しが複数 |
-| /cases/system-understanding/qa-case-study/ | 第2章 対象システムの変更を妨げる構造と知識の不足を整理する | あり | あり | あり | 15 | 主要見出しが複数 |
-| /cases/system-understanding/qa-evaluation/ | 第9章 正しさ・出典・回答拒否から、QAの利用可否を評価する | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/system-understanding/qa-operations/ | 第11章 仕様変更に追従できるKnowledge更新フローを作る | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/system-understanding/rag-implementation/ | 第8章 復元したKnowledgeを、根拠を確認できるQAへつなぐ | あり | あり | あり | 17 | 主要見出しが複数 |
-| /cases/system-understanding/rag-improvement/ | 第10章 評価結果をKnowledgeと回答範囲の改善へ戻す | あり | あり | あり | 15 | 主要見出しが複数 |
-| /cases/system-understanding/recovering-code-structure/ | 第4章 コードから仕様と依存関係を復元する | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/system-understanding/system-understanding-problems/ | 第1章 仕様を答えられない状態から、復元すべき情報を決める | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/system-understanding/visualizing-process-flows/ | 第5章 処理の流れを復元し、変更影響を追えるようにする | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/system-understanding/connecting-ui-and-internals/ | 07. UI操作と内部処理を結び付け、操作結果を追えるようにする | あり | あり | あり | 15 | 主要見出しが複数 |
+| /cases/system-understanding/human-and-ai-knowledge/ | 06. 人が読む仕様とAIが使うKnowledgeを分ける | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/system-understanding/project-structure/ | 03. 調査の起点を作るため、ファイルとクラスの役割を整理する | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/system-understanding/qa-case-study-revisited/ | 12. QAで暗号処理を調査し、人間の変更判断へつなぐ | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/system-understanding/qa-case-study/ | 02. 対象システムの変更を妨げる構造と知識の不足を整理する | あり | あり | あり | 15 | 主要見出しが複数 |
+| /cases/system-understanding/qa-evaluation/ | 09. 正しさ・出典・回答拒否から、QAの利用可否を評価する | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/system-understanding/qa-operations/ | 11. 仕様変更に追従できるKnowledge更新フローを作る | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/system-understanding/rag-implementation/ | 08. 復元したKnowledgeを、根拠を確認できるQAへつなぐ | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/system-understanding/rag-improvement/ | 10. 評価結果をKnowledgeと回答範囲の改善へ戻す | あり | あり | あり | 15 | 主要見出しが複数 |
+| /cases/system-understanding/recovering-code-structure/ | 04. コードから仕様と依存関係を復元する | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/system-understanding/system-understanding-problems/ | 01. 仕様を答えられない状態から、復元すべき情報を決める | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/system-understanding/visualizing-process-flows/ | 05. 処理の流れを復元し、変更影響を追えるようにする | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/three-ai-maintenance/ | 複数AIを使い分けるレガシー保守 | あり | あり | あり | 15 | 主要見出しが複数 |
-| /cases/three-ai-maintenance/code-generation-and-unit-tests/ | 第6章　全体像を共有しながら、コード生成と単体テストを進める | あり | あり | あり | 11 | 主要見出しが複数 |
-| /cases/three-ai-maintenance/cryptography-and-failure-modes/ | 第1章 暗号方式の変更で見直すべき異常系を特定する | あり | あり | あり | 11 | 主要見出しが複数 |
-| /cases/three-ai-maintenance/implementation-design/ | 第3章 コード探索と人間の確認で、変更箇所と実現方法を絞る | あり | あり | あり | 11 | 主要見出しが複数 |
-| /cases/three-ai-maintenance/results-and-reflections/ | 第7章　内製化の成果と、保守業務へAIを広げられた条件を振り返る | あり | あり | あり | 12 | 主要見出しが複数 |
-| /cases/three-ai-maintenance/reviewable-specifications/ | 第4章　分散した検討結果を、レビュー可能な仕様書へ集約する | あり | あり | あり | 11 | 主要見出しが複数 |
-| /cases/three-ai-maintenance/sharing-current-specifications/ | 第5章　確認した現行仕様をAI間で渡し、仕様書へ反映する | あり | あり | あり | 12 | 主要見出しが複数 |
-| /cases/three-ai-maintenance/structuring-failure-handling/ | 第2章　異常系の構造を整理し、設計方針を確定する | あり | あり | あり | 11 | 主要見出しが複数 |
+| /cases/three-ai-maintenance/code-generation-and-unit-tests/ | 06. 全体像を共有しながら、コード生成と単体テストを進める | あり | あり | あり | 11 | 主要見出しが複数 |
+| /cases/three-ai-maintenance/cryptography-and-failure-modes/ | 01. 暗号方式の変更で見直すべき異常系を特定する | あり | あり | あり | 11 | 主要見出しが複数 |
+| /cases/three-ai-maintenance/implementation-design/ | 03. コード探索と人間の確認で、変更箇所と実現方法を絞る | あり | あり | あり | 11 | 主要見出しが複数 |
+| /cases/three-ai-maintenance/results-and-reflections/ | 07. 内製化の成果と、保守業務へAIを広げられた条件を振り返る | あり | あり | あり | 12 | 主要見出しが複数 |
+| /cases/three-ai-maintenance/reviewable-specifications/ | 04. 分散した検討結果を、レビュー可能な仕様書へ集約する | あり | あり | あり | 11 | 主要見出しが複数 |
+| /cases/three-ai-maintenance/sharing-current-specifications/ | 05. 確認した現行仕様をAI間で渡し、仕様書へ反映する | あり | あり | あり | 12 | 主要見出しが複数 |
+| /cases/three-ai-maintenance/structuring-failure-handling/ | 02. 異常系の構造を整理し、設計方針を確定する | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /dx/ | DX | あり | あり | あり | 5 | 主要見出しが複数 |
 | /dx/business-transformation/ | 業務変革 | あり | あり | あり | 4 | 主要見出しが複数 |
@@ -100,11 +100,11 @@
 | /evaluation-hitl/responsibility-and-hitl/ | AI出力の責任境界とHITL | あり | あり | あり | 29 | 主要見出しが複数 |
 | /foundations/ | 設計資料アーカイブ | なし | あり | あり | 10 | 主要見出しが複数 |
 | /foundations/ai-business-design/ | 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』 | あり | あり | あり | 6 | Book章構造 |
-| /foundations/ai-business-design/asking-versus-delegating/ | 第3章　AIに聞くことと、AIに仕事を任せることは違う | あり | あり | あり | 13 | 長文の複数h3セクション |
-| /foundations/ai-business-design/delegation-and-responsibility/ | 第1章　AIに仕事を任せても、責任は消えない | あり | あり | あり | 15 | 長文の複数h3セクション |
-| /foundations/ai-business-design/evaluating-business-efficiency/ | 第2章　AI導入は効率化とは限らない | あり | あり | あり | 15 | 主要見出しが複数 |
-| /foundations/ai-business-design/explainable-delegation/ | 第4章　AIに任せない条件を、先に決める | あり | あり | あり | 16 | 長文の複数h3セクション |
-| /foundations/ai-business-design/human-judgment-capability/ | 第5章　AI時代、人間には「判断する力」が求められる | あり | あり | あり | 15 | 長文の複数h3セクション |
+| /foundations/ai-business-design/asking-versus-delegating/ | 03. AIに聞くことと、AIに仕事を任せることは違う | あり | あり | あり | 13 | 長文の複数h3セクション |
+| /foundations/ai-business-design/delegation-and-responsibility/ | 01. AIに仕事を任せても、責任は消えない | あり | あり | あり | 15 | 長文の複数h3セクション |
+| /foundations/ai-business-design/evaluating-business-efficiency/ | 02. AI導入は効率化とは限らない | あり | あり | あり | 15 | 主要見出しが複数 |
+| /foundations/ai-business-design/explainable-delegation/ | 04. AIに任せない条件を、先に決める | あり | あり | あり | 16 | 長文の複数h3セクション |
+| /foundations/ai-business-design/human-judgment-capability/ | 05. AI時代、人間には「判断する力」が求められる | あり | あり | あり | 15 | 長文の複数h3セクション |
 | /foundations/answer-scope/ | なぜ回答範囲を制限した方がよいのか | あり | あり | あり | 11 | 長文の複数h3セクション |
 | /foundations/applicability-and-delegation/ | AI適用可否と委任レベルの設計 | あり | あり | あり | 13 | 主要見出しが複数 |
 | /foundations/conditional-probability/ | 生成AIの条件付き確率モデル基礎 | あり | あり | あり | 16 | 長文の複数h3セクション |

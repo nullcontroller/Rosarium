@@ -705,7 +705,7 @@ AI生成コードを読まずに承認するなら、HITLは存在していて�
 
 評価では、誤承認・誤拒否による影響と、確認・待機・運用・事故対応に掛かる負担を確認する。
 
-安全上の損失と、確認・運用の負担の両方を評価します。業務全体の効率を評価する際は、[第2章　AI導入は効率化とは限らない](/foundations/ai-business-design/evaluating-business-efficiency/)のように、工数と経過時間を分けて確認します。
+安全上の損失と、確認・運用の負担の両方を評価します。業務全体の効率を評価する際は、[第02章　AI導入は効率化とは限らない](/foundations/ai-business-design/evaluating-business-efficiency/)のように、工数と経過時間を分けて確認します。
 
 ---
 

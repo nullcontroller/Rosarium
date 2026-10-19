@@ -1,7 +1,7 @@
 ---
 summary: "評価で見つかった誤情報・根拠不足・粒度の不統一・不完全データを修正する。Knowledgeの改善と再評価を繰り返し、回答の一貫性と信頼性を高める過程を示す。"
 layer: publication
-title: 第10章 評価結果をKnowledgeと回答範囲の改善へ戻す
+title: 10. 評価結果をKnowledgeと回答範囲の改善へ戻す
 kind: case
 section: cases
 status: published

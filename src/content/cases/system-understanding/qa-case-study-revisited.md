@@ -1,7 +1,7 @@
 ---
 summary: "セキュリティ要件の強化に際し、QAチャットで既存方式と処理位置を調べ、変更の検討につなげた事例。AIの調査支援と、人間による組織条件・将来影響の判断を分けて振り返る。"
 layer: publication
-title: 第12章 QAで暗号処理を調査し、人間の変更判断へつなぐ
+title: 12. QAで暗号処理を調査し、人間の変更判断へつなぐ
 kind: case
 section: cases
 status: published

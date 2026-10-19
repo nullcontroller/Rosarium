@@ -16,6 +16,7 @@ import ContentLink from "../components/ContentLink.astro";
 import MarkdownBody from "../components/MarkdownBody.astro";
 import { imageDimensions } from "../lib/image-metadata";
 import { contentUseCases } from "../lib/use-cases";
+import { bookChapterLegacyFragments } from "../data/book-chapter-fragments";
 import ContentHistory from "../components/ContentHistory.astro";
 import { url, layerLabel, publicEntry, publishedEntry } from "../lib/site";
 import LifecycleNote from "../components/LifecycleNote.astro";
@@ -36,7 +37,7 @@ const legacyPocFragments = ["cases/customer-support-ai-dx/poc-effect-evaluation"
       const [path, fragment] = target.split("#");
       return [alias, url(path) + "#" + encodeURIComponent(fragment)];
     }))
-  : undefined;
+  : Object.fromEntries(Object.entries(bookChapterLegacyFragments[entry.id] ?? {}).map(([alias, fragment]) => [alias, url(entry.id) + "#" + encodeURIComponent(fragment)]));
 
 const d = entry.data;
 const content = splitRelatedContent(entry.rendered?.html || "");
@@ -60,8 +61,8 @@ const previous = readingSequence[position - 1],
 const chapterCount = series.filter((item) => (item.data.order ?? 0) > 0).length;
 const chapterNumber = bookChapterNumber(entry);
 const seriesPosition = series.length > 0
-  ? `現在位置：${(d.order ?? 0) === 0 ? "全体構成" : `第${chapterNumber}章`}・全${chapterCount}章`
-  : undefined;
+  ? `現在位置：${(d.order ?? 0) === 0 ? "全体構成" : `第${String(chapterNumber).padStart(2, "0")}章`}・全${chapterCount}章`
+  : Object.fromEntries(Object.entries(bookChapterLegacyFragments[entry.id] ?? {}).map(([alias, fragment]) => [alias, url(entry.id) + "#" + encodeURIComponent(fragment)]));
 const coverDimensions = imageDimensions(
   d.cover ? d.cover : undefined,
 );
@@ -210,7 +211,7 @@ const bookNavigation = series.length
       )}
     </nav>
   )}
-  {legacyPocFragments && <script is:inline define:vars={{ legacyPocFragments }}>
+  {Object.keys(legacyPocFragments).length > 0 && <script is:inline define:vars={{ legacyPocFragments }}>
     function followLegacyPocFragment() {
       let alias;
       try { alias = decodeURIComponent(location.hash.slice(1)); } catch { return; }

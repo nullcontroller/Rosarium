@@ -1,7 +1,7 @@
 ---
 summary: "CRA対応をきっかけに、長年使ってきた暗号方式をCNG・DPAPIへ変更することになった。既存の方式はMD5を内部で用いていたが、変更の対象はAPIの呼び替えだけではない。新しいAPIでは失敗を返すため、保存・読出し・復号の各段階"
 layer: publication
-title: 第1章 暗号方式の変更で見直すべき異常系を特定する
+title: 01. 暗号方式の変更で見直すべき異常系を特定する
 kind: case
 section: cases
 status: published

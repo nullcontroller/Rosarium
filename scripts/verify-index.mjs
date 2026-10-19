@@ -1,3 +1,4 @@
+import { bookChapterLegacyFragments } from "../src/data/book-chapter-fragments.ts";
 import { supportPocLegacyFragments } from "../src/data/support-poc-fragments.ts";
 import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
 import { formatDateJa, staticPageLastUpdated } from "../src/lib/site.ts";
@@ -807,7 +808,7 @@ assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
     ".series-position-inline",
   ).text(),
-  "現在位置：第4章・全12章",
+  "現在位置：第04章・全12章",
 );
 assert.equal(
   page("cases/customer-support-ai-dx/poc-evaluation")(
@@ -818,7 +819,7 @@ assert.equal(
 assert(
   customerSupportBook("main")
     .text()
-    .includes("文書検索の適合率が98％へ改善しました"),
+    .includes("文書検索の適合率が98％へ"),
 );
 assert.equal(
   page("cases/customer-support-ai-dx/design-principles")(".series-position-inline").text(),
@@ -963,7 +964,7 @@ console.log("Verified quiet Case endings and preserved Practice discovery.");
 const supportTitles = customerSupportBook(".book-toc .page-toc-panel > ol a").map((_, node) => customerSupportBook(node).text().trim()).get();
 assert.deepEqual(supportTitles.slice(2).map((title) => title.slice(0, 2)), ["02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]);
 assert(customerSupportBook(".book-toc-mobile summary").text().includes("全12章"));
-assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".series-position-inline").text(), "現在位置：第1章・全12章");
+assert.equal(page("cases/customer-support-ai-dx/executive-summary")(".series-position-inline").text(), "現在位置：第01章・全12章");
 const lastSupportChapter = page("cases/customer-support-ai-dx/design-principles");
 assert(!lastSupportChapter(".pagination").text().includes("次のページ"));
 assert(lastSupportChapter('.pagination a[href="/cases/customer-support-ai-dx/continuous-improvement/"]').length);
@@ -1130,24 +1131,24 @@ const secondPoc = page('cases/customer-support-ai-dx/poc-effect-evaluation');
 const improvedPoc = page('cases/customer-support-ai-dx/poc-metadata-improvement');
 const oldPoc = page('evaluation-hitl/customer-support-qa-poc');
 for(const text of ['過去の問い合わせ500件','回答生成の3機能','技術的な実現可能性の見込み']) assert(firstPoc('.prose').text().includes(text));
-for(const text of ['定型問い合わせ','専門判断が必要','回答根拠不足','第1回PoCの500件と同一の問い合わせを使ったかは確認できていません']) assert(secondPoc('.prose').text().includes(text),text);
+for(const text of ['定型問い合わせ','専門判断が必要','回答根拠不足','第1回PoCとのデータセットの同一性は未確認']) assert(secondPoc('.prose').text().includes(text),text);
 assert(!/250|％|誤検索|誤自動回答|再検証/.test(firstPoc('.prose').text()));
 assert(!/有人引継ぎ|回答許可|専門判断|メタデータ|停止判定/.test(firstPoc('.prose').text()));
 assert.deepEqual(firstPoc('[data-explanation-id="support-poc-checks"] tbody th').map((_,el)=>firstPoc(el).text()).get(), ['逆質問','ベクトル検索','RAGによる回答生成']);
 
 const secondBusiness = improvedPoc('.prose').text().split('10.3 月750件')[1];
-assert(secondBusiness && !/250|96％/.test(secondBusiness));
-assert(secondBusiness.includes('400時間 − 120時間 ＝ 月280時間相当'));
-assert(!/250|96％/.test(supportOverview('.prose').text()));
+assert(secondBusiness && !/250/.test(secondBusiness));
+assert(secondBusiness.includes('400時間／月 − 120時間／月 ＝ 280時間／月'));
+assert(!/250/.test(supportOverview('.prose').text()));
 assert.equal(firstPoc('[data-explanation-id="support-poc-checks"]').length,1);
 assert.equal(firstPoc('[data-explanation-id="support-poc-evaluation"]').length,0);
 assert.equal(secondPoc('[data-explanation-id="support-poc-evaluation"]').length,1);
 assert.equal(secondPoc('.book-toc').length,1);
-assert.equal(secondPoc('.series-position-inline').text(),'現在位置：第9章・全12章');
+assert.equal(secondPoc('.series-position-inline').text(),'現在位置：第08章・全12章');
 const supportChapterSlugs = [
  'executive-summary', 'why-ai', 'responsibility-boundary', 'poc-evaluation',
- 'knowledge-design', 'stopping-conditions', 'human-handoff', 'customer-experience',
- 'poc-effect-evaluation', 'poc-metadata-improvement', 'continuous-improvement', 'design-principles',
+ 'stopping-conditions', 'human-handoff', 'customer-experience', 'poc-effect-evaluation',
+ 'knowledge-design', 'poc-metadata-improvement', 'continuous-improvement', 'design-principles',
 ];
 for (const [index, slug] of supportChapterSlugs.entries()) {
  const $ = page('cases/customer-support-ai-dx/' + slug);
@@ -1170,7 +1171,7 @@ assert(revisedSupportDiagram.find('[data-support-step="search"]').text().include
 assert(revisedSupportDiagram.find('[data-support-step="decision"]').text().includes('判定B'));
 for(const $ of [supportOverview,firstPoc,secondPoc,improvedPoc]){
  assert.equal($('.prose a[href="/evaluation-hitl/customer-support-qa-poc/"]').length,0);
- assert(!/96％|94％|180／250|240／250|1,000件/.test($('.prose').text()));
+ assert(!/180／250|240／250|1,000件/.test($('.prose').text()));
  assert.equal($('[data-explanation-id="support-validation-stages"]').length,0);
 }
 // Recruiter entrances lead with architecture while preserving confirmed work and scope.
@@ -1201,5 +1202,18 @@ for (const [alias, destination] of Object.entries(supportPocLegacyFragments)) {
  const [route, fragment] = destination.split('#');
  assert.equal(page(route)(`[id="${fragment}"]`).length, 1, alias + ': legacy fragment destination');
 }
-assert(improvedPoc('.prose').text().includes('文書検索の適合率は72％から98％へ改善'));
+assert(improvedPoc('.prose').text().includes('文書検索の適合率は72％から98％へ'));
 assert(!secondPoc('.prose').text().includes('目標を達成'));
+
+assert(improvedPoc(".prose").text().includes("125時間／月 × 0.96 ＝ 120時間／月"));
+assert(improvedPoc(".prose").text().includes("PoCで観測した成功率ではありません"));
+
+for(const [route, aliases] of Object.entries(bookChapterLegacyFragments)) {
+ const $=page(route);
+ for(const [old,fragment]of Object.entries(aliases))assert.equal($(`[id="${fragment}"]`).length,1,route+': '+old);
+}
+for(const file of walk("dist").filter(file=>file.endsWith(".html"))) {
+ const $=load(fs.readFileSync(file,"utf8"));
+ const position=$('.series-position-inline').text();
+ if(position)assert(!/第[1-9]章/.test(position), file+': padded chapter position');
+}

@@ -1,7 +1,7 @@
 ---
 summary: "AIへ作業を移しても残る、判断・承認・例外処理・監査・最終責任を整理する。AI・人間・既存システムを一つの系として、責任が途切れない業務を設計する。"
 layer: publication
-title: 第1章　AIに仕事を任せても、責任は消えない
+title: 01. AIに仕事を任せても、責任は消えない
 kind: principle
 section: foundations
 status: published
@@ -40,7 +40,7 @@ updated_at: "2026-10-08"
 update_type: revised
 ---
 
-## 第1章　AIに仕事を任せても、責任は消えない
+## 第01章　AIに仕事を任せても、責任は消えない
 
 生成AIによって、これまで人間が行っていた作業をAIへ任せられる場面が増えています。
 
@@ -205,4 +205,4 @@ AIを本番業務へ組み込むときに必要なのは、単に作業を自動
 
 ### 次章
 
-責任を人間へ残すなら、確認・説明・差し戻しも仕事の一部です。[第2章　AI導入は効率化とは限らない](/foundations/ai-business-design/evaluating-business-efficiency/)では、手戻りした経験とともに、業務全体の効果を評価する方法を考えます。
+責任を人間へ残すなら、確認・説明・差し戻しも仕事の一部です。[第02章　AI導入は効率化とは限らない](/foundations/ai-business-design/evaluating-business-efficiency/)では、手戻りした経験とともに、業務全体の効果を評価する方法を考えます。

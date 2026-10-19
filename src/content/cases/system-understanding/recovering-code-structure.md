@@ -1,7 +1,7 @@
 ---
 summary: "ソースコードからクラス・ファイルの役割と連携を読み解き、仕様と構造を整理する。実行フローや不要コードも確認し、人間が理解して変更できる基盤を作る。"
 layer: publication
-title: 第4章 コードから仕様と依存関係を復元する
+title: 04. コードから仕様と依存関係を復元する
 kind: case
 section: cases
 status: published

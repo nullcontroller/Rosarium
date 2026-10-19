@@ -1,7 +1,7 @@
 ---
 summary: "質問に関係する根拠を探し、実務で確認できる回答へつなぐ仕組みを整えます。RAGの検索範囲・知識の粒度・画面操作との対応を調整し、AIの生成と人間の検証を分担します。"
 layer: publication
-title: 第8章 復元したKnowledgeを、根拠を確認できるQAへつなぐ
+title: 08. 復元したKnowledgeを、根拠を確認できるQAへつなぐ
 kind: case
 section: cases
 status: published

@@ -1,7 +1,7 @@
 ---
 summary: "人がシステムの全体像を理解する図と、AIが必要な根拠を探す資料を分けます。図とMarkdownを使い、文脈を残しながら、RAGが取得する情報の範囲を整理します。"
 layer: publication
-title: 第6章 人が読む仕様とAIが使うKnowledgeを分ける
+title: 06. 人が読む仕様とAIが使うKnowledgeを分ける
 kind: case
 section: cases
 status: published
