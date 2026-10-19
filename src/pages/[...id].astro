@@ -186,7 +186,7 @@ const bookNavigation = series.length
       />
     )}
     {seriesPosition && <p class="series-position-inline">{seriesPosition}</p>}
-    <div class="prose" data-book-introduction={isBookIntroduction ? "" : undefined} id={isBookIntroduction ? "このbookについて" : undefined}>
+    <div class="prose" data-book-introduction={isBookIntroduction ? "" : undefined} data-toc-exclude={isBookIntroduction ? "" : undefined} id={isBookIntroduction ? "このbookについて" : undefined}>
       <MarkdownBody html={content.body} />
     </div>
     {evidenceLinks.length > 0 && <section class="case-knowledge-links" aria-labelledby="evidence-links-heading">

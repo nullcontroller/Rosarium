@@ -819,7 +819,7 @@ assert.equal(
 assert(
   customerSupportBook("main")
     .text()
-    .includes("72％→98％"),
+    .includes("72％ → 98％"),
 );
 assert.equal(
   page("cases/customer-support-ai-dx/design-principles")(".series-position-inline").text(),
@@ -1121,7 +1121,7 @@ assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'ca
 const careerAllCaseUrls = page('career')('.prose a[href^="/cases/"]').map((_, el) => page('career')(el).attr('href')).get();
 assert.deepEqual(careerAllCaseUrls.filter(href => representativeUrls.includes(href)).slice(0, 3), representativeUrls);
 const supportOverview = page('cases/customer-support-ai-dx');
-assert(supportOverview('.prose').text().includes('本Bookは設計・検証シナリオです'));
+assert(supportOverview('.prose').text().includes('本事例は設計・検証シナリオです'));
 assert.equal(supportOverview('header [data-content-history]').length, 0);
 assert.equal(supportOverview('[data-content-history]').length, 0);
 assert.equal(supportOverview('[data-support-dx]').length, 0);
@@ -1220,10 +1220,11 @@ for(const file of walk("dist").filter(file=>file.endsWith(".html"))) {
  if(position)assert(!/第[1-9]章/.test(position), file+': padded chapter position');
 }
 
-assert.equal(supportOverview('.prose table, .prose figure, .prose ul, .prose ol').length,0);
-assert.equal(supportOverview('.prose > p').length,4);
-assert(supportOverview('.prose').text().replace(/\s/g,'').length<350);
-assert.equal(supportOverview('.prose').text().match(/注記：/g).length,1);
+assert.equal(supportOverview('.prose table, .prose figure, .prose ol').length,0);
+assert.equal(supportOverview('.prose ul li').length,2);
+assert.equal(supportOverview('.prose > h2').length,5);
+assert(supportOverview('.prose').text().replace(/\s/g,'').length<700);
+assert.equal(supportOverview('.prose').text().match(/本事例は設計・検証シナリオです/g).length,1);
 
 assert(supportOverview('.document-header [data-pagefind-meta="summary"]').is('[hidden]'));
 assert.equal(supportOverview('[data-book-introduction]').next().attr('class'),'book-toc-mobile');
@@ -1233,3 +1234,5 @@ for(const file of walk("dist").filter(file=>file.endsWith(".html"))) {
  const $=load(fs.readFileSync(file,"utf8"));
  if($('.series-position-inline').length)assert.match($('.series-position-inline').text(), /^現在位置：.+・全\d+章$/,file+': meaningful series position');
 }
+
+assert.equal(supportOverview('.book-toc-mobile[data-page-heading-toc]').length,0);
