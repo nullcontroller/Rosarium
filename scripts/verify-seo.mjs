@@ -94,7 +94,18 @@ for (const file of htmlFiles) {
   assert.ok(page, `Page JSON-LD missing: ${file}`);
   const lastUpdated = $('meta[name="last-updated"]').attr("content");
   assert.match(lastUpdated ?? "", /^\d{4}-\d{2}-\d{2}$/, `Missing last_updated: ${file}`);
-  assert.equal(page.dateModified, lastUpdated, `dateModified mismatch: ${file}`);
+  if (page["@type"] === "ProfilePage") {
+    const person = graph["@graph"].find(item => item["@id"] === page.mainEntity?.["@id"]);
+    assert.equal(person?.["@type"], "Person", `ProfilePage must identify its subject: ${file}`);
+    assert.equal(person.name, "立林 裕太朗");
+    assert.equal(person.url, "https://rosarium-tech.com/career/");
+    assert(!Object.hasOwn(page, "author"), `Use mainEntity for the Google profile subject: ${file}`);
+    assert(!Object.hasOwn(page, "dateModified"), `Do not turn a date-only profile update into a timestamp: ${file}`);
+    assert.equal(page.url, "https://rosarium-tech.com/career/");
+  } else {
+    assert.equal(page.dateModified, lastUpdated, `dateModified mismatch: ${file}`);
+    assert.equal(page.author?.["@id"], graph["@graph"].find(item => item["@type"] === "Person")["@id"], `Keep other page authors: ${file}`);
+  }
   if (page["@type"] === "TechArticle") {
     articleCount++;
     assert.ok(page.headline, `TechArticle headline missing: ${file}`);

@@ -114,10 +114,15 @@ const pageEntity = {
   description: summary,
   inLanguage: "ja",
   isPartOf: { "@id": websiteId },
-  author: { "@id": personId },
+  ...(pageType === "ProfilePage"
+    ? { mainEntity: { "@id": personId } }
+    : { author: { "@id": personId } }),
   primaryImageOfPage: { "@type": "ImageObject", url: ogImageUrl },
   ...(publishedAt ? { datePublished: publishedAt } : {}),
-  ...(effectiveLastUpdated ? { dateModified: effectiveLastUpdated } : {}),
+  // Profile metadata records a calendar day, not a verified modification time.
+  // Google ProfilePage expects DateTime; keep the visible date without inventing a time.
+  ...(effectiveLastUpdated && pageType !== "ProfilePage"
+    ? { dateModified: effectiveLastUpdated } : {}),
   ...(breadcrumbs.length ? { breadcrumb: { "@id": breadcrumbId } } : {}),
 };
 const structuredData = {

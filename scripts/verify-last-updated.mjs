@@ -35,7 +35,11 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html") && !file
   if (visible.length) assert.equal(visible.attr("datetime"), date, `Visible date mismatch: ${route}`);
   const graph = JSON.parse($('script[type="application/ld+json"]').first().text())["@graph"];
   const entity = graph.find((item) => item["@id"]?.endsWith("#webpage"));
-  assert.equal(entity.dateModified, date, `JSON-LD date mismatch: ${route}`);
+  if (entity["@type"] === "ProfilePage") {
+    assert(!Object.hasOwn(entity, "dateModified"), `Date-only profile metadata must not imply an exact update time: ${route}`);
+  } else {
+    assert.equal(entity.dateModified, date, `JSON-LD date mismatch: ${route}`);
+  }
   const loc = `https://rosarium-tech.com/${route ? `${route}/` : ""}`;
   const url = sitemap("url").filter((_, node) => sitemap(node).find("loc").text() === loc);
   if (url.length) assert.equal(url.find("lastmod").text(), date, `Sitemap date mismatch: ${route}`);
