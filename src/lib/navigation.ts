@@ -389,7 +389,7 @@ const caseHighlights = [
     id: "cases/ai-technical-investigation",
     title: "生成AIによる技術調査の設計――情報、仮説、検証、責任境界",
     category: "実務実績",
-    summary: "担当ソフトウェアが利用する共通ライブラリの更新後に発生したクラッシュと、調査中に見つかった2件のメモリリークをGitHub Copilotで調査。自分でコードを検証できる範囲から原因候補を絞り込み、担当チームの修正につなげました。",
+    summary: "担当ソフトウェアが利用する共通ライブラリの更新後に発生したクラッシュをGitHub Copilotで調査し、その過程で2件のメモリリークも発見。自分でコードを検証できる範囲から原因候補を絞り込み、担当チームの修正につなげました。",
   },
   {
     id: "cases/specification-debt-review",
