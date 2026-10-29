@@ -1350,3 +1350,12 @@ for (const view of [top, gardenNotes]) {
  assert.equal(view('[data-growth-entry] a[href="'+investigationHomeHref+'"]').length, 1);
  assert.equal(view('[data-growth-date="2026-10-29"] a[href="'+investigationHomeHref+'"]').length, 1);
 }
+
+// AI investment essay uses existing publication, category and Garden Notes paths.
+const investmentId = "essays/ai-investment-value-cost-evolution";
+const investmentHref = "/" + investmentId + "/";
+const investment = page(investmentId);
+assert(investment('.prose').text().includes("ROIの厳密な財務定義ではなく"));
+assert(investment('.prose').text().includes("標準環境に対して増える価値"));
+for (const route of ["", "garden-notes", "essays", "dx/value-design"]) assert.equal(page(route)('main a[href="'+investmentHref+'"]').length,1,route);
+for (const feed of ["rss.xml", "feed.json", "sitemap.xml"]) assert(fs.readFileSync("dist/"+feed,"utf8").includes(investmentHref),feed);
