@@ -8,9 +8,9 @@ section: essays
 status: published
 primaryCategory: value-design
 secondaryCategories: [selection-retirement]
-published_at: "2026-10-29"
-updated_at: "2026-10-29"
-last_updated: "2026-10-29"
+published_at: "2026-10-30"
+updated_at: "2026-10-30"
+last_updated: "2026-10-30"
 entry_points: [ai, dx]
 tags: [AI投資, 費用対効果, 業務設計, 技術進化]
 update_type: new

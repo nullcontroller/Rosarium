@@ -1364,3 +1364,6 @@ for (const view of [top, gardenNotes]) {
  assert.equal(view('[data-growth-date="2026-10-30"] a[href="'+investmentHref+'"]').length, 1);
  assert.equal(view('[data-growth-date="2026-10-29"] a[href="'+investmentHref+'"]').length, 0);
 }
+
+for (const field of ["published_at", "updated_at", "last_updated"]) assert.equal(entries.get(investmentId)[field], "2026-10-30");
+assert.equal(investment('meta[name="last-updated"]').attr('content'), "2026-10-30");
