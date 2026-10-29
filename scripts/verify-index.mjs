@@ -1182,7 +1182,8 @@ for (const route of ['', 'career', 'cases']) {
   assert($('main').text().includes('設計事例'), route);
 }
 const judgmentRoute = '/software-engineering/engineering-judgment-in-ai-code-review/';
-for (const route of ['', 'career']) assert(page(route)(`main a[href="${judgmentRoute}"]`).length, route);
+assert.equal(page('')(`main a[href="${judgmentRoute}"]`).length, 0);
+assert(page('career')(`main a[href="${judgmentRoute}"]`).length);
 const careerIntro = page('career')('.prose').text().split('技術的バックグラウンド')[0];
 for (const value of ['既存ソフトウェアの問題', '要件整理から実装・評価', '自分で行います']) assert(careerIntro.includes(value), value);
 assert(!page('career')('.prose').text().includes('FDE'));
