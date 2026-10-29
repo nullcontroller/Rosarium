@@ -77,6 +77,7 @@ export const readingGroups: Record<
       ids: [
         "software-engineering/development-workflow",
         "software-engineering/code-maintenance-context",
+        "cases/ai-technical-investigation",
         "software-engineering/multi-ai-orchestration",
         "cases/three-ai-maintenance",
         "essays/it-strategy-and-not-building",

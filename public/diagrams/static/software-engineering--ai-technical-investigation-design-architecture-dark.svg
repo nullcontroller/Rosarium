@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="470" viewBox="0 0 360 470" role="img" aria-labelledby="title desc"><title id="title">公開用の依存関係と筆者の担当範囲</title><desc id="desc">アプリケーションからインターフェース層、共通ライブラリ、外部ライブラリへつながる。筆者の主担当はインターフェース層で、共通ライブラリの内部実装への理解は限定的。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#92d5c1"/></marker></defs><style>text{font-family:'Yu Gothic UI','Yu Gothic',system-ui,sans-serif;fill:#e3ece8;font-size:19px}.node{fill:#1c282c;stroke:#92d5c1;stroke-width:2}.emphasis{fill:#263c38}.line{fill:none;stroke:#92d5c1;stroke-width:2.5;marker-end:url(#arrow)}.small{font-size:16px;fill:#a6b9ba}.strong{font-weight:700}.lifeline{stroke:#3c5052;stroke-width:1.5;stroke-dasharray:5 5}</style><rect width="360" height="470" fill="#1c282c"/>
+<rect x="30" y="16" width="300" height="58" rx="9" class="node"/>
+<text x="180" y="51" text-anchor="middle" class=""><tspan x="180" dy="0">アプリケーション</tspan></text>
+<path d="M180 74V112" class="line"/>
+<rect x="30" y="112" width="300" height="86" rx="9" class="node emphasis"/>
+<text x="180" y="149" text-anchor="middle" class=""><tspan x="180" dy="0">インターフェース層</tspan><tspan x="180" dy="24">主担当：筆者</tspan></text>
+<path d="M180 198V236" class="line"/>
+<rect x="30" y="236" width="300" height="86" rx="9" class="node"/>
+<text x="180" y="273" text-anchor="middle" class=""><tspan x="180" dy="0">共通ライブラリ</tspan><tspan x="180" dy="24">筆者は内部実装に詳しくない</tspan></text>
+<path d="M180 322V360" class="line"/>
+<rect x="30" y="360" width="300" height="58" rx="9" class="node"/>
+<text x="180" y="395" text-anchor="middle" class=""><tspan x="180" dy="0">外部ライブラリ</tspan></text>
+<text x="180" y="452" text-anchor="middle" class="small"><tspan x="180" dy="0">担当範囲を説明する一般化した構成</tspan></text>
+</svg>

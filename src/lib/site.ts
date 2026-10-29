@@ -78,7 +78,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   // Retired Details compatibility redirect; excluded from the sitemap.
   "career/details": "2026-10-04",
   // Site-wide last public change; independent of Garden Notes and individual page histories.
-  "": "2026-10-19",
+  "": "2026-10-29",
   ai: "2026-10-19",
   "ai-design": "2026-10-10",
   "ai-design/applicability": "2026-10-08",
@@ -91,7 +91,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "ai-mathematics": "2026-10-19",
   "ai-theory": "2026-10-19",
   books: "2026-10-05",
-  cases: "2026-10-19",
+  cases: "2026-10-29",
   dx: "2026-10-10",
   planning: "2026-10-10",
   "dx/value-design": "2026-10-03",
@@ -118,7 +118,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "retired/obsolete": "2026-10-05",
   "retired/obsolete-cases": "2026-10-05",
   "retired/retired": "2026-10-05",
-  "garden-notes": "2026-10-19",
+  "garden-notes": "2026-10-29",
   articles: "2026-10-04",
   overview: "2026-09-28",
   updates: "2026-09-28",

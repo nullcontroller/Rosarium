@@ -412,14 +412,14 @@ assert(dxEssay('[data-related-content] a').length <= 4);
 const cases = page("cases");
 assert.deepEqual(
   cases("[data-series-index]").map((_, element) => cases(element).attr("data-series-index")).get(),
-  ["cases/customer-support-ai-dx", "cases/specification-debt-review", "cases/three-ai-maintenance"],
+  ["cases/customer-support-ai-dx", "cases/specification-debt-review", "cases/three-ai-maintenance", "cases/ai-technical-investigation"],
 );
 assert.equal(cases(".case-reference-note").length, 0);
-assert.equal(cases("#active-cases .case-study-index").length, 3);
+assert.equal(cases("#active-cases .case-study-index").length, 4);
 assert.equal(cases("#obsolete-cases").length, 0);
 assert.equal(cases("#active-cases > h2").text(), "主要事例");
 const caseHighlights = cases(".case-highlight-list > li");
-assert.equal(caseHighlights.length, 3);
+assert.equal(caseHighlights.length, 4);
 for (const id of ["specification-debt-review", "three-ai-maintenance", "customer-support-ai-dx"]) {
   assert.equal(cases(`.case-highlight-list a[href="#case-${id}"]`).length, 1);
   assert.equal(cases(`#case-${id}`).length, 1);
@@ -444,9 +444,9 @@ assert.equal(cases('main a[href="/retired/obsolete-cases/"]').length, 1);
 for (const id of ["specification-debt-review", "three-ai-maintenance", "customer-support-ai-dx"]) {
   assert.equal(cases(`#case-${id}`).length, 1, "Preserve case anchors");
 }
-assert.equal(cases(".case-study-index").length, 3);
+assert.equal(cases(".case-study-index").length, 4);
 assert.equal(cases("main img").length, 0);
-assert.equal(cases(".book-list-entry-text").length, 3);
+assert.equal(cases(".book-list-entry-text").length, 4);
 for (const id of [
   "cases/three-ai-maintenance",
   "cases/customer-support-ai-dx",
@@ -552,6 +552,7 @@ const expectedBooks = [
   "cases/customer-support-ai-dx",
   "cases/specification-debt-review",
   "cases/three-ai-maintenance",
+  "cases/ai-technical-investigation",
 ];
 for (const route of ["cases"]) {
   const $ = page(route);
@@ -563,7 +564,7 @@ for (const route of ["cases"]) {
   );
   assert.equal($("[data-series-index] details, [data-series-index] summary").length, 0);
   assert(!$("[data-series-index]").text().includes("概要・全体構成を読む"));
-  assert.equal($("[data-series-index] .content-title").length, 3);
+  assert.equal($("[data-series-index] .content-title").length, expectedBooks.length);
 }
 assert.equal(
   primaryIds(page("dx/business-transformation")).filter((id) => id === "foundations/ai-business-design").length,
@@ -587,7 +588,7 @@ assert.equal(
 );
 assert(articlesCompatibility('a[href="/ai/"]').length);
 console.log(
-  "Verified overview compatibility redirect, three case books, independent series and simplified navigation.",
+  "Verified overview compatibility redirect, four case books, independent series and simplified navigation.",
 );
 
 const growthContentChanges = entry => growthSummary(entry, id => {
@@ -1069,7 +1070,7 @@ assert(debtCase('main').text().includes("削減率・短縮率・ROIは未評価
 assert(!debtCase('main').text().includes("1日"));
 assert(cases('[data-series-index="cases/specification-debt-review"]').text().includes("Case"));
 console.log("Verified documentation debt Case metrics, limitations, human decisions and static SVG fallbacks.");
-assert.equal(top('[aria-labelledby="home-cases-heading"] li').length, 2);
+assert.equal(top('[aria-labelledby="home-cases-heading"] li').length, 3);
 assert.equal(top('[aria-labelledby="home-cases-heading"] a[href="/cases/customer-support-ai-dx/"]').length, 1);
 assert(top('[aria-labelledby="home-cases-heading"]').text().includes("設計事例"));
 assert.equal(page("software-engineering/code-maintenance-context")('.prose a[href="/cases/specification-debt-review/"]').length, 1, "Authored Case evidence remains clickable");
@@ -1114,7 +1115,7 @@ console.log("Verified AI article links inside existing themes without a standalo
 
 // The same representative order is visible at all three reader entry points.
 const representativeUrls = ["/cases/customer-support-ai-dx/", "/cases/specification-debt-review/", "/cases/three-ai-maintenance/"];
-assert.deepEqual(top('[aria-labelledby="home-cases-heading"] a[href^="/cases/"]').map((_, el) => top(el).attr('href')).get(), representativeUrls);
+assert.deepEqual(top('[aria-labelledby="home-cases-heading"] a[href^="/cases/"]').map((_, el) => top(el).attr('href')).get(), [...representativeUrls, "/cases/ai-technical-investigation/"]);
 assert.equal(cases('.case-highlight-list a').first().attr('href'), '#case-customer-support-ai-dx');
 assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'cases/customer-support-ai-dx');
 // Keep source block order visible even when semantic directive class naming changes.
@@ -1165,7 +1166,7 @@ assert(oldPoc('link[rel="canonical"]').attr('href').endsWith('/cases/customer-su
 assert.equal(oldPoc('[data-pagefind-body], [data-explanation-id]').length,0);
 assert(!fs.readFileSync('dist/sitemap.xml','utf8').includes('/evaluation-hitl/customer-support-qa-poc/'));
 assert.equal(page('evaluation-hitl')('[data-content-id="evaluation-hitl/customer-support-qa-poc"]').length,0);
-assert.equal(cases('.case-study-index').length,3);
+assert.equal(cases('.case-study-index').length,4);
 const revisedSupportDiagram = supportDiagram('[data-support-dx]');
 assert(revisedSupportDiagram.find('[data-support-step="search"]').text().includes('判定A'));
 assert(revisedSupportDiagram.find('[data-support-step="decision"]').text().includes('判定B'));
@@ -1259,4 +1260,92 @@ for(const slug of ["executive-summary","why-ai","responsibility-boundary","poc-e
  const $=page("cases/customer-support-ai-dx/"+slug);
  assert.equal($("[data-support-dx]").length,0,slug+": final controlled architecture belongs to chapter 09");
  assert(!/メタデータ|判定A|判定B|72％|94％|98％/.test($(".prose").text()),slug+": initial design must not anticipate post-PoC controls");
+}
+
+// A case book has one canonical chapter per page, with matching navigation and diagrams.
+const investigationRoot = "cases/ai-technical-investigation";
+const investigationChapters = ["background", "initial-investigation", "shared-library-investigation", "crash-resolution", "memory-leak-investigation"];
+const investigationPages = [investigationRoot, ...investigationChapters.map(slug => investigationRoot + "/" + slug)];
+for (const [index, route] of investigationPages.entries()) {
+  const $ = page(route);
+  assert.equal($(".prose figure.diagram").length, [0, 1, 1, 0, 0, 1][index]);
+  if (index > 0) assert.match($("h1").first().text(), new RegExp("^" + String(index).padStart(2, "0") + "\\."));
+  for (const target of investigationPages) {
+    assert($(".book-toc a").toArray().some(e => $(e).attr("href") === "/" + target + "/"));
+  }
+  const expectedNeighbors = investigationPages.filter((_, i) => i === index - 1 || i === index + 1).map(id => "/" + id + "/");
+  assert.deepEqual($(".pagination .content-title a").map((_, e) => $(e).attr("href")).get(), expectedNeighbors);
+}
+const movedInvestigation = page("software-engineering/ai-technical-investigation-design");
+assert.match(movedInvestigation("meta[name=robots]").attr("content"), /noindex/);
+assert.equal(movedInvestigation("meta[http-equiv=refresh]").attr("content"), "0;url=/" + investigationRoot + "/");
+assert.equal(movedInvestigation(".prose figure").length, 0);
+
+const retiredInvestigationChapter = page("cases/ai-technical-investigation/investigation-principles");
+assert.match(retiredInvestigationChapter("meta[name=robots]").attr("content"), /noindex/);
+assert.equal(retiredInvestigationChapter("meta[http-equiv=refresh]").attr("content"), "0;url=/cases/ai-technical-investigation/memory-leak-investigation/");
+assert.equal(retiredInvestigationChapter(".prose figure, [data-pagefind-body]").length, 0);
+assert(!fs.readFileSync("dist/sitemap.xml", "utf8").includes("/cases/ai-technical-investigation/investigation-principles/"));
+for (const route of investigationPages) {
+ const $ = page(route);
+ assert.equal($(".book-toc a[href='/cases/ai-technical-investigation/investigation-principles/'], .book-toc-mobile a[href='/cases/ai-technical-investigation/investigation-principles/']").length, 0);
+ assert($("main").text().includes("全5章"));
+}
+for (const route of ["software-engineering/ai-technical-investigation-design", "cases/ai-technical-investigation/investigation-principles"]) {
+ const html = fs.readFileSync("dist/" + route + "/index.html", "utf8");
+ const match = html.match(/const legacyTargets = (\{[\s\S]*?\});/);
+ assert(match, "Legacy heading map must be retained: " + route);
+ for (const target of Object.values(JSON.parse(match[1]))) {
+  const [pathname, hash] = target.split("#");
+  const $ = page(pathname.replace(/^\//, "").replace(/\/$/, ""));
+  if (hash) assert($("[id]").toArray().some(e => $(e).attr("id") === decodeURIComponent(hash)), target);
+ }
+}
+
+// Case navigation parity: preserve the existing components rather than adding duplicate exits.
+const investigationHrefs = investigationPages.map(id => "/" + id + "/");
+assert.equal(page("cases")('[data-series-index="cases/ai-technical-investigation"] .content-title a').attr("href"), investigationHrefs[0]);
+const investigationInlineLinks = [
+ ["initial-investigation", ["knowledge-context/instruction-knowledge-evidence", "knowledge-context/prompt-structure", "software-engineering/engineering-judgment-in-ai-code-review"]],
+ ["shared-library-investigation", ["evaluation-hitl/responsibility-and-hitl"]],
+ ["memory-leak-investigation", ["evaluation-hitl/code-evaluation-acceptance"]],
+];
+for (const [chapter, targets] of investigationInlineLinks) {
+ const $ = page(investigationRoot + "/" + chapter);
+ assert.deepEqual($(".prose a[href]").map((_, e) => $(e).attr("href")).get(), targets.map(id => "/" + id + "/"));
+ for (const target of targets) {
+  const targetPage = page(target);
+  assert(targetPage("h1").text().trim());
+  assert(!/noindex/.test(targetPage('meta[name="robots"]').attr("content") || ""));
+ }
+}
+for (const [index, route] of investigationPages.entries()) {
+ const $ = page(route);
+ assert.equal($('.breadcrumb a[href="/cases/"]').length, 1);
+ const mobile = $('.book-toc-mobile:not([data-page-heading-toc])');
+ assert.equal(mobile.length, 1);
+ assert.deepEqual(mobile.find("a").map((_, e) => $(e).attr("href")).get(), investigationHrefs);
+ assert.equal(mobile.find('a[aria-current="page"]').attr("href"), investigationHrefs[index]);
+ const desktop = $('.book-toc > .page-toc-panel > ol a');
+ assert.deepEqual(desktop.map((_, e) => $(e).attr("href")).get(), investigationHrefs);
+ const bodyLinks = new Set($(".prose a[href]").map((_, e) => $(e).attr("href")).get());
+ for (const href of $('.case-knowledge-links a').map((_, e) => $(e).attr("href")).get()) assert(!bodyLinks.has(href));
+}
+assert.deepEqual(page(investigationRoot)('.case-knowledge-links a').map((_, e) => page(investigationRoot)(e).attr("href")).get(), ["/knowledge-context/instruction-knowledge-evidence/", "/evaluation-hitl/responsibility-and-hitl/"]);
+for (const [route, parent] of [[investigationRoot + "/memory-leak-investigation", investigationRoot], ["cases/customer-support-ai-dx/design-principles", "cases/customer-support-ai-dx"]]) {
+ const $ = page(route);
+ assert($('.breadcrumb a[href="/cases/"]').length);
+ assert($('.book-toc-mobile:not([data-page-heading-toc]) a').toArray().some(e => $(e).attr("href") === "/" + parent + "/"));
+ assert.equal($(".pagination .content-title a").length, 1);
+ assert(!$(".pagination").text().includes("次のページ"));
+}
+console.log("Verified technical investigation Case navigation parity, five inline references and nonduplicated Knowledge links.");
+
+// The new Home Case reuses the existing list and history without duplicate registration.
+const investigationHomeHref = "/cases/ai-technical-investigation/";
+assert.equal(top('[aria-labelledby="home-cases-heading"] li a[href="'+investigationHomeHref+'"]').length, 1);
+assert.equal(cases('[data-series-index="cases/ai-technical-investigation"]').length, 1);
+for (const view of [top, gardenNotes]) {
+ assert.equal(view('[data-growth-entry] a[href="'+investigationHomeHref+'"]').length, 1);
+ assert.equal(view('[data-growth-date="2026-10-29"] a[href="'+investigationHomeHref+'"]').length, 1);
 }

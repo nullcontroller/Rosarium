@@ -1,0 +1,48 @@
+---
+import Site from "../../layouts/Site.astro";
+import { getEntry } from "astro:content";
+import { url } from "../../lib/site";
+const entry = await getEntry("pages", "software-engineering/ai-technical-investigation-design");
+const destination = url("cases/ai-technical-investigation");
+const legacyTargets: Record<string, string> = {
+  "第01章担当業務と障害調査の背景": "/cases/ai-technical-investigation/background/",
+  "結合評価中のクラッシュと私が担当していた範囲": "/cases/ai-technical-investigation/background/#%E7%B5%90%E5%90%88%E8%A9%95%E4%BE%A1%E4%B8%AD%E3%81%AE%E3%82%AF%E3%83%A9%E3%83%83%E3%82%B7%E3%83%A5%E3%81%A8%E7%A7%81%E3%81%8C%E6%8B%85%E5%BD%93%E3%81%97%E3%81%A6%E3%81%84%E3%81%9F%E7%AF%84%E5%9B%B2",
+  "investigation-architecture-caption": "/cases/ai-technical-investigation/background/#investigation-architecture-caption",
+  "copilotを使い回答ではなく調査の前進を求める": "/cases/ai-technical-investigation/background/#copilot%E3%82%92%E4%BD%BF%E3%81%84%E5%9B%9E%E7%AD%94%E3%81%A7%E3%81%AF%E3%81%AA%E3%81%8F%E8%AA%BF%E6%9F%BB%E3%81%AE%E5%89%8D%E9%80%B2%E3%82%92%E6%B1%82%E3%82%81%E3%82%8B",
+  "第02章担当領域の初期調査不具合発見と修正後の検証": "/cases/ai-technical-investigation/initial-investigation/",
+  "investigation-crash-flow-caption": "/cases/ai-technical-investigation/initial-investigation/#investigation-crash-flow-caption",
+  "一般的な初回回答に対し元の調査情報を追加した": "/cases/ai-technical-investigation/initial-investigation/#%E4%B8%80%E8%88%AC%E7%9A%84%E3%81%AA%E5%88%9D%E5%9B%9E%E5%9B%9E%E7%AD%94%E3%81%AB%E5%AF%BE%E3%81%97%E5%85%83%E3%81%AE%E8%AA%BF%E6%9F%BB%E6%83%85%E5%A0%B1%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%9F",
+  "同期制御の解放順序の不備をコードで確認した": "/cases/ai-technical-investigation/initial-investigation/#%E5%90%8C%E6%9C%9F%E5%88%B6%E5%BE%A1%E3%81%AE%E8%A7%A3%E6%94%BE%E9%A0%86%E5%BA%8F%E3%81%AE%E4%B8%8D%E5%82%99%E3%82%92%E3%82%B3%E3%83%BC%E3%83%89%E3%81%A7%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%9F",
+  "実行時の証拠を集め引き継ぎ情報を作った": "/cases/ai-technical-investigation/initial-investigation/#%E5%AE%9F%E8%A1%8C%E6%99%82%E3%81%AE%E8%A8%BC%E6%8B%A0%E3%82%92%E9%9B%86%E3%82%81%E5%BC%95%E3%81%8D%E7%B6%99%E3%81%8E%E6%83%85%E5%A0%B1%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%9F",
+  "第03章調査情報を引き継ぎ共通ライブラリを調査する": "/cases/ai-technical-investigation/shared-library-investigation/",
+  "詳細な回答が返っても自分が評価できるとは限らなかった": "/cases/ai-technical-investigation/shared-library-investigation/#%E8%A9%B3%E7%B4%B0%E3%81%AA%E5%9B%9E%E7%AD%94%E3%81%8C%E8%BF%94%E3%81%A3%E3%81%A6%E3%82%82%E8%87%AA%E5%88%86%E3%81%8C%E8%A9%95%E4%BE%A1%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%A8%E3%81%AF%E9%99%90%E3%82%89%E3%81%AA%E3%81%8B%E3%81%A3%E3%81%9F",
+  "証拠と仮説を照合し担当チームの判断につなぐ": "/cases/ai-technical-investigation/shared-library-investigation/#%E8%A8%BC%E6%8B%A0%E3%81%A8%E4%BB%AE%E8%AA%AC%E3%82%92%E7%85%A7%E5%90%88%E3%81%97%E6%8B%85%E5%BD%93%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AE%E5%88%A4%E6%96%AD%E3%81%AB%E3%81%A4%E3%81%AA%E3%81%90",
+  "第04章担当チームによるクラッシュの修正と残存するメモリリーク": "/cases/ai-technical-investigation/crash-resolution/",
+  "外部ライブラリ更新に伴う互換性の問題が特定された": "/cases/ai-technical-investigation/crash-resolution/#%E5%A4%96%E9%83%A8%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E6%9B%B4%E6%96%B0%E3%81%AB%E4%BC%B4%E3%81%86%E4%BA%92%E6%8F%9B%E6%80%A7%E3%81%AE%E5%95%8F%E9%A1%8C%E3%81%8C%E7%89%B9%E5%AE%9A%E3%81%95%E3%82%8C%E3%81%9F",
+  "解消していない別の現象を次の調査対象にした": "/cases/ai-technical-investigation/crash-resolution/#%E8%A7%A3%E6%B6%88%E3%81%97%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E5%88%A5%E3%81%AE%E7%8F%BE%E8%B1%A1%E3%82%92%E6%AC%A1%E3%81%AE%E8%AA%BF%E6%9F%BB%E5%AF%BE%E8%B1%A1%E3%81%AB%E3%81%97%E3%81%9F",
+  "第05章情報を渡し仮説を検証するメモリリークの調査": "/cases/ai-technical-investigation/memory-leak-investigation/",
+  "investigation-leak-flow-caption": "/cases/ai-technical-investigation/memory-leak-investigation/#investigation-leak-flow-caption",
+  "調査経緯を欠落させないため関連するやり取りをまとめて渡した": "/cases/ai-technical-investigation/memory-leak-investigation/#%E8%AA%BF%E6%9F%BB%E7%B5%8C%E7%B7%AF%E3%82%92%E6%AC%A0%E8%90%BD%E3%81%95%E3%81%9B%E3%81%AA%E3%81%84%E3%81%9F%E3%82%81%E9%96%A2%E9%80%A3%E3%81%99%E3%82%8B%E3%82%84%E3%82%8A%E5%8F%96%E3%82%8A%E3%82%92%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E6%B8%A1%E3%81%97%E3%81%9F",
+  "問題の有無が異なる二つの版から探索範囲を減らした": "/cases/ai-technical-investigation/memory-leak-investigation/#%E5%95%8F%E9%A1%8C%E3%81%AE%E6%9C%89%E7%84%A1%E3%81%8C%E7%95%B0%E3%81%AA%E3%82%8B%E4%BA%8C%E3%81%A4%E3%81%AE%E7%89%88%E3%81%8B%E3%82%89%E6%8E%A2%E7%B4%A2%E7%AF%84%E5%9B%B2%E3%82%92%E6%B8%9B%E3%82%89%E3%81%97%E3%81%9F",
+  "根拠付きの修正候補を渡し担当チームが改善を検証した": "/cases/ai-technical-investigation/memory-leak-investigation/#%E6%A0%B9%E6%8B%A0%E4%BB%98%E3%81%8D%E3%81%AE%E4%BF%AE%E6%AD%A3%E5%80%99%E8%A3%9C%E3%82%92%E6%B8%A1%E3%81%97%E6%8B%85%E5%BD%93%E3%83%81%E3%83%BC%E3%83%A0%E3%81%8C%E6%94%B9%E5%96%84%E3%82%92%E6%A4%9C%E8%A8%BC%E3%81%97%E3%81%9F",
+  "investigation-roles-caption": "/cases/ai-technical-investigation/memory-leak-investigation/#investigation-roles-caption",
+  "第06章生成aiへの指示とは何か調査範囲を絞り判断材料を渡す": "/cases/ai-technical-investigation/memory-leak-investigation/",
+  "文脈を知らない仕事相手へ前提から伝える": "/cases/ai-technical-investigation/shared-library-investigation/#%E8%A9%B3%E7%B4%B0%E3%81%AA%E5%9B%9E%E7%AD%94%E3%81%8C%E8%BF%94%E3%81%A3%E3%81%A6%E3%82%82%E8%87%AA%E5%88%86%E3%81%8C%E8%A9%95%E4%BE%A1%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%A8%E3%81%AF%E9%99%90%E3%82%89%E3%81%AA%E3%81%8B%E3%81%A3%E3%81%9F",
+  "回答が大まかなときは判断材料の不足を確かめる": "/cases/ai-technical-investigation/initial-investigation/#%E4%B8%80%E8%88%AC%E7%9A%84%E3%81%AA%E5%88%9D%E5%9B%9E%E5%9B%9E%E7%AD%94%E3%81%AB%E5%AF%BE%E3%81%97%E5%85%83%E3%81%AE%E8%AA%BF%E6%9F%BB%E6%83%85%E5%A0%B1%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%9F",
+  "必要な情報にアクセスできる環境で調べる範囲を決める": "/cases/ai-technical-investigation/memory-leak-investigation/#%E5%95%8F%E9%A1%8C%E3%81%AE%E6%9C%89%E7%84%A1%E3%81%8C%E7%95%B0%E3%81%AA%E3%82%8B%E4%BA%8C%E3%81%A4%E3%81%AE%E7%89%88%E3%81%8B%E3%82%89%E6%8E%A2%E7%B4%A2%E7%AF%84%E5%9B%B2%E3%82%92%E6%B8%9B%E3%82%89%E3%81%97%E3%81%9F",
+  "候補採用修正効果確認を分ける": "/cases/ai-technical-investigation/crash-resolution/#%E5%A4%96%E9%83%A8%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E6%9B%B4%E6%96%B0%E3%81%AB%E4%BC%B4%E3%81%86%E4%BA%92%E6%8F%9B%E6%80%A7%E3%81%AE%E5%95%8F%E9%A1%8C%E3%81%8C%E7%89%B9%E5%AE%9A%E3%81%95%E3%82%8C%E3%81%9F",
+  "aiへ調査を任せつつ確認できない判断を確定しない": "/cases/ai-technical-investigation/shared-library-investigation/#%E8%A8%BC%E6%8B%A0%E3%81%A8%E4%BB%AE%E8%AA%AC%E3%82%92%E7%85%A7%E5%90%88%E3%81%97%E6%8B%85%E5%BD%93%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AE%E5%88%A4%E6%96%AD%E3%81%AB%E3%81%A4%E3%81%AA%E3%81%90",
+  "問題解決を成立させる仕事として設計する": "/cases/ai-technical-investigation/memory-leak-investigation/#%E6%A0%B9%E6%8B%A0%E4%BB%98%E3%81%8D%E3%81%AE%E4%BF%AE%E6%AD%A3%E5%80%99%E8%A3%9C%E3%82%92%E6%B8%A1%E3%81%97%E6%8B%85%E5%BD%93%E3%83%81%E3%83%BC%E3%83%A0%E3%81%8C%E6%94%B9%E5%96%84%E3%82%92%E6%A4%9C%E8%A8%BC%E3%81%97%E3%81%9F"
+};
+const canonical = new URL(destination, Astro.site).toString();
+---
+<Site title="技術調査のCaseへ移転しました" summary={entry!.data.summary} canonical={canonical} noindex showRightSidebar={false} showLastUpdated={false} lastUpdated={entry!.data.last_updated}>
+  <meta slot="head" http-equiv="refresh" content={`0;url=${destination}`} />
+  <script is:inline define:vars={{ destination, legacyTargets }}>
+    let fragment = "";
+    try { fragment = decodeURIComponent(location.hash.slice(1)); } catch {}
+    location.replace(legacyTargets[fragment] ?? destination);
+  </script>
+  <h1>技術調査のCaseへ移転しました</h1>
+  <p><a href={destination}>全5章の実践事例を読む</a></p>
+</Site>

@@ -130,14 +130,14 @@ assert.ok(
   "Practices needs adoption, education and transfer; development workflow belongs to AI Design",
 );
 assert.ok(publicEntries.some(({ file, data }) => file.endsWith("software-engineering/development-workflow.md") && data.layer === "ai-design" && data.design_topic === "software-engineering"), "Development workflow must remain discoverable in AI Design");
-assert.equal(aiOnly.length, 55, "AI-only content includes the engineering judgment article and four restored retired records");
+assert.equal(aiOnly.length, 63, "AI-only content includes the technical investigation article and four restored retired records");
 assert.equal(
   dxOnly.length,
   1,
   "Legacy lifecycle essay has a DX entry point; AI case links remain discovery paths",
 );
 assert.equal(aiAndDx.length, 41, "AI + DX content retains both PoC chapters; the removed pre-production chapter is a redirect");
-assert.equal(files.length, 105, "All audited content must remain traceable");
+assert.equal(files.length, 113, "All audited content must remain traceable");
 
 console.log(
   `Verified content health: ${files.length} audited Markdown pages, ${publicEntries.length} public pages, ${canonicalReferences.length} canonical references, ${canonicalPractices.length} canonical practices; entry points AI-only=${aiOnly.length}, DX-only=${dxOnly.length}, AI+DX=${aiAndDx.length}.`,

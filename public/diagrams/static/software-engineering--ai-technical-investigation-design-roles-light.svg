@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="880" viewBox="0 0 720 880" role="img" aria-labelledby="title desc"><title id="title">メモリリーク調査における三者の役割</title><desc id="desc">筆者が履歴をCopilotへ渡し、候補を受けてコード確認。版間比較を依頼し、原因候補と修正案を受けて照合した後、根拠とともに担当チームへ共有。担当チームが確認・修正・検証し、改善を確認する。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#145b4f"/></marker></defs><style>text{font-family:'Yu Gothic UI','Yu Gothic',system-ui,sans-serif;fill:#243439;font-size:19px}.node{fill:#f5f7f1;stroke:#145b4f;stroke-width:2}.emphasis{fill:#d8e6dc}.line{fill:none;stroke:#145b4f;stroke-width:2.5;marker-end:url(#arrow)}.small{font-size:16px;fill:#4a6057}.strong{font-weight:700}.lifeline{stroke:#9eafa4;stroke-width:1.5;stroke-dasharray:5 5}</style><rect width="720" height="880" fill="#f5f7f1"/>
+<rect x="12" y="18" width="168" height="66" rx="9" class="node emphasis"/>
+<text x="96" y="57" text-anchor="middle" class=""><tspan x="96" dy="0">筆者</tspan></text>
+<path d="M96 84V858" class="lifeline"/>
+<rect x="276" y="18" width="168" height="66" rx="9" class="node emphasis"/>
+<text x="360" y="57" text-anchor="middle" class=""><tspan x="360" dy="0">GitHub Copilot</tspan></text>
+<path d="M360 84V858" class="lifeline"/>
+<rect x="540" y="18" width="168" height="66" rx="9" class="node emphasis"/>
+<text x="624" y="57" text-anchor="middle" class=""><tspan x="624" dy="0">担当チーム</tspan></text>
+<path d="M624 84V858" class="lifeline"/>
+<path d="M96 148H360" class="line"/>
+<text x="228" y="132" text-anchor="middle" class=""><tspan x="228" dy="0">調査履歴を渡す</tspan></text>
+<path d="M360 228H96" class="line"/>
+<text x="228" y="212" text-anchor="middle" class=""><tspan x="228" dy="0">原因候補を提示</tspan></text>
+<path d="M96 276H148V312H96" class="line"/>
+<text x="166" y="300" text-anchor="start" class=""><tspan x="166" dy="0">関連コードを確認</tspan></text>
+<path d="M96 404H360" class="line"/>
+<text x="228" y="362" text-anchor="middle" class=""><tspan x="228" dy="0">問題がある版と</tspan><tspan x="228" dy="24">前回版の比較</tspan></text>
+<path d="M360 496H96" class="line"/>
+<text x="228" y="454" text-anchor="middle" class=""><tspan x="228" dy="0">差分に基づく原因候補</tspan><tspan x="228" dy="24">修正案</tspan></text>
+<path d="M96 550H148V586H96" class="line"/>
+<text x="166" y="574" text-anchor="start" class=""><tspan x="166" dy="0">候補をコードと照合</tspan></text>
+<path d="M96 660H624" class="line"/>
+<text x="360" y="644" text-anchor="middle" class=""><tspan x="360" dy="0">修正候補と根拠を共有</tspan></text>
+<path d="M624 710H570V746H624" class="line"/>
+<text x="548" y="734" text-anchor="end" class=""><tspan x="548" dy="0">確認・修正・検証</tspan></text>
+<rect x="524" y="792" width="180" height="64" rx="9" class="node emphasis"/>
+<text x="614" y="818" text-anchor="middle" class=""><tspan x="614" dy="0">メモリリークの</tspan><tspan x="614" dy="24">改善を確認</tspan></text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="1260" viewBox="0 0 360 1260" role="img" aria-labelledby="title desc"><title id="title">クラッシュ調査の経緯</title><desc id="desc">筆者 → Copilot：初期調査を依頼。Copilotの初回回答：一般的で次の調査が決まらない。筆者：元の調査情報を追加。Copilot：関連コードを横断調査。Copilotが同期制御の不備を指摘：筆者がコードと修正理由を確認。担当者が修正：対象クラッシュは解消せず。筆者：実行時の証拠を収集。共通ライブラリ側へ：証拠と調査履歴を引き継ぐ。Copilotの原因候補を：筆者が実行時の証拠と照合。筆者 → 担当チーム：未確定の候補と証拠を共有。担当チーム：互換性問題を特定・修正。クラッシュ解消。実際に進んだクラッシュ調査の順序を示す。共通ライブラリの候補は引き継ぎ時点では未確定。その後、指摘されたメモリ管理の問題は実在するメモリリークとして確認・修正されたが、クラッシュの原因ではなかった。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#145b4f"/></marker></defs><style>text{font-family:'Yu Gothic UI','Yu Gothic',system-ui,sans-serif;fill:#243439;font-size:19px}.node{fill:#f5f7f1;stroke:#145b4f;stroke-width:2}.result{fill:#d8e6dc}.line{fill:none;stroke:#145b4f;stroke-width:2.5;marker-end:url(#arrow)}</style><rect width="360" height="1260" fill="#f5f7f1"/><text x="180" y="30" text-anchor="middle" font-weight="700">クラッシュ調査の経緯</text>
+<rect x="16" y="54" width="328" height="72" rx="9" class="node"/><text x="180" y="83" text-anchor="middle"><tspan x="180" dy="0">筆者 → Copilot</tspan><tspan x="180" dy="25">初期調査を依頼</tspan></text>
+<path d="M180 126V151" class="line"/>
+<rect x="16" y="154" width="328" height="72" rx="9" class="node"/><text x="180" y="183" text-anchor="middle"><tspan x="180" dy="0">Copilotの初回回答</tspan><tspan x="180" dy="25">一般的で次の調査が決まらない</tspan></text>
+<path d="M180 226V251" class="line"/>
+<rect x="16" y="254" width="328" height="72" rx="9" class="node"/><text x="180" y="283" text-anchor="middle"><tspan x="180" dy="0">筆者</tspan><tspan x="180" dy="25">元の調査情報を追加</tspan></text>
+<path d="M180 326V351" class="line"/>
+<rect x="16" y="354" width="328" height="72" rx="9" class="node"/><text x="180" y="383" text-anchor="middle"><tspan x="180" dy="0">Copilot</tspan><tspan x="180" dy="25">関連コードを横断調査</tspan></text>
+<path d="M180 426V451" class="line"/>
+<rect x="16" y="454" width="328" height="72" rx="9" class="node"/><text x="180" y="483" text-anchor="middle"><tspan x="180" dy="0">Copilotが同期制御の不備を指摘</tspan><tspan x="180" dy="25">筆者がコードと修正理由を確認</tspan></text>
+<path d="M180 526V551" class="line"/>
+<rect x="16" y="554" width="328" height="72" rx="9" class="node"/><text x="180" y="583" text-anchor="middle"><tspan x="180" dy="0">担当者が修正</tspan><tspan x="180" dy="25">対象クラッシュは解消せず</tspan></text>
+<path d="M180 626V651" class="line"/>
+<rect x="16" y="654" width="328" height="72" rx="9" class="node"/><text x="180" y="683" text-anchor="middle"><tspan x="180" dy="0">筆者</tspan><tspan x="180" dy="25">実行時の証拠を収集</tspan></text>
+<path d="M180 726V751" class="line"/>
+<rect x="16" y="754" width="328" height="72" rx="9" class="node"/><text x="180" y="783" text-anchor="middle"><tspan x="180" dy="0">共通ライブラリ側へ</tspan><tspan x="180" dy="25">証拠と調査履歴を引き継ぐ</tspan></text>
+<path d="M180 826V851" class="line"/>
+<rect x="16" y="854" width="328" height="72" rx="9" class="node"/><text x="180" y="883" text-anchor="middle"><tspan x="180" dy="0">Copilotの原因候補を</tspan><tspan x="180" dy="25">筆者が実行時の証拠と照合</tspan></text>
+<path d="M180 926V951" class="line"/>
+<rect x="16" y="954" width="328" height="72" rx="9" class="node"/><text x="180" y="983" text-anchor="middle"><tspan x="180" dy="0">筆者 → 担当チーム</tspan><tspan x="180" dy="25">未確定の候補と証拠を共有</tspan></text>
+<path d="M180 1026V1051" class="line"/>
+<rect x="16" y="1054" width="328" height="72" rx="9" class="node"/><text x="180" y="1083" text-anchor="middle"><tspan x="180" dy="0">担当チーム</tspan><tspan x="180" dy="25">互換性問題を特定・修正</tspan></text>
+<path d="M180 1126V1151" class="line"/>
+<rect x="16" y="1154" width="328" height="72" rx="9" class="node result"/><text x="180" y="1197" text-anchor="middle"><tspan x="180" dy="0">クラッシュ解消</tspan></text>
+</svg>

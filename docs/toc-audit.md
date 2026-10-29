@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 149ページ。目次あり 115、なし 34。Referenceあり 114、なし 35。
+対象 157ページ。目次あり 121、なし 36。Referenceあり 120、なし 37。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -37,6 +37,13 @@
 | /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/profile/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/ | 実践事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /cases/ai-technical-investigation/ | 生成AIによる技術調査の設計――情報、仮説、検証、責任境界 | あり | あり | あり | 6 | Book章構造 |
+| /cases/ai-technical-investigation/background/ | 01. 担当業務と障害調査の背景 | あり | あり | あり | 8 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/crash-resolution/ | 04. 担当チームによるクラッシュの修正と、残存するメモリリーク | あり | あり | あり | 8 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/initial-investigation/ | 02. 担当領域の初期調査――不具合発見と修正後の検証 | あり | あり | あり | 9 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/investigation-principles/ | 考察を調査の各章へ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /cases/ai-technical-investigation/memory-leak-investigation/ | 05. 情報を渡し、修正候補を絞り込む――メモリリークの調査 | あり | あり | あり | 8 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/shared-library-investigation/ | 03. 調査情報を引き継ぎ、共通ライブラリを調査する | あり | あり | あり | 8 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 12 | Book章構造 |
 | /cases/customer-support-ai-dx/continuous-improvement/ | 顧客サポートDXの結末は第10章へ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/customer-support-ai-dx/customer-experience/ | 06. 顧客体験をどう変えたか | あり | あり | あり | 16 | 主要見出しが複数 |
@@ -115,7 +122,7 @@
 | /foundations/layered-hallucination-controls/ | ハルシネーションの多層制御設計 | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/llm-as-probabilistic-model/ | LLMを確率モデルとして設計するという立場 | なし | あり | あり | 5 | 主要見出しが複数 |
 | /foundations/temperature-design/ | Temperature設計指針 | あり | あり | あり | 13 | 長文の複数h3セクション |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 16 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 17 | 主要見出しが複数 |
 | /knowledge-context/ | ナレッジ / コンテキスト | なし | あり | あり | 7 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | AIを使い分ける基準は、モデル性能よりコンテキストではないか | あり | あり | あり | 9 | 主要見出しが複数 |
 | /knowledge-context/human-and-ai-documentation/ | 人向け資料とAI向け資料の分離設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
@@ -142,12 +149,13 @@
 | /retired/ | 旧記事・退役記事 | なし | あり | なし | 3 | 主要見出しが複数 |
 | /retired/obsolete-cases/ | 旧事例 | なし | あり | なし | 2 | アーカイブ個別項目 |
 | /retired/obsolete/ | 旧記事 | なし | あり | なし | 3 | アーカイブ個別項目 |
-| /retired/retired/ | 退役記事 | なし | あり | なし | 18 | アーカイブ個別項目 |
+| /retired/retired/ | 退役記事 | なし | あり | なし | 21 | アーカイブ個別項目 |
 | /search/ | 検索 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /series/ | 業務変革をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/ | ソフトウェア開発 | なし | あり | あり | 6 | 主要見出しが複数 |
 | /software-engineering/ai-design-assistance/ | 設計支援AIは消えない。コード生成の次に残る領域 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /software-engineering/ai-driven-development/ | 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /software-engineering/ai-technical-investigation-design/ | 技術調査のCaseへ移転しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/code-generation-and-work-design/ | コード生成AIはなぜ業務を変えないのか — 設計支援として使うべき理由 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/code-generation-boundaries/ | コード生成を使うべき場所 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/code-generation-models/ | コード生成AIの正体 | あり | あり | あり | 24 | 長文の複数h3セクション |

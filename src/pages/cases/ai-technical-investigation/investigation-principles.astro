@@ -1,0 +1,24 @@
+---
+import Site from "../../../layouts/Site.astro";
+import { url } from "../../../lib/site";
+const destination = url("cases/ai-technical-investigation/memory-leak-investigation");
+const canonical = new URL(destination, Astro.site).toString();
+const legacyTargets: Record<string, string> = {
+  "文脈を知らない仕事相手へ前提から伝える": "/cases/ai-technical-investigation/shared-library-investigation/#%E8%A9%B3%E7%B4%B0%E3%81%AA%E5%9B%9E%E7%AD%94%E3%81%8C%E8%BF%94%E3%81%A3%E3%81%A6%E3%82%82%E8%87%AA%E5%88%86%E3%81%8C%E8%A9%95%E4%BE%A1%E3%81%A7%E3%81%8D%E3%82%8B%E3%81%A8%E3%81%AF%E9%99%90%E3%82%89%E3%81%AA%E3%81%8B%E3%81%A3%E3%81%9F",
+  "回答が大まかなときは判断材料の不足を確かめる": "/cases/ai-technical-investigation/initial-investigation/#%E4%B8%80%E8%88%AC%E7%9A%84%E3%81%AA%E5%88%9D%E5%9B%9E%E5%9B%9E%E7%AD%94%E3%81%AB%E5%AF%BE%E3%81%97%E5%85%83%E3%81%AE%E8%AA%BF%E6%9F%BB%E6%83%85%E5%A0%B1%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%97%E3%81%9F",
+  "必要な情報にアクセスできる環境で調べる範囲を決める": "/cases/ai-technical-investigation/memory-leak-investigation/#%E5%95%8F%E9%A1%8C%E3%81%AE%E6%9C%89%E7%84%A1%E3%81%8C%E7%95%B0%E3%81%AA%E3%82%8B%E4%BA%8C%E3%81%A4%E3%81%AE%E7%89%88%E3%81%8B%E3%82%89%E6%8E%A2%E7%B4%A2%E7%AF%84%E5%9B%B2%E3%82%92%E6%B8%9B%E3%82%89%E3%81%97%E3%81%9F",
+  "候補採用修正効果確認を分ける": "/cases/ai-technical-investigation/crash-resolution/#%E5%A4%96%E9%83%A8%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E6%9B%B4%E6%96%B0%E3%81%AB%E4%BC%B4%E3%81%86%E4%BA%92%E6%8F%9B%E6%80%A7%E3%81%AE%E5%95%8F%E9%A1%8C%E3%81%8C%E7%89%B9%E5%AE%9A%E3%81%95%E3%82%8C%E3%81%9F",
+  "aiへ調査を任せつつ確認できない判断を確定しない": "/cases/ai-technical-investigation/shared-library-investigation/#%E8%A8%BC%E6%8B%A0%E3%81%A8%E4%BB%AE%E8%AA%AC%E3%82%92%E7%85%A7%E5%90%88%E3%81%97%E6%8B%85%E5%BD%93%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AE%E5%88%A4%E6%96%AD%E3%81%AB%E3%81%A4%E3%81%AA%E3%81%90",
+  "問題解決を成立させる仕事として設計する": "/cases/ai-technical-investigation/memory-leak-investigation/#%E6%A0%B9%E6%8B%A0%E4%BB%98%E3%81%8D%E3%81%AE%E4%BF%AE%E6%AD%A3%E5%80%99%E8%A3%9C%E3%82%92%E6%B8%A1%E3%81%97%E6%8B%85%E5%BD%93%E3%83%81%E3%83%BC%E3%83%A0%E3%81%8C%E6%94%B9%E5%96%84%E3%82%92%E6%A4%9C%E8%A8%BC%E3%81%97%E3%81%9F"
+};
+---
+<Site title="AIへの依頼と確認の考察を各章へ統合しました" summary="調査の具体的な行動に沿って、第02〜05章で依頼と判断の考え方を説明します。" canonical={canonical} noindex showRightSidebar={false} showLastUpdated={false} lastUpdated="2026-10-29">
+<meta slot="head" http-equiv="refresh" content={"0;url=" + destination} />
+<script is:inline define:vars={{ destination, legacyTargets }}>
+let fragment = "";
+try { fragment = decodeURIComponent(location.hash.slice(1)); } catch {}
+location.replace(legacyTargets[fragment] ?? destination);
+</script>
+<h1>考察を調査の各章へ統合しました</h1>
+<p><a href={destination}>第05章：メモリリークの追加調査へ</a></p>
+</Site>

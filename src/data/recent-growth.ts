@@ -43,6 +43,14 @@ export const growthPublishedTargets = (entry: RecentGrowthItem): string[] =>
 // Ask what readers can newly read or understand; this is not a development log.
 const curatedRecentGrowth = [
   {
+    date: "2026-10-29", type: "new", title: "生成AIによる技術調査のCaseを全5章で整理",
+    changes: [
+      { action: "published", text: "新規公開。一般的なAI回答への情報追加、同期制御の不備のコード確認、証拠の引き継ぎ、残存メモリリークの版間比較を通じ、調査の判断過程と担当チームによる修正・検証を記述した", contentIds: ["cases/ai-technical-investigation"] },
+    ],
+    summaryChanges: ["クラッシュとメモリリークの調査を時系列で振り返り、仮説と確認済みの結果を区別", "私の調査支援と担当チームの修正・検証から責任境界を整理"],
+    category: "Rosarium", icon: "updates",
+  },
+  {
     date: "2026-10-19", type: "revised", title: "代表設計事例と、数学・AI理論の入口を整理",
     changes: [
       { action: "revised", text: "改訂。顧客サポートQAを代表設計事例の先頭に置き、仕様書レビュー・保守開発の確認済み成果を設計力の裏付けとして配置。Careerの強みと今後の方向性、各事例の成果と比較条件を整理した", contentIds: ["career/overview", "cases/specification-debt-review", "cases/three-ai-maintenance"] },

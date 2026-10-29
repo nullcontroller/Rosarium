@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="960" viewBox="0 0 360 960" role="img" aria-labelledby="title desc"><title id="title">別のメモリリークの調査</title><desc id="desc">クラッシュとは別に：メモリリークを確認。筆者 → Copilot：既存の調査履歴を提供。Copilotの回答を受け：筆者が関連コードを確認。筆者 → Copilot：問題がある版と前回版を比較。Copilot：原因候補・修正案を提示。筆者：候補を関連コードと照合。筆者 → 担当チーム：修正候補と根拠を提示。担当チーム：問題箇所を確認・修正。担当チーム：メモリリークの改善を検証。実際に進んだ調査の順序を示す。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#145b4f"/></marker></defs><style>text{font-family:'Yu Gothic UI','Yu Gothic',system-ui,sans-serif;fill:#243439;font-size:19px}.node{fill:#f5f7f1;stroke:#145b4f;stroke-width:2}.result{fill:#d8e6dc}.line{fill:none;stroke:#145b4f;stroke-width:2.5;marker-end:url(#arrow)}</style><rect width="360" height="960" fill="#f5f7f1"/><text x="180" y="30" text-anchor="middle" font-weight="700">別のメモリリークの調査</text>
+<rect x="16" y="54" width="328" height="72" rx="9" class="node"/><text x="180" y="83" text-anchor="middle"><tspan x="180" dy="0">クラッシュとは別に</tspan><tspan x="180" dy="25">メモリリークを確認</tspan></text>
+<path d="M180 126V151" class="line"/>
+<rect x="16" y="154" width="328" height="72" rx="9" class="node"/><text x="180" y="183" text-anchor="middle"><tspan x="180" dy="0">筆者 → Copilot</tspan><tspan x="180" dy="25">既存の調査履歴を提供</tspan></text>
+<path d="M180 226V251" class="line"/>
+<rect x="16" y="254" width="328" height="72" rx="9" class="node"/><text x="180" y="283" text-anchor="middle"><tspan x="180" dy="0">Copilotの回答を受け</tspan><tspan x="180" dy="25">筆者が関連コードを確認</tspan></text>
+<path d="M180 326V351" class="line"/>
+<rect x="16" y="354" width="328" height="72" rx="9" class="node"/><text x="180" y="383" text-anchor="middle"><tspan x="180" dy="0">筆者 → Copilot</tspan><tspan x="180" dy="25">問題がある版と前回版を比較</tspan></text>
+<path d="M180 426V451" class="line"/>
+<rect x="16" y="454" width="328" height="72" rx="9" class="node"/><text x="180" y="483" text-anchor="middle"><tspan x="180" dy="0">Copilot</tspan><tspan x="180" dy="25">原因候補・修正案を提示</tspan></text>
+<path d="M180 526V551" class="line"/>
+<rect x="16" y="554" width="328" height="72" rx="9" class="node"/><text x="180" y="583" text-anchor="middle"><tspan x="180" dy="0">筆者</tspan><tspan x="180" dy="25">候補を関連コードと照合</tspan></text>
+<path d="M180 626V651" class="line"/>
+<rect x="16" y="654" width="328" height="72" rx="9" class="node"/><text x="180" y="683" text-anchor="middle"><tspan x="180" dy="0">筆者 → 担当チーム</tspan><tspan x="180" dy="25">修正候補と根拠を提示</tspan></text>
+<path d="M180 726V751" class="line"/>
+<rect x="16" y="754" width="328" height="72" rx="9" class="node"/><text x="180" y="783" text-anchor="middle"><tspan x="180" dy="0">担当チーム</tspan><tspan x="180" dy="25">問題箇所を確認・修正</tspan></text>
+<path d="M180 826V851" class="line"/>
+<rect x="16" y="854" width="328" height="72" rx="9" class="node result"/><text x="180" y="883" text-anchor="middle"><tspan x="180" dy="0">担当チーム</tspan><tspan x="180" dy="25">メモリリークの改善を検証</tspan></text>
+</svg>

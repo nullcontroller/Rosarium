@@ -258,6 +258,16 @@ type CaseStudy = {
 };
 const caseStudyEntries: CaseStudy[] = [
   {
+    book: "cases/ai-technical-investigation",
+    referenceNote: "実務経験を公開用に抽象化した調査記録",
+    topics: ["GitHub Copilot", "技術調査 / 仮説検証"],
+    challenge: "共通コンポーネント更新後のクラッシュと、別に残ったメモリリークの原因候補を調べる。",
+    designSummary: "担当領域からコード確認・証拠の収集・版間比較を進め、未確定の候補と根拠を担当チームへ引き継ぐ。",
+    result: "担当チームがクラッシュを修正。残存メモリリークも、筆者の候補提示後に担当チームが修正し改善を検証した。",
+    chapters: ["cases/ai-technical-investigation/background","cases/ai-technical-investigation/initial-investigation","cases/ai-technical-investigation/shared-library-investigation","cases/ai-technical-investigation/crash-resolution","cases/ai-technical-investigation/memory-leak-investigation"],
+    design: ["knowledge-context/instruction-knowledge-evidence", "evaluation-hitl/responsibility-and-hitl"],
+  },
+  {
     book: "cases/specification-debt-review",
     referenceNote: "実務実績",
     topics: ["Documentation Debt", "Context / Human Review"],
@@ -375,6 +385,12 @@ export const navigationItemForPath = (path: string) =>
 
 // Shared compact evidence summaries for Home and Cases.
 const caseHighlights = [
+  {
+    id: "cases/ai-technical-investigation",
+    title: "生成AIによる技術調査の設計――情報、仮説、検証、責任境界",
+    category: "実務実績",
+    summary: "自分がレビューできる範囲を基準にAIの調査対象を設計。コード比較と証拠の検証を通じて、担当チームの修正につなげた実務事例です。",
+  },
   {
     id: "cases/specification-debt-review",
     title: "仕様書横断レビュー",

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="940" viewBox="0 0 320 940" role="img" aria-labelledby="title desc"><title id="title">&#x30e1;&#x30e2;&#x30ea;&#x30ea;&#x30fc;&#x30af;&#x8abf;&#x67fb;&#x306b;&#x304a;&#x3051;&#x308b;&#x4e09;&#x8005;&#x306e;&#x5f79;&#x5272;</title><desc id="desc">&#x7b46;&#x8005;&#x304c;&#x5c65;&#x6b74;&#x3092;Copilot&#x3078;&#x6e21;&#x3057;&#x3001;&#x5019;&#x88dc;&#x3092;&#x53d7;&#x3051;&#x3066;&#x30b3;&#x30fc;&#x30c9;&#x78ba;&#x8a8d;&#x3002;&#x7248;&#x9593;&#x6bd4;&#x8f03;&#x3092;&#x4f9d;&#x983c;&#x3057;&#x3001;&#x539f;&#x56e0;&#x5019;&#x88dc;&#x3068;&#x4fee;&#x6b63;&#x6848;&#x3092;&#x53d7;&#x3051;&#x3066;&#x7167;&#x5408;&#x3057;&#x305f;&#x5f8c;&#x3001;&#x6839;&#x62e0;&#x3068;&#x3068;&#x3082;&#x306b;&#x62c5;&#x5f53;&#x30c1;&#x30fc;&#x30e0;&#x3078;&#x5171;&#x6709;&#x3002;&#x62c5;&#x5f53;&#x30c1;&#x30fc;&#x30e0;&#x304c;&#x78ba;&#x8a8d;&#x30fb;&#x4fee;&#x6b63;&#x30fb;&#x691c;&#x8a3c;&#x3057;&#x3001;&#x6539;&#x5584;&#x3092;&#x78ba;&#x8a8d;&#x3059;&#x308b;&#x3002;</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#92d5c1"/></marker></defs><style>text{font-family:&apos;Yu Gothic UI&apos;,&apos;Yu Gothic&apos;,system-ui,sans-serif;fill:#e3ece8;font-size:19px}.node{fill:#1c282c;stroke:#92d5c1;stroke-width:2}.emphasis{fill:#263c38}.line{fill:none;stroke:#92d5c1;stroke-width:2.5;marker-end:url(#arrow)}.small{font-size:16px;fill:#a6b9ba}.strong{font-weight:700}.lifeline{stroke:#3c5052;stroke-width:1.5;stroke-dasharray:5 5}</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<rect width="320" height="940" fill="#1c282c"/><style>text{font-size:18px}</style><rect x="2" y="18" width="96" height="66" rx="9" class="node emphasis"/><text x="50" y="57" text-anchor="middle" class="actor"><tspan x="50" dy="0">&#x7b46;&#x8005;</tspan></text><path d="M50 84V824" class="lifeline"/><rect x="112" y="18" width="96" height="66" rx="9" class="node emphasis"/><text x="160" y="45" text-anchor="middle" class="actor"><tspan x="160" dy="0">GitHub</tspan><tspan x="160" dy="24">Copilot</tspan></text><path d="M160 84V824" class="lifeline"/><rect x="222" y="18" width="96" height="66" rx="9" class="node emphasis"/><text x="270" y="57" text-anchor="middle" class="actor"><tspan x="270" dy="0">&#x62c5;&#x5f53;&#x30c1;&#x30fc;&#x30e0;</tspan></text><path d="M270 84V824" class="lifeline"/><text x="160" y="140" text-anchor="middle"><tspan x="160" dy="0">&#x8abf;&#x67fb;&#x5c65;&#x6b74;&#x3092;&#x6e21;&#x3059;</tspan></text><path d="M50 162H160" class="line"/><text x="160" y="214" text-anchor="middle"><tspan x="160" dy="0">&#x539f;&#x56e0;&#x5019;&#x88dc;&#x3092;&#x63d0;&#x793a;</tspan></text><path d="M160 236H50" class="line"/><text x="160" y="286" text-anchor="middle"><tspan x="160" dy="0">&#x7b46;&#x8005;&#x304c;&#x95a2;&#x9023;&#x30b3;&#x30fc;&#x30c9;&#x3092;&#x78ba;&#x8a8d;</tspan></text><path d="M50 306H80V330H50" class="line"/><text x="160" y="374" text-anchor="middle"><tspan x="160" dy="0">問題がある版と</tspan><tspan x="160" dy="24">前回版の比較</tspan></text><path d="M50 420H160" class="line"/><text x="160" y="466" text-anchor="middle"><tspan x="160" dy="0">&#x5dee;&#x5206;&#x306b;&#x57fa;&#x3065;&#x304f;&#x539f;&#x56e0;&#x5019;&#x88dc;</tspan><tspan x="160" dy="24">&#x4fee;&#x6b63;&#x6848;</tspan></text><path d="M160 512H50" class="line"/><text x="160" y="564" text-anchor="middle"><tspan x="160" dy="0">&#x7b46;&#x8005;&#x304c;&#x5019;&#x88dc;&#x3092;&#x30b3;&#x30fc;&#x30c9;&#x3068;&#x7167;&#x5408;</tspan></text><path d="M50 586H80V610H50" class="line"/><text x="160" y="664" text-anchor="middle"><tspan x="160" dy="0">&#x4fee;&#x6b63;&#x5019;&#x88dc;&#x3068;&#x6839;&#x62e0;&#x3092;&#x5171;&#x6709;</tspan></text><path d="M50 686H270" class="line"/><text x="160" y="742" text-anchor="middle"><tspan x="160" dy="0">&#x62c5;&#x5f53;&#x30c1;&#x30fc;&#x30e0;&#x304c;&#x78ba;&#x8a8d;&#x30fb;&#x4fee;&#x6b63;&#x30fb;&#x691c;&#x8a3c;</tspan></text><path d="M270 762H240V786H270" class="line"/><path d="M270 824V838H160V850" class="line"/><rect x="32" y="850" width="256" height="66" rx="9" class="node emphasis"/><text x="160" y="877" text-anchor="middle"><tspan x="160" dy="0">&#x30e1;&#x30e2;&#x30ea;&#x30ea;&#x30fc;&#x30af;&#x306e;</tspan><tspan x="160" dy="24">&#x6539;&#x5584;&#x3092;&#x78ba;&#x8a8d;</tspan></text><style>.actor{font-size:17px}</style></svg>
+
+
