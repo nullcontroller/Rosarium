@@ -1359,3 +1359,8 @@ assert(investment('.prose').text().includes("ROIの厳密な財務定義では�
 assert(investment('.prose').text().includes("標準環境に対して増える価値"));
 for (const route of ["", "garden-notes", "essays", "dx/value-design"]) assert.equal(page(route)('main a[href="'+investmentHref+'"]').length,1,route);
 for (const feed of ["rss.xml", "feed.json", "sitemap.xml"]) assert(fs.readFileSync("dist/"+feed,"utf8").includes(investmentHref),feed);
+
+for (const view of [top, gardenNotes]) {
+ assert.equal(view('[data-growth-date="2026-10-30"] a[href="'+investmentHref+'"]').length, 1);
+ assert.equal(view('[data-growth-date="2026-10-29"] a[href="'+investmentHref+'"]').length, 0);
+}
