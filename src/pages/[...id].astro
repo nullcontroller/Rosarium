@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { isDraftPreview } from "../lib/draft-preview.mjs";
 import Site from "../layouts/Site.astro";
 import { supportPocLegacyFragments } from "../data/support-poc-fragments";
 import { splitRelatedContent, caseEvidenceLinks } from "../lib/related-content.mjs";
@@ -26,7 +27,7 @@ import {
   contentEntryPoints,
 } from "../lib/entry-points";
 export async function getStaticPaths() {
-  return (await getCollection("pages", (entry) => publishedEntry(entry) && !["cases/ai-technical-investigation/investigation-principles", "software-engineering/ai-technical-investigation-design", "evaluation-hitl/customer-support-qa-poc", "practices/ai-adoption-and-effective-use", "practices/ai-education-principles", "practices/transferring-ai-practices", "essays/what-not-to-build-with-ai", "architecture/agents-tools-and-workflows", "foundations/generation-and-acceptance", "cases/understanding-systems-as-capability", "software-engineering/ai-driven-development", "software-engineering/code-generation-boundaries", "software-engineering/code-generation-and-work-design"].includes(entry.id))).map((entry) => ({
+  return (await getCollection("pages", (entry) => (publishedEntry(entry) || isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW)) && !["cases/ai-technical-investigation/investigation-principles", "software-engineering/ai-technical-investigation-design", "evaluation-hitl/customer-support-qa-poc", "practices/ai-adoption-and-effective-use", "practices/ai-education-principles", "practices/transferring-ai-practices", "essays/what-not-to-build-with-ai", "architecture/agents-tools-and-workflows", "foundations/generation-and-acceptance", "cases/understanding-systems-as-capability", "software-engineering/ai-driven-development", "software-engineering/code-generation-boundaries", "software-engineering/code-generation-and-work-design"].includes(entry.id))).map((entry) => ({
     params: { id: entry.id },
     props: { entry },
   }));
@@ -96,8 +97,8 @@ const bookNavigation = series.length
   summary={d.summary}
   canonical={d.canonical}
   ogType="article"
-  noindex={d.lifecycle === "retired"}
-  internalSearch
+  noindex={d.lifecycle === "retired" || d.status === "draft"}
+  internalSearch={d.status !== "draft"}
   searchLifecycle={d.lifecycle}
   publishedAt={d.published_at}
   lastUpdated={d.last_updated}
@@ -119,6 +120,7 @@ const bookNavigation = series.length
   ]}
   bookNavigation={bookNavigation}
 >
+  {d.status === "draft" && <p class="meta" role="note">レビュー用初稿：内容・公開可否は所有者の確認前です。</p>}
   <nav class="breadcrumb">
     <a href={url()}>庭</a> / <a href={url(primaryPath)}>{primaryLabel}</a>
     {d.design_topic && (
