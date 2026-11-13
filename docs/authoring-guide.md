@@ -258,3 +258,23 @@ DXとの関係があれば、同じ知識記事をDXと企画の両入口から�
 Garden Notesの公開記録は引き続き `src/data/recent-growth.ts` への手動登録です。`action: published` の記事タイトル・リンクがメタデータから表示されることと、公開記録そのものの自動生成は別です。配置変更などの開発ログは追加しません。
 
 数学とAI理論は記事の主目的で分ける。数式があっても、ガードレール・権限・責任境界などの方式設計が主題なら `ai-design` に残す。`section` と記事URLは維持し、`layer` を正本分類、`readingGroups` を読書導線として扱う。数式・記号リファレンスの正本はReferenceに置き、入口からリンクする。退役・旧記事をカテゴリ充足のために現役へ戻さない。
+
+## 未公開下書きの限定レビュー
+
+`status: draft`かつ`public: false`の記事は、通常の`npm run build`、一覧、検索、フィード、サイトマップへ含めません。公開日を先に設定しません。
+
+レビュー用に選んだIDだけを別出力へ描画します。
+
+```powershell
+node scripts/build-review.mjs essays/what-is-ai essays/cognitive-surrender
+node scripts/verify-review-build.mjs
+$env:ROSARIUM_DRAFT_PREVIEW = "essays/what-is-ai,essays/cognitive-surrender"
+# 指定した環境変数はこのプロセスだけのもの。作業後に除去する。
+try {
+  node node_modules/astro/bin/astro.mjs preview --host 127.0.0.1 --port 4325 --allowed-hosts nullcontroller.tail8bbb3b.ts.net --ignore-lock
+} finally {
+  Remove-Item Env:ROSARIUM_DRAFT_PREVIEW
+}
+```
+
+検証は通常ビルド`dist/`を先に作ってから行います。レビュー用検索は通常ビルドの公開記事インデックスを再利用し、下書きHTMLを索引化しません。レビュー出力は`dist-review/`です。下書きページはnoindex、内部検索対象外、レビュー用表示付きです。noindexはアクセス制御ではありません。既存のTailnet限定接続でのみ共有し、Funnelや本番へ公開しません。レビュー用環境変数をGitHub Actionsや本番に設定しません。Draft PRをレビューしても公開承認やマージを自動的に行いません。
