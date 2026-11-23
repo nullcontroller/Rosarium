@@ -25,6 +25,7 @@ export interface RecentGrowthItem {
   topic?: string;
   summaryChanges?: string[];
   icon?: IconName;
+  relatedLinks?: { path: string; title: string }[];
 }
 
 /** Titles linked from Garden Notes must be explicitly recorded as new publications. */
@@ -38,10 +39,40 @@ export const growthPublishedTargets = (entry: RecentGrowthItem): string[] =>
 // Keep one entry per date; add each reader-facing change as a short changes item.
 // Prioritize new articles/Cases/Books, substantive revisions and content integration.
 // Record content retirement, meaningful page restructuring and new reader-facing features.
-// Do not record content-preserving UI/UX, CSS, layout, navigation placement,
-// typo, internal refactoring or internal SEO settings.
+// Routine cosmetic fixes and internal maintenance are not individual history items.
+// A substantive reader-facing navigation/accessibility revision may be recorded as a whole.
 // Ask what readers can newly read or understand; this is not a development log.
+const informationArchitectureChanges = [
+  "顧客サポートDX Bookの説明・図解とキャリアの紹介を実務に基づく内容へ統一し、PoCの課題分析からRAG管理システムの構築・再評価までを追いやすくした",
+  "トップページの重複した事例紹介を削除し、代表事例を残して「はじめに」への入口を追加した",
+  "AI入口の説明と重複見出しを減らし、既存テーマの代表記事と記事一覧を見つけやすくした",
+  "DX入口は5分類を維持し、各テーマで考えることと最初に読む記事を簡潔に示した",
+  "企画入口を「何を、なぜ、どこまでシステム化するか」から関連記事へ進む構成にし、今後の方向性の説明と分けた",
+  "実践事例一覧の重複した紹介を整理し、事例ごとの見出し階層を修正した",
+  "記事ヘッダーを種別・タイトル・概要・最終更新日に絞り、内部管理値やタグの重複表示を省いた",
+  "記事カードでは主題に合う分類を示し、実務事例・技術解説・論考などの種別を共通の基準で表示した",
+  "検索結果をタイトル・概要・種別・最終更新日で読み比べられる表示にした",
+  "検索や関連記事で使うタグを「生成AI」「AI活用」に統一し、表記の揺れを整理した",
+  "スマートフォンのヘッダーを省スペース化し、主要ページと検索へ折りたたみメニューから移動できるようにした",
+  "トップページは本文の幅に応じて1列・2列を切り替え、タブレットやPCのヘッダーでも文字や操作が重ならないようにした",
+  "記事の見出し階層を整え、図解リンクと補助パネルをキーボードで操作した際の移動・フォーカス復帰を改善した",
+];
 const curatedRecentGrowth = [
+  {
+    date: "2026-11-24", type: "revised", title: "実務事例の説明と、記事を探して読む入口を改訂",
+    changes: informationArchitectureChanges,
+    summaryChanges: informationArchitectureChanges,
+    relatedLinks: [
+      { path: "cases/customer-support-ai-dx", title: "生成AI / RAGによる顧客サポートDX" },
+      { path: "ai", title: "AIの記事を探す" },
+      { path: "dx", title: "DXの記事を探す" },
+      { path: "planning", title: "企画の記事を探す" },
+      { path: "cases", title: "実践事例を見る" },
+      { path: "career", title: "作者のキャリア" },
+      { path: "start-here", title: "はじめに" },
+    ],
+    category: "Rosarium", icon: "updates",
+  },
   {
     date: "2026-10-30", type: "new", title: "AIシステムへの投資判断に関する論考を追加",
     changes: [
@@ -278,6 +309,12 @@ export function validateRecentGrowth(entries: RecentGrowthItem[]) {
       if (!/^[a-z0-9-]+(?:\/[a-z0-9-]+)+$/.test(id)) throw new Error("Garden Notes requires an internal content id: " + id);
       if (targets.has(id)) throw new Error("Duplicate Garden Notes content link: " + id);
       targets.add(id);
+    }
+    const relatedPaths = new Set<string>();
+    for (const link of entry.relatedLinks ?? []) {
+      if (!/^[a-z0-9-]+(?:\/[a-z0-9-]+)*$/.test(link.path) || !link.title.trim()) throw new Error("Invalid Garden Notes related page: " + link.path);
+      if (relatedPaths.has(link.path)) throw new Error("Duplicate Garden Notes related page: " + link.path);
+      relatedPaths.add(link.path);
     }
   }
 }

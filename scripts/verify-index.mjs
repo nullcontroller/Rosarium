@@ -607,7 +607,7 @@ function assertGrowthChanges($, row, entry) {
   const expectedLinks = ids.map(id => ({
     title: entries.get(id)?.title,
     href: `/${id === "career/overview" ? "career" : id}/`,
-  }));
+  })).concat((entry.relatedLinks ?? []).map(link => ({ title: link.title, href: `/${link.path}/` })));
   assert.deepEqual(
     row.find(".growth-changes > li").map((_, item) => $(item).text()).get(),
     [...growthContentChanges(entry), ...expectedLinks.map(link => link.title)],
@@ -618,7 +618,7 @@ function assertGrowthChanges($, row, entry) {
       href: $(item).attr("href"),
     })).get(),
     expectedLinks,
-    "Garden Notes links appear for new publications, not ordinary revisions",
+    "Garden Notes links match new publications and explicitly selected related pages",
   );
 }
 
@@ -640,7 +640,10 @@ for (const [id, data] of entries) {
 
 assert.equal(top("#recent-growth-heading").length, 1);
 assert.equal(top(".home-garden-notes .home-growth-history").length, 1);
-assert.equal(top('main a[href="/cases/"]').length, 1, "Home should have just one case-study link");
+assert.equal(top('.home-hero-layout a[href="/cases/"]').length, 1, "Home keeps one primary case-study link");
+assert.equal(top('main a[href="/cases/"]').length,
+  1 + recentGrowth.slice(0, 3).flatMap(entry => entry.relatedLinks ?? []).filter(link => link.path === "cases").length,
+  "Additional case-study links must be explicitly recorded in Garden Notes");
 assert.equal(top('.home-growth-toolbar a[href="/garden-notes/"]').length, 1);
 assert.equal(top('main a[href="/garden-notes/"]').length, 1);
 assert.equal(top(".home-garden-notes > .home-growth-toolbar").length, 1);

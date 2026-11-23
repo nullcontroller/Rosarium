@@ -18,6 +18,24 @@ test("history rejects duplicate dates or content links across change items", () 
   assert.throws(() => validateRecentGrowth([entry([]), entry([])]));
   assert.throws(() => validateRecentGrowth([entry([{ text: "first", contentIds: ["cases/example"] }, { text: "again", contentIds: ["cases/example"] }])]));
 });
+
+test("November renovation records public changes without announcing review-only drafts", () => {
+  const item = recentGrowth[0];
+  assert.equal(item.date, "2026-11-24");
+  assert.equal(recentGrowth.filter(entry => entry.date === item.date).length, 1);
+  assert.equal(item.type, "revised");
+  assert.deepEqual(growthPublishedTargets(item), []);
+  assert.deepEqual(growthSummary(item, () => false), item.changes);
+  assert.equal(item.changes.length, 13);
+  const links = item.relatedLinks.map(link => link.path);
+  assert.deepEqual(links, ["cases/customer-support-ai-dx", "ai", "dx", "planning", "cases", "career", "start-here"]);
+  assert.doesNotMatch(JSON.stringify(item), /design-studies|what-is-ai|cognitive-surrender|認知的降伏|AIは何者/);
+  assert(recentGrowth.every((entry, i) => i === 0 || recentGrowth[i - 1].date > entry.date));
+  for (const path of ["https://example.com", "../cases", "cases/../secret", "/cases", "cases/design.md"]) {
+    assert.throws(() => validateRecentGrowth([{ ...entry([]), relatedLinks: [{ path, title: "Page" }] }]));
+  }
+  assert.throws(() => validateRecentGrowth([{ ...entry([]), relatedLinks: [{ path: "ai", title: "AI" }, { path: "ai", title: "Again" }] }]));
+});
 test("content links cannot become external URLs or parent traversal paths", () => {
   for (const id of ["https://example.com", "../cases/example", "/cases/example", "cases/../example"]) {
     assert.throws(() => validateRecentGrowth([entry([{ text: "revision", contentIds: [id] }])]));
