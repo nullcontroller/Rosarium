@@ -30,6 +30,15 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html") && !file
   const $ = load(fs.readFileSync(file, "utf8"));
   const date = $('meta[name="last-updated"]').attr("content");
   assert.equal(date, expected.date, `Date source mismatch: ${route}`);
+  const searchDate = $('[data-pagefind-meta="last_updated"]');
+  if (searchDate.length) assert.equal(searchDate.attr("content") ?? searchDate.text().trim(), date, `Search date mismatch: ${route}`);
+  $(".content-entry[data-content-id]").each((_, node) => {
+    const id = $(node).attr("data-content-id");
+    const target = dates.get(id === "career/overview" ? "career" : id);
+    assert(target, `Card date source missing: ${id}`);
+    const [year, month, day] = target.date.split("-").map(Number);
+    assert($(node).find(".content-entry-meta, .publication-date").text().includes(`${year}年${month}月${day}日`), `Card/navigation date mismatch: ${route} -> ${id}`);
+  });
   assert.match(date, /^\d{4}-\d{2}-\d{2}$/);
   const visible = $(".site-last-updated time, .document-header .content-last-updated time, .book-introduction-metadata .content-last-updated time").first();
   if (visible.length) assert.equal(visible.attr("datetime"), date, `Visible date mismatch: ${route}`);

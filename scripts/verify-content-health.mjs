@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import YAML from "yaml";
+import { recentGrowth, validateRecordedRevisionDates } from "../src/data/recent-growth.ts";
 
 const root = "src/content";
 const report = fs.readFileSync("docs/content-modernization-report.md", "utf8");
@@ -28,8 +29,10 @@ const parse = (file) => {
 
 const titles = new Map();
 const publicEntries = [];
+const contentDates = new Map();
 for (const file of files) {
   const { data, body } = parse(file);
+  contentDates.set(file.replace(/^src\/content\//, "").replace(/\.md$/, ""), data);
   assert.ok(data.title?.trim(), `Missing title: ${file}`);
   assert.ok(data.summary?.trim(), `Missing summary: ${file}`);
   assert.notEqual(
@@ -72,6 +75,8 @@ for (const file of files) {
     );
   }
 }
+
+validateRecordedRevisionDates(recentGrowth, contentDates);
 
 const canonicalReferences = publicEntries.filter(
   ({ file, data }) =>

@@ -11,7 +11,7 @@ const names=['executive-summary','why-ai','responsibility-boundary','poc-evaluat
 
 test('support Book preserves eleven ordered routes and publication metadata',()=>{
  assert.deepEqual(fs.readdirSync(root).filter(x=>x.endsWith('.md')).sort(),names.map(x=>x+'.md').sort());
- names.forEach((name,i)=>{const fm=YAML.parse(read(name).split('---')[1]);assert.equal(fm.order,i+1);assert.equal(fm.series,'customer-support-ai-dx');assert(fm.title.startsWith(String(i+1).padStart(2,'0')+'. '));assert.equal(fm.status,'published');assert.equal(fm.last_updated,'2026-10-19');});
+ names.forEach((name,i)=>{const fm=YAML.parse(read(name).split('---')[1]);assert.equal(fm.order,i+1);assert.equal(fm.series,'customer-support-ai-dx');assert(fm.title.startsWith(String(i+1).padStart(2,'0')+'. '));assert.equal(fm.status,'published');assert.equal(fm.last_updated,'2026-11-24');});
 });
 test('real work, PoC findings and unverified production outcomes are distinct',()=>{
  const overview=read();assert(overview.includes('実際に携わった'));assert(overview.includes('72％'));assert(overview.includes('96％'));assert(overview.includes('24パーセントポイント'));assert(overview.includes('本番での回答品質と業務削減効果は確認していません'));

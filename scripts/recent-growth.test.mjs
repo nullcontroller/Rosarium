@@ -3,8 +3,25 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import YAML from "yaml";
 import { contentHistory } from "../src/data/content-history.ts";
-import { recentGrowth, growthChangeText, growthChangeTargets, growthPublishedTargets, growthSummary, validateRecentGrowth } from "../src/data/recent-growth.ts";
+import { recentGrowth, growthChangeText, growthChangeTargets, growthPublishedTargets, growthSummary, validateRecentGrowth, validateRecordedRevisionDates } from "../src/data/recent-growth.ts";
 const entry = changes => ({ date: "2026-10-06", type: "integrated", title: "Integration", changes, category: "Rosarium" });
+test("recorded revisions reject stale dates and unpublished targets", () => {
+  const records = [entry([{ action: "revised", text: "revision", contentIds: ["cases/example"] }])];
+  const content = data => new Map([["cases/example", data]]);
+  assert.throws(() => validateRecordedRevisionDates(records, content({ last_updated: "2026-10-05" })));
+  assert.throws(() => validateRecordedRevisionDates(records, new Map()));
+  for (const visibility of [{ public: false }, { status: "draft" }]) {
+    assert.throws(() => validateRecordedRevisionDates(records, content({ last_updated: "2026-10-06", ...visibility })));
+  }
+  validateRecordedRevisionDates(records, content({ last_updated: "2026-11-24", public: true }));
+  validateRecordedRevisionDates([entry(["Shared UI only"])], new Map());
+});
+
+test("article history uses canonical last_updated before legacy updated_at", () => {
+  const events = contentHistory("cases/example", { published_at: "2026-09-28", last_updated: "2026-11-24", updated_at: "2026-10-19", update_note: "Revision" });
+  assert.equal(events[0].date, "2026-09-28");
+  assert.equal(events.at(-1).date, "2026-11-24");
+});
 test("plain history stays compatible and today's seven substantive revisions are linked once", () => {
   assert.equal(growthChangeText("UI adjustment"), "UI adjustment");
   assert.deepEqual(growthChangeTargets("UI adjustment"), []);
@@ -25,8 +42,9 @@ test("November renovation records public changes without announcing review-only 
   assert.equal(recentGrowth.filter(entry => entry.date === item.date).length, 1);
   assert.equal(item.type, "revised");
   assert.deepEqual(growthPublishedTargets(item), []);
-  assert.deepEqual(growthSummary(item, () => false), item.changes);
-  assert.equal(item.changes.length, 13);
+  assert.deepEqual(growthSummary(item, () => false), item.summaryChanges);
+  assert.equal(item.summaryChanges.length, 13);
+  assert.equal(item.changes.flatMap(growthChangeTargets).length, 13);
   const links = item.relatedLinks.map(link => link.path);
   assert.deepEqual(links, ["cases/customer-support-ai-dx", "ai", "dx", "planning", "cases", "career", "start-here"]);
   assert.doesNotMatch(JSON.stringify(item), /design-studies|what-is-ai|cognitive-surrender|認知的降伏|AIは何者/);

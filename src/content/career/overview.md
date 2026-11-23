@@ -4,7 +4,7 @@ seo_title: "Career | 立林裕太朗のソフトウェア開発・保守とAI活
 summary: "立林裕太朗は、2016年からC# / .NETによるWindowsソフトウェアの開発・保守に従事しています。既存コードと仕様を調べ、AIも活用しながら要件整理・設計・実装・評価につなぐ技術者です。担当経験と確認済みの成果を紹介します。"
 layer: career
 status: stable
-last_updated: "2026-10-19"
+last_updated: "2026-11-24"
 source:
   type: repository
   url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/career/overview.md

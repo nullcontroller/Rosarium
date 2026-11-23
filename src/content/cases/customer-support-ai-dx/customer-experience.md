@@ -5,7 +5,7 @@ title: 06. 顧客体験をどう変えたか
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-19"
+last_updated: "2026-11-24"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []

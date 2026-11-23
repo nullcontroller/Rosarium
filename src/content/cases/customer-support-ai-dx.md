@@ -6,7 +6,7 @@ title: 生成AI / RAGによる顧客サポートDX
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-19"
+last_updated: "2026-11-24"
 entry_points:
   - ai
   - dx

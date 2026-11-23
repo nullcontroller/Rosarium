@@ -60,7 +60,32 @@ const informationArchitectureChanges = [
 const curatedRecentGrowth = [
   {
     date: "2026-11-24", type: "revised", title: "実務事例の説明と、記事を探して読む入口を改訂",
-    changes: informationArchitectureChanges,
+    changes: [
+      {
+        action: "revised",
+        text: "改訂。顧客サポートDXを実務に基づく設計・構築・PoCの記録として整理。初回評価、課題分析、RAG管理システムと属性管理、改善方式の再評価を本文・概要・図解で整合させ、有人引継ぎと設計判断の説明を見直した",
+        contentIds: [
+          "cases/customer-support-ai-dx",
+          "cases/customer-support-ai-dx/executive-summary",
+          "cases/customer-support-ai-dx/why-ai",
+          "cases/customer-support-ai-dx/responsibility-boundary",
+          "cases/customer-support-ai-dx/poc-evaluation",
+          "cases/customer-support-ai-dx/human-handoff",
+          "cases/customer-support-ai-dx/customer-experience",
+          "cases/customer-support-ai-dx/poc-effect-evaluation",
+          "cases/customer-support-ai-dx/knowledge-design",
+          "cases/customer-support-ai-dx/stopping-conditions",
+          "cases/customer-support-ai-dx/poc-metadata-improvement",
+          "cases/customer-support-ai-dx/design-principles",
+        ],
+      },
+      {
+        action: "revised",
+        text: "改訂。顧客サポートDXの担当経験とPoCの確認結果を実務事例として紹介し、本番の業務効果が未測定であることと区別した",
+        contentIds: ["career/overview"],
+      },
+      ...informationArchitectureChanges.slice(1),
+    ],
     summaryChanges: informationArchitectureChanges,
     relatedLinks: [
       { path: "cases/customer-support-ai-dx", title: "生成AI / RAGによる顧客サポートDX" },
@@ -319,6 +344,24 @@ export function validateRecentGrowth(entries: RecentGrowthItem[]) {
   }
 }
 validateRecentGrowth(curatedRecentGrowth);
+
+/** Check explicit editorial records, never filesystem or commit timestamps. */
+export function validateRecordedRevisionDates(
+  entries: RecentGrowthItem[],
+  content: Map<string, { last_updated?: string; status?: string; public?: boolean }>,
+) {
+  for (const entry of entries) for (const change of entry.changes) {
+    if (typeof change === "string" || change.action !== "revised") continue;
+    for (const id of change.contentIds) {
+      const data = content.get(id);
+      if (!data) throw new Error("Revision target missing: " + id);
+      if (data.status === "draft" || data.public === false) throw new Error("Nonpublic revision in Garden Notes: " + id);
+      if (!data.last_updated || data.last_updated < entry.date) {
+        throw new Error(`last_updated precedes recorded revision: ${id} (${data.last_updated} < ${entry.date})`);
+      }
+    }
+  }
+}
 
 export const recentGrowth = curatedRecentGrowth.sort((a, b) =>
   b.date.localeCompare(a.date),

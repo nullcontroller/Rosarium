@@ -23,7 +23,7 @@ tags:
   - Applied AI
   - HITL
 published_at: "2026-09-21"
-updated_at: "2026-09-21"
+last_updated: "2026-09-21"
 update_type: expanded
 update_note: "責任境界と実行権限の整理を追加"
 ---
@@ -31,7 +31,11 @@ update_note: "責任境界と実行権限の整理を追加"
 
 タイトルは共通レイアウトがH1として表示します。本文の見出しは`##`から始めます。
 新規記事に出典や日付を捏造しません。公開日・更新日は不明なら省略できます。
-内容を実質的に変更した場合は`updated_at`を設定します。変化の種類を明示する必要がある場合だけ、`update_type`（new / updated / expanded / revised / connected / reframed）と1行の`update_note`を追加します。Homeと`/updates/`はこれらの値から自動生成されます。
+本文・概要・設計内容・図解を実質的に改訂した場合は、実際の改訂日を`last_updated`へ設定します。初回公開日を示す`published_at`は変更しません。タグの表記統一や共通CSS・UIの変更だけで、全記事の日付を更新しません。ファイルの変更日時やGitの最終コミット日時を、記事の更新日として自動採用しません。
+
+最終更新日の正本は`last_updated`です。記事ヘッダー・カード・Book目次・前後ナビゲーション・検索・構造化データ・サイトマップへ同じ値を渡します。既存の`updated_at`は互換用であり、新たな最終更新日の管理先にしません。必要な場合だけ`update_type`（new / updated / expanded / revised / connected / reframed）と1行の`update_note`を追加します。
+
+GARDEN NOTESは`src/data/recent-growth.ts`で手動管理します。公開記事の実質改訂は`action: revised`と対象の`contentIds`で記録し、記事ごとの更新履歴にも結び付けます。同日の既存記録へ統合し、改訂を新規公開として登録しません。記録日が対象記事の`last_updated`より後になっていないことを`npm run check`で検証します。サイト共通のUI改善は文字列で管理し、記事の改訂履歴へ一律に結び付けません。未公開記事は更新日を管理しても、公開用GARDEN NOTESへタイトルやIDを登録しません。
 `summary`は必須です。本文で実際に扱う内容を1〜2文で要約し、タイトルから推測しません。すべての一覧・章目次・前後リンク・検索結果はこの値だけを概要として表示します。本文を変更したら概要も確認してください。
 
 ## Layer / Topic / Source

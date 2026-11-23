@@ -40,7 +40,7 @@ test("planning references preserve existing classification; support QA records t
   assert(requirements.includes("月400時間から300時間以下"));
   assert(requirements.includes("750件／月のうち600件／月以上"));
   assert(contentHistory("cases/customer-support-ai-dx", {}).some(event => event.date === "2026-10-12"));
-  assert.equal(contentHistory("cases/customer-support-ai-dx", {}).at(-1).date, "2026-10-19");
+  assert.equal(contentHistory("cases/customer-support-ai-dx", {}).at(-1).date, "2026-11-24");
 });
 
 test("planning publication and Career aspirations retain distinct histories", () => {
@@ -50,7 +50,7 @@ test("planning publication and Career aspirations retain distinct histories", ()
   const events = contentHistory("career/overview", data);
   assert.equal(events[0].date, "2026-09-23");
   assert(events.some(event => event.date === "2026-10-12"));
-  assert.equal(events.at(-1).date, "2026-10-19");
+  assert.equal(events.at(-1).date, "2026-11-24");
   assert(events.some(event => event.text?.includes("今後深めたい")));
   const direction = text.split("## 今後広げたい判断領域")[1]?.split("\n## ")[0];
   assert(direction, "Career must have a forward-looking planning direction");

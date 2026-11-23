@@ -28,7 +28,7 @@ export function contentHistory(id: string, data: PublicationData): HistoryEvent[
     return [{ date: entry.date, type, text: text.replace(/^(?:新規公開|改訂|統合|退役)。\s*/, "") }];
   }));
   const recordedPublication = changes.find(event => event.type === "published");
-  const noteDate = (data.updated_at ?? data.last_updated)?.match(/^\d{4}-\d{2}-\d{2}/)?.[0];
+  const noteDate = (data.last_updated ?? data.updated_at)?.match(/^\d{4}-\d{2}-\d{2}/)?.[0];
   if (data.update_note && noteDate) {
     const existing = changes.find(event => event.date === noteDate && event.type === "revised");
     if (existing) {

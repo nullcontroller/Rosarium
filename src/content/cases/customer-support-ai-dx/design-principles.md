@@ -5,7 +5,7 @@ title: 11. この事例から得た設計判断
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-19"
+last_updated: "2026-11-24"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []

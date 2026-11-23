@@ -5,7 +5,7 @@ title: 03. 何をAIに任せ、何を人間に残したか
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-19"
+last_updated: "2026-11-24"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: [system-transformation]
