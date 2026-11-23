@@ -1,0 +1,46 @@
+---
+import Site from "../../layouts/Site.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { url } from "../../lib/site";
+import { getCollection } from "astro:content";
+import { isDraftPreview } from "../../lib/draft-preview.mjs";
+import { selectedDesignStudies } from "../../data/design-studies.mjs";
+import ContentLink from "../../components/ContentLink.astro";
+export function getStaticPaths() {
+  return process.env.ROSARIUM_DRAFT_PREVIEW
+    ? [{ params: { designStudiesPreview: "design-studies" } }]
+    : [];
+}
+const entries = await getCollection("pages", entry => isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW));
+const studies = selectedDesignStudies(process.env.ROSARIUM_DRAFT_PREVIEW)
+  .filter(study => entries.some(entry => entry.id === study.id));
+---
+<Site title="実務から広げるシステム設計ケーススタディ" section="cases" noindex internalSearch={false}>
+  <PageHeader title="実務から広げるシステム設計ケーススタディ" />
+  <p role="note">レビュー用初稿です。記事の公開判断前であり、本番サイトには掲載していません。</p>
+  <p>実務事例で得た知見を出発点に、異なる制約や追加要件を設定して検討する仮想設計です。実際の追加開発や本番運用の実績を示すものではありません。</p>
+  <section>
+    <h2>起点となる実務事例</h2>
+    <p><a href={url("cases/customer-support-ai-dx")}>生成AI / RAGによる顧客サポートDX</a></p>
+    <p>実務Bookは業務・設計・PoCを扱います。本番運用での効果確認とは区別し、この先の設計検討ではケースごとに追加する前提条件を示します。</p>
+  </section>
+  <section>
+    <h2>設計課題から選ぶ</h2>
+    {studies.length === 0 && <p>このレビューでは個別記事が選択されていません。</p>}
+    {studies.map(study => <section>
+      <p class="meta">{study.area} / 仮想設計ケーススタディ</p>
+      <ContentLink entry={entries.find(entry => entry.id === study.id)!} heading="h3" />
+      <dl>
+        <dt>設計課題</dt><dd>{study.question}</dd>
+        <dt>主要な設計判断</dt><dd>{study.decision}</dd>
+      </dl>
+    </section>)}
+  </section>
+  <section>
+    <h2>ケース間の関係と読み方</h2>
+    <p>業務要件で自動化の境界を定め、バッチと移行で利用可能なデータを整え、テストで業務への適合を確かめます。セキュリティと改訂管理は、全体を通して情報の境界と有効な版を維持する論点です。</p>
+    <p>全記事を順番に読む必要はありません。各ケースは背景と制約から独立して読めます。方式や数値の条件は記事ごとに異なり、一つの導入計画や実績として統合しません。</p>
+    <p>FDEは現場分析からシステム設計・継続運用を横断する総合ケースの候補です。現時点の公開記事ではありません。</p>
+    <p><a href={url("cases")}>実践事例の一覧へ戻る</a></p>
+  </section>
+</Site>

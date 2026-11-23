@@ -7,6 +7,7 @@ import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 const all = await getCollection("pages", activeEntry);
 const caseGroups = [{ id: "active-cases", title: "主要事例", description: "", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
+const designStudiesPreview = Boolean(process.env.ROSARIUM_DRAFT_PREVIEW);
 const caseAnchor = (id: string) => `case-${id.split("/").pop()}`;
 
 const headings = [
@@ -81,6 +82,11 @@ const headings = [
         ))}
       </section>
     ))}
+  {designStudiesPreview && <section aria-labelledby="design-studies-heading">
+    <h2 id="design-studies-heading">設計ケーススタディ</h2>
+    <p>実務で得た知見を基に、条件を変えて方式や判断理由を検討する仮想設計です。</p>
+    <p><a href={url("cases/design-studies")}>実務から広げるシステム設計ケーススタディ</a></p>
+  </section>}
 </Site>
 
 <style>

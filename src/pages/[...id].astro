@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import { isDraftPreview } from "../lib/draft-preview.mjs";
+import { selectedDesignStudies } from "../data/design-studies.mjs";
 import Site from "../layouts/Site.astro";
 import { supportPocLegacyFragments } from "../data/support-poc-fragments";
 import { splitRelatedContent, caseEvidenceLinks } from "../lib/related-content.mjs";
@@ -46,6 +47,16 @@ const legacyPocFragments = ["cases/customer-support-ai-dx/poc-effect-evaluation"
 const d = entry.data;
 const isBookIntroduction = entry.id === "cases/customer-support-ai-dx";
 const content = splitRelatedContent(entry.rendered?.html || "");
+// Placement review only: ordinary builds retain the published Book unchanged.
+if (isBookIntroduction && process.env.ROSARIUM_DRAFT_PREVIEW) {
+  const entrance = `<section data-design-studies-preview><h2>この事例を起点に設計を考える</h2><p>実務事例で得た知見を出発点に、異なる制約や追加要件を設定した仮想設計ケーススタディです。実際の追加開発や本番運用の実績とは区別します。</p><p><a href="${url("cases/design-studies")}">発展ケーススタディをテーマから探す →</a></p></section>`;
+  content.body = content.body.replace(/(?=<h2[^>]*>詳細の読み方<\/h2>)/, entrance);
+}
+const studyLinks = selectedDesignStudies(process.env.ROSARIUM_DRAFT_PREVIEW)
+  .filter(study => study.chapters.some(chapter => entry.id === `cases/customer-support-ai-dx/${chapter}`));
+if (studyLinks.length) {
+  content.body += `<section data-design-studies-preview><h2>条件を変えた設計検討</h2><p>実務の追加実績とは区別した仮想設計です。</p><ul>${studyLinks.map(study => `<li><a href="${url(study.id)}">${study.question}</a></li>`).join("")}</ul></section>`;
+}
 const primaryPath = d.section === "cases" ? "cases" : layerPath(d.layer);
 const primaryLabel =
   d.section === "cases" ? "実践事例" : layerLabel(d.layer);
