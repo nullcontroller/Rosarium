@@ -10,6 +10,9 @@ const read = (base, id) => load(fs.readFileSync(path.join(base, id, "index.html"
 const hub = read(root, "cases/design-studies");
 assert.equal(hub("h1").length, 1);
 assert.equal(hub('meta[name="robots"]').attr("content"), "noindex, follow");
+assert.equal(hub("main [data-content-id]").length, 6);
+assert.equal(hub("main dl").length, 0, "Do not repeat each summary as question/decision fields");
+assert(!/このケースの問い|どのように進めるか|FDE/.test(hub("main").text()));
 for (const study of designStudies) {
   assert(!fs.existsSync(`dist/${study.id}/index.html`), `Production leak: ${study.id}`);
   assert(hub(`main a[href='/${study.id}/']`).length, `Missing hub link: ${study.id}`);
@@ -32,6 +35,11 @@ for (const study of designStudies) {
   assert.equal($('meta[name="robots"]').attr("content"), "noindex, follow", study.id);
   assert.equal($("main[data-pagefind-ignore]").length, 1, study.id);
   assert($(".prose").text().includes("仮想設計"), study.id);
+  assert(!/manual-00\d|section-00\d|faq-00\d|report-00\d|\bv[234]\b/.test($(".prose").text()), `Old reader-facing identifier: ${study.id}`);
+  assert(!$(".prose h2").toArray().some(node => $(node).text().includes("補足")), `Standalone supplement: ${study.id}`);
+  for (const a of $(".prose a[href^='#']").toArray()) {
+    assert(renderedIds.includes(decodeURIComponent($(a).attr("href").slice(1))), `Broken fragment: ${study.id}`);
+  }
   if (["metadata-batch", "data-migration"].includes(study.slug)) {
     assert.equal($(".prose figure.case-diagram").length, 2, study.id);
     assert.equal($(".prose figure.case-diagram svg").length, 4, study.id);

@@ -30,13 +30,14 @@ test("each study explains a concrete scenario before its verification plan", () 
   for (const entry of entries) {
     assert((entry.body.match(/^## /gm) ?? []).length >= 6, entry.id);
     assert.match(entry.body, /仮想設計/);
-    assert.match(entry.body, /方式比較は記事として整理/);
+    assert.match(entry.body, /実務経験をもとに、追加の条件を設定して検討した仮想設計ケーススタディです。/);
+    assert.doesNotMatch(entry.body, /方式比較は記事として整理|元資料の設定|実際の改訂履歴ではありません|測定結果や達成率は置きません|実施記録ではありません/);
     if (entry.slug !== "inquiry-analysis") {
       assert(entry.body.includes("/cases/design-studies/"));
       assert(entry.body.includes("/cases/customer-support-ai-dx/"));
     }
-    if (["qualification-testing", "rag-security"].includes(entry.slug)) assert(!/^## .*補足/m.test(entry.body), entry.id);
-    const example = entry.slug === "inquiry-analysis" ? "プリンタの接続設定" : entry.slug === "qualification-testing" ? "Q01" : entry.slug === "rag-security" ? "faq-001" : entry.slug === "document-lifecycle" ? "manual-001" : "文書A";
+    assert(!/^## .*補足/m.test(entry.body), entry.id);
+    const example = entry.slug === "inquiry-analysis" ? "プリンタの接続設定" : entry.slug === "qualification-testing" ? "Q01" : entry.slug === "rag-security" ? "公開FAQ" : "文書A";
     assert(entry.body.includes(example), entry.id);
   }
 });
@@ -47,8 +48,7 @@ test("concrete studies connect examples to six valid responsive SVG models", () 
   for (const slug of ["metadata-batch", "data-migration"]) {
     const entry = entries.find(entry => entry.slug === slug);
     assert.equal((entry.body.match(/data-case-diagram=/g) ?? []).length, 2);
-    if (slug === "metadata-batch") assert.equal((entry.body.match(/^### 判断[①②③④⑤]：/gm) ?? []).length, 5);
-    assert(entry.body.indexOf("文書A") < entry.body.indexOf("## 補足："));
+    assert(entry.body.indexOf("文書A") < entry.body.indexOf("## まとめ"));
     for (const token of ["文書A", "節A", "節B", "Printer-A", "第2版"]) assert(entry.body.includes(token), token);
     for (const match of entry.body.matchAll(/data-case-diagram="([^"]+)"/g)) assert(ids.includes(match[1]));
   }
@@ -104,7 +104,9 @@ test("inquiry classification and workload tables reconcile without turning assum
   }
   assert.equal(workload.reduce((sum, row) => sum + row.hours, 0), 400);
   assert(body.includes("336件") && body.includes("24件"));
-  assert.match(body, /測定結果ではありません/);
+  assert.match(body, /追加負担を考慮する前の必要量/);
+  assert.match(body, /実質的な削減時間は100時間未満/);
+  assert.match(body, /600件は定型750件の80％/);
 });
 
 test("test, security and revision scenarios state expected outcomes and preserve review boundaries", () => {
@@ -113,9 +115,9 @@ test("test, security and revision scenarios state expected outcomes and preserve
   const security = designStudyDiagrams["design-study-security-boundary"];
   assert(security.edges.some(edge => edge.from === "permission" && edge.to === "blocked"));
   assert(!security.edges.some(edge => edge.from === "blocked"));
-  assert(security.nodes.find(node => node.id === "blocked").description.includes("report-001"));
-  for (const value of ["faq-001", "report-001", "無線LANで印刷できない"]) assert(body("rag-security").includes(value));
-  for (const value of ["manual-001", "section-002", "ファームウェア", "変更していない節", "未承認"]) assert(body("document-lifecycle").includes(value));
+  assert(security.nodes.find(node => node.id === "blocked").description.includes("社内報告書"));
+  for (const value of ["公開FAQ", "社内報告書", "無線LANで印刷できない"]) assert(body("rag-security").includes(value));
+  for (const value of ["文書A", "節B", "ファームウェア", "変更していない節", "未承認"]) assert(body("document-lifecycle").includes(value));
   assert(body("metadata-batch").includes("既存結果を使い、候補を追加せず再生成もしない"));
   assert(body("metadata-batch").includes("未承認へ戻したりしません"));
 });
@@ -145,16 +147,16 @@ test("source-based scenarios retain review work and timing without inventing rol
   for (const token of ["夜間", "翌朝", "DX部", "CS部", "500件", "950件以上"]) assert(body("qualification-testing").includes(token), token);
   for (const token of ["2か月", "切替直前", "事前利用"]) assert(body("data-migration").includes(token), token);
   const lifecycle = body("document-lifecycle");
-  for (const token of ["500ページ", "section-001", "section-002", "再確認を求めません", "修正不要", "追加の仮想運用案", "未承認"]) assert(lifecycle.includes(token), token);
+  for (const token of ["500ページ", "節A", "節B", "再確認を求めません", "修正不要", "担当者へ確認依頼を通知", "未承認"]) assert(lifecycle.includes(token), token);
   assert(lifecycle.includes("変更された本文を確認しなくてよいこと"));
-  assert(body("metadata-batch").includes("本ケースで加えた運用案"));
+  assert(body("metadata-batch").includes("初回は手動、通常の差分更新は定期実行、緊急時は臨時起動"));
 });
 
 
 test("reader-facing examples use Japanese names while keeping diagram identities stable", () => {
-  for (const slug of ["metadata-batch", "qualification-testing", "data-migration"]) {
+  for (const slug of ["metadata-batch", "qualification-testing", "data-migration", "document-lifecycle"]) {
     const body = entries.find(entry => entry.slug === slug).body.replace(/<a id="[^"\n]+" aria-hidden="true"><\/a>/g, "");
-    assert(!/manual-00\d|section-00\d|v[23]/.test(body), slug);
+    assert(!/manual-00\d|section-00\d|v[234]/.test(body), slug);
     for (const label of ["文書A", "節A", "節B"]) assert(body.includes(label), slug + label);
   }
   const inquiry = entries.find(entry => entry.slug === "inquiry-analysis").body;
@@ -162,4 +164,11 @@ test("reader-facing examples use Japanese names while keeping diagram identities
   const testing = entries.find(entry => entry.slug === "qualification-testing").body;
   assert(testing.includes("全要求の95％以上が10秒以内に正常完了"));
   assert(!testing.includes("N：要求総数"));
+  const security = entries.find(entry => entry.slug === "rag-security").body.replace(/<a id="[^"\n]+" aria-hidden="true"><\/a>/g, "");
+  assert.doesNotMatch(security, /faq-00\d|report-00\d|v[23]/);
+  for (const model of Object.values(designStudyDiagrams)) {
+    for (const value of [model.title, model.intro ?? "", model.description, ...model.nodes.flatMap(node => [node.label, node.description])]) {
+      assert.doesNotMatch(value, /manual-00\d|section-00\d|faq-00\d|report-00\d|v[234]/);
+    }
+  }
 });
