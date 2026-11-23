@@ -43,6 +43,7 @@ const summaries = growthSummary(entry, id => cases.has(id));
     <ul class="growth-changes content-summary" role="list">
       {summaries.map(text => <li>{text}</li>)}
       {articleLinks.map(({ href, title }) => <li><a href={href}>{title}</a></li>)}
+      {entry.relatedLinks?.map(({ path, title }) => <li><a href={url(path)}>{title}</a></li>)}
     </ul>
   </div>
 </article>

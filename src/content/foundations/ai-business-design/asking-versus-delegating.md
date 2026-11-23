@@ -11,9 +11,9 @@ entry_points:
   - dx
 primaryCategory: business-transformation
 secondaryCategories: []
-tags: &a1
+tags:
   - システム設計
-  - 生成ai
+  - 生成AI
   - aiエージェント
   - hitl
   - aiガバナンス
@@ -28,7 +28,7 @@ source:
   url: https://zenn.dev/nullcontroller/books/76ed12dcc7e5d7/view/10802f
   published_at: null
   publication_month: 2026-08
-  topics: *a1
+  topics: ["システム設計","生成ai","aiエージェント","hitl","aiガバナンス"]
   zenn_type: null
   metadata:
     title: 第3章　AIに聞くことと、AIに仕事を任せることは違う

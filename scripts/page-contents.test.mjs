@@ -74,3 +74,16 @@ test("a marked Book pitch precedes mobile contents and retained metadata", () =>
  assert.equal($('.document-header .meta').length,0);
  assert.equal($('.series-position-inline').length,1);
 });
+
+
+test("h3-only articles render the same semantic hierarchy as their existing TOC without changing anchors or text", () => {
+  const html = '<header><h1>Title</h1></header><div class="prose"><h3 id="first">First</h3><p>Body</p><h4 id="detail">Detail</h4><h3 id="second">Second</h3></div><aside><h3 id="aside">Aside</h3></aside>';
+  const result = pageContents(html, { mode: "always" });
+  const $ = load(result.html);
+  assert.equal($('.prose h2#first').text(), 'First');
+  assert.equal($('.prose h3#detail').text(), 'Detail');
+  assert.equal($('.prose h2#second').text(), 'Second');
+  assert.equal($('aside h3#aside').length, 1);
+  assert.equal($('.prose').text(), 'FirstBodyDetailSecond');
+  assert.deepEqual(result.headings.map(h => [h.depth, h.slug]), [[2, 'first'], [2, 'second']]);
+});

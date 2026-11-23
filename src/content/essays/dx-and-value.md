@@ -14,7 +14,7 @@ primaryCategory: value-design
 secondaryCategories: []
 featuredInCategory: true
 tags:
-  - 生成ai
+  - 生成AI
   - dx
   - 業務設計
   - ai適用判断

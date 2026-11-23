@@ -58,6 +58,11 @@ export function pageContents(html, { headings = [], mode = "auto" } = {}) {
   const useful = mode === "always" || majorCount >= 2 || entryIds.size >= 2 || longSections;
   const selected = useful ? candidates.map((heading) => ({ ...heading, depth: majorCount === 0 ? 2 : heading.depth })) : [];
   for (const heading of selected) $("[id]").filter((_, node) => $(node).attr("id") === heading.slug).attr("data-toc-target", "");
+  // H3-only imported articles already use top-level TOC entries; match the HTML hierarchy.
+  if (majorCount === 0 && nodes.length) {
+    $("h3,h4,h5,h6").filter((_, node) => !$(node).closest(excluded).length)
+      .each((_, node) => { node.name = "h" + (Number(node.tagName.slice(1)) - 1); });
+  }
   return {
     html: $.html(), headings: selected, majorCount, entryCount: entryIds.size,
     reason: selected.length ? (mode === "always" ? "explicit-index" : majorCount >= 2 ? "multiple-h2" : entryIds.size >= 2 ? "multiple-list-entries" : "long-page-sections") : "short-page",

@@ -8,10 +8,10 @@ section: essays
 status: published
 lifecycle: obsolete
 last_updated: "2026-10-06"
-tags: &a1
+tags:
   - キャリア
   - fde
-  - 生成ai
+  - 生成AI
   - aiエンジニア
   - aiアーキテクチャ
 published_at: 2026-08-17 07:26
@@ -25,13 +25,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/5bbc6c7f86194f
   published_at: 2026-08-17 07:26
   publication_month: null
-  topics: *a1
+  topics: ["キャリア","fde","生成ai","aiエンジニア","aiアーキテクチャ"]
   zenn_type: idea
   metadata:
     title: AI人材はFDEだけではない――これから進む専門職の細分化
     emoji: 🧩
     type: idea
-    topics: *a1
+    topics: ["キャリア","fde","生成ai","aiエンジニア","aiアーキテクチャ"]
     published: true
     published_at: 2026-08-17 07:26
 lifecycle_reason: "公開当時のFDEという職名とAI人材の役割分化を論じた記事です。職名や各社の責任範囲は変化するため、現在の職種分類としてではなく、当時の考察として扱います。"

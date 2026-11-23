@@ -174,8 +174,6 @@ import Icon from "./Icon.astro";
             "small",
             [
               result.meta.content_kind,
-              result.meta.category,
-              result.meta.use_case,
               formatLastUpdated(result.meta.last_updated),
             ].filter(Boolean).join(" · "),
           ),

@@ -14,12 +14,12 @@ entry_points:
   - dx
 primaryCategory: business-transformation
 secondaryCategories: [selection-retirement, system-transformation]
-tags: &a1
+tags:
   - ai
   - ソフトウェア設計
   - dx
   - 要件定義
-  - 生成ai
+  - 生成AI
 published_at: 2026-04-03 21:02
 canonical: https://zenn.dev/nullcontroller/articles/ecf0bcfd611d7f
 source:
@@ -31,13 +31,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/ecf0bcfd611d7f
   published_at: 2026-04-03 21:02
   publication_month: null
-  topics: *a1
+  topics: ["ai","ソフトウェア設計","dx","要件定義","生成ai"]
   zenn_type: idea
   metadata:
     title: コード生成AIはなぜ業務を変えないのか — 設計支援として使うべき理由
     emoji: 🧠
     type: idea
-    topics: *a1
+    topics: ["ai","ソフトウェア設計","dx","要件定義","生成ai"]
     published: true
     published_at: 2026-04-03 21:02
 ---

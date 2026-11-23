@@ -9,11 +9,11 @@ status: archived
 lifecycle: retired
 public: true
 last_updated: "2026-10-05"
-tags: &a1
+tags:
   - ai
   - キャリア
   - 品質管理
-  - 生成ai
+  - 生成AI
 published_at: 2026-03-28 14:46
 canonical: https://zenn.dev/nullcontroller/articles/7f7cb55c4ebcaa
 source:
@@ -25,13 +25,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/7f7cb55c4ebcaa
   published_at: 2026-03-28 14:46
   publication_month: null
-  topics: *a1
+  topics: ["ai","キャリア","品質管理","生成ai"]
   zenn_type: idea
   metadata:
     title: AI時代において「レビューできる人」が価値を持つ理由
     emoji: 🤖
     type: idea
-    topics: *a1
+    topics: ["ai","キャリア","品質管理","生成ai"]
     published: true
     published_at: 2026-03-28 14:46
 lifecycle_reason: "この内容は現在の推奨ではありません。人によるレビューについては「AI出力の責任境界とHITL」で、採用・承認・実行の責任を確認できます。"

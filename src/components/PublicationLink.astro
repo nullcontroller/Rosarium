@@ -2,12 +2,12 @@
 import type { Entry } from "../lib/navigation";
 import {
   publicationType,
+  contentDisplayCategory,
   publicationStatus,
   caseStudies,
 } from "../lib/navigation";
 import { iconForEntry } from "../lib/icons";
 import { formatDateJa, url } from "../lib/site";
-import { contentUseCases } from "../lib/use-cases";
 import Icon from "./Icon.astro";
 interface Props {
   entry: Entry;
@@ -16,7 +16,7 @@ interface Props {
 }
 const { entry, heading: Heading = "h3", showIcon = true } = Astro.props;
 const d = entry.data;
-const purposes = contentUseCases(entry);
+const category = contentDisplayCategory(entry);
 const publicationState = publicationStatus(entry);
 const caseStudy = caseStudies.find((study) => study.book === entry.id);
 ---
@@ -32,14 +32,11 @@ const caseStudy = caseStudies.find((study) => study.book === entry.id);
     )}
     {d.lifecycle === "obsolete" && !caseStudy && <p class="case-reference-note"><span>OBSOLETE</span> 当時の前提に基づく参考記事</p>}
     <p class="content-summary">{d.summary}</p>
-    {purposes.length > 0 && (
-      <p class="meta publication-purpose publication-topics">
-        {purposes.map((purpose) => purpose.shortTitle).join(" / ")}
-      </p>
-    )}
+
     <p class="meta publication-date">
       {publicationState && <span>状態：{publicationState}</span>}
-      <span>{publicationType(entry)}</span>
+      <span data-content-category>{category}</span>
+      {(publicationType(entry) === "Book" || publicationType(entry) === "連載") && <span>{publicationType(entry)}</span>}
       最終更新：{formatDateJa(d.last_updated)}
     </p>
   </div>

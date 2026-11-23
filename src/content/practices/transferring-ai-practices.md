@@ -14,9 +14,9 @@ entry_points:
   - dx
 primaryCategory: continuous-value
 secondaryCategories: [business-transformation]
-tags: &a1
-  - 生成ai
-  - ai活用
+tags:
+  - 生成AI
+  - AI活用
   - ai設計
 published_at: 2026-08-27 22:58
 updated_at: "2026-09-22"
@@ -30,13 +30,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/3a18f3f15b840a
   published_at: 2026-08-27 22:58
   publication_month: null
-  topics: *a1
+  topics: ["生成ai","ai活用","ai設計"]
   zenn_type: idea
   metadata:
     title: 全員の業務が違うのに、AI活用事例をそのまま横展開できるのか
     emoji: 🧱
     type: idea
-    topics: *a1
+    topics: ["生成ai","ai活用","ai設計"]
     published: true
     published_at: 2026-08-27 22:58
 ---

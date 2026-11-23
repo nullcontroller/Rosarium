@@ -25,6 +25,13 @@ for (const file of walk("dist").filter((name) => name.endsWith(".html") && !name
     0,
     `Positive tabindex: ${file}`,
   );
+  let previousHeading = 0;
+  $("main h1,main h2,main h3,main h4,main h5,main h6").each((_, element) => {
+    if ($(element).closest("nav,aside,[hidden],[aria-hidden='true']").length) return;
+    const level = Number(element.tagName.slice(1));
+    assert(previousHeading === 0 || level <= previousHeading + 1, `Heading level skipped: ${file}: ${$(element).text()}`);
+    previousHeading = level;
+  });
   const ids = $("[id]")
     .map((_, element) => $(element).attr("id"))
     .get();

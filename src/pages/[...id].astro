@@ -1,5 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
+import { isDraftPreview } from "../lib/draft-preview.mjs";
+import { designStudies, selectedDesignStudies } from "../data/design-studies.mjs";
 import Site from "../layouts/Site.astro";
 import { supportPocLegacyFragments } from "../data/support-poc-fragments";
 import { splitRelatedContent, caseEvidenceLinks } from "../lib/related-content.mjs";
@@ -7,6 +9,7 @@ import {
   layerPath,
   bookChapterNumber,
   contentCategory,
+  contentType,
   topicLabel,
   publicationStatus,
   publicationTiming,
@@ -26,7 +29,7 @@ import {
   contentEntryPoints,
 } from "../lib/entry-points";
 export async function getStaticPaths() {
-  return (await getCollection("pages", (entry) => publishedEntry(entry) && !["cases/ai-technical-investigation/investigation-principles", "software-engineering/ai-technical-investigation-design", "evaluation-hitl/customer-support-qa-poc", "practices/ai-adoption-and-effective-use", "practices/ai-education-principles", "practices/transferring-ai-practices", "essays/what-not-to-build-with-ai", "architecture/agents-tools-and-workflows", "foundations/generation-and-acceptance", "cases/understanding-systems-as-capability", "software-engineering/ai-driven-development", "software-engineering/code-generation-boundaries", "software-engineering/code-generation-and-work-design"].includes(entry.id))).map((entry) => ({
+  return (await getCollection("pages", (entry) => (publishedEntry(entry) || isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW)) && !["cases/ai-technical-investigation/investigation-principles", "software-engineering/ai-technical-investigation-design", "evaluation-hitl/customer-support-qa-poc", "practices/ai-adoption-and-effective-use", "practices/ai-education-principles", "practices/transferring-ai-practices", "essays/what-not-to-build-with-ai", "architecture/agents-tools-and-workflows", "foundations/generation-and-acceptance", "cases/understanding-systems-as-capability", "software-engineering/ai-driven-development", "software-engineering/code-generation-boundaries", "software-engineering/code-generation-and-work-design"].includes(entry.id))).map((entry) => ({
     params: { id: entry.id },
     props: { entry },
   }));
@@ -43,8 +46,22 @@ const legacyPocFragments = ["cases/customer-support-ai-dx/poc-effect-evaluation"
     }));
 
 const d = entry.data;
+// Real-work labels are limited to the existing evidence registry and its chapters.
+const isDesignStudy = designStudies.some(study => study.id === entry.id);
+const type = contentType(entry);
+const articleType = type === "実務事例" || type === "仮想設計" ? `実践事例 / ${type}` : type;
 const isBookIntroduction = entry.id === "cases/customer-support-ai-dx";
 const content = splitRelatedContent(entry.rendered?.html || "");
+// Placement review only: ordinary builds retain the published Book unchanged.
+if (isBookIntroduction && process.env.ROSARIUM_DRAFT_PREVIEW) {
+  const entrance = `<section data-design-studies-preview><h2>この事例を起点に設計を考える</h2><p>実務事例で得た知見を出発点に、異なる制約や追加要件を設定した仮想設計ケーススタディです。実際の追加開発や本番運用の実績とは区別します。</p><p><a href="${url("cases/design-studies")}">発展ケーススタディをテーマから探す →</a></p></section>`;
+  content.body = content.body.replace(/(?=<h2[^>]*>詳細の読み方<\/h2>)/, entrance);
+}
+const studyLinks = selectedDesignStudies(process.env.ROSARIUM_DRAFT_PREVIEW)
+  .filter(study => study.chapters.some(chapter => entry.id === `cases/customer-support-ai-dx/${chapter}`));
+if (studyLinks.length) {
+  content.body += `<section data-design-studies-preview><h2>条件を変えた設計検討</h2><p>実務の追加実績とは区別した仮想設計です。</p><ul>${studyLinks.map(study => `<li><a href="${url(study.id)}">${study.question}</a></li>`).join("")}</ul></section>`;
+}
 const primaryPath = d.section === "cases" ? "cases" : layerPath(d.layer);
 const primaryLabel =
   d.section === "cases" ? "実践事例" : layerLabel(d.layer);
@@ -74,6 +91,20 @@ const purposes = contentUseCases(entry);
 const timing = publicationTiming(entry);
 const publicationState = publicationStatus(entry);
 const entryPoints = contentEntryPoints(entry);
+const breadcrumbs = [
+    { name: "庭", path: "" },
+    { name: primaryLabel, path: primaryPath },
+    ...(isDesignStudy ? [{ name: "発展ケーススタディ", path: "cases/design-studies" }] : []),
+    ...(d.design_topic
+      ? [
+          {
+            name: topicLabel(d.design_topic) || d.design_topic,
+            path: "ai-design/" + d.design_topic,
+          },
+        ]
+      : []),
+    { name: d.title, path: entry.id },
+  ];
 const bookNavigation = series.length
   ? {
       title: d.series_title || series[0].data.title,
@@ -96,30 +127,23 @@ const bookNavigation = series.length
   summary={d.summary}
   canonical={d.canonical}
   ogType="article"
-  noindex={d.lifecycle === "retired"}
-  internalSearch
+  noindex={d.lifecycle === "retired" || d.status === "draft"}
+  internalSearch={d.status !== "draft"}
   searchLifecycle={d.lifecycle}
   publishedAt={d.published_at}
   lastUpdated={d.last_updated}
   showLastUpdated={false}
   section={primaryPath}
   headings={headings.filter((heading) => content.body.includes(`id="${heading.slug}"`)).map((heading) => ({ ...heading, text: heading.text.replace("Related Design Principles", "関連する設計原則").replace("Related Design", "関連する設計") }))}
-  breadcrumbs={[
-    { name: "庭", path: "" },
-    { name: primaryLabel, path: primaryPath },
-    ...(d.design_topic
-      ? [
-          {
-            name: topicLabel(d.design_topic) || d.design_topic,
-            path: "ai-design/" + d.design_topic,
-          },
-        ]
-      : []),
-    { name: d.title, path: entry.id },
-  ]}
+  breadcrumbs={breadcrumbs}
   bookNavigation={bookNavigation}
 >
-  <nav class="breadcrumb">
+  {d.status === "draft" && <p class="meta" role="note">レビュー用初稿：内容・公開可否は所有者の確認前です。</p>}
+  <nav class="breadcrumb" aria-label="パンくず">
+    {isDesignStudy ? breadcrumbs.map((item,index) => <>
+      {index > 0 && <span aria-hidden="true"> ＞ </span>}
+      <a href={url(item.path)} aria-current={index === breadcrumbs.length - 1 ? "page" : undefined}>{item.name}</a>
+    </>) : <>
     <a href={url()}>庭</a> / <a href={url(primaryPath)}>{primaryLabel}</a>
     {d.design_topic && (
       <>
@@ -130,13 +154,15 @@ const bookNavigation = series.length
         </a>
       </>
     )}
+    </>}
   </nav>
   <article data-lifecycle={d.lifecycle} data-pagefind-body>
     <header class="document-header">
       <p class="eyebrow">
-        <span hidden data-pagefind-meta="content_kind">{d.kind === "case" || d.layer === "case" || d.section === "cases" ? "事例" : "記事"}</span>
-        <span data-pagefind-meta="category">{contentCategory(entry)}</span> /{" "}
-        <span data-pagefind-meta="layer">{layerLabel(d.layer)}</span> / {d.kind}
+        <span hidden data-pagefind-meta="content_kind">{type}</span>
+        <span hidden data-pagefind-meta="category">{contentCategory(entry)}</span>
+        <span hidden data-pagefind-meta="layer">{layerLabel(d.layer)}</span>
+        <span>{articleType}</span>
       </p>
       <div class="document-title-row">
         <Icon name={iconForEntry(entry)} size="page" />
@@ -150,19 +176,19 @@ const bookNavigation = series.length
       )}
       <p class="meta">
         <span hidden data-pagefind-meta="status">公開</span>
-        {publicationState && <span>状態：{publicationState}</span>}
+        {publicationState && <span hidden={publicationState === "公開"}>状態：{publicationState}</span>}
         <ContentHistory lastUpdated={d.last_updated} />
         <span hidden data-pagefind-meta="last_updated">{d.last_updated}</span>
       </p>
       {(d.publication_format || d.layer === "publication") && (
         <span hidden data-pagefind-meta="publication">{timing.value}</span>
       )}
-      <p class="tags" data-pagefind-meta="tags">
+      <p class="tags" hidden data-pagefind-meta="tags">
         {d.tags.join(" / ")}
       </p>
       <span hidden data-pagefind-meta="entry_point">{entryPoints.join(" ")}</span>
       {purposes.length > 0 && (
-        <p class="content-purpose" data-pagefind-meta="use_case">
+        <p class="content-purpose" hidden data-pagefind-meta="use_case">
           <span>読む目的：</span>{" "}
           {purposes.map((purpose, index) => (
             <>
@@ -225,3 +251,8 @@ const bookNavigation = series.length
     window.addEventListener("hashchange", followLegacyPocFragment);
   </script>}
 </Site>
+
+<style>
+  .document-header > .eyebrow { order: 0; }
+  .document-header > .document-title-row { order: 1; }
+</style>

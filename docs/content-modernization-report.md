@@ -199,9 +199,9 @@
 
 - `src/content/evaluation-hitl/customer-support-qa-poc.md`：RETIRED（2026-10-19統合）。PoC詳細の正規本文を本編第04章・第08章・第10章へ集約。公開日と履歴のメタデータだけを保持し、旧URLは第10章へ転送する。通常一覧・検索・サイトマップへ独立記事として掲載しない。
 
-- `src/content/cases/customer-support-ai-dx/poc-effect-evaluation.md`：同じCaseの第08章。開発後の第2回PoCで初期方式の評価と問題発見を扱う。改善と再実施の結果は第10章へ分離する。
+- `src/content/cases/customer-support-ai-dx/poc-effect-evaluation.md`：【訂正】同じCaseの第07章。第1回PoCで初期方式を評価した結果と課題分析を扱う。改善と再実施の結果は第10章へ分離する。
 
-- `src/content/cases/customer-support-ai-dx/poc-metadata-improvement.md`：同じCaseの第10章。検索対象制御と回答許可判定の改善、PoC再実施、文書検索の適合率98％への改善と月280時間相当の試算を説明。具体的な成功件数や未確認の安全性指標、商用運用の実測成果は追加しない。
+- `src/content/cases/customer-support-ai-dx/poc-metadata-improvement.md`：同じCaseの第10章。検索対象制御と回答許可判定の改善、PoC再実施、【訂正】第1回72％から第2回96％への回答正答率の改善（検索適合率という旧表記を訂正）と月280時間相当の試算を説明。具体的な成功件数や未確認の安全性指標、商用運用の実測成果は追加しない。
 
 ## 2026-10-29：生成AIによる技術調査の設計を追加
 
@@ -256,3 +256,27 @@
 ## 2026-10-30 AI投資判断の論考を追加
 
 - `src/content/essays/ai-investment-value-cost-evolution.md`：NEW。既存の考察分類・価値設計に配置。自律化そのものではなく価値と総コストを比較し、標準AI環境との差分、人間の判断、技術進化への追随と撤退の負担から追加開発を判断する。概念式を財務ROIや測定済み効果と区別し、既存の作らない判断・余力の使途の記事へリンクする。社内事例・未測定の数値は使用しない。公開対象メタデータはローカル検証用であり、commit・push・デプロイは別途承認まで行わない。
+
+## 2026-11-13 思索記事2件のレビュー用下書き
+
+- `src/content/essays/what-is-ai.md`：DRAFT。人格らしい振る舞い・関係の認識・主観的意識を区別し、知性拡張を中心に考察する独立初稿。既存の信頼・責任・価値の記事は置換しない。
+- `src/content/essays/cognitive-surrender.md`：DRAFT。研究上の提案としての認知的降伏と、オフローディング・自動化バイアス・過度の依存を整理。実験・自己申告・長期的影響を区別し、合理的委任と主体性を考察する。両稿ともstatus: draft、public: false。通常ビルド・一覧・検索・フィードに掲載せず、明示選択したTailnetプレビューのみで表示する。所有者による内容確定・本番公開は未承認。
+
+## 2026-11-23：発展ケース6記事の非公開初稿
+
+実務の顧客サポートDX Bookとは別の仮想設計として、以下を独立記事に配置する。すべて `status: draft` / `public: false` とし、公開日は設定しない。Bookの事実・数値・章順は変更しない。候補の生成、レビュー、評価は設計・計画として記し、論文内の実施・本番運用の叙述は引き継がない。
+
+| 配置 | 役割・採用判断 | 参考素材の対応 |
+| --- | --- | --- |
+| `src/content/cases/design-studies/inquiry-analysis.md` | 保留分類を現場の判断条件で解き、工数と追加負担へつなぐ | 問い合わせ分析・業務要件の論文素材 |
+| `src/content/cases/design-studies/metadata-batch.md` | 処理状態と承認状態、再試行と判定不能を分離 | バッチ処理の論文素材 |
+| `src/content/cases/design-studies/qualification-testing.md` | 業務機能・性能、自動照合・業務レビューを分担 | テストの論文素材 |
+| `src/content/cases/design-studies/data-migration.md` | 構造変換、事前移行、現場の受入れと最終差分 | 移行の論文素材。原本を変えず検索用データを分離する条件を明示 |
+| `src/content/cases/design-studies/rag-security.md` | 公開承認・取得権限・失効と検索属性を分離 | セキュリティの論文素材。版ごとの公開承認を追加前提にする |
+| `src/content/cases/design-studies/document-lifecycle.md` | 変更節・共通属性の影響、修正不要判定のレビュー、有効版切替 | 業務要件・DX・QA・FDEの論文素材 |
+
+方式比較と追加の障害・並行実行の考察は記事として整理した仮想設計であり、実際の比較実験や障害記録ではない。数値は問い合わせ分析・バッチ容量・テスト要件に必要な説明用仮定へ限定する。比較表、処理段階表、状態表、権限表で責務と順序を示し、新しい描画ライブラリは追加しない。
+
+一覧は既存の `cases/design-studies/` を維持し、明示選択した初稿だけを掲載する。元の実務Bookと関連章へのリンクは、レビュー用レンダリングに限って追加する。通常ビルドのCase証拠対応表・検索・フィード・更新履歴には登録しない。参考資料そのもの、社内識別子、原文の会話やコードは格納しない。
+
+ローカルのレビュー出力は `dist-design-review/` とし、現在ステージングが配信している `dist-review/` を更新しない。公開・ステージング反映・commit・pushは本作業に含めない。

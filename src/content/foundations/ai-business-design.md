@@ -12,9 +12,9 @@ entry_points:
   - dx
 primaryCategory: business-transformation
 secondaryCategories: [value-design]
-tags: &a1
+tags:
   - システム設計
-  - 生成ai
+  - 生成AI
   - aiエージェント
   - hitl
   - aiガバナンス
@@ -29,7 +29,7 @@ source:
   url: https://zenn.dev/nullcontroller/books/76ed12dcc7e5d7
   published_at: null
   publication_month: 2026-02
-  topics: *a1
+  topics: ["システム設計","生成ai","aiエージェント","hitl","aiガバナンス"]
   zenn_type: null
   metadata:
     title: 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』
@@ -70,7 +70,7 @@ source:
       > **AIを安全かつ継続的に業務へ組み込める状態を設計する段階へ。**
 
       そのために必要な設計を、一つずつ考えていきます。
-    topics: *a1
+    topics: ["システム設計","生成ai","aiエージェント","hitl","aiガバナンス"]
     published: true
     price: 0
     toc_depth: 2

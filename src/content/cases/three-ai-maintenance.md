@@ -12,9 +12,9 @@ entry_points:
   - dx
 primaryCategory: system-transformation
 secondaryCategories: []
-tags: &a1
+tags:
   - ソフトウェア設計
-  - 生成ai
+  - 生成AI
   - オーケストレーション
   - hitl
   - 保守開発
@@ -30,7 +30,7 @@ source:
   url: https://zenn.dev/nullcontroller/books/b9a9feaefb4001
   published_at: null
   publication_month: 2026-07
-  topics: *a1
+  topics: ["ソフトウェア設計","生成ai","オーケストレーション","hitl","保守開発"]
   zenn_type: null
   metadata:
     title: 3つのAIをオーケストレーションしたレガシー保守
@@ -52,7 +52,7 @@ source:
       想定開発期間も7割短縮できた。
 
       本書で扱うのは、AIへの丸投げではない。人間が前提と判断基準を定め、AIの出力をリスクに応じて利用しながら、要件検討から仕様化、実装、承認までをつなぐ方法である。
-    topics: *a1
+    topics: ["ソフトウェア設計","生成ai","オーケストレーション","hitl","保守開発"]
     published: true
     price: 0
     toc_depth: 2

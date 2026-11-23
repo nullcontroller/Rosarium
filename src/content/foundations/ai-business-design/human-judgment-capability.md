@@ -12,9 +12,9 @@ entry_points:
   - dx
 primaryCategory: business-transformation
 secondaryCategories: []
-tags: &a1
+tags:
   - システム設計
-  - 生成ai
+  - 生成AI
   - aiエージェント
   - hitl
   - aiガバナンス
@@ -29,7 +29,7 @@ source:
   url: https://zenn.dev/nullcontroller/books/76ed12dcc7e5d7/view/b165bb
   published_at: null
   publication_month: null
-  topics: *a1
+  topics: ["システム設計","生成ai","aiエージェント","hitl","aiガバナンス"]
   zenn_type: null
   metadata:
     title: 第5章　AI時代、人間には「判断する力」が求められる

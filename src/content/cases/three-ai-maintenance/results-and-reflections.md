@@ -6,9 +6,9 @@ kind: case
 section: cases
 status: published
 last_updated: "2026-10-04"
-tags: &a1
+tags:
   - ソフトウェア設計
-  - 生成ai
+  - 生成AI
   - オーケストレーション
   - hitl
   - 保守開発
@@ -23,7 +23,7 @@ source:
   url: https://zenn.dev/nullcontroller/books/b9a9feaefb4001/view/c8af5c
   published_at: null
   publication_month: 2026-08
-  topics: *a1
+  topics: ["ソフトウェア設計","生成ai","オーケストレーション","hitl","保守開発"]
   zenn_type: null
   metadata:
     title: 第7章　成果と考察

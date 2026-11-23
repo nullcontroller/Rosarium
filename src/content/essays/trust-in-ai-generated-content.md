@@ -8,11 +8,11 @@ section: essays
 status: published
 lifecycle: active
 last_updated: "2026-09-28"
-tags: &a1
+tags:
   - レビュー
-  - 生成ai
+  - 生成AI
   - 情報発信
-  - ai活用
+  - AI活用
   - 文書術
 published_at: 2026-08-23 11:47
 canonical: https://zenn.dev/nullcontroller/articles/dfd99f00db85d7
@@ -25,13 +25,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/dfd99f00db85d7
   published_at: 2026-08-23 11:47
   publication_month: null
-  topics: *a1
+  topics: ["レビュー","生成ai","情報発信","ai活用","文書術"]
   zenn_type: tech
   metadata:
     title: AI生成コンテンツは、なぜ信頼されにくいのか
     emoji: 🔍
     type: tech
-    topics: *a1
+    topics: ["レビュー","生成ai","情報発信","ai活用","文書術"]
     published: true
     published_at: 2026-08-23 11:47
 ---

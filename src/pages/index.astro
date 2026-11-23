@@ -5,7 +5,6 @@ import { recentGrowth } from "../data/recent-growth";
 import PageHeader from "../components/PageHeader.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import { url } from "../lib/site";
-import { featuredCaseHighlights } from "../lib/navigation";
 
 const recent = recentGrowth.slice(0, 3);
 ---
@@ -23,6 +22,8 @@ const recent = recentGrowth.slice(0, 3);
     >
       <p class="meta home-career-link"><a class="action-link" href={url("career")}>作者のキャリア</a></p>
       <p class="meta">
+        <a class="action-link" href={url("start-here")}>はじめに</a>
+        <span aria-hidden="true"> · </span>
         <a class="action-link" href={url("about")}>Rosariumとは？</a>
         <span aria-hidden="true"> · </span>
         <a class="action-link" href={url("cases")}>実践事例を見る</a>
@@ -31,27 +32,12 @@ const recent = recentGrowth.slice(0, 3);
     <aside class="home-main-case" aria-labelledby="home-main-case-heading">
       <p class="eyebrow">MAIN CASE / 代表設計事例</p>
       <h2 id="home-main-case-heading">問い合わせDXの要件・方式設計</h2>
-      <p>業務要求をシステム要件へ具体化。生成AI・RAG・検索対象制御・回答許可判定・有人引継ぎ・評価条件を設計しました。</p>
-      <p class="meta">設計・検証シナリオであり、本番導入済みの実績ではありません。</p>
+      <p>実際の業務課題をもとにRAG管理システムを設計・構築し、製品・版数・利用環境による検索対象制御を導入。PoCの回答正答率を72％から96％へ改善し、設定した目標を達成した実務事例です。</p>
+      <p class="meta">本番運用での業務効果は測定していません。</p>
       <a class="cta-link" href={url("cases/customer-support-ai-dx")}>問い合わせDXの設計事例を見る <span aria-hidden="true">→</span></a>
     </aside>
   </div>
 
-  <section class="home-section home-panel" aria-labelledby="home-cases-heading">
-    <SectionHeading icon="cases" title="代表実績・設計事例" id="home-cases-heading" />
-    <section aria-labelledby="featured-case-heading">
-      <p class="eyebrow">{featuredCaseHighlights[0].category}</p>
-      <h3 id="featured-case-heading"><a href={url(featuredCaseHighlights[0].id)}>{featuredCaseHighlights[0].title}</a></h3>
-      <p>業務要件、検索と回答許可の責任境界、PoCでの方式改善をBookで説明します。</p>
-    </section>
-    <h3>設計を支える実務実績</h3>
-    <ul>
-      {featuredCaseHighlights.slice(1).map((item) => <li>
-        <a href={url(item.id)}>{item.title}</a> <span class="meta">{item.category}</span>
-        <p>{item.summary}</p>
-      </li>)}
-    </ul>
-  </section>
   <section class="home-section home-panel home-garden-notes" aria-labelledby="recent-growth-heading">
     <SectionHeading icon="updates" eyebrow="GARDEN NOTES" title="最近の手入れ" id="recent-growth-heading" />
     <div class="home-growth-toolbar">
@@ -67,7 +53,7 @@ const recent = recentGrowth.slice(0, 3);
 
 <style>
   .home-career-link { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem; }
-  .home-hero-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 1.5rem; align-items: stretch; margin-bottom: 1.3rem; }
+  .home-hero-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.5rem; align-items: stretch; margin-bottom: 1.3rem; }
   .home-hero-layout :global(.page-heading) { min-width: 0; margin-bottom: 0; }
   .home-hero-layout :global(.lead) { white-space: pre-line; }
   .home-main-case { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 1.125rem 1.375rem; border: 1px solid var(--accent); border-radius: var(--home-panel-radius, .35rem); background: color-mix(in srgb, var(--home-panel-surface, var(--surface)) 94%, var(--accent)); }
@@ -77,13 +63,8 @@ const recent = recentGrowth.slice(0, 3);
   .home-main-case a { display: inline-flex; align-items: center; align-self: flex-start; gap: .5rem; min-height: 44px; color: var(--accent); font-size: .95rem; font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .25em; }
   .home-main-case:hover, .home-main-case:focus-within { border-color: var(--accent); }
   .home-main-case a:hover { color: var(--ink); }
-  @media (min-width: 1100px) {
-    .home-hero-layout { grid-template-columns: minmax(0, 1fr) 34rem; max-width: 84rem; margin-inline: auto; }
-    .home-main-case { justify-self: end; width: 100%; }
-
-  }
   @media (max-width: 800px) {
-    .home-hero-layout { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+    .home-hero-layout { gap: .75rem; }
     .home-main-case { padding: 1rem; }
   }
 

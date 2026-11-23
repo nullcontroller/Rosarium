@@ -1,9 +1,8 @@
 ---
-import { contentCategory, publicationType } from "../lib/navigation";
+import { contentDisplayCategory, publicationType } from "../lib/navigation";
 import { iconForEntry } from "../lib/icons";
 import type { CollectionEntry } from "astro:content";
 import { formatDateJa, url } from "../lib/site";
-import { dxCategoryForId } from "../lib/dx";
 import Icon from "./Icon.astro";
 interface Props {
   entry: CollectionEntry<"pages">;
@@ -14,18 +13,15 @@ interface Props {
 const { entry, heading: Heading = "h2", current = false, showIcon = true } = Astro.props;
 const d = entry.data;
 const format = publicationType(entry);
-// Discovery entry points and secondary categories remain metadata, not badges.
-const category = dxCategoryForId(d.primaryCategory ?? "")?.title ?? contentCategory(entry);
-const inTheme = /\/(?:ai|ai-design|dx)(?:\/|$)/.test(Astro.url.pathname);
-const showCategory = !inTheme && !(format === "Essay" && category === "Essays");
+const category = contentDisplayCategory(entry);
 ---
 
 <div class:list={["content-entry", showIcon && "icon-entry"]} data-content-id={entry.id} data-lifecycle={d.lifecycle}>
   {showIcon && <Icon name={iconForEntry(entry)} size="list" />}
   <div>
     <p class="meta content-entry-meta">
-      <span>{format}</span>
-      {showCategory && <span>{category}</span>}
+      <span data-content-category>{category}</span>
+      {(format === "Book" || format === "連載") && <span>{format}</span>}
       最終更新：{formatDateJa(d.last_updated)}
     </p>
     <Heading class="content-title">

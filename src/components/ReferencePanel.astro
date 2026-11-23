@@ -155,7 +155,10 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
     history.scrollRestoration = previousRestoration;
     syncTriggers(false);
     window.scrollTo({ top: scroll, behavior: "instant" });
-    opener?.focus({ preventScroll: true });
+    const returnFocus = opener?.getClientRects().length && !opener.closest("details:not([open]),[hidden],[inert]")
+      ? opener
+      : document.querySelector<HTMLElement>("[data-mobile-navigation] > summary");
+    returnFocus?.focus({ preventScroll: true });
     mobileHistory = false;
   }
   function close() {
@@ -209,8 +212,8 @@ const entries = referenceEntries(await getCollection("pages", activeEntry));
   syncTriggers(false);
   document.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;
-    const link = event.target.closest<HTMLAnchorElement>("a[href]");
-    if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target === "_blank" || link.hasAttribute("data-reference-page")) return;
+    const link = event.target.closest("a[href]");
+    if (!(link instanceof HTMLAnchorElement) || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target === "_blank" || link.hasAttribute("data-reference-page")) return;
     const target = new URL(link.href);
     if (target.origin !== location.origin || (!urls.has(target.pathname) && target.pathname !== referenceUrl) || (desktop.matches && !host)) return;
     event.preventDefault();

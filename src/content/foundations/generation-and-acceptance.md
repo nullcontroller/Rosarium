@@ -14,11 +14,11 @@ entry_points:
   - dx
 primaryCategory: business-transformation
 secondaryCategories: []
-tags: &a1
+tags:
   - ai
   - 業務改善
   - 業務設計
-  - 生成ai
+  - 生成AI
   - hitl
 published_at: 2026-08-07 19:26
 canonical: https://zenn.dev/nullcontroller/articles/7e06dd0e4e67d2
@@ -31,13 +31,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/7e06dd0e4e67d2
   published_at: 2026-08-07 19:26
   publication_month: null
-  topics: *a1
+  topics: ["ai","業務改善","業務設計","生成ai","hitl"]
   zenn_type: idea
   metadata:
     title: AIは自動化できる。しかし、その出力を確定値として扱ってはいけない
     emoji: ⚠️
     type: idea
-    topics: *a1
+    topics: ["ai","業務改善","業務設計","生成ai","hitl"]
     published: true
     published_at: 2026-08-07 19:26
 ---

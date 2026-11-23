@@ -10,6 +10,8 @@ import {
 export default defineConfig({
   site: "https://rosarium-tech.com",
   trailingSlash: "always",
+  // Review output is isolated from the ordinary production build.
+  outDir: process.env.ROSARIUM_DRAFT_PREVIEW ? "./dist-review" : "./dist",
   markdown: {
     processor: unified({
       remarkPlugins: [directive, semanticDirectives, math],

@@ -4,6 +4,7 @@ import { label } from "./site";
 import { iconForPath } from "./icons";
 import { archiveTitle } from "./archive";
 import { dxCategories } from "./dx";
+import { designStudies } from "../data/design-studies.mjs";
 export type Entry = CollectionEntry<"pages">;
 
 export type NavigationItem = {
@@ -320,14 +321,14 @@ const caseStudyEntries: CaseStudy[] = [
   },
   {
     book: "cases/customer-support-ai-dx",
-    referenceNote: "設計事例：業務目標を要件・方式・評価条件へ具体化。導入済みの実測成果ではありません。",
+    referenceNote: "実務に基づく設計事例：第1回PoCの回答正答率72％を受けRAG管理基盤を構築し、第2回PoCで96％を確認。業務効果は試算です。",
     topics: ["Applied AI / DX", "RAG / HITL / UX"],
     challenge:
       "企画から与えられた工数削減・自己解決の目標を、回答と有人対応をつなぐシステム要件へ落とす。",
     designSummary:
       "追加質問で条件を特定し、検索対象を制限してRAGへ渡す。回答項目の許可・適用条件を別に検証し、根拠不足・専門判断では人へ引き継ぐ。",
     result:
-      "検索対象の適格性と回答許可を分離し、顧客の自己解決と専門対応を両立する方式を設計した。",
+      "RAG管理基盤と対象条件の整備後、PoCで回答正答率72％から96％への改善を確認した。本番品質・業務効果とは区別する。",
     chapters: [
       "cases/customer-support-ai-dx/responsibility-boundary",
       "cases/customer-support-ai-dx/poc-evaluation",
@@ -383,32 +384,18 @@ export const bookChapterNumber = (entry: Entry) => {
 export const navigationItemForPath = (path: string) =>
   navigation.flat().find((item) => item.path === path);
 
-// Shared compact evidence summaries for Home and Cases.
-const caseHighlights = [
-  {
-    id: "cases/ai-technical-investigation",
-    title: "生成AIによる技術調査の設計――情報、仮説、検証、責任境界",
-    category: "実務実績",
-    summary: "担当ソフトウェアが利用する共通ライブラリの更新後に発生したクラッシュをGitHub Copilotで調査し、その過程で2件のメモリリークも発見。自分でコードを検証できる範囲から原因候補を絞り込み、担当チームの修正につなげました。",
-  },
-  {
-    id: "cases/specification-debt-review",
-    title: "仕様書横断レビュー",
-    category: "実務実績",
-    summary: "68ファイル・約3万文字の仕様書をAIと現在のコードで照合し、約40件の問題を確認。修正と現状維持を人間が判断しました。",
-  },
-  {
-    id: "cases/three-ai-maintenance",
-    title: "複数AIを使い分けたレガシー保守",
-    category: "実務実績",
-    summary: "要件整理から単体テストまで内製し、外部委託を不要にしました。開発期間は当初想定との比較で約7割短縮しました。",
-  },
-  {
-    id: "cases/customer-support-ai-dx",
-    title: "顧客サポートQAの要件・方式設計",
-    category: "代表設計事例",
-    summary: "業務要求をシステム要件・機能分担・処理方式・評価条件へ具体化。自己解決と専門対応を両立する設計・検証シナリオです。",
-  },
-] as const;
+// Reader-facing types use explicit evidence registries, never titles or kind: case alone.
+export const contentType = (entry: Entry) => {
+  if (designStudies.some(study => study.id === entry.id)) return "仮想設計";
+  if (caseStudies.some(study => entry.id === study.book || entry.id.startsWith(study.book + "/"))) return "実務事例";
+  if (entry.data.kind === "case" || entry.data.layer === "case" || entry.data.section === "cases") return "事例";
+  if (entry.data.kind === "essay" || entry.data.publication_format === "essay") return "論考";
+  if (entry.data.layer === "reference") return "参照資料";
+  return "技術解説";
+};
 
-export const featuredCaseHighlights = [...caseHighlights].sort((a, b) => representativeCaseRank(a.id) - representativeCaseRank(b.id));
+// DX placement is independent of the subject label used on general article cards.
+export const contentDisplayCategory = (entry: Entry) => {
+  const type = contentType(entry);
+  return type === "技術解説" ? contentCategory(entry) : type;
+};

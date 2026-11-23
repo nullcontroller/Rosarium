@@ -25,6 +25,7 @@ export interface RecentGrowthItem {
   topic?: string;
   summaryChanges?: string[];
   icon?: IconName;
+  relatedLinks?: { path: string; title: string }[];
 }
 
 /** Titles linked from Garden Notes must be explicitly recorded as new publications. */
@@ -38,10 +39,40 @@ export const growthPublishedTargets = (entry: RecentGrowthItem): string[] =>
 // Keep one entry per date; add each reader-facing change as a short changes item.
 // Prioritize new articles/Cases/Books, substantive revisions and content integration.
 // Record content retirement, meaningful page restructuring and new reader-facing features.
-// Do not record content-preserving UI/UX, CSS, layout, navigation placement,
-// typo, internal refactoring or internal SEO settings.
+// Routine cosmetic fixes and internal maintenance are not individual history items.
+// A substantive reader-facing navigation/accessibility revision may be recorded as a whole.
 // Ask what readers can newly read or understand; this is not a development log.
+const informationArchitectureChanges = [
+  "顧客サポートDX Bookの説明・図解とキャリアの紹介を実務に基づく内容へ統一し、PoCの課題分析からRAG管理システムの構築・再評価までを追いやすくした",
+  "トップページの重複した事例紹介を削除し、代表事例を残して「はじめに」への入口を追加した",
+  "AI入口の説明と重複見出しを減らし、既存テーマの代表記事と記事一覧を見つけやすくした",
+  "DX入口は5分類を維持し、各テーマで考えることと最初に読む記事を簡潔に示した",
+  "企画入口を「何を、なぜ、どこまでシステム化するか」から関連記事へ進む構成にし、今後の方向性の説明と分けた",
+  "実践事例一覧の重複した紹介を整理し、事例ごとの見出し階層を修正した",
+  "記事ヘッダーを種別・タイトル・概要・最終更新日に絞り、内部管理値やタグの重複表示を省いた",
+  "記事カードでは主題に合う分類を示し、実務事例・技術解説・論考などの種別を共通の基準で表示した",
+  "検索結果をタイトル・概要・種別・最終更新日で読み比べられる表示にした",
+  "検索や関連記事で使うタグを「生成AI」「AI活用」に統一し、表記の揺れを整理した",
+  "スマートフォンのヘッダーを省スペース化し、主要ページと検索へ折りたたみメニューから移動できるようにした",
+  "トップページは本文の幅に応じて1列・2列を切り替え、タブレットやPCのヘッダーでも文字や操作が重ならないようにした",
+  "記事の見出し階層を整え、図解リンクと補助パネルをキーボードで操作した際の移動・フォーカス復帰を改善した",
+];
 const curatedRecentGrowth = [
+  {
+    date: "2026-11-24", type: "revised", title: "実務事例の説明と、記事を探して読む入口を改訂",
+    changes: informationArchitectureChanges,
+    summaryChanges: informationArchitectureChanges,
+    relatedLinks: [
+      { path: "cases/customer-support-ai-dx", title: "生成AI / RAGによる顧客サポートDX" },
+      { path: "ai", title: "AIの記事を探す" },
+      { path: "dx", title: "DXの記事を探す" },
+      { path: "planning", title: "企画の記事を探す" },
+      { path: "cases", title: "実践事例を見る" },
+      { path: "career", title: "作者のキャリア" },
+      { path: "start-here", title: "はじめに" },
+    ],
+    category: "Rosarium", icon: "updates",
+  },
   {
     date: "2026-10-30", type: "new", title: "AIシステムへの投資判断に関する論考を追加",
     changes: [
@@ -61,7 +92,7 @@ const curatedRecentGrowth = [
     date: "2026-10-19", type: "revised", title: "代表設計事例と、数学・AI理論の入口を整理",
     changes: [
       { action: "revised", text: "改訂。顧客サポートQAを代表設計事例の先頭に置き、仕様書レビュー・保守開発の確認済み成果を設計力の裏付けとして配置。Careerの強みと今後の方向性、各事例の成果と比較条件を整理した", contentIds: ["career/overview", "cases/specification-debt-review", "cases/three-ai-maintenance"] },
-      { action: "integrated", text: "統合・再構成。第1回PoC、設計・開発、第2回PoCの問題発見、メタデータ追加と再実施の順に11章を整理。第1回は3機能の実現可能性を確認するフィージビリティ確認に限定。第01〜06章を初期構想として整理し、検索対象制御と回答許可の強化は第08・09章へ分離した。専門判断を資料・回答候補の正式回答への採否判断として具体化し、同じ評価データ・基準・実行条件での文書検索72％から98％と有人振り分け94％から100％への改善を示し、定型750件／月中720件／月の自己解決を前提とする280時間／月の試算を本番実測と区別。独立した本番適用前の課題章を削除し、PoC再実施での評価目標達成を結末とした", contentIds: ["evaluation-hitl/customer-support-qa-poc", "cases/customer-support-ai-dx", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/poc-effect-evaluation", "cases/customer-support-ai-dx/poc-metadata-improvement", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/customer-experience", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/design-principles"] },
+      { action: "integrated", text: "統合・再構成。顧客サポートDXを11章で整理。【訂正】PoCの時系列と評価指標は、第1回PoCで絞込み前の方式を評価して回答正答率72％を確認し、RAG管理システムの新規設計・構築と節単位のメタデータ管理を経て、第2回PoCで回答正答率96％と目標達成を確認した経緯へ訂正。残る4％は本来自動回答できる案件の有人移管であり、誤回答ではない。逆質問・回答生成の98％と有人振り分け94％から100％は別指標の見積もりとして扱う。720件／月の自己解決を前提とする280時間／月は条件付き試算で、本番評価は未実施。個別機能の実装範囲と未検証の運用課題を区別する", contentIds: ["evaluation-hitl/customer-support-qa-poc", "cases/customer-support-ai-dx", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/poc-effect-evaluation", "cases/customer-support-ai-dx/poc-metadata-improvement", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/customer-experience", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/design-principles"] },
       "数学とAI理論の入口を分離。条件付き確率・分布の基礎と、生成・誤答・コード生成モデルの仕組みを分け、AI設計と数式リファレンスへの導線を整理した",
     ],
     summaryChanges: ["要件・方式設計を入口に、開発・保守の実務成果へ進める構成に整理", "実務実績、設計・検証シナリオ、今後の方向性を区別", "数学とAI理論を分け、数理の基礎と生成の仕組みを別々に辿れる入口を整備"],
@@ -278,6 +309,12 @@ export function validateRecentGrowth(entries: RecentGrowthItem[]) {
       if (!/^[a-z0-9-]+(?:\/[a-z0-9-]+)+$/.test(id)) throw new Error("Garden Notes requires an internal content id: " + id);
       if (targets.has(id)) throw new Error("Duplicate Garden Notes content link: " + id);
       targets.add(id);
+    }
+    const relatedPaths = new Set<string>();
+    for (const link of entry.relatedLinks ?? []) {
+      if (!/^[a-z0-9-]+(?:\/[a-z0-9-]+)*$/.test(link.path) || !link.title.trim()) throw new Error("Invalid Garden Notes related page: " + link.path);
+      if (relatedPaths.has(link.path)) throw new Error("Duplicate Garden Notes related page: " + link.path);
+      relatedPaths.add(link.path);
     }
   }
 }

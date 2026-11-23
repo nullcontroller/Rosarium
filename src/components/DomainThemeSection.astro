@@ -6,42 +6,36 @@ interface Props {
   title: string;
   path: string;
   paragraphs: readonly string[];
-  questions: readonly string[];
   articles: CollectionEntry<"pages">[];
   related?: CollectionEntry<"pages">[];
   domain: "ai" | "dx";
 }
-const { id, title, path, paragraphs, questions, articles, related = [], domain } = Astro.props;
+const { id, title, path, paragraphs, articles, related = [], domain } = Astro.props;
 ---
-
-<!-- Both domains retain the existing DX typography and responsive rules. -->
-<section class="dx-category" id={id} data-domain-theme={domain} aria-labelledby={`${id}-heading`}>
+<section class="dx-category" id={id} data-domain-theme={domain} aria-labelledby={id+"-heading"}>
   <header class="dx-theme-introduction">
-    <h2 id={`${id}-heading`}><a href={url(path)}>{title}</a></h2>
-    {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+    <h2 id={id+"-heading"}>{title}</h2>
+    {paragraphs.map(paragraph => <p>{paragraph}</p>)}
+    <p class="dx-theme-all"><a href={url(path)}>{title}の記事一覧を見る</a></p>
   </header>
   <div class="dx-theme-detail">
-    <h3>このテーマで考えること</h3>
-    <ul class="dx-theme-questions">
-      {questions.map((question) => <li>{question}</li>)}
-    </ul>
-    <h3>最初に読む</h3>
+    <p class="meta">最初に読む</p>
     <ul class="dx-featured-articles">
-      {articles.map((entry) => (
-        <li data-dx-featured={domain === "dx" ? entry.id : undefined} data-ai-featured={domain === "ai" ? entry.id : undefined}>
-          <h4><a href={url(entry.id)}>{entry.data.title}</a></h4>
-          <p>{entry.data.summary}</p>
-        </li>
-      ))}
+      {articles.map(entry => <li data-dx-featured={domain === "dx" ? entry.id : undefined} data-ai-featured={domain === "ai" ? entry.id : undefined}>
+        <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>
+        <p>{entry.data.summary}</p>
+      </li>)}
     </ul>
     {related.length > 0 && <>
-      <h3>関連する記事</h3>
+      <p class="meta">関連記事</p>
       <ul class="dx-featured-articles" data-ai-related>
-        {related.map((entry) => <li>
-          <h4><a href={url(entry.id)}>{entry.data.title}</a></h4>
-          <p>{entry.data.summary}</p>
-        </li>)}
+        {related.map(entry => <li><h3><a href={url(entry.id)}>{entry.data.title}</a></h3><p>{entry.data.summary}</p></li>)}
       </ul>
     </>}
   </div>
 </section>
+<style>
+  .dx-featured-articles h3 { margin:0 0 .5rem; font-size:1.1rem; line-height:1.6; color:var(--ink); }
+  .dx-theme-detail > .meta { margin:0 0 .65rem; }
+  .dx-theme-detail > ul + .meta { margin-top:1.5rem; }
+</style>
