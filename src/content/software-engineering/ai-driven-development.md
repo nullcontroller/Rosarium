@@ -9,9 +9,9 @@ status: published
 lifecycle: retired
 lifecycle_reason: "AI・人間・成果物をつなぐ考え方は、開発工程の委任・検証・反映権限の設計へ統合しました。3つのAIを使った保守の実務経験は、実践事例で読めます。"
 last_updated: "2026-10-08"
-tags: &a1
+tags:
   - githubcopilot
-  - 生成ai
+  - 生成AI
   - ai駆動開発
   - hitl
   - aiガバナンス
@@ -27,13 +27,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/fccbf170ead145
   published_at: 2026-08-15 08:42
   publication_month: null
-  topics: *a1
+  topics: ["githubcopilot","生成ai","ai駆動開発","hitl","aiガバナンス"]
   zenn_type: idea
   metadata:
     title: 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか
     emoji: 🔗
     type: idea
-    topics: *a1
+    topics: ["githubcopilot","生成ai","ai駆動開発","hitl","aiガバナンス"]
     published: true
     published_at: 2026-08-15 08:42
 ---

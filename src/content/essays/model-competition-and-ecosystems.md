@@ -9,10 +9,10 @@ status: archived
 lifecycle: retired
 public: true
 last_updated: "2026-10-05"
-tags: &a1
+tags:
   - chatgpt
   - llm
-  - 生成ai
+  - 生成AI
   - claude
   - gemini
 published_at: 2026-03-08 22:05
@@ -26,13 +26,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/5b8a6a1c413e10
   published_at: 2026-03-08 22:05
   publication_month: null
-  topics: *a1
+  topics: ["chatgpt","llm","生成ai","claude","gemini"]
   zenn_type: idea
   metadata:
     title: AIはどこへ進化しているのか — モデル競争の裏にある「構造」と「エコシステム」
     emoji: 📝
     type: idea
-    topics: *a1
+    topics: ["chatgpt","llm","生成ai","claude","gemini"]
     published: true
     published_at: 2026-03-08 22:05
 lifecycle_reason: "AI企業をエコシステムと生成能力で二分する当時の説明です。現在の使い分けを判断する際には、モデル性能に加えてContextや利用条件を確認してください。"

@@ -14,9 +14,9 @@ entry_points:
   - dx
 primaryCategory: continuous-value
 secondaryCategories: [business-transformation]
-tags: &a1
-  - 生成ai
-  - ai活用
+tags:
+  - 生成AI
+  - AI活用
   - hitl
   - aiガバナンス
   - ai教育
@@ -31,13 +31,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/00d48d3802ff49
   published_at: 2026-08-14 07:35
   publication_month: null
-  topics: *a1
+  topics: ["生成ai","ai活用","hitl","aiガバナンス","ai教育"]
   zenn_type: idea
   metadata:
     title: 生成AI教育はなぜ難しいのか ― 変わらない原則と変わり続ける実践を分けて設計する
     emoji: 🧭
     type: idea
-    topics: *a1
+    topics: ["生成ai","ai活用","hitl","aiガバナンス","ai教育"]
     published: true
     published_at: 2026-08-14 07:35
 ---

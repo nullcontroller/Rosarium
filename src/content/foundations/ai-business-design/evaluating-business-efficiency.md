@@ -11,9 +11,9 @@ entry_points:
   - dx
 primaryCategory: business-transformation
 secondaryCategories: []
-tags: &a1
+tags:
   - システム設計
-  - 生成ai
+  - 生成AI
   - aiエージェント
   - hitl
   - aiガバナンス
@@ -28,7 +28,7 @@ source:
   url: https://zenn.dev/nullcontroller/books/76ed12dcc7e5d7/view/62ecee
   published_at: null
   publication_month: 2026-08
-  topics: *a1
+  topics: ["システム設計","生成ai","aiエージェント","hitl","aiガバナンス"]
   zenn_type: null
   metadata:
     title: 第2章　AI導入は効率化とは限らない

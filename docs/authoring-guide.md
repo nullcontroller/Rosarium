@@ -44,7 +44,7 @@ layerは知識の役割、sectionは既存のテーマとURL用分類、source.t
 | ai-mathematics | 確率・条件付き確率・分布などの数学的基礎 |
 | ai-theory | 生成AI・LLMの生成原理、誤答の要因、モデルと周辺システムの仕組み |
 | practice       | 組織・業務・開発への適用               |
-| case           | 実務事例                               |
+| case           | 事例（実務か仮想設計かは既存の明示定義で区別） |
 | publication    | 独立した記事・Book・Essay              |
 | project        | プロジェクトの記録                     |
 | reference      | 用語・参照資料                         |
@@ -67,7 +67,7 @@ AI Designの正本一覧にはZennを混在させません。Related Publication
 | evaluation-hitl      | 評価・レビュー・承認・判断条件            |
 | software-engineering | AIを用いたソフトウェア開発・Orchestration |
 | practices            | 教育・導入・横展開・適用判断              |
-| cases                | 原則を適用した実務事例                    |
+| cases                | 原則を適用した事例（実務事例・仮想設計） |
 | essays               | 市場・キャリア・技術に関する論考          |
 
 `kind`: `principle`, `architecture`, `guide`, `case`, `essay`。
@@ -278,3 +278,13 @@ try {
 ```
 
 検証は通常ビルド`dist/`を先に作ってから行います。レビュー用検索は通常ビルドの公開記事インデックスを再利用し、下書きHTMLを索引化しません。レビュー出力は`dist-review/`です。下書きページはnoindex、内部検索対象外、レビュー用表示付きです。noindexはアクセス制御ではありません。既存のTailnet限定接続でのみ共有し、Funnelや本番へ公開しません。レビュー用環境変数をGitHub Actionsや本番に設定しません。Draft PRをレビューしても公開承認やマージを自動的に行いません。
+
+## 内部分類と読者向けの表示
+
+`layer`は知識の役割、`section`は既存テーマとURLの分類、`design_topic`はAI設計の技術領域です。`primaryCategory`はDXの主カテゴリ、`publication_format`は公開形式、`tags`は検索・横断的な関連付けに使います。これらの意味を混同しません。
+
+一般の記事カードでは主題を示す既存ラベルを優先し、AI設計は`design_topic`の表示名を用います。DXの掲載カテゴリを全ページ共通の主題ラベルへ流用しません。DX入口・カテゴリ一覧は従来の主カテゴリで掲載します。Book・連載などの公開形式は補助情報です。
+
+記事種別は`src/lib/navigation.ts`の`contentType`で共通判定します。実務事例は既存の事例管理データとその章、仮想設計は`src/data/design-studies.mjs`の明示定義を使います。`kind: case`だけでは実務実績と認定せず、不明なものは「事例」にとどめます。論考・技術解説・参照資料も既存メタデータから表示し、内部管理値や同義ラベルを重ねません。記事ヘッダーと検索の記事種別はこの判定を共有します。検索にはタイトル・概要・種別・最終更新日を示し、内部分類や読む目的の羅列を表示しません。検索に必要な内部メタデータは保持します。
+
+タグの追加前に既存表記を確認し、同義のタグは「生成AI」「AI活用」のように統一します。変更時は抽出・関連表示・検索への影響を確認し、Front Matterと参照コードを整合させます。出典の`source.metadata`は来歴情報として元の値を保持します。表記統一を理由に公開状態や分類値を変えません。

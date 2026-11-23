@@ -1,3 +1,5 @@
+import { designStudyDiagrams } from "./design-study-diagrams.ts";
+
 export type CaseNodeKind =
   "human" | "ai" | "knowledge" | "system" | "decision" | "feedback";
 export interface SupportExplanation {
@@ -44,6 +46,7 @@ export interface CaseDiagramModel {
 }
 // Reader-facing explanations; overview and chapter diagrams serve different reading questions.
 export const caseDiagrams: Record<string, CaseDiagramModel> = {
+  ...designStudyDiagrams,
   "maintenance-documentation-debt": {
     "title": "AIは候補を提示し、人間が変更を判断する",
     "intro": "今回は現在のコードを正本として仕様書を照合しました。コードだけでは決まらない部分は人間が判断し、最終修正も人間が行います。",
@@ -1751,7 +1754,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   },
   "support-overview": {
     "title": "顧客の問い合わせから、回答または有人対応へ",
-    "description": "顧客の入力を、追加質問・検索・根拠付き回答へ渡し、回答できない条件では担当者へ移す機能のつながりを示します。",
+    "description": "実務に基づく設計事例：顧客の入力を、追加質問・検索・根拠付き回答へ渡し、回答できない条件では担当者へ移す機能のつながりを示します。",
     "nodes": [
       {
         "id": "customer",
@@ -1821,7 +1824,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   },
   "support-executive-summary": {
     "title": "現行の有人対応と、顧客向けQAの初期構想",
-    "description": "担当者がすべて対応する現行業務と、定型回答を自動化して専門判断を人間へ残す初期構想を比較します。",
+    "description": "実務に基づく設計事例：担当者がすべて対応する現行業務と、定型回答を自動化して専門判断を人間へ残す初期構想を比較します。",
     "nodes": [
       {
         "id": "before-customer",
@@ -1949,7 +1952,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   },
   "support-why-ai": {
     "title": "業務要求から必要機能を導き、技術方式を選ぶ",
-    "description": "顧客の自己解決と専門対応への集中という与えられた要求を、必要機能・採用方式・採用理由へ対応付けます。",
+    "description": "実務に基づく設計事例：顧客の自己解決と専門対応への集中という与えられた要求を、必要機能・採用方式・採用理由へ対応付けます。",
     "nodes": [],
     "explanation": {
       "format": "table",
@@ -1986,7 +1989,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   },
   "support-responsibility-boundary": {
     "title": "初期構想におけるAI・QAシステム・人間の分担",
-    "description": "定型問い合わせの自動回答と、人間による専門判断・個別調査の役割を分けます。",
+    "description": "実務に基づく設計事例：定型問い合わせの自動回答と、人間による専門判断・個別調査の役割を分けます。",
     "nodes": [],
     "explanation": {
       "format": "table",
@@ -2017,54 +2020,55 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
     }
   },
   "support-poc-evaluation": {
-    "title": "第2回PoCで初期方式の問題を発見する",
-    "description": "開発したQAシステムを評価し、誤検索と誤自動回答を別の問題として分析します。",
-    "nodes": [
+  "title": "第1回PoCで見つかった適用条件の課題を分析する",
+  "description": "実務に基づく設計事例：回答正答率72％を確認し、関連性と適用可能性を分けて分析します。",
+  "nodes": [
+    {
+      "id": "test",
+      "label": "検索品質を評価する",
+      "kind": "feedback",
+      "description": "第04章と同じ第1回PoCで、検索対象の絞込み前の方式を評価しました。"
+    },
+    {
+      "id": "failure",
+      "label": "別製品向けの文書を取得する",
+      "kind": "feedback",
+      "description": "回答正答率72％を確認。意味が近くても、製品・版数・環境が異なる文書は適用できません。"
+    },
+    {
+      "id": "cause",
+      "label": "適用条件の管理不足を捉える",
+      "kind": "decision",
+      "description": "類似度やプロンプトだけでなく、検索用データとその属性管理を見直します。"
+    },
+    {
+      "id": "decision",
+      "label": "RAG管理基盤を新規構築する",
+      "kind": "decision",
+      "description": "原本管理・RAG向けデータ管理・顧客向けQAの責務を分けます。"
+    }
+  ],
+  "explanation": {
+    "format": "flow",
+    "panels": [
       {
-        "id": "test",
-        "label": "開発担当者と業務担当者が検証する",
-        "kind": "feedback",
-        "description": "第2回の500件（定型250件・専門判断200件・根拠不足50件）で、回答品質と停止・引継ぎを確認します。"
-      },
-      {
-        "id": "failure",
-        "label": "別機種の誤検索と専門判断の誤自動回答を発見する",
-        "kind": "feedback",
-        "description": "検索適合率72％と、専門判断案件の有人振り分け率94％（要件100％）の未達を別の問題として区別します。"
-      },
-      {
-        "id": "cause",
-        "label": "設計側が二つの原因を分析する",
-        "kind": "decision",
-        "description": "意味の近さだけでは適用できず、文書があるだけでは自動回答を許可できないという二つの原因を分けます。"
-      },
-      {
-        "id": "decision",
-        "label": "検索対象と回答許可の制御が必要と判断する",
-        "kind": "decision",
-        "description": "取得する根拠の適格性と、顧客へ自動回答してよい条件を分離する必要があります。"
+        "title": "初回評価から管理基盤の再設計へ",
+        "nodeIds": [
+          "test",
+          "failure",
+          "cause",
+          "decision"
+        ]
       }
     ],
-    "explanation": {
-      "format": "flow",
-      "panels": [
-        {
-          "title": "初期評価から必要な制御を特定する",
-          "nodeIds": [
-            "test",
-            "failure",
-            "cause",
-            "decision"
-          ]
-        }
-      ],
-      "note": "検索方式の改善は第08章、停止条件の強化は第09章、PoC再実施の結果は第10章で説明します。",
-      "scope": "第2回PoCの初期評価と問題発見を示します。"
-    }
-  },
+    "note": "RAG管理システムは第08章、属性の管理設計は第09章、改善後の評価は第10章で扱います。",
+    "scope": "PoCの回答正答率と、業務効果の見積もりを混同しません。"
+  }
+},
+
   "support-poc-checks": {
-    "title": "第1回PoC：3機能のフィージビリティ確認",
-    "description": "生成AIによる逆質問、ベクトル検索による関連文書の取得、RAGによる根拠付き回答生成が技術的に実現可能か確認しました。",
+    "title": "第1回PoC：絞込み前の方式と回答正答率72％",
+    "description": "実務に基づく設計事例：逆質問・検索・回答生成を組み合わせた初期方式を評価し、回答正答率72％を確認しました。",
     "nodes": [],
     "explanation": {
       "format": "table",
@@ -2075,12 +2079,12 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
         ["RAGによる回答生成", "取得した文書を根拠に、RAGで回答を生成できるか。"]
       ],
       "note": "問い合わせから不足情報を取得し、関連文書を検索して、取得文書に基づく回答を生成できるか確認します。",
-      "scope": "本格開発に進むためのフィージビリティ確認です。"
+      "scope": "メタデータ絞込み前の方式を評価し、回答正答率72％を確認した第1回PoCです。"
     }
   },
   "support-handoff-information": {
     "title": "担当者へ何を渡し、どこから対応を再開するか",
-    "description": "担当者が問い合わせを最初から聞き直さず、未解決の確認と調査から再開するための情報を示します。",
+    "description": "実務に基づく設計事例：担当者が問い合わせを最初から聞き直さず、未解決の確認と調査から再開するための情報を示します。",
     "nodes": [],
     "explanation": {
       "format": "table",
@@ -2132,7 +2136,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   },
   "support-stopping-conditions": {
     "title": "三つの条件を満たす場合だけ自動回答する",
-    "description": "各条件の「はい」は次の確認へ進むことを示し、「いいえ」は自動回答を中止して有人対応へ移ることを示します。",
+    "description": "実務に基づく設計事例：各条件の「はい」は次の確認へ進むことを示し、「いいえ」は自動回答を中止して有人対応へ移ることを示します。",
     "nodes": [],
     "explanation": {
       "format": "decision",
@@ -2167,9 +2171,99 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
       "scope": "根拠不足・原因未特定・専門判断を基本の停止条件とします。高影響・公開可否・矛盾も追加の設計条件です。"
     }
   },
+  "support-rag-management": {
+  "title": "原本・RAG管理・顧客向けQAの責務を分ける",
+  "description": "検索品質を改善するために新規構築したRAG管理システムと、設計した管理系のデータ経路を示します。",
+  "nodes": [
+    {
+      "id": "source",
+      "label": "既存：製品情報システム",
+      "kind": "knowledge",
+      "description": "原本文書と改訂を管理します。"
+    },
+    {
+      "id": "curation",
+      "label": "RAG管理：取込み・節分割・属性管理",
+      "kind": "system",
+      "description": "原文の節と対象製品・版数・利用環境を対応付ける設計です。"
+    },
+    {
+      "id": "approval",
+      "label": "担当者がレビュー・修正・承認",
+      "kind": "human",
+      "description": "生成AIの候補を原文と照合し、必要に応じて修正して確定します。"
+    },
+    {
+      "id": "index",
+      "label": "承認済み情報を検索DBへ反映",
+      "kind": "knowledge",
+      "description": "原本・節・確定した属性を対応付けた検索用データを生成する設計です。"
+    },
+    {
+      "id": "qa",
+      "label": "顧客向けQAが条件を指定して検索",
+      "kind": "system",
+      "description": "メタデータで対象を制御し、第2回PoCで回答正答率96％を確認。"
+    }
+  ],
+  "explanation": {
+    "format": "flow",
+    "panels": [
+      {
+        "title": "管理系の設計から検索系へ",
+        "nodeIds": [
+          "source",
+          "curation",
+          "approval",
+          "index",
+          "qa"
+        ]
+      }
+    ],
+    "note": "生成AIによる候補出力と、担当者が内容を判断して確定する責任を分けます。",
+    "scope": "原本管理・RAG向けデータ管理・顧客向けQAの責務分担を示します。"
+  }
+},
+  "support-metadata-review": {
+  "title": "AIの候補生成と人間の承認を分ける設計",
+  "description": "候補を出す生成AIと、原文をレビューして内容を確定する担当者の責任分担です。",
+  "nodes": [],
+  "explanation": {
+    "format": "table",
+    "columns": [
+      "段階",
+      "担う主体",
+      "設計した責務"
+    ],
+    "records": [
+      [
+        "属性候補",
+        "生成AI",
+        "原文の節から製品・版数・環境の候補を出力する"
+      ],
+      [
+        "レビュー・修正・承認",
+        "担当者",
+        "原文と候補を照合し、必要に応じて修正して確定する"
+      ],
+      [
+        "検索DB反映",
+        "RAG管理システム",
+        "承認済み属性と原文の版を対応付け、検索用データへ反映する"
+      ],
+      [
+        "文書改訂",
+        "担当者・RAG管理システム",
+        "変更した節と属性の整合を維持する設計"
+      ]
+    ],
+    "note": "未承認の候補を有効な属性と同一視しません。",
+    "scope": "検索適合性の属性と回答許可の属性は別々に判断します。"
+  }
+},
   "support-knowledge-design": {
     "title": "対象機種で絞り込んでから、根拠文書を検索する",
-    "description": "回答生成へ渡してよい文書の範囲を、意味検索より先に決める依存関係を示します。",
+    "description": "実務に基づく設計事例：回答生成へ渡してよい文書の範囲を、意味検索より先に決める依存関係を示します。",
     "nodes": [
       {
         "id": "target",
@@ -2215,7 +2309,7 @@ export const caseDiagrams: Record<string, CaseDiagramModel> = {
   },
   "support-human-handoff": {
     "title": "AIの一次調査を引き継ぎ、担当者が専門調査から回答まで続ける",
-    "description": "担当主体の交代と、引き継ぐ情報の流れを示します。矢印は情報を受け渡して次の対応へ進む意味です。",
+    "description": "実務に基づく設計事例：担当主体の交代と、引き継ぐ情報の流れを示します。矢印は情報を受け渡して次の対応へ進む意味です。",
     "nodes": [
       {
         "id": "input",

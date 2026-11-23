@@ -2,19 +2,17 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
-import { caseStudies, featuredCaseHighlights } from "../lib/navigation";
+import { caseStudies } from "../lib/navigation";
 import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 const all = await getCollection("pages", activeEntry);
-const caseGroups = [{ id: "active-cases", title: "主要事例", description: "", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
+const caseGroups = [{ id: "active-cases", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
 const designStudiesPreview = Boolean(process.env.ROSARIUM_DRAFT_PREVIEW);
 const caseAnchor = (id: string) => `case-${id.split("/").pop()}`;
 
 const headings = [
-  { depth: 2, slug: "case-summaries-heading", text: "代表実績・設計事例" },
   ...caseGroups.filter((group) => group.studies.length > 0).flatMap((group) => [
-  { depth: 2, slug: `${group.id}-heading`, text: group.title },
-  ...group.studies.map((study) => ({ depth: 3, slug: caseAnchor(study.book), text: all.find((entry) => entry.id === study.book)!.data.title })),
+  ...group.studies.map((study) => ({ depth: 2, slug: caseAnchor(study.book), text: all.find((entry) => entry.id === study.book)!.data.title })),
   ]),
 ];
 ---
@@ -23,34 +21,10 @@ const headings = [
   <PageHeader alignHero navigationPath="cases" title="実践事例" />
   <p>業務要求から方式を組み立てた代表設計事例を先に、その設計力を支える仕様書レビュー・保守開発の実務成果を続けて確認できます。</p>
   <p><a href={url("career")}>運営者の専門性・実務経験を見る</a> · <a href={url("retired/obsolete-cases")}>過去の参考事例（OBSOLETE）</a></p>
-  <section class="case-highlights" aria-labelledby="case-summaries-heading">
-    <h2 id="case-summaries-heading">代表実績・設計事例</h2>
-    <p>概要から関心のある事例へ進み、下部で課題・方式設計・結果を確認できます。</p>
-    <ul class="case-highlight-list">
-      {featuredCaseHighlights.map((item) => (
-        <li>
-          <p class="meta">{item.category}</p>
-          <h3><a href={`#${caseAnchor(item.id)}`}>{item.title}</a></h3>
-          <p>{item.summary}</p>
-        </li>
-      ))}
-    </ul>
-  </section>
   {caseGroups
     .filter((group) => group.studies.length > 0)
     .map((group) => (
-      <section
-        id={group.id}
-        class:list={[
-          "case-group",
-
-        ]}
-        aria-labelledby={`${group.id}-heading`}
-      >
-        <h2 id={`${group.id}-heading`}>{group.title}</h2>
-        {group.description && (
-          <p class="case-group-description">{group.description}</p>
-        )}
+      <div id={group.id}>
         {group.studies.map((study) => (
           <div id={caseAnchor(study.book)} class="case-study-index">
             <SeriesIndex
@@ -58,7 +32,7 @@ const headings = [
               all={all}
               showCover={false}
               showIcons={false}
-              heading="h3"
+              heading="h2"
             >
               <div slot="details">
                 {study.referenceNote && <p class="meta">{study.referenceNote}</p>}
@@ -80,7 +54,7 @@ const headings = [
             </SeriesIndex>
           </div>
         ))}
-      </section>
+      </div>
     ))}
   {designStudiesPreview && <section aria-labelledby="design-studies-heading">
     <h2 id="design-studies-heading">設計ケーススタディ</h2>
@@ -88,24 +62,3 @@ const headings = [
     <p><a href={url("cases/design-studies")}>実務から広げるシステム設計ケーススタディ</a></p>
   </section>}
 </Site>
-
-<style>
-  .case-highlight-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-    gap: .8rem;
-    padding: 0;
-    margin: 1rem 0 2rem;
-    list-style: none;
-  }
-  .case-highlight-list li {
-    padding: 1rem;
-    border: 1px solid var(--line);
-    border-radius: .35rem;
-    background: var(--surface);
-    min-width: 0;
-  }
-  .case-highlight-list h3 { margin: .35rem 0 .65rem; font-size: 1.05rem; }
-  .case-highlight-list p { margin: .35rem 0; }
-  .case-highlight-list a { color: var(--accent); text-underline-offset: .2em; }
-</style>

@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import DomainThemeSection from "../components/DomainThemeSection.astro";
-import { dxCategories, dxFeaturedArticles, dxIntroductionParagraphs } from "../lib/dx";
+import { dxCategories, dxFeaturedArticles } from "../lib/dx";
 import { activeEntry, url } from "../lib/site";
 const all = await getCollection("pages", activeEntry);
 const categoryGroups = dxCategories.map((category) => ({
@@ -19,20 +19,14 @@ const headings = dxCategories.map((category) => ({
 
 <Site title="DX" section="dx" headings={headings}>
   <PageHeader alignHero navigationPath="dx" title="DX" eyebrow="DIGITAL TRANSFORMATION" />
-  <p>
-    技術を選ぶ前に、何を、なぜ変えるのかを考えます。
-  </p>
-  <p>
-    価値から始め、仕事の流れ、既存システム、維持や終了、導入後の改善を見渡すための地図です。
-  </p>
-  <p>DXは業務・価値・組織の変化を扱います。何をシステム化し、何を対象外とするかの意思決定は<a href={url("planning")}>企画</a>で整理します。企画とDXは重なる場合がありますが、同義ではありません。</p>
-  <section class="dx-category-list" aria-labelledby="dx-themes-heading">
-    <h2 id="dx-themes-heading">DXを考える{dxCategories.length}つのテーマ</h2>
+  <p>DXは業務・価値・組織の変化を扱います。システム化の目的・範囲・投資の優先順位を決める判断は、<a href={url("planning")}>企画</a>で整理します。</p>
+  <section class="dx-category-list" aria-label="DXのテーマ別記事">
+    <span id="dx-themes-heading" aria-hidden="true"></span>
     {categoryGroups.map((category) => (
       <DomainThemeSection
         {...category}
         path={`dx/${category.id}`}
-        paragraphs={dxIntroductionParagraphs(category.summary)}
+        paragraphs={[category.scope]}
         domain="dx"
       />
     ))}

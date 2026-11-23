@@ -36,16 +36,16 @@ test("support explanations separate comparison, functional selection, responsibi
 });
 
 test("support explanations stay Japanese, static and distinguish design from public production results", () => {
-  assert.equal(support.length, 10);
+  assert.equal(support.length, 12);
   for (const [id, model] of support) {
     assert(model.title && model.description && model.explanation.note && model.explanation.scope, id);
     assert(!model.edges?.length && !model.messages?.length, `${id}: no overloaded SVG edges`);
     const text = [model.title, model.description, ...model.nodes.flatMap(n => [n.label, n.description]), ...model.explanation.records?.flat() ?? []].join(" ");
     assert(!/Before|After|Collecting|Retrieving|Answering|Find Failure|Business Acceptance|次の工程：/.test(text), id);
     if (id === "support-poc-evaluation") {
-      assert(text.includes("検索適合率72％") && text.includes("有人振り分け率94％"));
+      assert(text.includes("72％") && text.includes("回答正答率"));
       assert(!/目標を達成|98[%％]|96[%％]|720件/.test(text));
-    } else assert(!/72[%％]|96[%％]|720件/.test(text), `${id}: no unrelated evaluation values`);
+    } else if(!["support-rag-management","support-poc-checks"].includes(id)) assert(!/72[%％]|96[%％]|720件/.test(text), `${id}: no unrelated evaluation values`);
     const ids = new Set(model.nodes.map(node => node.id));
     assert.equal(ids.size, model.nodes.length);
     for (const panel of model.explanation.panels ?? []) {
@@ -74,4 +74,12 @@ test("comparison forks from one decision into automatic reply and continued huma
   const handoff = caseDiagrams["support-human-handoff"].explanation.panels[0].nodeIds;
   assert(handoff.indexOf("transfer") < handoff.indexOf("resume"));
   assert(handoff.indexOf("resume") < handoff.indexOf("reply"));
+});
+
+
+test("PoC diagram labels use the Book's answer accuracy metric rather than search precision", () => {
+  const diagram = caseDiagrams["support-poc-checks"];
+  assert(diagram.title.includes("回答正答率72％"));
+  assert(!diagram.title.includes("検索72％"));
+  assert(diagram.description.includes("回答正答率72％"));
 });

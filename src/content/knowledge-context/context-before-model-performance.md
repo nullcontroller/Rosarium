@@ -8,11 +8,11 @@ section: knowledge-context
 status: published
 lifecycle: active
 last_updated: "2026-10-09"
-tags: &a1
+tags:
   - githubcopilot
   - コンテキスト
   - chatgpt
-  - 生成ai
+  - 生成AI
 published_at: 2026-08-22 10:28
 canonical: https://zenn.dev/nullcontroller/articles/1c9ec1d7e01206
 source:
@@ -24,13 +24,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/1c9ec1d7e01206
   published_at: 2026-08-22 10:28
   publication_month: null
-  topics: *a1
+  topics: ["githubcopilot","コンテキスト","chatgpt","生成ai"]
   zenn_type: tech
   metadata:
     title: AIを使い分ける基準は、モデル性能よりコンテキストではないか
     emoji: 🔀
     type: tech
-    topics: *a1
+    topics: ["githubcopilot","コンテキスト","chatgpt","生成ai"]
     published: true
     published_at: 2026-08-22 10:28
 ---

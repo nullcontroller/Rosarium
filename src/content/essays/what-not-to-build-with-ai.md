@@ -15,7 +15,7 @@ entry_points:
 primaryCategory: selection-retirement
 secondaryCategories: [value-design]
 tags:
-  - 生成ai
+  - 生成AI
   - ソフトウェア設計
   - ライフサイクル
   - ai適用判断

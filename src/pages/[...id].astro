@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import { isDraftPreview } from "../lib/draft-preview.mjs";
-import { selectedDesignStudies } from "../data/design-studies.mjs";
+import { designStudies, selectedDesignStudies } from "../data/design-studies.mjs";
 import Site from "../layouts/Site.astro";
 import { supportPocLegacyFragments } from "../data/support-poc-fragments";
 import { splitRelatedContent, caseEvidenceLinks } from "../lib/related-content.mjs";
@@ -9,6 +9,7 @@ import {
   layerPath,
   bookChapterNumber,
   contentCategory,
+  contentType,
   topicLabel,
   publicationStatus,
   publicationTiming,
@@ -45,6 +46,10 @@ const legacyPocFragments = ["cases/customer-support-ai-dx/poc-effect-evaluation"
     }));
 
 const d = entry.data;
+// Real-work labels are limited to the existing evidence registry and its chapters.
+const isDesignStudy = designStudies.some(study => study.id === entry.id);
+const type = contentType(entry);
+const articleType = type === "実務事例" || type === "仮想設計" ? `実践事例 / ${type}` : type;
 const isBookIntroduction = entry.id === "cases/customer-support-ai-dx";
 const content = splitRelatedContent(entry.rendered?.html || "");
 // Placement review only: ordinary builds retain the published Book unchanged.
@@ -86,6 +91,20 @@ const purposes = contentUseCases(entry);
 const timing = publicationTiming(entry);
 const publicationState = publicationStatus(entry);
 const entryPoints = contentEntryPoints(entry);
+const breadcrumbs = [
+    { name: "庭", path: "" },
+    { name: primaryLabel, path: primaryPath },
+    ...(isDesignStudy ? [{ name: "発展ケーススタディ", path: "cases/design-studies" }] : []),
+    ...(d.design_topic
+      ? [
+          {
+            name: topicLabel(d.design_topic) || d.design_topic,
+            path: "ai-design/" + d.design_topic,
+          },
+        ]
+      : []),
+    { name: d.title, path: entry.id },
+  ];
 const bookNavigation = series.length
   ? {
       title: d.series_title || series[0].data.title,
@@ -116,23 +135,15 @@ const bookNavigation = series.length
   showLastUpdated={false}
   section={primaryPath}
   headings={headings.filter((heading) => content.body.includes(`id="${heading.slug}"`)).map((heading) => ({ ...heading, text: heading.text.replace("Related Design Principles", "関連する設計原則").replace("Related Design", "関連する設計") }))}
-  breadcrumbs={[
-    { name: "庭", path: "" },
-    { name: primaryLabel, path: primaryPath },
-    ...(d.design_topic
-      ? [
-          {
-            name: topicLabel(d.design_topic) || d.design_topic,
-            path: "ai-design/" + d.design_topic,
-          },
-        ]
-      : []),
-    { name: d.title, path: entry.id },
-  ]}
+  breadcrumbs={breadcrumbs}
   bookNavigation={bookNavigation}
 >
   {d.status === "draft" && <p class="meta" role="note">レビュー用初稿：内容・公開可否は所有者の確認前です。</p>}
-  <nav class="breadcrumb">
+  <nav class="breadcrumb" aria-label="パンくず">
+    {isDesignStudy ? breadcrumbs.map((item,index) => <>
+      {index > 0 && <span aria-hidden="true"> ＞ </span>}
+      <a href={url(item.path)} aria-current={index === breadcrumbs.length - 1 ? "page" : undefined}>{item.name}</a>
+    </>) : <>
     <a href={url()}>庭</a> / <a href={url(primaryPath)}>{primaryLabel}</a>
     {d.design_topic && (
       <>
@@ -143,13 +154,15 @@ const bookNavigation = series.length
         </a>
       </>
     )}
+    </>}
   </nav>
   <article data-lifecycle={d.lifecycle} data-pagefind-body>
     <header class="document-header">
       <p class="eyebrow">
-        <span hidden data-pagefind-meta="content_kind">{d.kind === "case" || d.layer === "case" || d.section === "cases" ? "事例" : "記事"}</span>
-        <span data-pagefind-meta="category">{contentCategory(entry)}</span> /{" "}
-        <span data-pagefind-meta="layer">{layerLabel(d.layer)}</span> / {d.kind}
+        <span hidden data-pagefind-meta="content_kind">{type}</span>
+        <span hidden data-pagefind-meta="category">{contentCategory(entry)}</span>
+        <span hidden data-pagefind-meta="layer">{layerLabel(d.layer)}</span>
+        <span>{articleType}</span>
       </p>
       <div class="document-title-row">
         <Icon name={iconForEntry(entry)} size="page" />
@@ -163,19 +176,19 @@ const bookNavigation = series.length
       )}
       <p class="meta">
         <span hidden data-pagefind-meta="status">公開</span>
-        {publicationState && <span>状態：{publicationState}</span>}
+        {publicationState && <span hidden={publicationState === "公開"}>状態：{publicationState}</span>}
         <ContentHistory lastUpdated={d.last_updated} />
         <span hidden data-pagefind-meta="last_updated">{d.last_updated}</span>
       </p>
       {(d.publication_format || d.layer === "publication") && (
         <span hidden data-pagefind-meta="publication">{timing.value}</span>
       )}
-      <p class="tags" data-pagefind-meta="tags">
+      <p class="tags" hidden data-pagefind-meta="tags">
         {d.tags.join(" / ")}
       </p>
       <span hidden data-pagefind-meta="entry_point">{entryPoints.join(" ")}</span>
       {purposes.length > 0 && (
-        <p class="content-purpose" data-pagefind-meta="use_case">
+        <p class="content-purpose" hidden data-pagefind-meta="use_case">
           <span>読む目的：</span>{" "}
           {purposes.map((purpose, index) => (
             <>
@@ -238,3 +251,8 @@ const bookNavigation = series.length
     window.addEventListener("hashchange", followLegacyPocFragment);
   </script>}
 </Site>
+
+<style>
+  .document-header > .eyebrow { order: 0; }
+  .document-header > .document-title-row { order: 1; }
+</style>

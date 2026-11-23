@@ -32,7 +32,7 @@ test("planning references preserve existing classification; support QA records t
     assert.equal(data.layer, "publication");
   }
   const text = fs.readFileSync("src/content/cases/customer-support-ai-dx.md", "utf8");
-  assert(text.includes("企画部門から"));
+  assert(text.includes("実際に携わった顧客サポートDX"));
   const introduction = fs.readFileSync("src/content/cases/customer-support-ai-dx/executive-summary.md", "utf8");
   const requirements = fs.readFileSync("src/content/cases/customer-support-ai-dx/why-ai.md", "utf8");
   assert(introduction.includes("企画部門から業務改善の提案を受け"));

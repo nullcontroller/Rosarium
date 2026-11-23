@@ -14,12 +14,12 @@ entry_points:
   - dx
 primaryCategory: business-transformation
 secondaryCategories: []
-tags: &a1
+tags:
   - ai
   - キャリア
   - ソフトウェア設計
   - プロダクト開発
-  - 生成ai
+  - 生成AI
 published_at: 2026-03-28 14:37
 updated_at: "2026-10-08"
 update_type: revised
@@ -33,13 +33,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/15bcff341ff67b
   published_at: 2026-03-28 14:37
   publication_month: null
-  topics: *a1
+  topics: ["ai","キャリア","ソフトウェア設計","プロダクト開発","生成ai"]
   zenn_type: idea
   metadata:
     title: AIは使われている。でも使いこなされていない
     emoji: 💼
     type: idea
-    topics: *a1
+    topics: ["ai","キャリア","ソフトウェア設計","プロダクト開発","生成ai"]
     published: true
     published_at: 2026-03-28 14:37
 ---

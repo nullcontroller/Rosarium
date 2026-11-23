@@ -6,37 +6,31 @@ import { activeEntry, url } from "../lib/site";
 import { isPlanningKnowledge, planningQuestions, planningPublishedAt } from "../lib/planning";
 const articles = (await getCollection("pages", activeEntry)).filter(isPlanningKnowledge);
 const headings = [
-  { depth: 2, slug: "purpose", text: "価値発見と業務要件を、専門領域として深めたい" },
-  { depth: 2, slug: "field-work", text: "現場での具体化と、企画の問い" },
-  { depth: 2, slug: "scope", text: "企画で決めること" },
   { depth: 2, slug: "reading", text: "企画の判断を考える" },
+  { depth: 2, slug: "scope", text: "企画で決めること" },
+  { depth: 2, slug: "purpose", text: "この領域を深める理由" },
+  { depth: 2, slug: "field-work", text: "FDEとの関係" },
 ];
 ---
 <Site title="企画" section="planning" publishedAt={planningPublishedAt} headings={headings}>
-  <PageHeader alignHero navigationPath="planning" title="企画" eyebrow="SYSTEM PLANNING" />
-  <p>企画の問いは「何を、なぜ、どこまで実現するか」です。業務課題や経営課題を受け、業務上の目的・業務要件・業務目標・対象範囲と投資の優先順位を決めます。</p>
-  <p><a href={url("dx")}>DX</a>は業務・価値・組織の変化、<a href={url("ai-design")}>AI設計</a>はAI・人間・既存システムを組み合わせる要件・方式・責任の設計を扱います。企画はDXに限らず、既存業務の改善や継続・廃止の判断にも必要です。</p>
-  <section aria-labelledby="purpose">
-    <h2 id="purpose">価値発見と業務要件を、専門領域として深めたい</h2>
-    <p>私は、与えられた課題をどうシステム化するかだけでなく、そもそも何を変える価値があるのかを見つけるところから関わりたいと考えています。そのためRosariumでは、企画を独立した知識・判断の領域として設けました。</p>
-    <p>利用者・事業・組織にとっての価値を確かめ、どの業務課題を優先するか、何を変え、何を変えないかを決める。その判断を業務要件とシステム化範囲にまとめ、要件定義へ渡す仕事を、今後の専門領域として深めたいと思っています。</p>
-    <p>価値 → 業務課題 → 業務要件 → システム化範囲 → 要件定義 → システムアーキテクチャ → 実装・検証 → 運用・改善、というつながりを考えます。技術検証や利用者評価の結果から、価値や要求を見直す反復も含みます。</p>
-    <p>出発点は「AIで何を作れるか」ではありません。「何を変える価値があるか」を確かめた後で、AI、既存システム、通常のソフトウェア、業務手順や人間の役割の変更、システムを作らない選択を比較します。AIを使わないことも、企画の正式な判断です。</p>
-    <p>ここで示すのは、今後深めたい知識と判断領域です。現在、私がシステム企画を担当した公開可能な実務Caseはありません。将来、実際の企画判断を公開できるようになったときの受け皿としても育てていきます。</p>
-  </section>
-  <section aria-labelledby="field-work">
-    <h2 id="field-work">現場での具体化と、企画の問い</h2>
-    <p>FDEは独立した企画カテゴリではなく、企画・要件定義・設計・PoC・実装・改善を横断し得る働き方です。現場理解、課題把握、プロトタイプ、利用者評価、要求具体化、実装・改善を通じて、「現場課題をどう具体化し、どう実装・改善するか」という問いを扱います。</p>
-    <p>企画で強調したい問いは「そもそも何を変える価値があり、何を業務要件として定義するか」です。目指す業務成果、KPI、優先順位、今回の範囲と対象外を決めます。現場での具体化と重なる部分もありますが、職種の優劣ではなく、主に扱う判断の違いとして区別します。</p>
+  <PageHeader alignHero navigationPath="planning" title="企画" eyebrow="SYSTEM PLANNING" summary="何を、なぜ、どこまでシステム化するのか。業務課題から目的・期待価値・業務要件・業務目標を整理し、対象範囲と投資の優先順位を判断します。" />
+  <p>企画で定めた業務要求を、<a href={url("ai-design")}>AI設計</a>でシステム要件・実現方式・責任分担へ具体化します。<a href={url("dx")}>DX</a>は業務・価値・組織の変化を扱います。企画では新規開発だけでなく、既存システムの刷新・廃止や、システムを作らない選択も検討します。</p>
+  <section aria-labelledby="reading">
+    <h2 id="reading">企画の判断を考える</h2>
+    <ul class="dx-featured-articles">{articles.map(entry => <li><h3><a href={url(entry.id)}>{entry.data.title}</a></h3><p>{entry.data.summary}</p></li>)}</ul>
   </section>
   <section aria-labelledby="scope">
     <span id="handoff" aria-hidden="true"></span>
     <h2 id="scope">企画で決めること</h2>
     <ul>{planningQuestions.map(question => <li><strong>{question.title}</strong><p>{question.description}</p></li>)}</ul>
   </section>
-  <section aria-labelledby="reading">
-    <h2 id="reading">企画の判断を考える</h2>
-    <ul class="dx-featured-articles">{articles.map(entry => <li><h3><a href={url(entry.id)}>{entry.data.title}</a></h3><p>{entry.data.summary}</p></li>)}</ul>
-    <p>現在、公開中の企画事例はありません。この領域では、企画の知識と判断原則を整理しています。</p>
+  <section aria-labelledby="purpose">
+    <h2 id="purpose">この領域を深める理由</h2>
+    <p>私は、与えられた課題をどうシステム化するかだけでなく、何を変える価値があるのかを見つけるところから関わりたいと考えています。価値を確かめ、業務要件とシステム化範囲を定める判断を、今後の専門領域として深めたいと思っています。</p>
+    <p>ここでは、そのための知識と判断原則を整理しています。現在、公開中の企画事例はありません。</p>
+  </section>
+  <section aria-labelledby="field-work">
+    <h2 id="field-work">FDEとの関係</h2>
+    <p>FDEは、現場理解から要件定義・設計・PoC・実装・改善を横断し得る働き方です。企画と重なる部分はありますが、企画では「何を変える価値があるか」を起点に、業務目標・優先順位・対象範囲を定める判断に焦点を当てます。</p>
   </section>
 </Site>

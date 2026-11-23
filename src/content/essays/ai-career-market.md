@@ -8,10 +8,10 @@ section: essays
 status: published
 lifecycle: obsolete
 last_updated: "2026-10-05"
-tags: &a1
+tags:
   - キャリア
   - 転職
-  - 生成ai
+  - 生成AI
   - aiエンジニア
   - ai人材
 published_at: 2026-08-20 08:25
@@ -26,13 +26,13 @@ source:
   url: https://zenn.dev/nullcontroller/articles/4f6be09295656b
   published_at: 2026-08-20 08:25
   publication_month: null
-  topics: *a1
+  topics: ["キャリア","転職","生成ai","aiエンジニア","ai人材"]
   zenn_type: idea
   metadata:
     title: 採用される側から見たAI人材の転職概況
     emoji: 💼
     type: idea
-    topics: *a1
+    topics: ["キャリア","転職","生成ai","aiエンジニア","ai人材"]
     published: true
     published_at: 2026-08-20 08:25
 lifecycle_reason: "2026年8月時点の転職市場や職種の見え方を、採用される側から記した記事です。市場の状況は変わるため、現在の求人動向や職種選択の推奨としては扱いません。"
