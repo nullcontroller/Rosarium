@@ -1358,10 +1358,11 @@ console.log("Verified technical investigation Case navigation parity, five inlin
 // The Case remains in the case index and history after the Home highlights are removed.
 const investigationHomeHref = "/cases/ai-technical-investigation/";
 assert.equal(cases('[data-series-index="cases/ai-technical-investigation"]').length, 1);
-for (const view of [top, gardenNotes]) {
+for (const view of [gardenNotes]) {
  assert.equal(view('[data-growth-entry] a[href="'+investigationHomeHref+'"]').length, 1);
  assert.equal(view('[data-growth-date="2026-10-29"] a[href="'+investigationHomeHref+'"]').length, 1);
 }
+assert.equal(top('[data-growth-date="2026-10-29"]').length, 0, 'Home keeps only the latest three dates after the series publication');
 
 // AI investment essay uses existing publication, category and Garden Notes paths.
 const investmentId = "essays/ai-investment-value-cost-evolution";
