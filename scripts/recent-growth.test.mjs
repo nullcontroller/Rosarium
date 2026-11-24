@@ -43,7 +43,7 @@ test("November renovation records public changes without announcing review-only 
   assert.equal(item.type, "revised");
   assert.deepEqual(growthPublishedTargets(item), []);
   assert.deepEqual(growthSummary(item, () => false), item.summaryChanges);
-  assert.equal(item.summaryChanges.length, 13);
+  assert.equal(item.summaryChanges.length, 3);
   assert.equal(item.changes.flatMap(growthChangeTargets).length, 13);
   const links = item.relatedLinks.map(link => link.path);
   assert.deepEqual(links, ["cases/customer-support-ai-dx", "ai", "dx", "planning", "cases", "career", "start-here"]);

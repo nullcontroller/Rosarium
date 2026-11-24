@@ -13,12 +13,11 @@ const months = [...new Set(recentGrowth.map((entry) => entry.date.slice(0, 7)))]
 const description = "Rosariumで行った主な公開・改訂・統合・剪定の記録。AI・DX・システム設計に関する知識や事例がどう変化したかをまとめています。";
 ---
 
-<Site showReference={false} title="Garden Notes" summary={description} section="garden-notes" lastUpdated={recentGrowth[0].date}
-  breadcrumbs={[{ name: "Rosarium", path: "" }, { name: "Garden Notes", path: "garden-notes" }]}>
+<Site showReference={false} title="Garden Notes" summary={description} section="garden-notes" lastUpdated={recentGrowth[0].date}>
   <PageHeader title="Garden Notes" />
   <div class="garden-notes-page">
     <p>Rosariumで行った主な公開・改訂・統合・剪定を記録しています。</p>
-    <p>更新件数を月ごとに残しています。具体的な変更内容は各記事末尾の更新履歴で確認できます。手入れの方針は<a href={url("about")}>Rosariumとは？</a>にまとめています。</p>
+    <p>月ごとの要約から更新を探せます。記録の詳細と訂正内容は各日の折りたたみ欄に残し、技術的な説明は記事本文で扱います。手入れの方針は<a href={url("about")}>Rosariumとは？</a>にまとめています。</p>
     <div class="garden-notes-history" role="region" tabindex="0" aria-label="Garden Notes 更新履歴">
     {months.map(({ month, entries }) => (
       <section aria-labelledby={`notes-${month}`}>

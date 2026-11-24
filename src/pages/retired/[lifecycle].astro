@@ -4,7 +4,7 @@ import Site from "../../layouts/Site.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ArchiveList from "../../components/ArchiveList.astro";
 import { publishedEntry } from "../../lib/site";
-import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup, groupArchiveEntries, archiveCategoryAnchor, archiveEntryAnchor } from "../../lib/archive";
+import { archiveLifecycles, isArchiveEntry, getArchiveGroup, groupArchiveEntries, archiveCategoryAnchor, archiveEntryAnchor } from "../../lib/archive";
 export function getStaticPaths() {
   return archiveLifecycles.map((group) => ({ params: { lifecycle: group.id }, props: { group } }));
 }
@@ -22,7 +22,7 @@ const headings = [
     ])),
 ];
 ---
-<Site toc="always" headings={headings} mobilePageToc showReference={false} title={`${group.title}一覧`} summary={group.description} section="retired" noindex lastUpdated="2026-10-05" breadcrumbs={[{ name: "Rosarium", path: "" }, { name: archiveTitle, path: "retired" }, { name: group.title, path: `retired/${group.id}` }]}>
+<Site toc="always" headings={headings} mobilePageToc showReference={false} title={`${group.title}一覧`} summary={group.description} section="retired" noindex lastUpdated="2026-10-05">
   <div class="archive-page">
   <div id="archive-heading"><PageHeader title={group.title} summary={group.description} /></div>
   <p>{group.lifecycle.toUpperCase()} · {entries.length}件</p>

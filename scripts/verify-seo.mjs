@@ -209,7 +209,7 @@ for (const [route, destination] of [["practices/ai-education-principles","practi
   assert.match($('meta[name="robots"]').attr("content") || "", /noindex/);
   assert.equal($('link[rel="canonical"]').attr("href"), "https://rosarium-tech.com" + target);
   assert.equal($('meta[http-equiv="refresh"]').attr("content"), "0;url=" + target);
-  assert.equal($("main a[href]").first().attr("href"), target);
+  assert.equal($("main a[href]").not('.breadcrumb a').first().attr("href"), target);
   assert.equal($("[data-series-index]").length, 0);
   assert.ok($("script").text().includes("location.replace(destination)"));
 }

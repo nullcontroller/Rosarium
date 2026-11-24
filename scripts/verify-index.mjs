@@ -610,10 +610,10 @@ function assertGrowthChanges($, row, entry) {
   })).concat((entry.relatedLinks ?? []).map(link => ({ title: link.title, href: `/${link.path}/` })));
   assert.deepEqual(
     row.find(".growth-changes > li").map((_, item) => $(item).text()).get(),
-    [...growthContentChanges(entry), ...expectedLinks.map(link => link.title)],
+    [...(row.attr("data-growth-compact") === "true" ? growthContentChanges(entry).slice(0, 3) : growthContentChanges(entry)), ...ids.map(id => entries.get(id)?.title)],
   );
   assert.deepEqual(
-    row.find(".growth-changes a").map((_, item) => ({
+    row.find(".growth-changes a, [data-growth-related] a").map((_, item) => ({
       title: $(item).text(),
       href: $(item).attr("href"),
     })).get(),
@@ -839,7 +839,7 @@ assert.equal(
 assert.equal(customerSupportBook('a[href*="outcomes-and-evidence"]').length, 0);
 for (const id of ["specification-debt-review", "three-ai-maintenance", "system-understanding", "customer-support-ai-dx"])
   assert.equal(page("career")(`main a[href="/cases/${id}/"]`).length, 1);
-assert.equal(page("career")('[data-directive="case"]').length, 4);
+assert.equal(page("career")('[data-directive="case"]').length, 5);
 assert.equal(page("career")('main a[href="https://github.com/nullcontroller/Rosarium"]').length, 1);
 console.log("Verified Garden Notes history and single latest-update display without publication dates.");
 
@@ -1036,7 +1036,7 @@ for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "
   assert.equal($('main [data-content-id^="cases/"]').length, 0, route);
 }
 assert.equal(page("about")('main h2').filter((_, node) => page("about")(node).text() === "次に読む").length, 0);
-assert.equal(page("about")('main a[href="/"]').text(), "庭に戻る");
+assert.equal(page("about")('main a[href="/"]').not('.breadcrumb a').text(), "庭に戻る");
 const homeHero = top('.home-hero-layout');
 assert.equal(homeHero.find('.lead').first().text(), 'Rosariumは、AI・DX・システム設計に関する知識や実践事例を整理・公開する個人技術サイトです。');
 assert.equal(homeHero.find('.lead').last().text(), 'AIの数学・基礎理論から、設計原則、業務への適用、実際の問題解決までを扱っています。');

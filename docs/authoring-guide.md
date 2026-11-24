@@ -7,7 +7,7 @@
 
 `src/content/{section}/{semantic-slug}.md`を追加します。通常ページはMDXを使いません。
 英小文字・数字・ハイフンのsemantic slugを使い、公開後はURLを安易に変更しません。
-ファイルの相対パスがURLになります。例：`foundations/acceptance-boundary.md` → `/Rosarium/foundations/acceptance-boundary/`。
+ファイルの相対パスがURLになります。例：`foundations/acceptance-boundary.md` → `/foundations/acceptance-boundary/`。
 
 ```yaml
 ---
@@ -31,12 +31,32 @@ update_note: "責任境界と実行権限の整理を追加"
 
 タイトルは共通レイアウトがH1として表示します。本文の見出しは`##`から始めます。
 新規記事に出典や日付を捏造しません。公開日・更新日は不明なら省略できます。
-本文・概要・設計内容・図解を実質的に改訂した場合は、実際の改訂日を`last_updated`へ設定します。初回公開日を示す`published_at`は変更しません。タグの表記統一や共通CSS・UIの変更だけで、全記事の日付を更新しません。ファイルの変更日時やGitの最終コミット日時を、記事の更新日として自動採用しません。
+
+`summary`は必須です。本文で実際に扱う内容を1〜2文で要約し、タイトルから推測しません。すべての一覧・章目次・前後リンク・検索結果はこの値だけを概要として表示します。本文を変更したら概要も確認してください。
+
+## 記事の最終更新日管理
+
+記事を新規作成・改訂する際は、本文だけでなくFront Matterの更新日を必ず確認します。本節と次節を、記事編集時の更新日・履歴管理の正本とします。
+
+- 本文・概要・設計内容・図解を実質的に変更した場合は、`last_updated`を実際の改訂日に更新します。
+- 初回公開日を示す`published_at`は、改訂によって変更しません。
+- 誤字修正、タグの表記統一、共通CSS・UIなど、記事の内容に影響しない修正では、原則として更新日を変更しません。
+- Bookは変更した章ごとに更新日を確認します。Book概要も変更した場合は別途確認し、未変更の章・記事まで一括更新しません。
+- ファイルの変更日時やGitの最終コミット日時を、記事の更新日として自動採用しません。確認できない日付は捏造しません。
 
 最終更新日の正本は`last_updated`です。記事ヘッダー・カード・Book目次・前後ナビゲーション・検索・構造化データ・サイトマップへ同じ値を渡します。既存の`updated_at`は互換用であり、新たな最終更新日の管理先にしません。必要な場合だけ`update_type`（new / updated / expanded / revised / connected / reframed）と1行の`update_note`を追加します。
 
-GARDEN NOTESは`src/data/recent-growth.ts`で手動管理します。公開記事の実質改訂は`action: revised`と対象の`contentIds`で記録し、記事ごとの更新履歴にも結び付けます。同日の既存記録へ統合し、改訂を新規公開として登録しません。記録日が対象記事の`last_updated`より後になっていないことを`npm run check`で検証します。サイト共通のUI改善は文字列で管理し、記事の改訂履歴へ一律に結び付けません。未公開記事は更新日を管理しても、公開用GARDEN NOTESへタイトルやIDを登録しません。
-`summary`は必須です。本文で実際に扱う内容を1〜2文で要約し、タイトルから推測しません。すべての一覧・章目次・前後リンク・検索結果はこの値だけを概要として表示します。本文を変更したら概要も確認してください。
+## GARDEN NOTESと個別記事の更新履歴
+
+記事の新規公開、実質的な改訂、統合、退役、サイトの重要な機能改善を行った場合は、`src/data/recent-growth.ts`の更新要否を必ず確認します。読者にとって意味のある変更だけを記録し、実際の変更内容と一致させます。
+
+- 記事の変更は、既存の`contentIds`と、内容に対応する`action`（published / revised / integrated / retired）を使い、記事ごとの更新履歴データにも反映します。改訂を新規公開として登録しません。
+- サイト共通のUI改善は文字列で管理し、個別記事の改訂履歴へ一律に結び付けません。軽微な装飾・内部保守だけで記録を増やしません。
+- 同日の変更は既存の更新記録へ追記・統合します。
+- 未公開記事は更新日を管理しても、公開用GARDEN NOTESへタイトル・リンク・IDを登録しません。
+- 記録した対象・説明・日付を実際の変更と照合します。記録日が対象記事の`last_updated`より後になっていないことを`npm run check`で検証します。
+
+履歴の公開表示・集計・過去データの保持は[更新履歴の方針](content-history-policy.md)に従います。個別記事の履歴データへ反映することと、記事ページへ履歴ボックスを表示することは別です。
 
 ## Layer / Topic / Source
 
@@ -139,7 +159,7 @@ Directiveは段落間の独立ブロックとして使います。`title`は省�
 ## 画像・リンク
 
 新規画像は`public/assets/`へ配置し、本文では`![説明](/assets/example.png)`と記述します。
-共通Markdown処理がPagesのbaseを付加します。Zenn移行画像は`public/assets/imported/zenn/`です。
+共通Markdown処理がサイトのbaseを付加します。現在のbaseは空文字列で、正規ドメイン直下のURLです。Zenn移行画像は`public/assets/imported/zenn/`です。
 外部画像の代替を勝手に生成しません。
 
 内部リンクは`[表示名](/foundations/acceptance-boundary/)`のようにカテゴリから始まる絶対パスにします。
@@ -158,11 +178,27 @@ Directiveは段落間の独立ブロックとして使います。`title`は省�
 ## 出典とcanonical
 
 Zenn由来ページは`source`に元slug、Book/Chapter slug、type、topics、公開日、URL、元front matterを保持しています。
-`canonical`には元Zenn URLを設定しています。将来の正規URL切替はこの値の変更としてレビューします。
-Git-nativeページでは`source`と`canonical`を省略すると、自身のPages URLがcanonicalになります。
-元Book・章は公開月がcatalogにある場合のみ保持し、正確な公開日は未確認のままです。
+正規ドメインは `https://rosarium-tech.com` です。公開HTMLの正本は `src/layouts/Site.astro` のcanonical生成処理です。
+
+- 通常ページは自ドメインと現在のルートをcanonicalとします。自ドメイン内の明示的なcanonicalは、互換URLから統合先への案内などに使用します。
+- 外部ドメインのcanonical値は現在のSite実装では採用しません。Zenn由来記事も公開HTMLはRosariumのURLです。出典を理由に旧Zenn URLを正規URLへ戻しません。
+- 元slug、Book/Chapter slug、type、topics、公開日・公開月、URL、元front matterは `source` と移行台帳に保持します。既存の移行元metadataを削除・一括書換えしません。
+- 旧GitHub Pages URLは互換入口として扱い、新しい内部リンク・canonical・OGP・サイトマップには正規ドメインを使います。既存URLの廃止や転送変更は別途レビューします。
+- 月までしか分からない公開日は月表示を維持します。既存記事の `publication_date_basis: fallback` は過去の運用上の基準であり、史実の公開日や今回の改訂日へ読み替えません。公開日の解決順は `src/lib/publication-date.ts` を参照します。
 
 ## 検証と公開
+
+記事本文の修正だけで作業完了と判断しません。新規作成・改訂を完了する前に、次を確認します。変更対象や公開状態により対象外となる項目は、その理由を確認します。
+
+- [ ] 記事本文・概要・図解の整合性
+- [ ] `last_updated`の更新要否（Bookは変更した章ごと）
+- [ ] `published_at`の維持（改訂で初回公開日を変更していないか）
+- [ ] GARDEN NOTESの更新要否
+- [ ] 個別記事の更新履歴への反映（対象ID・action・実際の変更内容）
+- [ ] 記事カード・前後ページ・検索結果の更新日
+- [ ] 内部リンクと公開状態（未公開記事が公開履歴に含まれていないか）
+- [ ] 型検査・テスト・ビルド
+
 
 ```sh
 npm ci
@@ -176,6 +212,8 @@ npm run preview
 移行済み本文の編集でハッシュ検証が失敗した場合は、意図した本文変更かレビューし、台帳の変更理由とハッシュも同じコミットで更新してください。失敗を無条件に無効化しません。
 
 `master`へpushするとGitHub Actionsが公開します。default branchを`main`へ変更しません。
+この公開動作は公開承認を意味しません。記事制作・更新は[AGENTS.mdの必須工程と公開境界](../AGENTS.md#必須工程と公開境界)に従い、ローカル検証 → 既存ステージング反映・動作確認 → レビュー資料提供 → セリーヌレビュー → 指摘修正・必要な再レビュー → 裕太朗の明示承認 → 本番公開・結果確認の順で進めます。ステージング未確認・レビュー未実施・承認前に本番公開を起動しません。
+制作完了にはステージングへの実反映とレビュー可能な原稿・PC／スマートフォン画像等が必要です。既存の限定レビュー環境の公開範囲を広げず、利用不能時に本番で代替しません。完了報告はAGENTS.mdの9項目で行い、Codexのセルフレビューとセリーヌのレビューを区別します。
 Repository Settings → Pages → SourceはGitHub Actionsに設定します。
 Zennとの自動双方向同期は行いません。
 
@@ -190,7 +228,7 @@ catalogは分類根拠、templatesは参考資料として扱い、公開記事�
 サイトブランドは「Rosarium」。Authorである立林 裕太朗のCareerと、技術知識・公開物を同じサイト内で閲覧できる構成です。
 Careerは src/content/career/overview.md の1ページで人物・仕事観・今後の志向を扱います。実践内容はCases、客観的な職歴・資格はLinkedInを正本とし、Career Detailsは旧URLの転送だけを維持します。職歴・条件の事実変更は依頼に基づいて行います。
 
-sourceとcanonicalの移行元情報は内部資料として保持します。公開ページのcanonicalは自サイトです。
+出典metadataと公開canonicalは役割が異なります。[出典とcanonical](#出典とcanonical)を正本とします。
 公開UIにはSource表示を追加せず、GitHub・Zenn・旧Careerサイトへのリンクを出しません。
 CareerのPortfolio導線では例外として、実装・コンテンツ管理・検証を確認できるRosariumリポジトリへのリンク1件だけを掲載します。移行元の表示や、他ページの出典リンクの公開とは区別します。
 MarkdownBodyが対応する出典URLを内部リンクへ変換し、未対応のリンクはテキストとして残します。
@@ -265,20 +303,14 @@ Garden Notesの公開記録は引き続き `src/data/recent-growth.ts` への手
 
 ## 未公開下書きの限定レビュー
 
-`status: draft`かつ`public: false`の記事は、通常の`npm run build`、一覧、検索、フィード、サイトマップへ含めません。公開日を先に設定しません。
+`status: draft`かつ`public: false`の記事は、通常の`npm run build`、一覧、検索、フィード、サイトマップへ含めません。日付だけを理由に公開しません。明示承認された公開準備では予定日を設定できますが、draft/public:falseを維持します。
 
 レビュー用に選んだIDだけを別出力へ描画します。
 
 ```powershell
-node scripts/build-review.mjs essays/what-is-ai essays/cognitive-surrender
+node scripts/build-review.mjs
 node scripts/verify-review-build.mjs
-$env:ROSARIUM_DRAFT_PREVIEW = "essays/what-is-ai,essays/cognitive-surrender"
-# 指定した環境変数はこのプロセスだけのもの。作業後に除去する。
-try {
-  node node_modules/astro/bin/astro.mjs preview --host 127.0.0.1 --port 4325 --allowed-hosts nullcontroller.tail8bbb3b.ts.net --ignore-lock
-} finally {
-  Remove-Item Env:ROSARIUM_DRAFT_PREVIEW
-}
+node scripts/preview-review.mjs
 ```
 
 検証は通常ビルド`dist/`を先に作ってから行います。レビュー用検索は通常ビルドの公開記事インデックスを再利用し、下書きHTMLを索引化しません。レビュー出力は`dist-review/`です。下書きページはnoindex、内部検索対象外、レビュー用表示付きです。noindexはアクセス制御ではありません。既存のTailnet限定接続でのみ共有し、Funnelや本番へ公開しません。レビュー用環境変数をGitHub Actionsや本番に設定しません。Draft PRをレビューしても公開承認やマージを自動的に行いません。
@@ -292,3 +324,21 @@ try {
 記事種別は`src/lib/navigation.ts`の`contentType`で共通判定します。実務事例は既存の事例管理データとその章、仮想設計は`src/data/design-studies.mjs`の明示定義を使います。`kind: case`だけでは実務実績と認定せず、不明なものは「事例」にとどめます。論考・技術解説・参照資料も既存メタデータから表示し、内部管理値や同義ラベルを重ねません。記事ヘッダーと検索の記事種別はこの判定を共有します。検索にはタイトル・概要・種別・最終更新日を示し、内部分類や読む目的の羅列を表示しません。検索に必要な内部メタデータは保持します。
 
 タグの追加前に既存表記を確認し、同義のタグは「生成AI」「AI活用」のように統一します。変更時は抽出・関連表示・検索への影響を確認し、Front Matterと参照コードを整合させます。出典の`source.metadata`は来歴情報として元の値を保持します。表記統一を理由に公開状態や分類値を変えません。
+
+### 継続するステージングレビュー対象
+
+`scripts/review-targets.json`を対象一覧の正本とします。`node scripts/build-review.mjs essays/new-id`は既存対象と追加IDの和集合をビルドし、成功後に追加IDを保存します。次回以降の追加で既存対象を置き換えません。対象の削除は一覧を明示的に編集します。`preview-review.mjs`も同じ一覧からプロセス限定の`ROSARIUM_DRAFT_PREVIEW`を設定します。本番ビルド・公開予約ではこの一覧を読み込みません。
+
+## 規約の正本と参照関係
+
+| 領域 | 正本文書 |
+| --- | --- |
+| Markdown、metadata、日付、出典・canonical、編集時の確認 | 本書 |
+| ACTIVE・OBSOLETE・RETIRED、保存と互換URL | [ライフサイクル](content-lifecycle.md) |
+| 継続レビューと変更規模の判断 | [保守規約](content-maintenance.md) |
+| Homeと全履歴の表示、履歴データと訂正の保持 | [更新履歴の方針](content-history-policy.md) |
+| 実行時の入口・完了報告 | [AGENTS.md](../AGENTS.md) |
+
+公開前の受け渡し・セリーヌレビュー・著者承認の詳細は、AGENTS.mdから参照するPublishingOSを正本とします。文書間では規則の全文を複製せず、担当領域へリンクします。
+
+公開GitHubリポジトリの原稿は、サイトでdraftにしてもソースから閲覧され得ます。会社・顧客の機密、原本コード・ログ・会話、認証情報を置きません。判断できない資料は転載せず、著者に確認します。履歴改変・完全削除・リポジトリ公開設定変更は自動で行いません。

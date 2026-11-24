@@ -2,7 +2,7 @@
 import { getEntry, render } from "astro:content";
 import Site from "../layouts/Site.astro";
 import MarkdownBody from "./MarkdownBody.astro";
-import { url } from "../lib/site";
+
 import { statusLabel } from "../lib/site";
 import Icon from "./Icon.astro";
 const entry = await getEntry("career", "overview");
@@ -22,14 +22,7 @@ const d = entry.data;
   headings={headings}
   frame={false}
   showReference={false}
-  breadcrumbs={[
-    { name: "庭", path: "" },
-    { name: "キャリア", path: "career" },
-  ]}
 >
-  <nav class="breadcrumb" aria-label="現在位置">
-    <a href={url()}>Rosarium</a> / <a href={url("career")}>キャリア</a>
-  </nav>
   <article data-pagefind-body>
     <div class="document-title-row">
       <Icon name="career" size="page" />
