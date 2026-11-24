@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
+import { gunzipSync } from 'node:zlib';
 import YAML from 'yaml';
 import { load } from 'cheerio';
 import { recentGrowth, growthPublishedTargets } from '../src/data/recent-growth.ts';
@@ -42,6 +43,21 @@ for(const id of privateIds) {
  const text=fs.readFileSync(`src/content/${id}.md`,'utf8'); const data=YAML.parse(text.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
  assert.equal(data.status,'draft'); assert.equal(data.public,false); assert(!fs.existsSync(`dist/${id}/index.html`));
 }
+const fragments = fs.readdirSync('dist/pagefind/fragment').map(file => {
+  const text = gunzipSync(fs.readFileSync(`dist/pagefind/fragment/${file}`)).toString('utf8');
+  return {file, data: JSON.parse(text.slice(text.indexOf('{')))};
+});
+for(const p of manifest.pages) {
+  const fragment = fragments.find(f => f.data.url === `/${p.id}/`);
+  assert(fragment, `Search index missing: ${p.id}`);
+  if(live) {
+    const response = await fetch(`https://rosarium-tech.com/pagefind/fragment/${fragment.file}?release=20261125`, {cache:'no-store'});
+    assert.equal(response.status,200);
+    const text = gunzipSync(Buffer.from(await response.arrayBuffer())).toString('utf8');
+    assert.equal(JSON.parse(text.slice(text.indexOf('{'))).url, `/${p.id}/`);
+  }
+}
+for(const id of privateIds)assert(!fragments.some(f=>f.data.url===`/${id}/`), `Private search leak: ${id}`);
 for(const file of ['index.html','garden-notes/index.html']) {
  const html=live ? await (await fetch(`https://rosarium-tech.com/${file.replace('index.html','')}?release=20261125`, {cache:'no-store'})).text() : fs.readFileSync(`dist/${file}`,'utf8');
  const $=load(html); for(const id of ids)assert($(`a[href="/${id}/"]`).length>0, `${file}: ${id}`);
