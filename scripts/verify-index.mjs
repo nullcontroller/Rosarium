@@ -1241,7 +1241,11 @@ assert.equal(supportOverview('.book-introduction-metadata .meta').length,1);
 
 for(const file of walk("dist").filter(file=>file.endsWith(".html"))) {
  const $=load(fs.readFileSync(file,"utf8"));
- if($('.series-position-inline').length)assert.match($('.series-position-inline').text(), /^現在位置：.+・全\d+章$/,file+': meaningful series position');
+ if($('.series-position-inline').length) {
+   if(file.replaceAll('\\','/').includes('/essays/ai-')) {
+     assert.match($('.series-position-inline').text(), /^AI活用の本質を問う：(?:シリーズ一覧|第[1-6]回)・全6回$/,file+': meaningful essay series position');
+   } else assert.match($('.series-position-inline').text(), /^現在位置：.+・全\d+章$/,file+': meaningful series position');
+ }
 }
 
 assert.equal(supportOverview('.book-toc-mobile[data-page-heading-toc]').length,0);
@@ -1354,10 +1358,11 @@ console.log("Verified technical investigation Case navigation parity, five inlin
 // The Case remains in the case index and history after the Home highlights are removed.
 const investigationHomeHref = "/cases/ai-technical-investigation/";
 assert.equal(cases('[data-series-index="cases/ai-technical-investigation"]').length, 1);
-for (const view of [top, gardenNotes]) {
+for (const view of [gardenNotes]) {
  assert.equal(view('[data-growth-entry] a[href="'+investigationHomeHref+'"]').length, 1);
  assert.equal(view('[data-growth-date="2026-10-29"] a[href="'+investigationHomeHref+'"]').length, 1);
 }
+assert.equal(top('[data-growth-date="2026-10-29"]').length, 0, 'Home keeps only the latest three dates after the series publication');
 
 // AI investment essay uses existing publication, category and Garden Notes paths.
 const investmentId = "essays/ai-investment-value-cost-evolution";

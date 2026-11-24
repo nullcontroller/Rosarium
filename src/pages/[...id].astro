@@ -21,7 +21,7 @@ import { imageDimensions } from "../lib/image-metadata";
 import { contentUseCases } from "../lib/use-cases";
 import { bookChapterLegacyFragments } from "../data/book-chapter-fragments";
 import ContentHistory from "../components/ContentHistory.astro";
-import { url, layerLabel, publicEntry, publishedEntry } from "../lib/site";
+import { url, layerLabel, publicEntry, publishedEntry, formatDateJa } from "../lib/site";
 import LifecycleNote from "../components/LifecycleNote.astro";
 import { iconForEntry } from "../lib/icons";
 import Icon from "../components/Icon.astro";
@@ -71,18 +71,20 @@ const activeIds = new Set(all.filter(item => item.data.lifecycle === "active").m
 const evidenceLinks = caseEvidenceLinks(entry.id, content.body, Astro.url, caseStudies.filter(study => activeIds.has(study.book)), activeIds)
   .map((id: string) => all.find(item => item.id === id)!);
 const series = d.series
-  ? all
+  ? (await getCollection("pages", item => publicEntry(item) || isDraftPreview(item, process.env.ROSARIUM_DRAFT_PREVIEW)))
       .filter((e) => e.data.series === d.series)
       .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
   : [];
 const readingSequence = series;
+const isSerial = series.some(item => item.data.publication_format === "series" && item.data.kind === "essay" && item.data.order === 0);
+const seriesIntroduction = series.find(item => item.data.order === 0);
 const position = readingSequence.findIndex((e) => e.id === entry.id);
-const previous = readingSequence[position - 1],
-  next = readingSequence[position + 1];
-const chapterCount = series.filter((item) => (item.data.order ?? 0) > 0).length;
+const previous = isSerial ? series.find(item => item.data.order === (d.order ?? 0) - 1) : readingSequence[position - 1],
+  next = isSerial ? series.find(item => item.data.order === (d.order ?? 0) + 1) : readingSequence[position + 1];
+const chapterCount = isSerial ? Math.max(...series.map(item => item.data.order ?? 0)) : series.filter((item) => (item.data.order ?? 0) > 0).length;
 const chapterNumber = bookChapterNumber(entry);
 const seriesPosition = series.length > 0
-  ? `現在位置：${(d.order ?? 0) === 0 ? "全体構成" : `第${String(chapterNumber).padStart(2, "0")}章`}・全${chapterCount}章`
+  ? isSerial ? `${d.series_title}：${d.order === 0 ? "シリーズ一覧" : `第${d.order}回`}・全${chapterCount}回` : `現在位置：${(d.order ?? 0) === 0 ? "全体構成" : `第${String(chapterNumber).padStart(2, "0")}章`}・全${chapterCount}章`
   : undefined;
 const coverDimensions = imageDimensions(
   d.cover ? d.cover : undefined,
@@ -94,6 +96,7 @@ const entryPoints = contentEntryPoints(entry);
 const breadcrumbs = [
     { name: "庭", path: "" },
     { name: primaryLabel, path: primaryPath },
+    ...(isSerial && seriesIntroduction && d.order !== 0 ? [{ name: d.series_title || seriesIntroduction.data.title, path: seriesIntroduction.id }] : []),
     ...(isDesignStudy ? [{ name: "発展ケーススタディ", path: "cases/design-studies" }] : []),
     ...(d.design_topic
       ? [
@@ -109,11 +112,12 @@ const bookNavigation = series.length
   ? {
       title: d.series_title || series[0].data.title,
       chapterCount,
+      tocLabel: isSerial ? `この連載の目次（全${chapterCount}回）` : undefined,
       items: series.map((item) => ({
         title:
           (item.data.order ?? 0) === 0
             ? "全体構成"
-            : item.data.title,
+            : isSerial ? `第${item.data.order}回：${item.data.title}` : item.data.title,
         href: url(item.id),
         current: item.id === entry.id,
       })),
@@ -140,7 +144,7 @@ const bookNavigation = series.length
 >
   {d.status === "draft" && <p class="meta" role="note">レビュー用初稿：内容・公開可否は所有者の確認前です。</p>}
   <nav class="breadcrumb" aria-label="パンくず">
-    {isDesignStudy ? breadcrumbs.map((item,index) => <>
+    {isDesignStudy || isSerial ? breadcrumbs.map((item,index) => <>
       {index > 0 && <span aria-hidden="true"> ＞ </span>}
       <a href={url(item.path)} aria-current={index === breadcrumbs.length - 1 ? "page" : undefined}>{item.name}</a>
     </>) : <>
@@ -180,6 +184,7 @@ const bookNavigation = series.length
         <ContentHistory lastUpdated={d.last_updated} />
         <span hidden data-pagefind-meta="last_updated">{d.last_updated}</span>
       </p>
+      {d.status === "draft" && d.published_at && <p class="meta" data-publication-planned>公開予定：<time datetime={d.published_at}>{formatDateJa(d.published_at)}</time></p>}
       {(d.publication_format || d.layer === "publication") && (
         <span hidden data-pagefind-meta="publication">{timing.value}</span>
       )}
@@ -212,6 +217,7 @@ const bookNavigation = series.length
       />
     )}
     {seriesPosition && <p class="series-position-inline">{seriesPosition}</p>}
+    {isSerial && seriesIntroduction && d.order !== 0 && <p><a href={url(seriesIntroduction.id)}>シリーズ一覧へ</a></p>}
     <div class="prose" data-book-introduction={isBookIntroduction ? "" : undefined} data-toc-exclude={isBookIntroduction ? "" : undefined} id={isBookIntroduction ? "このbookについて" : undefined}>
       <MarkdownBody html={content.body} />
     </div>
@@ -227,7 +233,7 @@ const bookNavigation = series.length
     >
       {previous ? (
         <div>
-          <p>前のページ</p>
+          <p>{isSerial ? "前回" : "前のページ"}</p>
           <ContentLink entry={previous} heading="p" />
         </div>
       ) : (
@@ -235,7 +241,7 @@ const bookNavigation = series.length
       )}
       {next && (
         <div>
-          <p>次のページ</p>
+          <p>{isSerial ? "次回" : "次のページ"}</p>
           <ContentLink entry={next} heading="p" />
         </div>
       )}

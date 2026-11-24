@@ -78,7 +78,7 @@ export function pageOpening(html, headings = [], bookNavigation, { expanded = fa
   const controls = [];
   if (bookNavigation?.items.length) {
     const detail = $('<details class="book-toc-mobile"><summary></summary><ol></ol></details>');
-    detail.find('summary').text('このBookの目次（全' + bookNavigation.chapterCount + '章）');
+    detail.find('summary').text(bookNavigation.tocLabel ?? ('このBookの目次（全' + bookNavigation.chapterCount + '章）'));
     for (const item of bookNavigation.items) {
       const li = $('<li></li>').toggleClass('current', !!item.current);
       const link = $('<a></a>').attr('href', item.href).text(item.title);
