@@ -31,6 +31,12 @@ jobs:
             const fs = require('fs');
             const config = JSON.parse(fs.readFileSync('.github/releases/ai-essence-reservation.json'));
             const now = Date.now();
+            // Consume the reservation before any validation: a failure must not retry.
+            if (now >= Date.parse('2026-11-24T22:00:00Z')) {
+              const {data: reservation} = await github.rest.actions.getWorkflow({...context.repo,workflow_id:'release-ai-essence.yml'});
+              if (reservation.state !== 'active') throw Error('Reservation already consumed; queued duplicate must not retry.');
+              await github.rest.actions.disableWorkflow({...context.repo, workflow_id:'release-ai-essence.yml'});
+            }
             if (now < Date.parse('2026-11-24T22:00:00Z') || now > Date.parse('2026-11-24T22:50:00Z')) {
               core.setFailed('Outside the one-time reservation window; no publication performed.'); return;
             }
@@ -38,11 +44,12 @@ jobs:
             const {data: pr} = await github.rest.pulls.get(args);
             if (pr.merged) { core.notice('Already merged; no duplicate execution.'); return; }
             if (pr.state !== 'open' || pr.draft || pr.head.sha !== config.head || pr.base.ref !== 'master' || pr.mergeable !== true || pr.mergeable_state !== 'clean') throw Error('PR changed, conflicts, or merge is not clean.');
-            const {data: comparison} = await github.rest.repos.compareCommitsWithBasehead({...context.repo, basehead: `${config.base}...${pr.base.sha}`});
+            const {data: baseRef} = await github.rest.git.getRef({...context.repo,ref:'heads/master'});
+            const base = baseRef.object.sha;
+            const {data: comparison} = await github.rest.repos.compareCommitsWithBasehead({...context.repo, basehead: `${config.base}...${base}`});
             const allowed = ['.github/workflows/deploy-pages.yml','.github/workflows/release-ai-essence.yml','.github/releases/ai-essence-reservation.json'];
             if (!comparison.files || comparison.files.some(f => !allowed.includes(f.filename))) throw Error('Production base changed outside reservation setup; review required.');
-            await github.rest.actions.disableWorkflow({...context.repo, workflow_id:'release-ai-essence.yml'});
-            core.setOutput('run','true'); core.setOutput('head',config.head); core.setOutput('base',pr.base.sha);
+            core.setOutput('run','true'); core.setOutput('head',config.head); core.setOutput('base',base);
       - uses: actions/checkout@v4
         if: steps.reservation.outputs.run == 'true'
         with:
@@ -75,7 +82,8 @@ jobs:
             if (Date.now() > Date.parse('2026-11-24T22:50:00Z')) throw Error('Reservation expired; manual review required.');
             const {data: pr} = await github.rest.pulls.get({...context.repo,pull_number:35});
             if (pr.merged) { core.notice('Already merged; no deployment requested.'); return; }
-            if (pr.head.sha !== process.env.EXPECTED_HEAD || pr.base.sha !== process.env.EXPECTED_BASE || pr.mergeable !== true || pr.mergeable_state !== 'clean') throw Error('PR/base changed after validation.');
+            const {data: baseRef} = await github.rest.git.getRef({...context.repo,ref:'heads/master'});
+            if (pr.head.sha !== process.env.EXPECTED_HEAD || baseRef.object.sha !== process.env.EXPECTED_BASE || pr.mergeable !== true || pr.mergeable_state !== 'clean') throw Error('PR/base changed after validation.');
             const {data: result} = await github.rest.pulls.merge({...context.repo,pull_number:35,sha:process.env.EXPECTED_HEAD,merge_method:'merge'});
             if (!result.merged) throw Error(result.message);
             core.setOutput('merged','true'); core.setOutput('sha',result.sha);
