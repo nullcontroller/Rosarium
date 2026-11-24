@@ -78,7 +78,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   // Retired Details compatibility redirect; excluded from the sitemap.
   "career/details": "2026-10-04",
   // Site-wide last public change; independent of Garden Notes and individual page histories.
-  "": "2026-11-24",
+  "": "2026-11-25",
   ai: "2026-10-19",
   "ai-design": "2026-10-10",
   "ai-design/applicability": "2026-10-08",
