@@ -33,6 +33,36 @@ for(const file of walk(root).filter(f=>f.endsWith(".html"))) {
   const html=$.html();assert(html.indexOf('class="breadcrumb')<html.indexOf('<h1'),file);
   report.push({file:relative,trail:items.map((_,el)=>$(el).text()).get(),parents:nav.find("a").map((_,el)=>$(el).attr("href")).get()});
 }
+// A breadcrumb parent must offer a real category path, not merely an incoming
+// search result, Garden Notes item, or a backlink through the breadcrumb itself.
+const documents=new Map(walk(root).filter(file=>file.endsWith("index.html")).map(file=>[
+  "/"+path.relative(root,file).replaceAll("\\","/").replace(/index.html$/,""),load(fs.readFileSync(file,"utf8"))
+]));
+const categoryPaths=[{route:"/",result:"root-no-parent"}];
+const links=route=>{
+  const $=documents.get(route);if(!$)return [];
+  return $(route==="/"?"main a, header a, .sidebar a":"main a").not(".breadcrumb a, .growth-entry a")
+    .toArray().map(el=>$(el).attr("href")?.split("#")[0]).filter(href=>href?.startsWith("/")&&documents.has(href));
+};
+for(const entry of report){
+  const route="/"+entry.file.replace(/index.html$/,"");const $=documents.get(route);
+  if(!$){categoryPaths.push({route,result:"error-page-no-parent"});continue;}
+  if($("meta[http-equiv=refresh]").length){categoryPaths.push({route,result:"compatibility-redirect"});continue;}
+  const parent=entry.parents.at(-1);let found;
+  if(links(parent).includes(route)) found=[parent,route];
+  else for(const index of links(parent)){
+    const target=documents.get(index);
+    if(index==="/"||index==="/garden-notes/"||index==="/search/"||target("[data-pagefind-body]").length)continue;
+    if(links(index).includes(route)){found=[parent,index,route];break;}
+  }
+  if(!found && $("meta[name=robots]").attr("content")?.includes("noindex") && !$("[data-pagefind-body]").length && !route.startsWith("/cases/design-studies")){
+    categoryPaths.push({route,parent,result:"auxiliary-noindex-index",reason:"Legacy/nonprimary index; its current entry is linked from the page"});continue;
+  }
+  assert(found,`${route}: no category path from breadcrumb parent ${parent}`);
+  categoryPaths.push({route,parent,path:found,result:found.length===2?"direct":"via-category-index"});
+}
+fs.writeFileSync(path.join(root,"category-path-audit.json"),JSON.stringify(categoryPaths,null,2));
+console.log(`Category path audit: ${categoryPaths.length} pages; category links exclude search, Garden Notes and breadcrumbs.`);
 const out=process.env.ROSARIUM_BREADCRUMB_REPORT;
 if(out)fs.writeFileSync(out,JSON.stringify(report,null,2));
 console.log(`Verified ${report.length} non-Home HTML pages: one breadcrumb, real parent links, unlinked current page, heading order and matching BreadcrumbList.`);

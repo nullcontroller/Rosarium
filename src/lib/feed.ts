@@ -14,7 +14,7 @@ export async function publicationFeedEntries() {
     .filter(
       (entry) =>
         isPublication(entry) ||
-        Boolean(entry.data.updated_at || entry.data.update_type),
+        Boolean(entry.data.updated_at || entry.data.update_type), // Preserve historical feed membership; dates come only from last_updated.
     )
     .sort((a, b) =>
       String(
@@ -30,7 +30,7 @@ export async function publicationFeedEntries() {
         title: entry.data.title,
         summary: entry.data.summary,
         publishedAt: entry.data.published_at ?? undefined,
-        updatedAt: entry.data.updated_at ?? undefined,
+        updatedAt: entry.data.last_updated,
         activityAt: activityDate(entry),
         updateType: type,
         updateLabel: updateLabels[type],

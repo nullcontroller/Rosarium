@@ -42,6 +42,7 @@ const d = entry.data;
       <span data-pagefind-meta="category">キャリア</span>
       <span data-pagefind-meta="content_kind">キャリア</span> ·{" "}
       <span data-pagefind-meta="status">{statusLabel(d.status)}</span>
+      <span data-pagefind-meta="last_updated">{d.last_updated}</span>
     </p>
     <div class="prose">
       <MarkdownBody html={entry.rendered?.html || ""} />

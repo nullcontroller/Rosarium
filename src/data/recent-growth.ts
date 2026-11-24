@@ -62,6 +62,7 @@ const curatedRecentGrowth = [
   "date": "2026-11-25",
   "type": "new",
   "title": "連載「AI活用の本質を問う」全6回を公開",
+  "relatedLinks": [{ "path": "ai", "title": "AIの連載を読む" }, { "path": "essays", "title": "考察の一覧" }, { "path": "dx/continuous-value", "title": "継続的価値創出" }],
   "category": "Rosarium",
   "icon": "updates",
   "summaryChanges": [
@@ -87,6 +88,7 @@ const curatedRecentGrowth = [
       ]
     },
     "サイト全体にパンくずリストを整備し、現在の閲覧位置と上位カテゴリへの導線を改善した",
+    "AI入口に連載目次と回数・概要を掲載し、公開済み連載へカテゴリ内から進める導線を追加した。旧連載URLもこの入口へ案内する",
     "HomeとCareerの専門性・実務事例への導線を整理し、更新履歴を短い要約と詳細・訂正の記録に分けて読みやすくした"
   ]
 },
@@ -113,10 +115,11 @@ const curatedRecentGrowth = [
       },
       {
         action: "revised",
-        text: "改訂。顧客サポートDXの担当経験とPoCの確認結果を実務事例として紹介し、本番の業務効果が未測定であることと区別した",
+        text: "改訂。顧客サポートDXの担当経験とPoCの確認結果を実務事例として紹介し、本番の業務効果が未測定であることと区別した。専門性の重複を整理し、クラッシュ・メモリリーク調査への導線と担当チームとの責任分担を明確にした",
         contentIds: ["career/overview"],
       },
       ...informationArchitectureChanges.slice(1),
+      "案内ページでも、実務事例・仮想設計ケーススタディ・研究と考察の区別を明確にした",
     ],
     summaryChanges: [
       "顧客サポートDXのPoC・設計判断・図解とCareerの実務説明を整理",
@@ -131,6 +134,7 @@ const curatedRecentGrowth = [
       { path: "cases", title: "実践事例を見る" },
       { path: "career", title: "作者のキャリア" },
       { path: "start-here", title: "はじめに" },
+      { path: "about", title: "Rosariumとは？" },
     ],
     category: "Rosarium", icon: "updates",
   },

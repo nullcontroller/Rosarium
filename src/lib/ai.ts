@@ -3,6 +3,15 @@ import type { CollectionEntry } from "astro:content";
 export const aiThemeIds = ["ai-design", "ai-theory", "ai-mathematics", "knowledge-context", "evaluation-hitl", "practices"] as const;
 export const AI_RELATED_LIMIT = 3;
 
+export const aiSerialGroups = (entries: CollectionEntry<"pages">[]) => {
+  const visible = entries.filter(entry => entry.data.public !== false &&
+    ["published", "stable"].includes(entry.data.status) && entry.data.lifecycle === "active");
+  return visible.filter(entry => entry.data.publication_format === "series" &&
+    entry.data.order === 0 && entry.data.series && entry.data.entry_points.includes("ai"))
+    .sort((a,b) => (b.data.published_at ?? "").localeCompare(a.data.published_at ?? "") || a.id.localeCompare(b.id))
+    .map(entry => ({entry, chapterCount:visible.filter(chapter => chapter.data.series === entry.data.series && (chapter.data.order ?? 0) > 0).length}));
+};
+
 // Reuse existing primary classifications; secondary relationships stay internal.
 export const aiThemes = [
   {

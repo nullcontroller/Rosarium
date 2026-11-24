@@ -341,7 +341,7 @@ assert.equal(
 assert.equal(pubs("#current-topics-heading").length, 0);
 assert.equal(pubs("[data-publication]").length, 0);
 assert.equal(pubs("[data-use-case-shortcut]").length, 0);
-assert.equal(pubs("[data-content-id]").length, 0);
+assert.equal(pubs("[data-content-id]").not("[data-ai-series] [data-content-id]").length, 0);
 assert.equal(pubs("#ai-themes-heading").length, 1);
 const aiSections = pubs('[data-domain-theme="ai"]');
 assert.equal(aiSections.length, 6);
@@ -655,7 +655,7 @@ assert(top(".home-garden-notes > .home-growth-toolbar").index() < top(".home-gar
 assert.equal(top(".home-primary-panels").length, 0);
 assert.equal(top(".header-secondary").length, 0);
 assert.equal(top(".home-hero-layout > aside.home-main-case").length, 1);
-assert.equal(top('a[href="/about/"]').text().trim(), "Rosariumとは？");
+assert.equal(top('.entrance-hero-actions a[href="/about/"]').text().trim(), "Rosariumとは？");
 assert.equal(top("#about-rosarium").length, 0);
 assert.equal(top(".header-actions .header-secondary").length, 0);
 const gardenNotes = page("garden-notes");
@@ -1404,3 +1404,26 @@ assert.equal(top("[data-mobile-navigation] summary").attr("aria-controls"), "mob
 assert.deepEqual(top("#mobile-navigation-links > a").toArray().map(node=>top(node).attr("href")), ["/","/ai/","/dx/","/planning/","/cases/","/career/"]);
 assert.equal(top('#mobile-navigation-links .mobile-navigation-auxiliary a[href="/retired/"]').length, 1);
 assert.equal(top(".header-primary-group > a").length, 6);
+
+const serialCovers = [...entries.entries()].filter(([,data]) => data.publication_format === "series" &&
+  data.order === 0 && data.series && data.public !== false && ["published","stable"].includes(data.status) &&
+  (data.lifecycle ?? "active") === "active" && data.entry_points?.includes("ai"));
+const aiSerialSection = page("ai")("[data-ai-series]");
+assert.equal(aiSerialSection.find("h2").text(), "連載");
+assert.deepEqual(aiSerialSection.find("[data-series-index]").map((_,el)=>page("ai")(el).attr("data-series-index")).get().sort(), serialCovers.map(([id])=>id).sort());
+for (const [id, data] of serialCovers) {
+  const card=aiSerialSection.find(`[data-series-index="${id}"]`);
+  assert.equal(card.find(".content-title a").attr("href"), `/${id}/`);
+  assert.equal(card.find(".content-summary").text(), data.summary);
+  const chapters=[...entries.entries()].filter(([,chapter]) => chapter.series === data.series && (chapter.order ?? 0)>0 && chapter.public !== false && ["published","stable"].includes(chapter.status) && (chapter.lifecycle ?? "active")==="active");
+  assert(card.text().includes(`全${chapters.length}回の連載`), id);
+  for (const [chapterId] of chapters) {
+    assert.equal(aiSerialSection.find(`a[href="/${chapterId}/"]`).length,0,"AI lists covers, not individual chapters");
+    assert(page(id)(`main a[href="/${chapterId}/"]`).length,`${id} -> ${chapterId}`);
+    assert(page(chapterId)(`main a[href="/${id}/"]`).length,`${chapterId} -> ${id}`);
+  }
+}
+assert.equal(aiSerialSection.find('a[href="/essays/ai-essence/"]').length,1);
+assert.equal(page("series")('meta[http-equiv=refresh]').attr("content"),"0;url=/ai/#ai-series-heading");
+assert.equal(page("series")('link[rel=canonical]').attr("href"),"https://rosarium-tech.com/ai/");
+console.log("Verified metadata-driven AI series covers, summaries, chapter counts and complete two-way series navigation.");
