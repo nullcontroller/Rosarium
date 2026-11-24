@@ -1241,7 +1241,11 @@ assert.equal(supportOverview('.book-introduction-metadata .meta').length,1);
 
 for(const file of walk("dist").filter(file=>file.endsWith(".html"))) {
  const $=load(fs.readFileSync(file,"utf8"));
- if($('.series-position-inline').length)assert.match($('.series-position-inline').text(), /^現在位置：.+・全\d+章$/,file+': meaningful series position');
+ if($('.series-position-inline').length) {
+   if(file.replaceAll('\\','/').includes('/essays/ai-')) {
+     assert.match($('.series-position-inline').text(), /^AI活用の本質を問う：(?:シリーズ一覧|第[1-6]回)・全6回$/,file+': meaningful essay series position');
+   } else assert.match($('.series-position-inline').text(), /^現在位置：.+・全\d+章$/,file+': meaningful series position');
+ }
 }
 
 assert.equal(supportOverview('.book-toc-mobile[data-page-heading-toc]').length,0);

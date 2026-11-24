@@ -58,6 +58,36 @@ const informationArchitectureChanges = [
   "記事の見出し階層を整え、図解リンクと補助パネルをキーボードで操作した際の移動・フォーカス復帰を改善した",
 ];
 const curatedRecentGrowth = [
+{
+  "date": "2026-11-25",
+  "type": "new",
+  "title": "連載「AI活用の本質を問う」全6回を公開",
+  "category": "Rosarium",
+  "icon": "updates",
+  "summaryChanges": [
+    "AI活用を「操作・運用・改善」の三段階から考察",
+    "効率化ツールとしてのAI活用の限界と、人間とAIの知的協働について考察",
+    "AI成功事例の共有と、再利用可能な判断知識の違いを整理",
+    "AI利用による工数削減と検証コスト、技術進化を踏まえた学習の価値を考察",
+    "AI導入の成功条件と、業務改善・事業成果の関係を整理",
+    "ECRSを踏まえ、AI時代における業務・役割・権限・評価・教育の再設計について考察"
+  ],
+  "changes": [
+    {
+      "action": "published",
+      "text": "新規公開。連載『AI活用の本質を問う』のシリーズ目次と全6回を公開",
+      "contentIds": [
+        "essays/ai-essence",
+        "essays/ai-operation-management-improvement",
+        "essays/ai-intellectual-collaboration",
+        "essays/ai-case-sharing-and-judgment",
+        "essays/ai-verification-cost-and-learning",
+        "essays/ai-adoption-success-and-value",
+        "essays/ai-capability-and-organization"
+      ]
+    }
+  ]
+},
   {
     date: "2026-11-24", type: "revised", title: "実務事例の説明と、記事を探して読む入口を改訂",
     changes: [

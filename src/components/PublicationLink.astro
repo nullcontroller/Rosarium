@@ -37,6 +37,7 @@ const caseStudy = caseStudies.find((study) => study.book === entry.id);
       {publicationState && <span>状態：{publicationState}</span>}
       <span data-content-category>{category}</span>
       {(publicationType(entry) === "Book" || publicationType(entry) === "連載") && <span>{publicationType(entry)}</span>}
+      {d.status === "draft" && d.published_at && <span data-publication-planned>公開予定：{formatDateJa(d.published_at)}</span>}
       最終更新：{formatDateJa(d.last_updated)}
     </p>
   </div>

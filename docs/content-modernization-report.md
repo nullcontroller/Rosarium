@@ -280,3 +280,27 @@
 一覧は既存の `cases/design-studies/` を維持し、明示選択した初稿だけを掲載する。元の実務Bookと関連章へのリンクは、レビュー用レンダリングに限って追加する。通常ビルドのCase証拠対応表・検索・フィード・更新履歴には登録しない。参考資料そのもの、社内識別子、原文の会話やコードは格納しない。
 
 ローカルのレビュー出力は `dist-design-review/` とし、現在ステージングが配信している `dist-review/` を更新しない。公開・ステージング反映・commit・pushは本作業に含めない。
+
+## 2026-11-24 AI活用の操作・運用・改善を扱うレビュー用論考
+
+- `src/content/essays/ai-operation-management-improvement.md`：DRAFT。独自の分析枠組みとして操作・運用・改善を区別し、目的・評価から運用へ戻る循環を扱う。投資評価論考と役割を分け、利用・開発・継続利用と成果を区別する。所有者の観察は範囲を限定し、測定結果へ一般化しない。既存の考察形式・継続的価値創出に配置し、status: draft / public: falseを維持。公開日を設定せず、通常ビルド・検索・フィード・GARDEN NOTESから除外し、明示選択した既存Tailnet環境のみでレビューする。
+
+## 2026-11-24 AI活用論考シリーズの確定原稿を反映
+
+全6回のうち第1〜4・6回を受領。第5回として貼付された本文は第4回と重複するため、第5回は原稿未受領としてページを作らない。著者原稿の文言・段落を維持し、Markdown見出し・表の書式とシリーズ用メタデータだけを整える。全件draft / public: false、公開日は未設定。既存Tailnetレビューのみで表示する。
+
+- `src/content/essays/ai-essence.md`：DRAFT。シリーズ説明と受領状況、5記事への導線。
+- `src/content/essays/ai-intellectual-collaboration.md`：DRAFT。第2回、知的協働。
+- `src/content/essays/ai-case-sharing-and-judgment.md`：DRAFT。第3回、判断知識の共有。
+- `src/content/essays/ai-verification-cost-and-learning.md`：DRAFT。第4回、総工数と学習価値。
+- `src/content/essays/ai-capability-and-organization.md`：DRAFT。第6回、組織の仕事の再設計。
+
+既存の `src/content/essays/ai-operation-management-improvement.md` はURLを保持して第1回の受領原稿へ差し替える。受領済み原稿だけを前後リンクへ含め、欠番は飛び越さない。既存Book・通常の公開導線は維持する。
+
+### 第5回の確定原稿を受領
+
+- `src/content/essays/ai-adoption-success-and-value.md`：DRAFT。第5回の著者確定原稿を、文言・段落・表を維持して反映。導入・利用・業務改善・事業成果を区別する。第5回未受領の状態を解消し、一覧と第4→5→6回の導線を接続する。全6回とも非公開を維持し、公開日は未設定。
+
+### 2026-11-25公開予定の最終編集・公開準備（編集日：2026-11-24）
+
+シリーズ目次と第1〜6回のpublished_atを公開予定日2026-11-25へ設定。last_updatedは実際の編集日2026-11-24を維持し、全7ページをdraft / public: falseのままにする。第3回の指定1文、第4回のPoC対象外注記、第6回の指定ECRS段落と既存記事リンクだけを本文へ反映。承認済みの工数比較表と補足文は維持する。GARDEN NOTESはsrc/data/pending-growth/ai-essence-2026-11-25.jsonに既存形式で準備し、現行履歴には未登録。最終レビューと著者の明示承認後にのみ公開工程で有効化する。日付による自動公開はしない。

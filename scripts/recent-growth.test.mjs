@@ -37,7 +37,7 @@ test("history rejects duplicate dates or content links across change items", () 
 });
 
 test("November renovation records public changes without announcing review-only drafts", () => {
-  const item = recentGrowth[0];
+  const item = recentGrowth.find(item => item.date === "2026-11-24");
   assert.equal(item.date, "2026-11-24");
   assert.equal(recentGrowth.filter(entry => entry.date === item.date).length, 1);
   assert.equal(item.type, "revised");

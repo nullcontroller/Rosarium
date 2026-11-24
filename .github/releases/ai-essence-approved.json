@@ -1,0 +1,43 @@
+{
+  "releaseAt": "2026-11-24T22:00:00Z",
+  "expiresAt": "2026-11-24T22:50:00Z",
+  "date": "2026-11-25",
+  "reviewVersion": "d160d296288aad8fb5bdb62d261c8064c936aea11e4ef1e6fa38bacad36e1774",
+  "pages": [
+    {
+      "id": "essays/ai-essence",
+      "title": "AI活用の本質を問う",
+      "bodyHash": "b4d22abbe4cc208a4938519b71e0a0d154d30214d39f3c4c7242a4de41d837f6"
+    },
+    {
+      "id": "essays/ai-operation-management-improvement",
+      "title": "AIを使うことと、成果を生むことはなぜ違うのか",
+      "bodyHash": "7901da007ce4c1ed0454d47358bac73f38fdead71c1c4d2305d75ebdc9baa963"
+    },
+    {
+      "id": "essays/ai-intellectual-collaboration",
+      "title": "AIを効率化ツールとして捉えることの限界",
+      "bodyHash": "1e21cf5af8ea41bcb618921029399aab447a0c26a7a75ce16114b3ecd2a15932"
+    },
+    {
+      "id": "essays/ai-case-sharing-and-judgment",
+      "title": "AI活用事例は、なぜノウハウにならないのか",
+      "bodyHash": "0969667b90993b3903dd398348079ad05ba6017ec46b531067779cb9ace2c0e9"
+    },
+    {
+      "id": "essays/ai-verification-cost-and-learning",
+      "title": "AIを使えば、本当に工数は削減されるのか",
+      "bodyHash": "8b03ca6209c030bf7e80756440bbcc23e72cf523c79a6cbda8c03292b03c5a1f"
+    },
+    {
+      "id": "essays/ai-adoption-success-and-value",
+      "title": "AI導入の成功は、何をもって定義するべきか",
+      "bodyHash": "195e69f01c2f711f3f62fa71d6dda581e0815d178b5a8d4f68d0e3da9d0cca89"
+    },
+    {
+      "id": "essays/ai-capability-and-organization",
+      "title": "AIの能力と、人間のAI活用能力はなぜ一致しないのか",
+      "bodyHash": "959210ee2741eb32ca20153db53c4b3b6619bd6d3af5db6565520f136bfb28d5"
+    }
+  ]
+}

@@ -22,6 +22,7 @@ const category = contentDisplayCategory(entry);
     <p class="meta content-entry-meta">
       <span data-content-category>{category}</span>
       {(format === "Book" || format === "連載") && <span>{format}</span>}
+      {d.status === "draft" && d.published_at && <span data-publication-planned>公開予定：{formatDateJa(d.published_at)}</span>}
       最終更新：{formatDateJa(d.last_updated)}
     </p>
     <Heading class="content-title">

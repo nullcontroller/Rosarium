@@ -63,6 +63,14 @@ test("expanded page contents expose Japanese heading links and exclude history",
   assert.equal($('[data-page-heading-toc] a').filter((_, link) => $(link).text() === '更新履歴').length, 0);
 });
 
+test("serial contents use issue labels while existing Books retain chapter labels", () => {
+  const items = [{ title: "第1回", href: "/essays/first/" }];
+  const serial = load(pageOpening("<header><h1>Series</h1></header>", [], { chapterCount: 6, tocLabel: "この連載の目次（全6回）", items }).html);
+  assert.equal(serial("summary").text(), "この連載の目次（全6回）");
+  const book = load(pageOpening("<header><h1>Book</h1></header>", [], { chapterCount: 11, items }).html);
+  assert.equal(book("summary").text(), "このBookの目次（全11章）");
+});
+
 test("a marked Book pitch precedes mobile contents and retained metadata", () => {
  const original='<article><header class="document-header"><h1>Book</h1><p class="lead" hidden data-pagefind-meta="summary">SEO summary</p><p class="meta">Last updated</p><p class="tags" data-pagefind-meta="tags">AI</p><p class="content-purpose">Read</p></header><p class="series-position-inline">12 chapters</p><div class="prose" data-book-introduction><p>Short pitch</p></div></article>';
  const result=pageOpening(original,[],{chapterCount:12,items:[{href:"/book/one/",title:"01. First"}]});
