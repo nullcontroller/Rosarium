@@ -32,7 +32,11 @@ jobs:
             const config = JSON.parse(fs.readFileSync('.github/releases/ai-essence-reservation.json'));
             const now = Date.now();
             // Consume the reservation before any validation: a failure must not retry.
-            if (now >= Date.parse('2026-11-24T22:00:00Z')) await github.rest.actions.disableWorkflow({...context.repo, workflow_id:'release-ai-essence.yml'});
+            if (now >= Date.parse('2026-11-24T22:00:00Z')) {
+              const {data: reservation} = await github.rest.actions.getWorkflow({...context.repo,workflow_id:'release-ai-essence.yml'});
+              if (reservation.state !== 'active') throw Error('Reservation already consumed; queued duplicate must not retry.');
+              await github.rest.actions.disableWorkflow({...context.repo, workflow_id:'release-ai-essence.yml'});
+            }
             if (now < Date.parse('2026-11-24T22:00:00Z') || now > Date.parse('2026-11-24T22:50:00Z')) {
               core.setFailed('Outside the one-time reservation window; no publication performed.'); return;
             }
