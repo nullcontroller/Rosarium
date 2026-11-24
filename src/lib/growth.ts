@@ -12,7 +12,9 @@ export const updateLabels = {
 export type UpdateType = keyof typeof updateLabels;
 
 export const activityDate = (entry: Entry) =>
-  entry.data.updated_at?.slice(0, 10) ?? entry.data.published_at?.slice(0, 10);
+  entry.data.last_updated ?? entry.data.published_at?.slice(0, 10);
 
 export const updateType = (entry: Entry): UpdateType =>
-  entry.data.update_type ?? (entry.data.updated_at ? "updated" : "new");
+  entry.data.update_type ??
+  (entry.data.published_at && entry.data.last_updated > entry.data.published_at.slice(0, 10)
+    ? "updated" : "new");

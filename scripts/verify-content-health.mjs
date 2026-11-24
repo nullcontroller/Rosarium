@@ -3,6 +3,7 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import YAML from "yaml";
 import { recentGrowth, validateRecordedRevisionDates } from "../src/data/recent-growth.ts";
+import { checkWorkingRevisionDates } from "./revision-date-check.mjs";
 
 const root = "src/content";
 const report = fs.readFileSync("docs/content-modernization-report.md", "utf8");
@@ -16,6 +17,7 @@ const walk = (dir) => {
   }
 };
 walk(root);
+checkWorkingRevisionDates(files);
 
 const parse = (file) => {
   const text = fs

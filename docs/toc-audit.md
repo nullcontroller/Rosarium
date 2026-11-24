@@ -21,7 +21,7 @@
 | /ai-design/software-engineering/ | ソフトウェア開発 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /ai-mathematics/ | 数学 | あり | あり | あり | 5 | 主要見出しが複数 |
 | /ai-theory/ | AI理論 | あり | あり | あり | 5 | 主要見出しが複数 |
-| /ai/ | AI | あり | あり | あり | 6 | 主要見出しが複数 |
+| /ai/ | AI | あり | あり | あり | 7 | 主要見出しが複数 |
 | /architecture/ | システムアーキテクチャ | なし | あり | あり | 8 | 主要見出しが複数 |
 | /architecture/agents-tools-and-workflows/ | 「AIエージェントを0から作る時代」は本当に来るのか？ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /architecture/change-and-reevaluation/ | AIシステムの変更・再評価設計 | あり | あり | あり | 18 | 長文の複数h3セクション |
@@ -159,7 +159,7 @@
 | /retired/obsolete/ | 旧記事 | なし | あり | なし | 3 | アーカイブ個別項目 |
 | /retired/retired/ | 退役記事 | なし | あり | なし | 21 | アーカイブ個別項目 |
 | /search/ | 検索 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /series/ | 業務変革をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /series/ | 連載はAIの入口へ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/ | ソフトウェア開発 | なし | あり | あり | 6 | 主要見出しが複数 |
 | /software-engineering/ai-design-assistance/ | 設計支援AIは消えない。コード生成の次に残る領域 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /software-engineering/ai-driven-development/ | 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |

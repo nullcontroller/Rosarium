@@ -46,7 +46,7 @@ test("November renovation records public changes without announcing review-only 
   assert.equal(item.summaryChanges.length, 3);
   assert.equal(item.changes.flatMap(growthChangeTargets).length, 13);
   const links = item.relatedLinks.map(link => link.path);
-  assert.deepEqual(links, ["cases/customer-support-ai-dx", "ai", "dx", "planning", "cases", "career", "start-here"]);
+  assert.deepEqual(links, ["cases/customer-support-ai-dx", "ai", "dx", "planning", "cases", "career", "start-here", "about"]);
   assert.doesNotMatch(JSON.stringify(item), /design-studies|what-is-ai|cognitive-surrender|認知的降伏|AIは何者/);
   assert(recentGrowth.every((entry, i) => i === 0 || recentGrowth[i - 1].date > entry.date));
   for (const path of ["https://example.com", "../cases", "cases/../secret", "/cases", "cases/design.md"]) {
