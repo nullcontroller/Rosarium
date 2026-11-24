@@ -20,6 +20,7 @@ const recent = recentGrowth.slice(0, 3);
         "AIの数学・基礎理論から、設計原則、業務への適用、実際の問題解決までを扱っています。",
       ]}
     >
+      <p class="home-expertise">立林裕太朗は、ソフトウェア開発・保守を土台に、既存システムの調査・問題解決、要件定義・システム設計、AIの業務適用に取り組む技術者です。</p>
       <p class="meta home-career-link"><a class="action-link" href={url("career")}>作者のキャリア</a></p>
       <p class="meta">
         <a class="action-link" href={url("start-here")}>はじめに</a>
@@ -45,13 +46,14 @@ const recent = recentGrowth.slice(0, 3);
       <a class="cta-link" href={url("garden-notes")}>Garden Notesの全履歴を見る</a>
     </div>
     <div class="growth-list growth-list-compact home-growth-history" role="region" tabindex="0" aria-label="Garden Notes 最近の更新">
-      {recent.map((entry) => <GrowthEntry entry={entry} />)}
+      {recent.map((entry) => <GrowthEntry entry={entry} compact />)}
     </div>
   </section>
 
 </Site>
 
 <style>
+  .home-expertise { color:var(--ink); font-size:.95rem; line-height:1.7; margin-block:.5rem; }
   .home-career-link { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem; }
   .home-hero-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.5rem; align-items: stretch; margin-bottom: 1.3rem; }
   .home-hero-layout :global(.page-heading) { min-width: 0; margin-bottom: 0; }

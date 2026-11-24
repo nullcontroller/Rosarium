@@ -9,7 +9,7 @@ import {
   dxIntroductionParagraphs,
   type DxCategoryId,
 } from "../../lib/dx";
-import { activeEntry, url } from "../../lib/site";
+import { activeEntry } from "../../lib/site";
 
 export function getStaticPaths() {
   return dxCategories.map((category) => ({
@@ -29,15 +29,7 @@ const articles = entries.filter((entry) => entry.data.section !== "cases");
   analyticsTitle={category.title}
   section={`dx/${category.id}`}
   summary={category.summary}
-  breadcrumbs={[
-    { name: "庭", path: "" },
-    { name: "DX", path: "dx" },
-    { name: category.title, path: `dx/${category.id}` },
-  ]}
 >
-  <nav class="breadcrumb" aria-label="現在位置">
-    <a href={url()}>庭</a> / <a href={url("dx")}>DX</a>
-  </nav>
   <PageHeader
     title={category.title}
     eyebrow="DX THEME"

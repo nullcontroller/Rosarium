@@ -1,0 +1,20 @@
+---
+import { url } from "../lib/site";
+interface Props { items: {name: string; path: string}[]; }
+const { items } = Astro.props;
+---
+{items.length > 0 && <nav class="breadcrumb" aria-label="パンくず" data-pagefind-ignore>
+  <ol>{items.map((item, index) => <li>
+    {index > 0 && <span class="separator" aria-hidden="true">＞</span>}
+    {index === items.length - 1
+      ? <span aria-current="page" data-breadcrumb-item>{item.name}</span>
+      : <a href={url(item.path)} data-breadcrumb-item>{item.name}</a>}
+  </li>)}</ol>
+</nav>}
+<style>
+  nav { color:var(--muted); font-size:.78rem; max-width:100%; min-width:0; }
+  ol { display:flex; flex-wrap:wrap; gap:.25rem .5rem; padding:0; margin:0; list-style:none; }
+  li { display:inline; max-width:100%; min-width:0; overflow-wrap:anywhere; }
+  .separator { margin-inline-end:.5rem; }
+  a { color:inherit; text-decoration:underline; text-underline-offset:.15em; }
+</style>

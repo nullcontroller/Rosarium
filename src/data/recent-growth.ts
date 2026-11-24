@@ -85,7 +85,9 @@ const curatedRecentGrowth = [
         "essays/ai-adoption-success-and-value",
         "essays/ai-capability-and-organization"
       ]
-    }
+    },
+    "サイト全体にパンくずリストを整備し、現在の閲覧位置と上位カテゴリへの導線を改善した",
+    "HomeとCareerの専門性・実務事例への導線を整理し、更新履歴を短い要約と詳細・訂正の記録に分けて読みやすくした"
   ]
 },
   {
@@ -116,7 +118,11 @@ const curatedRecentGrowth = [
       },
       ...informationArchitectureChanges.slice(1),
     ],
-    summaryChanges: informationArchitectureChanges,
+    summaryChanges: [
+      "顧客サポートDXのPoC・設計判断・図解とCareerの実務説明を整理",
+      "AI・DX・企画・実践事例の入口と、記事・検索結果の表示を改善",
+      "モバイルナビゲーション、画面幅への対応、キーボード操作を改善",
+    ],
     relatedLinks: [
       { path: "cases/customer-support-ai-dx", title: "生成AI / RAGによる顧客サポートDX" },
       { path: "ai", title: "AIの記事を探す" },
@@ -150,7 +156,7 @@ const curatedRecentGrowth = [
       { action: "integrated", text: "統合・再構成。顧客サポートDXを11章で整理。【訂正】PoCの時系列と評価指標は、第1回PoCで絞込み前の方式を評価して回答正答率72％を確認し、RAG管理システムの新規設計・構築と節単位のメタデータ管理を経て、第2回PoCで回答正答率96％と目標達成を確認した経緯へ訂正。残る4％は本来自動回答できる案件の有人移管であり、誤回答ではない。逆質問・回答生成の98％と有人振り分け94％から100％は別指標の見積もりとして扱う。720件／月の自己解決を前提とする280時間／月は条件付き試算で、本番評価は未実施。個別機能の実装範囲と未検証の運用課題を区別する", contentIds: ["evaluation-hitl/customer-support-qa-poc", "cases/customer-support-ai-dx", "cases/customer-support-ai-dx/poc-evaluation", "cases/customer-support-ai-dx/poc-effect-evaluation", "cases/customer-support-ai-dx/poc-metadata-improvement", "cases/customer-support-ai-dx/executive-summary", "cases/customer-support-ai-dx/responsibility-boundary", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/stopping-conditions", "cases/customer-support-ai-dx/customer-experience", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/design-principles"] },
       "数学とAI理論の入口を分離。条件付き確率・分布の基礎と、生成・誤答・コード生成モデルの仕組みを分け、AI設計と数式リファレンスへの導線を整理した",
     ],
-    summaryChanges: ["要件・方式設計を入口に、開発・保守の実務成果へ進める構成に整理", "実務実績、設計・検証シナリオ、今後の方向性を区別", "数学とAI理論を分け、数理の基礎と生成の仕組みを別々に辿れる入口を整備"],
+    summaryChanges: ["要件・方式設計を入口に、開発・保守の実務成果へ進める構成に整理", "実務で確認した範囲と、今後の方向性を分けて紹介", "数学とAI理論を分け、数理の基礎と生成の仕組みを別々に辿れる入口を整備"],
     category: "Rosarium", icon: "updates",
   },
   {
@@ -209,7 +215,7 @@ const curatedRecentGrowth = [
       { action: "revised", text: "改訂。現在の専門性、代表実績、今後深めたい企画・価値発見を分離し、Careerを実務の証拠へ進む入口として再構成した", contentIds: ["career/overview"] },
       "Rosariumを長期視点で育てる技術ポートフォリオとして運用するため、独自ドメインを取得し、正規URLを rosarium-tech.com へ変更。旧GitHub Pages URLからも新しい入口へ案内"],
     summaryChanges: ["システム企画の領域を新設", "Careerを1件大幅改訂", "Caseを3件改訂",
-      "Rosariumを長期視点で育てる技術ポートフォリオとして運用するため、独自ドメインを取得し、正規URLを rosarium-tech.com へ変更。旧GitHub Pages URLからも新しい入口へ案内"],
+      "独自ドメインrosarium-tech.comへ移行し、旧URLから案内"],
     category: "Rosarium", icon: "updates",
   },
   {

@@ -9,8 +9,17 @@ import {
   staticLastUpdatedForPath,
   url,
   publicEntry,
+  publishedEntry,
+  absoluteUrl,
+  sections,
 } from "../lib/site";
-import { navigation, navigationItemForPath } from "../lib/navigation";
+import { navigation, navigationItemForPath, readingCategories, designTopics, layerPath } from "../lib/navigation";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { buildBreadcrumbs, breadcrumbTitle } from "../lib/breadcrumbs.mjs";
+import { isDraftPreview } from "../lib/draft-preview.mjs";
+import { designStudies } from "../data/design-studies.mjs";
+import { archiveTitle, archiveLifecycles, getArchiveGroup } from "../lib/archive";
+import { dxCategories } from "../lib/dx";
 const headerNavigation = ["", "ai", "dx", "planning", "cases", "career"].map((path) => navigationItemForPath(path)!);
 const retiredNavigation = navigationItemForPath("retired")!;
 import NavIcon from "../components/NavIcon.astro";
@@ -37,7 +46,6 @@ interface Props {
   publishedAt?: string | null;
   lastUpdated?: string;
   showLastUpdated?: boolean;
-  breadcrumbs?: { name: string; path: string }[];
   bookNavigation?: {
     title: string;
     chapterCount: number;
@@ -69,7 +77,6 @@ const {
   publishedAt,
   lastUpdated,
   showLastUpdated = true,
-  breadcrumbs = [],
   bookNavigation,
   frame = true,
   showRightSidebar = true,
@@ -82,6 +89,23 @@ const {
 const contents = pageContents(await Astro.slots.render("default"), { headings, mode: showRightSidebar ? toc : "never" });
 const pageHeadings = contents.headings;
 const opening = pageOpening(contents.html, pageHeadings, bookNavigation, { expanded: expandPageToc });
+const breadcrumbEntries = await getCollection("pages", entry => publishedEntry(entry) || isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW));
+const breadcrumbLabels = Object.fromEntries([
+  ...sections.map(([path, title]) => [path, title]),
+  ...readingCategories.map(item => [item.path, item.title]),
+  ...navigation.flat().map(item => [item.path, item.title]),
+  ...designTopics.map(([key, title]) => [`ai-design/${key}`, title]),
+  ...dxCategories.map(item => [`dx/${item.id}`, item.title]),
+  ...archiveLifecycles.map(item => [`retired/${item.id}`, item.title]),
+  ["retired", archiveTitle], ["reference", "Reference"], ["cases/design-studies", "発展ケーススタディ"],
+]);
+const breadcrumbs = buildBreadcrumbs({
+  pathname: Astro.url.pathname, title: breadcrumbTitle(contents.html, title),
+  entries: breadcrumbEntries, labels: breadcrumbLabels,
+  primaryPath: entry => entry.data.section === "cases" ? "cases" : layerPath(entry.data.layer),
+  archiveGroup: getArchiveGroup,
+  designStudyIds: designStudies.map(study => study.id),
+});
 const { hasPageToc, referenceSidebar } = rightSidebarPolicy({
   showRightSidebar, showReference, headingCount: pageHeadings.length, chapterCount: bookNavigation?.items.length ?? 0,
 });
@@ -155,9 +179,7 @@ const structuredData = {
               "@type": "ListItem",
               position: index + 1,
               name: item.name,
-              item: item.path.startsWith("http")
-                ? item.path
-                : new URL(url(item.path), Astro.site).toString(),
+              item: absoluteUrl(Astro.site!, item.path),
             })),
           },
         ]
@@ -390,7 +412,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         data-toc-reason={contents.reason}
       >
         <div class="page-prelude">
-        <Fragment set:html={opening.breadcrumbHtml} />
+        <Breadcrumbs items={breadcrumbs} />
         {!noindex && showLastUpdated && (
           <p class="site-last-updated" data-last-updated={effectiveLastUpdated}>
             最終更新：

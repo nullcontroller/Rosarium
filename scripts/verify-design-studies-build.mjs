@@ -19,14 +19,14 @@ for (const study of designStudies) {
   assert.equal(hub(`[data-content-id="${study.id}"] [data-content-category]`).text(), "仮想設計", study.id);
   const $ = read(root, study.id);
   assert.equal($("h1").length, 1, study.id);
-  const expectedCrumbs=["/", "/cases/", "/cases/design-studies/", "/"+study.id+"/"];
+  const expectedCrumbs=["/", "/cases/", "/cases/design-studies/"];
   assert.equal($("nav.breadcrumb").length, 1, study.id);
   assert.deepEqual($("nav.breadcrumb a").toArray().map(node=>$(node).attr("href")),expectedCrumbs,study.id);
-  assert.equal($("nav.breadcrumb a[aria-current=page]").text(),$("h1").text(),study.id);
+  assert.equal($("nav.breadcrumb [aria-current=page]").text(),$("h1").text(),study.id);
   const structured=$("script[type='application/ld+json']").toArray().flatMap(node=>{const value=JSON.parse($(node).text());return value["@graph"]??[value];}).find(value=>value["@type"]==="BreadcrumbList");
   assert(structured,study.id);
-  assert.deepEqual(structured.itemListElement.map(item=>new URL(item.item).pathname),expectedCrumbs,study.id);
-  assert.deepEqual(structured.itemListElement.map(item=>item.name),$("nav.breadcrumb a").toArray().map(node=>$(node).text()),study.id);
+  assert.deepEqual(structured.itemListElement.map(item=>new URL(item.item).pathname),[...expectedCrumbs,"/"+study.id+"/"],study.id);
+  assert.deepEqual(structured.itemListElement.map(item=>item.name),$("nav.breadcrumb [data-breadcrumb-item]").toArray().map(node=>$(node).text()),study.id);
   assert.equal($(".document-header .eyebrow > span:not([hidden])").text(), "実践事例 / 仮想設計", study.id);
   for (const key of ["category", "layer", "tags"]) assert.equal($(`[data-pagefind-meta="${key}"][hidden]`).length, 1, study.id);
   assert.equal($('[data-pagefind-meta="content_kind"]').text(), "仮想設計", study.id);

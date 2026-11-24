@@ -2,7 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import { load } from "cheerio";
-const ids = ["essays/what-is-ai", "essays/cognitive-surrender"];
+import { readReviewTargets } from "./review-targets.mjs";
+const ids = readReviewTargets();
 for (const id of ids) {
   assert(!fs.existsSync(`dist/${id}/index.html`), "Draft leaked into ordinary build: " + id);
   const $ = load(fs.readFileSync(`dist-review/${id}/index.html`, "utf8"));
@@ -32,4 +33,6 @@ for (const file of fs.readdirSync("dist/pagefind")) {
  if (fs.statSync("dist/pagefind/" + file).isFile()) assert.deepEqual(fs.readFileSync("dist-review/pagefind/" + file), fs.readFileSync("dist/pagefind/" + file), "Review search differs: " + file);
 }
 
-console.log("Verified both nonpublic drafts: ordinary build exclusion, noindex, search exclusion, related links and unchanged discovery.");
+assert(!fs.existsSync("dist-review/essays/what-is-ai/index.html"), "Removed review article must not be served");
+assert(!fs.existsSync("dist-review/essays/cognitive-surrender/index.html"), "Rejected essay must not be served");
+console.log("Verified both rejected essays are absent from staging and review search remains public-only.");

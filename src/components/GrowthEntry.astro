@@ -8,11 +8,12 @@ import {
   growthChangeTargets,
   growthPublishedTargets,
   growthSummary,
+  growthChangeText,
 } from "../data/recent-growth";
 import Icon from "./Icon.astro";
 
-interface Props { entry: RecentGrowthItem; }
-const { entry } = Astro.props;
+interface Props { entry: RecentGrowthItem; compact?: boolean; }
+const { entry, compact = false } = Astro.props;
 const cases = new Set<string>();
 const articleLinks: { href: string; title: string }[] = [];
 const published = new Set(growthPublishedTargets(entry));
@@ -24,10 +25,11 @@ for (const id of entry.changes.flatMap(growthChangeTargets)) {
   if (published.has(id)) articleLinks.push({ href: url(id === "career/overview" ? "career" : id), title: content.data.title });
   if ("kind" in content.data && (content.data.kind === "case" || content.data.layer === "case" || content.data.section === "cases")) cases.add(id);
 }
-const summaries = growthSummary(entry, id => cases.has(id));
+const allSummaries = growthSummary(entry, id => cases.has(id));
+const summaries = compact ? allSummaries.slice(0, 3) : allSummaries;
 ---
 
-<article class="growth-entry icon-entry" data-growth-entry data-growth-date={entry.date}>
+<article id={`growth-${entry.date}`} class="growth-entry icon-entry" data-growth-entry data-growth-date={entry.date} data-growth-compact={compact ? "true" : undefined}>
   <Icon name={entry.icon ?? "updates"} size="list" />
   <div>
     <p class="meta growth-meta">
@@ -43,7 +45,17 @@ const summaries = growthSummary(entry, id => cases.has(id));
     <ul class="growth-changes content-summary" role="list">
       {summaries.map(text => <li>{text}</li>)}
       {articleLinks.map(({ href, title }) => <li><a href={href}>{title}</a></li>)}
-      {entry.relatedLinks?.map(({ path, title }) => <li><a href={url(path)}>{title}</a></li>)}
     </ul>
+    {compact && allSummaries.length > summaries.length && <p class="meta"><a data-growth-more href={`${url("garden-notes")}#growth-${entry.date}`}>全履歴で続きを見る</a></p>}
+    {(!compact || entry.relatedLinks?.length) && <details class="growth-details" data-pagefind-ignore>
+      <summary>{compact ? "関連ページ" : "関連ページ・記録の詳細と訂正"}</summary>
+      {!!entry.relatedLinks?.length && <ul data-growth-related>{entry.relatedLinks.map(({path,title})=><li><a href={url(path)}>{title}</a></li>)}</ul>}
+      {!compact && <ul data-growth-record>{entry.changes.map(change=><li>{growthChangeText(change)}</li>)}</ul>}
+    </details>}
   </div>
 </article>
+<style>
+  .growth-details { margin-block:.5rem; color:var(--muted); font-size:.875rem; overflow-wrap:anywhere; }
+  .growth-details summary { cursor:pointer; }
+  .growth-details ul { padding-inline-start:1.25rem; }
+</style>

@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import { spawnSync } from "node:child_process";
 import YAML from "yaml";
-const ids = process.argv.slice(2);
-if (!ids.length) throw new Error("Usage: node scripts/build-review.mjs essays/draft-id [...]");
+import { readReviewTargets, reviewTargetsPath } from "./review-targets.mjs";
+const ids = readReviewTargets(process.argv.slice(2));
 for (const id of ids) {
   if (!/^[a-z0-9-]+(?:\/[a-z0-9-]+)+$/.test(id)) throw new Error("Invalid content ID");
   const source = fs.readFileSync(`src/content/${id}.md`, "utf8").replace(/^\uFEFF/, "");
@@ -17,3 +17,8 @@ if (result.status !== 0) process.exit(result.status ?? 1);
 
 // Never index review HTML: reuse only the normal build's public search bundle.
 fs.cpSync("dist/pagefind", "dist-review/pagefind", { recursive: true });
+const verification = spawnSync(process.execPath, ["scripts/verify-review-targets.mjs", ...ids], { stdio: "inherit" });
+if (verification.error) throw verification.error;
+if (verification.status !== 0) process.exit(verification.status ?? 1);
+fs.writeFileSync(reviewTargetsPath, JSON.stringify(ids, null, 2) + "\n");
+console.log(`Review targets retained: ${ids.length} private drafts`);

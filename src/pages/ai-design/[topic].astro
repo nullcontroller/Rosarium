@@ -23,9 +23,6 @@ const all = await getCollection("pages", activeEntry);
   summary={summary}
   ogImage="og/ai-design.png"
 >
-  <nav class="breadcrumb">
-    <a href={url("ai-design")}>AI設計</a> / {title}
-  </nav>
   <PageHeader title={title} summary={summary} />
   <p data-ai-design-guide>{guide.question}</p>
   {topic === "architecture" && (
