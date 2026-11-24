@@ -31,6 +31,8 @@ jobs:
             const fs = require('fs');
             const config = JSON.parse(fs.readFileSync('.github/releases/ai-essence-reservation.json'));
             const now = Date.now();
+            // Consume the reservation before any validation: a failure must not retry.
+            if (now >= Date.parse('2026-11-24T22:00:00Z')) await github.rest.actions.disableWorkflow({...context.repo, workflow_id:'release-ai-essence.yml'});
             if (now < Date.parse('2026-11-24T22:00:00Z') || now > Date.parse('2026-11-24T22:50:00Z')) {
               core.setFailed('Outside the one-time reservation window; no publication performed.'); return;
             }
@@ -41,7 +43,6 @@ jobs:
             const {data: comparison} = await github.rest.repos.compareCommitsWithBasehead({...context.repo, basehead: `${config.base}...${pr.base.sha}`});
             const allowed = ['.github/workflows/deploy-pages.yml','.github/workflows/release-ai-essence.yml','.github/releases/ai-essence-reservation.json'];
             if (!comparison.files || comparison.files.some(f => !allowed.includes(f.filename))) throw Error('Production base changed outside reservation setup; review required.');
-            await github.rest.actions.disableWorkflow({...context.repo, workflow_id:'release-ai-essence.yml'});
             core.setOutput('run','true'); core.setOutput('head',config.head); core.setOutput('base',pr.base.sha);
       - uses: actions/checkout@v4
         if: steps.reservation.outputs.run == 'true'
