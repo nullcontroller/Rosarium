@@ -611,10 +611,12 @@ function assertGrowthChanges($, row, entry) {
   const ids = growthPublishedTargets(entry);
   assert.deepEqual(row.find("[data-growth-topics] h3").map((_, el) => $(el).text()).get(), (entry.topics ?? []).map(topic => topic.title));
   assert.equal(row.find("[data-growth-topics] > li").length, entry.topics?.length ?? 0);
-  assert.deepEqual(row.find("[data-growth-topics] h3 a").map((_, el) => $(el).attr("href")).get(), (entry.topics ?? []).map(topic => {
-    const [route, hash] = topic.path.split("#");
-    return `/${route}/` + (hash ? `#${hash}` : "");
-  }));
+  assert.deepEqual(row.find("[data-growth-topics] a").map((_, el) => $(el).attr("href")).get(), (entry.topics ?? []).flatMap(topic => (topic.links ?? []).map(link => `/${link.path}/`)));
+  row.find("[data-growth-topic]").each((i, el) => {
+    const topic = entry.topics[i];
+    assert.equal($(el).find("a").length, topic.links?.length ?? 0);
+    if (!topic.links?.length) assert.equal($(el).find("h3").children().length, 0, "Unlinked topics use plain headings");
+  });
   const expectedLinks = ids.map(id => ({
     title: entries.get(id)?.title,
     href: `/${id === "career/overview" ? "career" : id}/`,

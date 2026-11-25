@@ -41,7 +41,11 @@ const summaries = compact ? allSummaries.slice(0, 3) : allSummaries;
     </p>
     {!entry.topics && <h3 class="content-title">{entry.title}</h3>}
     {entry.topics && <ul class="growth-topics" role="list" data-growth-topics>
-      {entry.topics.map(topic => <li><h3 class="content-title"><a href={url(topic.path.split("#")[0]) + (topic.path.includes("#") ? "#" + topic.path.split("#")[1] : "")}>{topic.title}</a></h3>{!compact && <p class="content-summary">{topic.summary}</p>}</li>)}
+      {entry.topics.map(topic => <li data-growth-topic>
+        <h3 class="content-title">{topic.links?.length === 1 ? <a href={url(topic.links[0].path)}>{topic.title}</a> : topic.title}</h3>
+        {topic.links && topic.links.length > 1 && <p class="growth-topic-links">{topic.links.map(link => <a href={url(link.path)}>{link.title}</a>)}</p>}
+        {!compact && <p class="content-summary">{topic.summary}</p>}
+      </li>)}
     </ul>}
     <ul class="growth-changes content-summary" role="list" hidden={!!entry.topics}>
       {!entry.topics && summaries.map(text => <li>{text}</li>)}
@@ -61,6 +65,7 @@ const summaries = compact ? allSummaries.slice(0, 3) : allSummaries;
   .growth-topics > li + li { margin-top:.65rem; }
   .growth-topics h3 { font-size:1rem; line-height:1.6; margin:0; }
   .growth-topics p { margin:.25rem 0; }
+  .growth-topic-links { display:flex; flex-wrap:wrap; gap:.25rem 1rem; }
   .growth-details { margin-block:.5rem; color:var(--muted); font-size:.875rem; overflow-wrap:anywhere; }
   .growth-details summary { cursor:pointer; }
   .growth-details ul { padding-inline-start:1.25rem; }

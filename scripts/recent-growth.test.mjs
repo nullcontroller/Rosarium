@@ -133,5 +133,13 @@ test("multiple topics preserve the single daily record and reject invalid topic 
   const day = recentGrowth.find(item => item.date === "2026-11-25");
   assert.equal(day.topics.length, 5);
   assert.equal(growthPublishedTargets(day).length, 14);
-  for (const topics of [[{title:"",summary:"summary",path:"ai"}], [{title:"title",summary:"summary",path:"https://example.com"}], [day.topics[0], day.topics[0]]]) assert.throws(() => validateRecentGrowth([{...entry([]), topics}]));
+  for (const topics of [[{title:"",summary:"summary"}], [{title:"title",summary:"summary",links:[{path:"https://example.com",title:"external"}]}], [day.topics[0], day.topics[0]]]) assert.throws(() => validateRecentGrowth([{...entry([]), topics}]));
+});
+
+test("topic destinations are optional and category updates can link both affected categories", () => {
+  validateRecentGrowth([{...entry([]),topics:[{title:"Shared UI",summary:"Display improved"}]}]);
+  const topics=recentGrowth.find(item=>item.date==="2026-11-25").topics;
+  assert.equal(topics.find(topic=>topic.title==="サイト全体の読みやすさを改善").links,undefined);
+  assert.deepEqual(topics.flatMap(topic=>(topic.links??[]).map(link=>link.path)),["essays/ai-essence","cases/design-studies","planning","system-design","career"]);
+  assert.throws(()=>validateRecentGrowth([{...entry([]),topics:[{title:"title",summary:"summary",links:[{path:"ai",title:"AI"},{path:"ai",title:"AI"}]}]}]));
 });
