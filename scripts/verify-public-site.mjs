@@ -91,7 +91,7 @@ for (const text of [
   "仕事で重視すること",
   "今後広げたい判断領域",
   "希望するRole",
-  "詳細・関連資料",
+  "職歴・在籍期間・資格・詳細なスキルセットはLinkedInプロフィールを参照してください。",
 ])
   assert(career("main").text().includes(text), text);
 for (const duplicate of [

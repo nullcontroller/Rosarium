@@ -4,7 +4,7 @@ seo_title: "Career | 立林裕太朗のソフトウェア開発・保守とAI活
 summary: "立林裕太朗は、2016年からC# / .NETによるWindowsソフトウェアの開発・保守に従事しています。既存コードと仕様を調べ、AIも活用しながら要件整理・設計・実装・評価につなぐ技術者です。担当経験と確認済みの成果を紹介します。"
 layer: career
 status: stable
-last_updated: "2026-11-24"
+last_updated: "2026-11-25"
 source:
   type: repository
   url: https://github.com/nullcontroller/Rosarium/blob/master/src/content/career/overview.md
@@ -128,14 +128,5 @@ AIを調査・実装支援に使いつつ、仕様と異常系の判断は人間
 
 ソフトウェア開発・保守とシステム設計の経験を土台に、**要件整理、AIの業務適用、既存システムの改善を継続的に担う技術専門職**を志向しています。
 一つのシステムやサービスに継続して関わり、要件・方式・実装・評価・運用をつなぐ働き方が希望です。
-
-## 詳細・関連資料
-
-- [実践事例](/cases/)：実務での担当範囲、判断、確認できた結果と限界。
-- [企画](/planning/)：今後広げたい価値発見、業務要求、システム化範囲の判断。
-- [AI](/ai/)：Applied AIの設計原則、Context、Evaluation、HITL。
-- [DX](/dx/)：業務と価値、既存システムの変化に関する考え方。
-- [RosariumのGitHubリポジトリ](https://github.com/nullcontroller/Rosarium)：サイトの実装・コンテンツ管理・検証。  
-  非公開の業務コードは掲載していません。
 
 **職歴・在籍期間・資格・詳細なスキルセットは[LinkedInプロフィール](https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/)を参照してください。**

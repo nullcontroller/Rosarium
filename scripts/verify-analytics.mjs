@@ -14,7 +14,7 @@ const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entr
 const pages = walk("dist").filter((file) => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"));
 const representativeTypes = new Map([
   ["/", "home"], ["/about/", "about"],
-  ["/ai/", "ai"], ["/dx/", "dx"], ["/planning/", "planning"],
+  ["/ai/", "ai"], ["/dx/", "dx"], ["/planning/", "planning"], ["/system-design/", "system-design"],
   ["/ai-design/knowledge-context/", "theme"], ["/dx/value-design/", "theme"],
   ["/essays/rethink-work-before-ai/", "article"],
   ["/foundations/ai-business-design/", "book"],
@@ -57,7 +57,7 @@ for (const file of pages) {
   }
   if (pagePath === "/essays/rethink-work-before-ai/") {
     assert.equal(parameters.primary_category, "business-transformation");
-    assert.equal(parameters.content_domain, "dx");
+    assert.equal(parameters.content_domain, "planning");
     assert.equal(parameters.article_slug, "essays/rethink-work-before-ai");
   }
   if (pagePath.startsWith("/cases/system-understanding/")) assert.equal(parameters.obsolete_status, "obsolete");

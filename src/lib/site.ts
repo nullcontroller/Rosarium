@@ -38,7 +38,8 @@ export const pageIntroductions: Record<string, string> = {
     "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。ナレッジ / コンテキストの役割と更新方法を設計します。",
   architecture:
     "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むシステムアーキテクチャを設計します。",
-  planning: "何を、なぜ、どこまでシステム化するか。業務課題・価値・目標・対象範囲・投資判断を整理し、要件定義へ業務要求を渡す意思決定領域です。",
+  planning: "何を、なぜ、どこまで実現するか。経営課題と価値発見から、IT戦略・業務要求・システム化構想・投資・KPI・対象範囲を考えます。維持・刷新・統合・廃止と、業務・組織の再設計も扱います。",
+  "system-design": "要求をどのようなシステムとして実現するか。機能・非機能要件、アーキテクチャ、処理・データ・連携、品質、移行、保守・運用を設計します。",
   ai: "AIを仕事やシステムへ組み込むために、人とAIの役割、知識と条件、評価、理論、実践を設計の視点から考えます。",
   "ai-design":
     "与えられた業務要求を、AI・人間・既存システムの役割、必要な情報、要件・方式、検証・運用へ具体化する設計領域です。",
@@ -80,7 +81,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   // Site-wide last public change; independent of Garden Notes and individual page histories.
   "": "2026-11-25",
   ai: "2026-11-25",
-  "ai-design": "2026-10-12",
+  "ai-design": "2026-11-25",
   "ai-design/applicability": "2026-10-08",
   "ai-design/responsibility-control": "2026-10-08",
   "ai-design/architecture": "2026-10-12",
@@ -93,8 +94,9 @@ export const staticPageLastUpdated: Record<string, string> = {
   books: "2026-10-05",
   cases: "2026-11-24",
   "cases/design-studies": "2026-11-24",
-  dx: "2026-11-24",
-  planning: "2026-11-24",
+  dx: "2026-11-25",
+  planning: "2026-11-25",
+  "system-design": "2026-11-25",
   "dx/value-design": "2026-10-30",
   "dx/business-transformation": "2026-10-08",
   "dx/selection-retirement": "2026-10-08",
@@ -104,7 +106,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   practices: "2026-10-16",
   reference: "2026-10-04",
   series: "2026-11-25",
-  "start-here": "2026-10-19",
+  "start-here": "2026-11-25",
   architecture: "2026-10-12",
   "knowledge-context": "2026-10-08",
   "software-engineering": "2026-10-08",
@@ -114,7 +116,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   career: "2026-10-04",
   "career/profile": "2026-09-28",
   search: "2026-09-28",
-  about: "2026-11-24",
+  about: "2026-11-25",
   retired: "2026-10-05",
   "retired/obsolete": "2026-10-05",
   "retired/obsolete-cases": "2026-10-05",
@@ -150,7 +152,7 @@ export const url = (p = "") =>
 export const assetUrl = (p: string) => base + "/" + p.replace(/^\/+|\/+$/g, "");
 export const absoluteUrl = (site: URL, p = "") =>
   new URL(/\.[a-z0-9]+$/i.test(p) ? assetUrl(p) : url(p), site).toString();
-export const label = (s: string) => s === "planning" ? "企画" : sections.find((x) => x[0] === s)?.[1] ?? s;
+export const label = (s: string) => s === "planning" ? "IT戦略・企画" : s === "system-design" ? "システム設計" : sections.find((x) => x[0] === s)?.[1] ?? s;
 export const publishedEntry = (e: {
   data: { status: string; public?: boolean };
 }) => e.data.status !== "draft" && e.data.public !== false;

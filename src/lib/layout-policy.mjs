@@ -4,7 +4,7 @@ export const readingSections = new Set([
 ]);
 const collectionSections = new Set([
   "ai-design", "ai-mathematics", "ai-theory", "ai", "practices", "cases", "articles", "dx",
-  "books", "series", "essays", "overview", "reference", "updates", "planning",
+  "books", "series", "essays", "overview", "reference", "updates", "planning", "system-design",
 ]);
 /** @param {{ogType: string, section?: string}} page */
 export function pageEntityType({ ogType, section }) {

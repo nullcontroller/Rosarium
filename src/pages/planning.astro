@@ -2,23 +2,27 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
+import ContentLink from "../components/ContentLink.astro";
 import { activeEntry, url } from "../lib/site";
-import { isPlanningKnowledge, planningQuestions, planningPublishedAt } from "../lib/planning";
-const articles = (await getCollection("pages", activeEntry)).filter(isPlanningKnowledge);
+import { planningQuestions, planningPublishedAt } from "../lib/planning";
+import { planningGroups } from "../data/knowledge-domains.mjs";
+const articles = await getCollection("pages", activeEntry);
+const groups = planningGroups.map(group => ({ ...group, entries: group.ids.map(id => articles.find(entry => entry.id === id)).filter(entry => !!entry) }));
 const headings = [
-  { depth: 2, slug: "reading", text: "企画の判断を考える" },
+  ...groups.map(group => ({ depth: 2, slug: group.id, text: group.title })),
   { depth: 2, slug: "scope", text: "企画で決めること" },
   { depth: 2, slug: "purpose", text: "この領域を深める理由" },
   { depth: 2, slug: "field-work", text: "FDEとの関係" },
 ];
 ---
-<Site title="企画" section="planning" publishedAt={planningPublishedAt} headings={headings}>
-  <PageHeader alignHero navigationPath="planning" title="企画" eyebrow="SYSTEM PLANNING" summary="何を、なぜ、どこまでシステム化するのか。業務課題から目的・期待価値・業務要件・業務目標を整理し、対象範囲と投資の優先順位を判断します。" />
-  <p>企画で定めた業務要求を、<a href={url("ai-design")}>AI設計</a>でシステム要件・実現方式・責任分担へ具体化します。<a href={url("dx")}>DX</a>は業務・価値・組織の変化を扱います。企画では新規開発だけでなく、既存システムの刷新・廃止や、システムを作らない選択も検討します。</p>
-  <section aria-labelledby="reading">
-    <h2 id="reading">企画の判断を考える</h2>
-    <ul class="dx-featured-articles">{articles.map(entry => <li><h3><a href={url(entry.id)}>{entry.data.title}</a></h3><p>{entry.data.summary}</p></li>)}</ul>
-  </section>
+<Site title="IT戦略・企画" section="planning" publishedAt={planningPublishedAt} headings={headings}>
+  <PageHeader alignHero navigationPath="planning" title="IT戦略・企画" eyebrow="IT STRATEGY & PLANNING" />
+  <p>ここで整理した目的・業務要求・対象範囲を、<a href={url("system-design")}>システム設計</a>でシステム要件と実現方式へ具体化します。<a href={url("dx")}>DX</a>は業務・組織・価値の変革、<a href={url("ai")}>AI</a>はAI固有の技術と適用を扱います。</p>
+  {groups.map(group => <section aria-labelledby={group.id}>
+    <h2 id={group.id}>{group.title}</h2>
+    <p>{group.summary}</p>
+    <div class="document-list">{group.entries.map(entry => <ContentLink entry={entry!} heading="h3" />)}</div>
+  </section>)}
   <section aria-labelledby="scope">
     <span id="handoff" aria-hidden="true"></span>
     <h2 id="scope">企画で決めること</h2>

@@ -32,7 +32,7 @@ export function buildBreadcrumbs({ pathname, title, entries, labels, primaryPath
     else addArea(primaryPath(entry));
     const cover = entry.data.series && entries.find(other => other.data.series === entry.data.series && other.data.order === 0);
     if (cover && cover.id !== route) add(cover.id);
-    else if (!archive && entry.data.layer === "ai-design" && entry.data.design_topic) add(`ai-design/${entry.data.design_topic}`);
+    else if (!archive && primaryPath(entry) === "ai-design" && entry.data.design_topic) add(`ai-design/${entry.data.design_topic}`);
   } else {
     if (route.startsWith("dx/")) add("dx");
     else if (route.startsWith("ai-design/")) { add("ai"); add("ai-design"); }

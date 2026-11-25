@@ -26,6 +26,7 @@ const manualRoutes = [
   "cases",
   "dx",
   "planning",
+  "system-design",
   ...dxCategories.map((category) => `dx/${category.id}`),
   "essays",
   "practices",

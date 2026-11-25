@@ -6,7 +6,7 @@ import Site from "../layouts/Site.astro";
 import { supportPocLegacyFragments } from "../data/support-poc-fragments";
 import { splitRelatedContent, caseEvidenceLinks } from "../lib/related-content.mjs";
 import {
-  layerPath,
+  entryPrimaryPath,
   bookChapterNumber,
   contentCategory,
   contentType,
@@ -60,7 +60,7 @@ const studyLinks = selectedDesignStudies(process.env.ROSARIUM_DRAFT_PREVIEW)
 if (studyLinks.length) {
   content.body += `<section data-design-studies-preview><h2>条件を変えた設計検討</h2><p>実務の追加実績とは区別した仮想設計です。</p><ul>${studyLinks.map(study => `<li><a href="${url(study.id)}">${study.question}</a></li>`).join("")}</ul></section>`;
 }
-const primaryPath = d.section === "cases" ? "cases" : layerPath(d.layer);
+const primaryPath = entryPrimaryPath(entry);
 const { headings } = await render(entry);
 const all = await getCollection("pages", publicEntry);
 const activeIds = new Set(all.filter(item => item.data.lifecycle === "active").map(item => item.id));
