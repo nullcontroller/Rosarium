@@ -13,14 +13,14 @@ import {
   absoluteUrl,
   sections,
 } from "../lib/site";
-import { navigation, navigationItemForPath, readingCategories, designTopics, layerPath } from "../lib/navigation";
+import { navigation, navigationItemForPath, readingCategories, designTopics, entryPrimaryPath } from "../lib/navigation";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { buildBreadcrumbs, breadcrumbTitle } from "../lib/breadcrumbs.mjs";
 import { isDraftPreview } from "../lib/draft-preview.mjs";
 import { designStudies } from "../data/design-studies.mjs";
 import { archiveTitle, archiveLifecycles, getArchiveGroup } from "../lib/archive";
 import { dxCategories } from "../lib/dx";
-const headerNavigation = ["", "ai", "dx", "planning", "cases", "career"].map((path) => navigationItemForPath(path)!);
+const headerNavigation = ["", "ai", "dx", "planning", "system-design", "cases", "career"].map((path) => navigationItemForPath(path)!);
 const retiredNavigation = navigationItemForPath("retired")!;
 import NavIcon from "../components/NavIcon.astro";
 import ReferencePanel from "../components/ReferencePanel.astro";
@@ -102,7 +102,7 @@ const breadcrumbLabels = Object.fromEntries([
 const breadcrumbs = buildBreadcrumbs({
   pathname: Astro.url.pathname, title: breadcrumbTitle(contents.html, title),
   entries: breadcrumbEntries, labels: breadcrumbLabels,
-  primaryPath: entry => entry.data.section === "cases" ? "cases" : layerPath(entry.data.layer),
+  primaryPath: entryPrimaryPath,
   archiveGroup: getArchiveGroup,
   designStudyIds: designStudies.map(study => study.id),
 });

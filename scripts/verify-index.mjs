@@ -4,6 +4,7 @@ import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
 import { formatDateJa, staticPageLastUpdated } from "../src/lib/site.ts";
 import { recentGrowth, growthChangeText, growthPublishedTargets, growthSummary } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
+import { planningGroups, systemDesignGroups, domainAssignments } from "../src/data/knowledge-domains.mjs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import YAML from "yaml";
@@ -168,13 +169,13 @@ assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["庭", "AI", "DX", "企画", "実践事例", "キャリア", "旧記事・退役記事"],
+  ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "実践事例", "キャリア", "旧記事・退役記事"],
 );
 assert.deepEqual(
   top(".header-primary a")
     .map((_, e) => top(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "企画", "事例", "キャリア", "旧・退役"],
+  ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "実践事例", "キャリア", "旧・退役"],
 );
 assert.equal(top('.header-primary a[href="/cases/"]').length, 1);
 assert.equal(top('.mobile-retired-link').attr("aria-label"), "旧記事・退役記事");
@@ -199,14 +200,14 @@ for (const secondary of ["詳細職務経歴", "Books", "連載", "Essays"])
     !top(".sidebar nav a .nav-copy > span").text().includes(secondary),
     secondary,
   );
-assert.equal(top(".sidebar .icon").length, 7);
+assert.equal(top(".sidebar .icon").length, 8);
 assert.equal(
   new Set(
     top(".sidebar .icon")
       .map((_, e) => top(e).attr("class"))
       .get(),
   ).size,
-  6,
+  7,
 );
 assert.equal(top('.sidebar a[href="/career/"]').length, 1);
 assert.equal(top('.sidebar a[href="/updates/"]').length, 0);
@@ -229,7 +230,7 @@ assert.deepEqual(
   career(".header-primary a")
     .map((_, e) => career(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "企画", "事例", "キャリア", "旧・退役"],
+  ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "実践事例", "キャリア", "旧・退役"],
 );
 assert(career('a[href="/ai/"]').length);
 assert(career('a[href="/dx/"]').length);
@@ -442,7 +443,7 @@ assert(!cases("main a").text().includes("→"));
 assert(page("cases/system-understanding")(".case-position-note").text().includes("現在の推奨構成ではありません"));
 assert.equal(
   cases(".header-primary a[aria-current=page]").text().trim(),
-  "事例",
+  "実践事例",
 );
 assert.equal(cases("#page-toc-tab, #page-toc-panel, [data-page-heading-toc]").length, 0);
 assert.equal(cases("main").attr("data-toc-policy"), "never");
@@ -840,7 +841,11 @@ assert.equal(customerSupportBook('a[href*="outcomes-and-evidence"]').length, 0);
 for (const id of ["specification-debt-review", "three-ai-maintenance", "system-understanding", "customer-support-ai-dx"])
   assert.equal(page("career")(`main a[href="/cases/${id}/"]`).length, 1);
 assert.equal(page("career")('[data-directive="case"]').length, 5);
-assert.equal(page("career")('main a[href="https://github.com/nullcontroller/Rosarium"]').length, 1);
+assert.equal(page("career")('main a[href="https://github.com/nullcontroller/Rosarium"]').length, 0);
+assert(!page("career")("main h2").toArray().some(el => page("career")(el).text() === "詳細・関連資料"));
+const careerClosing = page("career")(".prose > p").last();
+assert.equal(careerClosing.text(), "職歴・在籍期間・資格・詳細なスキルセットはLinkedInプロフィールを参照してください。");
+assert.equal(careerClosing.find('a[href="https://www.linkedin.com/in/%E8%A3%95%E5%A4%AA%E6%9C%97-%E7%AB%8B%E6%9E%97-99076b352/"]').text(), "LinkedInプロフィール");
 console.log("Verified Garden Notes history and single latest-update display without publication dates.");
 
 for (const route of ["ai-design", "ai-mathematics", "ai-theory", "practices", "cases"]) {
@@ -1401,9 +1406,9 @@ for (const [route, type] of [
 // Native disclosure is the mobile fallback; desktop navigation remains independent.
 assert.equal(top("details[data-mobile-navigation] > summary").length, 1);
 assert.equal(top("[data-mobile-navigation] summary").attr("aria-controls"), "mobile-navigation-links");
-assert.deepEqual(top("#mobile-navigation-links > a").toArray().map(node=>top(node).attr("href")), ["/","/ai/","/dx/","/planning/","/cases/","/career/"]);
+assert.deepEqual(top("#mobile-navigation-links > a").toArray().map(node=>top(node).attr("href")), ["/","/ai/","/dx/","/planning/","/system-design/","/cases/","/career/"]);
 assert.equal(top('#mobile-navigation-links .mobile-navigation-auxiliary a[href="/retired/"]').length, 1);
-assert.equal(top(".header-primary-group > a").length, 6);
+assert.equal(top(".header-primary-group > a").length, 7);
 
 const serialCovers = [...entries.entries()].filter(([,data]) => data.publication_format === "series" &&
   data.order === 0 && data.series && data.public !== false && ["published","stable"].includes(data.status) &&
@@ -1427,3 +1432,23 @@ assert.equal(aiSerialSection.find('a[href="/essays/ai-essence/"]').length,1);
 assert.equal(page("series")('meta[http-equiv=refresh]').attr("content"),"0;url=/ai/#ai-series-heading");
 assert.equal(page("series")('link[rel=canonical]').attr("href"),"https://rosarium-tech.com/ai/");
 console.log("Verified metadata-driven AI series covers, summaries, chapter counts and complete two-way series navigation.");
+
+const domainNavigation = ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "実践事例", "キャリア"];
+for (const file of walk("dist").filter(file => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"))) {
+  const $ = load(fs.readFileSync(file,"utf8"));
+  assert.deepEqual($(".header-primary-group > a").map((_,el)=>$(el).text().trim()).get(),domainNavigation,file);
+  assert.deepEqual($("#mobile-navigation-links > a").map((_,el)=>$(el).text().trim()).get(),domainNavigation,file);
+}
+for (const [route,groups] of [["planning",planningGroups],["system-design",systemDesignGroups]]) {
+  const $=page(route);
+  assert.equal($("h1").text(),route==="planning"?"IT戦略・企画":"システム設計");
+  assert.equal($('meta[name="last-updated"]').attr("content"),"2026-11-25");
+  assert.deepEqual($("main [data-content-id]").map((_,el)=>$(el).attr("data-content-id")).get(),groups.flatMap(group=>group.ids));
+  assert($("main a[href='/"+(route==="planning"?"system-design":"planning")+"/']").length);
+}
+for(const [id,assignment] of Object.entries(domainAssignments)) {
+  const $=page(id);
+  assert.equal($("nav.breadcrumb a").last().attr("href"),`/${assignment.primary}/`,id);
+  assert.equal($('[data-pagefind-meta="category"]').text(),assignment.primary==="system-design"?"システム設計":assignment.primary==="planning"?"IT戦略・企画":"DX",id);
+}
+console.log("Verified seven-domain navigation, curated original articles, domain search labels and matching primary breadcrumbs.");

@@ -5,6 +5,7 @@ import { iconForPath } from "./icons";
 import { archiveTitle } from "./archive";
 import { dxCategories } from "./dx";
 import { designStudies } from "../data/design-studies.mjs";
+import { domainLabels, domainAssignments, primaryDomain } from "../data/knowledge-domains.mjs";
 export type Entry = CollectionEntry<"pages">;
 
 export type NavigationItem = {
@@ -84,15 +85,21 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
     },
     {
       path: "planning",
-      title: "企画",
+      title: "IT戦略・企画",
       summary: "何を、なぜ、どこまでシステム化するかを決める。",
       icon: iconForPath("planning"),
       sections: ["planning"],
     },
     {
+      path: "system-design",
+      title: "システム設計",
+      summary: "要求を機能・品質・構成・処理・運用へ具体化する。",
+      icon: iconForPath("system-design"),
+      sections: ["system-design"],
+    },
+    {
       path: "cases",
       title: "実践事例",
-      headerLabel: "事例",
       summary: "実務での課題、設計判断、実装、結果をまとめた事例。",
       icon: iconForPath("cases"),
       sections: ["cases"],
@@ -154,7 +161,7 @@ export const designTopics = [
 export const topicLabel = (key?: string) =>
   designTopics.find((x) => x[0] === key)?.[1];
 export const contentCategory = (e: Entry) =>
-  e.data.layer === "ai-design"
+  domainAssignments[e.id] ? domainLabels[primaryDomain(e)] : e.data.layer === "ai-design"
     ? topicLabel(e.data.design_topic)!
     : e.data.layer === "ai-mathematics"
       ? "確率・分布・数理の基礎"
@@ -176,6 +183,10 @@ export const layerPath = (layer: string) =>
     career: "career",
     reference: "reference",
   })[layer] || "start-here";
+export const entryPrimaryPath = (entry: Entry) => {
+  const domain = primaryDomain(entry);
+  return domain === "ai" ? layerPath(entry.data.layer) : domain;
+};
 export const publicationType = (e: Entry) =>
   !e.data.publication_format && e.data.kind === "case" ? "Case" :
   ({ article: "Article", book: "Book", series: "連載", essay: "Essay" })[

@@ -62,7 +62,7 @@ const curatedRecentGrowth = [
   "date": "2026-11-25",
   "type": "new",
   "title": "連載「AI活用の本質を問う」全6回を公開",
-  "relatedLinks": [{ "path": "ai", "title": "AIの連載を読む" }, { "path": "essays", "title": "考察の一覧" }, { "path": "dx/continuous-value", "title": "継続的価値創出" }],
+  "relatedLinks": [{ "path": "ai", "title": "AIの連載を読む" }, { "path": "essays", "title": "考察の一覧" }, { "path": "dx/continuous-value", "title": "継続的価値創出" }, { "path": "planning", "title": "IT戦略・企画" }, { "path": "system-design", "title": "システム設計" }],
   "category": "Rosarium",
   "icon": "updates",
   "summaryChanges": [
@@ -89,6 +89,8 @@ const curatedRecentGrowth = [
     },
     "サイト全体にパンくずリストを整備し、現在の閲覧位置と上位カテゴリへの導線を改善した",
     "AI入口に連載目次と回数・概要を掲載し、公開済み連載へカテゴリ内から進める導線を追加した。旧連載URLもこの入口へ案内する",
+    { action: "revised", text: "改訂。Career末尾の関連資料一覧を整理し、LinkedInプロフィールへの案内を残した", contentIds: ["career/overview"] },
+    "企画の入口を「IT戦略・企画」へ広げ、「システム設計」を追加。既存記事のURLを保ち、業務・投資の判断と要求を実現する設計の読み分けを整えた",
     "HomeとCareerの専門性・実務事例への導線を整理し、更新履歴を短い要約と詳細・訂正の記録に分けて読みやすくした"
   ]
 },

@@ -1,5 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import { caseStudies } from "./navigation";
+import { primaryDomain } from "../data/knowledge-domains.mjs";
 
 export function analyticsMetadata(pathname: string, title: string, entry?: CollectionEntry<"pages">) {
   const slug = pathname.replace(/^\/+/, "").replace(/\/$/, "");
@@ -18,6 +19,7 @@ export function analyticsMetadata(pathname: string, title: string, entry?: Colle
       : root === "books" || root === "series" ? "book"
       : root === "dx" ? slug.includes("/") ? "theme" : "dx"
       : root === "planning" ? "planning"
+      : root === "system-design" ? "system-design"
       : root === "ai" ? "ai"
       : root === "ai-design" || root === "ai-mathematics" || root === "ai-theory" ? "theme" : "index";
   const study = caseStudies.find((study) => slug === study.book || slug.startsWith(`${study.book}/`));
@@ -25,7 +27,7 @@ export function analyticsMetadata(pathname: string, title: string, entry?: Colle
     page_title: data?.title ?? (title === "Home" ? "Rosarium" : title),
     page_path: pathname,
     content_type: contentType,
-    content_domain: contentType === "case" ? "case" : contentType === "career" ? "career" : root === "planning" ? "planning" :
+    content_domain: contentType === "case" ? "case" : contentType === "career" ? "career" : entry ? primaryDomain(entry) : root === "system-design" ? "system-design" : root === "planning" ? "planning" :
       data?.primaryCategory || root === "dx" ? "dx" :
       data || ["ai", "ai-design", "ai-mathematics", "ai-theory", "practices", "architecture", "foundations", "knowledge-context", "evaluation-hitl", "software-engineering", "essays"].includes(root) ? "ai" : "site",
     primary_category: data?.primaryCategory ?? data?.design_topic ??
