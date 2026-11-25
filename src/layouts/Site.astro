@@ -281,17 +281,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         />
         <span class="brand-name">Rosarium</span>
       </a>
-      <details class="mobile-navigation" data-mobile-navigation>
-        <summary aria-label="メニュー" aria-controls="mobile-navigation-links"><span aria-hidden="true">☰</span><span class="visually-hidden">メニュー</span></summary>
-        <nav id="mobile-navigation-links" aria-label="モバイル主要ナビゲーション">
-          {headerNavigation.map(item => <a href={url(item.path)} aria-current={navigationMatches(item, section) ? "page" : undefined}>{item.title}</a>)}
-          <div class="mobile-navigation-auxiliary">
-            <a href={url(retiredNavigation.path)}>{retiredNavigation.title}</a>
-            <a href={url("reference")}>リファレンス</a>
-            <button type="button" data-theme-toggle aria-label="配色を切り替える">配色切替</button>
-          </div>
-        </nav>
-      </details>
+
       <div class="header-links">
         <nav class="header-primary" aria-label="主要ページ">
           <div class="header-primary-group">
@@ -306,6 +296,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           </a>
         </nav>
         <div class="header-actions">
+          <a class="sitemap-header-tool" href={url("sitemap")}>サイトマップ</a>
           {showRightSidebar && showReference && <a class="reference-header-tool" href={url("reference")} data-reference-toggle aria-label="Referenceを開く" aria-controls="reference-panel" aria-expanded="false">参照</a>}
           <GlobalSearch />
           <button id="theme" data-theme-toggle type="button" aria-label="配色を切り替える">
@@ -313,6 +304,18 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           </button>
         </div>
       </div>
+      <details class="mobile-navigation" data-mobile-navigation>
+        <summary aria-label="メニュー" aria-controls="mobile-navigation-links"><span aria-hidden="true">☰</span><span class="visually-hidden">メニュー</span></summary>
+        <nav id="mobile-navigation-links" aria-label="モバイル主要ナビゲーション">
+          {headerNavigation.map(item => <a href={url(item.path)} aria-current={navigationMatches(item, section) ? "page" : undefined}>{item.title}</a>)}
+          <div class="mobile-navigation-auxiliary">
+            <a href={url(retiredNavigation.path)}>{retiredNavigation.title}</a>
+            <a href={url("reference")}>リファレンス</a>
+            <a href={url("sitemap")}>サイトマップ</a>
+            <button type="button" data-theme-toggle aria-label="配色を切り替える">配色切替</button>
+          </div>
+        </nav>
+      </details>
 
     </header>
     <div
@@ -438,6 +441,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     {referenceSidebar && <RightSidebarControls collapsible={rightSidebarCollapsible} initiallyClosed={rightSidebarInitiallyClosed} />}
     {showRightSidebar && showReference && <ReferencePanel />}
     <footer class="site-footer">
+      <p><a href={url("sitemap")}>サイトマップ</a></p>
       <p class="meta" data-pagefind-ignore>
         利用状況を把握し、コンテンツや導線を改善するため、Google Analytics
         4を使用しています。Cookieなどを通じて閲覧・端末情報を収集します。
