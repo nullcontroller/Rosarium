@@ -29,9 +29,14 @@ assert.deepEqual($(".breadcrumb [data-breadcrumb-item]").map((_,el)=>$(el).text(
 for(const file of walk(root).filter(f=>f.endsWith(".html"))){
  const page=load(fs.readFileSync(file,"utf8"));if(!page("main").length)continue;
  assert.equal(page('header .header-actions > a[href="/sitemap/"]').length,1,file);
- assert.equal(page('footer a[href="/sitemap/"]').length,1,file);
+ assert.equal(page('footer a[href="/sitemap/"]').length,0,file);
+ assert.equal(page('.mobile-navigation a[href="/sitemap/"]').length,1,file);
+ assert.equal(page('footer > p').length,1,file);
+ assert.equal(page('footer > p.meta').length,1,file);
+ assert(page('footer').text().includes('Google Analytics'),file);
+ assert.equal(page('footer a[href="https://policies.google.com/technologies/partner-sites?hl=ja"]').length,1,file);
  assert.equal(page('.header-primary a[href="/sitemap/"]').length,0,file);
  const dom=page('header *').toArray();
  assert(dom.indexOf(page('.global-search-toggle')[0])<dom.indexOf(page('.mobile-navigation > summary')[0]),`${file}: search must precede menu in DOM`);
 }
-console.log("Architecture guide: four shared domain responsibilities, diagram and nine entry links verified; no article list, counts or listing controls. Shared header/footer and mobile DOM order retained.");
+console.log("Architecture guide: four shared domain responsibilities, diagram and nine entry links verified; no article list, counts or listing controls. Header/mobile sitemap entries, analytics-only footer and mobile DOM order verified.");
