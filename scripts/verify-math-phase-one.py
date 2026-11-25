@@ -38,6 +38,26 @@ for i in range(n):
  a=any([rng.random()<p for j in range(k)]);available+=a;selected+=a and rng.random()<s
 expected=1-(1-p)**k;assert abs(available/n-expected)<.006 and abs(selected/n-expected*s)<.006
 results['N06']={'independent_oracle':expected,'selection_theory':expected*s,'oracle_simulation':available/n,'selected_simulation':selected/n,'trials':n,'seed':20261126,'scope':'独立候補と人工選択器の検算。LLM実験ではない'}
+# Same budget, different allocation, with exact decimal/rational verification.
+from fractions import Fraction
+budget=12
+allocations={'A':{'k':6,'generation_cost':1,'verification_cost':1},'B':{'k':3,'generation_cost':1,'verification_cost':3}}
+budget_rows=[]
+for label,sb in [('strong_verifier',Fraction(9,10)),('modest_verifier',Fraction(6,10))]:
+ row={'scenario':label,'budget':budget,'candidate_success_probability':.2,'allocations':{}}
+ for name,cfg in allocations.items():
+  cost=cfg['k']*(cfg['generation_cost']+cfg['verification_cost']);assert cost==budget
+  selection=Fraction(1,2) if name=='A' else sb
+  oracle=1-Fraction(4,5)**cfg['k'];success=oracle*selection
+  row['allocations'][name]={**cfg,'total_cost':cost,'conditional_selection_success':float(selection),'oracle_success':float(oracle),'selected_success':float(success)}
+ row['winner']=max(row['allocations'],key=lambda x:row['allocations'][x]['selected_success']);budget_rows.append(row)
+assert budget_rows[0]['winner']=='B' and budget_rows[1]['winner']=='A'
+assert abs(budget_rows[0]['allocations']['A']['selected_success']-.368928)<1e-12
+assert abs(budget_rows[0]['allocations']['B']['selected_success']-.4392)<1e-12
+assert abs(budget_rows[1]['allocations']['B']['selected_success']-.2928)<1e-12
+results['N06']['same_budget_comparison']=budget_rows
+results['N06']['budget_scope']='Artificial fixed costs and conditional selection success, not measured LLM performance.'
+
 def online(scores,values):
  m=scores[0];l=1.;u=values[0].copy()
  for score,value in zip(scores[1:],values[1:]):
@@ -49,6 +69,19 @@ for trial in range(100):
 assert err<1e-12
 results['N12']={'online_softmax_max_abs_error':err,'random_cases':100,'matrix_mib':{str(n):n*n*2/2**20 for n in [4096,8192]},'scope':'CPU標準浮動小数点の同値性検算。GPU速度測定なし'}
 A={'a','b'};C={'a','c'};assert C-A=={'c'} and A-C=={'b'};results['guardrail']={'false_accept':sorted(C-A),'false_reject':sorted(A-C),'sound':C<=A,'complete':A<=C}
+# Marginals alone allow independence, positive dependence or negative dependence.
+joint_cases=[]
+for joint in [0.,.06,.2]:
+ cells=[joint,.2-joint,.3-joint,.5+joint];assert min(cells)>=0 and abs(sum(cells)-1)<1e-12
+ assert abs(cells[0]+cells[1]-.2)<1e-12 and abs(cells[0]+cells[2]-.3)<1e-12
+ joint_cases.append({'m1':.2,'m2':.3,'joint':joint,'product':.06,'conditional_covariance':joint-.06})
+results['guardrail']['joint_miss_cases']=joint_cases
+losses=[2.,5.,0.,0.];assert sum(losses)/4==2*.5+3*.25
+results['guardrail']['additive_loss_with_overlap']={'realized_losses':losses,'expectation':sum(losses)/4,'linearity_rhs':2*.5+3*.25}
+results['guardrail']['binary_mapping']={'accept':'accept_original','reject':'do_not_accept_original','repair':'do_not_accept_original','escalate':'do_not_accept_original'}
 assert abs(.7+.3-1)<1e-12;results['hallucination']={'toy_target_wrong':.7,'toy_target_correct':.3,'claim':'訓練分布一致はこの人工例の真偽を保証しない'}
+results['hallucination']['iid_claim_model']={'p':.95,'all_correct_10':.95**10,'at_least_one_error_10':1-.95**10,'scope':'Fixed p, independent identical claims. Not an empirical statement about length.'}
+for fixed_p in [0.,.95,1.]:
+ for claims in [1,10]:assert abs(((1-fixed_p**(claims+1))-(1-fixed_p**claims))-fixed_p**claims*(1-fixed_p))<1e-12
 assert abs(.4*.3-.12)<1e-12;results['conditional_probability']={'chain_rule_example':.4*.3,'scope':'P(A)=0.4、P(B|A)=0.3という人工例'}
 print(json.dumps({'python':sys.version,'checks':'8項目成功','results':results},ensure_ascii=False,indent=2))

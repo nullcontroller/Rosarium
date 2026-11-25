@@ -194,13 +194,9 @@ Temperatureは、事実の正しさを直接制御する値ではありません
 
 という指示は、根拠を示す回答や回答拒否を生成しやすくする可能性があります。
 
-しかし、自然言語で制約を書いただけでは、禁止した出力の確率が厳密に0になるとは限りません。
+禁止出力の集合を $B$、指示を $I$ とし、その条件での禁止出力確率を $p_B(I)=P(Y\in B\mid I)$ と定義します。自然言語で制約を書いたという事実だけから、$p_B(I)=0$ は保証できません。
 
-$$
-P(\text{prohibited output}\mid I) \neq 0
-$$
-
-となる可能性は残ります。
+これは、$p_B(I)>0$ が必ず成立するという主張でもありません。0になる場合も含め、値はモデル、入力、生成方式、外部制御に依存します。指示だけによる保証と、個々の設定で得られる確率の値を分けて扱います。
 
 禁止出力を確実に止めたい場合は、プロンプトだけでなく、
 
@@ -269,6 +265,14 @@ $$
 と捉える必要があります。
 
 ---
+
+図1は、系列確率の分解と生成手順、検索による条件付けを区別して示します。
+
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/diagrams/math-phase-one/conditioning-light.svg" alt="連鎖律による分解、自己回帰の生成手順、決定的検索と潜在変数の周辺化を分ける" width="480" height="480" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/math-phase-one/conditioning-dark.svg" alt="連鎖律による分解、自己回帰の生成手順、決定的検索と潜在変数の周辺化を分ける" width="480" height="480" loading="lazy" />
+  <figcaption>図1 自己回帰と条件付け。連鎖律による分解、自己回帰の生成手順、決定的検索と潜在変数の周辺化を分ける。式との対応を示す模式図であり、実測したモデル性能ではない。</figcaption>
+</figure>
 
 ### 「確率を変える制御」と「出力を止める制御」を分ける
 
@@ -353,14 +357,6 @@ AIを数学的に捉える目的は、AIを単純化して過信することで�
 どこまで確率的に制御でき、どこから外部システムと人間の判断が必要になるのかを明確にすることです。
 
 ---
-
-### 数式と処理範囲の整理
-
-<figure class="diagram diagram-static">
-  <img class="diagram-light" src="/diagrams/math-phase-one/conditioning-light.svg" alt="連鎖律による分解、自己回帰の生成手順、決定的検索と潜在変数の周辺化を分ける" width="480" height="480" loading="lazy" />
-  <img class="diagram-dark" src="/diagrams/math-phase-one/conditioning-dark.svg" alt="連鎖律による分解、自己回帰の生成手順、決定的検索と潜在変数の周辺化を分ける" width="480" height="480" loading="lazy" />
-  <figcaption>図 自己回帰と条件付け。連鎖律による分解、自己回帰の生成手順、決定的検索と潜在変数の周辺化を分ける。式との対応を示す模式図であり、実測したモデル性能ではない。</figcaption>
-</figure>
 
 ### 参考資料
 

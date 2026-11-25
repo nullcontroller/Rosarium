@@ -161,6 +161,14 @@ $$
 
 ---
 
+図1は、固定logitの人工例に対するエントロピーの変化を示します。
+
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/diagrams/math-phase-one/temperature-light.svg" alt="固定logitから分布を作り、平均と分散を通じてエントロピーの微分を導く" width="480" height="480" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/math-phase-one/temperature-dark.svg" alt="固定logitから分布を作り、平均と分散を通じてエントロピーの微分を導く" width="480" height="480" loading="lazy" />
+  <figcaption>図1 固定logitでの温度とエントロピー。固定logitから分布を作り、平均と分散を通じてエントロピーの微分を導く。式との対応を示す模式図であり、実測したモデル性能ではない。</figcaption>
+</figure>
+
 ### 文章全体では、小さな差が連鎖する
 
 出力列を $Y=(y_1,y_2,\ldots,y_n)$ とします。
@@ -285,7 +293,7 @@ $$
 
 #### top-p
 
-確率の累積値が $p$ 以上になる最小の上位集合を残します。
+確率の累積値が閾値 $\rho$ 以上になる最小の上位集合を残します。
 
 $$
 p_{(1)}\ge\cdots\ge p_{(v)},\qquad
@@ -423,14 +431,6 @@ Temperatureは、AIの賢さ、安全性、創造性を直接指定する値で�
 それがTemperatureの設計です。
 
 ---
-
-### 数式と処理範囲の整理
-
-<figure class="diagram diagram-static">
-  <img class="diagram-light" src="/diagrams/math-phase-one/temperature-light.svg" alt="固定logitから分布を作り、平均と分散を通じてエントロピーの微分を導く" width="480" height="480" loading="lazy" />
-  <img class="diagram-dark" src="/diagrams/math-phase-one/temperature-dark.svg" alt="固定logitから分布を作り、平均と分散を通じてエントロピーの微分を導く" width="480" height="480" loading="lazy" />
-  <figcaption>図 固定logitでの温度とエントロピー。固定logitから分布を作り、平均と分散を通じてエントロピーの微分を導く。式との対応を示す模式図であり、実測したモデル性能ではない。</figcaption>
-</figure>
 
 ### 参考資料
 
