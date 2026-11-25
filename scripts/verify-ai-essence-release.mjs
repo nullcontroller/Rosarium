@@ -38,8 +38,11 @@ for (const p of manifest.pages) {
     assert(text.includes(p.id), `${file}: ${p.id}`);
   }
 }
-const privateIds = ['essays/what-is-ai','essays/cognitive-surrender',...['inquiry-analysis','metadata-batch','qualification-testing','data-migration','rag-security','document-lifecycle'].map(s=>`cases/design-studies/${s}`)];
+const rejectedIds = ['essays/what-is-ai','essays/cognitive-surrender'];
+const privateIds = [...rejectedIds,...['inquiry-analysis','metadata-batch','qualification-testing','data-migration','rag-security','document-lifecycle'].map(s=>`cases/design-studies/${s}`)];
 for(const id of privateIds) {
+ assert(!fs.existsSync(`dist/${id}/index.html`));
+ if(rejectedIds.includes(id)) { assert(!fs.existsSync(`src/content/${id}.md`), `Rejected manuscript must stay removed: ${id}`); continue; }
  const text=fs.readFileSync(`src/content/${id}.md`,'utf8'); const data=YAML.parse(text.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
  assert.equal(data.status,'draft'); assert.equal(data.public,false); assert(!fs.existsSync(`dist/${id}/index.html`));
 }
@@ -64,4 +67,4 @@ for(const file of ['index.html','garden-notes/index.html']) {
  assert(html.includes(record.title));
  for(const id of privateIds)assert(!html.includes(`/${id}/`));
 }
-console.log(`Verified ${live?'production':'local'} approved release: seven unchanged manuscripts, dates, indexing eligibility, navigation and publication history; eight drafts remain private.`);
+console.log(`Verified ${live?'production':'local'} approved release: seven unchanged manuscripts, dates, indexing eligibility, navigation and publication history; six drafts remain private and two rejected manuscripts remain deleted.`);
