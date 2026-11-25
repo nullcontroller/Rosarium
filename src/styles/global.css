@@ -2650,14 +2650,13 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
     pointer-events: none;
   }
   .header-primary-group > a[aria-current="page"] {
-    background: var(--aux-selected);
-    color: var(--accent);
+    background: var(--accent);
+    color: var(--surface);
     text-decoration: none;
   }
-  .header-primary-group > a:hover { background: var(--aux-hover); color: var(--accent); }
+  .header-primary-group > a:not([aria-current="page"]):hover { background: var(--aux-hover); color: var(--ink); }
   .header-primary-group > a:focus-visible {
     z-index: 1;
-    background: var(--aux-selected);
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
