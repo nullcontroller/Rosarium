@@ -24,7 +24,7 @@ export interface RecentGrowthItem {
   category: string;
   topic?: string;
   summaryChanges?: string[];
-  topics?: { title: string; summary: string; path: string }[];
+  topics?: { title: string; summary: string; links?: { path: string; title: string }[] }[];
   icon?: IconName;
   relatedLinks?: { path: string; title: string }[];
 }
@@ -62,11 +62,11 @@ const curatedRecentGrowth = [
 {
   "date": "2026-11-25",
   topics: [
-    { title: "連載「AI活用の本質を問う」全6回を公開", summary: "操作・運用・改善から、知的協働、判断知識、総工数、事業成果、組織設計までを考察。", path: "essays/ai-essence" },
-    { title: "発展ケーススタディ全6記事を公開", summary: "実務経験を起点に、要求定義から運用・保守までを検討する仮想設計。設計領域を一覧と記事冒頭に明示。", path: "cases/design-studies" },
-    { title: "IT戦略・企画とシステム設計を整備", summary: "専門知識と事例を横断して参照できる導線へ再編。", path: "system-design" },
-    { title: "Careerの方針と閲覧導線を改訂", summary: "ITストラテジストとシステムアーキテクトを軸とする志向を明確化し、共通左サイドバーを復活。", path: "career" },
-    { title: "サイト全体の読みやすさを改善", summary: "不要な強制改行を撤廃し、主要更新をトピック別に表示。", path: "garden-notes#growth-2026-11-25" },
+    { title: "連載「AI活用の本質を問う」全6回を公開", summary: "操作・運用・改善から、知的協働、判断知識、総工数、事業成果、組織設計までを考察。", links: [{ path: "essays/ai-essence", title: "連載「AI活用の本質を問う」全6回を公開" }] },
+    { title: "発展ケーススタディ全6記事を公開", summary: "実務経験を起点に、要求定義から運用・保守までを検討する仮想設計。設計領域を一覧と記事冒頭に明示。", links: [{ path: "cases/design-studies", title: "発展ケーススタディ全6記事を公開" }] },
+    { title: "IT戦略・企画とシステム設計を整備", summary: "専門知識と事例を横断して参照できる導線へ再編。", links: [{ path: "planning", title: "IT戦略・企画" }, { path: "system-design", title: "システム設計" }] },
+    { title: "Careerの方針と閲覧導線を改訂", summary: "ITストラテジストとシステムアーキテクトを軸とする志向を明確化し、共通左サイドバーを復活。", links: [{ path: "career", title: "Careerの方針と閲覧導線を改訂" }] },
+    { title: "サイト全体の読みやすさを改善", summary: "不要な強制改行を撤廃し、主要更新をトピック別に表示。" },
   ],
   "type": "new",
   "title": "連載「AI活用の本質を問う」全6回を公開",
@@ -399,7 +399,13 @@ export function validateRecentGrowth(entries: RecentGrowthItem[]) {
     }
     const topicTitles = new Set<string>();
     for (const topic of entry.topics ?? []) {
-      if (!topic.title.trim() || !topic.summary.trim() || !/^[a-z0-9-]+(?:\/[a-z0-9-]+)*(?:#[a-z0-9-]+)?$/.test(topic.path)) throw new Error("Invalid Garden Notes topic: " + topic.title);
+      if (!topic.title.trim() || !topic.summary.trim()) throw new Error("Invalid Garden Notes topic: " + topic.title);
+      const topicPaths = new Set<string>();
+      for (const link of topic.links ?? []) {
+        if (!link.title.trim() || !/^[a-z0-9-]+(?:\/[a-z0-9-]+)*$/.test(link.path)) throw new Error("Invalid Garden Notes topic link: " + link.path);
+        if (topicPaths.has(link.path)) throw new Error("Duplicate Garden Notes topic link: " + link.path);
+        topicPaths.add(link.path);
+      }
       if (topicTitles.has(topic.title)) throw new Error("Duplicate Garden Notes topic: " + topic.title);
       topicTitles.add(topic.title);
     }
