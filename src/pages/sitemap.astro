@@ -1,46 +1,86 @@
 ---
-import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import NavIcon from "../components/NavIcon.astro";
-import SitemapBranch from "../components/SitemapBranch.astro";
-import { readerSitemap } from "../lib/reader-sitemap";
 import { navigationItemForPath } from "../lib/navigation";
-import { url } from "../lib/site";
-const routeSources=import.meta.glob("./**/*.astro",{query:"?raw",import:"default",eager:true});
-const redirects=Object.entries(routeSources).filter(([,source])=>/http-equiv="refresh"|location\.replace\(/.test(String(source))).map(([file])=>file.replace(/^\.\//,"").replace(/\.astro$/, "").replace(/\/index$/, ""));
-const tree=readerSitemap(await getCollection("pages"),await getCollection("career"),redirects);
-const headings=tree.map((node,index)=>({depth:2,slug:`sitemap-category-${index}`,text:node.title}));
+import { domainResponsibilities } from "../data/knowledge-domains.mjs";
+import { introductionForPath, url } from "../lib/site";
+import { iconForPath } from "../lib/icons";
+const domains = ["planning", "dx", "system-design", "ai"].map(path => ({ ...navigationItemForPath(path)!, ...domainResponsibilities[path] }));
+const cases = navigationItemForPath("cases")!;
+const supporting = [
+  { ...navigationItemForPath("")!, detail: "関心の入口と主要な更新を確認し、各専門領域へ進むためのHomeです。" },
+  { ...navigationItemForPath("career")!, detail: "著者の実務経験・現在の専門性と、今後目指すキャリアを確認するページです。" },
+  { path: "garden-notes", title: "GARDEN NOTES", icon: iconForPath("updates"), detail: "何を新しく公開し、何を改訂したかを辿る更新履歴です。専門知識の分類や記事検索とは役割を分けています。" },
+  { ...navigationItemForPath("retired")!, detail: "旧前提の参考記事と、役割を終えた退役記事を保全する場所です。現在の推奨内容とは区別して読みます。" },
+];
+const headings = [
+  { depth:2, slug:"domain-relationships", text:"専門領域の関係" },
+  { depth:2, slug:"choose-domain", text:"関心に応じて読む領域" },
+  ...domains.map(item=>({depth:3,slug:`domain-${item.path}`,text:item.title})),
+  { depth:2, slug:"cross-domain-cases", text:"事例は専門領域を横断する" },
+  { depth:2, slug:"site-gateways", text:"サイトの入口・著者・更新の記録" },
+];
 ---
-<Site title="サイトマップ" section="sitemap" summary="Rosariumの専門領域、連載・Book、実務事例と仮想設計、過去の記事を階層から探せます。" headings={headings}>
-  <PageHeader title="サイトマップ" summary="専門領域から記事へ。Rosarium全体の知識体系と、目次・章のつながりを俯瞰できます。" />
-  <p>件数は各階層の記事・目次・章の合計です。横断索引は同じ記事への別の探し方であり、記事そのものは主分類に一度だけ掲載しています。</p>
-  <div class="sitemap-controls" hidden data-sitemap-controls><button type="button" data-sitemap-expand aria-controls="reader-sitemap-tree">すべて展開</button><button type="button" data-sitemap-collapse aria-controls="reader-sitemap-tree">すべて折りたたむ</button><span role="status" aria-live="polite" data-sitemap-status></span></div>
-  <div class="reader-sitemap" id="reader-sitemap-tree" data-reader-sitemap>
-  {tree.map((node,index)=><section aria-labelledby={`sitemap-category-${index}`}>
-    <h2 id={`sitemap-category-${index}`}><NavIcon name={navigationItemForPath(node.path)!.icon} /><a href={url(node.path)} data-reference-page data-sitemap-link data-sitemap-content={node.contentId}>{node.title}</a> <small>{node.count}記事</small></h2>
-    {node.path==="cases" && <p class="meta">実務事例と、実務経験を起点にした仮想設計を分けて掲載しています。</p>}
-    {node.path==="retired" && <p class="meta">現在の推奨記事とは区別した過去の記録です。</p>}
-    {node.children.length>0 && <details open><summary>記事・分類を表示</summary><ul>{node.children.map(child=><SitemapBranch node={child} />)}</ul></details>}
-  </section>)}
+<Site title="サイトマップ" section="sitemap" summary="Rosariumが扱うIT戦略・企画、DX、システム設計、AI・数理の役割と関係、関心に応じた読み分けを案内します。" headings={headings}>
+  <PageHeader title="サイトマップ" summary="Rosariumは、価値と構想、業務・組織の変革、技術による実現、その基礎原理を扱う技術ポートフォリオです。" />
+  <div class="architecture-map" data-architecture-guide>
+    <section aria-labelledby="domain-relationships">
+      <h2 id="domain-relationships">専門領域の関係</h2>
+      <figure class="domain-relationships" aria-labelledby="relationship-caption">
+        <div class="relationship-purpose"><NavIcon name={domains[0].icon} /><strong>{domains[0].title}</strong><span>目的・価値・実現する範囲を定める</span></div>
+        <p class="relationship-connector">↓ 目的と範囲を共有する</p>
+        <div class="relationship-pair">
+          <div><NavIcon name={domains[1].icon} /><strong>{domains[1].title}</strong><span>業務・組織・価値を変える</span></div>
+          <span class="relationship-align">相互に整合</span>
+          <div><NavIcon name={domains[2].icon} /><strong>{domains[2].title}</strong><span>要件・方式・品質を具体化する</span></div>
+        </div>
+        <p class="relationship-feedback">成果と制約を、次の構想・業務・設計へ戻す</p>
+        <div class="relationship-foundation"><NavIcon name={domains[3].icon} /><strong>{domains[3].title}</strong><span>AIを使う設計を、数学的・計算的原理から支える</span></div>
+        <div class="relationship-cases"><NavIcon name={cases.icon} /><strong>{cases.title}</strong><span>各領域を横断し、具体的な判断と検証から学ぶ</span></div>
+        <figcaption id="relationship-caption">四つの専門領域は上下の優劣や一方向の工程ではありません。業務とシステムを照合し、結果を構想へ戻します。AIは実現手段の一つであり、採用を前提としません。</figcaption>
+      </figure>
+    </section>
+    <section aria-labelledby="choose-domain">
+      <h2 id="choose-domain">関心に応じて読む領域</h2>
+      {domains.map(item=><section class="domain-description" data-domain={item.path} aria-labelledby={`domain-${item.path}`}>
+        <h3 id={`domain-${item.path}`}><NavIcon name={item.icon} /><a href={url(item.path)} data-guide-entry>{item.title}</a></h3>
+        <p class="domain-question">{item.question}</p>
+        <dl><dt>役割</dt><dd>{item.role}</dd><dt>主な対象</dt><dd>{item.topics}</dd><dt>他領域との違い</dt><dd>{item.boundary}</dd></dl>
+      </section>)}
+    </section>
+    <section aria-labelledby="cross-domain-cases">
+      <h2 id="cross-domain-cases"><NavIcon name={cases.icon} /><a href={url(cases.path)} data-guide-entry>事例</a>は専門領域を横断する</h2>
+      <p>{introductionForPath("cases")}</p>
+      <p>実務事例は、実際の担当範囲・判断・確認済みの成果を読むものです。発展ケーススタディは、実務を起点に追加条件を仮定した設計検討であり、実務実績とは区別します。</p>
+      <p>知識の原理や責務を学ぶ各専門領域に対し、事例では「具体的な課題にどう判断し、何を確かめたか」を確認できます。</p>
+    </section>
+    <section aria-labelledby="site-gateways">
+      <h2 id="site-gateways">サイトの入口・著者・更新の記録</h2>
+      <dl class="site-roles">{supporting.map(item=><div><dt><NavIcon name={item.icon} /><a href={url(item.path)} data-guide-entry>{item.title}</a></dt><dd>{item.detail}</dd></div>)}</dl>
+    </section>
   </div>
 </Site>
-<script>
- const tree=document.querySelector("[data-reader-sitemap]");
- const controls=document.querySelector<HTMLElement>("[data-sitemap-controls]");
- if(tree && controls){controls.hidden=false;for(const expand of [true,false]) controls.querySelector(expand?"[data-sitemap-expand]":"[data-sitemap-collapse]")?.addEventListener("click",()=>{tree.querySelectorAll("details").forEach(item=>item.open=expand);const status=controls.querySelector("[data-sitemap-status]");if(status)status.textContent=expand?"すべて展開しました":"すべて折りたたみました";});}
-</script>
 <style>
-.reader-sitemap section { border-top:1px solid var(--line);padding-block:1rem; }
-.reader-sitemap h2 {display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;font-size:1.25rem;}
-.reader-sitemap small {color:var(--muted);font-size:.8rem;font-weight:400;}
-.reader-sitemap ul {list-style:none;padding-inline-start:1rem;margin-block:.5rem;border-inline-start:1px solid var(--line);}
-.reader-sitemap :global(li) {margin-block:.5rem;overflow-wrap:anywhere;}
-.reader-sitemap :global(summary) {cursor:pointer;min-height:44px;align-content:center;font-weight:650;}
-.reader-sitemap :global(summary:focus-visible),.reader-sitemap :global(a:focus-visible) {outline:2px solid var(--accent);outline-offset:3px;}
-.reader-sitemap :global(.sitemap-parent) {margin:.25rem 0 .5rem 1rem;font-size:.9rem;}
-.reader-sitemap :global(.design-area) {display:block;font-size:.9rem;color:var(--accent);}
-.sitemap-controls {display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-block:1rem;}
-.sitemap-controls[hidden] {display:none;}
-.sitemap-controls button {min-height:44px;}
+.architecture-map > section + section {border-top:1px solid var(--line);padding-top:1.25rem;margin-top:1.5rem;}
+.architecture-map h2,.architecture-map h3,.site-roles dt {display:flex;align-items:center;flex-wrap:wrap;gap:.45rem;}
+.domain-relationships {margin:1rem 0;}
+.relationship-purpose,.relationship-pair > div,.relationship-foundation,.relationship-cases {display:flex;align-items:center;flex-wrap:wrap;gap:.35rem .5rem;padding:.65rem .85rem;border-inline-start:3px solid var(--accent);background:var(--aux-surface);}
+.domain-relationships strong {color:var(--accent);}
+.domain-relationships span:not(.relationship-align):not(.icon) {flex-basis:100%;font-size:.9rem;}
+.relationship-purpose {max-width:32rem;margin-inline:auto;}
+.relationship-connector,.relationship-feedback {text-align:center;font-size:.85rem;color:var(--muted);margin:.5rem 0;}
+.relationship-pair {display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:stretch;gap:.5rem;}
+.relationship-align {align-self:center;font-size:.8rem;color:var(--muted);}
+.relationship-foundation,.relationship-cases {margin-top:.6rem;}
+.domain-relationships figcaption {font-size:.85rem;color:var(--muted);margin-top:.75rem;}
+.domain-description {border-top:1px solid var(--line);padding-block:1rem;}
+.domain-description h3 {margin-block:0 .5rem;}
+.domain-question {color:var(--accent);font-weight:650;margin-block:.5rem;}
+.domain-description dl {display:grid;grid-template-columns:6.5rem minmax(0,1fr);gap:.4rem .75rem;margin-bottom:0;}
+.domain-description dt {font-weight:650;}
+.domain-description dd,.site-roles dd {margin:0;}
+.site-roles > div {padding-block:.75rem;border-top:1px solid var(--line);}
+.site-roles dt {font-weight:650;margin-bottom:.35rem;}
+@media(max-width:600px){.relationship-pair {grid-template-columns:minmax(0,1fr);}.relationship-align {text-align:center;}.domain-description dl {grid-template-columns:minmax(0,1fr);gap:.25rem;}.domain-description dd {margin-bottom:.5rem;}}
 </style>

@@ -2677,3 +2677,19 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
 
 /* Design-study domain is the primary identifier, before the article title. */
 .document-header > .design-area { order: -1; }
+
+/* A shared, restrained accent makes the site-wide architecture guide discoverable. */
+a.sitemap-entry {
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  padding:.4rem .65rem;
+  color:var(--accent);
+  background:var(--aux-selected);
+  font-weight:700;
+  text-decoration:underline;
+  text-underline-offset:.2em;
+  border-radius:3px;
+}
+a.sitemap-entry:hover { background:var(--aux-hover); }
+a.sitemap-entry:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }

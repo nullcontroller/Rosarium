@@ -3,6 +3,35 @@
  */
 /** @type {Record<string,string>} */
 export const domainLabels = { ai: "AI・数理", dx: "DX", planning: "IT戦略・企画", "system-design": "システム設計", cases: "事例", career: "キャリア", reference: "参照資料" };
+/** Shared descriptions of existing domains, not an additional classification.
+ * @type {Record<string,{role:string,question:string,topics:string,boundary:string}>}
+ */
+export const domainResponsibilities = {
+  planning: {
+    role: "何を、なぜ、どこまでシステム化するかを決める。",
+    question: "何を、なぜ、どこまで実現するのか。",
+    topics: "経営・業務課題、価値発見、業務要求、システム化構想、投資・KPI・対象範囲、維持・刷新・統合・廃止の判断。",
+    boundary: "目的と投資・範囲の判断を扱います。仕事の変革はDX、要求の実現方式はシステム設計で考えます。",
+  },
+  dx: {
+    role: "デジタル技術による価値・業務・組織の変化。",
+    question: "デジタル技術によって業務・組織・価値をどう変革するのか。",
+    topics: "業務改革、ECRS、AI活用と知的協働、知識共有、教育、導入の定着・改善、組織設計と生産性。",
+    boundary: "技術導入自体ではなく、仕事と組織に生じる変化を扱います。投資判断はIT戦略・企画、技術構成や品質の実現はシステム設計へ分けます。",
+  },
+  "system-design": {
+    role: "要求を機能・品質・構成・処理・運用へ具体化する。",
+    question: "要求をどのようなシステムとして実現するのか。",
+    topics: "要件定義、アーキテクチャ、処理・データ・連携、性能・信頼性・セキュリティ、品質保証、移行・保守・運用。RAG・評価・HITLなどの応用設計も含みます。",
+    boundary: "AIの使用を前提とせず、要求を実現する方式と品質を扱います。事業目的はIT戦略・企画、数学的・計算的原理はAI・数理と区別します。",
+  },
+  ai: {
+    role: "AIを支える数学・生成原理・計算の基礎。",
+    question: "AIはどのような数学的・計算的原理によって成立するのか。",
+    topics: "確率・統計、分布、学習・推論の原理、モデルとアルゴリズム。現在の記事では条件付き確率・生成・誤答の基礎を扱います。",
+    boundary: "技術を支える原理を扱います。製品の操作や業務への適用はDX、RAGなどの応用システムの構成はシステム設計で考えます。",
+  },
+};
 /** @type {Record<string,{primary:string,reason:string}>} */
 export const domainAssignments = {
   "architecture/agents-tools-and-workflows": {
