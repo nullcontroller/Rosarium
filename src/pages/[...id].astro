@@ -47,7 +47,7 @@ const legacyPocFragments = ["cases/customer-support-ai-dx/poc-effect-evaluation"
 const d = entry.data;
 // Real-work labels are limited to the existing evidence registry and its chapters.
 const type = contentType(entry);
-const articleType = type === "実務事例" || type === "仮想設計" ? `実践事例 / ${type}` : type;
+const articleType = type === "実務事例" || type === "仮想設計" ? `事例 / ${type}` : type;
 const isBookIntroduction = entry.id === "cases/customer-support-ai-dx";
 const content = splitRelatedContent(entry.rendered?.html || "");
 // Placement review only: ordinary builds retain the published Book unchanged.
@@ -185,7 +185,7 @@ const bookNavigation = series.length
       <MarkdownBody html={content.body} />
     </div>
     {evidenceLinks.length > 0 && <section class="case-knowledge-links" aria-labelledby="evidence-links-heading">
-      <h2 id="evidence-links-heading">{d.section === "cases" ? "この事例で使う設計原則" : "この原則を使う実践事例"}</h2>
+      <h2 id="evidence-links-heading">{d.section === "cases" ? "この事例で使う設計原則" : "この原則を使う事例"}</h2>
       <ul>{evidenceLinks.map(item => <li><a href={url(item.id)}>{item.data.title}</a></li>)}</ul>
     </section>}
   </article>

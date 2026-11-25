@@ -4,7 +4,7 @@ import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
 import { formatDateJa, staticPageLastUpdated } from "../src/lib/site.ts";
 import { recentGrowth, growthChangeText, growthPublishedTargets, growthSummary } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
-import { planningGroups, systemDesignGroups, domainAssignments } from "../src/data/knowledge-domains.mjs";
+import { planningGroups, systemDesignGroups, domainAssignments, relatedCaseDefinitions } from "../src/data/knowledge-domains.mjs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import YAML from "yaml";
@@ -169,13 +169,13 @@ assert.deepEqual(
   top(".sidebar nav a .nav-copy > span")
     .map((_, e) => top(e).text())
     .get(),
-  ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "実践事例", "キャリア", "旧記事・退役記事"],
+  ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "事例", "キャリア", "旧記事・退役記事"],
 );
 assert.deepEqual(
   top(".header-primary a")
     .map((_, e) => top(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "実践事例", "キャリア", "旧・退役"],
+  ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "事例", "キャリア", "旧・退役"],
 );
 assert.equal(top('.header-primary a[href="/cases/"]').length, 1);
 assert.equal(top('.mobile-retired-link').attr("aria-label"), "旧記事・退役記事");
@@ -230,7 +230,7 @@ assert.deepEqual(
   career(".header-primary a")
     .map((_, e) => career(e).text().trim())
     .get(),
-  ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "実践事例", "キャリア", "旧・退役"],
+  ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "事例", "キャリア", "旧・退役"],
 );
 assert(career('a[href="/ai/"]').length);
 assert(career('a[href="/dx/"]').length);
@@ -358,14 +358,14 @@ for (const element of aiSections.toArray()) {
   assert.equal(theme.find(".dx-theme-introduction p").length, 2);
 }
 assert.equal(pubs(".secondary-reading").length, 0);
-assert.equal(pubs('main a[href^="/cases/"]').length, 0);
+assert.equal(pubs('main a[href^="/cases/"]').not('[data-related-cases] a').length, 0);
 const dx = page("dx");
 assert.equal(dx("h1").text(), "DX");
 assert(
   dx(".page-heading .lead").text().includes("業務・サービス・システムの変化"),
 );
 assert.deepEqual(
-  dx("main > section > h2")
+  dx("main > section:not([data-related-cases]) > h2")
     .map((_, element) => dx(element).text())
     .get(),
   [],
@@ -377,7 +377,7 @@ assert.deepEqual(
   ["価値設計", "業務変革", "選択と廃止", "システム変革", "継続的価値創出"],
 );
 assert.equal(dx(".dx-ai-connection").length, 0);
-assert.equal(dx('main a[href^="/cases/"]').length, 0);
+assert.equal(dx('main a[href^="/cases/"]').not('[data-related-cases] a').length, 0);
 assert.equal(dx('main a[href="/ai/"]').length, 0);
 const dxFeaturedIds = dx("[data-dx-featured]").map((_, element) => dx(element).attr("data-dx-featured")).get();
 assert.equal(new Set(dxFeaturedIds).size, dxFeaturedIds.length, "DX featured articles must appear once");
@@ -411,7 +411,7 @@ for (const category of [
   assert.equal(categoryPage('[aria-label="関連する入口"]').length, 0);
 }
 assert(dx('a[href="/essays/dx-and-value/"]').length);
-assert.equal(dx('main a[href="/cases/customer-support-ai-dx/"]').length, 0);
+assert.equal(dx('main a[href="/cases/customer-support-ai-dx/"]').length, 1);
 assert(!dx('a[href="/foundations/conditional-probability/"]').length);
 const dxEssay = page("essays/dx-and-value");
 assert.equal(dxEssay('[data-related-content] a[href="/cases/customer-support-ai-dx/"]').length, 0);
@@ -424,9 +424,9 @@ assert.deepEqual(
 assert.equal(cases(".case-reference-note").length, 0);
 assert.equal(cases("#active-cases .case-study-index").length, 4);
 assert.equal(cases("#obsolete-cases").length, 0);
-assert.equal(cases("#active-cases > h2").length, 0);
-assert.equal(cases("[data-series-index] h2.content-title").length, 4);
-assert.equal(cases("[data-series-index] h3.content-title").length, 0);
+assert.equal(cases("#active-cases > h2").text(), "実務事例");
+assert.equal(cases("[data-series-index] h2.content-title").length, 0);
+assert.equal(cases("[data-series-index] h3.content-title").length, 4);
 assert.equal(cases("h2").filter((_, element) => cases(element).text().trim() === "主要事例").length, 0);
 assert.equal(cases("#case-summaries-heading, .case-highlights, .case-highlight-list").length, 0);
 assert(!cases("main h2").text().includes("代表実績・設計事例"));
@@ -443,7 +443,7 @@ assert(!cases("main a").text().includes("→"));
 assert(page("cases/system-understanding")(".case-position-note").text().includes("現在の推奨構成ではありません"));
 assert.equal(
   cases(".header-primary a[aria-current=page]").text().trim(),
-  "実践事例",
+  "事例",
 );
 assert.equal(cases("#page-toc-tab, #page-toc-panel, [data-page-heading-toc]").length, 0);
 assert.equal(cases("main").attr("data-toc-policy"), "never");
@@ -1028,7 +1028,7 @@ assert.equal(page("about")('meta[http-equiv="refresh"]').length, 0);
 assert(!page("about")('meta[name="robots"]').attr("content")?.includes("noindex"));
 console.log("Verified Portfolio SVG explanations, compact Home and indexable About page.");
 
-// Knowledge gateways and reading exits do not recommend Case content.
+// Knowledge cards and automatic reading exits stay separate from curated Cases.
 for (const [id, data] of entries) {
   if (data.section !== "cases" && !id.startsWith("career/") && data.public !== false) {
     assert.equal(page(id)('[data-related-content] a[href*="/cases/"]').length, 0, id);
@@ -1037,13 +1037,13 @@ for (const [id, data] of entries) {
 }
 for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "business-transformation", "selection-retirement", "system-transformation", "continuous-value"].map((id) => "dx/" + id)]) {
   const $ = page(route);
-  assert.equal($('main a[href^="/cases/"]').length, 0, route);
+  assert.equal($('main a[href^="/cases/"]').not('[data-related-cases] a').length, 0, route);
   assert.equal($('main [data-content-id^="cases/"]').length, 0, route);
 }
 assert.equal(page("about")('main h2').filter((_, node) => page("about")(node).text() === "次に読む").length, 0);
 assert.equal(page("about")('main a[href="/"]').not('.breadcrumb a').text(), "庭に戻る");
 const homeHero = top('.home-hero-layout');
-assert.equal(homeHero.find('.lead').first().text(), 'Rosariumは、AI・DX・システム設計に関する知識や実践事例を整理・公開する個人技術サイトです。');
+assert.equal(homeHero.find('.lead').first().text(), 'Rosariumは、AI・DX・IT戦略・システム設計の専門知識と事例を整理・公開する個人技術サイトです。');
 assert.equal(homeHero.find('.lead').last().text(), 'AIの数学・基礎理論から、設計原則、業務への適用、実際の問題解決までを扱っています。');
 assert.equal(homeHero.find('#home-main-case-heading').text(), '問い合わせDXの要件・方式設計');
 assert.equal(homeHero.find('.home-main-case .eyebrow').text(), 'MAIN CASE / 代表設計事例');
@@ -1072,6 +1072,14 @@ for (const [route, icon] of [["", "home"], ["ai", "articles"], ["dx", "overview"
 
 // New documentation review Case preserves a human decision boundary and static SVG paths.
 const debtCase = page("cases/specification-debt-review");
+assert.equal(debtCase('main h1').text().trim(), "3万文字・68ページの仕様書をAIで横断レビューする");
+assert(debtCase('main').text().includes("元のWord仕様書の規模は約30,000文字・68ページで、移行後のMarkdownは68ファイルだった"));
+assert(debtCase('meta[name="description"]').attr('content').includes("約3万文字・68ページのWord仕様書"));
+for (const domain of ["ai", "system-design"]) {
+  assert.equal(page(domain)('[data-related-case-id="cases/specification-debt-review"] h3').text().trim(), debtCase('main h1').text().trim());
+}
+assert.equal(page('planning')('#field-work, a[href="#field-work"]').length, 0, "Removed FDE section also disappears from both contents navigations");
+assert(!page('planning')('main').text().includes('FDEとの関係'));
 const debtFigure = debtCase("#case-maintenance-documentation-debt");
 for (const layout of ["mobile", "desktop"]) {
   const svg = debtFigure.find(`.case-layout-${layout}`);
@@ -1210,7 +1218,7 @@ for (const route of ['about', 'start-here']) {
 }
 console.log('Verified recruiter reading routes, consistent evidence order and work/scenario distinctions.');
 
-assert(top('.entrance-hero > .lead').text().includes('Rosariumは、AI・DX・システム設計に関する知識や実践事例を整理・公開する個人技術サイトです。'));
+assert(top('.entrance-hero > .lead').text().includes('Rosariumは、AI・DX・IT戦略・システム設計の専門知識と事例を整理・公開する個人技術サイトです。'));
 
 for (const [alias, destination] of Object.entries(supportPocLegacyFragments)) {
  const [route, fragment] = destination.split('#');
@@ -1388,8 +1396,8 @@ assert.equal(investment('meta[name="last-updated"]').attr('content'), "2026-10-3
 
 // Reader labels are distinct from retained search metadata.
 for (const [route, type] of [
-  ["cases/customer-support-ai-dx", "実践事例 / 実務事例"],
-  ["cases/customer-support-ai-dx/poc-evaluation", "実践事例 / 実務事例"],
+  ["cases/customer-support-ai-dx", "事例 / 実務事例"],
+  ["cases/customer-support-ai-dx/poc-evaluation", "事例 / 実務事例"],
   ["essays/ai-investment-value-cost-evolution", "論考"],
   ["foundations/applicability-and-delegation", "技術解説"],
 ]) {
@@ -1433,7 +1441,7 @@ assert.equal(page("series")('meta[http-equiv=refresh]').attr("content"),"0;url=/
 assert.equal(page("series")('link[rel=canonical]').attr("href"),"https://rosarium-tech.com/ai/");
 console.log("Verified metadata-driven AI series covers, summaries, chapter counts and complete two-way series navigation.");
 
-const domainNavigation = ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "実践事例", "キャリア"];
+const domainNavigation = ["庭", "AI", "DX", "IT戦略・企画", "システム設計", "事例", "キャリア"];
 for (const file of walk("dist").filter(file => file.endsWith(".html") && !file.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(file,"utf8"));
   assert.deepEqual($(".header-primary-group > a").map((_,el)=>$(el).text().trim()).get(),domainNavigation,file);
@@ -1450,5 +1458,18 @@ for(const [id,assignment] of Object.entries(domainAssignments)) {
   const $=page(id);
   assert.equal($("nav.breadcrumb a").last().attr("href"),`/${assignment.primary}/`,id);
   assert.equal($('[data-pagefind-meta="category"]').text(),assignment.primary==="system-design"?"システム設計":assignment.primary==="planning"?"IT戦略・企画":"DX",id);
+}
+for(const route of ["ai","dx","planning","system-design"]) {
+  const $=page(route), related=$(`[data-related-cases="${route}"]`);
+  const expected=relatedCaseDefinitions.filter(definition=>definition.domains[route]).map(definition=>definition.id);
+  assert.equal(related.length,expected.length?1:0,route);
+  assert.equal(related.find("h2").text(),"関連事例",route);
+  assert.deepEqual(related.find("[data-related-case-id]").map((_,el)=>$(el).attr("data-related-case-id")).get(),expected,route);
+  for(const id of expected) {
+    assert.equal(related.find(`a[href="/${id}/"]`).length,1);
+    assert(!$("main [data-content-id]").toArray().some(el=>$(el).attr("data-content-id")===id),"Cases are not knowledge cards");
+    assert(related.text().includes(relatedCaseDefinitions.find(definition=>definition.id===id).domains[route]));
+    assert.equal(page(id)("nav.breadcrumb a").eq(1).attr("href"),"/cases/");
+  }
 }
 console.log("Verified seven-domain navigation, curated original articles, domain search labels and matching primary breadcrumbs.");

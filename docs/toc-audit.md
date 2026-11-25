@@ -21,7 +21,7 @@
 | /ai-design/software-engineering/ | ソフトウェア開発 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /ai-mathematics/ | 数学 | あり | あり | あり | 5 | 主要見出しが複数 |
 | /ai-theory/ | AI理論 | あり | あり | あり | 5 | 主要見出しが複数 |
-| /ai/ | AI | あり | あり | あり | 7 | 主要見出しが複数 |
+| /ai/ | AI | あり | あり | あり | 8 | 主要見出しが複数 |
 | /architecture/ | システムアーキテクチャ | なし | あり | あり | 8 | 主要見出しが複数 |
 | /architecture/agents-tools-and-workflows/ | 「AIエージェントを0から作る時代」は本当に来るのか？ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /architecture/change-and-reevaluation/ | AIシステムの変更・再評価設計 | あり | あり | あり | 18 | 長文の複数h3セクション |
@@ -32,11 +32,11 @@
 | /architecture/requirements-to-system-method/ | 業務要求からシステム方式を設計する | あり | あり | あり | 7 | 主要見出しが複数 |
 | /architecture/security-threat-modeling/ | 生成AIセキュリティと脅威モデリング | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /articles/ | AIへ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /books/ | 実践事例をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /books/ | 事例をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/ | Career | あり | あり | なし | 7 | 主要見出しが複数 |
 | /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/profile/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /cases/ | 実践事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /cases/ | 事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/ai-technical-investigation/ | 生成AIによる技術調査の設計――情報、仮説、検証、責任境界 | あり | あり | あり | 6 | Book章構造 |
 | /cases/ai-technical-investigation/background/ | 01. 担当業務と障害調査の背景 | あり | あり | あり | 8 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/crash-resolution/ | 04. 担当チームによるクラッシュの修正と、残存するメモリリーク | あり | あり | あり | 8 | 主要見出しが複数 |
@@ -80,7 +80,7 @@
 | /cases/three-ai-maintenance/sharing-current-specifications/ | 05. 確認した現行仕様をAI間で渡し、仕様書へ反映する | あり | あり | あり | 12 | 主要見出しが複数 |
 | /cases/three-ai-maintenance/structuring-failure-handling/ | 02. 異常系の構造を整理し、設計方針を確定する | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /dx/ | DX | あり | あり | あり | 5 | 主要見出しが複数 |
+| /dx/ | DX | あり | あり | あり | 6 | 主要見出しが複数 |
 | /dx/business-transformation/ | 業務変革 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 6 | 主要見出しが複数 |
 | /dx/selection-retirement/ | 選択と廃止 | あり | あり | あり | 2 | 主要見出しが複数 |
