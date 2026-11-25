@@ -79,7 +79,7 @@ test('legacy routes and chapter anchors remain available after the reorganizatio
  assert(!fs.existsSync(root+'/continuous-improvement.md'));const redirect=fs.readFileSync('src/pages/cases/customer-support-ai-dx/continuous-improvement.astro','utf8');assert(redirect.includes('poc-metadata-improvement'));assert(redirect.includes('noindex'));
 });
 test('real work in other Case and Career is not reclassified',()=>{
- const career=fs.readFileSync('src/content/career/overview.md','utf8');const support=career.split(':::case{title="顧客サポート')[1].split('\n:::')[0];assert(support.includes('システムアーキテクトとして'));assert(support.includes('区分：実務事例'));assert(support.includes('回答正答率が72％から96％へ改善'));assert(support.includes('本番運用での業務効果は測定していません'));assert(!/検証シナリオ|720件/.test(support));
+ const career=fs.readFileSync('src/content/career/overview.md','utf8');const support=career.split('data-career-case="customer-support-ai-dx"')[1].split('</section>')[0];assert(support.includes('要件定義・システム設計'));assert(support.includes('回答正答率72％から96％へ改善'));assert(support.includes('本番運用での業務効果は未測定'));assert(!/検証シナリオ|720件/.test(support));
 });
 test('metadata diagrams separate candidate generation, human corrections and approval',()=>{
  const s=JSON.stringify([caseDiagrams['support-rag-management'],caseDiagrams['support-metadata-review']]);

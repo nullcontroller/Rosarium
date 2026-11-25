@@ -138,14 +138,14 @@ assert.ok(
   "Practices needs adoption, education and transfer; development workflow belongs to AI Design",
 );
 assert.ok(publicEntries.some(({ file, data }) => file.endsWith("software-engineering/development-workflow.md") && data.layer === "ai-design" && data.design_topic === "software-engineering"), "Development workflow must remain discoverable in AI Design");
-assert.equal(aiOnly.length, 63, "AI-only content includes the technical investigation article and four restored retired records");
+assert.equal(aiOnly.length, 67, "Legacy AI entry metadata retains the four added chapters of the nine-chapter investigation Book; primary domain remains cases");
 assert.equal(
   dxOnly.length,
   1,
   "Legacy lifecycle essay has a DX entry point; AI case links remain discovery paths",
 );
 assert.equal(aiAndDx.length, 56, "AI + DX content retains both PoC chapters; the removed pre-production chapter is a redirect");
-assert.equal(files.length, 128, "Audited content includes the public study hub and six published virtual cases; rejected essays remain deleted");
+assert.equal(files.length, 132, "Audited content includes four additional investigation Book chapters, the public study hub and six virtual cases; rejected essays remain deleted");
 for (const id of ["what-is-ai", "cognitive-surrender"]) {
   assert(!fs.existsSync(`${root}/essays/${id}.md`), `Rejected manuscript must stay removed: ${id}`);
 }

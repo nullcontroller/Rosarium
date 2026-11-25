@@ -261,11 +261,11 @@ const caseStudyEntries: CaseStudy[] = [
   {
     book: "cases/ai-technical-investigation",
     referenceNote: "実務経験を公開用に抽象化した調査記録",
-    topics: ["GitHub Copilot", "技術調査 / 仮説検証"],
+    topics: ["障害解析・品質保証", "仮説検証 / 技術判断"],
     challenge: "共通コンポーネント更新後のクラッシュと、別に残ったメモリリークの原因候補を調べる。",
     designSummary: "担当領域からコード確認・証拠の収集・版間比較を進め、未確定の候補と根拠を担当チームへ引き継ぐ。",
-    result: "担当チームがクラッシュを修正。残存メモリリークも、筆者の候補提示後に担当チームが修正し改善を検証した。",
-    chapters: ["cases/ai-technical-investigation/background","cases/ai-technical-investigation/initial-investigation","cases/ai-technical-investigation/shared-library-investigation","cases/ai-technical-investigation/crash-resolution","cases/ai-technical-investigation/memory-leak-investigation"],
+    result: "私の稼働工数は2人日。私の調査・技術判断・修正依頼と担当者の修正・検証により、残存メモリリークが解消した。経過日数や総工数とは区別し、比較データがなく工数削減効果は不明。",
+    chapters: ["cases/ai-technical-investigation/background", "cases/ai-technical-investigation/investigation-scope", "cases/ai-technical-investigation/investigation-input", "cases/ai-technical-investigation/initial-investigation", "cases/ai-technical-investigation/shared-library-investigation", "cases/ai-technical-investigation/crash-resolution", "cases/ai-technical-investigation/memory-leak-investigation", "cases/ai-technical-investigation/findings-and-evaluation", "cases/ai-technical-investigation/reusable-method"],
     design: ["knowledge-context/instruction-knowledge-evidence", "evaluation-hitl/responsibility-and-hitl"],
   },
   {

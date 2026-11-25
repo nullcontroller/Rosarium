@@ -25,6 +25,7 @@ for (const id of entry.changes.flatMap(growthChangeTargets)) {
   if (published.has(id)) articleLinks.push({ href: url(id === "career/overview" ? "career" : id), title: content.data.title });
   if ("kind" in content.data && (content.data.kind === "case" || content.data.layer === "case" || content.data.section === "cases")) cases.add(id);
 }
+const visibleArticleLinks = entry.showPublicationLinks === false ? [] : articleLinks;
 const allSummaries = growthSummary(entry, id => cases.has(id));
 const summaries = compact ? allSummaries.slice(0, 3) : allSummaries;
 ---
@@ -44,17 +45,17 @@ const summaries = compact ? allSummaries.slice(0, 3) : allSummaries;
       {entry.topics.map(topic => <li data-growth-topic>
         <h3 class="content-title">{topic.links?.length === 1 ? <a href={url(topic.links[0].path)}>{topic.title}</a> : topic.title}</h3>
         {topic.links && topic.links.length > 1 && <p class="growth-topic-links">{topic.links.map(link => <a href={url(link.path)}>{link.title}</a>)}</p>}
-        {!compact && <p class="content-summary">{topic.summary}</p>}
+        {!compact && (topic.details?.length ? <ul class="content-summary">{topic.details.map(text => <li>{text}</li>)}</ul> : <p class="content-summary">{topic.summary}</p>)}
       </li>)}
     </ul>}
     <ul class="growth-changes content-summary" role="list" hidden={!!entry.topics}>
       {!entry.topics && summaries.map(text => <li>{text}</li>)}
     </ul>
-    {!compact && <ul class="growth-publications" data-growth-publications>{articleLinks.map(({ href, title }) => <li><a href={href}>{title}</a></li>)}</ul>}
+    {!compact && <ul class="growth-publications" data-growth-publications>{visibleArticleLinks.map(({ href, title }) => <li><a href={href}>{title}</a></li>)}</ul>}
     {compact && (entry.topics || allSummaries.length > summaries.length) && <p class="meta"><a data-growth-more href={`${url("garden-notes")}#growth-${entry.date}`}>全履歴で続きを見る</a></p>}
-    {(!compact || !!entry.relatedLinks?.length || articleLinks.length > 0) && <details class="growth-details" data-pagefind-ignore>
+    {(!compact || !!entry.relatedLinks?.length || visibleArticleLinks.length > 0) && <details class="growth-details" data-pagefind-ignore>
       <summary>{compact ? "関連ページ" : "関連ページ・記録の詳細と訂正"}</summary>
-      {compact && <ul data-growth-publications>{articleLinks.map(({href,title}) => <li><a href={href}>{title}</a></li>)}</ul>}
+      {compact && <ul data-growth-publications>{visibleArticleLinks.map(({href,title}) => <li><a href={href}>{title}</a></li>)}</ul>}
       {!!entry.relatedLinks?.length && <ul data-growth-related>{entry.relatedLinks.map(({path,title})=><li><a href={url(path)}>{title}</a></li>)}</ul>}
       {!compact && <ul data-growth-record>{entry.changes.map(change=><li>{growthChangeText(change)}</li>)}</ul>}
     </details>}

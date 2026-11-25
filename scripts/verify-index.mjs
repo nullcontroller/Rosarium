@@ -570,12 +570,13 @@ const growthContentChanges = entry => growthSummary(entry, id => {
   return data.kind === "case" || data.layer === "case" || data.section === "cases";
 });
 function assertGrowthChanges($, row, entry) {
-  const ids = growthPublishedTargets(entry);
+  const ids = entry.showPublicationLinks === false ? [] : growthPublishedTargets(entry);
   assert.deepEqual(row.find("[data-growth-topics] h3").map((_, el) => $(el).text()).get(), (entry.topics ?? []).map(topic => topic.title));
   assert.equal(row.find("[data-growth-topics] > li").length, entry.topics?.length ?? 0);
   assert.deepEqual(row.find("[data-growth-topics] a").map((_, el) => $(el).attr("href")).get(), (entry.topics ?? []).flatMap(topic => (topic.links ?? []).map(link => `/${link.path}/`)));
   row.find("[data-growth-topic]").each((i, el) => {
     const topic = entry.topics[i];
+    if (topic.details && row.attr("data-growth-compact") !== "true") assert.deepEqual($(el).find(".content-summary > li").map((_, n) => $(n).text()).get(), topic.details);
     assert.equal($(el).find("a").length, topic.links?.length ?? 0);
     if (!topic.links?.length) assert.equal($(el).find("h3").children().length, 0, "Unlinked topics use plain headings");
   });
@@ -816,9 +817,9 @@ assert.equal(
   "現在位置：第11章・全11章",
 );
 assert.equal(customerSupportBook('a[href*="outcomes-and-evidence"]').length, 0);
-for (const id of ["specification-debt-review", "three-ai-maintenance", "system-understanding", "customer-support-ai-dx"])
+for (const id of ["specification-debt-review", "three-ai-maintenance", "ai-technical-investigation", "customer-support-ai-dx"])
   assert.equal(page("career")(`main a[href="/cases/${id}/"]`).length, 1);
-assert.equal(page("career")('[data-directive="case"]').length, 5);
+assert.equal(page("career")('[data-career-case]').length, 4);
 assert.equal(page("career")('main a[href="https://github.com/nullcontroller/Rosarium"]').length, 0);
 assert(!page("career")("main h2").toArray().some(el => page("career")(el).text() === "詳細・関連資料"));
 const careerClosing = page("career")(".prose > p").last();
@@ -1115,12 +1116,11 @@ for (const [id, data] of entries) {
 }
 console.log("Verified AI article links inside existing themes without a standalone new-article section.");
 
-// The same representative order is visible at all three reader entry points.
-const representativeUrls = ["/cases/customer-support-ai-dx/", "/cases/specification-debt-review/", "/cases/three-ai-maintenance/"];
+// Career presents compact evidence in the order chosen for the professional overview.
 assert.equal(cases('[data-series-index]').first().attr('data-series-index'), 'cases/customer-support-ai-dx');
 // Keep source block order visible even when semantic directive class naming changes.
 const careerAllCaseUrls = page('career')('.prose a[href^="/cases/"]').map((_, el) => page('career')(el).attr('href')).get();
-assert.deepEqual(careerAllCaseUrls.filter(href => representativeUrls.includes(href)).slice(0, 3), representativeUrls);
+assert.deepEqual(careerAllCaseUrls, ["/cases/customer-support-ai-dx/", "/cases/ai-technical-investigation/", "/cases/three-ai-maintenance/", "/cases/specification-debt-review/"]);
 const supportOverview = page('cases/customer-support-ai-dx');
 assert(supportOverview('.prose').text().includes('実際に携わった顧客サポートDXの業務・設計・PoC'));
 assert.equal(supportOverview('header [data-content-history]').length, 0);
@@ -1184,12 +1184,12 @@ for (const route of ['career', 'cases']) {
 }
 const judgmentRoute = '/software-engineering/engineering-judgment-in-ai-code-review/';
 assert.equal(page('')(`main a[href="${judgmentRoute}"]`).length, 0);
-assert(page('career')(`main a[href="${judgmentRoute}"]`).length);
+assert.equal(page('career')(`main a[href="${judgmentRoute}"]`).length,0);
 const careerIntro = page('career')('.prose').text().split('技術的バックグラウンド')[0];
 for (const value of ['既存ソフトウェアの問題', '要件整理から実装・評価', '自分で行います']) assert(careerIntro.includes(value), value);
 assert(!page('career')('.prose').text().includes('FDE'));
-assert(page('career')('.prose').text().includes('区分：実務事例'));
-assert(page('career')('.prose').text().includes('回答正答率が72％から96％へ改善'));
+assert(page('career')('.prose').text().includes('実務事例の成果・担当・評価条件'));
+assert(page('career')('.prose').text().includes('回答正答率72％から96％へ改善'));
 for (const route of ['about']) {
  const $ = page(route);
  for (const target of ['career','cases']) assert($(`main a[href="/${target}/"]`).length, route+': '+target);
@@ -1269,11 +1269,11 @@ for(const slug of ["executive-summary","why-ai","responsibility-boundary","human
 
 // A case book has one canonical chapter per page, with matching navigation and diagrams.
 const investigationRoot = "cases/ai-technical-investigation";
-const investigationChapters = ["background", "initial-investigation", "shared-library-investigation", "crash-resolution", "memory-leak-investigation"];
+const investigationChapters = ["background", "investigation-scope", "investigation-input", "initial-investigation", "shared-library-investigation", "crash-resolution", "memory-leak-investigation", "findings-and-evaluation", "reusable-method"];
 const investigationPages = [investigationRoot, ...investigationChapters.map(slug => investigationRoot + "/" + slug)];
 for (const [index, route] of investigationPages.entries()) {
   const $ = page(route);
-  assert.equal($(".prose figure.diagram").length, [0, 1, 1, 0, 0, 1][index]);
+  assert.equal($(".prose figure.diagram").length, [0, 1, 1, 1, 1, 1, 3, 4, 0, 2][index]);
   if (index > 0) assert.match($("h1").first().text(), new RegExp("^" + String(index).padStart(2, "0") + "\\."));
   for (const target of investigationPages) {
     assert($(".book-toc a").toArray().some(e => $(e).attr("href") === "/" + target + "/"));
@@ -1294,7 +1294,7 @@ assert(!fs.readFileSync("dist/sitemap.xml", "utf8").includes("/cases/ai-technica
 for (const route of investigationPages) {
  const $ = page(route);
  assert.equal($(".book-toc a[href='/cases/ai-technical-investigation/investigation-principles/'], .book-toc-mobile a[href='/cases/ai-technical-investigation/investigation-principles/']").length, 0);
- assert($("main").text().includes("全5章"));
+ assert($("main").text().includes("全9章"));
 }
 for (const route of ["software-engineering/ai-technical-investigation-design", "cases/ai-technical-investigation/investigation-principles"]) {
  const html = fs.readFileSync("dist/" + route + "/index.html", "utf8");
@@ -1311,13 +1311,13 @@ for (const route of ["software-engineering/ai-technical-investigation-design", "
 const investigationHrefs = investigationPages.map(id => "/" + id + "/");
 assert.equal(page("cases")('[data-series-index="cases/ai-technical-investigation"] .content-title a').attr("href"), investigationHrefs[0]);
 const investigationInlineLinks = [
- ["initial-investigation", ["knowledge-context/instruction-knowledge-evidence", "knowledge-context/prompt-structure", "software-engineering/engineering-judgment-in-ai-code-review"]],
+ ["initial-investigation", ["software-engineering/engineering-judgment-in-ai-code-review"]],
  ["shared-library-investigation", ["evaluation-hitl/responsibility-and-hitl"]],
  ["memory-leak-investigation", ["evaluation-hitl/code-evaluation-acceptance"]],
 ];
 for (const [chapter, targets] of investigationInlineLinks) {
  const $ = page(investigationRoot + "/" + chapter);
- assert.deepEqual($(".prose a[href]").map((_, e) => $(e).attr("href")).get(), targets.map(id => "/" + id + "/"));
+ assert.deepEqual($(".prose a[href]").filter((_, e) => /^\/(?!diagrams\/)/.test($(e).attr("href"))).map((_, e) => $(e).attr("href")).get(), targets.map(id => "/" + id + "/"));
  for (const target of targets) {
   const targetPage = page(target);
   assert(targetPage("h1").text().trim());
@@ -1337,7 +1337,7 @@ for (const [index, route] of investigationPages.entries()) {
  for (const href of $('.case-knowledge-links a').map((_, e) => $(e).attr("href")).get()) assert(!bodyLinks.has(href));
 }
 assert.deepEqual(page(investigationRoot)('.case-knowledge-links a').map((_, e) => page(investigationRoot)(e).attr("href")).get(), ["/knowledge-context/instruction-knowledge-evidence/", "/evaluation-hitl/responsibility-and-hitl/"]);
-for (const [route, parent] of [[investigationRoot + "/memory-leak-investigation", investigationRoot], ["cases/customer-support-ai-dx/design-principles", "cases/customer-support-ai-dx"]]) {
+for (const [route, parent] of [[investigationRoot + "/reusable-method", investigationRoot], ["cases/customer-support-ai-dx/design-principles", "cases/customer-support-ai-dx"]]) {
  const $ = page(route);
  assert($('.breadcrumb a[href="/cases/"]').length);
  assert($('.book-toc-mobile:not([data-page-heading-toc]) a').toArray().some(e => $(e).attr("href") === "/" + parent + "/"));
@@ -1350,7 +1350,8 @@ console.log("Verified technical investigation Case navigation parity, five inlin
 const investigationHomeHref = "/cases/ai-technical-investigation/";
 assert.equal(cases('[data-series-index="cases/ai-technical-investigation"]').length, 1);
 for (const view of [gardenNotes]) {
- assert.equal(view('[data-growth-entry] a[href="'+investigationHomeHref+'"]').length, 1);
+ assert.equal(view('[data-growth-entry] a[href="'+investigationHomeHref+'"]').length, 2);
+ assert.equal(view('[data-growth-date="2026-11-26"] a[href="'+investigationHomeHref+'"]').length, 1);
  assert.equal(view('[data-growth-date="2026-10-29"] a[href="'+investigationHomeHref+'"]').length, 1);
 }
 assert.equal(top('[data-growth-date="2026-10-29"]').length, 0, 'Home keeps only the latest three dates after the series publication');
@@ -1361,11 +1362,11 @@ const investmentHref = "/" + investmentId + "/";
 const investment = page(investmentId);
 assert(investment('.prose').text().includes("ROIの厳密な財務定義ではなく"));
 assert(investment('.prose').text().includes("標準環境に対して増える価値"));
-for (const route of ["garden-notes", "essays", "dx/value-design"]) assert.equal(page(route)('main a[href="'+investmentHref+'"]').length,1,route);
+for (const route of ["", "garden-notes", "essays", "dx/value-design"]) assert.equal(page(route)('main a[href="'+investmentHref+'"]').length, route === "" && !recentGrowth.slice(0,3).some(e => e.date === "2026-10-30") ? 0 : 1, route);
 for (const feed of ["rss.xml", "feed.json", "sitemap.xml"]) assert(fs.readFileSync("dist/"+feed,"utf8").includes(investmentHref),feed);
 
-for (const view of [gardenNotes]) {
- assert.equal(view('[data-growth-date="2026-10-30"] a[href="'+investmentHref+'"]').length, 1);
+for (const view of [top, gardenNotes]) {
+ assert.equal(view('[data-growth-date="2026-10-30"] a[href="'+investmentHref+'"]').length, view === top && !recentGrowth.slice(0,3).some(e => e.date === "2026-10-30") ? 0 : 1);
  assert.equal(view('[data-growth-date="2026-10-29"] a[href="'+investmentHref+'"]').length, 0);
 }
 
@@ -1429,7 +1430,7 @@ for (const file of walk("dist").filter(file => file.endsWith(".html") && !file.e
 for (const [route,groups] of [["planning",planningGroups],["system-design",systemDesignGroups]]) {
   const $=page(route);
   assert.equal($("h1").text(),route==="planning"?"IT戦略・企画":"システム設計");
-  assert.equal($('meta[name="last-updated"]').attr("content"),"2026-11-25");
+  assert.equal($('meta[name="last-updated"]').attr("content"),route==="system-design"?"2026-11-26":"2026-11-25");
   assert.deepEqual($("main [data-content-id]").not("[data-related-cases] [data-content-id]").map((_,el)=>$(el).attr("data-content-id")).get(),groups.flatMap(group=>group.ids));
   assert($("main a[href='/"+(route==="planning"?"system-design":"planning")+"/']").length);
 }
@@ -1470,3 +1471,16 @@ for(const el of top('.home-navigation-card').toArray()) {
 assert(!top('main').text().includes('立林裕太朗は、'));
 
 assert.equal(page("about")("[data-pagefind-body]").length,1);
+
+const careerCards=page('career')('[data-career-case]');
+assert.equal(careerCards.length,4);
+for(const el of careerCards.toArray()) {
+ const card=page('career')(el);
+ assert.deepEqual(card.find('dt').map((_,dt)=>page('career')(dt).text()).get(),['主要成果','担当内容','評価条件・制約']);
+ assert.equal(card.find('h3').length,1);assert.equal(card.find('a').length,1);
+ assert.equal(card.find('details').length,0);
+}
+assert.equal(page('career')('.prose a[href="/cases/system-understanding/"]').length,0);
+assert(fs.existsSync('dist/cases/system-understanding/index.html'));
+assert.equal(page('cases/ai-technical-investigation')('.book-toc .page-toc-panel > ol > li').length,10,'Career outcomes are released with the full Book');
+assert(page('career')('[data-career-case="ai-technical-investigation"]').text().includes('著者本人の稼働工数：2人日'));

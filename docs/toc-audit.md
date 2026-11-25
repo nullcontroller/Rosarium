@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 174ページ。目次あり 138、なし 36。Referenceあり 137、なし 37。
+対象 178ページ。目次あり 142、なし 36。Referenceあり 141、なし 37。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -37,13 +37,17 @@
 | /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/profile/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/ | 事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /cases/ai-technical-investigation/ | 生成AIによる技術調査の設計――情報、仮説、検証、責任境界 | あり | あり | あり | 6 | Book章構造 |
-| /cases/ai-technical-investigation/background/ | 01. 担当業務と障害調査の背景 | あり | あり | あり | 8 | 主要見出しが複数 |
-| /cases/ai-technical-investigation/crash-resolution/ | 04. 担当チームによるクラッシュの修正と、残存するメモリリーク | あり | あり | あり | 8 | 主要見出しが複数 |
-| /cases/ai-technical-investigation/initial-investigation/ | 02. 担当領域の初期調査――不具合発見と修正後の検証 | あり | あり | あり | 9 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/ | 複数のソフトウェアにまたがる障害調査の設計 | あり | あり | あり | 13 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/background/ | 01. 対象システムと障害調査の背景 | あり | あり | あり | 13 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/crash-resolution/ | 06. クラッシュの解消と残存するメモリリーク | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/findings-and-evaluation/ | 08. 調査結果と評価 | あり | あり | あり | 14 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/initial-investigation/ | 04. 潜在不具合の発見と修正後の検証 | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/investigation-input/ | 03. 生成AIへの情報提供と調査方法の改善 | あり | あり | あり | 14 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/investigation-principles/ | 考察を調査の各章へ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /cases/ai-technical-investigation/memory-leak-investigation/ | 05. 情報を渡し、修正候補を絞り込む――メモリリークの調査 | あり | あり | あり | 8 | 主要見出しが複数 |
-| /cases/ai-technical-investigation/shared-library-investigation/ | 03. 調査情報を引き継ぎ、共通ライブラリを調査する | あり | あり | あり | 8 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/investigation-scope/ | 02. 初期調査範囲の決定 | あり | あり | あり | 15 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/memory-leak-investigation/ | 07. 残存メモリリークの仮説検証と解決 | あり | あり | あり | 18 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/reusable-method/ | 09. 生成AIへの指示とは何か | あり | あり | あり | 24 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/shared-library-investigation/ | 05. 実行時情報の取得とソフトウェアCへの調査移行 | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 12 | Book章構造 |
 | /cases/customer-support-ai-dx/continuous-improvement/ | 顧客サポートDXの結末は第10章へ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/customer-support-ai-dx/customer-experience/ | 06. 顧客体験をどう変えたか | あり | あり | あり | 16 | 主要見出しが複数 |
@@ -137,7 +141,7 @@
 | /foundations/layered-hallucination-controls/ | ハルシネーションの多層制御設計 | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/llm-as-probabilistic-model/ | LLMを確率モデルとして設計するという立場 | なし | あり | あり | 5 | 主要見出しが複数 |
 | /foundations/temperature-design/ | Temperature設計指針 | あり | あり | あり | 13 | 長文の複数h3セクション |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 29 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 31 | 主要見出しが複数 |
 | /knowledge-context/ | ナレッジ / コンテキスト | なし | あり | あり | 7 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | AIを使い分ける基準は、モデル性能よりコンテキストではないか | あり | あり | あり | 9 | 主要見出しが複数 |
 | /knowledge-context/human-and-ai-documentation/ | 人向け資料とAI向け資料の分離設計 | あり | あり | あり | 17 | 長文の複数h3セクション |

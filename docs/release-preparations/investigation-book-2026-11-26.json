@@ -1,0 +1,22 @@
+{
+  "contentId": "cases/ai-technical-investigation",
+  "releaseDate": "2026-11-26",
+  "timezone": "Asia/Tokyo",
+  "notBefore": "2026-11-26T00:00:00+09:00",
+  "releaseTime": "IMMEDIATE_AFTER_VALIDATION",
+  "publicationApproval": "AUTHOR_APPROVED_BOOK_AND_CAREER_2026-11-26",
+  "reviewStatus": "CONDITIONAL_PASS_ITEMS_ADDRESSED",
+  "confidentialityApproval": "AUTHOR_CONFIRMED_2026-11-25",
+  "automaticPublication": false,
+  "otherReleaseReservation": "既存の別件予約は変更しない。本件は著者の同時公開承認に基づき検証完了後に公開する。",
+  "requiredBeforeRelease": [
+    "公開用の型検査・テスト・ビルド成功",
+    "承認済みBook・Career原稿及び図解との同一性確認",
+    "仕様書レビューの未承認改訂を含めない",
+    "CareerとBookを同じ公開成果物へ含める"
+  ],
+  "synchronizedContent": [
+    "career/overview"
+  ],
+  "approvedAt": "2026-11-26T05:06:04+09:00"
+}

@@ -417,7 +417,7 @@ export const relatedCaseDefinitions = [
     "system-design": "暗号処理の変更、異常系、復旧と既存機能への影響を整理する判断を読む。",
   } },
   { id: "cases/ai-technical-investigation", domains: {
-    "system-design": "クラッシュ・メモリリークの仮説を調べ、根拠付きの修正候補を担当チームへ渡す過程を読む。",
+    "system-design": "障害解析・品質保証の観点から、調査範囲の選択、仮説検証、私自身の稼働工数2人日で調査し、担当者の修正・検証と連携して残存リークの解決に導いた過程を読む。",
   } },
   {"id": "cases/design-studies/inquiry-analysis", "domains": {"planning": "問い合わせ履歴から業務要求・対象範囲と削減目標を考える仮想設計。", "dx": "自動化対象と有人業務の境界を考える仮想設計。"}},
   {"id": "cases/design-studies/metadata-batch", "domains": {"system-design": "バッチの起動・差分更新・再試行を設計する仮想設計。"}},

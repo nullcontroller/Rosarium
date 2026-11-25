@@ -143,3 +143,8 @@ test("topic destinations are optional and category updates can link both affecte
   assert.deepEqual(topics.flatMap(topic=>(topic.links??[]).map(link=>link.path)),["essays/ai-essence","cases/design-studies","planning","system-design","career","sitemap"]);
   assert.throws(()=>validateRecentGrowth([{...entry([]),topics:[{title:"title",summary:"summary",links:[{path:"ai",title:"AI"},{path:"ai",title:"AI"}]}]}]));
 });
+
+test('the 26 November revised Book topic links only to its overview and preserves the previous daily record',()=>{
+ const day=recentGrowth.find(e=>e.date==='2026-11-26');assert.equal(day.type,'revised');const book=day.topics.find(t=>t.title.includes('障害調査'));assert.equal(book.details.length,4);assert.deepEqual(book.links.map(e=>e.path),['cases/ai-technical-investigation']);assert.equal(day.showPublicationLinks,false);assert.equal(growthPublishedTargets(day).length,4);
+ assert(!recentGrowth.find(e=>e.date==='2026-11-25').topics.some(t=>t.title.includes('障害調査')));
+});

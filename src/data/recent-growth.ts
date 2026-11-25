@@ -24,7 +24,8 @@ export interface RecentGrowthItem {
   category: string;
   topic?: string;
   summaryChanges?: string[];
-  topics?: { title: string; summary: string; links?: { path: string; title: string }[] }[];
+  showPublicationLinks?: boolean;
+  topics?: { title: string; summary: string; details?: string[]; links?: { path: string; title: string }[] }[];
   icon?: IconName;
   relatedLinks?: { path: string; title: string }[];
 }
@@ -60,11 +61,37 @@ const informationArchitectureChanges = [
 ];
 const curatedRecentGrowth = [
 {
-  date: "2026-11-26", type: "revised",
-  title: "トップページの主要導線を改善し、Rosariumの紹介ページを統合",
-  category: "Rosarium", icon: "updates",
-  topics: [{ title: "トップページの主要導線を改善し、Rosariumの紹介ページを統合", summary: "作者のキャリア・事例・Rosariumの紹介を同格のナビゲーションカードにし、「はじめに」を「Rosariumとは？」へ統合。目的・制作背景・専門領域・読み方・編集方針を整理。", links: [{ path: "about", title: "Rosariumとは？" }] }],
-  changes: ["トップページの主要導線を改善し、Rosariumの紹介ページを統合"],
+  date: "2026-11-26",
+  type: "revised",
+  title: "障害調査の実務事例を全面改訂し、Bookとして体系化",
+  category: "Rosarium",
+  icon: "updates",
+  showPublicationLinks: false,
+  topics: [{
+    title: "キャリアページの代表実績を簡潔に整理し、専門性と成果を把握しやすく改善",
+    summary: "実務事例を専門領域・成果・担当・評価条件の共通構造へ整理し、詳しい判断過程は個別事例へ集約。",
+    links: [{ path: "career", title: "Career" }],
+  }, {
+    title: "トップページの主要導線を改善し、Rosariumの紹介ページを統合",
+    summary: "作者のキャリア・事例・Rosariumの紹介を同格のナビゲーションカードにし、「はじめに」を「Rosariumとは？」へ統合。目的・制作背景・専門領域・読み方・編集方針を整理。",
+    links: [{ path: "about", title: "Rosariumとは？" }],
+  }, {
+    title: "障害調査の実務事例を全面改訂し、Bookとして体系化",
+    summary: "複数のソフトウェアにまたがる障害調査を全9章で詳述。仮説・判断・実施事項・結果を分離し、技術判断の過程を明確化。システム構成、仮説検証、調査範囲、責務分担を14図で可視化。著者の稼働工数2人日で残存メモリリークの解決に導いた経緯を記述。",
+    details: [
+      "複数のソフトウェアにまたがる障害調査を全9章で詳述",
+      "仮説・判断・実施事項・結果を分離し、技術判断の過程を明確化",
+      "システム構成、仮説検証、調査範囲、責務分担を14図で可視化",
+      "著者の稼働工数2人日で残存メモリリークの解決に導いた経緯を記述",
+    ],
+    links: [{ path: "cases/ai-technical-investigation", title: "複数のソフトウェアにまたがる障害調査の設計" }],
+  }],
+  changes: [
+    { action:"revised", text:"キャリアページの代表実績を簡潔に整理し、専門性と成果を把握しやすく改善。障害調査の著者自身の稼働工数2人日、残存リーク解消、比較評価の限界も明示", contentIds:["career/overview"] },
+    "トップページの主要導線を改善し、Rosariumの紹介ページを統合",
+    { action: "revised", text: "既存の障害調査実務事例を全9章・14図のBookへ全面改訂。仮説・判断・実施事項・結果と責務分担を分け、著者自身の稼働工数2人日で残存リークの解決に導いた経緯を記述。比較データがなく工数削減効果は不明", contentIds: ["cases/ai-technical-investigation", "cases/ai-technical-investigation/background", "cases/ai-technical-investigation/initial-investigation", "cases/ai-technical-investigation/shared-library-investigation", "cases/ai-technical-investigation/crash-resolution", "cases/ai-technical-investigation/memory-leak-investigation"] },
+    { action: "published", text: "同じBookへ初期調査範囲、情報提供、結果評価、生成AIへの指示の4章を新設", contentIds: ["cases/ai-technical-investigation/investigation-scope", "cases/ai-technical-investigation/investigation-input", "cases/ai-technical-investigation/findings-and-evaluation", "cases/ai-technical-investigation/reusable-method"] },
+  ],
 },
 {
   "date": "2026-11-25",

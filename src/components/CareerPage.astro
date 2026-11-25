@@ -3,10 +3,18 @@ import { getEntry, render } from "astro:content";
 import Site from "../layouts/Site.astro";
 import MarkdownBody from "./MarkdownBody.astro";
 
-import { statusLabel } from "../lib/site";
+import { statusLabel, publicEntry } from "../lib/site";
 import Icon from "./Icon.astro";
 const entry = await getEntry("career", "overview");
 if (!entry) throw new Error("Career content missing");
+// This summary must be shipped atomically with the expanded investigation Book.
+if (entry.body?.includes('data-career-case="ai-technical-investigation"')) {
+  const book = await getEntry("pages", "cases/ai-technical-investigation");
+  const finalChapter = await getEntry("pages", "cases/ai-technical-investigation/reusable-method");
+  if (!book || !finalChapter || !publicEntry(book) || !publicEntry(finalChapter) || !book.data.summary.includes("2人日")) {
+    throw new Error("Career investigation outcome requires the published nine-chapter investigation Book in the same build.");
+  }
+}
 const { headings } = await render(entry);
 const d = entry.data;
 ---
@@ -45,3 +53,17 @@ const d = entry.data;
     </div>
   </article>
 </Site>
+
+<style>
+  .prose :global(.career-case-grid) { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr)); gap:1rem; align-items:start; margin-block:1rem 1.5rem; }
+  .prose :global(.career-case) { min-width:0; padding:1rem; border:1px solid var(--line); border-radius:.35rem; background:var(--surface); }
+  .prose :global(.career-case .career-domain) { margin:0 0 .4rem; color:var(--muted); }
+  .prose :global(.career-case h3) { margin:0 0 .75rem; font-size:1.2rem; line-height:1.5; }
+  .prose :global(.career-case dl) { margin:0; }
+  .prose :global(.career-case dt) { font-weight:600; margin-top:.6rem; }
+  .prose :global(.career-case dd) { margin: .15rem 0 0; }
+  .prose :global(.career-case .career-result strong) { color:var(--accent); }
+  .prose :global(.career-result span) { display:block; margin-top:.2rem; }
+  .prose :global(.career-case .career-case-link) { margin:.65rem 0 0; }
+  .prose :global(.career-case-link a) { display:inline-flex; align-items:center; min-height:44px; font-weight:600; }
+</style>

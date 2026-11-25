@@ -308,3 +308,12 @@
 ## 2026-11-25 発展ケース正式公開
 
 `src/content/cases/design-studies.md`：一覧の公開日・概要・履歴・検索・フィードの正本。既存Astro一覧で描画し、記事本文の正本やURLを複製しない。配下6記事はレビュー済み本文を維持して正式公開。
+
+## 障害調査Bookの9章化（レビュー候補）
+
+同一案件の既存Bookを再構成し、既存URLと初回公開日を維持する。新章の公開日は本番反映時に確定する。原資料の抜粋、既存記録、著者が確認した本人の稼働工数2人日と残存リークの解消を根拠とし、比較工数や未確認の実装機序を創作しない。追加資料に基づき、約2週間の著者不関与、担当者・委託先のクラッシュ原因特定・修正、著者の残存リーク再調査を三段階に分離した。
+
+- `src/content/cases/ai-technical-investigation/investigation-scope.md`：既存実務事例の新章。BとCの初期調査範囲の比較と、評価できる範囲を選ぶ判断を扱う。別案件として追加せず、事例に分類する。
+- `src/content/cases/ai-technical-investigation/investigation-input.md`：既存実務事例の新章。入力情報の追加とコード探索への作業変更を扱う。別案件として追加せず、事例に分類する。
+- `src/content/cases/ai-technical-investigation/findings-and-evaluation.md`：既存実務事例の新章。対象別の結果・責任分担・比較評価の限界を扱う。別案件として追加せず、事例に分類する。
+- `src/content/cases/ai-technical-investigation/reusable-method.md`：既存実務事例の新章。経験から導いた方法論と未実施の改善提案の分離を扱う。別案件として追加せず、事例に分類する。
