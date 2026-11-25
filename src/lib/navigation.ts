@@ -5,7 +5,7 @@ import { iconForPath } from "./icons";
 import { archiveTitle } from "./archive";
 import { dxCategories } from "./dx";
 import { designStudies } from "../data/design-studies.mjs";
-import { domainLabels, primaryDomain } from "../data/knowledge-domains.mjs";
+import { domainLabels, primaryDomain, domainResponsibilities } from "../data/knowledge-domains.mjs";
 export type Entry = CollectionEntry<"pages">;
 
 export type NavigationItem = {
@@ -72,28 +72,28 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
     {
       path: "planning",
       title: "IT戦略・企画",
-      summary: "何を、なぜ、どこまでシステム化するかを決める。",
+      summary: domainResponsibilities["planning"].role,
       icon: iconForPath("planning"),
       sections: ["planning"],
     },
     {
       path: "dx",
       title: "DX",
-      summary: "デジタル技術による価値・業務・組織の変化。",
+      summary: domainResponsibilities["dx"].role,
       icon: iconForPath("dx"),
       sections: ["dx", "practices", ...dxCategories.map((category) => `dx/${category.id}`)],
     },
     {
       path: "system-design",
       title: "システム設計",
-      summary: "要求を機能・品質・構成・処理・運用へ具体化する。",
+      summary: domainResponsibilities["system-design"].role,
       icon: iconForPath("system-design"),
       sections: ["system-design", "ai-design", "architecture", "knowledge-context", "evaluation-hitl", "software-engineering"],
     },
     {
       path: "ai",
       title: "AI・数理",
-      summary: "AIを支える数学・生成原理・計算の基礎。",
+      summary: domainResponsibilities["ai"].role,
       icon: iconForPath("articles"),
       sections: ["ai", "ai-mathematics", "ai-theory"],
     },

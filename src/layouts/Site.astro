@@ -296,7 +296,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           </a>
         </nav>
         <div class="header-actions">
-          <a class="sitemap-header-tool" href={url("sitemap")}>サイトマップ</a>
+          <a class="sitemap-header-tool sitemap-entry" href={url("sitemap")}>サイトマップ</a>
           {showRightSidebar && showReference && <a class="reference-header-tool" href={url("reference")} data-reference-toggle aria-label="Referenceを開く" aria-controls="reference-panel" aria-expanded="false">参照</a>}
           <GlobalSearch />
           <button id="theme" data-theme-toggle type="button" aria-label="配色を切り替える">
@@ -311,7 +311,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
           <div class="mobile-navigation-auxiliary">
             <a href={url(retiredNavigation.path)}>{retiredNavigation.title}</a>
             <a href={url("reference")}>リファレンス</a>
-            <a href={url("sitemap")}>サイトマップ</a>
+            <a class="sitemap-entry" href={url("sitemap")}>サイトマップ</a>
             <button type="button" data-theme-toggle aria-label="配色を切り替える">配色切替</button>
           </div>
         </nav>
@@ -441,7 +441,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     {referenceSidebar && <RightSidebarControls collapsible={rightSidebarCollapsible} initiallyClosed={rightSidebarInitiallyClosed} />}
     {showRightSidebar && showReference && <ReferencePanel />}
     <footer class="site-footer">
-      <p><a href={url("sitemap")}>サイトマップ</a></p>
+      <p><a class="sitemap-entry" href={url("sitemap")}>サイトマップ</a></p>
       <p class="meta" data-pagefind-ignore>
         利用状況を把握し、コンテンツや導線を改善するため、Google Analytics
         4を使用しています。Cookieなどを通じて閲覧・端末情報を収集します。
