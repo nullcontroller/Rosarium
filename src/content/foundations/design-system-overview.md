@@ -23,7 +23,7 @@ source:
 
 という観点から整理した設計体系です。
 
-LLM / RAG / QA / AIオーケストレーション / HITL / AIガバナンス / AI Architecture / Lifecycleを中心に、  
+LLM / RAG / QA / AIオーケストレーション / HITL / AIガバナンス / AI Architecture / Lifecycleを中心に、
 生成AIを実務へ継続的に組み込むための設計思想・設計原則をまとめています。
 
 ---
@@ -124,7 +124,7 @@ AI業務システムのArchitecture
 - [AIシステムのオブザーバビリティとSLO設計](/architecture/observability-and-slo/)
 - [AI評価データセットと回帰評価設計](/evaluation-hitl/datasets-and-regression/)
 
-参照アーキテクチャでは、入力、Context構築、生成、検証、承認、実行、監視を責務として分離します。  
+参照アーキテクチャでは、入力、Context構築、生成、検証、承認、実行、監視を責務として分離します。
 変更・再評価設計では、Modelだけではなく、Prompt、Knowledge、Retrieval、Tool、Validator、Workflow、GovernanceまでをVersion Bundleとして扱い、変更時の再評価範囲、Release条件、Rollback単位を設計します。
 
 ---
@@ -285,9 +285,9 @@ Model、Prompt、Knowledge、Retrieval、Tool、Validator、Workflowのいずれ
 
 ### Keywords
 
-`LLM` `RAG` `Generative AI` `Applied AI`  
-`AI Architecture` `AI Orchestration` `AI Governance`  
-`HITL` `AI Evaluation` `AI System Lifecycle`  
-`GitHub Copilot` `Microsoft 365 Copilot`  
-`Software Architecture` `AI-Assisted Software Engineering`  
+`LLM` `RAG` `Generative AI` `Applied AI`
+`AI Architecture` `AI Orchestration` `AI Governance`
+`HITL` `AI Evaluation` `AI System Lifecycle`
+`GitHub Copilot` `Microsoft 365 Copilot`
+`Software Architecture` `AI-Assisted Software Engineering`
 `Legacy System` `Modernization`

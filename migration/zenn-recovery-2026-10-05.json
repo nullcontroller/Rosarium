@@ -275,7 +275,45 @@
       "source_snapshot": "migration/zenn-recovery-2026-10-05/articles/a1ac10c371e230.md",
       "source_sha256": "ef2ad485df26d98add3d6fb27d26a53d948ecfc3b6cff1b08e5188fdd3ffb34e",
       "destination_body_sha256": "97af7e38a6d8a3a14d6c20eed90c959f496419ad4a53f7fc1c5d238733620ec7",
-      "restoration": "Original body restored; previous redirect replaced at the same URL"
+      "restoration": "Original body restored; previous redirect replaced at the same URL",
+      "presentation_revision": {
+        "date": "2026-11-25",
+        "reason": "通常段落の強制改行のみを撤廃。原本・追記のチェックサムは保持。",
+        "breaks": [
+          {
+            "offset": 23,
+            "original": "  \n"
+          },
+          {
+            "offset": 194,
+            "original": "  \n"
+          },
+          {
+            "offset": 229,
+            "original": "  \n"
+          },
+          {
+            "offset": 335,
+            "original": "  \n"
+          },
+          {
+            "offset": 585,
+            "original": "  \n"
+          },
+          {
+            "offset": 702,
+            "original": "  \n"
+          },
+          {
+            "offset": 886,
+            "original": "  \n"
+          },
+          {
+            "offset": 910,
+            "original": "  \n"
+          }
+        ]
+      }
     },
     {
       "title": "「AIエージェントを0から作る時代」は本当に来るのか？",
@@ -352,6 +390,16 @@
         "marker": "\n<!-- rosarium-local-revision:2026-10-06 -->\n",
         "sha256": "2aa8e9f5345a3821b54e609de05d3d6d55873e0d51a089a84fd0f498e11a34b5",
         "reason": "実装支援を否定するように読める原文の対比を追記で見直し、Lifecycle全体の評価へ接続。"
+      },
+      "presentation_revision": {
+        "date": "2026-11-25",
+        "reason": "通常段落の強制改行のみを撤廃。原本・追記のチェックサムは保持。",
+        "breaks": [
+          {
+            "offset": 58,
+            "original": "  \n"
+          }
+        ]
       }
     },
     {

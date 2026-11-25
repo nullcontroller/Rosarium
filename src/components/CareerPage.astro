@@ -20,8 +20,6 @@ const d = entry.data;
   section="career"
   lastUpdated={d.last_updated}
   headings={headings}
-  frame={false}
-  showReference={false}
 >
   <article data-pagefind-body>
     <div class="document-title-row">
@@ -33,9 +31,7 @@ const d = entry.data;
     </span>
 
     <p class="lead" data-pagefind-meta="summary">
-      {d.summary.split(/(?<=。)/).filter(Boolean).map((sentence, index) => (
-        <>{index > 0 && <br />}{sentence}</>
-      ))}
+      {d.summary}
     </p>
 
     <p hidden>

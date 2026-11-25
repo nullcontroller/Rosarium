@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
+import ContentLink from "../components/ContentLink.astro";
+import { designStudies } from "../data/design-studies.mjs";
 import SeriesIndex from "../components/SeriesIndex.astro";
 import { caseStudies } from "../lib/navigation";
 import { activeEntry, url } from "../lib/site";
@@ -63,5 +65,6 @@ const headings = [
     <h2 id="design-studies-heading">発展ケーススタディ</h2>
     <p>実務で得た知見を基に、条件を変えて方式や判断理由を検討する仮想設計です。</p>
     <p><a href={url("cases/design-studies")}>実務から広げるシステム設計ケーススタディ</a></p>
+    {designStudies.filter(study => all.some(entry => entry.id === study.id)).map(study => <ContentLink entry={all.find(entry => entry.id === study.id)!} heading="h3" showIcon={false} />)}
   </section>}
 </Site>

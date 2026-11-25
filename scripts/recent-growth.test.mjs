@@ -128,3 +128,10 @@ test("public histories focus on PoC failures and improvements", () => {
   const day = recentGrowth.find(entry => entry.date === "2026-10-18");
   assert(day.summaryChanges.some(text => text.includes("PoCによる方式改善")));
 });
+
+test("multiple topics preserve the single daily record and reject invalid topic links", () => {
+  const day = recentGrowth.find(item => item.date === "2026-11-25");
+  assert.equal(day.topics.length, 5);
+  assert.equal(growthPublishedTargets(day).length, 14);
+  for (const topics of [[{title:"",summary:"summary",path:"ai"}], [{title:"title",summary:"summary",path:"https://example.com"}], [day.topics[0], day.topics[0]]]) assert.throws(() => validateRecentGrowth([{...entry([]), topics}]));
+});

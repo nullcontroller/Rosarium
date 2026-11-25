@@ -52,7 +52,6 @@ interface Props {
     tocLabel?: string;
     items: { title: string; href: string; current: boolean }[];
   };
-  frame?: boolean;
   showRightSidebar?: boolean;
   showReference?: boolean;
   rightSidebarCollapsible?: boolean;
@@ -78,7 +77,6 @@ const {
   lastUpdated,
   showLastUpdated = true,
   bookNavigation,
-  frame = true,
   showRightSidebar = true,
   showReference = true,
   rightSidebarCollapsible = true,
@@ -267,11 +265,11 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     <slot name="head" />
     <GoogleAnalytics page={analyticsPage} enabled={!noindex && title !== "404"} />
   </head>
-  <body class:list={[section === "" && "home-page", !frame && "career-page"]}>
+  <body class:list={[section === "" && "home-page"]}>
     <a class="skip" href="#main">
       本文へ移動
     </a>
-    <header class:list={["masthead", !frame && "career-masthead"]}>
+    <header class="masthead">
       <a class="brand" href={url()}>
         <img
           class="brand-mark"
@@ -320,15 +318,13 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     <div
       class:list={[
         "shell",
-        frame && "global-frame",
-        !frame && "career-shell",
+        "global-frame",
         !showRightSidebar && section !== "" && "standalone-reading",
         referenceSidebar && "has-toc",
         referenceSidebar && rightSidebarInitiallyClosed && "right-sidebar-collapsed",
         referenceSidebar && bookNavigation && "has-book-toc",
       ]}
     >
-      {frame && (
         <aside class="sidebar" aria-label="主要ナビゲーション">
           <div class="sidebar-navigation">
             <p class="sidebar-label">ナビゲーション</p>
@@ -403,7 +399,6 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
             </nav>
           </div>
         </aside>
-      )}
       <main
         id="main"
         tabindex="-1"

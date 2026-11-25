@@ -2,6 +2,8 @@
 import type { CollectionEntry } from "astro:content";
 import { relatedCasesForDomain } from "../data/knowledge-domains.mjs";
 import { caseStudies, contentType } from "../lib/navigation";
+import ContentLink from "./ContentLink.astro";
+import { designAreaFor } from "../data/design-studies.mjs";
 import { url } from "../lib/site";
 interface Props {
   domain: "ai" | "dx" | "planning" | "system-design";
@@ -15,8 +17,10 @@ const cases = relatedCasesForDomain(domain, entries).sort((a,b) =>
   <h2 id="related-cases-heading">関連事例</h2>
   <ul class="related-case-list">
     {cases.map(({entry,relevance}) => <li data-related-case-id={entry.id}>
+      {designAreaFor(entry.id) ? <><ContentLink entry={entry} heading="h3" showIcon={false} /><p class="meta">{relevance}</p></> : <>
       <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>
       <p><span class="meta">{contentType(entry)}</span> · {relevance}</p>
+      </>}
     </li>)}
   </ul>
 </section>}

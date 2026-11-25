@@ -480,10 +480,6 @@ blockquote {
       320px
     );
 }
-.career-shell {
-  display: block;
-  width: 100%;
-}
 .sidebar {
   background: var(--nav-surface);
   padding: 2.3rem 1.1rem;
@@ -1886,16 +1882,6 @@ blockquote {
   gap: 0.7rem 1.5rem;
   margin: 1.5rem 0;
 }
-.career-shell > main {
-  width: min(100%, 96rem);
-  margin-inline: auto;
-}
-.career-page .prose {
-  max-width: 70rem;
-}
-.career-page article {
-  max-width: none;
-}
 .publication-date {
   color: var(--muted);
   font-size: 0.85rem;
@@ -2344,13 +2330,6 @@ article[data-lifecycle="retired"],
   }
 }
 
-/* Career lists retain readable widths alongside the existing exploration grids. */
-.career-page .prose > ul {
-  max-width: 74ch;
-}
-.career-page .prose > h2 {
-  margin-top: 3rem;
-}
 
 /* Case/Book indexes: titles lead; chapter navigation belongs to the Book. */
 .book-list-entry .content-title {
@@ -2524,12 +2503,6 @@ article[data-lifecycle="retired"],
 .book-toc-mobile li.toc-entry { padding-left:1.2rem; }
 .retired-list > li[id] { scroll-margin-top:6rem; }
 
-/* Standalone profile pages share the reading rail without adding a left menu. */
-@media (min-width: 1440px) {
-  body .shell.career-shell.has-toc > main { width:100%; min-width:0; }
-  body .shell.career-shell.has-toc { display:grid; grid-template-columns:minmax(0,1fr) var(--right-rail-width); }
-  body .shell.career-shell.right-sidebar-collapsed { grid-template-columns:minmax(0,1fr); }
-}
 main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
 .page-toc-caption { margin-top:1.25rem; color:var(--muted); font-size:.875rem; }
 
@@ -2660,3 +2633,6 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
   .header-primary a { white-space:nowrap; }
   .global-search { width:clamp(7rem,12vw,15rem); }
 }
+
+/* Design-study domain is the primary identifier, before the article title. */
+.document-header > .design-area { order: -1; }

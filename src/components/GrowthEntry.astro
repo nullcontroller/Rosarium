@@ -39,22 +39,28 @@ const summaries = compact ? allSummaries.slice(0, 3) : allSummaries;
       </span>
       <span>{entry.category}</span>
     </p>
-    <h3 class="content-title">
-      {entry.title}
-    </h3>
-    <ul class="growth-changes content-summary" role="list">
-      {summaries.map(text => <li>{text}</li>)}
-      {articleLinks.map(({ href, title }) => <li><a href={href}>{title}</a></li>)}
+    {!entry.topics && <h3 class="content-title">{entry.title}</h3>}
+    {entry.topics && <ul class="growth-topics" role="list" data-growth-topics>
+      {entry.topics.map(topic => <li><h3 class="content-title"><a href={url(topic.path.split("#")[0]) + (topic.path.includes("#") ? "#" + topic.path.split("#")[1] : "")}>{topic.title}</a></h3>{!compact && <p class="content-summary">{topic.summary}</p>}</li>)}
+    </ul>}
+    <ul class="growth-changes content-summary" role="list" hidden={!!entry.topics}>
+      {!entry.topics && summaries.map(text => <li>{text}</li>)}
     </ul>
-    {compact && allSummaries.length > summaries.length && <p class="meta"><a data-growth-more href={`${url("garden-notes")}#growth-${entry.date}`}>全履歴で続きを見る</a></p>}
-    {(!compact || entry.relatedLinks?.length) && <details class="growth-details" data-pagefind-ignore>
+    {!compact && <ul class="growth-publications" data-growth-publications>{articleLinks.map(({ href, title }) => <li><a href={href}>{title}</a></li>)}</ul>}
+    {compact && (entry.topics || allSummaries.length > summaries.length) && <p class="meta"><a data-growth-more href={`${url("garden-notes")}#growth-${entry.date}`}>全履歴で続きを見る</a></p>}
+    {(!compact || entry.relatedLinks?.length || articleLinks.length) && <details class="growth-details" data-pagefind-ignore>
       <summary>{compact ? "関連ページ" : "関連ページ・記録の詳細と訂正"}</summary>
+      {compact && <ul data-growth-publications>{articleLinks.map(({href,title}) => <li><a href={href}>{title}</a></li>)}</ul>}
       {!!entry.relatedLinks?.length && <ul data-growth-related>{entry.relatedLinks.map(({path,title})=><li><a href={url(path)}>{title}</a></li>)}</ul>}
       {!compact && <ul data-growth-record>{entry.changes.map(change=><li>{growthChangeText(change)}</li>)}</ul>}
     </details>}
   </div>
 </article>
 <style>
+  .growth-topics { list-style:none; padding:0; margin:.5rem 0; }
+  .growth-topics > li + li { margin-top:.65rem; }
+  .growth-topics h3 { font-size:1rem; line-height:1.6; margin:0; }
+  .growth-topics p { margin:.25rem 0; }
   .growth-details { margin-block:.5rem; color:var(--muted); font-size:.875rem; overflow-wrap:anywhere; }
   .growth-details summary { cursor:pointer; }
   .growth-details ul { padding-inline-start:1.25rem; }

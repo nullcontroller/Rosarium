@@ -236,7 +236,6 @@
   .support-explanation .support-table th[scope="row"], .support-explanation .support-table td { display: block; border: 0; padding: .25rem 0; }
   .support-explanation .support-cell-label { display: block; font-size: .8125rem; color: var(--muted); margin-bottom: .15rem; }
 }
-.support-explanation p { white-space: pre-line; }
 
 /* Both routes start at the same decision; the narrow layout keeps a separate gutter. */
 .support-explanation .support-fork-stem { height: 1rem; width: 50%; border-right: 1px solid var(--accent); }

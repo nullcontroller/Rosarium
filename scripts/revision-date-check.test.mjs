@@ -17,3 +17,7 @@ test("feed activity and change type use last_updated ahead of legacy dates", () 
   assert.equal(activityDate(entry),"2026-11-24"); assert.equal(updateType(entry),"updated");
   assert.equal(updateType({data:{last_updated:"2026-11-25",published_at:"2026-11-25"}}),"new");
 });
+test('prose wrap-only edits preserve editorial dates but code changes do not', () => {
+ assert.equal(revisionDateProblem(article('2026-11-24','文。  \n次。'),article('2026-11-24','文。\n次。'),'2026-11-25'),null);
+ assert.match(revisionDateProblem(article('2026-11-24','```\na  \nb\n```'),article('2026-11-24','```\na\nb\n```'),'2026-11-25'),/without/);
+});

@@ -45,7 +45,7 @@ const recent = recentGrowth.slice(0, 3);
       <p class="meta">最近の公開・改訂・統合の記録です。</p>
       <a class="cta-link" href={url("garden-notes")}>Garden Notesの全履歴を見る</a>
     </div>
-    <div class="growth-list growth-list-compact home-growth-history" role="region" tabindex="0" aria-label="Garden Notes 最近の更新">
+    <div class="growth-list growth-list-compact home-growth-history">
       {recent.map((entry) => <GrowthEntry entry={entry} compact />)}
     </div>
   </section>
@@ -57,7 +57,6 @@ const recent = recentGrowth.slice(0, 3);
   .home-career-link { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem; }
   .home-hero-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.5rem; align-items: stretch; margin-bottom: 1.3rem; }
   .home-hero-layout :global(.page-heading) { min-width: 0; margin-bottom: 0; }
-  .home-hero-layout :global(.lead) { white-space: pre-line; }
   .home-main-case { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 1.125rem 1.375rem; border: 1px solid var(--accent); border-radius: var(--home-panel-radius, .35rem); background: color-mix(in srgb, var(--home-panel-surface, var(--surface)) 94%, var(--accent)); }
   .home-main-case h2 { margin: .75rem 0 0; font-size: 1.25rem; line-height: 1.5; }
   .home-main-case .eyebrow { margin: 0; font-size: .875rem; letter-spacing: .08em; }
@@ -75,19 +74,10 @@ const recent = recentGrowth.slice(0, 3);
   .home-growth-toolbar > p { margin-block: .3rem; }
   .home-growth-toolbar > a { color: var(--accent); font-weight: 600; text-underline-offset: .2em; }
   .home-growth-history {
-    max-height: min(22rem, 38vh);
-    overflow-y: auto;
-    overflow-x: hidden;
     padding: .5rem .75rem;
     border: 1px solid var(--line);
     overflow-wrap: anywhere;
     background: var(--home-panel-surface, var(--surface));
-  }
-  @media (pointer: fine) {
-    .home-growth-history { scrollbar-width: thin; scrollbar-color: var(--muted) var(--home-panel-surface, var(--surface)); }
-  }
-  @media (max-width: 800px) {
-    .home-growth-history { max-height: min(18rem, 42svh); }
   }
 
 </style>

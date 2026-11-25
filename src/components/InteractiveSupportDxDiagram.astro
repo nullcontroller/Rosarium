@@ -6,7 +6,6 @@ const { id = "support-overview" } = Astro.props;
 const model = caseDiagrams[id];
 const explanation = model?.explanation;
 if (!explanation) throw new Error(`Unknown support explanation: ${id}`);
-const sentenceLines = (text: string) => text.replaceAll("。", "。\n").trim();
 const isOverview = id === "support-overview";
 const nodeById = new Map(model.nodes.map(node => [node.id, node]));
 const prefix = isOverview ? "support-dx-flow" : `case-${id}`;
@@ -17,7 +16,7 @@ const oldAnchors: Record<string, string> = { customer: "customer", search: "rag"
   data-support-dx={isOverview ? "" : undefined} data-case-flow={!isOverview ? "" : undefined}
   aria-labelledby={`${prefix}-title`}>
   <figcaption id={`${prefix}-title`}>{model.title}</figcaption>
-  <p class="support-purpose">{sentenceLines(model.description)}</p>
+  <p class="support-purpose">{model.description}</p>
   {explanation.format === "table" && (
     <table class="support-table" aria-labelledby={`${prefix}-title`}>
       <thead><tr>{explanation.columns!.map(column => <th scope="col">{column}</th>)}</tr></thead>
@@ -37,7 +36,7 @@ const oldAnchors: Record<string, string> = { customer: "customer", search: "rag"
                 <div class="support-step" data-kind={node.kind} data-support-step={nodeId}
                   id={isOverview && oldAnchors[nodeId] ? `support-detail-${oldAnchors[nodeId]}` : undefined}>
                   <p class="support-action">{node.label}</p>
-                  <p class="support-description">{sentenceLines(node.description)}</p>
+                  <p class="support-description">{node.description}</p>
                 </div>
                 {index < panel.nodeIds.length - 1 && <span class="support-connector" aria-hidden="true">↓</span>}
               </li>;
@@ -57,7 +56,7 @@ const oldAnchors: Record<string, string> = { customer: "customer", search: "rag"
                     return <li>
                       <div class="support-step" data-kind={node.kind} data-support-step={nodeId}>
                         <p class="support-action">{node.label}</p>
-                        <p class="support-description">{sentenceLines(node.description)}</p>
+                        <p class="support-description">{node.description}</p>
                       </div>
                       {index < branch.nodeIds.length - 1 && <span class="support-connector" aria-hidden="true">↓</span>}
                     </li>;
@@ -92,6 +91,6 @@ const oldAnchors: Record<string, string> = { customer: "customer", search: "rag"
   {explanation.outcomes && <dl class="support-outcomes" aria-label="判定結果">
     {explanation.outcomes.map(outcome => <div><dt>{outcome.condition}</dt><dd>{outcome.result}</dd></div>)}
   </dl>}
-  <p class="support-note" id={isOverview ? "support-detail-knowledge" : undefined}>{sentenceLines(explanation.note)}</p>
-  <p class="support-scope" id={isOverview ? "support-detail-feedback" : undefined}>{sentenceLines(explanation.scope)}</p>
+  <p class="support-note" id={isOverview ? "support-detail-knowledge" : undefined}>{explanation.note}</p>
+  <p class="support-scope" id={isOverview ? "support-detail-feedback" : undefined}>{explanation.scope}</p>
 </figure>
