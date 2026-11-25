@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 182ページ。目次あり 144、なし 38。Referenceあり 143、なし 39。
+対象 182ページ。目次あり 140、なし 42。Referenceあり 143、なし 39。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -169,10 +169,10 @@
 | /reference/glossary/ | 基本用語集 | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /reference/mathematical-reference/ | 数式・記号リファレンス | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /reference/responsibility-state-model/ | 責任境界・状態モデル | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /retired/ | 旧記事・退役記事 | なし | あり | なし | 3 | 主要見出しが複数 |
-| /retired/obsolete-cases/ | 旧事例 | なし | あり | なし | 2 | アーカイブ個別項目 |
-| /retired/obsolete/ | 旧記事 | なし | あり | なし | 3 | アーカイブ個別項目 |
-| /retired/retired/ | 退役記事 | なし | あり | なし | 24 | アーカイブ個別項目 |
+| /retired/ | 旧記事・退役記事 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /retired/obsolete-cases/ | 旧事例 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /retired/obsolete/ | 旧記事 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /retired/retired/ | 退役記事 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /search/ | 検索 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /series/ | 連載はDXの入口へ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /sitemap/ | サイトマップ | あり | あり | あり | 8 | 主要見出しが複数 |

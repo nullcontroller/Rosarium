@@ -2,34 +2,28 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
+import ArchiveList from "../components/ArchiveList.astro";
 import { publishedEntry, url } from "../lib/site";
-import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup, archiveLabel } from "../lib/archive";
+import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup } from "../lib/archive";
 const entries = await getCollection("pages", (entry) => publishedEntry(entry) && isArchiveEntry(entry));
 ---
-<Site showReference={false} title={archiveTitle} section="retired" noindex summary="現在の推奨ではない旧記事と、役割を終えた退役記事を確認するコンテンツ履歴の入口。">
+<Site toc="never" showRightSidebar={false} showReference={false} title={archiveTitle} section="retired" noindex summary="現在の推奨ではない旧記事と、役割を終えた退役記事を確認するコンテンツ履歴の入口。">
   <div class="archive-page">
   <PageHeader navigationPath="retired" title={archiveTitle} />
   <p>現在の推奨ではないコンテンツと、独立した役割を終えた記録を、位置づけごとに保存しています。</p>
-  <div class="archive-entrances">
-    {archiveLifecycles.map((group) => <a href={url(`retired/${group.id}`)} data-archive-entrance={group.id}>
-      <span>{archiveLabel(entries.filter((entry) => getArchiveGroup(entry) === group.id), group.lifecycle)}</span>
-      <h2>{group.title}</h2>
-      <p>{group.description}</p>
-      <small>{entries.filter((entry) => getArchiveGroup(entry) === group.id).length}件</small>
-    </a>)}
-  </div>
+  <p>旧記事は当時の前提や判断を参考として残す内容、退役記事は独立した役割を終えた記録です。カテゴリを開くと記事を確認できます。</p>
+  <nav aria-label="アーカイブの種類別一覧" class="archive-entrances">
+    {archiveLifecycles.map((group) => <a href={url(`retired/${group.id}`)} data-archive-entrance={group.id}>{group.title} <small>{entries.filter((entry) => getArchiveGroup(entry) === group.id).length}件</small></a>)}
+  </nav>
+  <ArchiveList entries={entries} />
   </div>
 </Site>
 <style>
-.archive-entrances { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-.archive-entrances a { padding: 1.5rem; background: var(--obsolete-bg); border: 1px solid var(--obsolete-line); color: var(--obsolete-ink); text-decoration: none; overflow-wrap: anywhere; }
-.archive-entrances h2 { color: inherit; margin: .5rem 0; }
-.archive-entrances p { line-height: 1.75; }
-.archive-entrances small, .archive-entrances span { color: var(--obsolete-muted); }
-.archive-entrances a:hover { border-color: var(--obsolete-hover); }
+.archive-entrances { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; margin: 1rem 0; }
+.archive-entrances a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; color: var(--obsolete-link); text-underline-offset: .2em; }
+.archive-entrances small { color: var(--obsolete-muted); font-size: 1rem; }
+.archive-entrances a:hover { color: var(--obsolete-hover); }
 .archive-entrances a:focus-visible { outline: 2px solid var(--obsolete-hover); outline-offset: 4px; }
-.archive-entrances a[data-archive-entrance="retired"] { border-style: dashed; }
-@media (max-width: 640px) { .archive-entrances { grid-template-columns: 1fr; } }
 </style>
 
 <style>

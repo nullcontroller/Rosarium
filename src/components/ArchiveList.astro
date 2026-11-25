@@ -1,41 +1,73 @@
 ---
 import type { Entry } from "../lib/navigation";
-import { formatDateJa, url } from "../lib/site";
-import { isCaseEntry, archiveLabel, groupArchiveEntries, archiveCategoryAnchor, archiveEntryAnchor } from "../lib/archive";
-interface Props { entries: Entry[]; lifecycle: "obsolete" | "retired"; }
+import { url } from "../lib/site";
+import { archiveLifecycles, getArchiveGroup, groupArchiveEntries, archiveCategoryAnchor, archiveEntryAnchor } from "../lib/archive";
+import { archiveReason, archiveDestination } from "../lib/archive-presentation";
+interface Props { entries: Entry[]; lifecycle?: "obsolete" | "retired"; }
 const { entries, lifecycle } = Astro.props;
-const categories = groupArchiveEntries(entries);
+const categories = lifecycle
+  ? groupArchiveEntries(entries).map(group => ({ ...group, lifecycle, label: group.category, anchor: archiveCategoryAnchor(group.category) }))
+  : archiveLifecycles.flatMap(state => groupArchiveEntries(entries.filter(entry => getArchiveGroup(entry) === state.id)).map(group => ({ ...group, lifecycle: state.lifecycle, label: `${state.title} / ${group.category}`, anchor: `${state.id}-${archiveCategoryAnchor(group.category)}` })));
+const routes = import.meta.glob<string>("../pages/**/*.astro", { query: "?raw", import: "default", eager: true });
+const targetFor = (entry: Entry) => archiveDestination(routes[`../pages/${entry.id}.astro`] ?? "");
 ---
-<div class="retired-page" data-history-group={lifecycle}>
-{categories.map(({ category, entries: categoryEntries }) => <section data-archive-category={category}>
-  <h2 id={archiveCategoryAnchor(category)}>{category} <small>{categoryEntries.length}件</small></h2>
+<div class="retired-page archive-list" data-archive-list>
+  <div class="archive-actions" hidden>
+    <button type="button" data-archive-open aria-controls={categories.map(group => group.anchor).join(" ")}>すべて展開</button>
+    <button type="button" data-archive-close aria-controls={categories.map(group => group.anchor).join(" ")}>すべて閉じる</button>
+    <span class="visually-hidden" role="status" aria-live="polite" data-archive-status></span>
+  </div>
+{categories.map(({ category, entries: categoryEntries, label, anchor, lifecycle: state }) => <details id={anchor} data-archive-category={category} data-history-group={state}>
+  <summary><h2>{label} <span class="archive-count">{categoryEntries.length}件</span></h2></summary>
   <ul class="retired-list">
-  {categoryEntries.map((entry) => <li id={archiveEntryAnchor(entry)} data-history-id={entry.id} data-retired-id={lifecycle === "retired" ? entry.id : undefined}>
-    <span class="retired-badge">{archiveLabel([entry], lifecycle)}</span> <small>{isCaseEntry(entry) ? "事例" : "記事"}</small>
+  {categoryEntries.map((entry) => <li id={archiveEntryAnchor(entry)} data-history-id={entry.id} data-retired-id={state === "retired" ? entry.id : undefined}>
     <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>
-    <p>{entry.data.summary}</p>
-    <p class="retired-reason">{entry.data.lifecycle_reason}</p>
-    <p class="retired-date">最終更新：<time datetime={entry.data.last_updated}>{formatDateJa(entry.data.last_updated)}</time></p>
+    <p class="retired-reason">{archiveReason(entry.data.lifecycle_reason)}</p>
+    {targetFor(entry) && <p class="archive-destination"><a href={url(targetFor(entry)!)}>統合先・移転先へ</a></p>}
   </li>)}
   </ul>
-</section>)}
+</details>)}
 </div>
+<script>
+  for (const list of document.querySelectorAll<HTMLElement>("[data-archive-list]")) {
+    const panels = Array.from(list.querySelectorAll<HTMLDetailsElement>("details[data-archive-category]"));
+    const actions = list.querySelector<HTMLElement>(".archive-actions")!;
+    actions.hidden = false;
+    for (const [selector, open] of [["[data-archive-open]", true], ["[data-archive-close]", false]] as const) {
+      list.querySelector(selector)?.addEventListener("click", () => {
+        panels.forEach(panel => { panel.open = open; });
+        list.querySelector("[data-archive-status]")!.textContent = `${panels.length}カテゴリを${open ? "展開しました" : "閉じました"}`;
+      });
+    }
+    const revealHash = () => {
+      let id: string;
+      try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+      const target = document.getElementById(id);
+      const panel = target?.closest<HTMLDetailsElement>("details[data-archive-category]");
+      if (panel && list.contains(panel)) { panel.open = true; target?.scrollIntoView(); }
+    };
+    revealHash();
+    window.addEventListener("hashchange", revealHash);
+  }
+</script>
 <style>
-  .retired-page { max-width: 56rem; color: var(--obsolete-ink); overflow-wrap: anywhere; }
-  .retired-page :global(h1) { color: var(--obsolete-ink); }
-  .retired-list { list-style: none; padding: 0; margin-top: 1.5rem; display: grid; gap: 1rem; }
-  .retired-list > li { padding: 1rem 1.25rem; border: 1px dashed var(--obsolete-line); background: var(--obsolete-bg); }
-  .retired-page section { margin-top: 2rem; }
-  .retired-page h2 { color: var(--obsolete-ink); font-size: 1.4rem; }
-  .retired-page h2 small { color: var(--obsolete-muted); font-size: .8rem; }
-  [data-history-group="obsolete"] .retired-list > li { border-style: solid; }
-  [data-history-group="retired"] h2 { color: var(--obsolete-muted); }
-  .retired-list h3 { font-size: 1.25rem; line-height: 1.6; margin: .5rem 0; color: var(--obsolete-ink); }
+  .archive-list { color: var(--obsolete-ink); overflow-wrap: anywhere; }
+  .archive-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0; }
+  .archive-actions[hidden] { display: none; }
+  .archive-actions button { min-height: 44px; padding: .4rem .8rem; font: inherit; color: var(--obsolete-link); background: var(--obsolete-bg); border: 1px solid var(--obsolete-line); border-radius: 4px; cursor: pointer; }
+  .archive-list > details { border-bottom: 1px solid var(--obsolete-line); }
+  .archive-list > details:first-of-type { border-top: 1px solid var(--obsolete-line); }
+  summary { cursor: pointer; padding: .75rem .5rem; background: var(--obsolete-bg); color: var(--obsolete-ink); }
+  summary h2 { display: inline; margin: 0; font-size: 1.125rem; line-height: 1.7; color: inherit; }
+  .archive-count { color: var(--obsolete-muted); font-size: 1rem; font-weight: 400; margin-left: .5rem; white-space: nowrap; }
+  .retired-list { list-style: none; padding: 0 .5rem; margin: 0; }
+  .retired-list > li { padding: .75rem 0; margin: 0; border: 0; border-bottom: 1px solid var(--obsolete-line); }
+  .retired-list > li:last-child { border-bottom: 0; }
+  .retired-list h3 { font-size: 1.0625rem; line-height: 1.7; margin: 0; color: var(--obsolete-ink); }
   .retired-list a { color: var(--obsolete-link); text-decoration: underline; text-underline-offset: .2em; }
   .retired-list a:hover, .retired-list a:focus-visible { color: var(--obsolete-hover); }
-  .retired-list a:focus-visible { outline: 2px solid var(--obsolete-line); outline-offset: 3px; }
-  .retired-list p { margin: .75em 0; line-height: 1.75; }
-  .retired-date, .retired-reason { color: var(--obsolete-muted); }
-  .retired-badge { padding: .2em .5em; border: 1px solid var(--obsolete-line); color: var(--obsolete-muted); font-size: .8125rem; letter-spacing: .06em; }
-  @media (max-width: 480px) { .retired-list > li { padding: 1rem; } }
+  .archive-list :is(a, button, summary):focus-visible { outline: 2px solid var(--obsolete-hover); outline-offset: 3px; }
+  .retired-list p { margin: .25rem 0 0; line-height: 1.7; }
+  .retired-reason { color: var(--obsolete-muted); font-size: .9375rem; }
+  .archive-destination { font-size: 1rem; }
 </style>

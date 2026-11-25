@@ -5,6 +5,7 @@ import YAML from "yaml";
 import { verifyRecoveredBody } from "./recovered-body.mjs";
 import { getArchiveGroup, isCaseEntry, archiveLifecycles } from "../src/lib/archive.ts";
 import { load } from "cheerio";
+import { archiveReason } from "../src/lib/archive-presentation.ts";
 import { publicEntry, publishedEntry } from "../src/lib/site.ts";
 const report = JSON.parse(fs.readFileSync("migration/zenn-recovery-2026-10-05.json", "utf8"));
 const digest = (raw) => crypto.createHash("sha256").update(raw).digest("hex");
@@ -49,7 +50,7 @@ const historical = fs.readdirSync("src/content", { recursive: true })
   .map((file) => ({ id: file.replaceAll("\\", "/").replace(/\.md$/, ""), data: YAML.parse(fs.readFileSync(`src/content/${file}`, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]) }))
   .filter((entry) => publishedEntry(entry) && !entry.data.source?.chapter_slug && ["obsolete", "retired"].includes(entry.data.lifecycle));
 assert.equal(retiredIndex("[data-retired-id]").length, historical.filter((entry) => entry.data.lifecycle === "retired").length);
-assert.equal(archiveTop("[data-history-id]").length, 0);
+assert.equal(archiveTop("[data-history-id]").length, historical.length);
 assert.equal(archiveTop("[data-archive-entrance]").length, 3);
 assert.equal(retiredIndex("[data-history-id]").length + obsoleteIndex("[data-history-id]").length + obsoleteCasesIndex("[data-history-id]").length, historical.length);
 for (const entry of historical) {
@@ -60,15 +61,12 @@ for (const entry of historical) {
     const index = load(fs.readFileSync(`dist/${route}/index.html`, "utf8"));
     assert.equal(index(`[data-content-id="${entry.id}"]`).length, 0);
   }
-  assert(item.text().includes(entry.data.lifecycle_reason));
-  assert.equal(item.find("time").last().attr("datetime"), entry.data.last_updated);
+  assert(item.text().includes(archiveReason(entry.data.lifecycle_reason)));
+  assert.equal(item.find("time").length, 0);
 }
 for (const group of archiveLifecycles) {
   assert.equal(archiveTop(`[data-archive-entrance="${group.id}"] small`).text(), `${historical.filter((entry) => getArchiveGroup(entry) === group.id).length}件`);
 }
-assert.equal(archiveTop('[data-archive-entrance="obsolete"] > span').text(), "OBSOLETE ARTICLE");
-assert.equal(archiveTop('[data-archive-entrance="obsolete-cases"] > span').text(), "OBSOLETE CASE");
-assert.equal(archiveTop('[data-archive-entrance="retired"] > span').text(), "RETIRED");
 assert.equal(obsoleteIndex('[data-archive-category="事例"]').length, 0);
 assert.equal(obsoleteCasesIndex('[data-history-id="cases/system-understanding"]').length, 1);
 const nav = retiredIndex(".sidebar .nav-group").last();
@@ -76,17 +74,13 @@ assert.equal(retiredIndex('.sidebar a[href="/reference/"]').length, 0);
 assert.equal(retiredIndex('.reference-edge-tab').length, 0);
 assert.equal(retiredIndex('.reference-header-tool[href="/reference/"]').length, 0);
 for (const [index, title] of [[obsoleteIndex, '旧記事'], [obsoleteCasesIndex, '旧事例'], [retiredIndex, '退役記事']]) {
-  assert.equal(index('#page-toc-tab').text(), '目次');
+  assert.equal(index('#page-toc-tab, #page-toc-panel, details[data-page-heading-toc], .book-toc-mobile').length, 0, title);
   assert.equal(index('#reference-sidebar-tab, #reference-panel').length, 0);
-  assert(index('#page-toc-panel a').length > 1, title);
-  const desktopTargets = index('#page-toc-panel a').map((_, link) => index(link).attr('href')).get();
-  assert.deepEqual(index('details[data-page-heading-toc] a').map((_, link) => index(link).attr('href')).get(), desktopTargets);
-  for (const card of index('[data-history-id]').toArray()) {
-    assert(desktopTargets.includes('#' + index(card).attr('id')));
-  }
-  for (const link of index('#page-toc-panel a').toArray()) {
-    assert.equal(index(`[id="${index(link).attr('href').slice(1)}"]`).length, 1);
-  }
+  assert(index('details[data-archive-category]').length > 0);
+  assert.equal(index('details[data-archive-category][open]').length, 0);
+  assert.equal(index('[data-archive-open], [data-archive-close]').length, 2);
+  assert.equal(index('.retired-badge, .retired-date').length, 0);
+
 }
 assert.equal(retiredIndex('.sidebar [role="group"][aria-label="旧記事・退役記事"] a').attr("href"), "/retired/");
 assert.deepEqual(nav.find(".nav-copy > span").map((_, element) => nav.find(element).text()).get(), ["旧記事・退役記事"]);
@@ -133,10 +127,8 @@ for (const record of report.entries) {
     const item = retiredIndex(`[data-retired-id="${record.destination}"]`);
     assert.equal(item.length, 1);
     assert.equal(item.find("h3 a").attr("href"), `/${record.destination}/`);
-    assert(item.text().includes(data.summary));
-    assert(item.text().includes(data.lifecycle_reason));
-    assert.equal(item.find("time").length, 1);
-    assert.equal(item.find("time").attr("datetime"), data.last_updated);
+    assert(item.text().includes(archiveReason(data.lifecycle_reason)));
+    assert.equal(item.find("time").length, 0);
     assert.equal(publicEntry({ data }), false);
     assert.match($('meta[name="robots"]').attr("content"), /noindex/);
     assert.equal($("[data-pagefind-body]").length, 1);

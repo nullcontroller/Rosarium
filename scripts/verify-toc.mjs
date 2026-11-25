@@ -38,7 +38,10 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html"))) {
     assert(!target.is("h4,h5,h6"), `Too-deep contents: ${file}`);
   }
   for (const card of body.find("[data-history-id]").toArray()) {
-    assert(desktopTargets.includes("#" + $(card).attr("id")), `Missing archive entry: ${file}`);
+    if (policy === "never") {
+      assert.equal($(card).closest('details[data-archive-category]').length, 1, `Archive disclosure missing: ${file}`);
+      assert($(card).find('h3 a[href]').length, `Archive article link missing: ${file}`);
+    } else assert(desktopTargets.includes("#" + $(card).attr("id")), `Missing archive entry: ${file}`);
   }
   const route = "/" + path.relative("dist", file).replaceAll("\\", "/").replace(/index\.html$/, "");
   rows.push({route,title:$("main h1").first().text().trim(),indexable:!($('meta[name="robots"]').attr("content")??'').includes('noindex'),toc:hasToc,reference:hasReference,reason,majorCount,items:$("#page-toc-panel a").length,words:body.text().replace(/\s/g,'').length});
