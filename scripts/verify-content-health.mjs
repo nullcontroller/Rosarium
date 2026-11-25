@@ -1,3 +1,4 @@
+import { primaryDomain, domainAssignments } from "../src/data/knowledge-domains.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
@@ -152,3 +153,13 @@ for (const id of ["what-is-ai", "cognitive-surrender"]) {
 console.log(
   `Verified content health: ${files.length} audited Markdown pages, ${publicEntries.length} public pages, ${canonicalReferences.length} canonical references, ${canonicalPractices.length} canonical practices; entry points AI-only=${aiOnly.length}, DX-only=${dxOnly.length}, AI+DX=${aiAndDx.length}.`,
 );
+
+// Main domains are separate from legacy entry_points and DX subthemes.
+for(const file of files){
+ const {data}=parse(file); const id=file.replace(/^src\/content\//, "").replace(/\.md$/, "");
+ const owner=primaryDomain({id,data});
+ assert(["ai","dx","planning","system-design","cases","career","reference"].includes(owner),id);
+ if(domainAssignments[id])assert(domainAssignments[id].reason.length>15,id+": classification rationale");
+ if((data.lifecycle??"active")==="active" && owner==="ai")assert(["foundations/conditional-probability","foundations/temperature-design","foundations/hallucination-mechanisms"].includes(id),id+": core AI scope requires body review");
+}
+console.log("Verified explicit primary domains for all manuscripts; legacy metadata does not determine ownership.");

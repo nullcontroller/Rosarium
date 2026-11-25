@@ -18,7 +18,7 @@ const headings = [
 ---
 <Site title="IT戦略・企画" section="planning" publishedAt={planningPublishedAt} headings={headings}>
   <PageHeader alignHero navigationPath="planning" title="IT戦略・企画" eyebrow="IT STRATEGY & PLANNING" />
-  <p>ここで整理した目的・業務要求・対象範囲を、<a href={url("system-design")}>システム設計</a>でシステム要件と実現方式へ具体化します。<a href={url("dx")}>DX</a>は業務・組織・価値の変革、<a href={url("ai")}>AI</a>はAI固有の技術と適用を扱います。</p>
+  <p>ここで整理した目的・業務要求・対象範囲を、<a href={url("system-design")}>システム設計</a>でシステム要件と実現方式へ具体化します。<a href={url("dx")}>DX</a>は業務・組織・価値の変革、<a href={url("ai")}>AI・数理</a>は技術を支える数学的・計算的原理を扱います。</p>
   {groups.map(group => <section aria-labelledby={group.id}>
     <h2 id={group.id}>{group.title}</h2>
     <p>{group.summary}</p>

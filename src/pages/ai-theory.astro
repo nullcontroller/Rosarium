@@ -15,9 +15,8 @@ const entries = readingEntries(await getCollection("pages", activeEntry), "ai-th
   <ul>
     <li>同じ質問への回答が変わる理由を、次のトークンの生成と条件付けから理解する。</li>
     <li>もっともらしい誤答を、知識不足・検索失敗・根拠の読み違いなどの要因に分ける。</li>
-    <li>コードを生成するモデルと、情報収集・編集・検証を行う周辺システムを区別する。</li>
   </ul>
-  <h2>生成・誤答・コード生成の仕組み</h2>
+  <h2>生成と誤答の仕組み</h2>
   <ContentIndex entries={entries} showIcons={false} />
   <h2>数理の基礎とシステム設計へ進む</h2>
   <p>生成を確率で捉える背景は<a href={url("foundations/conditional-probability")}>条件付き確率</a>、分布と出力の変動は<a href={url("foundations/temperature-design")}>Temperature</a>から確認できます。数理の入口は<a href={url("ai-mathematics")}>数学</a>です。</p>

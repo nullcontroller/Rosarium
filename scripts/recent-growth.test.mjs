@@ -131,7 +131,7 @@ test("public histories focus on PoC failures and improvements", () => {
 
 test("multiple topics preserve the single daily record and reject invalid topic links", () => {
   const day = recentGrowth.find(item => item.date === "2026-11-25");
-  assert.equal(day.topics.length, 5);
+  assert.equal(day.topics.length, 7);
   assert.equal(growthPublishedTargets(day).length, 14);
   for (const topics of [[{title:"",summary:"summary"}], [{title:"title",summary:"summary",links:[{path:"https://example.com",title:"external"}]}], [day.topics[0], day.topics[0]]]) assert.throws(() => validateRecentGrowth([{...entry([]), topics}]));
 });

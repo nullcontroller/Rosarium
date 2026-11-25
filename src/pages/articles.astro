@@ -7,8 +7,8 @@ const canonical = new URL(destination, Astro.site).toString();
 ---
 
 <Site showRightSidebar={false}
-  title="AIへ移動しました"
-  summary="AIの入口は /ai/ へ移動しました。"
+  title="AI・数理へ移動しました"
+  summary="AI・数理の入口は /ai/ へ移動しました。"
   canonical={canonical}
   noindex
 >
@@ -16,7 +16,7 @@ const canonical = new URL(destination, Astro.site).toString();
   <script is:inline define:vars={{ destination }}>
     location.replace(destination);
   </script>
-  <h1>AIへ移動しました</h1>
-  <p>AIの入口は新しいURLへ移動しました。</p>
-  <p><a href={destination}>AIへ移動する</a></p>
+  <h1>AI・数理へ移動しました</h1>
+  <p>AI・数理の入口は新しいURLへ移動しました。</p>
+  <p><a href={destination}>AI・数理へ移動する</a></p>
 </Site>

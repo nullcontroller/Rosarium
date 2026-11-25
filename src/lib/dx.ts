@@ -1,5 +1,5 @@
+import { primaryDomain } from "../data/knowledge-domains.mjs";
 import type { CollectionEntry } from "astro:content";
-import { hasEntryPoint } from "./entry-points";
 
 export const dxCategories = [
   {
@@ -91,9 +91,9 @@ export const dxEntriesForCategory = (
   entries
     .filter(
       (entry) =>
-        hasEntryPoint(entry, "dx") &&
+        (primaryDomain(entry) === "dx" || ["planning", "system-design"].includes(primaryDomain(entry))) &&
         entry.data.lifecycle !== "retired" &&
-        entry.data.primaryCategory === categoryId &&
+        (entry.data.primaryCategory ?? ({ "practices/education-and-capability": "continuous-value", "practices/adoption-governance": "continuous-value", "practices/transferring-practices": "continuous-value", "essays/trust-in-ai-generated-content": "continuous-value" } as Record<string,string>)[entry.id]) === categoryId &&
         (!entry.data.series || (entry.data.order ?? 0) === 0),
     )
     .sort(

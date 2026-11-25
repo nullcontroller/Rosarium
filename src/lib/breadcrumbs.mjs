@@ -19,7 +19,9 @@ export function buildBreadcrumbs({ pathname, title, entries, labels, primaryPath
     if (name) result.push({name, path});
   };
   const addArea = path => {
-    if (["ai-design", "ai-mathematics", "ai-theory", "practices", "essays"].includes(path)) add("ai");
+    if (["ai-mathematics", "ai-theory"].includes(path)) add("ai");
+    if (path === "ai-design") add("system-design");
+    if (path === "practices") add("dx");
     add(path);
   };
   const entry = byId.get(route);
@@ -35,14 +37,16 @@ export function buildBreadcrumbs({ pathname, title, entries, labels, primaryPath
     else if (!archive && primaryPath(entry) === "ai-design" && entry.data.design_topic) add(`ai-design/${entry.data.design_topic}`);
   } else {
     if (route.startsWith("dx/")) add("dx");
-    else if (route.startsWith("ai-design/")) { add("ai"); add("ai-design"); }
+    else if (route.startsWith("ai-design/")) { add("system-design"); add("ai-design"); }
     else if (route.startsWith("retired/")) add("retired");
     else if (route.startsWith("career/")) add("career");
     else if (route.startsWith("cases/")) {
       add("cases");
       const parent = entries.filter(item => route.startsWith(item.id + "/")).sort((a,b) => b.id.length - a.id.length)[0];
       if(parent) add(parent.id);
-    } else if (["ai-design", "ai-mathematics", "ai-theory", "practices", "essays", "architecture", "knowledge-context", "software-engineering", "evaluation-hitl"].includes(route)) add("ai");
+    } else if (["ai-mathematics", "ai-theory"].includes(route)) add("ai");
+    else if (["ai-design", "architecture", "knowledge-context", "software-engineering", "evaluation-hitl"].includes(route)) add("system-design");
+    else if (route === "practices") add("dx");
   }
   result.push({name: title, path: route});
   return result;

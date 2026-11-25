@@ -57,7 +57,7 @@ for (const file of pages) {
   }
   if (pagePath === "/essays/rethink-work-before-ai/") {
     assert.equal(parameters.primary_category, "business-transformation");
-    assert.equal(parameters.content_domain, "planning");
+    assert.equal(parameters.content_domain, "dx");
     assert.equal(parameters.article_slug, "essays/rethink-work-before-ai");
   }
   if (pagePath.startsWith("/cases/system-understanding/")) assert.equal(parameters.obsolete_status, "obsolete");
