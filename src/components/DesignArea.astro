@@ -1,0 +1,9 @@
+---
+import { designAreaFor } from "../data/design-studies.mjs";
+const { id } = Astro.props;
+const area = designAreaFor(id);
+---
+{area && <p class="design-area" data-design-area>{area}</p>}
+<style>
+  .design-area { color: var(--accent); font-weight: 700; font-size: 1rem; line-height: 1.6; margin: 0 0 .4rem; }
+</style>

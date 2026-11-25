@@ -219,10 +219,14 @@ assert.deepEqual(
 );
 assert.equal(top(".sidebar .nav-children .icon").length, 0);
 assert.equal(top(".sidebar").length, 1);
-assert.equal(career(".sidebar").length, 0);
+assert.equal(career(".sidebar").length, 1);
+assert.equal(career('.sidebar a[href="/career/"][aria-current="page"]').length, 1);
+assert.deepEqual(career(".sidebar .nav-copy > span").map((_, node) => career(node).text()).get(), top(".sidebar .nav-copy > span").map((_, node) => top(node).text()).get());
+assert.equal(career(".career-shell,.career-masthead").length, 0);
+assert.equal(career("main .lead br").length, 0);
 assert.equal(career("#page-toc-tab").length, 1);
 assert.equal(career("details[data-page-heading-toc][open]").length, 0, "Career introduction must precede an expanded mobile TOC");
-assert.equal(career("#reference-sidebar-tab").length, 0);
+assert.equal(career("#reference-sidebar-tab").length, 1);
 assert.equal(career(".global-search").length, 1);
 assert.equal(career(".header-primary").length, 1);
 assert.equal(career("#theme").length, 1);
@@ -342,7 +346,7 @@ assert.equal(
 assert.equal(pubs("#current-topics-heading").length, 0);
 assert.equal(pubs("[data-publication]").length, 0);
 assert.equal(pubs("[data-use-case-shortcut]").length, 0);
-assert.equal(pubs("[data-content-id]").not("[data-ai-series] [data-content-id]").length, 0);
+assert.equal(pubs("[data-content-id]").not("[data-ai-series] [data-content-id], [data-related-case-id] [data-content-id]").length, 0);
 assert.equal(pubs("#ai-themes-heading").length, 1);
 const aiSections = pubs('[data-domain-theme="ai"]');
 assert.equal(aiSections.length, 6);
@@ -605,16 +609,22 @@ const growthContentChanges = entry => growthSummary(entry, id => {
 });
 function assertGrowthChanges($, row, entry) {
   const ids = growthPublishedTargets(entry);
+  assert.deepEqual(row.find("[data-growth-topics] h3").map((_, el) => $(el).text()).get(), (entry.topics ?? []).map(topic => topic.title));
+  assert.equal(row.find("[data-growth-topics] > li").length, entry.topics?.length ?? 0);
+  assert.deepEqual(row.find("[data-growth-topics] h3 a").map((_, el) => $(el).attr("href")).get(), (entry.topics ?? []).map(topic => {
+    const [route, hash] = topic.path.split("#");
+    return `/${route}/` + (hash ? `#${hash}` : "");
+  }));
   const expectedLinks = ids.map(id => ({
     title: entries.get(id)?.title,
     href: `/${id === "career/overview" ? "career" : id}/`,
   })).concat((entry.relatedLinks ?? []).map(link => ({ title: link.title, href: `/${link.path}/` })));
   assert.deepEqual(
     row.find(".growth-changes > li").map((_, item) => $(item).text()).get(),
-    [...(row.attr("data-growth-compact") === "true" ? growthContentChanges(entry).slice(0, 3) : growthContentChanges(entry)), ...ids.map(id => entries.get(id)?.title)],
+    entry.topics ? [] : (row.attr("data-growth-compact") === "true" ? growthContentChanges(entry).slice(0, 3) : growthContentChanges(entry)),
   );
   assert.deepEqual(
-    row.find(".growth-changes a, [data-growth-related] a").map((_, item) => ({
+    row.find("[data-growth-publications] a, [data-growth-related] a").map((_, item) => ({
       title: $(item).text(),
       href: $(item).attr("href"),
     })).get(),
@@ -641,6 +651,10 @@ for (const [id, data] of entries) {
 
 assert.equal(top("#recent-growth-heading").length, 1);
 assert.equal(top(".home-garden-notes .home-growth-history").length, 1);
+assert.equal(top('.home-growth-history[tabindex],.home-growth-history[role="region"]').length, 0, "Home uses normal page scrolling");
+const homeSource = fs.readFileSync("src/pages/index.astro", "utf8");
+assert(!/max-height|overflow-y:\s*(auto|scroll)/.test(homeSource), "Important updates must not be hidden in a fixed-height scroller");
+
 assert.equal(top('.home-hero-layout a[href="/cases/"]').length, 1, "Home keeps one primary case-study link");
 assert.equal(top('main a[href="/cases/"]').length,
   1 + recentGrowth.slice(0, 3).flatMap(entry => entry.relatedLinks ?? []).filter(link => link.path === "cases").length,
@@ -691,7 +705,7 @@ for (const element of top("[data-growth-entry]").toArray()) {
   assertGrowthChanges(top, entry, recentGrowth.find(item => item.date === date));
   assert(!entry.text().includes("→"), `${date}: no navigation arrows`);
   const changes = entry.find(".growth-changes > li");
-  assert(changes.length > 0, `${date}: changes are required`);
+  assert(changes.length > 0 || entry.find("[data-growth-topics] > li").length > 0, `${date}: changes are required`);
   for (const change of changes.toArray()) {
     assert(top(change).text().trim());
     assert(
@@ -1038,7 +1052,7 @@ for (const [id, data] of entries) {
 for (const route of ["ai", "ai-design", "practices", "dx", ...["value-design", "business-transformation", "selection-retirement", "system-transformation", "continuous-value"].map((id) => "dx/" + id)]) {
   const $ = page(route);
   assert.equal($('main a[href^="/cases/"]').not('[data-related-cases] a').length, 0, route);
-  assert.equal($('main [data-content-id^="cases/"]').length, 0, route);
+  assert.equal($('main [data-content-id^="cases/"]').not('[data-related-case-id] [data-content-id]').length, 0, route);
 }
 assert.equal(page("about")('main h2').filter((_, node) => page("about")(node).text() === "次に読む").length, 0);
 assert.equal(page("about")('main a[href="/"]').not('.breadcrumb a').text(), "庭に戻る");
@@ -1451,7 +1465,7 @@ for (const [route,groups] of [["planning",planningGroups],["system-design",syste
   const $=page(route);
   assert.equal($("h1").text(),route==="planning"?"IT戦略・企画":"システム設計");
   assert.equal($('meta[name="last-updated"]').attr("content"),"2026-11-25");
-  assert.deepEqual($("main [data-content-id]").map((_,el)=>$(el).attr("data-content-id")).get(),groups.flatMap(group=>group.ids));
+  assert.deepEqual($("main [data-content-id]").not("[data-related-cases] [data-content-id]").map((_,el)=>$(el).attr("data-content-id")).get(),groups.flatMap(group=>group.ids));
   assert($("main a[href='/"+(route==="planning"?"system-design":"planning")+"/']").length);
 }
 for(const [id,assignment] of Object.entries(domainAssignments)) {
@@ -1467,7 +1481,7 @@ for(const route of ["ai","dx","planning","system-design"]) {
   assert.deepEqual(related.find("[data-related-case-id]").map((_,el)=>$(el).attr("data-related-case-id")).get(),expected,route);
   for(const id of expected) {
     assert.equal(related.find(`a[href="/${id}/"]`).length,1);
-    assert(!$("main [data-content-id]").toArray().some(el=>$(el).attr("data-content-id")===id),"Cases are not knowledge cards");
+    assert(!$("main [data-content-id]").not("[data-related-cases] [data-content-id]").toArray().some(el=>$(el).attr("data-content-id")===id),"Cases are not knowledge cards");
     assert(related.text().includes(relatedCaseDefinitions.find(definition=>definition.id===id).domains[route]));
     assert.equal(page(id)("nav.breadcrumb a").eq(1).attr("href"),"/cases/");
   }

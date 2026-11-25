@@ -24,6 +24,7 @@ export interface RecentGrowthItem {
   category: string;
   topic?: string;
   summaryChanges?: string[];
+  topics?: { title: string; summary: string; path: string }[];
   icon?: IconName;
   relatedLinks?: { path: string; title: string }[];
 }
@@ -60,6 +61,13 @@ const informationArchitectureChanges = [
 const curatedRecentGrowth = [
 {
   "date": "2026-11-25",
+  topics: [
+    { title: "連載「AI活用の本質を問う」全6回を公開", summary: "操作・運用・改善から、知的協働、判断知識、総工数、事業成果、組織設計までを考察。", path: "essays/ai-essence" },
+    { title: "発展ケーススタディ全6記事を公開", summary: "実務経験を起点に、要求定義から運用・保守までを検討する仮想設計。設計領域を一覧と記事冒頭に明示。", path: "cases/design-studies" },
+    { title: "IT戦略・企画とシステム設計を整備", summary: "専門知識と事例を横断して参照できる導線へ再編。", path: "system-design" },
+    { title: "Careerの方針と閲覧導線を改訂", summary: "ITストラテジストとシステムアーキテクトを軸とする志向を明確化し、共通左サイドバーを復活。", path: "career" },
+    { title: "サイト全体の読みやすさを改善", summary: "不要な強制改行を撤廃し、主要更新をトピック別に表示。", path: "garden-notes#growth-2026-11-25" },
+  ],
   "type": "new",
   "title": "連載「AI活用の本質を問う」全6回を公開",
   "relatedLinks": [{ "path": "ai", "title": "AIの連載を読む" }, { "path": "essays", "title": "考察の一覧" }, { "path": "dx/continuous-value", "title": "継続的価値創出" }, { "path": "planning", "title": "IT戦略・企画" }, { "path": "system-design", "title": "システム設計" }],
@@ -73,9 +81,13 @@ const curatedRecentGrowth = [
     "AI導入の成功条件と、業務改善・事業成果の関係を整理",
     "ECRSを踏まえ、AI時代における業務・役割・権限・評価・教育の再設計について考察",
     "IT戦略・企画とシステム設計を整備し、専門知識と事例の横断導線を再編",
-    "実務経験を起点とした仮想設計の発展ケーススタディ6記事と一覧を新規公開"
+    "実務経験を起点とした仮想設計の発展ケーススタディ6記事と一覧を新規公開",
+    "ITストラテジストとシステムアーキテクトを軸とするキャリア方針を明確化し、Careerの共通ナビゲーションを整備",
+    "発展ケーススタディの設計領域を一覧・記事冒頭・関連事例で明示",
+    "サイト全体の文章表示を見直し、不要な強制改行を撤廃。画面幅に応じた自然な折り返しへ統一"
   ],
   "changes": [
+    "発展ケーススタディの設計領域を一覧・記事冒頭・関連事例で明示",
     {
       "action": "published",
       "text": "新規公開。連載『AI活用の本質を問う』のシリーズ目次と全6回を公開",
@@ -91,14 +103,15 @@ const curatedRecentGrowth = [
     },
     { action: "published", text: "新規公開。実務経験を起点とする発展ケーススタディの一覧1ページと仮想設計6記事を公開", contentIds: ["cases/design-studies", "cases/design-studies/inquiry-analysis", "cases/design-studies/metadata-batch", "cases/design-studies/qualification-testing", "cases/design-studies/data-migration", "cases/design-studies/rag-security", "cases/design-studies/document-lifecycle"] },
     { action: "revised", text: "改訂。顧客サポートDXの目次と関連する5章に、実務実績と区別した発展ケースへの導線を追加", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/poc-metadata-improvement", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/stopping-conditions"] },
+    "サイト全体の文章表示を見直し、不要な強制改行を撤廃。画面幅に応じた自然な折り返しへ統一",
     "サイト全体にパンくずリストを整備し、現在の閲覧位置と上位カテゴリへの導線を改善した",
     "AI入口に連載目次と回数・概要を掲載し、公開済み連載へカテゴリ内から進める導線を追加した。旧連載URLもこの入口へ案内する",
-    { action: "revised", text: "改訂。Career末尾の関連資料一覧を整理し、LinkedInプロフィールへの案内を残した", contentIds: ["career/overview"] },
+    { action: "revised", text: "改訂。Career末尾の関連資料一覧を整理し、LinkedInプロフィールへの案内を残した。ITストラテジストとシステムアーキテクトを軸とするキャリア方針を明確化し、共通の左サイドバーを復活", contentIds: ["career/overview"] },
     "企画の入口を「IT戦略・企画」へ広げ、「システム設計」を追加。既存記事のURLを保ち、業務・投資の判断と要求を実現する設計の読み分けを整えた",
     "「実践事例」を「事例」に統一し、IT戦略・企画とシステム設計などの専門知識から、関連性を示した共通の事例枠で正本へ進める構成に再編した",
     "IT戦略・企画の入口からFDEの説明を省き、専門知識と関連事例に集中できる構成にした",
     { action: "revised", text: "改訂。仕様書横断レビューの規模表記を、元のWord仕様書（約3万文字・68ページ）と移行後のMarkdown（68ファイル）に区別し、概要と紹介文を統一した", contentIds: ["cases/specification-debt-review"] },
-    "HomeとCareerの専門性・実務事例への導線を整理し、更新履歴を短い要約と詳細・訂正の記録に分けて読みやすくした"
+    "HomeとCareerの専門性・実務事例への導線を整理し、更新履歴をトピック別の主要更新と詳細・訂正の記録に分離。Homeの固定高の内部スクロールを撤廃した"
   ]
 },
   {
@@ -383,6 +396,12 @@ export function validateRecentGrowth(entries: RecentGrowthItem[]) {
       if (!/^[a-z0-9-]+(?:\/[a-z0-9-]+)+$/.test(id)) throw new Error("Garden Notes requires an internal content id: " + id);
       if (targets.has(id)) throw new Error("Duplicate Garden Notes content link: " + id);
       targets.add(id);
+    }
+    const topicTitles = new Set<string>();
+    for (const topic of entry.topics ?? []) {
+      if (!topic.title.trim() || !topic.summary.trim() || !/^[a-z0-9-]+(?:\/[a-z0-9-]+)*(?:#[a-z0-9-]+)?$/.test(topic.path)) throw new Error("Invalid Garden Notes topic: " + topic.title);
+      if (topicTitles.has(topic.title)) throw new Error("Duplicate Garden Notes topic: " + topic.title);
+      topicTitles.add(topic.title);
     }
     const relatedPaths = new Set<string>();
     for (const link of entry.relatedLinks ?? []) {

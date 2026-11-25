@@ -24,3 +24,9 @@ test("appendices require matching date, unique marker and a recorded reason", ()
   assert.throws(() => verifyRecoveredBody(original + addition + addition, record, "2026-10-06"));
   assert.throws(() => verifyRecoveredBody(original + addition, { ...record, local_appendix: { ...record.local_appendix, reason: "" } }, "2026-10-06"));
 });
+test('recorded wrap corrections preserve original checksum protection', () => {
+ const old='First.  \nSecond.\n', next='First.\nSecond.\n';
+ const presentation={destination:'example',destination_body_sha256:digest(old),presentation_revision:{date:'2026-11-25',reason:'Natural wrapping',breaks:[{offset:6,original:'  \n'}]}};
+ verifyRecoveredBody(next,presentation,'2026-10-19');
+ assert.throws(()=>verifyRecoveredBody(next.replace('Second','Changed'),presentation,'2026-10-19'));
+});

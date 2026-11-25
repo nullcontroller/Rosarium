@@ -3,6 +3,8 @@ import { contentDisplayCategory, publicationType } from "../lib/navigation";
 import { iconForEntry } from "../lib/icons";
 import type { CollectionEntry } from "astro:content";
 import { formatDateJa, url } from "../lib/site";
+import DesignArea from "./DesignArea.astro";
+import { designAreaFor } from "../data/design-studies.mjs";
 import Icon from "./Icon.astro";
 interface Props {
   entry: CollectionEntry<"pages">;
@@ -14,22 +16,25 @@ const { entry, heading: Heading = "h2", current = false, showIcon = true } = Ast
 const d = entry.data;
 const format = publicationType(entry);
 const category = contentDisplayCategory(entry);
+const designArea = designAreaFor(entry.id);
 ---
 
 <div class:list={["content-entry", showIcon && "icon-entry"]} data-content-id={entry.id} data-lifecycle={d.lifecycle}>
   {showIcon && <Icon name={iconForEntry(entry)} size="list" />}
   <div>
-    <p class="meta content-entry-meta">
+    <DesignArea id={entry.id} />
+    {!designArea && (<p class="meta content-entry-meta">
       <span data-content-category>{category}</span>
       {(format === "Book" || format === "連載") && <span>{format}</span>}
       {d.status === "draft" && d.published_at && <span data-publication-planned>公開予定：{formatDateJa(d.published_at)}</span>}
       最終更新：{formatDateJa(d.last_updated)}
-    </p>
+    </p>)}
     <Heading class="content-title">
       <a href={url(entry.id)} aria-current={current ? "page" : undefined}>
         {d.title}
       </a>
     </Heading>
+    {designArea && <p class="meta content-entry-meta"><span data-content-category>{category}</span> · 最終更新：{formatDateJa(d.last_updated)}</p>}
     {d.lifecycle === "obsolete" && <p class="case-reference-note"><span>OBSOLETE</span> 当時の前提に基づく参考記事</p>}
     <p class="content-summary">{d.summary}</p>
   </div>

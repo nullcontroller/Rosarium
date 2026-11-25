@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
 import { isDraftPreview } from "../lib/draft-preview.mjs";
-import { designStudies } from "../data/design-studies.mjs";
+import DesignArea from "../components/DesignArea.astro";
+import { designStudies, designAreaFor } from "../data/design-studies.mjs";
 import Site from "../layouts/Site.astro";
 import { supportPocLegacyFragments } from "../data/support-poc-fragments";
 import { splitRelatedContent, caseEvidenceLinks } from "../lib/related-content.mjs";
@@ -126,28 +127,31 @@ const bookNavigation = series.length
   {d.status === "draft" && <p class="meta" role="note">レビュー用初稿：内容・公開可否は所有者の確認前です。</p>}
   <article data-lifecycle={d.lifecycle} data-pagefind-body>
     <header class="document-header">
-      <p class="eyebrow">
+      <DesignArea id={entry.id} />
+      <p class="eyebrow" hidden={!!designAreaFor(entry.id)}>
         <span hidden data-pagefind-meta="content_kind">{type}</span>
         <span hidden data-pagefind-meta="category">{contentCategory(entry)}</span>
         <span hidden data-pagefind-meta="layer">{layerLabel(d.layer)}</span>
-        <span>{articleType}</span>
+        {!designAreaFor(entry.id) && <span>{articleType}</span>}
       </p>
       <div class="document-title-row">
         <Icon name={iconForEntry(entry)} size="page" />
         <h1 data-pagefind-meta="title">{d.title}</h1>
       </div>
       <span hidden data-pagefind-meta="icon">{iconForEntry(entry)}</span>
-      {d.summary && (
+      {d.summary && !designAreaFor(entry.id) && (
         <p class="lead" hidden={isBookIntroduction} data-pagefind-meta="summary">
           {d.summary}
         </p>
       )}
       <p class="meta">
+        {designAreaFor(entry.id) && <span>仮想設計 · </span>}
         <span hidden data-pagefind-meta="status">公開</span>
         {publicationState && <span hidden={publicationState === "公開"}>状態：{publicationState}</span>}
         <ContentHistory lastUpdated={d.last_updated} />
         <span hidden data-pagefind-meta="last_updated">{d.last_updated}</span>
       </p>
+      {designAreaFor(entry.id) && <p class="lead" data-pagefind-meta="summary">{d.summary}</p>}
       {d.status === "draft" && d.published_at && <p class="meta" data-publication-planned>公開予定：<time datetime={d.published_at}>{formatDateJa(d.published_at)}</time></p>}
       {(d.publication_format || d.layer === "publication") && (
         <span hidden data-pagefind-meta="publication">{timing.value}</span>
