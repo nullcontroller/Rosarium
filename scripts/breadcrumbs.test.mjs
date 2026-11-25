@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { buildBreadcrumbs, breadcrumbTitle } from "../src/lib/breadcrumbs.mjs";
-const labels = {ai:"AI", cases:"実践事例", "cases/design-studies":"発展ケーススタディ", "ai-design":"AI設計", "ai-design/evaluation":"評価", dx:"DX", retired:"旧記事・退役記事", "retired/retired":"退役記事"};
+const labels = {ai:"AI", cases:"事例", "cases/design-studies":"発展ケーススタディ", "ai-design":"AI設計", "ai-design/evaluation":"評価", dx:"DX", retired:"旧記事・退役記事", "retired/retired":"退役記事"};
 const entries = [{id:"essays/series",data:{title:"連載",series:"series",order:0,layer:"publication"}},{id:"essays/chapter",data:{title:"第1回",series:"series",order:1,layer:"publication"}},{id:"cases/book",data:{title:"Book",series:"book",order:0,section:"cases"}},{id:"cases/book/chapter",data:{title:"章",series:"book",order:1,section:"cases"}}];
 const resolve = (pathname, extra={}) => buildBreadcrumbs({pathname,title:"現在ページ",entries,labels,primaryPath:e=>e.data.section === "cases" ? "cases":"ai",archiveGroup:()=>undefined,designStudyIds:["cases/design-studies/example"],...extra});
 test("Home has no breadcrumb; static pages have reader-facing current names",()=>{

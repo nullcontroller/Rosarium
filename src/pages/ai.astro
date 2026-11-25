@@ -4,6 +4,8 @@ import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import DomainThemeSection from "../components/DomainThemeSection.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
+import RelatedCases from "../components/RelatedCases.astro";
+import { relatedCasesForDomain } from "../data/knowledge-domains.mjs";
 import { aiThemeGroups, aiSerialGroups } from "../lib/ai";
 import { activeEntry, url } from "../lib/site";
 const entries = await getCollection("pages", activeEntry);
@@ -12,6 +14,7 @@ const serials = aiSerialGroups(entries);
 const headings = [
   ...(serials.length ? [{depth:2, slug:"ai-series-heading", text:"連載"}] : []),
   ...groups.map((theme) => ({ depth: 2, slug: theme.id, text: theme.title })),
+  ...(relatedCasesForDomain("ai", entries).length ? [{depth:2,slug:"related-cases-heading",text:"関連事例"}] : []),
 ];
 ---
 
@@ -30,4 +33,5 @@ const headings = [
     <span id="ai-themes-heading" aria-hidden="true"></span>
     {groups.map((theme) => <DomainThemeSection {...theme} domain="ai" />)}
   </section>
+  <RelatedCases domain="ai" entries={entries} />
 </Site>

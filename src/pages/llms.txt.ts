@@ -11,7 +11,7 @@ export const GET: APIRoute = ({ site }) => {
     siteDescription,
     "",
     link("庭", ""),
-    link("実践事例", "cases"),
+    link("事例", "cases"),
     link("キャリア", "career"),
     link("AI", "ai"),
     link("AI設計", "ai-design"),

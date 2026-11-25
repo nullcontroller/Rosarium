@@ -42,7 +42,7 @@ test("ordinary indexes show only active metadata while history URLs remain publi
 test("archive categories follow metadata rather than titles and omit individual book chapters", async () => {
   const { getArchiveCategory, isArchiveEntry } = await import("../src/lib/archive.ts");
   const entry = (data) => ({ data: { title: "DX AI Case", entry_points: [], lifecycle: "obsolete", ...data } });
-  assert.equal(getArchiveCategory(entry({ section: "cases", primaryCategory: "system-transformation" })), "実践事例");
+  assert.equal(getArchiveCategory(entry({ section: "cases", primaryCategory: "system-transformation" })), "事例");
   assert.equal(getArchiveCategory(entry({ section: "essays", entry_points: ["ai"] })), "考察");
   assert.equal(getArchiveCategory(entry({ primaryCategory: "value-design" })), "DX");
   assert.equal(getArchiveCategory(entry({ layer: "ai-design" })), "AI");

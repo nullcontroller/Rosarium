@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import DomainThemeSection from "../components/DomainThemeSection.astro";
+import RelatedCases from "../components/RelatedCases.astro";
+import { relatedCasesForDomain } from "../data/knowledge-domains.mjs";
 import { dxCategories, dxFeaturedArticles } from "../lib/dx";
 import { activeEntry, url } from "../lib/site";
 const all = await getCollection("pages", activeEntry);
@@ -10,11 +12,11 @@ const categoryGroups = dxCategories.map((category) => ({
   ...category,
   articles: dxFeaturedArticles(all, category.id),
 }));
-const headings = dxCategories.map((category) => ({
+const headings = [...dxCategories.map((category) => ({
   depth: 2,
   slug: category.id,
   text: category.title,
-}));
+})), ...(relatedCasesForDomain("dx", all).length ? [{depth:2,slug:"related-cases-heading",text:"関連事例"}] : [])];
 ---
 
 <Site title="DX" section="dx" headings={headings}>
@@ -31,4 +33,5 @@ const headings = dxCategories.map((category) => ({
       />
     ))}
   </section>
+  <RelatedCases domain="dx" entries={all} />
 </Site>

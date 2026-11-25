@@ -2,7 +2,7 @@ import type { CollectionEntry } from "astro:content";
 export const archiveTitle = "旧記事・退役記事";
 export const archiveLifecycles = [
   { id: "obsolete", lifecycle: "obsolete", title: "旧記事", description: "現在は推奨しませんが、当時の前提や判断を参考として残している記事です。" },
-  { id: "obsolete-cases", lifecycle: "obsolete", title: "旧事例", description: "現在の推奨構成ではない、過去の実践事例です。" },
+  { id: "obsolete-cases", lifecycle: "obsolete", title: "旧事例", description: "現在の推奨構成ではない、過去の事例です。" },
   { id: "retired", lifecycle: "retired", title: "退役記事", description: "独立した役割を終え、過去の記録として保存している内容です。" },
 ] as const;
 export const isCaseEntry = (entry: CollectionEntry<"pages">) =>
@@ -14,7 +14,7 @@ export function getArchiveGroup(entry: CollectionEntry<"pages">) {
 }
 export function getArchiveCategory(entry: CollectionEntry<"pages">) {
   const d = entry.data;
-  if (isCaseEntry(entry)) return "実践事例";
+  if (isCaseEntry(entry)) return "事例";
   if (d.section === "essays") return "考察";
   if (d.primaryCategory || d.entry_points.includes("dx")) return "DX";
   if (d.entry_points.includes("ai") || ["ai-design", "ai-mathematics", "ai-theory", "practice"].includes(d.layer)) return "AI";
@@ -32,9 +32,9 @@ export function archiveLabel(entries: CollectionEntry<"pages">[], lifecycle: "ob
 }
 
 // The archive list and its contents navigation share metadata-based categories.
-export const archiveCategoryAnchor = (category: string) => `archive-category-${category}`;
+export const archiveCategoryAnchor = (category: string) => `archive-category-${category === "事例" ? "実践事例" : category}`;
 export const getArchiveCategories = (entries: CollectionEntry<"pages">[]) =>
-  ["AI", "DX", "実践事例", "考察", "その他"].filter((category) => entries.some((entry) => getArchiveCategory(entry) === category));
+  ["AI", "DX", "事例", "考察", "その他"].filter((category) => entries.some((entry) => getArchiveCategory(entry) === category));
 
 // Preserve the complete entry id, including its collection path, independently of titles.
 export const archiveEntryAnchor = (entry: CollectionEntry<"pages">) => `archive-entry-${entry.id}`;

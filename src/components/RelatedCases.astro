@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { relatedCasesForDomain } from "../data/knowledge-domains.mjs";
+import { caseStudies, contentType } from "../lib/navigation";
+import { url } from "../lib/site";
+interface Props {
+  domain: "ai" | "dx" | "planning" | "system-design";
+  entries: CollectionEntry<"pages">[];
+}
+const { domain, entries } = Astro.props;
+const cases = relatedCasesForDomain(domain, entries).sort((a,b) =>
+  caseStudies.findIndex(study => study.book === a.entry.id) - caseStudies.findIndex(study => study.book === b.entry.id));
+---
+{cases.length > 0 && <section class="related-cases" data-related-cases={domain} aria-labelledby="related-cases-heading">
+  <h2 id="related-cases-heading">関連事例</h2>
+  <ul class="related-case-list">
+    {cases.map(({entry,relevance}) => <li data-related-case-id={entry.id}>
+      <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>
+      <p><span class="meta">{contentType(entry)}</span> · {relevance}</p>
+    </li>)}
+  </ul>
+</section>}

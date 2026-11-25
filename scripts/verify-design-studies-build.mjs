@@ -27,7 +27,7 @@ for (const study of designStudies) {
   assert(structured,study.id);
   assert.deepEqual(structured.itemListElement.map(item=>new URL(item.item).pathname),[...expectedCrumbs,"/"+study.id+"/"],study.id);
   assert.deepEqual(structured.itemListElement.map(item=>item.name),$("nav.breadcrumb [data-breadcrumb-item]").toArray().map(node=>$(node).text()),study.id);
-  assert.equal($(".document-header .eyebrow > span:not([hidden])").text(), "実践事例 / 仮想設計", study.id);
+  assert.equal($(".document-header .eyebrow > span:not([hidden])").text(), "事例 / 仮想設計", study.id);
   for (const key of ["category", "layer", "tags"]) assert.equal($(`[data-pagefind-meta="${key}"][hidden]`).length, 1, study.id);
   assert.equal($('[data-pagefind-meta="content_kind"]').text(), "仮想設計", study.id);
   const renderedIds = $("[id]").toArray().map(node => $(node).attr("id"));

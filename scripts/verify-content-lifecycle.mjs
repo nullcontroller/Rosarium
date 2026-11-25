@@ -69,7 +69,7 @@ for (const group of archiveLifecycles) {
 assert.equal(archiveTop('[data-archive-entrance="obsolete"] > span').text(), "OBSOLETE ARTICLE");
 assert.equal(archiveTop('[data-archive-entrance="obsolete-cases"] > span').text(), "OBSOLETE CASE");
 assert.equal(archiveTop('[data-archive-entrance="retired"] > span').text(), "RETIRED");
-assert.equal(obsoleteIndex('[data-archive-category="実践事例"]').length, 0);
+assert.equal(obsoleteIndex('[data-archive-category="事例"]').length, 0);
 assert.equal(obsoleteCasesIndex('[data-history-id="cases/system-understanding"]').length, 1);
 const nav = retiredIndex(".sidebar .nav-group").last();
 assert.equal(retiredIndex('.sidebar a[href="/reference/"]').length, 0);

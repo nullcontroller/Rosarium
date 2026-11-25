@@ -11,20 +11,23 @@ const designStudiesPreview = Boolean(process.env.ROSARIUM_DRAFT_PREVIEW);
 const caseAnchor = (id: string) => `case-${id.split("/").pop()}`;
 
 const headings = [
+  { depth: 2, slug: "active-cases-heading", text: "実務事例" },
   ...caseGroups.filter((group) => group.studies.length > 0).flatMap((group) => [
-  ...group.studies.map((study) => ({ depth: 2, slug: caseAnchor(study.book), text: all.find((entry) => entry.id === study.book)!.data.title })),
+  ...group.studies.map((study) => ({ depth: 3, slug: caseAnchor(study.book), text: all.find((entry) => entry.id === study.book)!.data.title })),
   ]),
 ];
 ---
 
-<Site title="実践事例" section="cases" headings={headings} toc="never">
-  <PageHeader alignHero navigationPath="cases" title="実践事例" />
+<Site title="事例" section="cases" headings={headings} toc="never">
+  <PageHeader alignHero navigationPath="cases" title="事例" />
   <p>業務要求から方式を組み立てた代表設計事例を先に、その設計力を支える仕様書レビュー・保守開発の実務成果を続けて確認できます。</p>
   <p><a href={url("career")}>運営者の専門性・実務経験を見る</a> · <a href={url("retired/obsolete-cases")}>過去の参考事例（OBSOLETE）</a></p>
   {caseGroups
     .filter((group) => group.studies.length > 0)
     .map((group) => (
-      <div id={group.id}>
+      <section id={group.id} aria-labelledby="active-cases-heading">
+        <h2 id="active-cases-heading">実務事例</h2>
+        <p>実際の業務課題、著者の担当範囲と設計判断、確認できた結果を示します。</p>
         {group.studies.map((study) => (
           <div id={caseAnchor(study.book)} class="case-study-index">
             <SeriesIndex
@@ -32,7 +35,7 @@ const headings = [
               all={all}
               showCover={false}
               showIcons={false}
-              heading="h2"
+              heading="h3"
             >
               <div slot="details">
                 {study.referenceNote && <p class="meta">{study.referenceNote}</p>}
@@ -54,10 +57,10 @@ const headings = [
             </SeriesIndex>
           </div>
         ))}
-      </div>
+      </section>
     ))}
   {designStudiesPreview && <section aria-labelledby="design-studies-heading">
-    <h2 id="design-studies-heading">設計ケーススタディ</h2>
+    <h2 id="design-studies-heading">発展ケーススタディ</h2>
     <p>実務で得た知見を基に、条件を変えて方式や判断理由を検討する仮想設計です。</p>
     <p><a href={url("cases/design-studies")}>実務から広げるシステム設計ケーススタディ</a></p>
   </section>}

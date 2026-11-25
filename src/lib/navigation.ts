@@ -52,9 +52,9 @@ export const readingCategories = [
   },
   {
     path: "cases",
-    title: "実践事例",
+    title: "事例",
     question: "実際の課題にどう適用した？",
-    summary: "実務での課題、設計判断、実装、結果をまとめた事例。",
+    summary: "専門領域を横断する、実務経験と仮想設計の事例集。",
     icon: iconForPath("cases"),
   },
 ] as const satisfies readonly NavigationItem[];
@@ -99,7 +99,7 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
     },
     {
       path: "cases",
-      title: "実践事例",
+      title: "事例",
       summary: "実務での課題、設計判断、実装、結果をまとめた事例。",
       icon: iconForPath("cases"),
       sections: ["cases"],

@@ -28,7 +28,7 @@ test("archive grouping preserves category order, item order and input ownership"
   const entries = [entry("essay", { section: "essays" }), entry("case", { kind: "case" }), entry("ai-2", { layer: "ai-design" }), entry("dx", { primaryCategory: "value-design" }), entry("ai-1", { entry_points: ["ai"] }), entry("other", {})];
   const original = structuredClone(entries);
   const groups = groupArchiveEntries(entries);
-  assert.deepEqual(groups.map(group => [group.category, group.entries.map(item => item.id)]), [["AI", ["ai-2", "ai-1"]], ["DX", ["dx"]], ["実践事例", ["case"]], ["考察", ["essay"]], ["その他", ["other"]]]);
+  assert.deepEqual(groups.map(group => [group.category, group.entries.map(item => item.id)]), [["AI", ["ai-2", "ai-1"]], ["DX", ["dx"]], ["事例", ["case"]], ["考察", ["essay"]], ["その他", ["other"]]]);
   assert.deepEqual(entries, original);
   assert.equal(groups[0].entries[0], entries[2]);
   assert.deepEqual(groupArchiveEntries([]), []);

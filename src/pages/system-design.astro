@@ -3,11 +3,12 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import ContentLink from "../components/ContentLink.astro";
+import RelatedCases from "../components/RelatedCases.astro";
 import { activeEntry, url } from "../lib/site";
-import { systemDesignGroups, systemDesignScope } from "../data/knowledge-domains.mjs";
+import { systemDesignGroups, systemDesignScope, relatedCasesForDomain } from "../data/knowledge-domains.mjs";
 const entries = await getCollection("pages", activeEntry);
 const groups = systemDesignGroups.map(group => ({ ...group, entries: group.ids.map(id => entries.find(entry => entry.id === id)).filter(entry => !!entry) }));
-const headings = [...groups.map(group => ({depth:2,slug:group.id,text:group.title})), {depth:2,slug:"scope",text:"扱う設計領域"}];
+const headings = [...groups.map(group => ({depth:2,slug:group.id,text:group.title})), ...(relatedCasesForDomain("system-design", entries).length ? [{depth:2,slug:"related-cases-heading",text:"関連事例"}] : []), {depth:2,slug:"scope",text:"扱う設計領域"}];
 ---
 <Site title="システム設計" section="system-design" headings={headings}>
   <PageHeader alignHero navigationPath="system-design" title="システム設計" eyebrow="SYSTEM DESIGN" />
@@ -17,6 +18,8 @@ const headings = [...groups.map(group => ({depth:2,slug:group.id,text:group.titl
     <p>{group.summary}</p>
     <div class="document-list">{group.entries.map(entry => <ContentLink entry={entry!} heading="h3" />)}</div>
   </section>)}
+  <span id="case-design" aria-hidden="true"></span>
+  <RelatedCases domain="system-design" entries={entries} />
   <section aria-labelledby="scope">
     <h2 id="scope">扱う設計領域</h2>
     <p>現在は要求から方式への具体化とレガシー改善を起点に、実務事例とAIへの応用から読める内容を整理しています。各分野の一般的な解説は、既存記事と区別して順次整備します。</p>
