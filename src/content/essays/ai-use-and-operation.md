@@ -6,10 +6,11 @@ publication_format: essay
 kind: essay
 section: essays
 status: published
-lifecycle: active
+lifecycle: retired
+lifecycle_reason: "技術と組織の更新周期差、判断能力の見えにくさ、運用負担集中の考察を連載「AI活用の本質を問う」第6回へ統合した。統合先：/essays/ai-capability-and-organization/。旧本文と公開履歴を保存する。"
 published_at: "2026-10-07"
 updated_at: "2026-10-07"
-last_updated: "2026-10-07"
+last_updated: "2026-11-26"
 update_type: new
 entry_points: [ai, dx]
 primaryCategory: business-transformation

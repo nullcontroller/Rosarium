@@ -332,7 +332,7 @@ export const primaryDomain = entry => {
   return assignment.primary;
 };
 export const planningGroups = [
-  { id: "reading", title: "業務課題とシステム化範囲", summary: "仕事の必要性と価値を問い、作る・作らないを選ぶ。", ids: ["essays/rethink-work-before-ai", "essays/it-strategy-and-not-building", "essays/dx-and-value"] },
+  { id: "reading", title: "業務課題とシステム化範囲", summary: "仕事の必要性と価値を問い、作る・作らないを選ぶ。", ids: ["essays/rethink-work-before-ai", "essays/it-strategy-and-not-building"] },
   { id: "investment", title: "投資と成果を判断する", summary: "AIを題材に、総コスト・評価基準・得られる価値の関係を読む。", ids: ["essays/ai-investment-value-cost-evolution", "essays/ai-adoption-success-and-value", "essays/from-ai-efficiency-to-value"] },
   { id: "redesign", title: "業務・組織と既存システムを見直す", summary: "AIを前提とした組織の考察と、既存システムの変更・移行をつなぐ。", ids: ["essays/ai-capability-and-organization", "essays/legacy-change-and-retirement"] },
 ];

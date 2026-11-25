@@ -376,7 +376,7 @@ for(const category of ["value-design","business-transformation","selection-retir
 const dxOwned=[...entries].filter(([id,data])=>primaryDomain({id,data})==="dx" && (data.lifecycle??"active")==="active" && data.public!==false && ["published","stable"].includes(data.status) && (!data.series||data.order===0)).map(([id])=>id);
 for(const id of dxOwned) assert.equal(dx(`main a[href="/${id}/"]`).length,1,id+": unique primary DX route");
 assert.equal(new Set(primaryIds(dx)).size,primaryIds(dx).length);
-assert(dx('a[href="/essays/dx-and-value/"]').length);
+assert.equal(dx('a[href="/essays/dx-and-value/"]').length, 0);
 assert.equal(dx('main a[href="/cases/customer-support-ai-dx/"]').length, 1);
 assert(!dx('a[href="/foundations/conditional-probability/"]').length);
 const dxEssay = page("essays/dx-and-value");
@@ -898,7 +898,7 @@ assert(
   ).length,
 );
 assert(
-  page("practices")('a[href="/practices/transferring-practices/"]')
+  page("practices")('a[href="/essays/ai-case-sharing-and-judgment/"]')
     .length,
 );
 console.log(
@@ -1430,7 +1430,7 @@ for (const file of walk("dist").filter(file => file.endsWith(".html") && !file.e
 for (const [route,groups] of [["planning",planningGroups],["system-design",systemDesignGroups]]) {
   const $=page(route);
   assert.equal($("h1").text(),route==="planning"?"IT戦略・企画":"システム設計");
-  assert.equal($('meta[name="last-updated"]').attr("content"),route==="system-design"?"2026-11-26":"2026-11-25");
+  assert.equal($('meta[name="last-updated"]').attr("content"),staticPageLastUpdated[route]);
   assert.deepEqual($("main [data-content-id]").not("[data-related-cases] [data-content-id]").map((_,el)=>$(el).attr("data-content-id")).get(),groups.flatMap(group=>group.ids));
   assert($("main a[href='/"+(route==="planning"?"system-design":"planning")+"/']").length);
 }

@@ -14,7 +14,7 @@ const counts = {};
 const integrationTargets = {
   "practices/ai-adoption-and-effective-use": "practices",
   "practices/ai-education-principles": "practices/education-and-capability",
-  "practices/transferring-ai-practices": "practices/transferring-practices",
+  "practices/transferring-ai-practices": "essays/ai-case-sharing-and-judgment",
   "essays/what-not-to-build-with-ai": "essays/it-strategy-and-not-building",
   "architecture/agents-tools-and-workflows": "software-engineering/multi-ai-orchestration",
   "foundations/generation-and-acceptance": "evaluation-hitl/responsibility-and-hitl",

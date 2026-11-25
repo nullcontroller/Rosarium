@@ -59,7 +59,7 @@ export const readingGroups: Record<
       ids: [
         "practices/adoption-governance",
         "practices/education-and-capability",
-        "practices/transferring-practices",
+        "essays/ai-case-sharing-and-judgment",
       ],
     },
     {

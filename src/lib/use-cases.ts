@@ -35,7 +35,6 @@ export const useCases = [
     publications: [
       "foundations/ai-business-design",
       "evaluation-hitl/responsibility-and-hitl",
-      "essays/dx-and-value",
       "cases/customer-support-ai-dx",
     ],
   },

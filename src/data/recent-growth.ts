@@ -68,6 +68,10 @@ const curatedRecentGrowth = [
   icon: "updates",
   showPublicationLinks: false,
   topics: [{
+    title: "既存論考の退役・統合による知識体系の整理",
+    summary: "DXの学習過程を記録した論考1件を退役。AI活用能力に関する論考を連載第6回へ、AI活用の横展開に関する論考を連載第3回へ統合。",
+    links: [{ path: "essays/ai-essence", title: "AI活用の本質を問う" }, { path: "retired/retired", title: "退役記事" }],
+  }, {
     title: "仕様書レビューの実務事例を改訂し、AIと人間の役割分担を図解",
     summary: "文書の参照方式の比較と選定理由を追加し、AIの候補提示、人間の根拠確認・判断・最終修正をフローチャートで明示。",
     links: [{ path: "cases/specification-debt-review", title: "仕様書の横断レビュー" }],
@@ -91,6 +95,10 @@ const curatedRecentGrowth = [
     links: [{ path: "cases/ai-technical-investigation", title: "複数のソフトウェアにまたがる障害調査の設計" }],
   }],
   changes: [
+    { action: "retired", text: "DXの学習過程を記録した考察を、後続の専門記事で知見が発展したため退役。本文とURLを保存", contentIds: ["essays/dx-and-value"] },
+    { action: "integrated", text: "AI活用能力に関する考察を連載第6回へ統合。旧本文・履歴を保存し、旧URLから統合先へ誘導", contentIds: ["essays/ai-use-and-operation"] },
+    { action: "integrated", text: "AI活用の横展開の知見を連載第3回へ統合。旧本文・履歴を保存し、旧URLから統合先へ誘導", contentIds: ["practices/transferring-practices"] },
+    { action: "revised", text: "承認済み統合元の固有知見を適切な節へ移管し、連載目次を更新", contentIds: ["essays/ai-case-sharing-and-judgment", "essays/ai-capability-and-organization", "essays/ai-essence"] },
     { action: "revised", text: "仕様書レビューの実務事例を改訂し、AIと人間の役割分担を図解", contentIds: ["cases/specification-debt-review"] },
     { action:"revised", text:"キャリアページの代表実績を簡潔に整理し、専門性と成果を把握しやすく改善。障害調査の著者自身の稼働工数2人日、残存リーク解消、比較評価の限界も明示", contentIds:["career/overview"] },
     "トップページの主要導線を改善し、Rosariumの紹介ページを統合",

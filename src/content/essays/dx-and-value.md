@@ -6,7 +6,9 @@ title: "DXを学んで、「価値」という言葉が気になるようにな�
 kind: essay
 section: essays
 status: published
-last_updated: "2026-10-06"
+lifecycle: retired
+lifecycle_reason: "DXの学習過程を記録した考察として保存する。価値を起点とする業務・システム設計の知見は後続の専門記事で発展しており、現役記事としての役割を終了した。"
+last_updated: "2026-11-26"
 entry_points:
   - ai
   - dx

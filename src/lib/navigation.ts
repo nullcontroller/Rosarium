@@ -203,11 +203,10 @@ export const publicationDate = (e: Entry) => publicationTiming(e).value;
 export const topicPublications: Record<string, string[]> = {
   applicability: [
         "essays/rethink-work-before-ai",
-        "practices/transferring-practices",
+        "essays/ai-case-sharing-and-judgment",
         "practices/adoption-governance",
         "foundations/ai-business-design",
         "evaluation-hitl/responsibility-and-hitl",
-        "essays/dx-and-value",
         "cases/customer-support-ai-dx",
       ],
   "responsibility-control": [

@@ -5,7 +5,9 @@ layer: "practice"
 kind: "guide"
 section: "practices"
 status: published
-last_updated: "2026-10-08"
+lifecycle: retired
+lifecycle_reason: "共有会の経験、横展開の適用条件と再評価の観点を連載「AI活用の本質を問う」第3回へ統合した。統合先：/essays/ai-case-sharing-and-judgment/。旧本文と公開履歴を保存する。"
+last_updated: "2026-11-26"
 order: 30
 entry_points:
   - ai
