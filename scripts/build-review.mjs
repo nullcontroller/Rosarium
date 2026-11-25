@@ -7,7 +7,7 @@ for (const id of ids) {
   if (!/^[a-z0-9-]+(?:\/[a-z0-9-]+)+$/.test(id)) throw new Error("Invalid content ID");
   const source = fs.readFileSync(`src/content/${id}.md`, "utf8").replace(/^\uFEFF/, "");
   const data = YAML.parse(source.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
-  if (data.status !== "draft" || data.public !== false) throw new Error("Only nonpublic drafts may be selected: " + id);
+  if (!((data.status === "draft" && data.public === false) || (["published", "stable"].includes(data.status) && data.public !== false))) throw new Error("Invalid review target state: " + id);
 }
 if (!fs.existsSync("dist/pagefind/pagefind.js")) throw new Error("Run npm run build first: review search reuses the production-only index.");
 const env = { ...process.env, ROSARIUM_DRAFT_PREVIEW: ids.join(",") };
@@ -21,4 +21,4 @@ const verification = spawnSync(process.execPath, ["scripts/verify-review-targets
 if (verification.error) throw verification.error;
 if (verification.status !== 0) process.exit(verification.status ?? 1);
 fs.writeFileSync(reviewTargetsPath, JSON.stringify(ids, null, 2) + "\n");
-console.log(`Review targets retained: ${ids.length} private drafts`);
+console.log(`Review targets retained: ${ids.length} selected targets (published targets use normal visibility)`);

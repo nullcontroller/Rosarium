@@ -7,7 +7,7 @@ import { designStudies } from "../src/data/design-studies.mjs";
 for (const study of designStudies) {
   const source = fs.readFileSync(`src/content/${study.id}.md`, "utf8");
   const data = YAML.parse(source.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
-  assert(data.public === false && data.status === "draft", `Not a private draft: ${study.id}`);
+  assert(data.public === true && data.status === "published", `Not a published study: ${study.id}`);
 }
 assert(fs.existsSync("dist/pagefind/pagefind.js"), "Run npm run build first");
 const result = spawnSync(process.execPath, [
@@ -20,6 +20,6 @@ if (result.error) throw result.error;
 if (result.status !== 0) process.exit(result.status ?? 1);
 // Reuse public-only search; do not index the review articles or touch dist-review.
 fs.cpSync("dist/pagefind", "dist-design-review/pagefind", { recursive: true });
-const verification = spawnSync(process.execPath, ["scripts/verify-design-studies-build.mjs"], { stdio: "inherit" });
+const verification = spawnSync(process.execPath, ["scripts/verify-design-studies-build.mjs", "dist-design-review"], { stdio: "inherit" });
 if (verification.error) throw verification.error;
 process.exit(verification.status ?? 1);

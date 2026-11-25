@@ -71,7 +71,9 @@ const curatedRecentGrowth = [
     "AI成功事例の共有と、再利用可能な判断知識の違いを整理",
     "AI利用による工数削減と検証コスト、技術進化を踏まえた学習の価値を考察",
     "AI導入の成功条件と、業務改善・事業成果の関係を整理",
-    "ECRSを踏まえ、AI時代における業務・役割・権限・評価・教育の再設計について考察"
+    "ECRSを踏まえ、AI時代における業務・役割・権限・評価・教育の再設計について考察",
+    "IT戦略・企画とシステム設計を整備し、専門知識と事例の横断導線を再編",
+    "実務経験を起点とした仮想設計の発展ケーススタディ6記事と一覧を新規公開"
   ],
   "changes": [
     {
@@ -87,6 +89,8 @@ const curatedRecentGrowth = [
         "essays/ai-capability-and-organization"
       ]
     },
+    { action: "published", text: "新規公開。実務経験を起点とする発展ケーススタディの一覧1ページと仮想設計6記事を公開", contentIds: ["cases/design-studies", "cases/design-studies/inquiry-analysis", "cases/design-studies/metadata-batch", "cases/design-studies/qualification-testing", "cases/design-studies/data-migration", "cases/design-studies/rag-security", "cases/design-studies/document-lifecycle"] },
+    { action: "revised", text: "改訂。顧客サポートDXの目次と関連する5章に、実務実績と区別した発展ケースへの導線を追加", contentIds: ["cases/customer-support-ai-dx", "cases/customer-support-ai-dx/why-ai", "cases/customer-support-ai-dx/knowledge-design", "cases/customer-support-ai-dx/poc-metadata-improvement", "cases/customer-support-ai-dx/human-handoff", "cases/customer-support-ai-dx/stopping-conditions"] },
     "サイト全体にパンくずリストを整備し、現在の閲覧位置と上位カテゴリへの導線を改善した",
     "AI入口に連載目次と回数・概要を掲載し、公開済み連載へカテゴリ内から進める導線を追加した。旧連載URLもこの入口へ案内する",
     { action: "revised", text: "改訂。Career末尾の関連資料一覧を整理し、LinkedInプロフィールへの案内を残した", contentIds: ["career/overview"] },

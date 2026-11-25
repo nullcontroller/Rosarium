@@ -5,9 +5,10 @@ layer: publication
 publication_format: article
 kind: case
 section: cases
-status: draft
-public: false
-last_updated: "2026-11-24"
+status: published
+public: true
+last_updated: "2026-11-25"
+published_at: "2026-11-25"
 entry_points: [ai, dx]
 primaryCategory: system-transformation
 tags: [仮想設計, RAG, セキュリティ, アクセス制御]

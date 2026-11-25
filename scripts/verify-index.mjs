@@ -91,7 +91,7 @@ for (const [id, d] of entries) {
       `${id} search last_updated`,
     );
     assert.equal(
-      $(".document-header .content-last-updated time, .book-introduction-metadata .content-last-updated time").attr("datetime"),
+      $(id === "cases/design-studies" ? ".site-last-updated time" : ".document-header .content-last-updated time, .book-introduction-metadata .content-last-updated time").attr("datetime"),
       d.last_updated,
       `${id} visible last_updated`,
     );
@@ -635,7 +635,7 @@ for (const [id, data] of entries) {
   assert.equal(latest.length, 1, id + ": exactly one current date");
   assert.equal(latest.attr("datetime"), data.last_updated, id);
   assert.equal(latest.text().trim(), formatDateJa(data.last_updated), id);
-  assert.equal(document(".document-header .meta time, .book-introduction-metadata .meta time").length, id === "career/overview" ? 0 : 1);
+  assert.equal(document(".document-header .meta time, .book-introduction-metadata .meta time").length, ["career/overview", "cases/design-studies"].includes(id) ? 0 : 1);
   assert.equal(document('#page-toc-panel a').filter((_, item) => document(item).text().trim() === "更新履歴").length, 0);
 }
 

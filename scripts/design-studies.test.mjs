@@ -11,19 +11,20 @@ const entries = designStudies.map(study => {
   const front = source.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   return { ...study, data: YAML.parse(front[1]), body: source.slice(front[0].length) };
 });
-test("six independent design studies require explicit nonpublic draft selection", () => {
+test("six independent public design studies preserve virtual labels and publication dates", () => {
   assert.equal(entries.length, 6);
   assert.equal(new Set(entries.map(entry => entry.id)).size, 6);
   assert.equal(selectedDesignStudies().length, 0);
   assert.equal(selectedDesignStudies("essays/what-is-ai").length, 0);
   assert.deepEqual(selectedDesignStudies(entries[1].id).map(entry => entry.id), [entries[1].id]);
   for (const entry of entries) {
-    assert.equal(entry.data.status, "draft");
-    assert.equal(entry.data.public, false);
+    assert.equal(entry.data.status, "published");
+    assert.equal(entry.data.public, true);
     assert.equal(entry.data.series, undefined);
-    assert.equal(entry.data.published_at, undefined);
+    assert.equal(entry.data.published_at, "2026-11-25");
+    assert.equal(entry.data.last_updated, "2026-11-25");
     assert.equal(isDraftPreview(entry), false);
-    assert.equal(isDraftPreview(entry, entry.id), true);
+    assert.equal(isDraftPreview(entry, entry.id), false);
   }
 });
 test("each study explains a concrete scenario before its verification plan", () => {

@@ -2,9 +2,15 @@ import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import { load } from "cheerio";
+import YAML from "yaml";
 import { readReviewTargets } from "./review-targets.mjs";
 const ids = readReviewTargets();
 for (const id of ids) {
+  if (fs.existsSync(`dist/${id}/index.html`)) {
+    const data = YAML.parse(fs.readFileSync(`src/content/${id}.md`, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
+    assert(["published", "stable"].includes(data.status) && data.public === true, `Nonpublic target in production: ${id}`);
+    continue;
+  }
   assert(!fs.existsSync(`dist/${id}/index.html`), "Draft leaked into ordinary build: " + id);
   const $ = load(fs.readFileSync(`dist-review/${id}/index.html`, "utf8"));
   assert.equal($("h1").length, 1, id);

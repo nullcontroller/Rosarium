@@ -8,6 +8,13 @@ const ids = readReviewTargets(process.argv.slice(2));
 for (const id of ids) {
   const source = fs.readFileSync(`src/content/${id}.md`, "utf8");
   const data = YAML.parse(source.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
+  if (["published", "stable"].includes(data.status) && data.public === true) {
+    assert(fs.existsSync(`dist/${id}/index.html`), `Published target missing: ${id}`);
+    const published = load(fs.readFileSync(`dist-review/${id}/index.html`, "utf8"));
+    assert.equal(published("h1").text(), data.title);
+    assert.equal(published('meta[name="robots"]').attr("content"), "index, follow");
+    continue;
+  }
   assert.equal(data.status, "draft", id); assert.equal(data.public, false, id);
   assert(!fs.existsSync(`dist/${id}/index.html`), `Production leak: ${id}`);
   const $ = load(fs.readFileSync(`dist-review/${id}/index.html`, "utf8"));
@@ -26,8 +33,8 @@ for (const id of ids) {
   for(const file of ["sitemap.xml", "rss.xml", "feed.json", "index.html"]) assert(!fs.readFileSync(`dist/${file}`, "utf8").includes(`/${id}/`), `Production discovery leak: ${id}`);
 }
 const hub = load(fs.readFileSync("dist-review/cases/design-studies/index.html", "utf8"));
-assert.equal(hub('meta[name="robots"]').attr("content"), "noindex, follow");
+assert.equal(hub('meta[name="robots"]').attr("content"), "index, follow");
 for(const id of ids.filter(id=>id.startsWith("cases/design-studies/"))) assert(hub(`a[href='/${id}/']`).length>0,id);
 const files = dir => fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name)]);
 for(const file of files("dist/pagefind")) assert.deepEqual(fs.readFileSync(file),fs.readFileSync(file.replace(/^dist/,"dist-review")),file);
-console.log(`Verified all ${ids.length} review drafts and design-study hub: noindex, links/anchors, production exclusion and identical public-only search.`);
+console.log(`Verified ${ids.length} selected review targets, published promotions, draft isolation and identical public-only search.`);

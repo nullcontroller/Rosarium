@@ -5,7 +5,7 @@ title: 05. AIから人間へどう引き継ぐか
 kind: case
 section: cases
 status: published
-last_updated: "2026-11-24"
+last_updated: "2026-11-25"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []

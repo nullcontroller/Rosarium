@@ -2,27 +2,34 @@
 import Site from "../../layouts/Site.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import { url } from "../../lib/site";
-import { getCollection } from "astro:content";
-import { isDraftPreview } from "../../lib/draft-preview.mjs";
-import { selectedDesignStudies } from "../../data/design-studies.mjs";
+import { getCollection, getEntry } from "astro:content";
+import { publicEntry } from "../../lib/site";
+import { designStudies } from "../../data/design-studies.mjs";
 import ContentLink from "../../components/ContentLink.astro";
 export function getStaticPaths() {
-  return process.env.ROSARIUM_DRAFT_PREVIEW
-    ? [{ params: { designStudiesPreview: "design-studies" } }]
-    : [];
+  return [{ params: { designStudiesPreview: "design-studies" } }];
 }
-const entries = await getCollection("pages", entry => isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW));
-const studies = selectedDesignStudies(process.env.ROSARIUM_DRAFT_PREVIEW)
-  .filter(study => entries.some(entry => entry.id === study.id));
+const index = (await getEntry("pages", "cases/design-studies"))!;
+const entries = await getCollection("pages", publicEntry);
+const studies = designStudies.filter(study => entries.some(entry => entry.id === study.id));
 ---
-<Site title="実務から広げるシステム設計ケーススタディ" section="cases" noindex internalSearch={false}>
+<Site title="実務から広げるシステム設計ケーススタディ" section="cases" summary={index.data.summary} publishedAt={index.data.published_at} lastUpdated={index.data.last_updated}>
+  <div data-pagefind-body>
+  <span hidden data-pagefind-meta="title">{index.data.title}</span>
+  <span hidden data-pagefind-meta="summary">{index.data.summary}</span>
+  <span hidden data-pagefind-meta="category">事例</span>
+  <span hidden data-pagefind-meta="status">published</span>
+  <span hidden data-pagefind-meta="content_kind">仮想設計</span>
+  <span hidden data-pagefind-meta="last_updated">{index.data.last_updated}</span>
   <PageHeader title="実務から広げるシステム設計ケーススタディ" />
+  <div class="prose">
   <p>実務経験をもとに、異なる制約や追加要件を設定して検討した6つの仮想設計ケーススタディです。</p>
   <p>起点となる実務事例：<a href={url("cases/customer-support-ai-dx")}>生成AI / RAGによる顧客サポートDX</a></p>
+  </div>
   <section>
     <h2>発展ケーススタディ一覧</h2>
-    {studies.length === 0 && <p>このレビューでは個別記事が選択されていません。</p>}
     {studies.map(study => <ContentLink entry={entries.find(entry => entry.id === study.id)!} heading="h3" />)}
   </section>
   <p>関心のある業務・設計課題から、どのケースも独立して読めます。</p>
+  </div>
 </Site>
