@@ -1051,9 +1051,9 @@ for (const [route, icon] of [["", "home"], ["ai", "articles"], ["dx", "overview"
 
 // New documentation review Case preserves a human decision boundary and static SVG paths.
 const debtCase = page("cases/specification-debt-review");
-assert.equal(debtCase('main h1').text().trim(), "3万文字・68ページの仕様書をAIで横断レビューする");
+assert.equal(debtCase('main h1').text().trim(), "仕様書と実装の不整合をどう解消するか");
 assert(debtCase('main').text().includes("元のWord仕様書の規模は約30,000文字・68ページで、移行後のMarkdownは68ファイルだった"));
-assert(debtCase('meta[name="description"]').attr('content').includes("約3万文字・68ページのWord仕様書"));
+assert.equal(debtCase('meta[name="description"]').attr('content'), "長期保守されたソフトウェアを対象に、仕様書と現行コードの整合性を確認した実務事例。AIによる横断調査と人間による根拠確認・修正判断を組み合わせ、約40件の問題を確認した過程を示す。");
 for (const domain of ["system-design"]) {
   assert.equal(page(domain)('[data-related-case-id="cases/specification-debt-review"] h3').text().trim(), debtCase('main h1').text().trim());
 }

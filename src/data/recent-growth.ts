@@ -73,7 +73,7 @@ const curatedRecentGrowth = [
     links: [{ path: "essays/ai-essence", title: "AI活用の本質を問う" }, { path: "retired/retired", title: "退役記事" }],
   }, {
     title: "仕様書レビューの実務事例を改訂し、AIと人間の役割分担を図解",
-    summary: "文書の参照方式の比較と選定理由を追加し、AIの候補提示、人間の根拠確認・判断・最終修正をフローチャートで明示。",
+    summary: "文書の参照方式の比較と選定理由を追加し、AIの候補提示、人間の根拠確認・判断・最終修正をフローチャートで明示。タイトルと概要を、仕様書と実装の不整合・品質保証・技術判断を中心に整理。",
     links: [{ path: "cases/specification-debt-review", title: "仕様書の横断レビュー" }],
   }, {
     title: "キャリアページの代表実績を簡潔に整理し、専門性と成果を把握しやすく改善",
