@@ -39,7 +39,11 @@ export const readingGroups: Record<
       title: "確率と分布",
       ids: [
         "foundations/conditional-probability",
+        "foundations/language-model-loss",
         "foundations/temperature-design",
+        "foundations/attention-information-flow",
+        "foundations/test-time-compute-allocation",
+        "foundations/attention-efficiency",
       ],
     },
   ],

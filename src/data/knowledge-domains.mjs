@@ -28,16 +28,16 @@ export const domainResponsibilities = {
   ai: {
     role: "AIを支える数学・生成原理・計算の基礎。",
     question: "AIはどのような数学的・計算的原理によって成立するのか。",
-    topics: "確率・統計、分布、学習・推論の原理、モデルとアルゴリズム。現在の記事では条件付き確率・生成・誤答の基礎を扱います。",
+    topics: "確率・統計、分布、学習・推論の原理、モデルとアルゴリズム。条件付き確率・学習損失・生成と誤答・Attention・推論時計算を扱います。",
     boundary: "技術を支える原理を扱います。製品の操作や業務への適用はDX、RAGなどの応用システムの構成はシステム設計で考えます。",
   },
 };
 /** @type {Record<string,{primary:string,reason:string}>} */
 export const domainAssignments = {
-  "foundations/language-model-loss": { primary: "ai", reason: "承認済み第1段階の数理原理解説。非公開draftとしてレビューし、応用設計の責務と区別する。" },
-  "foundations/attention-information-flow": { primary: "ai", reason: "承認済み第1段階の数理原理解説。非公開draftとしてレビューし、応用設計の責務と区別する。" },
-  "foundations/test-time-compute-allocation": { primary: "ai", reason: "承認済み第1段階の数理原理解説。非公開draftとしてレビューし、応用設計の責務と区別する。" },
-  "foundations/attention-efficiency": { primary: "ai", reason: "承認済み第1段階の数理原理解説。非公開draftとしてレビューし、応用設計の責務と区別する。" },
+  "foundations/language-model-loss": { primary: "ai", reason: "承認済み第1段階の数理原理解説。原稿・表示のレビューを経て公開し、応用設計の責務と区別する。" },
+  "foundations/attention-information-flow": { primary: "ai", reason: "承認済み第1段階の数理原理解説。原稿・表示のレビューを経て公開し、応用設計の責務と区別する。" },
+  "foundations/test-time-compute-allocation": { primary: "ai", reason: "承認済み第1段階の数理原理解説。原稿・表示のレビューを経て公開し、応用設計の責務と区別する。" },
+  "foundations/attention-efficiency": { primary: "ai", reason: "承認済み第1段階の数理原理解説。原稿・表示のレビューを経て公開し、応用設計の責務と区別する。" },
 
   "architecture/agents-tools-and-workflows": {
     "primary": "ai",

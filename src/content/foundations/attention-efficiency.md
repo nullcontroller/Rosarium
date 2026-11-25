@@ -5,9 +5,10 @@ layer: ai-mathematics
 ai_theme: ai-mathematics
 kind: principle
 section: foundations
-status: draft
-public: false
+status: published
+public: true
 lifecycle: active
+published_at: "2026-11-26"
 last_updated: "2026-11-26"
 tags: [数理基礎, 第1段階]
 ---

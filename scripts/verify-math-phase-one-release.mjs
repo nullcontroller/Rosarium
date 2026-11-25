@@ -1,0 +1,25 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {gunzipSync} from 'node:zlib';
+import {load} from 'cheerio';
+const slugs=['conditional-probability','temperature-design','hallucination-mechanisms','guardrail-models','language-model-loss','attention-information-flow','test-time-compute-allocation','attention-efficiency'];
+const sitemap=fs.readFileSync('dist/sitemap.xml','utf8');
+const fragments=fs.readdirSync('dist/pagefind/fragment').map(f=>{const t=gunzipSync(fs.readFileSync('dist/pagefind/fragment/'+f)).toString();return JSON.parse(t.slice(t.indexOf('{')));});
+const rows=slugs.map(slug=>{
+ const route=`/foundations/${slug}/`;
+ const $=load(fs.readFileSync(`dist${route}index.html`,'utf8'));
+ assert.equal($('.katex-error').length,0,slug);
+ assert($('.katex').length>0,slug);
+ assert.equal($('img[src*="/diagrams/math-phase-one/"]').length,2,slug);
+ assert(!$('meta[name=robots]').attr('content')?.includes('noindex'),slug);
+ assert(sitemap.includes(route),slug+': sitemap');
+ assert(fragments.some(f=>f.url.includes(route)),slug+': search');
+ assert.equal($('meta[name="last-updated"]').attr('content'),'2026-11-26');
+ assert($('link[rel=canonical]').attr('href')?.endsWith(route),slug+': canonical');
+ return {slug,renderedMath:$('.katex').length,indexed:true};
+});
+const ai=load(fs.readFileSync('dist/ai/index.html','utf8'));
+for(const slug of slugs.filter(s=>s!=='guardrail-models'))assert(ai(`main a[href="/foundations/${slug}/"]`).length,slug+': AI category');
+const route=ai('main a[href]').map((_,a)=>ai(a).attr('href')).get();
+assert(route.indexOf('/foundations/attention-information-flow/')<route.indexOf('/foundations/attention-efficiency/'));
+console.log(JSON.stringify({publicArticles:rows,attentionBeforeEfficiency:true},null,2));

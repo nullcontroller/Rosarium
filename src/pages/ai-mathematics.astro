@@ -13,10 +13,10 @@ const discoverable = readingEntries(all, "ai-mathematics");
   <PageHeader title="数学" />
   <span id="aiは数学である"></span>
   <h2>生成AIの振る舞いを数学で理解する</h2>
-  <p>条件付き確率の記事では、入力や参照情報を条件として生成を捉える考え方を整理します。Temperatureの記事では、Softmax、確率分布、エントロピーと、生成設定の関係を確認できます。</p>
+  <p>条件付き確率から学習損失とTemperatureへ進み、Attentionの情報集約、推論時計算の予算配分、計算効率を順に確認できます。Attentionの計算原理を、計算効率の記事の前提とします。</p>
   <p>数学的な定義、設計用の簡略モデル、設定値についての仮説、実測結果を区別します。式が成り立つことを、実システムの正しさや安全性の証明にはしません。</p>
   <span id="ai理論から読めるもの"></span>
-  <h2>確率と分布を学ぶ</h2>
+  <h2>学習・確率・計算の原理を学ぶ</h2>
   <ContentIndex entries={discoverable} showIcons={false} />
   <h2>仕組みと設計へつなぐ</h2>
   <p>式の意味を確認するときは<a href={url("reference/mathematical-reference")}>数式・記号リファレンス</a>を参照してください。数式の正本はReferenceで管理します。</p>

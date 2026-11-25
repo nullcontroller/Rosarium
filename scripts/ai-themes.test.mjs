@@ -21,3 +21,9 @@ test("mathematics and generation theory have distinct representatives",()=>{
   assert.deepEqual(aiThemes.map(t=>t.article),["foundations/conditional-probability","foundations/hallucination-mechanisms"]);
   assert.equal(new Set(aiThemes.map(t=>t.path)).size,aiThemes.length);
 });
+
+test("approved math articles follow prerequisite order rather than publication date",()=>{
+  const slugs=["attention-efficiency","test-time-compute-allocation","attention-information-flow","temperature-design","language-model-loss"];
+  const groups=aiThemeGroups([...representatives(),...slugs.map(slug=>entry(`foundations/${slug}`,{ai_theme:"ai-mathematics"}))]);
+  assert.deepEqual(groups[0].related.map(e=>e.id),[...slugs].reverse().map(slug=>`foundations/${slug}`));
+});

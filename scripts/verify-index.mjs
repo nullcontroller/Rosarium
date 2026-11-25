@@ -351,7 +351,7 @@ assert.equal(pubs("#ai-themes-heading").length, 1);
 const aiSections = pubs('[data-domain-theme="ai"]');
 assert.equal(aiSections.length, 2);
 assert.deepEqual(aiSections.find(".dx-theme-introduction h2").map((_, el) => pubs(el).text()).get(),
-  ["確率と分布", "生成と誤答の原理"]);
+  ["学習・確率・計算の原理", "生成と誤答の原理"]);
 const aiFeatured = pubs("[data-ai-featured]").map((_, el) => pubs(el).attr("data-ai-featured")).get();
 assert.equal(aiFeatured.length, 2);
 assert.equal(new Set(aiFeatured).size, 2);
@@ -490,7 +490,7 @@ const mathematics = page("ai-mathematics");
 assert.equal(mathematics("[data-mathematics-reading]").length, 0);
 const theory = page("ai-theory");
 for (const [route, title, ids] of [
-  ["ai-mathematics", "数学", ["foundations/conditional-probability", "foundations/temperature-design"]],
+  ["ai-mathematics", "数学", ["foundations/conditional-probability", "foundations/language-model-loss", "foundations/temperature-design", "foundations/attention-information-flow", "foundations/test-time-compute-allocation", "foundations/attention-efficiency"]],
   ["ai-theory", "AI理論", ["foundations/hallucination-mechanisms"]],
 ]) {
   const $ = page(route);

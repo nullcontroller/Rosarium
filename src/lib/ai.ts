@@ -2,7 +2,7 @@ import { primaryDomain } from "../data/knowledge-domains.mjs";
 import type { CollectionEntry } from "astro:content";
 
 export const aiThemeIds = ["ai-design", "ai-theory", "ai-mathematics", "knowledge-context", "evaluation-hitl", "practices"] as const;
-export const AI_RELATED_LIMIT = 3;
+export const AI_RELATED_LIMIT = 5;
 
 export const domainSerialGroups = (entries: CollectionEntry<"pages">[], domain: string) => {
   const visible = entries.filter(entry => entry.data.public !== false &&
@@ -15,9 +15,12 @@ export const domainSerialGroups = (entries: CollectionEntry<"pages">[], domain: 
 
 // Reuse existing primary classifications; secondary relationships stay internal.
 export const aiThemes = [
-  { id: "ai-mathematics", title: "確率と分布", path: "ai-mathematics", paragraphs: ["条件付き確率、Softmax、エントロピーから生成の数学的な基礎を読む。"], article: "foundations/conditional-probability", layer: "ai-mathematics" },
+  { id: "ai-mathematics", title: "学習・確率・計算の原理", path: "ai-mathematics", paragraphs: ["条件付き確率から学習損失と生成へ進み、Attentionの計算原理、推論予算、計算効率を読む。"], article: "foundations/conditional-probability", layer: "ai-mathematics" },
   { id: "ai-theory", title: "生成と誤答の原理", path: "ai-theory", paragraphs: ["次のトークンの予測と事実性の違いから、もっともらしい誤答が生じる理由を読む。"], article: "foundations/hallucination-mechanisms", layer: "ai-theory" },
 ] as const;
+
+const mathReadingOrder = ["language-model-loss", "temperature-design", "attention-information-flow", "test-time-compute-allocation", "attention-efficiency"].map(slug => `foundations/${slug}`);
+const readingRank = (id: string) => { const rank = mathReadingOrder.indexOf(id); return rank < 0 ? mathReadingOrder.length : rank; };
 
 export const aiThemeGroups = (entries: CollectionEntry<"pages">[]) => {
   const ids = new Set<string>();
@@ -34,7 +37,7 @@ export const aiThemeGroups = (entries: CollectionEntry<"pages">[]) => {
       ["published", "stable"].includes(candidate.data.status) &&
       primaryDomain(candidate) === "ai" && candidate.data.published_at
     ).map((candidate) => [candidate.id, candidate])).values()]
-      .sort((a, b) => b.data.published_at!.localeCompare(a.data.published_at!) || a.id.localeCompare(b.id))
+      .sort((a, b) => readingRank(a.id) - readingRank(b.id) || b.data.published_at!.localeCompare(a.data.published_at!) || a.id.localeCompare(b.id))
       .slice(0, AI_RELATED_LIMIT);
     return { ...theme, articles: [entry], related };
   });

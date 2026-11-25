@@ -68,6 +68,16 @@ const curatedRecentGrowth = [
   icon: "updates",
   showPublicationLinks: false,
   topics: [{
+    title: "AI・数理の基礎理論を強化 ― 学習・Attention・推論の数理",
+    summary: "条件付き確率、Temperature、ハルシネーション、ガードレールの既存4記事を数理的に補強し、学習・Attention・推論の原理を解説。",
+    details: [
+      "条件付き確率、Temperature、ハルシネーション、ガードレールの既存4記事を数理的に補強",
+      "言語モデルの損失関数とAttentionの計算原理を体系化",
+      "推論時計算の予算配分とAttentionの計算効率を解説",
+      "数式の途中導出、成立条件、図解、再現可能なPython検算を整備",
+    ],
+    links: [{ path: "ai", title: "AI・数理" }],
+  }, {
     title: "既存論考の退役・統合による知識体系の整理",
     summary: "DXの学習過程を記録した論考1件を退役。AI活用能力に関する論考を連載第6回へ、AI活用の横展開に関する論考を連載第3回へ統合。",
     links: [{ path: "essays/ai-essence", title: "AI活用の本質を問う" }, { path: "retired/retired", title: "退役記事" }],
@@ -95,6 +105,8 @@ const curatedRecentGrowth = [
     links: [{ path: "cases/ai-technical-investigation", title: "複数のソフトウェアにまたがる障害調査の設計" }],
   }],
   changes: [
+    { action: "revised", text: "条件付き確率、Temperature、ハルシネーション、ガードレールを数理的に補強", contentIds: ["foundations/conditional-probability", "foundations/temperature-design", "foundations/hallucination-mechanisms", "foundations/guardrail-models"] },
+    { action: "published", text: "学習損失・Attention・推論時計算の予算配分・Attentionの計算効率を公開", contentIds: ["foundations/language-model-loss", "foundations/attention-information-flow", "foundations/test-time-compute-allocation", "foundations/attention-efficiency"] },
     { action: "retired", text: "DXの学習過程を記録した考察を、後続の専門記事で知見が発展したため退役。本文とURLを保存", contentIds: ["essays/dx-and-value"] },
     { action: "integrated", text: "AI活用能力に関する考察を連載第6回へ統合。旧本文・履歴を保存し、旧URLから統合先へ誘導", contentIds: ["essays/ai-use-and-operation"] },
     { action: "integrated", text: "AI活用の横展開の知見を連載第3回へ統合。旧本文・履歴を保存し、旧URLから統合先へ誘導", contentIds: ["practices/transferring-practices"] },
