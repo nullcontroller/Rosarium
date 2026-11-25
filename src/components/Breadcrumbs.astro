@@ -12,9 +12,10 @@ const { items } = Astro.props;
   </li>)}</ol>
 </nav>}
 <style>
-  nav { color:var(--muted); font-size:.78rem; max-width:100%; min-width:0; }
-  ol { display:flex; flex-wrap:wrap; gap:.25rem .5rem; padding:0; margin:0; list-style:none; }
-  li { display:inline; max-width:100%; min-width:0; overflow-wrap:anywhere; }
-  .separator { margin-inline-end:.5rem; }
+  nav { color:var(--muted); font-size:.78rem; line-height:1.5; max-width:100%; min-width:0; }
+  ol { display:flex; align-items:center; flex-wrap:wrap; gap:.25rem .5rem; padding:0; margin:0; list-style:none; }
+  li { display:inline-flex; align-items:center; gap:.5rem; max-width:100%; min-width:0; overflow-wrap:anywhere; }
+  .separator { flex:none; margin:0; padding:0; font:inherit; line-height:inherit; }
+  [data-breadcrumb-item] { min-width:0; margin:0; padding:0; font:inherit; line-height:inherit; }
   a { color:inherit; text-decoration:underline; text-underline-offset:.15em; }
 </style>

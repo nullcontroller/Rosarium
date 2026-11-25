@@ -2510,9 +2510,9 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
 @media screen {
   :root { --page-top-spacing:2.5rem; --page-meta-gap:1rem; }
   .shell > main { padding-block-start:var(--page-top-spacing); }
-  .page-prelude { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:.25rem 1rem; min-height:1.85em; font-size:.78rem; line-height:1.85; margin-bottom:var(--page-meta-gap); }
-  .page-prelude .site-last-updated { margin:0; margin-inline-start:auto; }
-  .page-prelude .breadcrumb { margin:0; line-height:1.5; }
+  .page-prelude { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.25rem 1rem; min-height:1.5em; font-size:.78rem; line-height:1.5; margin-bottom:var(--page-meta-gap); }
+  .page-prelude .site-last-updated { display:inline-flex; align-items:center; gap:.25em; margin:0; padding:0; margin-inline-start:auto; font-size:inherit; line-height:inherit; }
+  .page-prelude .breadcrumb { margin:0; padding:0; font-size:inherit; line-height:inherit; }
   .document-header { display:flex; flex-direction:column; }
   .document-header > * { order:2; }
   .document-header > .document-title-row { order:0; }
