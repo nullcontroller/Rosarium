@@ -8,7 +8,7 @@ const ids = readReviewTargets(process.argv.slice(2));
 for (const id of ids) {
   const source = fs.readFileSync(`src/content/${id}.md`, "utf8");
   const data = YAML.parse(source.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
-  if (["published", "stable"].includes(data.status) && data.public === true) {
+  if (["published", "stable"].includes(data.status) && data.public !== false) {
     assert(fs.existsSync(`dist/${id}/index.html`), `Published target missing: ${id}`);
     const published = load(fs.readFileSync(`dist-review/${id}/index.html`, "utf8"));
     assert.equal(published("h1").text(), data.title);

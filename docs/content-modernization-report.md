@@ -317,3 +317,12 @@
 - `src/content/cases/ai-technical-investigation/investigation-input.md`：既存実務事例の新章。入力情報の追加とコード探索への作業変更を扱う。別案件として追加せず、事例に分類する。
 - `src/content/cases/ai-technical-investigation/findings-and-evaluation.md`：既存実務事例の新章。対象別の結果・責任分担・比較評価の限界を扱う。別案件として追加せず、事例に分類する。
 - `src/content/cases/ai-technical-investigation/reusable-method.md`：既存実務事例の新章。経験から導いた方法論と未実施の改善提案の分離を扱う。別案件として追加せず、事例に分類する。
+
+## 2026-11-26 AI・数理第1段階のレビュー原稿
+
+公開承認待ちの非公開draft。新しい分類体系は作らず、AI・数理へ主分類を明示する。既存の応用記事は変更しない。
+
+- `src/content/foundations/language-model-loss.md`：承認済み第1段階の原理解説。数理・計算条件を中心に審査する。
+- `src/content/foundations/attention-information-flow.md`：承認済み第1段階の原理解説。数理・計算条件を中心に審査する。
+- `src/content/foundations/test-time-compute-allocation.md`：承認済み第1段階の原理解説。数理・計算条件を中心に審査する。
+- `src/content/foundations/attention-efficiency.md`：承認済み第1段階の原理解説。数理・計算条件を中心に審査する。

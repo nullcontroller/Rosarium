@@ -34,6 +34,11 @@ export const domainResponsibilities = {
 };
 /** @type {Record<string,{primary:string,reason:string}>} */
 export const domainAssignments = {
+  "foundations/language-model-loss": { primary: "ai", reason: "承認済み第1段階の数理原理解説。非公開draftとしてレビューし、応用設計の責務と区別する。" },
+  "foundations/attention-information-flow": { primary: "ai", reason: "承認済み第1段階の数理原理解説。非公開draftとしてレビューし、応用設計の責務と区別する。" },
+  "foundations/test-time-compute-allocation": { primary: "ai", reason: "承認済み第1段階の数理原理解説。非公開draftとしてレビューし、応用設計の責務と区別する。" },
+  "foundations/attention-efficiency": { primary: "ai", reason: "承認済み第1段階の数理原理解説。非公開draftとしてレビューし、応用設計の責務と区別する。" },
+
   "architecture/agents-tools-and-workflows": {
     "primary": "ai",
     "reason": "旧・退役記事として現状を保全。現役の専門領域へ移行せず、品質監査の処遇判断を待つ。"

@@ -4,5 +4,13 @@
   "cases/design-studies/qualification-testing",
   "cases/design-studies/data-migration",
   "cases/design-studies/rag-security",
-  "cases/design-studies/document-lifecycle"
+  "cases/design-studies/document-lifecycle",
+  "foundations/conditional-probability",
+  "foundations/temperature-design",
+  "foundations/hallucination-mechanisms",
+  "foundations/guardrail-models",
+  "foundations/language-model-loss",
+  "foundations/attention-information-flow",
+  "foundations/test-time-compute-allocation",
+  "foundations/attention-efficiency"
 ]

@@ -1,12 +1,12 @@
 ---
-summary: "AIへ「してはいけない」と伝えることと、システムが実際に止めることは異なります。指示による誘導、生成時の制約、検証、実行認可を分け、Guardrailの限界を説明します。"
+summary: "指示による誘導、生成時制約、検証、実行認可を分ける。受理集合と意図した許容集合を定義し、健全性・完全性と、構文検査だけでは保証できない範囲を説明する。"
 layer: ai-design
 design_topic: responsibility-control
 title: ガードレールの数学的説明
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-10-08"
+last_updated: "2026-11-26"
 tags:
   - foundations
 published_at: "2026-09-23"
@@ -190,15 +190,22 @@ $$
 - 例外条件
 - 評価可能な原子的主張
 
-そのため、実務では完全な許可集合ではなく、検査可能な部分集合を定義します。
+検査可能な性質と、検査器が受理する出力の集合を分けて定義します。入力・根拠・Policy版を固定し、検査述語を $v:\mathcal Y\to\{0,1\}$ とします。受理集合は $\mathcal C=\{y\in\mathcal Y:v(y)=1\}$、意図した許容出力は $\mathcal A\subseteq\mathcal Y$ です。
 
 $$
-\mathcal{A}_{checkable}
-\subseteq
-\mathcal{A}_{intended}
+\begin{array}{ll}
+\text{健全性：}&\mathcal C\subseteq\mathcal A,\\
+\text{完全性：}&\mathcal A\subseteq\mathcal C.
+\end{array}
 $$
 
-$\mathcal{A}_{checkable}$は、Schema、形式、引用ID、金額範囲、権限、状態遷移など、機械的に検査できる性質です。
+健全性は受理した出力に不許可のものがないこと、完全性は許可したい出力を全て受理することです。ここでいう健全性はこの集合モデルの定義であり、検査器を置いただけで成立する性質ではありません。常に拒否する検査器は健全でも、$\mathcal A$ が空でなければ完全ではありません。
+
+Schema適合のような部分的な検査では、意味的に誤った内容も受理集合へ入る可能性があります。例えば $\mathcal Y=\{a,b,c,d\}$、$\mathcal A=\{a,b\}$、$\mathcal C=\{a,c\}$ なら、$c$ を誤受理し、$b$ を過剰拒否します。意図した条件を検査可能にしたつもりでも、$\mathcal C\subseteq\mathcal A$ は自動的には導けません。
+
+条件を複数検査する場合は $\mathcal C=\bigcap_j\{y:v_j(y)=1\}$ と書けます。ただし、列挙した条件が意図した許容性に十分であることと、実装が正しいことの根拠が別に必要です。テストで誤受理が見つからなかったという経験的結果を、全出力についての包含関係の証明と扱いません。検査後に状態が変わる場合は、実行時に再認可する条件も必要です。
+
+これらは型を揃えた集合の説明モデルです。PICARDの構文検査の実装結果を、自然言語の意味全体の健全性へ拡張しません。
 
 ガードレール設計では、**何を形式化できたか**と、**何が依然として意味判断に残るか**を明示します。
 
@@ -549,6 +556,14 @@ QAチャットは、利用者の持株売却、口座変更、退職手続を直
 これが、実務におけるガードレール設計です。
 
 ---
+
+### 数式と処理範囲の整理
+
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/diagrams/math-phase-one/guardrail-light.svg" alt="許容集合と受理集合の重なり、誤受理と過剰拒否を区別する" width="480" height="480" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/math-phase-one/guardrail-dark.svg" alt="許容集合と受理集合の重なり、誤受理と過剰拒否を区別する" width="480" height="480" loading="lazy" />
+  <figcaption>図 受理集合と許容集合。許容集合と受理集合の重なり、誤受理と過剰拒否を区別する。式との対応を示す模式図であり、実測したモデル性能ではない。</figcaption>
+</figure>
 
 ### 参考資料
 

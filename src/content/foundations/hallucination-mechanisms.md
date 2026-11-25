@@ -1,12 +1,12 @@
 ---
-summary: "もっともらしい出力が必要な根拠に支えられない状態を、ハルシネーションとして整理する。知識不足・検索失敗・根拠の誤読・未検証の採用など、発生要因を分けて考える。"
+summary: "もっともらしさと事実性を区別し、最尤学習が合わせるデータ分布と真偽評価の違いを説明する。情報不足、検索失敗、根拠の誤読、未検証の採用を分けて考える。"
 layer: ai-theory
 ai_theme: ai-theory
 title: ハルシネーションの発生原理
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-09-28"
+last_updated: "2026-11-26"
 tags:
   - foundations
 published_at: "2026-09-23"
@@ -91,7 +91,17 @@ P(Y \mid C)
 P(y_t \mid y_{<t}, C)
 $$
 
-ここで最適化されているのは、コンテキストに続くトークン列としての尤もらしさです。
+この連鎖律は生成確率の分解であり、学習の目的関数そのものではありません。自己回帰型の最尤事前学習では、訓練データの予測位置について負の対数尤度
+
+$$
+L(\theta)=-\frac1N\sum_{a=1}^N\log q_\theta(y_a\mid c_a)
+$$
+
+を小さくします。$N$ は予測位置数、$c_a$ はその位置の文脈です。訓練時に正解接頭辞を与える計算と、生成時に自身の出力を接頭辞へ加える計算も区別します。選好学習・強化学習・外部検証を含むシステム全体をこの損失だけで説明しません。
+
+固定された目標分布 $p$ に対し、$H(p,q)=H(p)+D_{\mathrm{KL}}(p\Vert q)$ です。これは予測をデータ分布へ合わせる関係であり、データ内の説明が現実に正しいという条件を含みません。例えば誤った回答が0.7、正しい回答が0.3という人工的な目標分布へ最適に一致しても、最大確率の回答は誤りです。学習損失の小ささと真偽を判定する外部基準は異なります。
+
+この例は「全てのハルシネーションは最尤学習だけが原因」と証明するものではありません。実際にはデータ、表現能力、最適化、推論時の情報、検索、検証も関与し得ます。TruthfulQAの実験結果と、ここでの人工反例を区別します。
 
 「この主張は現実世界で真か」という判定を、文章全体について毎回外部検証してから生成しているわけではありません。
 
@@ -402,9 +412,19 @@ JSONとして不正な出力
 
 ---
 
+### 数式と処理範囲の整理
+
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/diagrams/math-phase-one/truth-light.svg" alt="学習データへの一致と外部の真偽基準を分け、情報と検証の段階を確認する" width="480" height="480" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/math-phase-one/truth-dark.svg" alt="学習データへの一致と外部の真偽基準を分け、情報と検証の段階を確認する" width="480" height="480" loading="lazy" />
+  <figcaption>図 学習目的と真偽評価。学習データへの一致と外部の真偽基準を分け、情報と検証の段階を確認する。式との対応を示す模式図であり、実測したモデル性能ではない。</figcaption>
+</figure>
+
 ### 参考資料
 
 - Lin, Hilton, Evans, [TruthfulQA: Measuring How Models Mimic Human Falsehoods](https://arxiv.org/abs/2109.07958)
 - Lewis et al., [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
 - Liu et al., [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172)
 - Ji et al., [Survey of Hallucination in Natural Language Generation](https://arxiv.org/abs/2202.03629)
+
+- Zhang et al., [Dive into Deep Learning §4.1](https://d2l.ai/chapter_linear-classification/softmax-regression.html)。最尤学習と交差エントロピーの基礎教材。人工反例は本稿の構成。

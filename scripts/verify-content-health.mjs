@@ -145,7 +145,7 @@ assert.equal(
   "Legacy lifecycle essay has a DX entry point; AI case links remain discovery paths",
 );
 assert.equal(aiAndDx.length, 56, "AI + DX content retains both PoC chapters; the removed pre-production chapter is a redirect");
-assert.equal(files.length, 132, "Audited content includes four additional investigation Book chapters, the public study hub and six virtual cases; rejected essays remain deleted");
+assert.equal(files.length, 136, "Audited content includes the four private math phase-one drafts; published scope and rejected essays remain unchanged");
 for (const id of ["what-is-ai", "cognitive-surrender"]) {
   assert(!fs.existsSync(`${root}/essays/${id}.md`), `Rejected manuscript must stay removed: ${id}`);
 }
@@ -160,6 +160,6 @@ for(const file of files){
  const owner=primaryDomain({id,data});
  assert(["ai","dx","planning","system-design","cases","career","reference"].includes(owner),id);
  if(domainAssignments[id])assert(domainAssignments[id].reason.length>15,id+": classification rationale");
- if((data.lifecycle??"active")==="active" && owner==="ai")assert(["foundations/conditional-probability","foundations/temperature-design","foundations/hallucination-mechanisms"].includes(id),id+": core AI scope requires body review");
+ if(data.public!==false && data.status!=="draft" && (data.lifecycle??"active")==="active" && owner==="ai")assert(["foundations/conditional-probability","foundations/temperature-design","foundations/hallucination-mechanisms"].includes(id),id+": core AI scope requires body review");
 }
 console.log("Verified explicit primary domains for all manuscripts; legacy metadata does not determine ownership.");

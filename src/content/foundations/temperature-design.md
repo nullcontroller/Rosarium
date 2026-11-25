@@ -1,12 +1,12 @@
 ---
-summary: "AIの答えの出方を変える設定は、正しさを保証する設定ではありません。Temperatureが生成の確率分布へ与える影響を説明し、用途に合う値を評価と実験で選びます。"
+summary: "固定logitと正のTemperatureを前提に、softmax、確率比、エントロピーの微分を途中式から導く。top-pの再正規化と数値例を示し、分布の広がりと文章の正しさを区別する。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
 title: Temperature設計指針
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-11-26"
 tags:
   - foundations
 published_at: "2026-09-23"
@@ -125,7 +125,31 @@ $$
 \ge 0
 $$
 
-したがって、固定されたlogitに対しては、Temperatureを上げるほど分布のエントロピーは減少しません。
+途中を確認します。有限個の実数logit $z_i$ を固定し、対数を自然対数、$Z(T)=\sum_i e^{z_i/T}$、$\mu(T)=\sum_i p_i(T)z_i$ と置きます。ここでの $Z$ は正規化定数であり、検索文書ではありません。
+
+$$
+\log p_i=\frac{z_i}{T}-\log Z,\qquad
+H=\log Z-\frac{\mu}{T}.
+$$
+
+$Z$ を微分すると $Z'/Z=-\mu/T^2$ です。また、
+
+$$
+\frac{dp_i}{dT}=\frac{p_i(\mu-z_i)}{T^2},\qquad
+\mu'=\sum_i z_i\frac{dp_i}{dT}
+=-\frac{\operatorname{Var}_{p(T)}(z)}{T^2}.
+$$
+
+これを $H$ の微分へ代入すると、
+
+$$
+H'=-\frac{\mu}{T^2}-\frac{\mu'}T+\frac{\mu}{T^2}
+=\frac{\operatorname{Var}_{p(T)}(z)}{T^3}.
+$$
+
+したがって、固定されたlogit、$T>0$、自然対数という条件では、Temperatureを上げるほど分布のエントロピーは減少しません。底2の対数なら右辺を $\ln 2$ で割ります。logitが全て等しい場合は分散0で、一様分布のままです。
+
+三候補 $z=(2,1,0)$ の $T=1$ では分散は約0.424405で、$H'$ も同じ値になります。公開用のPython検算では、この値と中央有限差分の一致を確認します。数値検算は途中式の局所的な誤りを探すもので、数学的証明や文章品質の測定の代替ではありません。
 
 直感的には、選択肢の広がりが大きくなります。
 
@@ -264,12 +288,12 @@ $$
 確率の累積値が $p$ 以上になる最小の上位集合を残します。
 
 $$
-S_p
-=
-\min\left\{
-S:\sum_{i\in S}p_i\ge p
-\right\}
+p_{(1)}\ge\cdots\ge p_{(v)},\qquad
+r^*=\min\left\{r\in\{1,\dots,v\}:\sum_{j=1}^{r}p_{(j)}\ge\rho\right\},\qquad
+S_\rho=\{(1),\dots,(r^*)\}
 $$
+
+ここでは閾値を $0<\rho\le1$ とし、同確率の順位は固定した規則で決めます。集合を残した後は $q_i=p_i\mathbf1[i\in S_\rho]/\sum_{j\in S_\rho}p_j$ と再正規化します。例えば $T=1$ の三候補に $\rho=0.8$ を使えば、上位2候補を残し、約 $(0.731059,0.268941,0)$ になります。softmaxだけのエントロピー微分式を、この切詰め処理後へ無条件に適用しません。
 
 #### Temperature
 
@@ -399,6 +423,14 @@ Temperatureは、AIの賢さ、安全性、創造性を直接指定する値で�
 それがTemperatureの設計です。
 
 ---
+
+### 数式と処理範囲の整理
+
+<figure class="diagram diagram-static">
+  <img class="diagram-light" src="/diagrams/math-phase-one/temperature-light.svg" alt="固定logitから分布を作り、平均と分散を通じてエントロピーの微分を導く" width="480" height="480" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/math-phase-one/temperature-dark.svg" alt="固定logitから分布を作り、平均と分散を通じてエントロピーの微分を導く" width="480" height="480" loading="lazy" />
+  <figcaption>図 固定logitでの温度とエントロピー。固定logitから分布を作り、平均と分散を通じてエントロピーの微分を導く。式との対応を示す模式図であり、実測したモデル性能ではない。</figcaption>
+</figure>
 
 ### 参考資料
 

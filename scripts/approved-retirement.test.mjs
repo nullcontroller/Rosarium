@@ -11,7 +11,7 @@ const before=id=>execFileSync("git",["show",`${baseline}:src/content/${id}.md`],
 const data=t=>YAML.parse(t.split("---")[1]);
 const body=t=>t.slice(t.indexOf("\n---",4)+4);
 test("only the three approved lifecycle transitions occur and their original bodies remain",()=>{
- const files=fs.readdirSync("src/content",{recursive:true}).filter(f=>f.endsWith(".md"));const changes=[];
+ const files=execFileSync("git",["ls-tree","-r","--name-only",baseline,"src/content"],{encoding:"utf8"}).trim().split("\n").filter(f=>f.endsWith(".md")).map(f=>f.replace(/^src\/content\//,""));const changes=[];
  for(const f of files){const id=f.replaceAll("\\","/").replace(/\.md$/,"");if((data(read(id)).lifecycle??"active")!==(data(before(id)).lifecycle??"active"))changes.push(id);}
  assert.deepEqual(changes.sort(),[...ids].sort());
  for(const id of ids){assert.equal(body(read(id)),body(before(id)));assert.equal(data(read(id)).lifecycle,"retired");assert(data(read(id)).lifecycle_reason);assert.equal(data(read(id)).published_at,data(before(id)).published_at);}
