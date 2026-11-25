@@ -52,7 +52,7 @@ const summaries = compact ? allSummaries.slice(0, 3) : allSummaries;
     </ul>
     {!compact && <ul class="growth-publications" data-growth-publications>{articleLinks.map(({ href, title }) => <li><a href={href}>{title}</a></li>)}</ul>}
     {compact && (entry.topics || allSummaries.length > summaries.length) && <p class="meta"><a data-growth-more href={`${url("garden-notes")}#growth-${entry.date}`}>全履歴で続きを見る</a></p>}
-    {(!compact || entry.relatedLinks?.length || articleLinks.length) && <details class="growth-details" data-pagefind-ignore>
+    {(!compact || !!entry.relatedLinks?.length || articleLinks.length > 0) && <details class="growth-details" data-pagefind-ignore>
       <summary>{compact ? "関連ページ" : "関連ページ・記録の詳細と訂正"}</summary>
       {compact && <ul data-growth-publications>{articleLinks.map(({href,title}) => <li><a href={href}>{title}</a></li>)}</ul>}
       {!!entry.relatedLinks?.length && <ul data-growth-related>{entry.relatedLinks.map(({path,title})=><li><a href={url(path)}>{title}</a></li>)}</ul>}
