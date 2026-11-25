@@ -92,6 +92,8 @@ const curatedRecentGrowth = [
     { action: "revised", text: "改訂。Career末尾の関連資料一覧を整理し、LinkedInプロフィールへの案内を残した", contentIds: ["career/overview"] },
     "企画の入口を「IT戦略・企画」へ広げ、「システム設計」を追加。既存記事のURLを保ち、業務・投資の判断と要求を実現する設計の読み分けを整えた",
     "「実践事例」を「事例」に統一し、IT戦略・企画とシステム設計などの専門知識から、関連性を示した共通の事例枠で正本へ進める構成に再編した",
+    "IT戦略・企画の入口からFDEの説明を省き、専門知識と関連事例に集中できる構成にした",
+    { action: "revised", text: "改訂。仕様書横断レビューの規模表記を、元のWord仕様書（約3万文字・68ページ）と移行後のMarkdown（68ファイル）に区別し、概要と紹介文を統一した", contentIds: ["cases/specification-debt-review"] },
     "HomeとCareerの専門性・実務事例への導線を整理し、更新履歴を短い要約と詳細・訂正の記録に分けて読みやすくした"
   ]
 },

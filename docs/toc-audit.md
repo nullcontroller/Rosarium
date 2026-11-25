@@ -140,7 +140,7 @@
 | /knowledge-context/qa-behavior-constraints/ | QA行動制約Knowledge | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /knowledge-context/qa-operations/ | QAチャット運用思想 | あり | あり | あり | 14 | 長文の複数h3セクション |
 | /overview/ | AIをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /planning/ | IT戦略・企画 | あり | あり | あり | 7 | 主要見出しが複数 |
+| /planning/ | IT戦略・企画 | あり | あり | あり | 6 | 主要見出しが複数 |
 | /practices/ | 実践知 | あり | あり | あり | 19 | 主要見出しが複数 |
 | /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 7 | 主要見出しが複数 |
 | /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |

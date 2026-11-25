@@ -14,7 +14,6 @@ const headings = [
   ...(relatedCasesForDomain("planning", articles).length ? [{depth:2,slug:"related-cases-heading",text:"関連事例"}] : []),
   { depth: 2, slug: "scope", text: "企画で決めること" },
   { depth: 2, slug: "purpose", text: "この領域を深める理由" },
-  { depth: 2, slug: "field-work", text: "FDEとの関係" },
 ];
 ---
 <Site title="IT戦略・企画" section="planning" publishedAt={planningPublishedAt} headings={headings}>
@@ -35,9 +34,5 @@ const headings = [
     <h2 id="purpose">この領域を深める理由</h2>
     <p>私は、与えられた課題をどうシステム化するかだけでなく、何を変える価値があるのかを見つけるところから関わりたいと考えています。価値を確かめ、業務要件とシステム化範囲を定める判断を、今後の専門領域として深めたいと思っています。</p>
     <p>ここでは、そのための知識と判断原則を整理しています。関連事例では、企画部門から受けた要求と、著者が担当したシステム設計を区別して読みます。著者自身が企画や投資判断を担当した事例の掲載ではありません。</p>
-  </section>
-  <section aria-labelledby="field-work">
-    <h2 id="field-work">FDEとの関係</h2>
-    <p>FDEは、現場理解から要件定義・設計・PoC・実装・改善を横断し得る働き方です。企画と重なる部分はありますが、企画では「何を変える価値があるか」を起点に、業務目標・優先順位・対象範囲を定める判断に焦点を当てます。</p>
   </section>
 </Site>
