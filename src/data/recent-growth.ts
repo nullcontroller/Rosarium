@@ -68,6 +68,10 @@ const curatedRecentGrowth = [
   icon: "updates",
   showPublicationLinks: false,
   topics: [{
+    title: "仕様書レビューの実務事例を改訂し、AIと人間の役割分担を図解",
+    summary: "文書の参照方式の比較と選定理由を追加し、AIの候補提示、人間の根拠確認・判断・最終修正をフローチャートで明示。",
+    links: [{ path: "cases/specification-debt-review", title: "仕様書の横断レビュー" }],
+  }, {
     title: "キャリアページの代表実績を簡潔に整理し、専門性と成果を把握しやすく改善",
     summary: "実務事例を専門領域・成果・担当・評価条件の共通構造へ整理し、詳しい判断過程は個別事例へ集約。",
     links: [{ path: "career", title: "Career" }],
@@ -87,6 +91,7 @@ const curatedRecentGrowth = [
     links: [{ path: "cases/ai-technical-investigation", title: "複数のソフトウェアにまたがる障害調査の設計" }],
   }],
   changes: [
+    { action: "revised", text: "仕様書レビューの実務事例を改訂し、AIと人間の役割分担を図解", contentIds: ["cases/specification-debt-review"] },
     { action:"revised", text:"キャリアページの代表実績を簡潔に整理し、専門性と成果を把握しやすく改善。障害調査の著者自身の稼働工数2人日、残存リーク解消、比較評価の限界も明示", contentIds:["career/overview"] },
     "トップページの主要導線を改善し、Rosariumの紹介ページを統合",
     { action: "revised", text: "既存の障害調査実務事例を全9章・14図のBookへ全面改訂。仮説・判断・実施事項・結果と責務分担を分け、著者自身の稼働工数2人日で残存リークの解決に導いた経緯を記述。比較データがなく工数削減効果は不明", contentIds: ["cases/ai-technical-investigation", "cases/ai-technical-investigation/background", "cases/ai-technical-investigation/initial-investigation", "cases/ai-technical-investigation/shared-library-investigation", "cases/ai-technical-investigation/crash-resolution", "cases/ai-technical-investigation/memory-leak-investigation"] },

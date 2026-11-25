@@ -1,0 +1,70 @@
+---
+import "../styles/case-diagrams.css";
+// Separate geometries keep Japanese labels readable without horizontal scrolling.
+const layouts = [false, true].map(mobile => {
+  const w = mobile ? 360 : 720;
+  const c = w / 2;
+  const box = (y: number, lines: string[], x = c, width = w - 64) => ({y, lines, x, width});
+  return {mobile, w, c, nodes: [
+    box(44, ["Word仕様書 → Markdown化"]),
+    box(132, ["リポジトリへ配置", "AIが参照できる状態にする"]),
+    box(232, ["参照元：リポジトリ内の仕様書", "参照元：現在のコード"]),
+    box(364, ["Copilotによる横断レビュー", "仕様書とコードを照合"]),
+    box(452, ["問題候補・根拠・修正候補を提示"]),
+    box(582, ["人間が検出結果とコードを確認"]),
+    box(834, ["コードを基準に", "修正内容を決める"], w * .25, w * .44),
+    box(834, ["設計意図・業務上の", "判断を人間が行う"], w * .75, w * .44),
+    box(944, ["人間自身が最終修正", "変更前後・整合性を確認"]),
+    box(1032, ["仕様書へ反映"]),
+  ]};
+});
+---
+<figure class="case-diagram spec-flow" aria-labelledby="spec-flow-caption">
+  <figcaption id="spec-flow-caption">仕様書の横断レビュー：AIの調査から人間の最終修正へ</figcaption>
+  <p class="case-diagram-help" id="spec-flow-description">Word仕様書をMarkdown化してリポジトリへ配置。AIは仕様書と現在のコードを参照して候補を提示します。人間が確認し、コードで決まる部分と設計意図・業務判断が必要な部分を分け、両経路とも人間自身の最終修正を経て仕様書へ反映します。AIによる仕様決定・自動確定は行いません。</p>
+  {layouts.map(({mobile, w, c, nodes}) => (
+    <svg class={mobile ? "flow-mobile" : "flow-desktop"} viewBox={`0 0 ${w} 1114`} role="img" aria-labelledby={`flow-title-${w} flow-desc-${w}`}>
+      <title id={`flow-title-${w}`}>AIと人間の担当範囲を分けた仕様書レビューのフローチャート</title>
+      <desc id={`flow-desc-${w}`}>上から下へ進みます。青はAIの調査、緑は人間の準備と確認・修正です。判断ひし形から、はいはコード基準、いいえは人間の設計・業務判断へ分岐し、人間の最終修正で合流します。</desc>
+      <defs><marker id={`flow-arrow-${w}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" /></marker></defs>
+      <rect class="human-area" x="2" y="2" width={w-4} height="302" rx="8" />
+      <rect class="ai-area" x="2" y="316" width={w-4} height="212" rx="8" />
+      <rect class="human-area" x="2" y="540" width={w-4} height="572" rx="8" />
+      <text class="area-heading" x="16" y="27">人間｜準備・情報源の整備</text>
+      <text class="area-heading" x="16" y="342">AI｜調査・候補の提示</text>
+      <text class="area-heading" x="16" y="566">人間｜確認・判断・最終修正</text>
+      <g class="arrows" marker-end={`url(#flow-arrow-${w})`}>
+        {[104,192,292,424,512,642].map((y, i) => <path d={`M${c} ${y} V${[132,232,364,452,582,674][i]}`} />)}
+        <path d={`M${c} 802 V814 H${w*.25} V834`} />
+        <path d={`M${c} 802 V814 H${w*.75} V834`} />
+        <path d={`M${w*.25} 894 V920 H${c} V944`} />
+        <path d={`M${w*.75} 894 V920 H${c} V944`} />
+        <path d={`M${c} 1004 V1032`} />
+      </g>
+      {nodes.map(({x,y,width,lines}) => <g>
+        <rect class="flow-node" x={x-width/2} y={y} width={width} height="60" rx="7" />
+        <text x={x} y={y+(lines.length===1 ? 36 : 25)} text-anchor="middle">{lines.map((line,i)=><tspan x={x} dy={i ? 22 : 0}>{line}</tspan>)}</text>
+      </g>)}
+      <path class="flow-node decision" d={`M${c} 674 L${c+(mobile?146:220)} 738 L${c} 802 L${c-(mobile?146:220)} 738 Z`} />
+      <text x={c} y="722" text-anchor="middle"><tspan x={c}>コードだけで</tspan><tspan x={c} dy="22">修正内容を</tspan><tspan x={c} dy="22">決められるか</tspan></text>
+      <text class="branch-label" x={w*.25} y="824" text-anchor="middle">はい</text>
+      <text class="branch-label" x={w*.75} y="824" text-anchor="middle">いいえ</text>
+    </svg>
+  ))}
+<style is:inline>
+.spec-flow { --flow-ai: #e9f2ff; --flow-human: #eaf5ed; --flow-line: #455d72; --flow-box: #fff; }
+[data-theme="dark"] .spec-flow { --flow-ai: #172e49; --flow-human: #193b30; --flow-line: #b8cbdc; --flow-box: #18242d; }
+.spec-flow svg { max-width: 780px; margin-inline: auto; }
+.spec-flow text { fill: var(--ink); font: 16px system-ui, sans-serif; }
+.spec-flow .area-heading { font-weight: 700; }
+.spec-flow .ai-area { fill: var(--flow-ai); stroke: #5486b5; }
+.spec-flow .human-area { fill: var(--flow-human); stroke: #56866b; stroke-dasharray: 5 3; }
+.spec-flow .flow-node { fill: var(--flow-box); stroke: var(--flow-line); stroke-width: 1.5; }
+.spec-flow .arrows { fill: none; stroke: var(--flow-line); stroke-width: 2; }
+.spec-flow marker path { fill: var(--flow-line); }
+.spec-flow .branch-label { paint-order: stroke; stroke: var(--flow-human); stroke-width: 5px; font-size: 15px; font-weight: 700; }
+.spec-flow .flow-desktop { display: none; }
+@container (min-width: 600px) { .spec-flow .flow-mobile { display:none; } .spec-flow .flow-desktop { display:block; } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .spec-flow { --flow-ai: #172e49; --flow-human: #193b30; --flow-line: #b8cbdc; --flow-box: #18242d; } }
+</style>
+</figure>

@@ -19,7 +19,7 @@ test("publication starts history and preserves original date precision", () => {
 
 test("new publication is not duplicated as a revision; revisions stay chronological", () => {
   const events = contentHistory("cases/specification-debt-review", { published_at: "2026-10-07" });
-  assert.equal(events.length, 4);
+  assert.equal(events.length, 5);
   assert.equal(events[2].date, "2026-10-19");
   assert.equal(events[2].type, "revised");
   assert.equal(events[0].type, "published");
@@ -32,6 +32,9 @@ test("new publication is not duplicated as a revision; revisions stay chronologi
   assert.equal(events[3].type, "revised");
   assert(events[3].text.includes("Word仕様書（約3万文字・68ページ）"));
   assert(events[3].text.includes("Markdown（68ファイル）"));
+  assert.equal(events[4].date, "2026-11-26");
+  assert.equal(events[4].type, "revised");
+  assert(events[4].text.includes("AIと人間の役割分担を図解"));
   const adoptionEvents = contentHistory("practices/ai-adoption-and-effective-use", {});
   assert.deepEqual(adoptionEvents.map(event => event.date), ["2026-09-23", "2026-10-07", "2026-10-08", "2026-10-16"]);
   assert.equal(adoptionEvents.at(-1).type, "integrated");

@@ -68,7 +68,7 @@
 | /cases/design-studies/metadata-batch/ | RAGメタデータを大量登録するバッチ処理の設計 | あり | あり | あり | 8 | 主要見出しが複数 |
 | /cases/design-studies/qualification-testing/ | RAGシステムの品質をどうテストするか | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/design-studies/rag-security/ | 顧客向けRAGの情報境界を取得段階で設計する | あり | あり | あり | 7 | 主要見出しが複数 |
-| /cases/specification-debt-review/ | 3万文字・68ページの仕様書をAIで横断レビューする | あり | あり | あり | 13 | 主要見出しが複数 |
+| /cases/specification-debt-review/ | 3万文字・68ページの仕様書をAIで横断レビューする | あり | あり | あり | 18 | 主要見出しが複数 |
 | /cases/system-understanding/ | 理解しにくいレガシーシステムを、変更判断できる状態へ変える | あり | あり | あり | 19 | 主要見出しが複数 |
 | /cases/system-understanding/connecting-ui-and-internals/ | 07. UI操作と内部処理を結び付け、操作結果を追えるようにする | あり | あり | あり | 15 | 主要見出しが複数 |
 | /cases/system-understanding/human-and-ai-knowledge/ | 06. 人が読む仕様とAIが使うKnowledgeを分ける | あり | あり | あり | 16 | 主要見出しが複数 |
@@ -141,7 +141,7 @@
 | /foundations/layered-hallucination-controls/ | ハルシネーションの多層制御設計 | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/llm-as-probabilistic-model/ | LLMを確率モデルとして設計するという立場 | なし | あり | あり | 5 | 主要見出しが複数 |
 | /foundations/temperature-design/ | Temperature設計指針 | あり | あり | あり | 13 | 長文の複数h3セクション |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 31 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 32 | 主要見出しが複数 |
 | /knowledge-context/ | ナレッジ / コンテキスト | なし | あり | あり | 7 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | AIを使い分ける基準は、モデル性能よりコンテキストではないか | あり | あり | あり | 9 | 主要見出しが複数 |
 | /knowledge-context/human-and-ai-documentation/ | 人向け資料とAI向け資料の分離設計 | あり | あり | あり | 17 | 長文の複数h3セクション |

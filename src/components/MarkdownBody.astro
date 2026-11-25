@@ -14,6 +14,7 @@ for (const entry of await getCollection("pages", publicEntry)) {
     if (source) sourceLinks.set(normalizeSourceUrl(source), url(entry.id));
   }
 }
+import SpecificationReviewFlow from "./SpecificationReviewFlow.astro";
 import InteractiveCaseDiagram from "./InteractiveCaseDiagram.astro";
 import InteractiveSupportDxDiagram from "./InteractiveSupportDxDiagram.astro";
 import Principle from "./Principle.astro";
@@ -56,7 +57,9 @@ const nodes = $.root().contents().toArray();
   const el = $(node);
   const kind = el.attr("data-kind") as keyof typeof components;
   const Block = components[kind];
-  return el.is("[data-support-dx-diagram]") ? (
+  return el.is("[data-specification-workflow]") ? (
+    <SpecificationReviewFlow />
+  ) : el.is("[data-support-dx-diagram]") ? (
     <InteractiveSupportDxDiagram />
   ) : el.is("[data-case-diagram]") && el.attr("data-case-diagram")!.startsWith("support-") ? (
     <InteractiveSupportDxDiagram id={el.attr("data-case-diagram")!} />
