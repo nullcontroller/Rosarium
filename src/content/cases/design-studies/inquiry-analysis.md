@@ -5,9 +5,10 @@ layer: publication
 publication_format: article
 kind: case
 section: cases
-status: draft
-public: false
-last_updated: "2026-11-24"
+status: published
+public: true
+last_updated: "2026-11-25"
+published_at: "2026-11-25"
 entry_points: [ai, dx]
 primaryCategory: value-design
 tags: [仮想設計, 業務要件, 問い合わせ分析, 効果試算]

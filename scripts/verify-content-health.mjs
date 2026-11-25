@@ -143,8 +143,8 @@ assert.equal(
   1,
   "Legacy lifecycle essay has a DX entry point; AI case links remain discovery paths",
 );
-assert.equal(aiAndDx.length, 49, "AI + DX content retains both PoC chapters; the removed pre-production chapter is a redirect");
-assert.equal(files.length, 127, "Audited content retains the published series and six draft cases after removing two rejected essays");
+assert.equal(aiAndDx.length, 56, "AI + DX content retains both PoC chapters; the removed pre-production chapter is a redirect");
+assert.equal(files.length, 128, "Audited content includes the public study hub and six published virtual cases; rejected essays remain deleted");
 for (const id of ["what-is-ai", "cognitive-surrender"]) {
   assert(!fs.existsSync(`${root}/essays/${id}.md`), `Rejected manuscript must stay removed: ${id}`);
 }

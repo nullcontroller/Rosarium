@@ -57,6 +57,12 @@ export const relatedCaseDefinitions = [
   { id: "cases/ai-technical-investigation", domains: {
     "system-design": "クラッシュ・メモリリークの仮説を調べ、根拠付きの修正候補を担当チームへ渡す過程を読む。",
   } },
+  {"id": "cases/design-studies/inquiry-analysis", "domains": {"planning": "問い合わせ履歴から業務要求・対象範囲と削減目標を考える仮想設計。", "dx": "自動化対象と有人業務の境界を考える仮想設計。"}},
+  {"id": "cases/design-studies/metadata-batch", "domains": {"ai": "RAG検索データを準備する仮想設計。", "system-design": "バッチの起動・差分更新・再試行を設計する仮想設計。"}},
+  {"id": "cases/design-studies/qualification-testing", "domains": {"ai": "回答・停止・有人引継ぎを評価する仮想設計。", "system-design": "機能・業務受入れ・性能の合格条件を分ける仮想設計。"}},
+  {"id": "cases/design-studies/data-migration", "domains": {"system-design": "事前移行、差分、切替と切戻しを考える仮想設計。"}},
+  {"id": "cases/design-studies/rag-security", "domains": {"ai": "公開根拠だけを顧客向けRAGへ渡す仮想設計。", "system-design": "連携段階の情報境界と承認を設計する仮想設計。"}},
+  {"id": "cases/design-studies/document-lifecycle", "domains": {"ai": "文書改訂と検索品質をつなぐ仮想設計。", "system-design": "版管理、差分確認と反映の整合を考える仮想設計。"}},
 ];
 export const relatedCasesForDomain = (domain, entries) => relatedCaseDefinitions.flatMap(definition => {
   const entry = entries.find(entry => entry.id === definition.id);

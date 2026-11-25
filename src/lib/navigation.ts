@@ -397,7 +397,7 @@ export const navigationItemForPath = (path: string) =>
 
 // Reader-facing types use explicit evidence registries, never titles or kind: case alone.
 export const contentType = (entry: Entry) => {
-  if (designStudies.some(study => study.id === entry.id)) return "仮想設計";
+  if (entry.id === "cases/design-studies" || designStudies.some(study => study.id === entry.id)) return "仮想設計";
   if (caseStudies.some(study => entry.id === study.book || entry.id.startsWith(study.book + "/"))) return "実務事例";
   if (entry.data.kind === "case" || entry.data.layer === "case" || entry.data.section === "cases") return "事例";
   if (entry.data.kind === "essay" || entry.data.publication_format === "essay") return "論考";

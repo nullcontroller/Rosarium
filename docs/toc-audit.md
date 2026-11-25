@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 166ページ。目次あり 130、なし 36。Referenceあり 129、なし 37。
+対象 173ページ。目次あり 137、なし 36。Referenceあり 136、なし 37。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -57,6 +57,13 @@
 | /cases/customer-support-ai-dx/responsibility-boundary/ | 03. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 20 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/stopping-conditions/ | 09. メタデータ管理方式の設計 | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/why-ai/ | 02. なぜAIを導入したのか | あり | あり | あり | 19 | 主要見出しが複数 |
+| /cases/design-studies/ | 実務から広げるシステム設計ケーススタディ | あり | あり | あり | 7 | 一覧の移動単位が複数 |
+| /cases/design-studies/data-migration/ | 文書から節へ構造を変えるRAGデータ移行の設計 | あり | あり | あり | 6 | 主要見出しが複数 |
+| /cases/design-studies/document-lifecycle/ | 文書改訂の差分からRAGの品質を維持する | あり | あり | あり | 8 | 主要見出しが複数 |
+| /cases/design-studies/inquiry-analysis/ | 問い合わせ履歴から自動化対象と業務要件を決める | あり | あり | あり | 7 | 主要見出しが複数 |
+| /cases/design-studies/metadata-batch/ | RAGメタデータを大量登録するバッチ処理の設計 | あり | あり | あり | 8 | 主要見出しが複数 |
+| /cases/design-studies/qualification-testing/ | RAGシステムの品質をどうテストするか | あり | あり | あり | 11 | 主要見出しが複数 |
+| /cases/design-studies/rag-security/ | 顧客向けRAGの情報境界を取得段階で設計する | あり | あり | あり | 7 | 主要見出しが複数 |
 | /cases/specification-debt-review/ | 3万文字・68ページの仕様書をAIで横断レビューする | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/system-understanding/ | 理解しにくいレガシーシステムを、変更判断できる状態へ変える | あり | あり | あり | 19 | 主要見出しが複数 |
 | /cases/system-understanding/connecting-ui-and-internals/ | 07. UI操作と内部処理を結び付け、操作結果を追えるようにする | あり | あり | あり | 15 | 主要見出しが複数 |

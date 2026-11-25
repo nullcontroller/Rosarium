@@ -5,7 +5,7 @@ title: 08. RAG管理システムのアーキテクチャ
 kind: case
 section: cases
 status: published
-last_updated: "2026-11-24"
+last_updated: "2026-11-25"
 entry_points: [ai, dx]
 primaryCategory: system-transformation
 secondaryCategories: []

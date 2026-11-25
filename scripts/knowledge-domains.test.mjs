@@ -23,7 +23,9 @@ test("one Case is referenced across domains without becoming domain knowledge",(
 test("related Cases never revive private, draft, obsolete or unregistered manuscripts",()=>{
   const support=entry("cases/customer-support-ai-dx");
   for(const data of [{public:false},{status:"draft"},{lifecycle:"obsolete"},{lifecycle:"retired"},{section:"essays"}])assert.deepEqual(relatedCasesForDomain("planning",[{...support,data:{...support.data,...data}}]),[]);
-  assert.deepEqual(relatedCasesForDomain("planning",[entry("cases/design-studies/inquiry-analysis")]),[]);
+  const study=entry("cases/design-studies/inquiry-analysis");
+  assert.equal(relatedCasesForDomain("planning",[study]).length,1);
+  assert.deepEqual(relatedCasesForDomain("planning",[{...study,data:{...study.data,public:false,status:"draft"}}]),[]);
   assert.deepEqual(relatedCasesForDomain("unknown",[support]),[]);
 });
 test("curated reading routes use unique existing public active originals",()=>{

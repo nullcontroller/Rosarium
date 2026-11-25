@@ -12,8 +12,8 @@ const live = process.argv.includes('--live');
 const ids = manifest.pages.map(p => p.id);
 const record = recentGrowth.find(r => r.date === manifest.date);
 assert.equal(recentGrowth.filter(r => r.date === manifest.date).length, 1);
-assert.deepEqual(growthPublishedTargets(record), ids);
-assert.equal(record.summaryChanges.length, 6);
+assert.deepEqual(growthPublishedTargets(record), [...ids, "cases/design-studies", ...["inquiry-analysis", "metadata-batch", "qualification-testing", "data-migration", "rag-security", "document-lifecycle"].map(slug => `cases/design-studies/${slug}`)]);
+assert.equal(record.summaryChanges.length, 8);
 for (const p of manifest.pages) {
   const raw = fs.readFileSync(`src/content/${p.id}.md`, 'utf8').replaceAll('\r\n', '\n');
   const fm = raw.match(/^---\n([\s\S]*?)\n---\n/);
@@ -39,7 +39,7 @@ for (const p of manifest.pages) {
   }
 }
 const rejectedIds = ['essays/what-is-ai','essays/cognitive-surrender'];
-const privateIds = [...rejectedIds,...['inquiry-analysis','metadata-batch','qualification-testing','data-migration','rag-security','document-lifecycle'].map(s=>`cases/design-studies/${s}`)];
+const privateIds = rejectedIds;
 for(const id of privateIds) {
  assert(!fs.existsSync(`dist/${id}/index.html`));
  if(rejectedIds.includes(id)) { assert(!fs.existsSync(`src/content/${id}.md`), `Rejected manuscript must stay removed: ${id}`); continue; }
@@ -67,4 +67,4 @@ for(const file of ['index.html','garden-notes/index.html']) {
  assert(html.includes(record.title));
  for(const id of privateIds)assert(!html.includes(`/${id}/`));
 }
-console.log(`Verified ${live?'production':'local'} approved release: seven unchanged manuscripts, dates, indexing eligibility, navigation and publication history; six drafts remain private and two rejected manuscripts remain deleted.`);
+console.log(`Verified ${live?'production':'local'} approved release: seven unchanged manuscripts, dates, indexing eligibility, navigation and publication history; published design studies are verified separately and two rejected manuscripts remain deleted.`);

@@ -7,7 +7,7 @@ import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 const all = await getCollection("pages", activeEntry);
 const caseGroups = [{ id: "active-cases", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
-const designStudiesPreview = Boolean(process.env.ROSARIUM_DRAFT_PREVIEW);
+const designStudiesPreview = all.some(entry => entry.id === "cases/design-studies");
 const caseAnchor = (id: string) => `case-${id.split("/").pop()}`;
 
 const headings = [

@@ -1,20 +1,21 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { gunzipSync } from "node:zlib";
 import { load } from "cheerio";
 import { designStudies } from "../src/data/design-studies.mjs";
 
-const root = process.argv[2] || "dist-design-review";
+const root = process.argv[2] || "dist";
 assert.notEqual(path.resolve(root), path.resolve("dist-review"), "Do not overwrite the existing staging output");
 const read = (base, id) => load(fs.readFileSync(path.join(base, id, "index.html"), "utf8"));
 const hub = read(root, "cases/design-studies");
 assert.equal(hub("h1").length, 1);
-assert.equal(hub('meta[name="robots"]').attr("content"), "noindex, follow");
+assert.equal(hub('meta[name="robots"]').attr("content"), "index, follow");
 assert.equal(hub("main [data-content-id]").length, 6);
 assert.equal(hub("main dl").length, 0, "Do not repeat each summary as question/decision fields");
 assert(!/このケースの問い|どのように進めるか|FDE/.test(hub("main").text()));
 for (const study of designStudies) {
-  assert(!fs.existsSync(`dist/${study.id}/index.html`), `Production leak: ${study.id}`);
+  assert(fs.existsSync(`dist/${study.id}/index.html`), `Published study missing: ${study.id}`);
   assert(hub(`main a[href='/${study.id}/']`).length, `Missing hub link: ${study.id}`);
   assert.equal(hub(`[data-content-id="${study.id}"] [data-content-category]`).text(), "仮想設計", study.id);
   const $ = read(root, study.id);
@@ -32,8 +33,8 @@ for (const study of designStudies) {
   assert.equal($('[data-pagefind-meta="content_kind"]').text(), "仮想設計", study.id);
   const renderedIds = $("[id]").toArray().map(node => $(node).attr("id"));
   assert.equal(new Set(renderedIds).size, renderedIds.length, `Duplicate page IDs: ${study.id}`);
-  assert.equal($('meta[name="robots"]').attr("content"), "noindex, follow", study.id);
-  assert.equal($("main[data-pagefind-ignore]").length, 1, study.id);
+  assert.equal($('meta[name="robots"]').attr("content"), "index, follow", study.id);
+  assert.equal($("main[data-pagefind-ignore]").length, 0, study.id);
   assert($(".prose").text().includes("仮想設計"), study.id);
   assert(!/manual-00\d|section-00\d|faq-00\d|report-00\d|\bv[234]\b/.test($(".prose").text()), `Old reader-facing identifier: ${study.id}`);
   assert(!$(".prose h2").toArray().some(node => $(node).text().includes("補足")), `Standalone supplement: ${study.id}`);
@@ -132,14 +133,24 @@ for (const study of designStudies) {
   for (const chapter of study.chapters) {
     const chapterId = `cases/customer-support-ai-dx/${chapter}`;
     assert(read(root, chapterId)(`a[href='/${study.id}/']`).length, `Missing contextual link: ${study.id}`);
-    assert.equal(read("dist", chapterId)(`a[href='/${study.id}/']`).length, 0);
+    assert(read("dist", chapterId)(`a[href='/${study.id}/']`).length > 0);
   }
-  for (const file of ["sitemap.xml", "rss.xml", "feed.json", "index.html", "cases/index.html"]) {
-    assert(!fs.readFileSync(`dist/${file}`, "utf8").includes(`/${study.id}/`), `Production discovery leak: ${file}`);
+  for (const file of ["sitemap.xml", "rss.xml", "feed.json", "index.html"]) {
+    assert(fs.readFileSync(`dist/${file}`, "utf8").includes(`/${study.id}/`), `Published discovery missing: ${file}`);
   }
 }
-assert(!fs.existsSync("dist/cases/design-studies/index.html"));
+assert(fs.existsSync("dist/cases/design-studies/index.html"));
+assert(read("dist", "cases")('a[href="/cases/design-studies/"]').length > 0, "Cases reaches the public study index");
 const book = read(root, "cases/customer-support-ai-dx");
 assert(book("[data-design-studies-preview]").length);
-assert.equal(read("dist", "cases/customer-support-ai-dx")("[data-design-studies-preview]").length, 0);
-console.log("Verified six review-only articles, hub/context links, noindex/search exclusion and ordinary-build isolation.");
+assert(read("dist", "cases/customer-support-ai-dx")("[data-design-studies-preview]").length > 0);
+console.log("Verified six published virtual studies, public hub/context links, indexing, breadcrumbs and responsive diagrams.");
+
+const fragments = fs.readdirSync("dist/pagefind/fragment").map(file => {
+  const text = gunzipSync(fs.readFileSync(`dist/pagefind/fragment/${file}`)).toString("utf8");
+  return JSON.parse(text.slice(text.indexOf("{")));
+});
+for (const id of ["cases/design-studies", ...designStudies.map(study => study.id)]) {
+  assert(fragments.some(fragment => fragment.url === `/${id}/`), `Search missing: ${id}`);
+  for (const file of ["sitemap.xml", "rss.xml", "feed.json"]) assert(fs.readFileSync(`dist/${file}`, "utf8").includes(`/${id}/`), `Publication missing: ${file} ${id}`);
+}
