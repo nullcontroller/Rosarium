@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import Site from "../layouts/Site.astro";
+import PageHeader from "../components/PageHeader.astro";
+import NavIcon from "../components/NavIcon.astro";
+import SitemapBranch from "../components/SitemapBranch.astro";
+import { readerSitemap } from "../lib/reader-sitemap";
+import { navigationItemForPath } from "../lib/navigation";
+import { url } from "../lib/site";
+const routeSources=import.meta.glob("./**/*.astro",{query:"?raw",import:"default",eager:true});
+const redirects=Object.entries(routeSources).filter(([,source])=>/http-equiv="refresh"|location\.replace\(/.test(String(source))).map(([file])=>file.replace(/^\.\//,"").replace(/\.astro$/, "").replace(/\/index$/, ""));
+const tree=readerSitemap(await getCollection("pages"),await getCollection("career"),redirects);
+const headings=tree.map((node,index)=>({depth:2,slug:`sitemap-category-${index}`,text:node.title}));
+---
+<Site title="サイトマップ" section="sitemap" summary="Rosariumの専門領域、連載・Book、実務事例と仮想設計、過去の記事を階層から探せます。" headings={headings}>
+  <PageHeader title="サイトマップ" summary="専門領域から記事へ。Rosarium全体の知識体系と、目次・章のつながりを俯瞰できます。" />
+  <p>件数は各階層の記事・目次・章の合計です。横断索引は同じ記事への別の探し方であり、記事そのものは主分類に一度だけ掲載しています。</p>
+  <div class="sitemap-controls" hidden data-sitemap-controls><button type="button" data-sitemap-expand aria-controls="reader-sitemap-tree">すべて展開</button><button type="button" data-sitemap-collapse aria-controls="reader-sitemap-tree">すべて折りたたむ</button><span role="status" aria-live="polite" data-sitemap-status></span></div>
+  <div class="reader-sitemap" id="reader-sitemap-tree" data-reader-sitemap>
+  {tree.map((node,index)=><section aria-labelledby={`sitemap-category-${index}`}>
+    <h2 id={`sitemap-category-${index}`}><NavIcon name={navigationItemForPath(node.path)!.icon} /><a href={url(node.path)} data-reference-page data-sitemap-link data-sitemap-content={node.contentId}>{node.title}</a> <small>{node.count}記事</small></h2>
+    {node.path==="cases" && <p class="meta">実務事例と、実務経験を起点にした仮想設計を分けて掲載しています。</p>}
+    {node.path==="retired" && <p class="meta">現在の推奨記事とは区別した過去の記録です。</p>}
+    {node.children.length>0 && <details open><summary>記事・分類を表示</summary><ul>{node.children.map(child=><SitemapBranch node={child} />)}</ul></details>}
+  </section>)}
+  </div>
+</Site>
+<script>
+ const tree=document.querySelector("[data-reader-sitemap]");
+ const controls=document.querySelector<HTMLElement>("[data-sitemap-controls]");
+ if(tree && controls){controls.hidden=false;for(const expand of [true,false]) controls.querySelector(expand?"[data-sitemap-expand]":"[data-sitemap-collapse]")?.addEventListener("click",()=>{tree.querySelectorAll("details").forEach(item=>item.open=expand);const status=controls.querySelector("[data-sitemap-status]");if(status)status.textContent=expand?"すべて展開しました":"すべて折りたたみました";});}
+</script>
+<style>
+.reader-sitemap section { border-top:1px solid var(--line);padding-block:1rem; }
+.reader-sitemap h2 {display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;font-size:1.25rem;}
+.reader-sitemap small {color:var(--muted);font-size:.8rem;font-weight:400;}
+.reader-sitemap ul {list-style:none;padding-inline-start:1rem;margin-block:.5rem;border-inline-start:1px solid var(--line);}
+.reader-sitemap :global(li) {margin-block:.5rem;overflow-wrap:anywhere;}
+.reader-sitemap :global(summary) {cursor:pointer;min-height:44px;align-content:center;font-weight:650;}
+.reader-sitemap :global(summary:focus-visible),.reader-sitemap :global(a:focus-visible) {outline:2px solid var(--accent);outline-offset:3px;}
+.reader-sitemap :global(.sitemap-parent) {margin:.25rem 0 .5rem 1rem;font-size:.9rem;}
+.reader-sitemap :global(.design-area) {display:block;font-size:.9rem;color:var(--accent);}
+.sitemap-controls {display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-block:1rem;}
+.sitemap-controls[hidden] {display:none;}
+.sitemap-controls button {min-height:44px;}
+</style>

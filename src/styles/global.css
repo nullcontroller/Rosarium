@@ -2581,15 +2581,15 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
   .masthead .brand-name { font-size:1.5rem; }
   .masthead .brand-mark { width:1.75rem; height:1.75rem; }
   .masthead .header-primary { display:none; }
-  .masthead .header-actions { position:static; grid-column:2; grid-row:1; margin-inline-start:52px; gap:0; }
-  .masthead .header-actions > #theme, .masthead .header-actions > .reference-header-tool { display:none; }
+  .masthead .header-actions { position:static; grid-column:2; grid-row:1; margin-inline-end:52px; gap:0; }
+  .masthead .header-actions > #theme, .masthead .header-actions > .reference-header-tool, .masthead .sitemap-header-tool { display:none; }
   .masthead .global-search { width:max-content; }
   .masthead .global-search-toggle { display:inline-flex; min-width:44px; justify-content:center; }
   .masthead .global-search-label { display:none; }
   .masthead .global-search-panel { display:none; position:fixed; top:4rem; right:var(--header-inline); width:calc(100vw - var(--header-inline) - var(--header-inline)); padding:.65rem; border:1px solid var(--line); border-radius:4px; background:var(--surface); }
   .masthead .global-search[data-open] .global-search-panel { display:block; }
   .mobile-navigation { display:block; grid-column:1 / -1; grid-row:2; min-width:0; }
-  .mobile-navigation > summary { position:absolute; top:.5rem; right:calc(var(--header-inline) + 52px); display:flex; align-items:center; justify-content:center; min-width:44px; min-height:44px; list-style:none; cursor:pointer; border:1px solid var(--line); border-radius:4px; background:var(--surface); color:var(--ink); }
+  .mobile-navigation > summary { position:absolute; top:.5rem; right:var(--header-inline); display:flex; align-items:center; justify-content:center; min-width:44px; min-height:44px; list-style:none; cursor:pointer; border:1px solid var(--line); border-radius:4px; background:var(--surface); color:var(--ink); }
   .mobile-navigation > summary::-webkit-details-marker { display:none; }
   .mobile-navigation > summary:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
   .mobile-navigation nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.25rem .75rem; margin-top:.5rem; padding:.5rem 0; max-height:70svh; overflow-y:auto; border-top:1px solid var(--line); }
