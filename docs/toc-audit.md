@@ -20,8 +20,8 @@
 | /ai-design/responsibility-control/ | 責任境界・制御 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /ai-design/software-engineering/ | ソフトウェア開発 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /ai-mathematics/ | 数学 | あり | あり | あり | 5 | 主要見出しが複数 |
-| /ai-theory/ | AI理論 | あり | あり | あり | 5 | 主要見出しが複数 |
-| /ai/ | AI | あり | あり | あり | 8 | 主要見出しが複数 |
+| /ai-theory/ | AI理論 | あり | あり | あり | 4 | 主要見出しが複数 |
+| /ai/ | AI・数理 | あり | あり | あり | 2 | 主要見出しが複数 |
 | /architecture/ | システムアーキテクチャ | なし | あり | あり | 8 | 主要見出しが複数 |
 | /architecture/agents-tools-and-workflows/ | 「AIエージェントを0から作る時代」は本当に来るのか？ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /architecture/change-and-reevaluation/ | AIシステムの変更・再評価設計 | あり | あり | あり | 18 | 長文の複数h3セクション |
@@ -31,7 +31,7 @@
 | /architecture/reference-architecture/ | AI業務システムの参照アーキテクチャ | あり | あり | あり | 18 | 長文の複数h3セクション |
 | /architecture/requirements-to-system-method/ | 業務要求からシステム方式を設計する | あり | あり | あり | 7 | 主要見出しが複数 |
 | /architecture/security-threat-modeling/ | 生成AIセキュリティと脅威モデリング | あり | あり | あり | 12 | 長文の複数h3セクション |
-| /articles/ | AIへ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /articles/ | AI・数理へ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /books/ | 事例をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /career/ | Career | あり | あり | あり | 6 | 主要見出しが複数 |
 | /career/details/ | Careerをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
@@ -87,9 +87,9 @@
 | /cases/three-ai-maintenance/sharing-current-specifications/ | 05. 確認した現行仕様をAI間で渡し、仕様書へ反映する | あり | あり | あり | 12 | 主要見出しが複数 |
 | /cases/three-ai-maintenance/structuring-failure-handling/ | 02. 異常系の構造を整理し、設計方針を確定する | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /dx/ | DX | あり | あり | あり | 6 | 主要見出しが複数 |
+| /dx/ | DX | あり | あり | あり | 4 | 主要見出しが複数 |
 | /dx/business-transformation/ | 業務変革 | あり | あり | あり | 4 | 主要見出しが複数 |
-| /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 6 | 主要見出しが複数 |
+| /dx/continuous-value/ | 継続的価値創出 | あり | あり | あり | 7 | 主要見出しが複数 |
 | /dx/selection-retirement/ | 選択と廃止 | あり | あり | あり | 2 | 主要見出しが複数 |
 | /dx/system-transformation/ | システム変革 | あり | あり | あり | 5 | 主要見出しが複数 |
 | /dx/value-design/ | 価値設計 | あり | あり | あり | 4 | 主要見出しが複数 |
@@ -137,7 +137,7 @@
 | /foundations/layered-hallucination-controls/ | ハルシネーションの多層制御設計 | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/llm-as-probabilistic-model/ | LLMを確率モデルとして設計するという立場 | なし | あり | あり | 5 | 主要見出しが複数 |
 | /foundations/temperature-design/ | Temperature設計指針 | あり | あり | あり | 13 | 長文の複数h3セクション |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 25 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 27 | 主要見出しが複数 |
 | /knowledge-context/ | ナレッジ / コンテキスト | なし | あり | あり | 7 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | AIを使い分ける基準は、モデル性能よりコンテキストではないか | あり | あり | あり | 9 | 主要見出しが複数 |
 | /knowledge-context/human-and-ai-documentation/ | 人向け資料とAI向け資料の分離設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
@@ -146,7 +146,7 @@
 | /knowledge-context/prompt-structure/ | プロンプト設計の基本構造 | あり | あり | あり | 18 | 長文の複数h3セクション |
 | /knowledge-context/qa-behavior-constraints/ | QA行動制約Knowledge | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /knowledge-context/qa-operations/ | QAチャット運用思想 | あり | あり | あり | 14 | 長文の複数h3セクション |
-| /overview/ | AIをご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /overview/ | AI・数理をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /planning/ | IT戦略・企画 | あり | あり | あり | 6 | 主要見出しが複数 |
 | /practices/ | 実践知 | あり | あり | あり | 19 | 主要見出しが複数 |
 | /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 7 | 主要見出しが複数 |
@@ -166,7 +166,7 @@
 | /retired/obsolete/ | 旧記事 | なし | あり | なし | 3 | アーカイブ個別項目 |
 | /retired/retired/ | 退役記事 | なし | あり | なし | 21 | アーカイブ個別項目 |
 | /search/ | 検索 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /series/ | 連載はAIの入口へ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /series/ | 連載はDXの入口へ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/ | ソフトウェア開発 | なし | あり | あり | 6 | 主要見出しが複数 |
 | /software-engineering/ai-design-assistance/ | 設計支援AIは消えない。コード生成の次に残る領域 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /software-engineering/ai-driven-development/ | 私が考えるAI駆動開発 ― AI・人間・成果物をどうつなぐか | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
@@ -179,5 +179,5 @@
 | /software-engineering/engineering-judgment-in-ai-code-review/ | AIがコードを読めても、違和感に気づくには技術力がいる | あり | あり | あり | 6 | 主要見出しが複数 |
 | /software-engineering/multi-ai-orchestration/ | 複数AIの役割分担と工程設計 | あり | あり | あり | 27 | 主要見出しが複数 |
 | /start-here/ | Start Here | あり | なし | あり | 0 | 短いページまたは移動見出し不足 |
-| /system-design/ | システム設計 | あり | あり | あり | 4 | 主要見出しが複数 |
+| /system-design/ | システム設計 | あり | あり | あり | 7 | 主要見出しが複数 |
 | /updates/ | 庭をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |

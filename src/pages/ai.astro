@@ -3,35 +3,21 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import DomainThemeSection from "../components/DomainThemeSection.astro";
-import SeriesIndex from "../components/SeriesIndex.astro";
-import RelatedCases from "../components/RelatedCases.astro";
-import { relatedCasesForDomain } from "../data/knowledge-domains.mjs";
-import { aiThemeGroups, aiSerialGroups } from "../lib/ai";
+import { aiThemeGroups } from "../lib/ai";
 import { activeEntry, url } from "../lib/site";
 const entries = await getCollection("pages", activeEntry);
 const groups = aiThemeGroups(entries);
-const serials = aiSerialGroups(entries);
 const headings = [
-  ...(serials.length ? [{depth:2, slug:"ai-series-heading", text:"連載"}] : []),
   ...groups.map((theme) => ({ depth: 2, slug: theme.id, text: theme.title })),
-  ...(relatedCasesForDomain("ai", entries).length ? [{depth:2,slug:"related-cases-heading",text:"関連事例"}] : []),
 ];
 ---
 
-<Site title="AI" section="ai" headings={headings}>
-  <PageHeader alignHero navigationPath="ai" title="AI" />
-  <p>目的・投資・範囲を考えるなら<a href={url("planning")}>IT戦略・企画</a>、AIの使用を前提としない要件・方式は<a href={url("system-design")}>システム設計</a>へ。読み方は<a href={url("start-here")}>はじめに</a>、横断的な議論は<a href={url("essays")}>考察</a>から探せます。</p>
-  {serials.length > 0 && <section aria-labelledby="ai-series-heading" data-ai-series>
-    <h2 id="ai-series-heading">連載</h2>
-    <div class="document-list">
-      {serials.map(({entry,chapterCount}) => <SeriesIndex entry={entry} all={entries} heading="h3" showCover={false} showIcons={false}>
-        <p slot="details" class="meta">全{chapterCount}回の連載</p>
-      </SeriesIndex>)}
-    </div>
-  </section>}
+<Site title="AI・数理" section="ai" headings={headings}>
+  <PageHeader alignHero navigationPath="ai" title="AI・数理" />
+  <p>業務・組織での活用は<a href={url("dx")}>DX</a>、RAG・評価・HITLなどの実現方式は<a href={url("system-design")}>システム設計</a>、導入目的や投資の判断は<a href={url("planning")}>IT戦略・企画</a>で扱います。</p>
   <section class="dx-category-list" aria-label="AIのテーマ別記事">
     <span id="ai-themes-heading" aria-hidden="true"></span>
     {groups.map((theme) => <DomainThemeSection {...theme} domain="ai" />)}
   </section>
-  <RelatedCases domain="ai" entries={entries} />
+
 </Site>

@@ -26,7 +26,7 @@ export const sections = [
 ] as const;
 export const base = "";
 export const siteDescription =
-  "立林裕太朗の技術ポートフォリオ。2016年からのC# / .NETによるWindowsソフトウェア開発・保守を基盤に、既存コードの調査、仕様書レビュー、要件整理・設計・実装・評価とAI活用の実務成果を紹介します。";
+  "立林裕太朗の技術ポートフォリオ。ソフトウェア開発・保守の実務を土台に、IT戦略・企画、DX、システム設計、AI・数理の知識と、具体的な問題解決・設計判断を紹介します。";
 
 // Reader-facing introductions are shared by page headings and SEO descriptions.
 export const pageIntroductions: Record<string, string> = {
@@ -40,13 +40,13 @@ export const pageIntroductions: Record<string, string> = {
     "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むシステムアーキテクチャを設計します。",
   planning: "何を、なぜ、どこまで実現するか。経営課題と価値発見から、IT戦略・業務要求・システム化構想・投資・KPI・対象範囲を考えます。維持・刷新・統合・廃止と、業務・組織の再設計も扱います。",
   "system-design": "要求をどのようなシステムとして実現するか。機能・非機能要件、アーキテクチャ、処理・データ・連携、品質、移行、保守・運用を設計します。",
-  ai: "AIを仕事やシステムへ組み込むために、人とAIの役割、知識と条件、評価、理論、実践を設計の視点から考えます。",
+  ai: "AIはどのような数学的・計算的原理によって成立するのか。現在の記事から、条件付き確率・分布・生成と誤答の原理を学びます。",
   "ai-design":
     "与えられた業務要求を、AI・人間・既存システムの役割、必要な情報、要件・方式、検証・運用へ具体化する設計領域です。",
   "ai-mathematics":
     "生成AIの振る舞いを理解するために、確率、分布、数式などの数学的な基礎を整理します。理論上の定義と、実際のAIシステム設計で使う説明モデルを区別して扱います。",
   "ai-theory":
-    "生成AIの回答が変わる理由、もっともらしい誤答、コード生成モデルの仕組みを理解します。数式を詳しく学ぶ数学と分け、モデルと周辺システムの振る舞いを扱います。",
+    "次のトークンの予測と事実性の違いから、生成ともっともらしい誤答が生じる原理を理解します。応用システムの設計とは分けて扱います。",
   practices:
     "AIを現場で使い続けるために、教え方、情報の渡し方、確認の手順を考えます。導入・教育・開発・組織での実践を扱います。",
   cases:
@@ -90,7 +90,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "ai-design/software-engineering": "2026-10-08",
   "ai-design/lifecycle-operations": "2026-10-08",
   "ai-mathematics": "2026-10-19",
-  "ai-theory": "2026-10-19",
+  "ai-theory": "2026-11-25",
   books: "2026-10-05",
   cases: "2026-11-25",
   "cases/design-studies": "2026-11-25",

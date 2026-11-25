@@ -13,7 +13,7 @@ const ids = manifest.pages.map(p => p.id);
 const record = recentGrowth.find(r => r.date === manifest.date);
 assert.equal(recentGrowth.filter(r => r.date === manifest.date).length, 1);
 assert.deepEqual(growthPublishedTargets(record), [...ids, "cases/design-studies", ...["inquiry-analysis", "metadata-batch", "qualification-testing", "data-migration", "rag-security", "document-lifecycle"].map(slug => `cases/design-studies/${slug}`)]);
-assert.equal(record.summaryChanges.length, 11);
+assert.equal(record.summaryChanges.length, 13);
 for (const p of manifest.pages) {
   const raw = fs.readFileSync(`src/content/${p.id}.md`, 'utf8').replaceAll('\r\n', '\n');
   const fm = raw.match(/^---\n([\s\S]*?)\n---\n/);

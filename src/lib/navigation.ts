@@ -5,7 +5,7 @@ import { iconForPath } from "./icons";
 import { archiveTitle } from "./archive";
 import { dxCategories } from "./dx";
 import { designStudies } from "../data/design-studies.mjs";
-import { domainLabels, domainAssignments, primaryDomain } from "../data/knowledge-domains.mjs";
+import { domainLabels, primaryDomain } from "../data/knowledge-domains.mjs";
 export type Entry = CollectionEntry<"pages">;
 
 export type NavigationItem = {
@@ -70,20 +70,6 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
   ],
   [
     {
-      path: "ai",
-      title: "AI",
-      summary: "AIを仕事へ組み込む設計・実践。",
-      icon: iconForPath("articles"),
-      sections: ["ai", "articles", "ai-design", "ai-mathematics", "ai-theory", "practices"],
-    },
-    {
-      path: "dx",
-      title: "DX",
-      summary: "デジタル技術による価値・業務・組織の変化。",
-      icon: iconForPath("dx"),
-      sections: ["dx", ...dxCategories.map((category) => `dx/${category.id}`)],
-    },
-    {
       path: "planning",
       title: "IT戦略・企画",
       summary: "何を、なぜ、どこまでシステム化するかを決める。",
@@ -91,11 +77,25 @@ export const navigation: readonly (readonly NavigationItem[])[] = [
       sections: ["planning"],
     },
     {
+      path: "dx",
+      title: "DX",
+      summary: "デジタル技術による価値・業務・組織の変化。",
+      icon: iconForPath("dx"),
+      sections: ["dx", "practices", ...dxCategories.map((category) => `dx/${category.id}`)],
+    },
+    {
       path: "system-design",
       title: "システム設計",
       summary: "要求を機能・品質・構成・処理・運用へ具体化する。",
       icon: iconForPath("system-design"),
-      sections: ["system-design"],
+      sections: ["system-design", "ai-design", "architecture", "knowledge-context", "evaluation-hitl", "software-engineering"],
+    },
+    {
+      path: "ai",
+      title: "AI・数理",
+      summary: "AIを支える数学・生成原理・計算の基礎。",
+      icon: iconForPath("articles"),
+      sections: ["ai", "ai-mathematics", "ai-theory"],
     },
     {
       path: "cases",
@@ -160,18 +160,7 @@ export const designTopics = [
 ] as const;
 export const topicLabel = (key?: string) =>
   designTopics.find((x) => x[0] === key)?.[1];
-export const contentCategory = (e: Entry) =>
-  domainAssignments[e.id] ? domainLabels[primaryDomain(e)] : e.data.layer === "ai-design"
-    ? topicLabel(e.data.design_topic)!
-    : e.data.layer === "ai-mathematics"
-      ? "確率・分布・数理の基礎"
-      : e.data.layer === "ai-theory"
-        ? "生成モデルの仕組みと振る舞い"
-        : e.data.layer === "reference"
-          ? "用語・参照資料"
-          : e.data.layer === "practice"
-            ? "業務・開発プロセス"
-            : label(e.data.section);
+export const contentCategory = (e: Entry) => domainLabels[primaryDomain(e)];
 export const layerPath = (layer: string) =>
   ({
     "ai-design": "ai-design",
@@ -398,6 +387,7 @@ export const navigationItemForPath = (path: string) =>
 // Reader-facing types use explicit evidence registries, never titles or kind: case alone.
 export const contentType = (entry: Entry) => {
   if (entry.id === "cases/design-studies" || designStudies.some(study => study.id === entry.id)) return "仮想設計";
+  if (entry.id === "software-engineering/engineering-judgment-in-ai-code-review") return "実務事例";
   if (caseStudies.some(study => entry.id === study.book || entry.id.startsWith(study.book + "/"))) return "実務事例";
   if (entry.data.kind === "case" || entry.data.layer === "case" || entry.data.section === "cases") return "事例";
   if (entry.data.kind === "essay" || entry.data.publication_format === "essay") return "論考";
@@ -410,3 +400,7 @@ export const contentDisplayCategory = (entry: Entry) => {
   const type = contentType(entry);
   return type === "技術解説" ? contentCategory(entry) : type;
 };
+
+// Shared active-domain resolution for header, sidebar and mobile navigation.
+export const navigationMatches = (item: NavigationItem, section?: string) =>
+  section !== undefined && (section === item.path || item.sections?.some(path => section === path || section.startsWith(path + "/")) === true);

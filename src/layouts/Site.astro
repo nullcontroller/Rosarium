@@ -13,19 +13,19 @@ import {
   absoluteUrl,
   sections,
 } from "../lib/site";
-import { navigation, navigationItemForPath, readingCategories, designTopics, entryPrimaryPath } from "../lib/navigation";
+import { navigation, navigationMatches, navigationItemForPath, readingCategories, designTopics, entryPrimaryPath } from "../lib/navigation";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { buildBreadcrumbs, breadcrumbTitle } from "../lib/breadcrumbs.mjs";
 import { isDraftPreview } from "../lib/draft-preview.mjs";
 import { designStudies } from "../data/design-studies.mjs";
 import { archiveTitle, archiveLifecycles, getArchiveGroup } from "../lib/archive";
 import { dxCategories } from "../lib/dx";
-const headerNavigation = ["", "ai", "dx", "planning", "system-design", "cases", "career"].map((path) => navigationItemForPath(path)!);
+const headerNavigation = ["", "planning", "dx", "system-design", "ai", "cases", "career"].map((path) => navigationItemForPath(path)!);
 const retiredNavigation = navigationItemForPath("retired")!;
 import NavIcon from "../components/NavIcon.astro";
 import ReferencePanel from "../components/ReferencePanel.astro";
 import RightSidebarControls from "../components/RightSidebarControls.astro";
-import { pageEntityType, readingSections, rightSidebarPolicy } from "../lib/layout-policy.mjs";
+import { pageEntityType, rightSidebarPolicy } from "../lib/layout-policy.mjs";
 import { pageContents, pageOpening } from "../lib/page-contents.mjs";
 import GlobalSearch from "../components/GlobalSearch.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
@@ -284,7 +284,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       <details class="mobile-navigation" data-mobile-navigation>
         <summary aria-label="メニュー" aria-controls="mobile-navigation-links"><span aria-hidden="true">☰</span><span class="visually-hidden">メニュー</span></summary>
         <nav id="mobile-navigation-links" aria-label="モバイル主要ナビゲーション">
-          {headerNavigation.map(item => <a href={url(item.path)} aria-current={(item.path === "ai" ? readingSections.has(section || "") : section === item.path) ? "page" : undefined}>{item.title}</a>)}
+          {headerNavigation.map(item => <a href={url(item.path)} aria-current={navigationMatches(item, section) ? "page" : undefined}>{item.title}</a>)}
           <div class="mobile-navigation-auxiliary">
             <a href={url(retiredNavigation.path)}>{retiredNavigation.title}</a>
             <a href={url("reference")}>リファレンス</a>
@@ -296,7 +296,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         <nav class="header-primary" aria-label="主要ページ">
           <div class="header-primary-group">
           {headerNavigation.map(item => (
-            <a href={url(item.path)} aria-current={(item.path === "ai" ? readingSections.has(section || "") : section === item.path) ? "page" : undefined}>
+            <a href={url(item.path)} aria-current={navigationMatches(item, section) ? "page" : undefined}>
               {item.headerLabel ?? item.title}
             </a>
           ))}
@@ -351,14 +351,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
                           section === item.path ? "page" : undefined
                         }
                         data-section-active={
-                          item.sections?.includes(section || "") ||
-                          item.children?.some(
-                            (child) =>
-                              child.path === section ||
-                              child.sections?.includes(section || ""),
-                          )
-                            ? true
-                            : undefined
+                          navigationMatches(item, section) ? true : undefined
                         }
                       >
                         <NavIcon name={item.icon} />

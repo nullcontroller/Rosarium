@@ -1,13 +1,13 @@
 ---
 import Site from "../layouts/Site.astro";
 import { url } from "../lib/site";
-const destination = url("ai") + "#ai-series-heading";
-const canonical = new URL(url("ai"), Astro.site).toString();
+const destination = url("dx") + "#dx-series-heading";
+const canonical = new URL(url("dx"), Astro.site).toString();
 ---
 
-<Site showRightSidebar={false} title="連載はAIの入口へ移動しました" summary="公開済みの連載は、AI入口の連載一覧から確認できます。" canonical={canonical} noindex showLastUpdated={false}>
+<Site showRightSidebar={false} title="連載はDXの入口へ移動しました" summary="公開済みの連載は、DX入口の連載一覧から確認できます。" canonical={canonical} noindex showLastUpdated={false}>
   <meta slot="head" http-equiv="refresh" content={"0;url=" + destination} />
   <script is:inline define:vars={{ destination }}>location.replace(destination);</script>
-  <h1>連載はAIの入口へ移動しました</h1>
-  <p><a href={destination}>AIの連載一覧へ移動する</a></p>
+  <h1>連載はDXの入口へ移動しました</h1>
+  <p><a href={destination}>DXの連載一覧へ移動する</a></p>
 </Site>

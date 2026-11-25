@@ -50,7 +50,7 @@ export const readingGroups: Record<
     },
     {
       title: "生成モデルと変化",
-      ids: ["software-engineering/code-generation-models"],
+      ids: [],
     },
   ],
   practices: [

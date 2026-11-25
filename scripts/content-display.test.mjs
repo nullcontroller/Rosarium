@@ -22,7 +22,7 @@ test("explicit case registries distinguish real work from design studies without
   assert.equal(contentType(entry("cases/customer-support-ai-dx-other", { kind: "case" })), "事例");
 });
 test("subject labels are independent of DX placement and distinguish essays", () => {
-  assert.equal(contentDisplayCategory(entry("test", { layer: "ai-design", design_topic: "evaluation-hitl", primaryCategory: "continuous-value" })), "評価・ヒューマンレビュー");
+  assert.equal(contentDisplayCategory(entry("evaluation-hitl/qa-evaluation", { layer: "ai-design", design_topic: "evaluation-hitl", primaryCategory: "continuous-value" })), "システム設計");
   assert.equal(contentDisplayCategory(entry("essay", { kind: "essay", primaryCategory: "value-design" })), "論考");
   assert.equal(contentDisplayCategory(entry("cases/design-studies/qualification-testing", { primaryCategory: "continuous-value" })), "仮想設計");
 });

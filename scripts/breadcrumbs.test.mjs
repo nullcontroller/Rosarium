@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { buildBreadcrumbs, breadcrumbTitle } from "../src/lib/breadcrumbs.mjs";
-const labels = {ai:"AI", cases:"事例", "cases/design-studies":"発展ケーススタディ", "ai-design":"AI設計", "ai-design/evaluation":"評価", dx:"DX", retired:"旧記事・退役記事", "retired/retired":"退役記事"};
+const labels = {"system-design":"システム設計",ai:"AI", cases:"事例", "cases/design-studies":"発展ケーススタディ", "ai-design":"AI設計", "ai-design/evaluation":"評価", dx:"DX", retired:"旧記事・退役記事", "retired/retired":"退役記事"};
 const entries = [{id:"essays/series",data:{title:"連載",series:"series",order:0,layer:"publication"}},{id:"essays/chapter",data:{title:"第1回",series:"series",order:1,layer:"publication"}},{id:"cases/book",data:{title:"Book",series:"book",order:0,section:"cases"}},{id:"cases/book/chapter",data:{title:"章",series:"book",order:1,section:"cases"}}];
 const resolve = (pathname, extra={}) => buildBreadcrumbs({pathname,title:"現在ページ",entries,labels,primaryPath:e=>e.data.section === "cases" ? "cases":"ai",archiveGroup:()=>undefined,designStudyIds:["cases/design-studies/example"],...extra});
 test("Home has no breadcrumb; static pages have reader-facing current names",()=>{
@@ -15,5 +15,5 @@ test("Book, essay series and design studies use real parent pages",()=>{
 test("Private/unselected covers are not invented; archive routes use existing groups",()=>{
   assert(!resolve("/essays/chapter/",{entries:[entries[1]]}).some(c=>c.path==="essays/series"));
   assert.deepEqual(resolve("/essays/chapter/",{archiveGroup:()=>"retired"}).map(c=>c.path),["","retired","retired/retired","essays/series","essays/chapter"]);
-  assert.deepEqual(resolve("/ai-design/evaluation/").map(c=>c.path),["","ai","ai-design","ai-design/evaluation"]);
+  assert.deepEqual(resolve("/ai-design/evaluation/").map(c=>c.path),["","system-design","ai-design","ai-design/evaluation"]);
 });

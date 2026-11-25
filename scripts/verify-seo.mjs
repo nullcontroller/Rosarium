@@ -203,13 +203,13 @@ console.log(
 );
 
 // Retired catalogs keep their URLs as noindex redirects to authoritative entrances.
-for (const [route, destination] of [["practices/ai-education-principles","practices/education-and-capability"], ["practices/transferring-ai-practices","practices/transferring-practices"], ["essays/what-not-to-build-with-ai","essays/it-strategy-and-not-building"], ["architecture/agents-tools-and-workflows","software-engineering/multi-ai-orchestration"], ["foundations/generation-and-acceptance","evaluation-hitl/responsibility-and-hitl"], ["cases/understanding-systems-as-capability","cases/system-understanding"], ["software-engineering/ai-driven-development", "software-engineering/development-workflow"], ["software-engineering/code-generation-and-work-design", "software-engineering/development-workflow"], ["software-engineering/code-generation-boundaries", "software-engineering/development-workflow"], ["books", "cases"], ["series", "ai"], ["practices/ai-generation-and-work-completion", "foundations/ai-business-design/evaluating-business-efficiency"]]) {
+for (const [route, destination] of [["practices/ai-education-principles","practices/education-and-capability"], ["practices/transferring-ai-practices","practices/transferring-practices"], ["essays/what-not-to-build-with-ai","essays/it-strategy-and-not-building"], ["architecture/agents-tools-and-workflows","software-engineering/multi-ai-orchestration"], ["foundations/generation-and-acceptance","evaluation-hitl/responsibility-and-hitl"], ["cases/understanding-systems-as-capability","cases/system-understanding"], ["software-engineering/ai-driven-development", "software-engineering/development-workflow"], ["software-engineering/code-generation-and-work-design", "software-engineering/development-workflow"], ["software-engineering/code-generation-boundaries", "software-engineering/development-workflow"], ["books", "cases"], ["series", "dx"], ["practices/ai-generation-and-work-completion", "foundations/ai-business-design/evaluating-business-efficiency"]]) {
   const $ = load(fs.readFileSync("dist/" + route + "/index.html", "utf8"));
   const target = "/" + destination + "/";
   assert.match($('meta[name="robots"]').attr("content") || "", /noindex/);
   assert.equal($('link[rel="canonical"]').attr("href"), "https://rosarium-tech.com" + target);
-  assert.equal($('meta[http-equiv="refresh"]').attr("content"), "0;url=" + target + (route === "series" ? "#ai-series-heading" : ""));
-  assert.equal($("main a[href]").not('.breadcrumb a').first().attr("href"), target + (route === "series" ? "#ai-series-heading" : ""));
+  assert.equal($('meta[http-equiv="refresh"]').attr("content"), "0;url=" + target + (route === "series" ? "#dx-series-heading" : ""));
+  assert.equal($("main a[href]").not('.breadcrumb a').first().attr("href"), target + (route === "series" ? "#dx-series-heading" : ""));
   assert.equal($("[data-series-index]").length, 0);
   assert.ok($("script").text().includes("location.replace(destination)"));
 }
@@ -218,7 +218,7 @@ const home = load(fs.readFileSync("dist/index.html", "utf8"));
 assert.equal(home("title").text(), "Rosarium | 立林 裕太朗");
 const homeDescription = home('meta[name="description"]').attr("content");
 assert(homeDescription.includes("立林裕太朗の技術ポートフォリオ"));
-assert(homeDescription.includes("2016年からのC# / .NET"));
+for(const domain of ["IT戦略・企画","DX","システム設計","AI・数理"]) assert(homeDescription.includes(domain));
 for (const [selector, expected] of [
   ['meta[property="og:title"]', home("title").text()],
   ['meta[name="twitter:title"]', home("title").text()],
