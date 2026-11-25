@@ -10,6 +10,7 @@ const domains = ["planning", "dx", "system-design", "ai"].map(path => ({ ...navi
 const cases = navigationItemForPath("cases")!;
 const supporting = [
   { ...navigationItemForPath("")!, detail: "関心の入口と主要な更新を確認し、各専門領域へ進むためのHomeです。" },
+  { path:"about", title:"Rosariumとは？", icon:iconForPath("about"), detail:"サイトの目的・制作背景・編集方針と、専門領域やコンテンツの読み方をまとめた紹介ページです。" },
   { ...navigationItemForPath("career")!, detail: "著者の実務経験・現在の専門性と、今後目指すキャリアを確認するページです。" },
   { path: "garden-notes", title: "GARDEN NOTES", icon: iconForPath("updates"), detail: "何を新しく公開し、何を改訂したかを辿る更新履歴です。専門知識の分類や記事検索とは役割を分けています。" },
   { ...navigationItemForPath("retired")!, detail: "旧前提の参考記事と、役割を終えた退役記事を保全する場所です。現在の推奨内容とは区別して読みます。" },

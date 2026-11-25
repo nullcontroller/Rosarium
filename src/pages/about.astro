@@ -2,19 +2,24 @@
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import { archiveTitle } from "../lib/archive";
-import { url } from "../lib/site";
+import { url, staticLastUpdatedForPath } from "../lib/site";
 ---
 
 <Site showReference={false}
   title="Rosariumとは？"
-  summary="立林裕太朗のソフトウェア開発・保守、AIを活用した調査・設計の実務成果と判断を紹介する技術ポートフォリオです。"
+  summary="Rosariumの目的と制作背景、扱う専門領域、コンテンツの読み方、発信・編集方針を紹介します。"
   section="about"
 >
   <PageHeader title="Rosariumとは？" />
-  <article class="prose">
-    <h2>仕事内容と、その判断の根拠を伝える場所</h2>
+  <article class="prose" data-pagefind-body>
+    <span hidden data-pagefind-meta="title">Rosariumとは？</span>
+    <span hidden data-pagefind-meta="summary">Rosariumの目的と制作背景、扱う専門領域、コンテンツの読み方、発信・編集方針を紹介します。</span>
+    <span hidden data-pagefind-meta="last_updated">{staticLastUpdatedForPath("about")}</span>
+    <span hidden data-pagefind-meta="content_kind">サイト紹介</span>
+    <span hidden data-pagefind-meta="icon">about</span>
+    <h2>Rosariumの目的</h2>
     <p>
-      Rosariumは、立林裕太朗の技術ポートフォリオです。2016年からのWindowsソフトウェア開発・保守を基盤に、既存システムの問題調査、仕様確認、設計・改修・検証の経験を紹介しています。
+      Rosariumは、IT戦略・企画、DX、システム設計、AI・数理の専門知識と、具体的な問題解決・設計判断を整理・公開する技術ポートフォリオです。著者の経歴・専門性・今後の方向性はキャリアページにまとめています。
     </p>
     <p>
       IT戦略・企画、DX、システム設計、AI・数理を、価値と構想、業務・組織の変革、技術による実現、基礎原理という異なる問いから整理しています。
@@ -23,7 +28,7 @@ import { url } from "../lib/site";
       担当経験はCareer、実務での判断と成果はCase、判断を支える原則は技術記事で確認できます。実務事例、仮想設計ケーススタディ、研究・考察を区別して掲載しています。
     </p>
     <p><a href={url("career")}>担当経験と職務の強みを見る</a> · <a href={url("cases")}>実務成果と設計事例を見る</a></p>
-    <h2>なぜ個人サイトなのか</h2>
+    <h2>制作した背景と、知識を公開する理由</h2>
     <p>
       学習と実務の両方から、仕事やシステムの課題を捉え、適切な手段を選ぶ判断を考えています。
     </p>
@@ -50,7 +55,7 @@ import { url } from "../lib/site";
     <p>現役記事（ACTIVE）は現在の考え方として公開し、旧記事（OBSOLETE）は当時の前提や判断を示す参考記事として残します。退役記事（RETIRED）は独立した役割を終えた記録です。</p>
     <p>現在の考え方と過去の記録を区別し、判断の前提を確かめながら読めるようにしています。</p>
     <p><a href={url("retired")}>{archiveTitle}</a></p>
-    <h2>何を扱うか</h2>
+    <h2>扱う専門領域</h2>
     <p>
       業務や利用者の課題を起点に、AI・人間・データ・既存システムの役割を決め、運用・改善・終了までを考えます。
     </p>
@@ -66,10 +71,19 @@ import { url } from "../lib/site";
       <li>システムの維持・変更・終了（Software Lifecycle）</li>
       <li>既存資産の理解と改善（Legacy Modernization）</li>
     </ul>
+    <h2>コンテンツの構成と読み方</h2>
+    <p>関心に応じて、必要な領域から読めます。<a href={url("planning")}>IT戦略・企画</a>は何を、なぜ、どこまで実現するか、<a href={url("dx")}>DX</a>は業務・組織の変革、<a href={url("system-design")}>システム設計</a>は要求を要件・方式へ具体化する判断、<a href={url("ai")}>AI・数理</a>は数学的・計算的な基礎を扱います。</p>
+    <p>技術記事を読む経路の一例として、次の流れがあります。業務の設計課題がある場合は、システム設計から直接読めます。</p>
+    <ol>
+      <li><a href={url("ai-theory")}>AI理論</a>：なぜそう振る舞うかを理解する。</li>
+      <li><a href={url("ai-design")}>AI設計</a>：その性質を前提に、どう設計するかを考える。</li>
+      <li><a href={url("practices")}>実践知</a>：業務・組織・開発への適用を考える。</li>
+    </ol>
+    <p>確率・分布・数式を深掘りするときは<a href={url("ai-mathematics")}>数学</a>を、専門領域を横断する論考は<a href={url("essays")}>考察の一覧</a>を参照できます。各領域の役割や関係は<a href={url("sitemap")}>サイトマップ</a>に整理しています。</p>
     <h2>複雑な構造を可視化して伝える</h2>
     <p>AI・Knowledge・人間の判断・既存システム・Feedback Loopの関係は、文章だけでは把握しにくいことがあります。事例では、文章と図、必要なinteractionを組み合わせ、処理の流れと責任の境界を辿れるようにします。</p>
     <p>図は装飾として増やすのではなく、設計判断を理解するために使います。操作しなくても主要な構造が読める説明を残し、動きや選択によって詳細を確かめられる形を目指します。</p>
-    <h2>Rosariumで重視すること</h2>
+    <h2>発信・編集方針</h2>
     <p>
       AIを使うこと自体を目的にせず、誰にどんな価値が届くかを先に考えます。
     </p>

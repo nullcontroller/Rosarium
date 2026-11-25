@@ -24,5 +24,4 @@ export const manualRoutes = [
   "essays",
   "practices",
   "reference",
-  "start-here",
 ];

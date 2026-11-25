@@ -1,5 +1,5 @@
 export const sections = [
-  ["foundations", "AI設計原則", "新しい入口はStart Hereから"],
+  ["foundations", "AI設計原則", "サイトの目的と読み方は「Rosariumとは？」へ"],
   [
     "architecture",
     "システムアーキテクチャ",
@@ -60,8 +60,6 @@ export const pageIntroductions: Record<string, string> = {
     "技術や仕事の変化に対して、何を選び、何を問い直すか。実務と学習から得た考察をまとめています。",
   series:
     "一つの問いを複数の記事で掘り下げる連載です。AIへ仕事を任せる判断から、品質保証や組織での使い方まで順に考えます。",
-  "start-here":
-    "何から読めばよいか迷ったときの入口です。関心のある課題から、設計原則・実践・事例へ進めます。",
   articles:
     "AIを仕事へ組み込む際の判断と仕組みを読む記事一覧です。知りたい課題に合わせて、設計・理論・実践を選べます。",
 };
@@ -79,8 +77,8 @@ export const staticPageLastUpdated: Record<string, string> = {
   // Retired Details compatibility redirect; excluded from the sitemap.
   "career/details": "2026-10-04",
   // Site-wide last public change; independent of Garden Notes and individual page histories.
-  "": "2026-11-25",
-  sitemap: "2026-11-25",
+  "": "2026-11-26",
+  sitemap: "2026-11-26",
   ai: "2026-11-25",
   "ai-design": "2026-11-25",
   "ai-design/applicability": "2026-10-08",
@@ -117,12 +115,12 @@ export const staticPageLastUpdated: Record<string, string> = {
   career: "2026-10-04",
   "career/profile": "2026-09-28",
   search: "2026-09-28",
-  about: "2026-11-25",
+  about: "2026-11-26",
   retired: "2026-10-05",
   "retired/obsolete": "2026-10-05",
   "retired/obsolete-cases": "2026-10-05",
   "retired/retired": "2026-10-05",
-  "garden-notes": "2026-11-25",
+  "garden-notes": "2026-11-26",
   articles: "2026-10-04",
   overview: "2026-09-28",
   updates: "2026-09-28",

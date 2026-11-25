@@ -60,6 +60,13 @@ const informationArchitectureChanges = [
 ];
 const curatedRecentGrowth = [
 {
+  date: "2026-11-26", type: "revised",
+  title: "トップページの主要導線を改善し、Rosariumの紹介ページを統合",
+  category: "Rosarium", icon: "updates",
+  topics: [{ title: "トップページの主要導線を改善し、Rosariumの紹介ページを統合", summary: "作者のキャリア・事例・Rosariumの紹介を同格のナビゲーションカードにし、「はじめに」を「Rosariumとは？」へ統合。目的・制作背景・専門領域・読み方・編集方針を整理。", links: [{ path: "about", title: "Rosariumとは？" }] }],
+  changes: ["トップページの主要導線を改善し、Rosariumの紹介ページを統合"],
+},
+{
   "date": "2026-11-25",
   topics: [
     { title: "連載「AI活用の本質を問う」全6回を公開", summary: "操作・運用・改善から、知的協働、判断知識、総工数、事業成果、組織設計までを考察。", links: [{ path: "essays/ai-essence", title: "連載「AI活用の本質を問う」全6回を公開" }] },

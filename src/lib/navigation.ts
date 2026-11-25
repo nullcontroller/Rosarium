@@ -171,7 +171,7 @@ export const layerPath = (layer: string) =>
     publication: "ai",
     career: "career",
     reference: "reference",
-  })[layer] || "start-here";
+  })[layer] || "about";
 export const entryPrimaryPath = (entry: Entry) => {
   const domain = primaryDomain(entry);
   return domain === "ai" ? layerPath(entry.data.layer) : domain;

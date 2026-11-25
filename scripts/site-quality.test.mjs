@@ -2,9 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import YAML from "yaml";
-test("recruiter entry preserves the site introduction and adds supported skills",()=>{
+test("Home keeps the site introduction and routes professional detail to Career",()=>{
   const home=fs.readFileSync("src/pages/index.astro","utf8");
-  for(const term of ["ソフトウェア開発・保守","既存システムの調査・問題解決","要件定義・システム設計","AIの業務適用"]) assert(home.includes(term));
+  assert(!home.includes("立林裕太朗は、"));
+  for(const term of ["作者のキャリア","専門性・実務経験・今後の方向性","事例を見る","実務事例・発展ケーススタディ"]) assert(home.includes(term));
   assert(home.includes("PoCの回答正答率を72％から96％へ改善"));
   const career=fs.readFileSync("src/content/career/overview.md","utf8");
   for(const id of ["customer-support-ai-dx","specification-debt-review","three-ai-maintenance","ai-technical-investigation"]) assert(career.includes(`/cases/${id}/`));

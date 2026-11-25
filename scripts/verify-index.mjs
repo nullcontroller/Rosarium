@@ -155,9 +155,9 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file
     `${html}: shared brand mark`,
   );
 }
-assert.equal(top(".entrance-hero-actions a").length, 4);
+assert.equal(top(".entrance-hero-actions a").length, 3);
 assert.equal(top('.entrance-hero-actions a[href="/about/"]').length, 1);
-assert.equal(top('.entrance-hero-actions a[href="/start-here/"]').length, 1);
+assert.equal(top('.entrance-hero-actions a[href="/start-here/"]').length, 0);
 assert.equal(top('.entrance-hero-actions a[href="/cases/"]').length, 1);
 assert(top(".entrance-hero > .lead").text().includes("技術ポートフォリオ"));
 assert(
@@ -180,7 +180,7 @@ assert.deepEqual(
 assert.equal(top('.header-primary a[href="/cases/"]').length, 1);
 assert.equal(top('.mobile-retired-link').attr("aria-label"), "旧記事・退役記事");
 assert.equal(top('.header-primary a[href="/career/"]').length, 1);
-assert.equal(top('.home-career-link a[href="/career/"]').length, 1);
+assert.equal(top('.home-primary-links a[href="/career/"]').length, 1);
 assert.equal(top('section[aria-labelledby="featured-cases-heading"]').length, 0);
 assert.equal(top('.home-garden-notes #recent-growth-heading').length, 1);
 assert.equal(top('.home-garden-notes [data-growth-entry]').length, Math.min(3, recentGrowth.length));
@@ -498,7 +498,7 @@ for (const [route, title, ids] of [
   assert.deepEqual(primaryIds($).sort(), [...ids].sort(), route + ": canonical article membership");
   assert.equal($("[data-content-id]").length, ids.length, route + ": no duplicate registration");
   assert(pubs(`main a[href="/${route}/"]`).length);
-  assert(page("start-here")(`main a[href="/${route}/"]`).length);
+  assert(page("about")(`main a[href="/${route}/"]`).length);
   for (const id of ids) {
     assert.equal(page(id)(".pagination").length, 0);
     assert(page(id)(`a[href="/${route}/"]`).length, id+": canonical breadcrumb");
@@ -634,7 +634,7 @@ assert(top(".home-garden-notes > .home-growth-toolbar").index() < top(".home-gar
 assert.equal(top(".home-primary-panels").length, 0);
 assert.equal(top(".header-secondary").length, 0);
 assert.equal(top(".home-hero-layout > aside.home-main-case").length, 1);
-assert.equal(top('.entrance-hero-actions a[href="/about/"]').text().trim(), "Rosariumとは？");
+assert.equal(top('.home-navigation-card[href="/about/"] strong').text().trim(), "Rosariumとは？");
 assert.equal(top("#about-rosarium").length, 0);
 assert.equal(top(".header-actions .header-secondary").length, 0);
 const gardenNotes = page("garden-notes");
@@ -918,7 +918,7 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html") && !file
       .some((node) => /^(関連する入口|関連する設計(?:原則|知識)?|関連する記事・設計|関連記事|関連テーマ|Next|Related|Explore)$/.test($(node).text().trim())),
     file,
   );
-  assert(!$("main a[href]").toArray().some((node) => !$(node).closest(".home-main-case").length && /→\s*$/.test($(node).text().trim())), `${file}: no arrow CTA`);
+  assert(!$("main a[href]").toArray().some((node) => !$(node).closest(".home-main-case,.home-primary-links,.home-about-link").length && /→\s*$/.test($(node).text().trim())), `${file}: no arrow CTA`);
 }
 console.log(
   "Verified absence of automatic related sections and next-reading headings.",
@@ -1030,8 +1030,8 @@ assert(!homeHero.find('.home-main-case').text().includes('検証シナリオ'));
 assert(homeHero.find('.home-main-case .meta').text().includes('本番運用での業務効果は測定していません'));
 assert.equal(homeHero.find('.home-main-case a').attr('href'), '/cases/customer-support-ai-dx/');
 assert.equal(homeHero.find('.home-main-case a').text().trim(), '問い合わせDXの設計事例を見る →');
-assert.equal(homeHero.find('.home-career-link a').attr('href'), '/career/');
-assert.equal(homeHero.find('.home-career-link a').text(), '作者のキャリア');
+assert.equal(homeHero.find('.home-primary-links a').first().attr('href'), '/career/');
+assert.equal(homeHero.find('.home-primary-links a').first().find('strong').text(), '作者のキャリア');
 assert.equal(homeHero.find('.lead').length, 2);
 assert.equal(homeHero.find('.home-career').length, 0);
 assert.equal(homeHero.children().first().is('header.page-heading'), true);
@@ -1190,7 +1190,7 @@ for (const value of ['既存ソフトウェアの問題', '要件整理から実
 assert(!page('career')('.prose').text().includes('FDE'));
 assert(page('career')('.prose').text().includes('区分：実務事例'));
 assert(page('career')('.prose').text().includes('回答正答率が72％から96％へ改善'));
-for (const route of ['about', 'start-here']) {
+for (const route of ['about']) {
  const $ = page(route);
  for (const target of ['career','cases']) assert($(`main a[href="/${target}/"]`).length, route+': '+target);
 }
@@ -1361,10 +1361,10 @@ const investmentHref = "/" + investmentId + "/";
 const investment = page(investmentId);
 assert(investment('.prose').text().includes("ROIの厳密な財務定義ではなく"));
 assert(investment('.prose').text().includes("標準環境に対して増える価値"));
-for (const route of ["", "garden-notes", "essays", "dx/value-design"]) assert.equal(page(route)('main a[href="'+investmentHref+'"]').length,1,route);
+for (const route of ["garden-notes", "essays", "dx/value-design"]) assert.equal(page(route)('main a[href="'+investmentHref+'"]').length,1,route);
 for (const feed of ["rss.xml", "feed.json", "sitemap.xml"]) assert(fs.readFileSync("dist/"+feed,"utf8").includes(investmentHref),feed);
 
-for (const view of [top, gardenNotes]) {
+for (const view of [gardenNotes]) {
  assert.equal(view('[data-growth-date="2026-10-30"] a[href="'+investmentHref+'"]').length, 1);
  assert.equal(view('[data-growth-date="2026-10-29"] a[href="'+investmentHref+'"]').length, 0);
 }
@@ -1454,3 +1454,19 @@ for(const route of ["ai","dx","planning","system-design"]) {
   }
 }
 console.log("Verified seven-domain navigation, curated original articles, domain search labels and matching primary breadcrumbs.");
+
+// Consolidated introduction: a single indexed canonical page and a compatible old URL.
+const introRedirect=page('start-here');
+assert.equal(introRedirect('link[rel="canonical"]').attr('href'),'https://rosarium-tech.com/about/');
+assert.match(introRedirect('meta[name="robots"]').attr('content'),/noindex/);
+assert.equal(introRedirect('meta[http-equiv="refresh"]').attr('content'),'0;url=/about/');
+assert.equal(introRedirect('[data-pagefind-body]').length,0);
+assert(!fs.readFileSync('dist/sitemap.xml','utf8').includes('/start-here/'));
+assert.equal(top('.home-navigation-card').length,3);
+for(const el of top('.home-navigation-card').toArray()) {
+ assert.equal(top(el).find('.icon').length,1);
+ assert(top(el).find('strong').text());assert(top(el).find('small').text());
+}
+assert(!top('main').text().includes('立林裕太朗は、'));
+
+assert.equal(page("about")("[data-pagefind-body]").length,1);
