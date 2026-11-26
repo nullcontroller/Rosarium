@@ -34,6 +34,11 @@ export const domainResponsibilities = {
 };
 /** @type {Record<string,{primary:string,reason:string}>} */
 export const domainAssignments = {
+  "foundations/policy-gradient-learning": { primary: "ai", reason: "第2段階の非公開原稿。報酬と方策勾配の数学的原理を扱う。" },
+  "foundations/preference-learning-dpo": { primary: "ai", reason: "第2段階の非公開原稿。選好確率とKL正則化の導出を扱う。" },
+  "foundations/verifiable-reward-reasoning": { primary: "ai", reason: "第2段階の非公開原稿。検証報酬と方策更新の条件を扱う。" },
+  "foundations/compute-optimal-scaling": { primary: "ai", reason: "第2段階の非公開原稿。経験的損失と制約付き資源配分を扱う。" },
+  "foundations/speculative-decoding": { primary: "ai", reason: "第2段階の非公開原稿。受理棄却による分布保存と計算費用を扱う。" },
   "foundations/language-model-loss": { primary: "ai", reason: "承認済み第1段階の数理原理解説。原稿・表示のレビューを経て公開し、応用設計の責務と区別する。" },
   "foundations/attention-information-flow": { primary: "ai", reason: "承認済み第1段階の数理原理解説。原稿・表示のレビューを経て公開し、応用設計の責務と区別する。" },
   "foundations/test-time-compute-allocation": { primary: "ai", reason: "承認済み第1段階の数理原理解説。原稿・表示のレビューを経て公開し、応用設計の責務と区別する。" },

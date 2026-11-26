@@ -12,5 +12,10 @@
   "foundations/language-model-loss",
   "foundations/attention-information-flow",
   "foundations/test-time-compute-allocation",
-  "foundations/attention-efficiency"
+  "foundations/attention-efficiency",
+  "foundations/policy-gradient-learning",
+  "foundations/preference-learning-dpo",
+  "foundations/verifiable-reward-reasoning",
+  "foundations/compute-optimal-scaling",
+  "foundations/speculative-decoding"
 ]

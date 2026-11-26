@@ -326,3 +326,13 @@
 - `src/content/foundations/attention-information-flow.md`：承認済み第1段階の原理解説。数理・計算条件を中心に審査する。
 - `src/content/foundations/test-time-compute-allocation.md`：承認済み第1段階の原理解説。数理・計算条件を中心に審査する。
 - `src/content/foundations/attention-efficiency.md`：承認済み第1段階の原理解説。数理・計算条件を中心に審査する。
+
+## 2026-11-26 AI・数理第2段階の非公開原稿
+
+著者の執筆着手承認に基づく5記事。status:draft・public:falseを維持し、初回公開日は未設定。第1段階、既存UI、本文、履歴を変更せず、通常の検索・一覧・サイトマップへ出さない。
+
+- `src/content/foundations/policy-gradient-learning.md`：N03。MDP、方策勾配、REINFORCE、PPOの条件と限界。
+- `src/content/foundations/preference-learning-dpo.md`：N04。選好モデル、KL最適方策、DPOの導出。
+- `src/content/foundations/verifiable-reward-reasoning.md`：N05。検証器、GRPO、能力評価の不確実性。
+- `src/content/foundations/compute-optimal-scaling.md`：N13。経験的損失式の下での最適配分と推論需要。
+- `src/content/foundations/speculative-decoding.md`：N14。受理・補正の分布保存と高速化条件。
