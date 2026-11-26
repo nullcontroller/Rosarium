@@ -34,6 +34,10 @@ export const domainResponsibilities = {
 };
 /** @type {Record<string,{primary:string,reason:string}>} */
 export const domainAssignments = {
+  "foundations/in-context-learning": { primary: "ai", reason: "第3段階の非公開数理原稿。文脈への条件付けと適応機構を扱う。" },
+  "foundations/mixture-of-experts": { primary: "ai", reason: "第3段階の非公開数理原稿。条件付き計算と負荷・通信を扱う。" },
+  "foundations/state-space-sequence-models": { primary: "ai", reason: "第3段階の非公開数理原稿。状態更新による系列処理を扱う。" },
+  "foundations/diffusion-language-models": { primary: "ai", reason: "第3段階の非公開数理原稿。離散拡散と復元学習を扱う。" },
   "foundations/policy-gradient-learning": { primary: "ai", reason: "第2段階の非公開原稿。報酬と方策勾配の数学的原理を扱う。" },
   "foundations/preference-learning-dpo": { primary: "ai", reason: "第2段階の非公開原稿。選好確率とKL正則化の導出を扱う。" },
   "foundations/verifiable-reward-reasoning": { primary: "ai", reason: "第2段階の非公開原稿。検証報酬と方策更新の条件を扱う。" },

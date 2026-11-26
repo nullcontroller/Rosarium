@@ -336,3 +336,13 @@
 - `src/content/foundations/verifiable-reward-reasoning.md`：N05。検証器、GRPO、能力評価の不確実性。
 - `src/content/foundations/compute-optimal-scaling.md`：N13。経験的損失式の下での最適配分と推論需要。
 - `src/content/foundations/speculative-decoding.md`：N14。受理・補正の分布保存と高速化条件。
+
+
+## 2026-11-26 AI・数理第3段階の非公開原稿
+
+著者の再開指示に基づく4記事。第2段階の公開中止を維持し、公開用準備は別ブランチで保存する。本文改訂とUIは保全し、下書きは通常出力へ含めない。
+
+- `src/content/foundations/in-context-learning.md`：N07。固定パラメータと文脈条件、潜在タスク推定、限定的な回路・最適化解釈。
+- `src/content/foundations/mixture-of-experts.md`：N09。入力依存の関数選択、正規化、負荷と費用の区別。
+- `src/content/foundations/state-space-sequence-models.md`：N10。状態更新、ZOH、LTI畳み込み、入力依存の限界。
+- `src/content/foundations/diffusion-language-models.md`：N11。離散マスク遷移、逆確率、変分学習と生成算法。

@@ -35,22 +35,11 @@ export const readingGroups: Record<
     },
   ],
   "ai-mathematics": [
-    {
-      title: "確率と分布",
-      ids: [
-        "foundations/conditional-probability",
-        "foundations/language-model-loss",
-        "foundations/temperature-design",
-        "foundations/attention-information-flow",
-        "foundations/test-time-compute-allocation",
-        "foundations/attention-efficiency",
-        "foundations/policy-gradient-learning",
-        "foundations/preference-learning-dpo",
-        "foundations/verifiable-reward-reasoning",
-        "foundations/compute-optimal-scaling",
-        "foundations/speculative-decoding",
-      ],
-    },
+    { title: "確率的生成と学習原理", ids: ["foundations/conditional-probability", "foundations/language-model-loss", "foundations/temperature-design"] },
+    { title: "モデルの計算構造", ids: ["foundations/attention-information-flow", "foundations/attention-efficiency", "foundations/mixture-of-experts", "foundations/state-space-sequence-models"] },
+    { title: "文脈適応と生成方式", ids: ["foundations/in-context-learning", "foundations/diffusion-language-models"] },
+    { title: "強化学習と選好学習", ids: ["foundations/policy-gradient-learning", "foundations/preference-learning-dpo", "foundations/verifiable-reward-reasoning"] },
+    { title: "推論と計算資源の最適化", ids: ["foundations/test-time-compute-allocation", "foundations/compute-optimal-scaling", "foundations/speculative-decoding"] },
   ],
   "ai-theory": [
     {

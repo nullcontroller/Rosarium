@@ -21,5 +21,9 @@
   "reference/glossary",
   "reference/mathematical-reference",
   "software-engineering/code-generation-models",
-  "architecture/requirements-to-system-method"
+  "architecture/requirements-to-system-method",
+  "foundations/in-context-learning",
+  "foundations/mixture-of-experts",
+  "foundations/state-space-sequence-models",
+  "foundations/diffusion-language-models"
 ]

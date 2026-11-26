@@ -138,6 +138,38 @@ Knowledgeが存在しても、今回のContextへ正しく組み込まれなけ�
 
 基礎資料：[確率の定義](https://d2l.ai/chapter_preliminaries/probability.html)。著者公開教材 Probability and Statistics。有限離散モデルの定義を確認。
 
+<span id="bayesian-inference"></span>
+
+#### ベイズ推論（Bayesian Inference）
+
+観測の尤度と事前確率から事後確率を求める方法。ICLの説明モデルに使う場合も、LLM内部が明示的なベイズ算法を実行しているとの断定とは分ける。観測の周辺確率が正であることが必要である。
+
+<span id="latent-variable"></span>
+
+#### 潜在変数（Latent Variable）
+
+直接観測せず、推定又は周辺化する変数。ICLの潜在タスクや拡散の中間系列など、対象ごとに定義域を明示する。内部に同名の実装変数があるとは限らない。
+
+<span id="markov-chain"></span>
+
+#### マルコフ連鎖（Markov Chain）
+
+次の状態の分布が、現在の状態を条件にすると、それ以前の履歴に依存しない確率過程。離散拡散の遷移を記述する。系列の全トークンが無条件に独立という意味ではない。
+
+<span id="transition-probability"></span>
+
+#### 遷移確率（Transition Probability）
+
+ある状態から次の状態へ移る条件付き確率。有限状態の遷移行列は非負で、行を出発状態とする規約なら各行和を1にする。行列の向きを明記する。
+
+<span id="convolution"></span>
+
+#### 畳み込み（Convolution）
+
+位置差に応じた核を各入力へ掛けて足す演算。LTIのゼロ初期状態SSMは因果畳み込みに展開できるが、入力依存の状態更新は一般に同じ固定核を持たない。
+
+第3段階追加語の基礎資料：[原著論文](https://arxiv.org/html/2107.03006v3)。各語の利用条件と主張の根拠はレビュー資料の対応表で区別する。
+
 <span id="math-information"></span>
 
 ### 情報理論
@@ -234,6 +266,26 @@ D_KL(p∥q)=Σi p_i log(p_i/q_i)という向き付きのずれ。選好学習で
 
 基礎資料：[学習の基礎](https://d2l.ai/chapter_multilayer-perceptrons/backprop.html)。著者公開教材。逆伝播と更新を区別。
 
+<span id="task-distribution"></span>
+
+#### タスク分布（Task Distribution）
+
+訓練又は評価でどの課題がどれだけ生じるかを表す分布。ICLの適応範囲やメタ学習の外側の期待値を定義する。自然言語の全課題を被覆する保証ではない。
+
+<span id="meta-learning"></span>
+
+#### メタ学習（Meta-learning）
+
+複数のタスクから、新しい課題に適応しやすい規則・表現・初期値などを得る枠組み。外側のパラメータ学習と、利用時の文脈適応を区別する。
+
+<span id="inductive-bias"></span>
+
+#### 帰納バイアス（Inductive Bias）
+
+有限の観測に適合する複数の規則の中で、構造・学習分布・算法によって特定の規則が選ばれやすい傾向。単なる偏見という意味ではなく、一般化の前提に関わる。
+
+第3段階追加語の基礎資料：[原著論文](https://arxiv.org/html/2208.01066v3)。各語の利用条件と主張の根拠はレビュー資料の対応表で区別する。
+
 <span id="math-language"></span>
 
 ### 言語モデル
@@ -281,6 +333,110 @@ D_KL(p∥q)=Σi p_i log(p_i/q_i)という向き付きのずれ。選好学習で
 既に得たトークンを条件に次のトークンを予測する方式。系列確率を条件付き確率の積で表す。確率の分解そのものと、どのアルゴリズムで生成するかは区別する。
 
 基礎資料：[Transformerの構造](https://arxiv.org/html/1706.03762v7)。Vaswani et al., NeurIPS 2017, §3.2–3.5。用語は本サイトの説明へ一般化した。
+
+<span id="context"></span>
+
+#### コンテキスト（Context）
+
+一回の処理でモデルが実際に参照する入力情報。指示・例・生成済み文字列などを含む。保存された全履歴や全学習データと同一ではない。
+
+<span id="in-context-learning"></span>
+
+#### 文脈内学習（In-Context Learning, ICL）
+
+推論時の例などに応じ、重みを更新せずに課題への振る舞いが変わる現象。条件付けとしての記述、ベイズ的解釈、特定回路の仮説を区別する。
+
+<span id="zero-shot"></span>
+
+#### 例なし設定（Zero-shot）
+
+入力に解答例を含めないタスク設定。指示や事前学習の知識がないという意味ではない。
+
+<span id="one-shot"></span>
+
+#### 一例設定（One-shot）
+
+入力に一つの例示を含む設定。重み更新を一回行うという意味ではない。
+
+<span id="few-shot"></span>
+
+#### 少数例設定（Few-shot）
+
+少数の例示を含む入力でタスクへ適応させる設定。例数を増やすだけで正答が保証されるわけではない。
+
+<span id="demonstration"></span>
+
+#### 例示（Demonstration）
+
+入力と望ましい出力の組など、解き方や形式を示す情報。評価対象そのものの正解を漏らすこととは区別する。
+
+<span id="non-autoregressive"></span>
+
+#### 非自己回帰（Non-Autoregressive）
+
+左から一つずつ確定する生成依存に限定しない方式。複数位置の反復更新を含み得る。全出力位置の無条件独立や高速化を保証する名称ではない。
+
+<span id="diffusion-model"></span>
+
+#### 拡散モデル（Diffusion Model）
+
+データを壊す順方向過程を定め、そこから復元する逆過程を学ぶ生成モデルの枠組み。連続ガウス型と離散トークン型を区別する。
+
+<span id="forward-process"></span>
+
+#### 順方向過程（Forward Process）
+
+データへノイズを加えて潜在状態へ移す過程。マスク拡散ではトークンをマスク状態へ移す。生成時のニューラルネットの順伝播とは別の用語である。
+
+<span id="reverse-process"></span>
+
+#### 逆方向過程（Reverse Process）
+
+ノイズ状態からデータへ戻す確率遷移。順方向行列の逆行列ではなく、未知の内容をモデルなどで推定する。
+
+<span id="denoising"></span>
+
+#### ノイズ除去・復元（Denoising）
+
+壊した入力から内容を推定する処理。拡散言語モデルではマスクされたトークンなどを予測する。
+
+<span id="discrete-diffusion"></span>
+
+#### 離散拡散（Discrete Diffusion）
+
+有限状態間の確率遷移でデータを壊し復元する方式。語彙番号へ画像用ガウスノイズをそのまま加える意味ではない。
+
+<span id="masked-diffusion"></span>
+
+#### マスク拡散（Masked Diffusion）
+
+内容を特別なマスクへ移す離散拡散。吸収型なら一度マスクになると順方向では戻らない。逆側の再マスク算法とは区別する。
+
+<span id="noise-schedule"></span>
+
+#### ノイズスケジュール（Noise Schedule）
+
+各時点でどの程度ノイズを加えるかの規則。離散マスクでは一段のマスク率と累積生存率を区別する。
+
+<span id="elbo"></span>
+
+#### 変分下界（Evidence Lower Bound, ELBO）
+
+補助分布による期待値で表す対数尤度の下限。必要な支持条件・有限性を確認する。下界の最大化と実際の生成品質の改善を同一視しない。
+
+<span id="sampling-step"></span>
+
+#### 生成更新ステップ（Sampling Step）
+
+拡散などで推論中に状態を一段更新する回数の単位。訓練のパラメータ更新回数とは別である。
+
+<span id="remasking"></span>
+
+#### 再マスク（Remasking）
+
+一度提案した位置を未確定へ戻して再検討する生成上の操作。未マスクを固定する逆過程の定理が、そのまま成り立つとは限らない。
+
+第3段階追加語の基礎資料：[原著論文](https://arxiv.org/html/2406.07524v2)。各語の利用条件と主張の根拠はレビュー資料の対応表で区別する。
 
 <span id="math-reinforcement"></span>
 
@@ -554,6 +710,146 @@ QueryとKeyで位置間の参照スコアを計算し、Valueを重み付きで�
 
 基礎資料：[Transformerの構造](https://arxiv.org/html/1706.03762v7)。Vaswani et al., NeurIPS 2017, §3.2–3.5。用語は本サイトの説明へ一般化した。
 
+<span id="induction-head"></span>
+
+#### 反復パターン参照ヘッド（Induction Head）
+
+以前のAの後のBを、再びAが来たときの予測へ利用するようなAttentionヘッド。特定モデルの回路研究の対象であり、ICL全般の唯一の原因ではない。
+
+<span id="implicit-gradient-descent"></span>
+
+#### 暗黙的勾配降下（Implicit Gradient Descent）
+
+固定ネットワークの順伝播が、別の推定問題の勾配更新に対応するという説明。回帰係数の更新とTransformer自体の重み更新を混同しない。
+
+<span id="dense-model"></span>
+
+#### 密なモデル（Dense Model）
+
+ここでは各トークンが対象層の共通ネットワークを使用する構成。モデル全体の各要素が常に非零であるという意味ではない。
+
+<span id="sparse-model"></span>
+
+#### 疎なモデル（Sparse Model）
+
+ここでは入力ごとに一部の計算経路を選ぶモデル。重み行列の零要素による疎性とは区別する。
+
+<span id="mixture-of-experts"></span>
+
+#### 混合Expertモデル（Mixture of Experts, MoE）
+
+複数の学習可能な関数をゲートにより選択・合成する構成。疎なMoEは一部のみを実行する。総パラメータ数は知識量ではない。
+
+<span id="expert"></span>
+
+#### Expert（専門家関数）
+
+MoE内で入力表現を変換する学習可能な部分ネットワーク。人間の専門家や独立人格ではなく、人間の分野への分化も保証されない。
+
+<span id="router"></span>
+
+#### Router・ゲート（Gating Network）
+
+入力からExpertの選択スコア・合成重みを計算するネットワーク。外部のAIサービスを振り分ける業務ルーターとは文脈が異なる。
+
+<span id="top-k-routing"></span>
+
+#### 上位k経路選択（Top-k Routing）
+
+Routerスコアの上位k個のExpertへ送る処理。選択後の再正規化、同点処理、容量超過の規約を別に定める。
+
+<span id="conditional-computation"></span>
+
+#### 条件付き計算（Conditional Computation）
+
+入力に応じて実行する部分を変える構成。MoEではExpertの選択により全重み数と一回の活性数を分ける。全費用の減少は別条件である。
+
+<span id="feed-forward-network"></span>
+
+#### 順伝播ネットワーク（Feed-Forward Network, FFN）
+
+Transformerでは主に各位置へ適用する非線形変換部分を指す。位置間を読むAttentionとは別の役割であり、MoEが置き換える対象の一例。
+
+<span id="state-space-model"></span>
+
+#### 状態空間モデル（State Space Model, SSM）
+
+入力・内部状態・出力の方程式で系列を記述する枠組み。ニューラルSSMは構造を学習する層として利用する。制御対象とモデル全体は同じではない。
+
+<span id="state-variable"></span>
+
+#### 状態変数（State Variable）
+
+次の計算へ引き継ぐ情報のベクトル。SSMでは前状態と現在入力から更新する。強化学習の環境状態と同じ定義だと決め付けない。
+
+<span id="state-transition"></span>
+
+#### 状態遷移（State Transition）
+
+状態を次の時点へ更新する規則。連続SSMのAと離散SSMのAバーの関係は離散化に依存する。
+
+<span id="continuous-time"></span>
+
+#### 連続時間モデル（Continuous-Time Model）
+
+実数時刻で状態を定義し、微分方程式などで変化を表すモデル。系列層では物理時間の実測とは限らない。
+
+<span id="discrete-time"></span>
+
+#### 離散時間モデル（Discrete-Time Model）
+
+刻みごとの状態を定義するモデル。SSMではトークン位置などの更新に用い、離散トークンという状態の種類とは別軸である。
+
+<span id="discretization"></span>
+
+#### 離散化（Discretization）
+
+連続系を有限刻みの規則へ変換する操作。ZOHは区間内の入力一定を仮定する。一次近似と厳密な区間解を区別する。
+
+<span id="matrix-exponential"></span>
+
+#### 行列指数関数（Matrix Exponential）
+
+eの行列乗を級数で定義したもの。定係数線形系の状態遷移e^(AΔ)を表す。成分ごとの指数計算とは異なる。
+
+<span id="recurrence"></span>
+
+#### 再帰計算（Recurrence）
+
+前の状態を用いて次を順に求める計算。線形時不変SSMなら初期状態項と入力の畳み込みへ展開できる。
+
+<span id="parallel-scan"></span>
+
+#### 並列走査（Parallel Scan）
+
+結合的な演算の累積値を木状に計算する方法。既知のアフィン状態更新の合成に利用できるが、一般の非線形状態依存更新を自動的に並列化しない。
+
+<span id="selective-ssm"></span>
+
+#### 選択的状態空間モデル（Selective SSM）
+
+入力によって書き込み・保持・読み出しの係数などを変えるSSM。一般に固定核のLTI畳み込みとは異なる。
+
+<span id="s4"></span>
+
+#### 構造化状態空間系列モデル（Structured State Space Sequence Model, S4）
+
+構造化した状態行列を使い、長系列の核を効率よく計算するモデル系列。任意の密行列SSMが同じ費用になるわけではない。
+
+<span id="mamba-model"></span>
+
+#### Mamba
+
+入力依存の選択的SSMとハードウェアを考慮した算法を組み合わせる系列モデル。スカラーゲートだけで完全に再現されるものではない。
+
+<span id="state-capacity"></span>
+
+#### 状態容量（State Capacity）
+
+状態次元・表現精度などに制約される保持能力。有限精度の固定状態から任意の長さの全履歴を完全に復元できるとは限らない。
+
+第3段階追加語の基礎資料：[原著論文](https://arxiv.org/html/2312.00752v2)。各語の利用条件と主張の根拠はレビュー資料の対応表で区別する。
+
 <span id="math-resources"></span>
 
 ### 計算資源・最適化
@@ -625,6 +921,38 @@ QueryとKeyで位置間の参照スコアを計算し、Valueを重み付きで�
 複数の標本や系列をまとめて計算する方法。演算器を効率よく使える場合があるが、待ち時間・メモリ・形状で効果が変わる。
 
 基礎資料：[学習計算予算](https://arxiv.org/abs/2203.15556)。Hoffmann et al., NeurIPS 2022, §3。ハードウェア性能はN12のRoofline原典へ。
+
+<span id="activated-parameters"></span>
+
+#### 活性パラメータ（Activated Parameters）
+
+一トークンの処理で使う重み。MoEでは選択Expertだけでなく共通部分・Routerも含めて定義する。全重みの保存量とは異なる。
+
+<span id="load-balancing"></span>
+
+#### 負荷分散（Load Balancing）
+
+特定Expertへの割当集中を抑える考え方。補助損失を小さくすることだけで完全均等を保証しない。
+
+<span id="expert-capacity"></span>
+
+#### Expert受入容量（Expert Capacity）
+
+一バッチなどでExpertが受け付ける割当の上限。超過時のドロップ・迂回などの規約で結果と費用が変わる。
+
+<span id="expert-collapse"></span>
+
+#### Expert集中・崩壊（Expert Collapse）
+
+一部だけが選択され、他のExpertが十分に利用・学習されない状態。出力品質の低下と常に同義ではない。
+
+<span id="all-to-all"></span>
+
+#### 全相互通信（All-to-All Communication）
+
+分散MoEなどで、各装置の表現を担当Expertの装置へ送って結果を戻す通信。全装置の全データを同じ量ずつ送るとは限らない。
+
+第3段階追加語の基礎資料：[原著論文](https://www.jmlr.org/papers/v23/21-0998.html)。各語の利用条件と主張の根拠はレビュー資料の対応表で区別する。
 
 ### 似ている用語を読み分ける
 
