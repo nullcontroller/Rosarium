@@ -1,13 +1,17 @@
 ---
+import Icon from "./Icon.astro";
+import { archiveLifecycles } from "../lib/archive";
 interface Props {
   lifecycle: "active" | "obsolete" | "retired";
   reason?: string;
+  archiveKind?: "obsolete" | "obsolete-cases" | "retired";
 }
-const { lifecycle, reason } = Astro.props;
+const { lifecycle, reason, archiveKind } = Astro.props;
+const group = archiveLifecycles.find(group => group.id === (archiveKind ?? lifecycle));
 ---
 {lifecycle !== "active" && (
-  <aside class="content-lifecycle-note" data-lifecycle={lifecycle} aria-label={lifecycle === "obsolete" ? "旧記事の位置づけ" : "退役記事の位置づけ"}>
-    <p><strong>{lifecycle.toUpperCase()}</strong> — {lifecycle === "obsolete" ? "現在の推奨内容ではない参考記事" : "独立した記事としての役割を終えた記録"}</p>
+  <aside class="content-lifecycle-note" data-lifecycle={lifecycle} data-archive-kind={group!.id} aria-label={`${group!.title}の位置づけ`}>
+    <p class="archive-status"><span class="archive-state-icon"><Icon name={group!.icon} size="meta" /></span><strong>{group!.title}</strong></p>
     <p>{reason}</p>
     <p>{lifecycle === "obsolete" ? "当時の前提や判断を示す記録として掲載しています。" : "現在の推奨内容としてではなく、過去の記録として公開しています。"}</p>
   </aside>

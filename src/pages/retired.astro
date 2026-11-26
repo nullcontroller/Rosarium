@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import ArchiveList from "../components/ArchiveList.astro";
+import Icon from "../components/Icon.astro";
 import { publishedEntry, url } from "../lib/site";
 import { archiveTitle, archiveLifecycles, isArchiveEntry, getArchiveGroup } from "../lib/archive";
 const entries = await getCollection("pages", (entry) => publishedEntry(entry) && isArchiveEntry(entry));
@@ -13,7 +14,7 @@ const entries = await getCollection("pages", (entry) => publishedEntry(entry) &&
   <p>現在の推奨ではないコンテンツと、独立した役割を終えた記録を、位置づけごとに保存しています。</p>
   <p>旧記事は当時の前提や判断を参考として残す内容、退役記事は独立した役割を終えた記録です。カテゴリを開くと記事を確認できます。</p>
   <nav aria-label="アーカイブの種類別一覧" class="archive-entrances">
-    {archiveLifecycles.map((group) => <a href={url(`retired/${group.id}`)} data-archive-entrance={group.id}>{group.title} <small>{entries.filter((entry) => getArchiveGroup(entry) === group.id).length}件</small></a>)}
+    {archiveLifecycles.map((group) => <a href={url(`retired/${group.id}`)} data-archive-entrance={group.id} data-archive-kind={group.id}><span class="archive-state-icon"><Icon name={group.icon} size="meta" /></span>{group.title} <small>{entries.filter((entry) => getArchiveGroup(entry) === group.id).length}件</small></a>)}
   </nav>
   <ArchiveList entries={entries} />
   </div>

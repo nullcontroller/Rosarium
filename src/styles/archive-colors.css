@@ -1,0 +1,93 @@
+/* Quiet archive states; labels and icons also identify each state. */
+:root {
+  --archive-obsolete-accent: #536f96;
+  --archive-obsolete-ink: #30435d;
+  --archive-obsolete-muted: #4c5c73;
+  --archive-obsolete-bg: #edf1f6;
+  --archive-obsolete-line: #7a899e;
+  --archive-retired-accent: #606975;
+  --archive-retired-ink: #414b57;
+  --archive-retired-muted: #596575;
+  --archive-retired-bg: #f0f1f3;
+  --archive-retired-line: #7c8693;
+  --archive-obsolete-cases-accent: #7d683e;
+  --archive-obsolete-cases-ink: #53462f;
+  --archive-obsolete-cases-muted: #6c5c3c;
+  --archive-obsolete-cases-bg: #f4f0e7;
+  --archive-obsolete-cases-line: #938264;
+}
+@media (prefers-color-scheme: dark) {
+ :root:not([data-theme="light"]) {
+  --archive-obsolete-accent: #a4b9d6;
+  --archive-obsolete-ink: #d5dfec;
+  --archive-obsolete-muted: #b0bed1;
+  --archive-obsolete-bg: #242d3a;
+  --archive-obsolete-line: #7b8da7;
+  --archive-retired-accent: #bbc2cc;
+  --archive-retired-ink: #d1d5dc;
+  --archive-retired-muted: #adb6c2;
+  --archive-retired-bg: #242a32;
+  --archive-retired-line: #83909f;
+  --archive-obsolete-cases-accent: #d0bd94;
+  --archive-obsolete-cases-ink: #e4dbc8;
+  --archive-obsolete-cases-muted: #c3b392;
+  --archive-obsolete-cases-bg: #302c23;
+  --archive-obsolete-cases-line: #a18d65;
+ }
+}
+:root[data-theme="dark"] {
+  --archive-obsolete-accent: #a4b9d6;
+  --archive-obsolete-ink: #d5dfec;
+  --archive-obsolete-muted: #b0bed1;
+  --archive-obsolete-bg: #242d3a;
+  --archive-obsolete-line: #7b8da7;
+  --archive-retired-accent: #bbc2cc;
+  --archive-retired-ink: #d1d5dc;
+  --archive-retired-muted: #adb6c2;
+  --archive-retired-bg: #242a32;
+  --archive-retired-line: #83909f;
+  --archive-obsolete-cases-accent: #d0bd94;
+  --archive-obsolete-cases-ink: #e4dbc8;
+  --archive-obsolete-cases-muted: #c3b392;
+  --archive-obsolete-cases-bg: #302c23;
+  --archive-obsolete-cases-line: #a18d65;
+}
+[data-archive-kind="obsolete"] {
+  --archive-accent: var(--archive-obsolete-accent);
+  --archive-ink: var(--archive-obsolete-ink);
+  --archive-muted: var(--archive-obsolete-muted);
+  --archive-bg: var(--archive-obsolete-bg);
+  --archive-line: var(--archive-obsolete-line);
+}
+[data-archive-kind="retired"] {
+  --archive-accent: var(--archive-retired-accent);
+  --archive-ink: var(--archive-retired-ink);
+  --archive-muted: var(--archive-retired-muted);
+  --archive-bg: var(--archive-retired-bg);
+  --archive-line: var(--archive-retired-line);
+}
+[data-archive-kind="obsolete-cases"] {
+  --archive-accent: var(--archive-obsolete-cases-accent);
+  --archive-ink: var(--archive-obsolete-cases-ink);
+  --archive-muted: var(--archive-obsolete-cases-muted);
+  --archive-bg: var(--archive-obsolete-cases-bg);
+  --archive-line: var(--archive-obsolete-cases-line);
+}
+[data-archive-kind] {
+  --obsolete-bg: var(--archive-bg);
+  --obsolete-badge: var(--archive-bg);
+  --obsolete-ink: var(--archive-ink);
+  --obsolete-muted: var(--archive-muted);
+  --obsolete-line: var(--archive-line);
+  --obsolete-link: var(--archive-accent);
+  --obsolete-hover: var(--archive-ink);
+  color: var(--archive-ink);
+}
+[data-archive-kind] :is(h1, summary, .archive-status) { color: var(--archive-accent); }
+[data-archive-kind] .archive-state-icon .icon { color: var(--archive-accent); background: transparent; border: 0; }
+.archive-state-icon { display: inline-flex; vertical-align: middle; margin-inline-end: .35rem; }
+.archive-page[data-archive-kind] .page-heading .icon,
+article[data-archive-kind] .document-title-row > .icon { color: var(--archive-accent); background: var(--archive-bg); border-color: var(--archive-line); }
+[data-archive-kind] .content-lifecycle-note,
+[data-archive-kind].content-lifecycle-note { border-style: solid; border-inline-start: 3px solid var(--archive-accent); }
+.archive-status { display: flex; align-items: center; gap: .25rem; font-weight: 600; }

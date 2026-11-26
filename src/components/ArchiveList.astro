@@ -3,6 +3,7 @@ import type { Entry } from "../lib/navigation";
 import { url } from "../lib/site";
 import { archiveLifecycles, getArchiveGroup, groupArchiveEntries, archiveCategoryAnchor, archiveEntryAnchor } from "../lib/archive";
 import { archiveReason, archiveDestination } from "../lib/archive-presentation";
+import Icon from "./Icon.astro";
 interface Props { entries: Entry[]; lifecycle?: "obsolete" | "retired"; }
 const { entries, lifecycle } = Astro.props;
 const categories = lifecycle
@@ -17,8 +18,8 @@ const targetFor = (entry: Entry) => archiveDestination(routes[`../pages/${entry.
     <button type="button" data-archive-close aria-controls={categories.map(group => group.anchor).join(" ")}>すべて閉じる</button>
     <span class="visually-hidden" role="status" aria-live="polite" data-archive-status></span>
   </div>
-{categories.map(({ category, entries: categoryEntries, label, anchor, lifecycle: state }) => <details id={anchor} data-archive-category={category} data-history-group={state}>
-  <summary><h2>{label} <span class="archive-count">{categoryEntries.length}件</span></h2></summary>
+{categories.map(({ category, entries: categoryEntries, label, anchor, lifecycle: state }) => <details id={anchor} data-archive-category={category} data-history-group={state} data-archive-kind={getArchiveGroup(categoryEntries[0])}>
+  <summary><span class="archive-state-icon"><Icon name={archiveLifecycles.find(group => group.id === getArchiveGroup(categoryEntries[0]))!.icon} size="meta" /></span><h2>{label} <span class="archive-count">{categoryEntries.length}件</span></h2></summary>
   <ul class="retired-list">
   {categoryEntries.map((entry) => <li id={archiveEntryAnchor(entry)} data-history-id={entry.id} data-retired-id={state === "retired" ? entry.id : undefined}>
     <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>

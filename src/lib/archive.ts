@@ -1,9 +1,9 @@
 import type { CollectionEntry } from "astro:content";
 export const archiveTitle = "旧記事・退役記事";
 export const archiveLifecycles = [
-  { id: "obsolete", lifecycle: "obsolete", title: "旧記事", description: "現在は推奨しませんが、当時の前提や判断を参考として残している記事です。" },
-  { id: "obsolete-cases", lifecycle: "obsolete", title: "旧事例", description: "現在の推奨構成ではない、過去の事例です。" },
-  { id: "retired", lifecycle: "retired", title: "退役記事", description: "独立した役割を終え、過去の記録として保存している内容です。" },
+  { id: "obsolete", icon: "articles", lifecycle: "obsolete", title: "旧記事", description: "現在は推奨しませんが、当時の前提や判断を参考として残している記事です。" },
+  { id: "obsolete-cases", icon: "cases", lifecycle: "obsolete", title: "旧事例", description: "現在の推奨構成ではない、過去の事例です。" },
+  { id: "retired", icon: "archive", lifecycle: "retired", title: "退役記事", description: "独立した役割を終え、過去の記録として保存している内容です。" },
 ] as const;
 export const isCaseEntry = (entry: CollectionEntry<"pages">) =>
   entry.data.section === "cases" || entry.data.kind === "case" || entry.data.layer === "case";

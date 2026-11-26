@@ -6,6 +6,7 @@ import { formatDateJa, url } from "../lib/site";
 import DesignArea from "./DesignArea.astro";
 import { designAreaFor } from "../data/design-studies.mjs";
 import Icon from "./Icon.astro";
+import { getArchiveGroup } from "../lib/archive";
 interface Props {
   entry: CollectionEntry<"pages">;
   heading?: "h2" | "h3" | "p";
@@ -19,7 +20,7 @@ const category = contentDisplayCategory(entry);
 const designArea = designAreaFor(entry.id);
 ---
 
-<div class:list={["content-entry", showIcon && "icon-entry"]} data-content-id={entry.id} data-lifecycle={d.lifecycle}>
+<div class:list={["content-entry", showIcon && "icon-entry"]} data-content-id={entry.id} data-lifecycle={d.lifecycle} data-archive-kind={getArchiveGroup(entry)}>
   {showIcon && <Icon name={iconForEntry(entry)} size="list" />}
   <div>
     <DesignArea id={entry.id} />
