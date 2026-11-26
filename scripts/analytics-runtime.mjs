@@ -3,7 +3,13 @@ import vm from "node:vm";
 // Execute the actual initialization script without contacting Google.
 export function runAnalytics(script, overrides = {}) {
   const loaders = [];
+  const storage = new Map(Object.entries(overrides.storage ?? {}));
   const window = {
+    ...(overrides.disabled ? { 'ga-disable-G-W5ZR0NKWGB': true } : {}),
+    localStorage: {
+      getItem(key) { if (overrides.storageError) throw new Error('Storage unavailable'); return storage.get(key) ?? null; },
+      setItem(key, value) { if (overrides.storageError) throw new Error('Storage unavailable'); storage.set(key, value); },
+    },
     location: {
       hostname: "rosarium-tech.com",
       protocol: "https:",
@@ -23,5 +29,5 @@ export function runAnalytics(script, overrides = {}) {
     document: { referrer: overrides.referrer ?? "", createElement: () => ({}), head: { appendChild: (loader) => loaders.push(loader) } },
   };
   vm.runInNewContext(script, context, { timeout: 1000 });
-  return { loaders, events: window.dataLayer ?? [], initialized: typeof window.gtag === "function" };
+  return { loaders, events: window.dataLayer ?? [], initialized: typeof window.gtag === "function", disabled: window["ga-disable-G-W5ZR0NKWGB"] === true, storage: Object.fromEntries(storage) };
 }

@@ -35,6 +35,13 @@ for (const id of ids) {
 const hub = load(fs.readFileSync("dist-review/cases/design-studies/index.html", "utf8"));
 assert.equal(hub('meta[name="robots"]').attr("content"), "index, follow");
 for(const id of ids.filter(id=>id.startsWith("cases/design-studies/"))) assert(hub(`a[href='/${id}/']`).length>0,id);
+// A review build must never ship the GA initializer, including public pages.
 const files = dir => fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name)]);
 for(const file of files("dist/pagefind")) assert.deepEqual(fs.readFileSync(file),fs.readFileSync(file.replace(/^dist/,"dist-review")),file);
 console.log(`Verified ${ids.length} selected review targets, published promotions, draft isolation and identical public-only search.`);
+
+for (const file of files("dist-review").filter(file => file.endsWith(".html"))) {
+  const $ = load(fs.readFileSync(file, "utf8"));
+  assert.equal($("script[data-analytics-init], script[src*='googletagmanager.com']").length, 0, `Review analytics leak: ${file}`);
+}
+console.log("Review analytics: all HTML pages omit GA initialization and loader.");

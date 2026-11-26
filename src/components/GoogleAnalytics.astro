@@ -5,15 +5,24 @@ interface Props {
   enabled?: boolean;
 }
 const { page, enabled = true } = Astro.props;
+// Review builds must remain silent even if copied onto the canonical host.
+const buildEnabled = !process.env.ROSARIUM_DRAFT_PREVIEW && process.env.ROSARIUM_DISABLE_ANALYTICS !== "1";
 ---
 
-{import.meta.env.PROD && (
+{import.meta.env.PROD && buildEnabled && (
   <>
     <script is:inline data-analytics-init define:vars={{ measurementId, page, enabled }}>
+      const disableKey = `ga-disable-${measurementId}`;
+      let optedOut = new URLSearchParams(window.location.search).get('analytics') === 'off';
+      try {
+        if (optedOut) window.localStorage.setItem('rosarium.analytics.disabled', '1');
+        optedOut = optedOut || window.localStorage.getItem('rosarium.analytics.disabled') === '1';
+      } catch { /* The current URL still opts out when storage is unavailable. */ }
+      if (optedOut) window[disableKey] = true;
       function shouldLoadAnalytics() {
         // This is a conservative pre-load guard, not complete bot detection.
         const automatedAgent = /\b(?:bot|crawler|spider|headless(?:chrome)?|lighthouse|pagespeed|googlebot|bingbot|applebot|slackbot|facebookexternalhit|linkpreview)\b|\b[a-z0-9_-]*(?:bot|crawler|spider|preview)\//i;
-        return enabled && window.location.hostname === 'rosarium-tech.com' &&
+        return enabled && window[disableKey] !== true && window.location.hostname === 'rosarium-tech.com' &&
           window.location.protocol === 'https:' &&
           navigator.webdriver !== true &&
           !automatedAgent.test(navigator.userAgent);

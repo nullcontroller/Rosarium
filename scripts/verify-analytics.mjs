@@ -61,11 +61,11 @@ for (const file of pages) {
     assert.equal(parameters.article_slug, "essays/rethink-work-before-ai");
   }
   if (pagePath.startsWith("/cases/system-understanding/")) assert.equal(parameters.obsolete_status, "obsolete");
-  for (const overrides of [{ navigator: { webdriver: true } }, { navigator: { userAgent: "Googlebot/2.1" } }, { location: { hostname: "localhost" } }]) {
+  for (const overrides of [{ navigator: { webdriver: true } }, { navigator: { userAgent: "Googlebot/2.1" } }, { location: { hostname: "localhost" } }, { location: { hostname: "nullcontroller.tail8bbb3b.ts.net" } }, { location: { search: "?analytics=off" } }, { disabled: true }, { storage: { "rosarium.analytics.disabled": "1" } }]) {
     const excluded = runAnalytics(script, overrides);
     assert.equal(excluded.loaders.length, 0, `${file}: excluded clients do not load GA4`);
     assert.equal(excluded.events.length, 0, `${file}: excluded clients do not queue events`);
   }
 }
 assert.equal(representativeTypes.size, 0, "All representative pages must be verified");
-console.log(`Analytics audit: ${pages.length} HTML pages, guarded production loader/config; automation and localhost excluded.`);
+console.log(`Analytics audit: ${pages.length} HTML pages, guarded production loader/config; automation, localhost, Tailscale and explicit/persistent opt-out excluded.`);
