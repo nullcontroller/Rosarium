@@ -1,5 +1,5 @@
 ---
-title: "言語モデルは、なぜ再学習せずに新しいタスクへ適応できるのか"
+title: "In-Context Learningの原理"
 summary: "指示や例示で回答が変わる現象から、文脈内学習の条件付け・潜在タスク推定・Attentionによる参照を整理する。ベイズ更新の人工例と、暗黙的最適化・Induction Headの研究が説明できる範囲を区別する。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
@@ -9,7 +9,7 @@ status: published
 public: true
 lifecycle: active
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags: [数理基礎, 言語モデル, 第3段階]
 ---
 

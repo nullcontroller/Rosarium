@@ -1,11 +1,11 @@
 ---
 summary: "利用者に製品分類や専門用語を理解させず、自然な言葉と段階的な追加質問で解決へ導く画面と対話の設計を整理する。"
 layer: publication
-title: 06. 顧客体験をどう変えたか
+title: "06. 自己解決と有人対応をつなぐ顧客体験設計"
 kind: case
 section: cases
 status: published
-last_updated: "2026-11-24"
+last_updated: "2026-11-27"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []

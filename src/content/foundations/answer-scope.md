@@ -2,11 +2,11 @@
 summary: "AIが答えてよい質問と、人へ渡すべき質問の範囲を決めます。対象・版・根拠・入力条件を明示し、回答・拒否・引き継ぎの品質を継続して測ります。"
 layer: ai-design
 design_topic: responsibility-control
-title: なぜ回答範囲を制限した方がよいのか
+title: "AIの回答範囲と回答可否の設計"
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-11-27"
 tags:
   - foundations
 published_at: "2026-09-23"
@@ -18,7 +18,7 @@ source:
   topics: []
 publication_date_basis: fallback
 ---
-## なぜ回答範囲を制限した方がよいのか
+## AIの回答範囲と回答可否の設計
 
 > 種別：設計原則 / 選択的予測 / 評価方法
 > 適用対象：RAG、QAチャット、コード生成、AIエージェント

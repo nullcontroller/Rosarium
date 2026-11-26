@@ -2,11 +2,11 @@
 summary: "回答の速さやモデルの価格だけでなく、やり直しと人間の確認を含めて処理方法を選びます。品質・待ち時間（Latency）・リスクから、使うモデルや処理経路を評価します。"
 layer: ai-design
 design_topic: architecture
-title: AIコスト・Latency・モデルルーティング設計
+title: "AIのモデルルーティング設計"
 kind: architecture
 section: architecture
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-11-27"
 tags:
   - architecture
 published_at: "2026-09-23"
@@ -18,7 +18,7 @@ source:
   topics: []
 publication_date_basis: fallback
 ---
-## AIコスト・Latency・モデルルーティング設計
+## AIのモデルルーティング設計
 
 > 種別：モデル選択 / Routing設計 / 経済性評価
 > 適用対象：生成AI、QAチャット、AIエージェント、コード生成、複数Model構成

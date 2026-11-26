@@ -1,5 +1,5 @@
 ---
-title: "AIが作った証明を、形式的検証はどこまで保証できるのか"
+title: "神経記号推論と形式的検証"
 summary: "LLMによる証明候補の生成と、記号的な検査の責務を分ける。有限命題の証明書・SATを検算し、健全性、完全性、前提と現実世界の対応を整理する。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
@@ -9,7 +9,7 @@ status: published
 public: true
 lifecycle: active
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags: [数理基礎, 言語モデル, 第4段階]
 ---
 

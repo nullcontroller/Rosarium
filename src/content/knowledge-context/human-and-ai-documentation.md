@@ -2,11 +2,11 @@
 summary: "人が全体を理解する資料と、AIが根拠を検索する資料は、読み方が異なります。知識の正本は一つに保ち、版・条件・例外を共有しながら、表示と取得単位を分けて設計します。"
 layer: ai-design
 design_topic: knowledge-context
-title: 人向け資料とAI向け資料の分離設計
+title: "単一の正本から設計する人向け資料とAI向け資料"
 kind: guide
 section: knowledge-context
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-11-27"
 tags:
   - knowledge-context
 published_at: "2026-09-23"
@@ -18,7 +18,7 @@ source:
   topics: []
 publication_date_basis: fallback
 ---
-## 人向け資料とAI向け資料の分離設計
+## 単一の正本から設計する人向け資料とAI向け資料
 
 > 種別：Knowledge設計 / 情報アーキテクチャ / 運用原則
 > 適用対象：RAG、QAチャット、Knowledge Base、社内文書

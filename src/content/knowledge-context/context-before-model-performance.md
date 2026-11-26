@@ -2,12 +2,12 @@
 summary: "複数AIを実務で使った経験から、モデル性能とともに情報へアクセスできる条件を重視する。必要なContextを特定し、適切なAIへ渡し、役割を分担させる考え方を整理する。"
 publication_format: article
 layer: publication
-title: AIを使い分ける基準は、モデル性能よりコンテキストではないか
+title: "コンテキストに基づくAIと調査経路の選択"
 kind: guide
 section: knowledge-context
 status: published
 lifecycle: active
-last_updated: "2026-10-09"
+last_updated: "2026-11-27"
 tags:
   - githubcopilot
   - コンテキスト
@@ -35,7 +35,7 @@ source:
     published_at: 2026-08-22 10:28
 ---
 
-## AIを使い分ける基準は、モデル性能よりコンテキストではないか
+## コンテキストに基づくAIと調査経路の選択
 
 生成AIを使っていると、
 
@@ -348,6 +348,6 @@ AIの応答が速くても正しいとは限らず、人の回答が遅くても
 
 人間の関与を「最後に毎回確認する」だけにしません。背景を提供する人、根拠の矛盾や例外を判断する人、権限を持って承認する人では役割が異なります。同じ人が複数を担う場合も、どの立場で何を確定したかを分けます。責任ある承認が必要な処理は、調査主体の選択とは別に管理します。
 
-この責任設計は[AI出力の責任境界とHITL](/evaluation-hitl/responsibility-and-hitl/)、保守の検証条件は[なぜAIは新規コードよりコード保守に強いのか](/software-engineering/code-maintenance-context/)で整理しています。
+この責任設計は[AI出力の責任境界とHITL](/evaluation-hitl/responsibility-and-hitl/)、保守の検証条件は[AIによるコード保守を支える情報と検証条件](/software-engineering/code-maintenance-context/)で整理しています。
 
 AI活用の出発点は、問いに必要なコンテキストです。人への問い合わせをゼロにするのではなく、確定できた事実と不足する情報を分け、問い合わせるべき問いを絞ります。調査を速めることと、開発品質を保証することも分けて評価します。

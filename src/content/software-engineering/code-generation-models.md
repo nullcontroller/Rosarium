@@ -2,11 +2,11 @@
 summary: "コード生成AIは、文章を出すモデルだけで成り立つわけではありません。必要情報（Context）、編集ツール、権限、テストを分け、生成から採用までの仕組みと失敗箇所を説明します。"
 layer: ai-theory
 ai_theme: ai-theory
-title: コード生成AIの正体
+title: "コード生成AIの構成と動作原理"
 kind: guide
 section: software-engineering
 status: published
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags:
   - software-engineering
 published_at: "2026-09-23"
@@ -19,7 +19,7 @@ source:
   topics: []
 publication_date_basis: fallback
 ---
-## コード生成AIの正体
+## コード生成AIの構成と動作原理
 
 > 種別：一般理論・製品構成の概念モデル・設計仮説  
 > 適用対象：コード補完、コード説明、影響分析、Patch生成、Coding Agent  

@@ -6,7 +6,7 @@ title: 複数AIを使い分けるレガシー保守
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-19"
+last_updated: "2026-11-27"
 entry_points:
   - ai
   - dx

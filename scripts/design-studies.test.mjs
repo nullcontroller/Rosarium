@@ -22,7 +22,7 @@ test("six independent public design studies preserve virtual labels and publicat
     assert.equal(entry.data.public, true);
     assert.equal(entry.data.series, undefined);
     assert.equal(entry.data.published_at, "2026-11-25");
-    assert.equal(entry.data.last_updated, "2026-11-25");
+    assert.equal(entry.data.last_updated, entry.id === "cases/design-studies/document-lifecycle" ? "2026-11-27" : "2026-11-25");
     assert.equal(isDraftPreview(entry), false);
     assert.equal(isDraftPreview(entry, entry.id), false);
   }

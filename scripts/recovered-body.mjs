@@ -3,6 +3,15 @@ import crypto from "node:crypto";
 const digest = (body) => crypto.createHash("sha256").update(body).digest("hex");
 // A local appendix never replaces the immutable recovered text or its import checksum.
 export function verifyRecoveredBody(body, record, lastUpdated) {
+  const titleRevision = record.title_revision;
+  if (titleRevision) {
+    assert.equal(lastUpdated, titleRevision.date);
+    assert.ok(titleRevision.reason?.trim());
+    for (const { original, replacement } of titleRevision.references) {
+      assert.equal(body.split(replacement).length - 1, 1, "Title reference must be unique");
+      body = body.replace(replacement, original);
+    }
+  }
   const appendix = record.local_appendix;
   const presentation = record.presentation_revision;
   if (presentation) {
@@ -20,7 +29,7 @@ export function verifyRecoveredBody(body, record, lastUpdated) {
     return;
   }
   assert.match(appendix.date, /^\d{4}-\d{2}-\d{2}$/);
-  assert.equal(lastUpdated, appendix.date);
+  assert.equal(titleRevision ? titleRevision.previous_last_updated : lastUpdated, appendix.date);
   assert.ok(appendix.reason?.trim(), "Appendix reason missing");
   assert.ok(appendix.marker?.trim(), "Appendix marker missing");
   const boundary = body.indexOf(appendix.marker);

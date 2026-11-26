@@ -118,7 +118,7 @@ Markdown化には、検索性、差分管理、分割管理に加え、AIが参�
   <figcaption>図3　方式選定の判断過程。多数の文書の個別提供を避けるため統合案を検討したが、長大化が課題となった。ファイル構造を維持するリポジトリ参照を選び、横断レビューを実施した。 図中の文書数は模式的な表現であり、実際の社内構成を示さない。図を選択すると拡大できる。</figcaption>
 </figure>
 
-AIを選ぶことはモデルを選ぶことだけでなく、調査に必要な情報へアクセスさせることでもある。この考え方は[AIを使い分ける基準は、モデル性能よりコンテキストではないか](/knowledge-context/context-before-model-performance/)にもつながる。
+AIを選ぶことはモデルを選ぶことだけでなく、調査に必要な情報へアクセスさせることでもある。この考え方は[コンテキストに基づくAIと調査経路の選択](/knowledge-context/context-before-model-performance/)にもつながる。
 
 <div data-case-diagram="maintenance-documentation-debt"></div>
 

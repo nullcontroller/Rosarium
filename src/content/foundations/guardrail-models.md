@@ -2,11 +2,11 @@
 summary: "指示による誘導、生成時制約、検証、実行認可を分ける。受理集合と意図した許容集合を定義し、健全性・完全性と、構文検査だけでは保証できない範囲を説明する。"
 layer: ai-design
 design_topic: responsibility-control
-title: ガードレールの数学的説明
+title: "ガードレールの数理モデル"
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags:
   - foundations
 published_at: "2026-09-23"
@@ -18,7 +18,7 @@ source:
   topics: []
 publication_date_basis: fallback
 ---
-## ガードレールの数学的説明
+## ガードレールの数理モデル
 
 > 種別：設計原則 / リスク制御 / 決定論的制御
 > 適用対象：生成AI、RAG、QAチャット、AIエージェント

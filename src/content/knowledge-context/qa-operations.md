@@ -2,11 +2,11 @@
 summary: "問い合わせAIを、回答して終わる道具ではなく、知識を確認・更新し続ける仕組みとして設計します。検索・回答・拒否・人への引き継ぎ・記録を、QAとKnowledgeの運用としてつなぎます。"
 layer: ai-design
 design_topic: lifecycle-operations
-title: QAチャット運用思想
+title: "QAチャットの運用設計"
 kind: guide
 section: knowledge-context
 status: published
-last_updated: "2026-10-08"
+last_updated: "2026-11-27"
 tags:
   - knowledge-context
 published_at: "2026-09-23"
@@ -20,7 +20,7 @@ updated_at: "2026-10-08"
 update_type: revised
 publication_date_basis: fallback
 ---
-## QAチャット運用思想
+## QAチャットの運用設計
 
 > 種別：運用原則 / 参照Workflow / 責任設計
 > 適用対象：RAG、社内QA、顧客向けQA、Knowledge検索
@@ -101,7 +101,7 @@ QAチャットの成功を、単に「文章が自然だった」と定義して
 
 各工程の失敗を区別して記録する。検索失敗なら索引やKnowledgeを確認し、根拠にない回答なら生成・検証を確認する。最終回答だけを直すのではなく、原因工程の担当者へ改善を戻す。
 
-検索・生成・拒否の評価指標は[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)で扱う。運用ではその評価結果に、担当者、対応期限、修正後の確認結果を結び付ける。
+検索・生成・拒否の評価指標は[QAチャットの品質評価設計](/evaluation-hitl/qa-evaluation/)で扱う。運用ではその評価結果に、担当者、対応期限、修正後の確認結果を結び付ける。
 
 ---
 

@@ -2,11 +2,11 @@
 summary: "既存コード・テスト・差分が、AIの生成条件と検証根拠になる理由を整理する。保守が常に容易とはせず、依存関係や検索コストを踏まえて調査・局所変更・検証へ分解する。"
 layer: ai-design
 design_topic: software-engineering
-title: なぜAIは新規コードよりコード保守に強いのか
+title: "AIによるコード保守を支える情報と検証条件"
 kind: guide
 section: software-engineering
 status: published
-last_updated: "2026-10-08"
+last_updated: "2026-11-27"
 tags:
   - software-engineering
 published_at: "2026-09-23"
@@ -18,7 +18,7 @@ source:
   topics: []
 publication_date_basis: fallback
 ---
-## なぜAIは新規コードよりコード保守に強いのか
+## AIによるコード保守を支える情報と検証条件
 
 > 種別：設計仮説・情報理論による簡略モデル・実務指針  
 > 適用対象：既存Code調査、影響分析、局所修正、Regression Test、Legacy保守  

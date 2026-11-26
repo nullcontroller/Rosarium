@@ -2,11 +2,11 @@
 summary: "固定logitと正のTemperatureを前提に、softmax、確率比、エントロピーの微分を途中式から導く。top-pの再正規化と数値例を示し、分布の広がりと文章の正しさを区別する。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
-title: Temperature設計指針
+title: "Temperatureの数理原理"
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags:
   - foundations
 published_at: "2026-09-23"
@@ -18,7 +18,7 @@ source:
   topics: []
 publication_date_basis: fallback
 ---
-## Temperature設計指針
+## Temperatureの数理原理
 
 > 種別：生成条件 / 実験設計 / 評価方法
 > 適用対象：文章生成、QAチャット、コード生成、AIエージェント

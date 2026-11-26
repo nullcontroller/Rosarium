@@ -1,5 +1,5 @@
 ---
-title: "モデル規模・学習データ・計算量の関係をどう最適化するか"
+title: "言語モデルのスケーリング則"
 summary: "LLM開発でモデル規模と学習トークン数へ予算を配る問題を起点に、経験的な損失式から最適解を導く。推論需要を含む費用と外挿の限界を、人工曲面と数値最適化で区別する。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
@@ -9,7 +9,7 @@ status: published
 public: true
 lifecycle: active
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags: [数理基礎, スケーリング則, 第2段階]
 ---
 

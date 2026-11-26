@@ -1,12 +1,12 @@
 ---
-title: "08. 調査結果と評価"
+title: "08. 障害調査の成果と評価範囲"
 summary: "潜在不具合、クラッシュ、残存リークの結果と責務を整理する。著者の稼働工数2人日、残存リークの解消、比較データがなく工数削減効果を評価できない制約を区別する。"
 layer: publication
 kind: case
 section: cases
 status: published
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 entry_points:
   - ai
 tags:

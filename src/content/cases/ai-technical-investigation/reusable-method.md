@@ -1,12 +1,12 @@
 ---
-title: "09. 生成AIへの指示とは何か"
+title: "09. 生成AIへの調査指示と判断基準"
 summary: "調査目的、対象範囲、正常・異常条件、参照情報、判断基準、責任境界を渡す方法を、初期調査と再調査の実務経験から整理する。"
 layer: publication
 kind: case
 section: cases
 status: published
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 entry_points:
   - ai
 tags:

@@ -2,11 +2,11 @@
 summary: "問い合わせに何を答え、何を開示せず、どこで人へ渡すかを決めます。対応規則をKnowledgeとして管理し、指示に書くだけでなく、実行時の検証・認可で業務への流出を防ぎます。"
 layer: ai-design
 design_topic: knowledge-context
-title: QA行動制約Knowledge
+title: "QAチャットの回答・停止・移管設計"
 kind: guide
 section: knowledge-context
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-11-27"
 tags:
   - knowledge-context
 published_at: "2026-09-23"
@@ -18,7 +18,7 @@ source:
   topics: []
 publication_date_basis: fallback
 ---
-## QA行動制約Knowledge
+## QAチャットの回答・停止・移管設計
 
 > 種別：Policy Knowledge / 行動制御 / ガバナンス
 > 適用対象：RAG、QAチャット、AIエージェント

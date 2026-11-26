@@ -6,7 +6,7 @@ kind: case
 section: cases
 status: published
 published_at: "2026-10-29"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 updated_at: "2026-10-29"
 entry_points:
   - ai

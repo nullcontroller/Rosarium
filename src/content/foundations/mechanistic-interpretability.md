@@ -1,5 +1,5 @@
 ---
-title: "言語モデルの内部表現は、どこまで判断の仕組みを説明できるのか"
+title: "機構的解釈可能性"
 summary: "活性化の可視化から、重ね合わせ・SAE・活性化置換へ進む。人工辞書と介入例を検算し、相関、再構成、条件付きの因果的証拠と説明の限界を分ける。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
@@ -9,7 +9,7 @@ status: published
 public: true
 lifecycle: active
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags: [数理基礎, 言語モデル, 第4段階]
 ---
 

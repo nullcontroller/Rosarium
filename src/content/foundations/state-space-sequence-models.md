@@ -1,5 +1,5 @@
 ---
-title: "State Space Modelは、Attentionとは異なる仕組みでどう系列を処理するのか"
+title: "状態空間モデル（SSM）の計算原理"
 summary: "文章の過去情報を参照するAttentionと、内部状態へ集約するSSMを比較する。連続系の離散化から再帰・畳み込み・並列走査を導き、S4・Mambaの発想、計算条件と記憶の限界を人工系列で検算する。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
@@ -9,7 +9,7 @@ status: published
 public: true
 lifecycle: active
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags: [数理基礎, 言語モデル, 第3段階]
 ---
 

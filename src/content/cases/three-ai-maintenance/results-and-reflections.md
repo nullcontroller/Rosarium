@@ -1,11 +1,11 @@
 ---
 summary: "今回の変更では、異常条件と停止位置、再インストールの案内、OS側の問題との責務分界を整理し、正常系への変更を限定した。コード上の事実、処理構造、Excel仕様書を合わせ、承認済み仕様に基づく修正と単体テストまで実施した。"
 layer: publication
-title: 07. 内製化の成果と、保守業務へAIを広げられた条件を振り返る
+title: "07. 内製化の成果と保守手法の適用条件"
 kind: case
 section: cases
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-11-27"
 tags:
   - ソフトウェア設計
   - 生成AI

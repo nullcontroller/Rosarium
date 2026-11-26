@@ -93,6 +93,21 @@
         "reason": "問いに必要な情報、応答特性、検証可能性を比較し、調査主体を切り替える説明へ改訂。",
         "marker": "### 誰に聞くかではなく、誰が必要なコンテキストを持つか",
         "sha256": "db6699777a2dba04737f75ba0450d092cc27fc475bf4157ff830a2aaa148e885"
+      },
+      "title_revision": {
+        "date": "2026-11-27",
+        "previous_last_updated": "2026-10-09",
+        "reason": "Author-approved title and explicit reference synchronization; original and appendix checksums preserved",
+        "references": [
+          {
+            "original": "## AIを使い分ける基準は、モデル性能よりコンテキストではないか",
+            "replacement": "## コンテキストに基づくAIと調査経路の選択"
+          },
+          {
+            "original": "[なぜAIは新規コードよりコード保守に強いのか](/software-engineering/code-maintenance-context/)",
+            "replacement": "[AIによるコード保守を支える情報と検証条件](/software-engineering/code-maintenance-context/)"
+          }
+        ]
       }
     },
     {

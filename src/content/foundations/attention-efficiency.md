@@ -1,5 +1,5 @@
 ---
-title: "Attentionの何を節約すると速くなるのか"
+title: "Attentionの計算効率"
 summary: "LLMで長い入力を処理する負担から、Attentionの演算回数・保存容量・メモリ転送を区別する。オンラインsoftmaxを導き、入力処理と逐次生成で異なる費用と成立条件を示す。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
@@ -9,7 +9,7 @@ status: published
 public: true
 lifecycle: active
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags: [数理基礎, 第1段階]
 ---
 

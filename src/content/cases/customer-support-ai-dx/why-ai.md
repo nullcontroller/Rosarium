@@ -1,11 +1,11 @@
 ---
 summary: "検索高速化では変わらない全件有人の業務構造を捉え、顧客の自己解決と専門対応への集中という価値からAI適用を考える。"
 layer: publication
-title: 02. なぜAIを導入したのか
+title: "02. 業務要求と方式選定"
 kind: case
 section: cases
 status: published
-last_updated: "2026-11-25"
+last_updated: "2026-11-27"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []

@@ -23,15 +23,15 @@ test('only the approved investigation article is retired and its original manusc
  assert(source.includes('[「複数のソフトウェアにまたがる障害調査の設計」](/cases/ai-technical-investigation/)'));
 });
 
-test('the Book and its chapters remain byte-equivalent after newline normalization',()=>{
+test('the Book bodies and publication dates remain intact after approved title-only edits',()=>{
  const files=execFileSync('git',['ls-tree','-r','--name-only',baseline,'src/content/cases/ai-technical-investigation.md','src/content/cases/ai-technical-investigation'],{encoding:'utf8'}).trim().split('\n');
- for(const f of files)assert.equal(read(f),old(f),f);
+ for(const f of files){assert.equal(body(read(f)),body(old(f)),f);assert.equal(metadata(read(f)).published_at,metadata(old(f)).published_at,f);}
 });
 
 test('November 27 retirement is additive and prior publication and revision events remain',()=>{
  const day=recentGrowth.filter(e=>e.date==='2026-11-27');assert.equal(day.length,1);
  assert.equal(day[0].title,'障害調査に関する既存実務事例をBookへ集約');
- assert.deepEqual(day[0].changes[0].contentIds,[id]);assert.equal(day[0].changes[0].action,'retired');
+ const retirement=day[0].changes.find(c=>typeof c!=='string'&&c.action==='retired'&&c.contentIds.includes(id));assert.deepEqual(retirement.contentIds,[id]);
  for(const date of ['2026-10-16','2026-10-18'])assert(recentGrowth.find(e=>e.date===date).changes.some(c=>typeof c!=='string'&&c.contentIds.includes(id)));
  assert.equal(recentGrowth.find(e=>e.date==='2026-11-26').topics.length,10);
 });

@@ -1,11 +1,11 @@
 ---
 summary: "企画部門からの業務改善提案を受け、システムアーキテクトとして初期要件と機能分担を整理し、第1回PoCからRAG管理基盤の構築・第2回PoCへ進む流れを示します。"
 layer: publication
-title: 01. このケーススタディについて
+title: "01. 顧客サポートの課題と設計範囲"
 kind: case
 section: cases
 status: published
-last_updated: "2026-11-24"
+last_updated: "2026-11-27"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []

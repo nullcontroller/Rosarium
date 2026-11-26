@@ -2,11 +2,11 @@
 summary: "自己回帰型言語モデルの生成を条件付き確率と連鎖律から説明する。分布の数学的分解と生成算法、RAGの周辺化と決定的検索を区別し、説明モデルの適用範囲を整理する。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
-title: 生成AIの条件付き確率モデル基礎
+title: "自己回帰型生成AIの条件付き確率モデル"
 kind: principle
 section: foundations
 status: published
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags:
   - foundations
 published_at: "2026-09-23"
@@ -19,7 +19,7 @@ source:
   topics: []
 publication_date_basis: fallback
 ---
-## 生成AIの条件付き確率モデル基礎
+## 自己回帰型生成AIの条件付き確率モデル
 
 > 種別：基礎理論 / 簡略モデル / 設計原則
 > 適用対象：生成AI、RAG、QAチャット、コード生成、AIエージェント

@@ -30,3 +30,12 @@ test('recorded wrap corrections preserve original checksum protection', () => {
  verifyRecoveredBody(next,presentation,'2026-10-19');
  assert.throws(()=>verifyRecoveredBody(next.replace('Second','Changed'),presentation,'2026-10-19'));
 });
+
+test('approved title references are reversible without weakening recovered body checksums', () => {
+ const source='## Old title\nOriginal text\n';
+ const renamed='## New title\nOriginal text\n';
+ const record={destination:'example',destination_body_sha256:digest(source),title_revision:{date:'2026-11-27',previous_last_updated:'2026-10-05',reason:'Approved title synchronization',references:[{original:'## Old title',replacement:'## New title'}]}};
+ verifyRecoveredBody(renamed,record,'2026-11-27');
+ assert.throws(()=>verifyRecoveredBody(renamed.replace('Original','Changed'),record,'2026-11-27'));
+ assert.throws(()=>verifyRecoveredBody(renamed,record,'2026-11-26'));
+});

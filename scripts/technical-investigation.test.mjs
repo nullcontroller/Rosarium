@@ -9,7 +9,7 @@ const parse=text=>({data:YAML.parse(text.split('---')[1]),body:text.split('---')
 test('one existing Case has nine ordered chapters and preserves old publication dates and retired URLs',()=>{
  const chapters=slugs.map(slug=>parse(read(slug)).data);
  assert.deepEqual(chapters.map(e=>e.order),[1,2,3,4,5,6,7,8,9]);
- chapters.forEach((e,i)=>{assert(e.title.startsWith(String(i+1).padStart(2,'0')+'. '));assert.equal(e.series,'ai-technical-investigation');assert.equal(e.last_updated,'2026-11-26');});
+ chapters.forEach((e,i)=>{assert(e.title.startsWith(String(i+1).padStart(2,'0')+'. '));assert.equal(e.series,'ai-technical-investigation');assert.equal(e.last_updated,['findings-and-evaluation','reusable-method'].includes(slugs[i])?'2026-11-27':'2026-11-26');});
  for(const slug of ['background','initial-investigation','shared-library-investigation','crash-resolution','memory-leak-investigation'])assert.equal(parse(read(slug)).data.published_at,'2026-10-29');
  assert.equal(parse(read('investigation-principles')).data.lifecycle,'retired');
 });

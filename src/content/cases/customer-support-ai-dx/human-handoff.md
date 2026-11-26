@@ -1,11 +1,11 @@
 ---
 summary: "会話履歴、機種、環境、エラー、確認済み事項、検索結果、参照文書を失わず、AIから人間へ対応を継続する設計を示す。"
 layer: publication
-title: 05. AIから人間へどう引き継ぐか
+title: "05. 有人対応への引継ぎと責務分担"
 kind: case
 section: cases
 status: published
-last_updated: "2026-11-25"
+last_updated: "2026-11-27"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []

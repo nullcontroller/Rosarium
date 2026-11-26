@@ -1,5 +1,5 @@
 ---
-title: "投機的復号は、どのような条件で出力分布を保ちながら高速化できるのか"
+title: "投機的復号の分布保存と高速化条件"
 summary: "提案分布と目標分布から受理確率・棄却時の補正を導き、単一トークンと条件付き系列で分布保存を確認する。期待生成数、検証費用、バッチ依存性を分け、人工分布の列挙と乱数実験で検算する。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
@@ -9,7 +9,7 @@ status: published
 public: true
 lifecycle: active
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags: [数理基礎, 投機的復号, 第2段階]
 ---
 

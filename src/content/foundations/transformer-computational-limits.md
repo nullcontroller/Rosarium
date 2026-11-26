@@ -1,5 +1,5 @@
 ---
-title: "Transformerの計算能力は、どの条件で広がり、どこに限界があるのか"
+title: "Transformerの計算能力と理論的限界"
 summary: "層数、精度、文脈窓、中間生成を条件として、Transformerの計算能力に関する理論を読み分ける。有限状態の計算例を検算し、計算可能性と学習・汎化を区別する。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
@@ -9,7 +9,7 @@ status: published
 public: true
 lifecycle: active
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags: [数理基礎, 言語モデル, 第4段階]
 ---
 

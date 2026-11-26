@@ -1,5 +1,5 @@
 ---
-title: 文書改訂の差分からRAGの品質を維持する
+title: "文書改訂に伴うRAGの更新・承認設計"
 summary: 製品マニュアルが更新されたとき、変更箇所だけを担当者が確認し、承認後にRAGの検索データへ反映する仕組みを考えます。
 layer: publication
 publication_format: article
@@ -7,7 +7,7 @@ kind: case
 section: cases
 status: published
 public: true
-last_updated: "2026-11-25"
+last_updated: "2026-11-27"
 published_at: "2026-11-25"
 entry_points: [ai, dx]
 primaryCategory: continuous-value

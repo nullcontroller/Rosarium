@@ -2,11 +2,11 @@
 summary: "AIの回答が正しいかだけでなく、根拠の提示、回答を控える判断、人への引き継ぎも評価します。検索から業務効果までを分けて測り、QAの改善箇所を見つけます。"
 layer: ai-design
 design_topic: evaluation-hitl
-title: QAチャット評価設計思想
+title: "QAチャットの品質評価設計"
 kind: guide
 section: evaluation-hitl
 status: published
-last_updated: "2026-10-12"
+last_updated: "2026-11-27"
 tags:
   - evaluation-hitl
 published_at: "2026-09-23"
@@ -18,7 +18,7 @@ source:
   topics: []
 publication_date_basis: fallback
 ---
-## QAチャット評価設計思想
+## QAチャットの品質評価設計
 
 > 種別：評価設計 / 統計評価 / リスク評価
 > 適用対象：RAG、社内QA、顧客向けQA、Knowledge検索

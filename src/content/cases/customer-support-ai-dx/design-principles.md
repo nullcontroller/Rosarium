@@ -1,11 +1,11 @@
 ---
 summary: "第1回PoCの課題をRAG管理システムの設計へつなぎ、第2回PoCで目標を達成した事例から、データ管理と人間による判断の役割を整理します。"
 layer: publication
-title: 11. この事例から得た設計判断
+title: "11. 検索対象制御と回答許可の設計判断"
 kind: case
 section: cases
 status: published
-last_updated: "2026-11-24"
+last_updated: "2026-11-27"
 entry_points: [ai, dx]
 primaryCategory: business-transformation
 secondaryCategories: []
@@ -62,6 +62,6 @@ AIは不足情報の追加質問や回答候補の生成を担い、システム
 
 <a id="115-本番適用前に残る課題" aria-hidden="true"></a>
 
-詳しい評価の考え方は[QAチャット評価設計思想](/evaluation-hitl/qa-evaluation/)、情報境界は[生成AIセキュリティと脅威モデリング](/architecture/security-threat-modeling/)へ接続します。
+詳しい評価の考え方は[QAチャットの品質評価設計](/evaluation-hitl/qa-evaluation/)、情報境界は[生成AIセキュリティと脅威モデリング](/architecture/security-threat-modeling/)へ接続します。
 
 第1回PoCで見つかった課題を、RAG管理システムとメタデータによる検索対象制御へつなげ、第2回PoCで設定した目標を達成しました。

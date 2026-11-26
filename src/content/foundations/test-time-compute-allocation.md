@@ -1,5 +1,5 @@
 ---
-title: "同じ計算予算を候補生成・探索・検証へどう配分するか"
+title: "推論時計算の予算配分"
 summary: "推論時計算を生成・探索・検証へ分け、候補中の成功と選択後の成功を区別する。独立候補モデルの導出と人工例から、予算配分の条件と限界を考える。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
@@ -9,7 +9,7 @@ status: published
 public: true
 lifecycle: active
 published_at: "2026-11-26"
-last_updated: "2026-11-26"
+last_updated: "2026-11-27"
 tags: [数理基礎, 第1段階]
 ---
 

@@ -25,7 +25,7 @@
 | /architecture/ | システムアーキテクチャ | なし | あり | あり | 8 | 主要見出しが複数 |
 | /architecture/agents-tools-and-workflows/ | 「AIエージェントを0から作る時代」は本当に来るのか？ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /architecture/change-and-reevaluation/ | AIシステムの変更・再評価設計 | あり | あり | あり | 18 | 長文の複数h3セクション |
-| /architecture/cost-latency-routing/ | AIコスト・Latency・モデルルーティング設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
+| /architecture/cost-latency-routing/ | AIのモデルルーティング設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /architecture/observability-and-slo/ | AIシステムのオブザーバビリティとSLO設計 | あり | あり | あり | 13 | 長文の複数h3セクション |
 | /architecture/prompts-as-interfaces/ | AI間インターフェースとしてのプロンプト | あり | あり | あり | 24 | 長文の複数h3セクション |
 | /architecture/reference-architecture/ | AI業務システムの参照アーキテクチャ | あり | あり | あり | 18 | 長文の複数h3セクション |
@@ -40,30 +40,30 @@
 | /cases/ai-technical-investigation/ | 複数のソフトウェアにまたがる障害調査の設計 | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/background/ | 01. 対象システムと障害調査の背景 | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/crash-resolution/ | 06. クラッシュの解消と残存するメモリリーク | あり | あり | あり | 17 | 主要見出しが複数 |
-| /cases/ai-technical-investigation/findings-and-evaluation/ | 08. 調査結果と評価 | あり | あり | あり | 14 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/findings-and-evaluation/ | 08. 障害調査の成果と評価範囲 | あり | あり | あり | 14 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/initial-investigation/ | 04. 潜在不具合の発見と修正後の検証 | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/investigation-input/ | 03. 生成AIへの情報提供と調査方法の改善 | あり | あり | あり | 14 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/investigation-principles/ | 考察を調査の各章へ統合しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /cases/ai-technical-investigation/investigation-scope/ | 02. 初期調査範囲の決定 | あり | あり | あり | 15 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/memory-leak-investigation/ | 07. 残存メモリリークの仮説検証と解決 | あり | あり | あり | 18 | 主要見出しが複数 |
-| /cases/ai-technical-investigation/reusable-method/ | 09. 生成AIへの指示とは何か | あり | あり | あり | 24 | 主要見出しが複数 |
+| /cases/ai-technical-investigation/reusable-method/ | 09. 生成AIへの調査指示と判断基準 | あり | あり | あり | 24 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/shared-library-investigation/ | 05. 実行時情報の取得とソフトウェアCへの調査移行 | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 12 | Book章構造 |
 | /cases/customer-support-ai-dx/continuous-improvement/ | 顧客サポートDXの結末は第10章へ | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /cases/customer-support-ai-dx/customer-experience/ | 06. 顧客体験をどう変えたか | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/design-principles/ | 11. この事例から得た設計判断 | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/executive-summary/ | 01. このケーススタディについて | あり | あり | あり | 16 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/human-handoff/ | 05. AIから人間へどう引き継ぐか | あり | あり | あり | 18 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/customer-experience/ | 06. 自己解決と有人対応をつなぐ顧客体験設計 | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/design-principles/ | 11. 検索対象制御と回答許可の設計判断 | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/executive-summary/ | 01. 顧客サポートの課題と設計範囲 | あり | あり | あり | 16 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/human-handoff/ | 05. 有人対応への引継ぎと責務分担 | あり | あり | あり | 18 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/knowledge-design/ | 08. RAG管理システムのアーキテクチャ | あり | あり | あり | 17 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/poc-effect-evaluation/ | 07. 第1回PoCの課題分析 | あり | あり | あり | 15 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/poc-evaluation/ | 04. 第1回PoC：初期方式の評価 | あり | あり | あり | 14 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/poc-metadata-improvement/ | 10. 第2回PoC：改善方式の評価 | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/responsibility-boundary/ | 03. 何をAIに任せ、何を人間に残したか | あり | あり | あり | 20 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/stopping-conditions/ | 09. メタデータ管理方式の設計 | あり | あり | あり | 17 | 主要見出しが複数 |
-| /cases/customer-support-ai-dx/why-ai/ | 02. なぜAIを導入したのか | あり | あり | あり | 19 | 主要見出しが複数 |
+| /cases/customer-support-ai-dx/why-ai/ | 02. 業務要求と方式選定 | あり | あり | あり | 19 | 主要見出しが複数 |
 | /cases/design-studies/ | 実務から広げるシステム設計ケーススタディ | あり | あり | あり | 7 | 一覧の移動単位が複数 |
 | /cases/design-studies/data-migration/ | 文書から節へ構造を変えるRAGデータ移行の設計 | あり | あり | あり | 6 | 主要見出しが複数 |
-| /cases/design-studies/document-lifecycle/ | 文書改訂の差分からRAGの品質を維持する | あり | あり | あり | 8 | 主要見出しが複数 |
+| /cases/design-studies/document-lifecycle/ | 文書改訂に伴うRAGの更新・承認設計 | あり | あり | あり | 8 | 主要見出しが複数 |
 | /cases/design-studies/inquiry-analysis/ | 問い合わせ履歴から自動化対象と業務要件を決める | あり | あり | あり | 7 | 主要見出しが複数 |
 | /cases/design-studies/metadata-batch/ | RAGメタデータを大量登録するバッチ処理の設計 | あり | あり | あり | 8 | 主要見出しが複数 |
 | /cases/design-studies/qualification-testing/ | RAGシステムの品質をどうテストするか | あり | あり | あり | 11 | 主要見出しが複数 |
@@ -86,10 +86,10 @@
 | /cases/three-ai-maintenance/code-generation-and-unit-tests/ | 06. 全体像を共有しながら、コード生成と単体テストを進める | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/three-ai-maintenance/cryptography-and-failure-modes/ | 01. 暗号方式の変更で見直すべき異常系を特定する | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/three-ai-maintenance/implementation-design/ | 03. コード探索と人間の確認で、変更箇所と実現方法を絞る | あり | あり | あり | 11 | 主要見出しが複数 |
-| /cases/three-ai-maintenance/results-and-reflections/ | 07. 内製化の成果と、保守業務へAIを広げられた条件を振り返る | あり | あり | あり | 12 | 主要見出しが複数 |
+| /cases/three-ai-maintenance/results-and-reflections/ | 07. 内製化の成果と保守手法の適用条件 | あり | あり | あり | 12 | 主要見出しが複数 |
 | /cases/three-ai-maintenance/reviewable-specifications/ | 04. 分散した検討結果を、レビュー可能な仕様書へ集約する | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/three-ai-maintenance/sharing-current-specifications/ | 05. 確認した現行仕様をAI間で渡し、仕様書へ反映する | あり | あり | あり | 12 | 主要見出しが複数 |
-| /cases/three-ai-maintenance/structuring-failure-handling/ | 02. 異常系の構造を整理し、設計方針を確定する | あり | あり | あり | 11 | 主要見出しが複数 |
+| /cases/three-ai-maintenance/structuring-failure-handling/ | 02. 安全停止と責務範囲を定める異常系設計 | あり | あり | あり | 11 | 主要見出しが複数 |
 | /cases/understanding-systems-as-capability/ | 理解できないシステムは、コストである | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /dx/ | DX | あり | あり | あり | 4 | 主要見出しが複数 |
 | /dx/business-transformation/ | 業務変革 | あり | あり | あり | 3 | 主要見出しが複数 |
@@ -122,7 +122,7 @@
 | /evaluation-hitl/customer-support-qa-poc/ | PoC詳細は第10章へ移転しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /evaluation-hitl/datasets-and-regression/ | AI評価データセットと回帰評価設計 | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /evaluation-hitl/human-review-capability/ | AI時代において「レビューできる人」が価値を持つ理由 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
-| /evaluation-hitl/qa-evaluation/ | QAチャット評価設計思想 | あり | あり | あり | 17 | 長文の複数h3セクション |
+| /evaluation-hitl/qa-evaluation/ | QAチャットの品質評価設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /evaluation-hitl/responsibility-and-hitl/ | AI出力の責任境界とHITL | あり | あり | あり | 29 | 主要見出しが複数 |
 | /foundations/ | 設計資料アーカイブ | なし | あり | あり | 26 | 主要見出しが複数 |
 | /foundations/ai-business-design/ | 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』 | あり | あり | あり | 6 | Book章構造 |
@@ -131,41 +131,41 @@
 | /foundations/ai-business-design/evaluating-business-efficiency/ | 02. AI導入は効率化とは限らない | あり | あり | あり | 15 | 主要見出しが複数 |
 | /foundations/ai-business-design/explainable-delegation/ | 04. AIに任せない条件を、先に決める | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/ai-business-design/human-judgment-capability/ | 05. AI時代、人間には「判断する力」が求められる | あり | あり | あり | 15 | 長文の複数h3セクション |
-| /foundations/answer-scope/ | なぜ回答範囲を制限した方がよいのか | あり | あり | あり | 11 | 長文の複数h3セクション |
+| /foundations/answer-scope/ | AIの回答範囲と回答可否の設計 | あり | あり | あり | 11 | 長文の複数h3セクション |
 | /foundations/applicability-and-delegation/ | AI適用可否と委任レベルの設計 | あり | あり | あり | 13 | 主要見出しが複数 |
-| /foundations/attention-efficiency/ | Attentionの何を節約すると速くなるのか | あり | あり | あり | 8 | 主要見出しが複数 |
+| /foundations/attention-efficiency/ | Attentionの計算効率 | あり | あり | あり | 8 | 主要見出しが複数 |
 | /foundations/attention-information-flow/ | Attentionは系列からどのように情報を集めるのか | あり | あり | あり | 8 | 主要見出しが複数 |
-| /foundations/compute-optimal-scaling/ | モデル規模・学習データ・計算量の関係をどう最適化するか | あり | あり | あり | 8 | 主要見出しが複数 |
-| /foundations/conditional-probability/ | 生成AIの条件付き確率モデル基礎 | あり | あり | あり | 16 | 長文の複数h3セクション |
+| /foundations/compute-optimal-scaling/ | 言語モデルのスケーリング則 | あり | あり | あり | 8 | 主要見出しが複数 |
+| /foundations/conditional-probability/ | 自己回帰型生成AIの条件付き確率モデル | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/diffusion-language-models/ | 拡散言語モデルは、なぜ左から順番に生成しなくても文章を作れるのか | あり | あり | あり | 9 | 主要見出しが複数 |
 | /foundations/generation-and-acceptance/ | AIは自動化できる。しかし、その出力を確定値として扱ってはいけない | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /foundations/glossary/ | Reference索引 | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /foundations/guardrail-models/ | ガードレールの数学的説明 | あり | あり | あり | 17 | 長文の複数h3セクション |
+| /foundations/guardrail-models/ | ガードレールの数理モデル | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /foundations/hallucination-mechanisms/ | ハルシネーションの発生原理 | あり | あり | あり | 15 | 長文の複数h3セクション |
-| /foundations/in-context-learning/ | 言語モデルは、なぜ再学習せずに新しいタスクへ適応できるのか | あり | あり | あり | 7 | 主要見出しが複数 |
+| /foundations/in-context-learning/ | In-Context Learningの原理 | あり | あり | あり | 7 | 主要見出しが複数 |
 | /foundations/language-model-loss/ | 言語モデルは何を損失として学習するのか | あり | あり | あり | 8 | 長文の複数h3セクション |
 | /foundations/layered-hallucination-controls/ | ハルシネーションの多層制御設計 | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/llm-as-probabilistic-model/ | LLMを確率モデルとして設計するという立場 | なし | あり | あり | 5 | 主要見出しが複数 |
-| /foundations/mechanistic-interpretability/ | 言語モデルの内部表現は、どこまで判断の仕組みを説明できるのか | あり | あり | あり | 7 | 主要見出しが複数 |
+| /foundations/mechanistic-interpretability/ | 機構的解釈可能性 | あり | あり | あり | 7 | 主要見出しが複数 |
 | /foundations/mixture-of-experts/ | Mixture of Expertsは、なぜ一部のネットワークだけを使って計算するのか | あり | あり | あり | 7 | 主要見出しが複数 |
-| /foundations/neural-symbolic-proof/ | AIが作った証明を、形式的検証はどこまで保証できるのか | あり | あり | あり | 10 | 主要見出しが複数 |
+| /foundations/neural-symbolic-proof/ | 神経記号推論と形式的検証 | あり | あり | あり | 10 | 主要見出しが複数 |
 | /foundations/policy-gradient-learning/ | 強化学習は、報酬からどのように方策を改善するのか | あり | あり | あり | 8 | 主要見出しが複数 |
 | /foundations/preference-learning-dpo/ | 言語モデルは、人間の選好をどのように学習するのか | あり | あり | あり | 9 | 主要見出しが複数 |
-| /foundations/speculative-decoding/ | 投機的復号は、どのような条件で出力分布を保ちながら高速化できるのか | あり | あり | あり | 8 | 主要見出しが複数 |
-| /foundations/state-space-sequence-models/ | State Space Modelは、Attentionとは異なる仕組みでどう系列を処理するのか | あり | あり | あり | 8 | 主要見出しが複数 |
-| /foundations/temperature-design/ | Temperature設計指針 | あり | あり | あり | 13 | 長文の複数h3セクション |
-| /foundations/test-time-compute-allocation/ | 同じ計算予算を候補生成・探索・検証へどう配分するか | あり | あり | あり | 9 | 長文の複数h3セクション |
-| /foundations/transformer-computational-limits/ | Transformerの計算能力は、どの条件で広がり、どこに限界があるのか | あり | あり | あり | 11 | 主要見出しが複数 |
+| /foundations/speculative-decoding/ | 投機的復号の分布保存と高速化条件 | あり | あり | あり | 8 | 主要見出しが複数 |
+| /foundations/state-space-sequence-models/ | 状態空間モデル（SSM）の計算原理 | あり | あり | あり | 8 | 主要見出しが複数 |
+| /foundations/temperature-design/ | Temperatureの数理原理 | あり | あり | あり | 13 | 長文の複数h3セクション |
+| /foundations/test-time-compute-allocation/ | 推論時計算の予算配分 | あり | あり | あり | 9 | 長文の複数h3セクション |
+| /foundations/transformer-computational-limits/ | Transformerの計算能力と理論的限界 | あり | あり | あり | 11 | 主要見出しが複数 |
 | /foundations/verifiable-reward-reasoning/ | 検証可能な報酬は、言語モデルの推論能力をどう変えるのか | あり | あり | あり | 8 | 主要見出しが複数 |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 39 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 40 | 主要見出しが複数 |
 | /knowledge-context/ | ナレッジ / コンテキスト | なし | あり | あり | 7 | 主要見出しが複数 |
-| /knowledge-context/context-before-model-performance/ | AIを使い分ける基準は、モデル性能よりコンテキストではないか | あり | あり | あり | 9 | 主要見出しが複数 |
-| /knowledge-context/human-and-ai-documentation/ | 人向け資料とAI向け資料の分離設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
+| /knowledge-context/context-before-model-performance/ | コンテキストに基づくAIと調査経路の選択 | あり | あり | あり | 9 | 主要見出しが複数 |
+| /knowledge-context/human-and-ai-documentation/ | 単一の正本から設計する人向け資料とAI向け資料 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /knowledge-context/instruction-knowledge-evidence/ | Instruction・Knowledge・Evidenceの責務分離 | あり | あり | あり | 11 | 主要見出しが複数 |
 | /knowledge-context/prompt-failure-modes/ | プロンプト設計の失敗モード | あり | あり | あり | 10 | 長文の複数h3セクション |
 | /knowledge-context/prompt-structure/ | プロンプト設計の基本構造 | あり | あり | あり | 18 | 長文の複数h3セクション |
-| /knowledge-context/qa-behavior-constraints/ | QA行動制約Knowledge | あり | あり | あり | 17 | 長文の複数h3セクション |
-| /knowledge-context/qa-operations/ | QAチャット運用思想 | あり | あり | あり | 14 | 長文の複数h3セクション |
+| /knowledge-context/qa-behavior-constraints/ | QAチャットの回答・停止・移管設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
+| /knowledge-context/qa-operations/ | QAチャットの運用設計 | あり | あり | あり | 14 | 長文の複数h3セクション |
 | /overview/ | AI・数理をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /planning/ | IT戦略・企画 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /practices/ | 実践知 | あり | あり | あり | 19 | 主要見出しが複数 |
@@ -194,8 +194,8 @@
 | /software-engineering/ai-technical-investigation-design/ | 技術調査のCaseへ移転しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/code-generation-and-work-design/ | コード生成AIはなぜ業務を変えないのか — 設計支援として使うべき理由 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /software-engineering/code-generation-boundaries/ | コード生成を使うべき場所 | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /software-engineering/code-generation-models/ | コード生成AIの正体 | あり | あり | あり | 24 | 長文の複数h3セクション |
-| /software-engineering/code-maintenance-context/ | なぜAIは新規コードよりコード保守に強いのか | あり | あり | あり | 23 | 長文の複数h3セクション |
+| /software-engineering/code-generation-models/ | コード生成AIの構成と動作原理 | あり | あり | あり | 24 | 長文の複数h3セクション |
+| /software-engineering/code-maintenance-context/ | AIによるコード保守を支える情報と検証条件 | あり | あり | あり | 23 | 長文の複数h3セクション |
 | /software-engineering/development-workflow/ | AIを開発工程に組み込む | あり | あり | あり | 27 | 長文の複数h3セクション |
 | /software-engineering/engineering-judgment-in-ai-code-review/ | AIがコードを読めても、違和感に気づくには技術力がいる | なし | あり | あり | 6 | 主要見出しが複数 |
 | /software-engineering/multi-ai-orchestration/ | 複数AIの役割分担と工程設計 | あり | あり | あり | 27 | 主要見出しが複数 |

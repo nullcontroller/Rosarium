@@ -9,7 +9,7 @@ status: published
 public: true
 lifecycle: active
 published_at: "2026-11-25"
-last_updated: "2026-11-25"
+last_updated: "2026-11-27"
 entry_points: [ai, dx]
 primaryCategory: system-transformation
 tags: [仮想設計, システム設計]
