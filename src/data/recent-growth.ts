@@ -68,6 +68,19 @@ const curatedRecentGrowth = [
   icon: "updates",
   showPublicationLinks: false,
   topics: [{
+    title: "AI・数理の発展理論を体系化 ― 強化学習・選好学習・計算最適化",
+    summary: "強化学習・選好学習・RLVRと、学習計算資源の最適配分・投機的復号の成立条件を新規5記事で解説。",
+    details: ["強化学習と方策勾配の数学的原理を解説", "RLHF・DPO・RLVRの学習目的と成立条件を体系化", "スケーリング則による学習計算資源の最適配分を解説", "投機的復号の確率分布保存と高速化条件を導出", "新規5記事に図解及び再現可能なPython検算を整備"],
+    links: [{ path: "ai", title: "AI・数理" }],
+  }, {
+    title: "AIと数学の接続と専門用語の説明を強化",
+    summary: "AIの具体的な問題から数式へ進む説明構造を整え、共通用語集と本文中の定義を充実。",
+    links: [{ path: "ai-mathematics", title: "AI・数理" }, { path: "reference/glossary", title: "基本用語集" }],
+  }, {
+    title: "専門領域の入口を整理し、企画判断の詳細を既存解説へ統合",
+    summary: "カテゴリの概要から記事・関連事例へ進む順序を整え、企画判断の詳細は既存のシステム設計解説へ集約。",
+    links: [{ path: "planning", title: "IT戦略・企画" }],
+  }, {
     title: "AI・数理の基礎理論を強化 ― 学習・Attention・推論の数理",
     summary: "条件付き確率、Temperature、ハルシネーション、ガードレールの既存4記事を数理的に補強し、学習・Attention・推論の原理を解説。",
     details: [
@@ -105,6 +118,9 @@ const curatedRecentGrowth = [
     links: [{ path: "cases/ai-technical-investigation", title: "複数のソフトウェアにまたがる障害調査の設計" }],
   }],
   changes: [
+    { action: "published", text: "強化学習・選好学習・RLVR・スケーリング則・投機的復号の新規5記事を公開", contentIds: ["foundations/policy-gradient-learning", "foundations/preference-learning-dpo", "foundations/verifiable-reward-reasoning", "foundations/compute-optimal-scaling", "foundations/speculative-decoding"] },
+    { action: "revised", text: "AIの問題と数学を接続する説明構造と用語説明を強化", contentIds: ["software-engineering/code-generation-models", "reference/glossary", "reference/mathematical-reference"] },
+    { action: "revised", text: "企画判断の詳細を既存のシステム設計解説へ統合", contentIds: ["architecture/requirements-to-system-method"] },
     { action: "revised", text: "条件付き確率、Temperature、ハルシネーション、ガードレールを数理的に補強", contentIds: ["foundations/conditional-probability", "foundations/temperature-design", "foundations/hallucination-mechanisms", "foundations/guardrail-models"] },
     { action: "published", text: "学習損失・Attention・推論時計算の予算配分・Attentionの計算効率を公開", contentIds: ["foundations/language-model-loss", "foundations/attention-information-flow", "foundations/test-time-compute-allocation", "foundations/attention-efficiency"] },
     { action: "retired", text: "DXの学習過程を記録した考察を、後続の専門記事で知見が発展したため退役。本文とURLを保存", contentIds: ["essays/dx-and-value"] },
