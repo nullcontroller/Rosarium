@@ -2,7 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { relatedCasesForDomain } from "../data/knowledge-domains.mjs";
 import { caseStudies, contentType } from "../lib/navigation";
-import ContentLink from "./ContentLink.astro";
+import DesignStudiesGateway from "./DesignStudiesGateway.astro";
 import { designAreaFor } from "../data/design-studies.mjs";
 import { url } from "../lib/site";
 interface Props {
@@ -12,15 +12,16 @@ interface Props {
 const { domain, entries } = Astro.props;
 const cases = relatedCasesForDomain(domain, entries).sort((a,b) =>
   (caseStudies.findIndex(study => study.book === a.entry.id) < 0 ? caseStudies.length : caseStudies.findIndex(study => study.book === a.entry.id)) - (caseStudies.findIndex(study => study.book === b.entry.id) < 0 ? caseStudies.length : caseStudies.findIndex(study => study.book === b.entry.id)));
+const actualCases = cases.filter(({ entry }) => !designAreaFor(entry.id));
+const hasVirtualCases = cases.some(({ entry }) => !!designAreaFor(entry.id));
 ---
 {cases.length > 0 && <section class="related-cases" data-related-cases={domain} aria-labelledby="related-cases-heading">
   <h2 id="related-cases-heading">関連事例</h2>
-  <ul class="related-case-list">
-    {cases.map(({entry,relevance}) => <li data-related-case-id={entry.id}>
-      {designAreaFor(entry.id) ? <><ContentLink entry={entry} heading="h3" showIcon={false} /><p class="meta">{relevance}</p></> : <>
+  {actualCases.length > 0 && <ul class="related-case-list">
+    {actualCases.map(({entry,relevance}) => <li data-related-case-id={entry.id}>
       <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>
       <p><span class="meta">{contentType(entry)}</span> · {relevance}</p>
-      </>}
     </li>)}
-  </ul>
+  </ul>}
+  {hasVirtualCases && <DesignStudiesGateway entries={entries} heading="h3" id="related-design-studies-heading" />}
 </section>}

@@ -2,14 +2,13 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import ContentLink from "../components/ContentLink.astro";
-import { designStudies } from "../data/design-studies.mjs";
+import DesignStudiesGateway from "../components/DesignStudiesGateway.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
 import { caseStudies } from "../lib/navigation";
 import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 const all = await getCollection("pages", activeEntry);
 const caseGroups = [{ id: "active-cases", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
-const designStudiesPreview = all.some(entry => entry.id === "cases/design-studies");
 const caseAnchor = (id: string) => `case-${id.split("/").pop()}`;
 
 const headings = [
@@ -62,10 +61,5 @@ const headings = [
       </section>
     ))}
   <section aria-labelledby="investigation-note"><h2 id="investigation-note">技術調査の判断</h2><ContentLink entry={all.find(entry => entry.id === "software-engineering/engineering-judgment-in-ai-code-review")!} heading="h3" /></section>
-  {designStudiesPreview && <section aria-labelledby="design-studies-heading">
-    <h2 id="design-studies-heading">発展ケーススタディ</h2>
-    <p>実務で得た知見を基に、条件を変えて方式や判断理由を検討する仮想設計です。</p>
-    <p><a href={url("cases/design-studies")}>実務から広げるシステム設計ケーススタディ</a></p>
-    {designStudies.filter(study => all.some(entry => entry.id === study.id)).map(study => <ContentLink entry={all.find(entry => entry.id === study.id)!} heading="h3" showIcon={false} />)}
-  </section>}
+  <DesignStudiesGateway entries={all} />
 </Site>

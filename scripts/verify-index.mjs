@@ -1,6 +1,7 @@
 import { bookChapterLegacyFragments } from "../src/data/book-chapter-fragments.ts";
 import { supportPocLegacyFragments } from "../src/data/support-poc-fragments.ts";
 import { aiDesignTopicGuides } from "../src/lib/ai-design.ts";
+import { designStudies as registeredDesignStudies } from "../src/data/design-studies.mjs";
 import { formatDateJa, staticPageLastUpdated } from "../src/lib/site.ts";
 import { recentGrowth, growthChangeText, growthPublishedTargets, growthSummary } from "../src/data/recent-growth.ts";
 import fs from "node:fs";
@@ -1446,8 +1447,10 @@ for(const route of ["ai","dx","planning","system-design"]) {
   const expected=relatedCaseDefinitions.filter(definition=>definition.domains[route]).map(definition=>definition.id);
   assert.equal(related.length,expected.length?1:0,route);
   if(expected.length)assert.equal(related.find("h2").text(),"関連事例",route);
-  assert.deepEqual(related.find("[data-related-case-id]").map((_,el)=>$(el).attr("data-related-case-id")).get(),expected,route);
-  for(const id of expected) {
+  const isVirtual = id => registeredDesignStudies.some(study => study.id === id);
+  assert.deepEqual(related.find("[data-related-case-id]").map((_,el)=>$(el).attr("data-related-case-id")).get(),expected.filter(id=>!isVirtual(id)),route);
+  assert.equal(related.find('[data-design-studies-gateway]').length,expected.some(isVirtual)?1:0,route);
+  for(const id of expected.filter(id=>!isVirtual(id))) {
     assert.equal(related.find(`a[href="/${id}/"]`).length,1);
     assert(!$("main [data-content-id]").not("[data-related-cases] [data-content-id]").toArray().some(el=>$(el).attr("data-content-id")===id),"Cases are not knowledge cards");
     assert(related.text().includes(relatedCaseDefinitions.find(definition=>definition.id===id).domains[route]));

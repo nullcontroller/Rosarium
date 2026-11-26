@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import YAML from "yaml";
 import { load } from "cheerio";
 import { primaryDomain, domainLabels, domainAssignments } from "../src/data/knowledge-domains.mjs";
+import { designStudies } from "../src/data/design-studies.mjs";
 
 const root = process.argv[2] || "dist";
 const walk = dir => fs.readdirSync(dir, {withFileTypes:true}).flatMap(item => item.isDirectory() ? walk(path.join(dir,item.name)) : [path.join(dir,item.name)]);
@@ -22,7 +23,8 @@ for(const entry of entries) {
   if(current && !["career","reference"].includes(owner)) {
     const direct = links(owner).includes(`/${entry.id}/`);
     const cover = entry.data.series && entries.find(other=>other.data.series===entry.data.series && other.data.order===0);
-    assert(direct || (cover && links(owner).includes(`/${cover.id}/`) && links(cover.id).includes(`/${entry.id}/`)),entry.id+": unreachable from primary domain");
+    const viaStudyHub = designStudies.some(study => study.id === entry.id) && links(owner).includes('/cases/design-studies/') && links('cases/design-studies').includes(`/${entry.id}/`);
+    assert(direct || viaStudyHub || (cover && links(owner).includes(`/${cover.id}/`) && links(cover.id).includes(`/${entry.id}/`)),entry.id+": unreachable from primary domain");
     const $ = page(entry.id);
     assert.equal($('[data-pagefind-meta="category"]').text(),domainLabels[owner],entry.id+": search owner");
     for(const selector of [".header-primary-group > a[aria-current=page]", "#mobile-navigation-links > a[aria-current=page]"]) assert.equal($(selector).attr("href"),`/${owner}/`,entry.id+": active navigation");
