@@ -408,7 +408,7 @@ for (const id of ["customer-support-ai-dx", "specification-debt-review", "three-
 
 
 
-assert(!cases("main a").text().includes("→"));
+assert(!cases("main a").not('.theme-title-link').text().includes("→"));
 assert(page("cases/system-understanding")(".case-position-note").text().includes("現在の推奨構成ではありません"));
 assert.equal(
   cases(".header-primary a[aria-current=page]").text().trim(),

@@ -17,6 +17,9 @@ for(const study of designStudies){
   assert.equal($(`main [data-content-id="${study.id}"], main [data-related-case-id="${study.id}"]`).length,0,`${id}: individual virtual card`);
   assert.equal($('main [data-design-studies-gateway]').length,1,id);
   assert.equal($('main [data-design-studies-gateway] a').attr('href'),'/cases/design-studies/',id);
+  assert.equal($('main [data-design-studies-gateway] a').length,1,id);
+  assert.equal($('main [data-design-studies-gateway] :is(h2,h3) a').attr('href'),'/cases/design-studies/',id);
+  assert(!$('main [data-design-studies-gateway]').text().includes('仮想設計の一覧を見る'),id);
   assert.equal($('main [data-design-study-count]').text(),`${designStudies.length}件`,id);
  }
  const $=page(study.id);assert.equal($('.document-header [data-design-area]').text(),study.area);
