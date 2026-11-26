@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { visibleDesignStudies } from "../lib/design-study-discovery";
-import ThemeTitleLink from "./ThemeTitleLink.astro";
+import { url } from "../lib/site";
 interface Props {
   entries: CollectionEntry<"pages">[];
   heading?: "h2" | "h3";
@@ -13,13 +13,13 @@ const hub = entries.find(entry => entry.id === "cases/design-studies" && entry.d
   ["published", "stable"].includes(entry.data.status) && entry.data.lifecycle === "active");
 ---
 {hub && studies.length > 0 && <section class="design-studies-gateway" data-design-studies-gateway aria-labelledby={id}>
-  <Heading id={id}><ThemeTitleLink path="cases/design-studies" title="仮想設計" /> <span class="gateway-count" data-design-study-count>{studies.length}件</span></Heading>
+  <Heading id={id}><a href={url("cases/design-studies")}>仮想設計</a></Heading>
   <p>実務経験を起点として、条件を変えたシステム設計を検討するケーススタディ。</p>
 </section>}
 <style>
-  .design-studies-gateway { margin: 1rem 0; padding: .875rem 0; border-top: 1px solid var(--line); }
-  .design-studies-gateway :is(h2, h3) { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem; margin: 0 0 .3rem; font-size: 1.25rem; }
+  .design-studies-gateway { margin: 1rem 0; padding: .75rem 0; border-top: 1px solid var(--line); }
+  .design-studies-gateway :is(h2, h3) { margin: 0 0 .3rem; font-size: 1.25rem; }
   .design-studies-gateway h3 { font-size: 1.05rem; }
-  .gateway-count { font-size: 1rem; font-weight: 400; color: var(--muted); }
-  .design-studies-gateway p { margin: .25rem 0 0; }
+  .design-studies-gateway a { white-space: nowrap; }
+  .design-studies-gateway p { margin: 0; }
 </style>

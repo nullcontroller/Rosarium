@@ -20,7 +20,9 @@ for(const study of designStudies){
   assert.equal($('main [data-design-studies-gateway] a').length,1,id);
   assert.equal($('main [data-design-studies-gateway] :is(h2,h3) a').attr('href'),'/cases/design-studies/',id);
   assert(!$('main [data-design-studies-gateway]').text().includes('仮想設計の一覧を見る'),id);
-  assert.equal($('main [data-design-study-count]').text(),`${designStudies.length}件`,id);
+  assert.equal($('main [data-design-studies-gateway] :is(h2,h3)').text(),'仮想設計',id);
+  assert.equal($('main [data-design-study-count]').length,0,id);
+  assert(!$('main [data-design-studies-gateway]').text().includes('→'),id);
  }
  const $=page(study.id);assert.equal($('.document-header [data-design-area]').text(),study.area);
  assert.equal($('.document-header h1').length,1);assert.match($('.document-header .meta').text(),/仮想設計/);
