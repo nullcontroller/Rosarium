@@ -5,7 +5,7 @@ layer: reference
 kind: principle
 section: foundations
 status: stable
-last_updated: "2026-10-04"
+last_updated: "2026-11-26"
 order: 20
 tags: [数学, 確率]
 updated_at: "2026-09-22"
@@ -16,6 +16,8 @@ publication_date_basis: fallback
 ## 数式・記号リファレンス
 
 このページでは、数学上の定義と設計上の説明モデルを区別する。数式は実システムの品質保証ではなく、前提や制御対象を明示するために使う。
+
+言語モデルへ資料を追加すると何が変わるか、生成設定と検査器がどこへ作用するかを確認するための索引です。初めて読む場合は[条件付き確率](/foundations/conditional-probability/)の具体例から進み、ここでは式の再確認に使います。用語の直感と英語名は<a href="/reference/glossary/#ai-math-terms" data-reference-page>共通用語集</a>で確認できます。
 
 ### 数学上の定義
 
@@ -78,7 +80,7 @@ $$
 \mathbb{E}[L]=\sum_k P(F_k)I_k
 $$
 
-実務では検出可能性、可逆性、露出量、復旧費用、拒否、Latency、Human Review負荷なども考慮する。何を損失として数えるかは設計判断であり、式だけでは決まらない。
+上の期待損失の和は、有限種類の事象別損失が同じ単位で加算可能な場合、または排他的な結果へ分けた場合の説明モデルである。独立性は不要だが、同じ被害を二重計上しない。実務では検出可能性、可逆性、露出量、復旧費用、拒否、Latency、Human Review負荷なども考慮する。何を損失として数えるかは設計判断であり、式だけでは決まらない。
 
 ### 読み方の注意
 

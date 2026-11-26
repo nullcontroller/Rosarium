@@ -19,6 +19,6 @@ const discoverable = readingEntries(all, "ai-mathematics");
   <h2>学習・確率・計算の原理を学ぶ</h2>
   <ContentIndex entries={discoverable} showIcons={false} />
   <h2>仕組みと設計へつなぐ</h2>
-  <p>式の意味を確認するときは<a href={url("reference/mathematical-reference")}>数式・記号リファレンス</a>を参照してください。数式の正本はReferenceで管理します。</p>
+  <p>用語の別名と役割は<a href={`${url("reference/glossary")}#ai-math-terms`} data-reference-page>AI・数理の共通用語集</a>、式の意味は<a href={url("reference/mathematical-reference")}>数式・記号リファレンス</a>から確認できます。本文でも必要な定義を説明し、Referenceは補足の参照先として使います。</p>
   <p>生成や誤答の仕組みは<a href={url("ai-theory")}>AI理論</a>、回答・実行の制約と責任分担は<a href={url("ai-design")}>AI設計</a>で扱います。</p>
 </Site>

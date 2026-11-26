@@ -6,7 +6,7 @@ title: コード生成AIの正体
 kind: guide
 section: software-engineering
 status: published
-last_updated: "2026-10-04"
+last_updated: "2026-11-26"
 tags:
   - software-engineering
 published_at: "2026-09-23"
@@ -26,6 +26,8 @@ publication_date_basis: fallback
 > 対象工程：既存Code調査、Context構成、生成、Tool実行、検証、Review  
 
 ---
+
+例えばAIが存在しないAPIを呼ぶコードを出したとき、生成モデルの誤りと、リポジトリから情報を集める工程の不足を区別したい。本稿の確率式は、検索した条件の下でコードが生成されることを分解するために使う。条件付き確率は「材料がこう与えられた場合」の出力の選ばれやすさであり、[確率モデルの基礎](/foundations/conditional-probability/)で説明している。Toolの実行結果は生成候補と別の観測として扱う。
 
 ### このページの結論
 

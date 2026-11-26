@@ -17,5 +17,9 @@
   "foundations/preference-learning-dpo",
   "foundations/verifiable-reward-reasoning",
   "foundations/compute-optimal-scaling",
-  "foundations/speculative-decoding"
+  "foundations/speculative-decoding",
+  "reference/glossary",
+  "reference/mathematical-reference",
+  "software-engineering/code-generation-models",
+  "architecture/requirements-to-system-method"
 ]

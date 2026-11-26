@@ -1,6 +1,6 @@
 ---
 title: "Attentionの何を節約すると速くなるのか"
-summary: "密なAttentionのFLOPs・中間行列・メモリ転送を区別し、オンラインsoftmaxの集計式を導く。N02を前提に、prefillとdecodeの計算量、検算の範囲を整理する。"
+summary: "LLMで長い入力を処理する負担から、Attentionの演算回数・保存容量・メモリ転送を区別する。オンラインsoftmaxを導き、入力処理と逐次生成で異なる費用と成立条件を示す。"
 layer: ai-mathematics
 ai_theme: ai-mathematics
 kind: principle
@@ -13,11 +13,15 @@ last_updated: "2026-11-26"
 tags: [数理基礎, 第1段階]
 ---
 
-## FLOPs、保存容量、転送量を分ける
+## 長い入力を読ませると、Attentionの何が重くなるのか
 
-密なAttentionの計算が重いとき、計算回数を減らす、巨大な中間結果を保存しない、メモリ転送を減らすという異なる対策がある。同じ「高速化」でも節約する資源は同じではない。
+言語モデルへ長い文書を渡すと、多くのトークン位置をまとめて処理し、位置間で情報を集める必要がある。入力長を2倍にしたとき、全ての位置対を扱う密なAttentionでは、その組数は4倍になる。計算回数だけでなく、巨大な途中結果を保存し、メモリと演算器の間を往復させる負担も問題になる。
 
-前提は[N02：Attentionの情報収集](/foundations/attention-information-flow/)である。1ヘッドの $Q,K\in\mathbb R^{n\times d_k}$、$V\in\mathbb R^{n\times d_v}$ を用い、$O=\operatorname{softmax}(QK^\top/\sqrt{d_k})V$ を計算する。
+[Attentionの計算原理](/foundations/attention-information-flow/)で扱ったQuery・Keyから重みを作りValueを混ぜる式を、結果を保ちながらどう実行するかが本稿の問いである。Prefill（入力の一括処理）とDecode（回答の次トークンを順次作る処理）を区別し、同じ「高速化」でも節約する資源を分ける。
+
+FLOPsは浮動小数点演算の回数、FLOPSは毎秒の演算数であり、前者は仕事量、後者は速さの単位である。メモリ帯域幅（Memory Bandwidth）は毎秒どれだけデータを転送できるかを表す。計算量は入力長が増えたときの仕事や必要領域の増え方で、実時間そのものではない。本稿では二乗行列を保存せず集計する数学を導き、演算回数を変える改善と、転送を減らす改善を区別する。
+
+1ヘッドの $Q,K\in\mathbb R^{n\times d_k}$、$V\in\mathbb R^{n\times d_v}$ を用い、$O=\operatorname{softmax}(QK^\top/\sqrt{d_k})V$ を計算する。$n$ はトークン数、$d_k,d_v$ はベクトル幅、$\mathbb R^{a\times b}$ は実数の $a$ 行 $b$ 列の行列、転置 $\top$ は行と列の交換である。
 
 ### 素朴な実装で増えるもの
 
@@ -74,6 +78,8 @@ FlashAttention原論文§3.1、Algorithm 1の要点は、密なAttentionの結�
 
 ### Prefillとdecodeで支配要因が変わる
 
+KVキャッシュ（Key–Value Cache）は、過去位置について計算済みのKey・Valueを保持し、新しいトークンの生成で再利用する仕組みである。モデルの重みを書き換える学習ではなく、同じリクエストの途中結果を保存する。再計算を減らす代わりに、文脈が長いほど容量と読出しが増える。
+
 Prefillは入力の多数のQueryをまとめて扱う。1トークンのdecodeでは、新しい1行のQueryが既存 $n$ 個のKey・Valueを読むため、Attention本体は $O(n(d_k+d_v))$ となる。KVキャッシュは $O(n(d_k+d_v))$ 要素であり、ヘッド数・層数・バッチ数を掛ける必要がある。
 
 密な自己回帰モデルで長さ $n$ まで逐次decodeすると、各時点の読出しの和は $1+\cdots+n=O(n^2)$ になる。したがって「1ステップが線形」と「系列全体が線形」を混同しない。出力射影やMLPの費用はこの式の外にある。
@@ -84,7 +90,9 @@ Prefillは入力の多数のQueryをまとめて扱う。1トークンのdecode�
 
 精度、ハードウェア、形状、バッチ、カーネル、マスク、学習か推論かを揃えて測定する必要がある。本稿のPythonはオンライン集計の数値同値性と容量の算術を確認するだけで、GPU高速化率は測定していない。
 
-### 一次資料と研究の境界
+#用語の別名や定義を確認するときは、<a href="/reference/glossary/#kv-cache" data-reference-page>KVキャッシュの定義</a>を参照できる。本文の数式は、各節で示した記号と成立条件に従って読む。
+
+## 一次資料と研究の境界
 
 - Dao et al., [FlashAttention](https://arxiv.org/html/2205.14135v2), NeurIPS 2022, §2、§3.1、Algorithm 1、§3.2。IOとFLOPsの区別を参照。上の1行・1要素の集計は本稿の導出である。
 - Milakov and Gimelshein, [Online normalizer calculation for softmax](https://arxiv.org/abs/1805.02867), 2018技術報告, Algorithm 3。最大値を更新するオンライン正規化の基礎。
