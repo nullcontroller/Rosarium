@@ -1,5 +1,5 @@
 {
-  "state": "approved_release_ready",
+  "state": "complete",
   "publication_date": "2026-11-26",
   "accepted_phase_four": "48078acd481059dd264bbf2d3b9cf28e69627991",
   "review_baseline_master": "838b5a321481d3638f3c2cc3f3fff9cd0e0ac240",
@@ -37,7 +37,14 @@
     "foundations/hallucination-mechanisms",
     "foundations/guardrail-models"
   ],
-  "production_verified": false,
-  "plan_complete": false,
-  "note": "Current plan status. Earlier release-preparations are historical review snapshots. Mark complete only after live verification of all sixteen new and four strengthened articles."
+  "production_verified": true,
+  "plan_complete": true,
+  "note": "All sixteen new articles and four strengthened articles verified on production. Earlier release-preparations are preserved historical review snapshots. No new writing or GA4 changes are included.",
+  "publication_commit": "4b8ff61bbf478668b626fd4fb78297dc72d6530e",
+  "deployment_url": "https://github.com/nullcontroller/Rosarium/actions/runs/45811375075",
+  "verified_at_utc": "2026-11-26T11:37:31.065729+00:00",
+  "new_articles_verified": 16,
+  "strengthened_articles_verified": 4,
+  "browser_conditions_verified": 12,
+  "regression_routes_verified": 11
 }
