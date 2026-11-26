@@ -268,7 +268,7 @@ blockquote {
 .brand-name {
   display: block;
   font-family: ui-serif, Georgia, "Times New Roman", serif;
-  font-size: clamp(1.9rem, 2.3vw, 2.2rem);
+  font-size: clamp(2.3rem, 2.8vw, 2.7rem);
   font-weight: 600;
   letter-spacing: 0.025em;
 }
@@ -2578,7 +2578,7 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
 @media (max-width:1199px) {
   .masthead { position:relative; display:grid; grid-template-columns:minmax(0,1fr) auto; min-height:60px; height:auto; --header-inline:clamp(1rem,4vw,1.5rem); padding:.5rem var(--header-inline); gap:0 .5rem; }
   .masthead .brand { grid-column:1; grid-row:1; min-width:0; gap:.35rem; }
-  .masthead .brand-name { font-size:1.5rem; }
+  .masthead .brand-name { font-size:1.8rem; }
   .masthead .brand-mark { width:1.75rem; height:1.75rem; }
   .masthead .header-primary { display:none; }
   .masthead .header-actions { position:static; grid-column:2; grid-row:1; margin-inline-end:52px; gap:0; }
@@ -2600,7 +2600,7 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
   .breadcrumb { overflow-wrap:anywhere; }
   .sidebar { top:61px; height:calc(100vh - 61px); }
 }
-@media(max-width:340px) { .masthead .brand-name { font-size:1.35rem; } }
+@media(max-width:340px) { .masthead .brand-name { font-size:1.6rem; } }
 
 /* Seven primary destinations share the available rail; labels stay intact. */
 .related-case-list { list-style:none; padding:0; }
