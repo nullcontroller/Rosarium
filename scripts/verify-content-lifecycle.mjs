@@ -126,7 +126,7 @@ for (const record of report.entries) {
   if (lifecycle === "RETIRED") {
     const item = retiredIndex(`[data-retired-id="${record.destination}"]`);
     assert.equal(item.length, 1);
-    assert.equal(item.find("h3 a").attr("href"), `/${record.destination}/`);
+    assert.equal(item.find("h4 a").attr("href"), `/${record.destination}/`);
     assert(item.text().includes(archiveReason(data.lifecycle_reason)));
     assert.equal(item.find("time").length, 0);
     assert.equal(publicEntry({ data }), false);

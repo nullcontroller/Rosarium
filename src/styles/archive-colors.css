@@ -1,56 +1,56 @@
-/* Quiet archive states; labels and icons also identify each state. */
+/* Archive groups: blue history, amber cases, neutral retirement. Labels and icons remain essential. */
 :root {
-  --archive-obsolete-accent: #536f96;
-  --archive-obsolete-ink: #30435d;
-  --archive-obsolete-muted: #4c5c73;
-  --archive-obsolete-bg: #edf1f6;
-  --archive-obsolete-line: #7a899e;
-  --archive-retired-accent: #606975;
-  --archive-retired-ink: #414b57;
-  --archive-retired-muted: #596575;
-  --archive-retired-bg: #f0f1f3;
-  --archive-retired-line: #7c8693;
-  --archive-obsolete-cases-accent: #7d683e;
-  --archive-obsolete-cases-ink: #53462f;
-  --archive-obsolete-cases-muted: #6c5c3c;
-  --archive-obsolete-cases-bg: #f4f0e7;
-  --archive-obsolete-cases-line: #938264;
+  --archive-obsolete-accent: #214f99;
+  --archive-obsolete-ink: #18355d;
+  --archive-obsolete-muted: #385371;
+  --archive-obsolete-bg: #e1ebfa;
+  --archive-obsolete-line: #536f96;
+  --archive-retired-accent: #414957;
+  --archive-retired-ink: #343b47;
+  --archive-retired-muted: #505968;
+  --archive-retired-bg: #e3e5e9;
+  --archive-retired-line: #606975;
+  --archive-obsolete-cases-accent: #89550d;
+  --archive-obsolete-cases-ink: #593b12;
+  --archive-obsolete-cases-muted: #6c5129;
+  --archive-obsolete-cases-bg: #faebcf;
+  --archive-obsolete-cases-line: #89550d;
 }
 @media (prefers-color-scheme: dark) {
  :root:not([data-theme="light"]) {
-  --archive-obsolete-accent: #a4b9d6;
-  --archive-obsolete-ink: #d5dfec;
-  --archive-obsolete-muted: #b0bed1;
-  --archive-obsolete-bg: #242d3a;
-  --archive-obsolete-line: #7b8da7;
-  --archive-retired-accent: #bbc2cc;
-  --archive-retired-ink: #d1d5dc;
-  --archive-retired-muted: #adb6c2;
-  --archive-retired-bg: #242a32;
-  --archive-retired-line: #83909f;
-  --archive-obsolete-cases-accent: #d0bd94;
-  --archive-obsolete-cases-ink: #e4dbc8;
-  --archive-obsolete-cases-muted: #c3b392;
-  --archive-obsolete-cases-bg: #302c23;
-  --archive-obsolete-cases-line: #a18d65;
+  --archive-obsolete-accent: #a6c9ff;
+  --archive-obsolete-ink: #e0edff;
+  --archive-obsolete-muted: #b8cce7;
+  --archive-obsolete-bg: #182d4d;
+  --archive-obsolete-line: #719bcc;
+  --archive-retired-accent: #ced3dd;
+  --archive-retired-ink: #e2e5eb;
+  --archive-retired-muted: #bfc5cf;
+  --archive-retired-bg: #2d3038;
+  --archive-retired-line: #929aa9;
+  --archive-obsolete-cases-accent: #f0c475;
+  --archive-obsolete-cases-ink: #f9e5c1;
+  --archive-obsolete-cases-muted: #dcc499;
+  --archive-obsolete-cases-bg: #382b13;
+  --archive-obsolete-cases-line: #b38b4a;
  }
 }
 :root[data-theme="dark"] {
-  --archive-obsolete-accent: #a4b9d6;
-  --archive-obsolete-ink: #d5dfec;
-  --archive-obsolete-muted: #b0bed1;
-  --archive-obsolete-bg: #242d3a;
-  --archive-obsolete-line: #7b8da7;
-  --archive-retired-accent: #bbc2cc;
-  --archive-retired-ink: #d1d5dc;
-  --archive-retired-muted: #adb6c2;
-  --archive-retired-bg: #242a32;
-  --archive-retired-line: #83909f;
-  --archive-obsolete-cases-accent: #d0bd94;
-  --archive-obsolete-cases-ink: #e4dbc8;
-  --archive-obsolete-cases-muted: #c3b392;
-  --archive-obsolete-cases-bg: #302c23;
-  --archive-obsolete-cases-line: #a18d65;
+  --archive-obsolete-accent: #a6c9ff;
+  --archive-obsolete-ink: #e0edff;
+  --archive-obsolete-muted: #b8cce7;
+  --archive-obsolete-bg: #182d4d;
+  --archive-obsolete-line: #719bcc;
+  --archive-retired-accent: #ced3dd;
+  --archive-retired-ink: #e2e5eb;
+  --archive-retired-muted: #bfc5cf;
+  --archive-retired-bg: #2d3038;
+  --archive-retired-line: #929aa9;
+  --archive-obsolete-cases-accent: #f0c475;
+  --archive-obsolete-cases-ink: #f9e5c1;
+  --archive-obsolete-cases-muted: #dcc499;
+  --archive-obsolete-cases-bg: #382b13;
+  --archive-obsolete-cases-line: #b38b4a;
 }
 [data-archive-kind="obsolete"] {
   --archive-accent: var(--archive-obsolete-accent);

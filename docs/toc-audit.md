@@ -29,7 +29,7 @@
 | /architecture/observability-and-slo/ | AIシステムのオブザーバビリティとSLO設計 | あり | あり | あり | 13 | 長文の複数h3セクション |
 | /architecture/prompts-as-interfaces/ | AI間インターフェースとしてのプロンプト | あり | あり | あり | 24 | 長文の複数h3セクション |
 | /architecture/reference-architecture/ | AI業務システムの参照アーキテクチャ | あり | あり | あり | 18 | 長文の複数h3セクション |
-| /architecture/requirements-to-system-method/ | 業務要求からシステム方式を設計する | あり | あり | あり | 7 | 主要見出しが複数 |
+| /architecture/requirements-to-system-method/ | 業務要求からシステム方式を設計する | あり | あり | あり | 8 | 主要見出しが複数 |
 | /architecture/security-threat-modeling/ | 生成AIセキュリティと脅威モデリング | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /articles/ | AI・数理へ移動しました | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /books/ | 事例をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
@@ -133,8 +133,8 @@
 | /foundations/ai-business-design/human-judgment-capability/ | 05. AI時代、人間には「判断する力」が求められる | あり | あり | あり | 15 | 長文の複数h3セクション |
 | /foundations/answer-scope/ | なぜ回答範囲を制限した方がよいのか | あり | あり | あり | 11 | 長文の複数h3セクション |
 | /foundations/applicability-and-delegation/ | AI適用可否と委任レベルの設計 | あり | あり | あり | 13 | 主要見出しが複数 |
-| /foundations/attention-efficiency/ | Attentionの何を節約すると速くなるのか | あり | あり | あり | 8 | 長文の複数h3セクション |
-| /foundations/attention-information-flow/ | Attentionは系列からどのように情報を集めるのか | あり | あり | あり | 8 | 長文の複数h3セクション |
+| /foundations/attention-efficiency/ | Attentionの何を節約すると速くなるのか | あり | あり | あり | 8 | 主要見出しが複数 |
+| /foundations/attention-information-flow/ | Attentionは系列からどのように情報を集めるのか | あり | あり | あり | 8 | 主要見出しが複数 |
 | /foundations/conditional-probability/ | 生成AIの条件付き確率モデル基礎 | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/generation-and-acceptance/ | AIは自動化できる。しかし、その出力を確定値として扱ってはいけない | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /foundations/glossary/ | Reference索引 | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
@@ -155,7 +155,7 @@
 | /knowledge-context/qa-behavior-constraints/ | QA行動制約Knowledge | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /knowledge-context/qa-operations/ | QAチャット運用思想 | あり | あり | あり | 14 | 長文の複数h3セクション |
 | /overview/ | AI・数理をご覧ください | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /planning/ | IT戦略・企画 | あり | あり | あり | 6 | 主要見出しが複数 |
+| /planning/ | IT戦略・企画 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /practices/ | 実践知 | あり | あり | あり | 19 | 主要見出しが複数 |
 | /practices/adoption-governance/ | AI導入を業務へ定着させる | あり | あり | あり | 7 | 主要見出しが複数 |
 | /practices/ai-adoption-and-effective-use/ | AIは使われている。でも使いこなされていない | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |

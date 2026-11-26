@@ -40,7 +40,7 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html"))) {
   for (const card of body.find("[data-history-id]").toArray()) {
     if (policy === "never") {
       assert.equal($(card).closest('details[data-archive-category]').length, 1, `Archive disclosure missing: ${file}`);
-      assert($(card).find('h3 a[href]').length, `Archive article link missing: ${file}`);
+      assert($(card).find('h4 a[href]').length, `Archive article link missing: ${file}`);
     } else assert(desktopTargets.includes("#" + $(card).attr("id")), `Missing archive entry: ${file}`);
   }
   const route = "/" + path.relative("dist", file).replaceAll("\\", "/").replace(/index\.html$/, "");

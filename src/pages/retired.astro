@@ -20,8 +20,9 @@ const entries = await getCollection("pages", (entry) => publishedEntry(entry) &&
   </div>
 </Site>
 <style>
-.archive-entrances { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; margin: 1rem 0; }
-.archive-entrances a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; color: var(--obsolete-link); text-underline-offset: .2em; }
+.archive-entrances { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1rem 0; }
+.archive-entrances a { display: inline-flex; align-items: center; gap: .625rem; min-height: 44px; padding: .5rem .75rem; color: var(--archive-accent); background: var(--archive-bg); border: 1px solid var(--archive-line); border-radius: 5px; text-underline-offset: .2em; }
+.archive-entrances .archive-state-icon { margin: 0; }
 .archive-entrances small { color: var(--obsolete-muted); font-size: 1rem; }
 .archive-entrances a:hover { color: var(--obsolete-hover); }
 .archive-entrances a:focus-visible { outline: 2px solid var(--obsolete-hover); outline-offset: 4px; }
