@@ -1,0 +1,22 @@
+{
+  "state": "awaiting_author_publish_approval",
+  "candidate_date": "2026-11-26",
+  "actual_publication_date": null,
+  "production_deployed": false,
+  "article_ids": [
+    "foundations/policy-gradient-learning",
+    "foundations/preference-learning-dpo",
+    "foundations/verifiable-reward-reasoning",
+    "foundations/compute-optimal-scaling",
+    "foundations/speculative-decoding",
+    "foundations/in-context-learning",
+    "foundations/mixture-of-experts",
+    "foundations/state-space-sequence-models",
+    "foundations/diffusion-language-models"
+  ],
+  "accepted_phase_two": "e1ff582c03db133e37b41626dff7405f0750196c",
+  "latest_approved_explanations_base": "411cb937b6ab05a0c167da54bc959ce428395bdf",
+  "accepted_phase_three": "e8e1c1111e6b6c8d82a749c26eec36c3b2ddee47",
+  "ga4_implementation": "e63632633ba01897afe4d137ddd37c0f829e53ac",
+  "note": "Private release-candidate branch only. Before author-approved publication, rebase on latest master and replace candidate dates and matching Garden Notes entry if release occurs on a later day. No publication approval is implied."
+}

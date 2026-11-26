@@ -493,7 +493,7 @@ const mathematics = page("ai-mathematics");
 assert.equal(mathematics("[data-mathematics-reading]").length, 0);
 const theory = page("ai-theory");
 for (const [route, title, ids] of [
-  ["ai-mathematics", "数学", ["foundations/conditional-probability", "foundations/language-model-loss", "foundations/temperature-design", "foundations/attention-information-flow", "foundations/test-time-compute-allocation", "foundations/attention-efficiency"]],
+  ["ai-mathematics", "数学", ["foundations/conditional-probability", "foundations/language-model-loss", "foundations/temperature-design", "foundations/attention-information-flow", "foundations/test-time-compute-allocation", "foundations/attention-efficiency", "foundations/policy-gradient-learning", "foundations/preference-learning-dpo", "foundations/verifiable-reward-reasoning", "foundations/compute-optimal-scaling", "foundations/speculative-decoding", "foundations/in-context-learning", "foundations/mixture-of-experts", "foundations/state-space-sequence-models", "foundations/diffusion-language-models"]],
   ["ai-theory", "AI理論", ["foundations/hallucination-mechanisms"]],
 ]) {
   const $ = page(route);
@@ -764,7 +764,8 @@ for (const html of walk("dist").filter((file) => file.endsWith(".html") && !file
   assert(!/元の公開日：|元の公開時期：/.test($("main").text()), html);
   assert(!/公開：|公開日：/.test($(".document-header .meta, .publication-date").text()), html);
   assert(
-    !$.root().text().includes("\u66f4\u65b0\u4e2d"),
+    // Match a standalone obsolete UI label, not prose such as policy updates.
+    !$('*').toArray().some(el => $(el).children().length === 0 && $(el).text().trim() === "\u66f4\u65b0\u4e2d"),
     `${html}: deprecated status remains`,
   );
 }

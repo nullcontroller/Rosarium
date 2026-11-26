@@ -68,10 +68,10 @@ const curatedRecentGrowth = [
   icon: "updates",
   showPublicationLinks: false,
   topics: [{
-    title: "AI・数理の発展理論を体系化 ― 強化学習・選好学習・計算最適化",
-    summary: "強化学習・選好学習・RLVRと、学習計算資源の最適配分・投機的復号の成立条件を新規5記事で解説。",
-    details: ["強化学習と方策勾配の数学的原理を解説", "RLHF・DPO・RLVRの学習目的と成立条件を体系化", "スケーリング則による学習計算資源の最適配分を解説", "投機的復号の確率分布保存と高速化条件を導出", "新規5記事に図解及び再現可能なPython検算を整備"],
-    links: [{ path: "ai", title: "AI・数理" }],
+    title: "AI・数理領域を拡充し、学習理論と発展的なモデル構造を体系化",
+    summary: "学習理論と計算資源の最適化から、文脈適応・条件付き計算・系列処理・拡散生成へ進む新規9記事を整備。",
+    details: ["強化学習、選好学習、RLVRなどの学習理論を追加", "スケーリング則と投機的復号の数理的原理を解説", "In-Context Learning、MoE、SSM、拡散言語モデルの計算機構を解説", "数式の導出、成立条件、図解、再現可能なPython検算を整備"],
+    links: [{ path: "ai-mathematics", title: "AI・数理" }],
   }, {
     title: "AIと数学の接続と専門用語の説明を強化",
     summary: "AIの具体的な問題から数式へ進む説明構造を整え、共通用語集と本文中の定義を充実。",
@@ -118,7 +118,7 @@ const curatedRecentGrowth = [
     links: [{ path: "cases/ai-technical-investigation", title: "複数のソフトウェアにまたがる障害調査の設計" }],
   }],
   changes: [
-    { action: "published", text: "強化学習・選好学習・RLVR・スケーリング則・投機的復号の新規5記事を公開", contentIds: ["foundations/policy-gradient-learning", "foundations/preference-learning-dpo", "foundations/verifiable-reward-reasoning", "foundations/compute-optimal-scaling", "foundations/speculative-decoding"] },
+    { action: "published", text: "学習理論と発展的なモデル構造を扱うAI・数理の新規9記事を公開", contentIds: ["foundations/policy-gradient-learning", "foundations/preference-learning-dpo", "foundations/verifiable-reward-reasoning", "foundations/compute-optimal-scaling", "foundations/speculative-decoding", "foundations/in-context-learning", "foundations/mixture-of-experts", "foundations/state-space-sequence-models", "foundations/diffusion-language-models"] },
     { action: "revised", text: "AIの問題と数学を接続する説明構造と用語説明を強化", contentIds: ["software-engineering/code-generation-models", "reference/glossary", "reference/mathematical-reference"] },
     { action: "revised", text: "企画判断の詳細を既存のシステム設計解説へ統合", contentIds: ["architecture/requirements-to-system-method"] },
     { action: "revised", text: "条件付き確率、Temperature、ハルシネーション、ガードレールを数理的に補強", contentIds: ["foundations/conditional-probability", "foundations/temperature-design", "foundations/hallucination-mechanisms", "foundations/guardrail-models"] },

@@ -138,14 +138,14 @@ assert.ok(
   "Practices needs adoption, education and transfer; development workflow belongs to AI Design",
 );
 assert.ok(publicEntries.some(({ file, data }) => file.endsWith("software-engineering/development-workflow.md") && data.layer === "ai-design" && data.design_topic === "software-engineering"), "Development workflow must remain discoverable in AI Design");
-assert.equal(aiOnly.length, 71, "Approved four math publications join existing AI entries; investigation Book ownership remains cases");
+assert.equal(aiOnly.length, 80, "Approved thirteen math publications join existing AI entries; investigation Book ownership remains cases");
 assert.equal(
   dxOnly.length,
   1,
   "Legacy lifecycle essay has a DX entry point; AI case links remain discovery paths",
 );
 assert.equal(aiAndDx.length, 56, "AI + DX content retains both PoC chapters; the removed pre-production chapter is a redirect");
-assert.equal(files.length, 145, "Audited content includes five phase-two and four phase-three drafts; existing articles and lifecycle decisions remain unchanged");
+assert.equal(files.length, 145, "Audited content includes five phase-two and four phase-three approved release candidates; existing articles and lifecycle decisions remain unchanged");
 for (const id of ["what-is-ai", "cognitive-surrender"]) {
   assert(!fs.existsSync(`${root}/essays/${id}.md`), `Rejected manuscript must stay removed: ${id}`);
 }
@@ -160,6 +160,6 @@ for(const file of files){
  const owner=primaryDomain({id,data});
  assert(["ai","dx","planning","system-design","cases","career","reference"].includes(owner),id);
  if(domainAssignments[id])assert(domainAssignments[id].reason.length>15,id+": classification rationale");
- if(data.public!==false && data.status!=="draft" && (data.lifecycle??"active")==="active" && owner==="ai")assert(["foundations/conditional-probability","foundations/temperature-design","foundations/hallucination-mechanisms","foundations/language-model-loss","foundations/attention-information-flow","foundations/test-time-compute-allocation","foundations/attention-efficiency"].includes(id),id+": core AI scope requires body review");
+ if(data.public!==false && data.status!=="draft" && (data.lifecycle??"active")==="active" && owner==="ai")assert(["foundations/conditional-probability","foundations/temperature-design","foundations/hallucination-mechanisms","foundations/language-model-loss","foundations/attention-information-flow","foundations/test-time-compute-allocation","foundations/attention-efficiency","foundations/policy-gradient-learning","foundations/preference-learning-dpo","foundations/verifiable-reward-reasoning","foundations/compute-optimal-scaling","foundations/speculative-decoding","foundations/in-context-learning","foundations/mixture-of-experts","foundations/state-space-sequence-models","foundations/diffusion-language-models"].includes(id),id+": core AI scope requires body review");
 }
 console.log("Verified explicit primary domains for all manuscripts; legacy metadata does not determine ownership.");

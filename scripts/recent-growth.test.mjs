@@ -145,6 +145,6 @@ test("topic destinations are optional and category updates can link both affecte
 });
 
 test('the 26 November revised Book topic links only to its overview and preserves the previous daily record',()=>{
- const day=recentGrowth.find(e=>e.date==='2026-11-26');assert.equal(day.type,'revised');const book=day.topics.find(t=>t.title.includes('障害調査'));assert.equal(book.details.length,4);assert.deepEqual(book.links.map(e=>e.path),['cases/ai-technical-investigation']);assert.equal(day.showPublicationLinks,false);assert.equal(growthPublishedTargets(day).length,8);
+ const day=recentGrowth.find(e=>e.date==='2026-11-26');assert.equal(day.type,'revised');const book=day.topics.find(t=>t.title.includes('障害調査'));assert.equal(book.details.length,4);assert.deepEqual(book.links.map(e=>e.path),['cases/ai-technical-investigation']);assert.equal(day.showPublicationLinks,false);assert.equal(growthPublishedTargets(day).length,17);
  assert(!recentGrowth.find(e=>e.date==='2026-11-25').topics.some(t=>t.title.includes('障害調査')));
 });

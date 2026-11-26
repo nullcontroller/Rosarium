@@ -2,7 +2,7 @@
 
 `npm run build`の最終監査で全HTMLルートを検査。公開URLにはnoindexのアーカイブ・互換ルートも含め、検索エンジン向け公開と区別する。
 
-対象 182ページ。目次あり 140、なし 42。Referenceあり 143、なし 39。
+対象 191ページ。目次あり 149、なし 42。Referenceあり 152、なし 39。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -19,7 +19,7 @@
 | /ai-design/lifecycle-operations/ | ライフサイクル・運用 | あり | あり | あり | 3 | 主要見出しが複数 |
 | /ai-design/responsibility-control/ | 責任境界・制御 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /ai-design/software-engineering/ | ソフトウェア開発 | あり | あり | あり | 3 | 主要見出しが複数 |
-| /ai-mathematics/ | 数学 | あり | あり | あり | 9 | 主要見出しが複数 |
+| /ai-mathematics/ | 数学 | あり | あり | あり | 18 | 主要見出しが複数 |
 | /ai-theory/ | AI理論 | あり | あり | あり | 4 | 主要見出しが複数 |
 | /ai/ | AI・数理 | あり | あり | あり | 2 | 主要見出しが複数 |
 | /architecture/ | システムアーキテクチャ | なし | あり | あり | 8 | 主要見出しが複数 |
@@ -124,7 +124,7 @@
 | /evaluation-hitl/human-review-capability/ | AI時代において「レビューできる人」が価値を持つ理由 | なし | なし | あり | 0 | 短いページまたは移動見出し不足 |
 | /evaluation-hitl/qa-evaluation/ | QAチャット評価設計思想 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /evaluation-hitl/responsibility-and-hitl/ | AI出力の責任境界とHITL | あり | あり | あり | 29 | 主要見出しが複数 |
-| /foundations/ | 設計資料アーカイブ | なし | あり | あり | 14 | 主要見出しが複数 |
+| /foundations/ | 設計資料アーカイブ | なし | あり | あり | 23 | 主要見出しが複数 |
 | /foundations/ai-business-design/ | 『生成AIを業務へ組み込む設計原則 ― AI・人間・既存システムの責任をどう分けるか』 | あり | あり | あり | 6 | Book章構造 |
 | /foundations/ai-business-design/asking-versus-delegating/ | 03. AIに聞くことと、AIに仕事を任せることは違う | あり | あり | あり | 13 | 長文の複数h3セクション |
 | /foundations/ai-business-design/delegation-and-responsibility/ | 01. AIに仕事を任せても、責任は消えない | あり | あり | あり | 15 | 長文の複数h3セクション |
@@ -135,17 +135,26 @@
 | /foundations/applicability-and-delegation/ | AI適用可否と委任レベルの設計 | あり | あり | あり | 13 | 主要見出しが複数 |
 | /foundations/attention-efficiency/ | Attentionの何を節約すると速くなるのか | あり | あり | あり | 8 | 主要見出しが複数 |
 | /foundations/attention-information-flow/ | Attentionは系列からどのように情報を集めるのか | あり | あり | あり | 8 | 主要見出しが複数 |
+| /foundations/compute-optimal-scaling/ | モデル規模・学習データ・計算量の関係をどう最適化するか | あり | あり | あり | 8 | 主要見出しが複数 |
 | /foundations/conditional-probability/ | 生成AIの条件付き確率モデル基礎 | あり | あり | あり | 16 | 長文の複数h3セクション |
+| /foundations/diffusion-language-models/ | 拡散言語モデルは、なぜ左から順番に生成しなくても文章を作れるのか | あり | あり | あり | 9 | 主要見出しが複数 |
 | /foundations/generation-and-acceptance/ | AIは自動化できる。しかし、その出力を確定値として扱ってはいけない | なし | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /foundations/glossary/ | Reference索引 | あり | なし | なし | 0 | 入口・Reference・検索・404・互換リダイレクト |
 | /foundations/guardrail-models/ | ガードレールの数学的説明 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /foundations/hallucination-mechanisms/ | ハルシネーションの発生原理 | あり | あり | あり | 15 | 長文の複数h3セクション |
+| /foundations/in-context-learning/ | 言語モデルは、なぜ再学習せずに新しいタスクへ適応できるのか | あり | あり | あり | 7 | 主要見出しが複数 |
 | /foundations/language-model-loss/ | 言語モデルは何を損失として学習するのか | あり | あり | あり | 8 | 長文の複数h3セクション |
 | /foundations/layered-hallucination-controls/ | ハルシネーションの多層制御設計 | あり | あり | あり | 16 | 長文の複数h3セクション |
 | /foundations/llm-as-probabilistic-model/ | LLMを確率モデルとして設計するという立場 | なし | あり | あり | 5 | 主要見出しが複数 |
+| /foundations/mixture-of-experts/ | Mixture of Expertsは、なぜ一部のネットワークだけを使って計算するのか | あり | あり | あり | 7 | 主要見出しが複数 |
+| /foundations/policy-gradient-learning/ | 強化学習は、報酬からどのように方策を改善するのか | あり | あり | あり | 8 | 主要見出しが複数 |
+| /foundations/preference-learning-dpo/ | 言語モデルは、人間の選好をどのように学習するのか | あり | あり | あり | 9 | 主要見出しが複数 |
+| /foundations/speculative-decoding/ | 投機的復号は、どのような条件で出力分布を保ちながら高速化できるのか | あり | あり | あり | 8 | 主要見出しが複数 |
+| /foundations/state-space-sequence-models/ | State Space Modelは、Attentionとは異なる仕組みでどう系列を処理するのか | あり | あり | あり | 8 | 主要見出しが複数 |
 | /foundations/temperature-design/ | Temperature設計指針 | あり | あり | あり | 13 | 長文の複数h3セクション |
 | /foundations/test-time-compute-allocation/ | 同じ計算予算を候補生成・探索・検証へどう配分するか | あり | あり | あり | 9 | 長文の複数h3セクション |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 34 | 主要見出しが複数 |
+| /foundations/verifiable-reward-reasoning/ | 検証可能な報酬は、言語モデルの推論能力をどう変えるのか | あり | あり | あり | 8 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 37 | 主要見出しが複数 |
 | /knowledge-context/ | ナレッジ / コンテキスト | なし | あり | あり | 7 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | AIを使い分ける基準は、モデル性能よりコンテキストではないか | あり | あり | あり | 9 | 主要見出しが複数 |
 | /knowledge-context/human-and-ai-documentation/ | 人向け資料とAI向け資料の分離設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
