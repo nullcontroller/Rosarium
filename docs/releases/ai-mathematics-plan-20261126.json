@@ -1,0 +1,43 @@
+{
+  "state": "approved_release_ready",
+  "publication_date": "2026-11-26",
+  "accepted_phase_four": "48078acd481059dd264bbf2d3b9cf28e69627991",
+  "review_baseline_master": "838b5a321481d3638f3c2cc3f3fff9cd0e0ac240",
+  "author_publication_approved": true,
+  "celine_r2_passed": true,
+  "phases": [
+    [
+      "foundations/language-model-loss",
+      "foundations/attention-information-flow",
+      "foundations/test-time-compute-allocation",
+      "foundations/attention-efficiency"
+    ],
+    [
+      "foundations/policy-gradient-learning",
+      "foundations/preference-learning-dpo",
+      "foundations/verifiable-reward-reasoning",
+      "foundations/compute-optimal-scaling",
+      "foundations/speculative-decoding"
+    ],
+    [
+      "foundations/in-context-learning",
+      "foundations/mixture-of-experts",
+      "foundations/state-space-sequence-models",
+      "foundations/diffusion-language-models"
+    ],
+    [
+      "foundations/mechanistic-interpretability",
+      "foundations/transformer-computational-limits",
+      "foundations/neural-symbolic-proof"
+    ]
+  ],
+  "strengthened_existing": [
+    "foundations/conditional-probability",
+    "foundations/temperature-design",
+    "foundations/hallucination-mechanisms",
+    "foundations/guardrail-models"
+  ],
+  "production_verified": false,
+  "plan_complete": false,
+  "note": "Current plan status. Earlier release-preparations are historical review snapshots. Mark complete only after live verification of all sixteen new and four strengthened articles."
+}

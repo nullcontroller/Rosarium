@@ -493,7 +493,7 @@ const mathematics = page("ai-mathematics");
 assert.equal(mathematics("[data-mathematics-reading]").length, 0);
 const theory = page("ai-theory");
 for (const [route, title, ids] of [
-  ["ai-mathematics", "数学", ["foundations/conditional-probability", "foundations/language-model-loss", "foundations/temperature-design", "foundations/attention-information-flow", "foundations/test-time-compute-allocation", "foundations/attention-efficiency", "foundations/policy-gradient-learning", "foundations/preference-learning-dpo", "foundations/verifiable-reward-reasoning", "foundations/compute-optimal-scaling", "foundations/speculative-decoding", "foundations/in-context-learning", "foundations/mixture-of-experts", "foundations/state-space-sequence-models", "foundations/diffusion-language-models"]],
+  ["ai-mathematics", "数学", ["foundations/conditional-probability", "foundations/language-model-loss", "foundations/temperature-design", "foundations/attention-information-flow", "foundations/test-time-compute-allocation", "foundations/attention-efficiency", "foundations/policy-gradient-learning", "foundations/preference-learning-dpo", "foundations/verifiable-reward-reasoning", "foundations/compute-optimal-scaling", "foundations/speculative-decoding", "foundations/in-context-learning", "foundations/mixture-of-experts", "foundations/state-space-sequence-models", "foundations/diffusion-language-models", "foundations/mechanistic-interpretability", "foundations/transformer-computational-limits", "foundations/neural-symbolic-proof"]],
   ["ai-theory", "AI理論", ["foundations/hallucination-mechanisms"]],
 ]) {
   const $ = page(route);
