@@ -7,3 +7,5 @@ Python 3.10.11、外部依存なし。実行：`python scripts/math-phase-four/v
 - N16：MP証明書を検査し、不正な構文・参照・逆方向の適用を拒否。有限真理値表とDPLLを300の人工CNFで比較。Lean/Z3は実行していない。Python実装そのものは形式検証していない。
 
 図解：`python scripts/math-phase-four/render.py`。SVG6図のLight/Dark、計12ファイルを生成する。図の数値は検算に使用した同じ人工例に対応する。
+
+R2追加確認：`python scripts/math-phase-four/verify-review-conditions.py`。外部依存・乱数なし。L1と成分数、1〜65入力の合成木の仕事と深さ、B=1〜5・d=0〜8の探索ノード数、SATの最初/最後の成功・充足不能による停止を照合する。整数計算は完全一致、L1の浮動小数点比較のみ絶対誤差1e-12。実機の並列高速化や一般定理の証明ではない。

@@ -34,6 +34,6 @@ for mode,(bg,panel,ink,accent,muted) in C.items():
  box(p,65,'初期状態 0 ／ 入力 abba','a：循環　b：0 と 1 を交換')
  p.append(txt(240,215,'0 → 1 → 0 → 1 → 2',29));p.append(txt(240,255,'a　　 b　　 b　　 a',22,muted))
  box(p,300,'直列に状態を更新','前の状態から次へ：n 段')
- box(p,410,'遷移関数を木状に合成','結合則を使う：O(log n) 段')
+ box(p,410,'十分な並列資源で木状合成','深さ O(log n) ／ 総演算 O(n)')
  p.extend([txt(240,545,'順序は交換できない',22),txt(240,580,'ab → 0　／　ba → 2',22,muted)]);save('state-composition',p)
 print('Generated 12 SVGs (6 figures × 2 themes)')
