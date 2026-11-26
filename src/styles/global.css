@@ -2609,15 +2609,21 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
 .related-case-list p { font-size:.9rem; margin:0; color:var(--muted); }
 /* Desktop identity/actions and navigation occupy two shared rows. */
 @media (min-width:1200px) {
+  :root {
+    --desktop-brand-size: clamp(3.8rem, 4.6vw, 4.4rem);
+    --desktop-identity-height: calc(var(--desktop-brand-size) * 1.2 + 1rem);
+    --desktop-header-height: calc(var(--desktop-identity-height) + 45px);
+  }
   .masthead {
-    height: 105px;
+    height: var(--desktop-header-height);
     grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: 60px 44px;
+    grid-template-rows: var(--desktop-identity-height) 44px;
     padding-inline: clamp(1.5rem, 2vw, 2rem);
     gap: 0;
   }
   .masthead > .brand { grid-column: 1; grid-row: 1; margin-inline-end: 2rem; }
-  .brand-name { white-space: nowrap; }
+  .brand-name { font-size: var(--desktop-brand-size); white-space: nowrap; }
+  .brand-mark { width: 4rem; height: 4rem; }
   .header-primary {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -2669,9 +2675,9 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
   .header-actions { grid-column: 2; grid-row: 1; justify-self: end; gap: .5rem; }
   .header-actions > a, .header-actions > button { flex-shrink: 0; white-space: nowrap; }
   .global-search { width: clamp(13rem, 22vw, 20rem); }
-  .sidebar { top: 105px; height: calc(100vh - 105px); }
-  .toc, .theme-toc, .book-toc { top: 105px; max-height: calc(100vh - 105px); }
-  main [id] { scroll-margin-top: var(--toc-scroll-offset, 129px); }
+  .sidebar { top: var(--desktop-header-height); height: calc(100vh - var(--desktop-header-height)); }
+  .toc, .theme-toc, .book-toc { top: var(--desktop-header-height); max-height: calc(100vh - var(--desktop-header-height)); }
+  main [id] { scroll-margin-top: var(--toc-scroll-offset, calc(var(--desktop-header-height) + 24px)); }
 }
 
 
