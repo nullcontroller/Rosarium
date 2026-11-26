@@ -6,14 +6,18 @@ layer: publication
 kind: guide
 publication_format: article
 status: published
+lifecycle: retired
+lifecycle_reason: "同一の実務経験を扱う障害調査Bookの完成に伴い、知識体系の重複を解消してBookを正本とする。品質不足ではなく、発展的な成果物への集約による退役である。"
 published_at: "2026-10-16"
-last_updated: "2026-10-18"
+last_updated: "2026-11-27"
 update_type: revised
-update_note: "本人が確認した調査・判断の記録に整理"
 ai_theme: practices
 entry_points: [ai]
 tags: [ソフトウェア設計, 保守開発, リソース管理, 検証]
 ---
+
+> **障害調査Bookへ集約した保存記事である。** 同一の実務経験を、仮説検証・技術判断・担当者との責務分担まで体系化した[「複数のソフトウェアにまたがる障害調査の設計」](/cases/ai-technical-investigation/)を正本として参照されたい。以下の原稿は当時の考察として保存する。
+
 
 ## AIが候補を示しても、それが正解とは限らない
 

@@ -10,10 +10,10 @@ const read=id=>fs.readFileSync(`src/content/${id}.md`,"utf8").replace(/\r\n/g,"\
 const before=id=>execFileSync("git",["show",`${baseline}:src/content/${id}.md`],{encoding:"utf8"}).replace(/\r\n/g,"\n");
 const data=t=>YAML.parse(t.split("---")[1]);
 const body=t=>t.slice(t.indexOf("\n---",4)+4);
-test("only the three approved lifecycle transitions occur and their original bodies remain",()=>{
+test("the November 26 transitions remain preserved alongside the separately approved November 27 retirement",()=>{
  const files=execFileSync("git",["ls-tree","-r","--name-only",baseline,"src/content"],{encoding:"utf8"}).trim().split("\n").filter(f=>f.endsWith(".md")).map(f=>f.replace(/^src\/content\//,""));const changes=[];
  for(const f of files){const id=f.replaceAll("\\","/").replace(/\.md$/,"");if((data(read(id)).lifecycle??"active")!==(data(before(id)).lifecycle??"active"))changes.push(id);}
- assert.deepEqual(changes.sort(),[...ids].sort());
+ assert.deepEqual(changes.sort(),[...ids,"software-engineering/engineering-judgment-in-ai-code-review"].sort());
  for(const id of ids){assert.equal(body(read(id)),body(before(id)));assert.equal(data(read(id)).lifecycle,"retired");assert(data(read(id)).lifecycle_reason);assert.equal(data(read(id)).published_at,data(before(id)).published_at);}
 });
 test("unique knowledge is integrated into the existing argument rather than appended",()=>{

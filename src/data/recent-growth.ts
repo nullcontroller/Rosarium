@@ -61,6 +61,19 @@ const informationArchitectureChanges = [
 ];
 const curatedRecentGrowth = [
 {
+  date: "2026-11-27",
+  type: "retired",
+  title: "障害調査に関する既存実務事例をBookへ集約",
+  category: "Rosarium",
+  icon: "updates",
+  topics: [{
+    title: "障害調査に関する既存実務事例をBookへ集約",
+    summary: "同一の実務経験を扱う旧記事を保存し、体系化した障害調査Bookを正本として案内。品質不足ではなく、発展的な成果物への集約による退役。",
+    links: [{ path: "cases/ai-technical-investigation", title: "障害調査Book" }],
+  }],
+  changes: [{ action: "retired", text: "退役。同一の実務経験を体系化した障害調査Bookを正本とし、旧記事の原稿と履歴を保存した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] }],
+},
+{
   date: "2026-11-26",
   type: "revised",
   title: "障害調査の実務事例を全面改訂し、Bookとして体系化",

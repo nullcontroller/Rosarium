@@ -1110,7 +1110,7 @@ const aiRelatedPage = load(fs.readFileSync("dist/ai/index.html", "utf8"));
 assert.equal(aiRelatedPage("[data-domain-theme=ai]").length, 2);
 assert.equal(aiRelatedPage("[data-ai-practice-links]").length, 0);
 for (const [id, data] of entries) {
-  if (!data.ai_theme || data.public === false || data.status === "draft") continue;
+  if (!data.ai_theme || data.public === false || data.status === "draft" || data.lifecycle === "retired") continue;
   const related = aiRelatedPage(`#${data.ai_theme} [data-ai-related]`);
   // These two first publications must remain discoverable in their assigned themes.
   if (["software-engineering/engineering-judgment-in-ai-code-review", "essays/from-ai-efficiency-to-value"].includes(id)) {
@@ -1325,7 +1325,7 @@ for (const [chapter, targets] of investigationInlineLinks) {
  for (const target of targets) {
   const targetPage = page(target);
   assert(targetPage("h1").text().trim());
-  assert(!/noindex/.test(targetPage('meta[name="robots"]').attr("content") || ""));
+  assert.equal(/noindex/.test(targetPage('meta[name="robots"]').attr("content") || ""), entries.get(target).lifecycle === "retired");
  }
 }
 for (const [index, route] of investigationPages.entries()) {
@@ -1354,7 +1354,8 @@ console.log("Verified technical investigation Case navigation parity, five inlin
 const investigationHomeHref = "/cases/ai-technical-investigation/";
 assert.equal(cases('[data-series-index="cases/ai-technical-investigation"]').length, 1);
 for (const view of [gardenNotes]) {
- assert.equal(view('[data-growth-entry] a[href="'+investigationHomeHref+'"]').length, 2);
+ assert.equal(view('[data-growth-entry] a[href="'+investigationHomeHref+'"]').length, 3);
+ assert.equal(view('[data-growth-date="2026-11-27"] a[href="'+investigationHomeHref+'"]').length, 1);
  assert.equal(view('[data-growth-date="2026-11-26"] a[href="'+investigationHomeHref+'"]').length, 1);
  assert.equal(view('[data-growth-date="2026-10-29"] a[href="'+investigationHomeHref+'"]').length, 1);
 }

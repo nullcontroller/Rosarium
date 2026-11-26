@@ -157,7 +157,7 @@
 | /foundations/test-time-compute-allocation/ | 同じ計算予算を候補生成・探索・検証へどう配分するか | あり | あり | あり | 9 | 長文の複数h3セクション |
 | /foundations/transformer-computational-limits/ | Transformerの計算能力は、どの条件で広がり、どこに限界があるのか | あり | あり | あり | 11 | 主要見出しが複数 |
 | /foundations/verifiable-reward-reasoning/ | 検証可能な報酬は、言語モデルの推論能力をどう変えるのか | あり | あり | あり | 8 | 主要見出しが複数 |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 38 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 39 | 主要見出しが複数 |
 | /knowledge-context/ | ナレッジ / コンテキスト | なし | あり | あり | 7 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | AIを使い分ける基準は、モデル性能よりコンテキストではないか | あり | あり | あり | 9 | 主要見出しが複数 |
 | /knowledge-context/human-and-ai-documentation/ | 人向け資料とAI向け資料の分離設計 | あり | あり | あり | 17 | 長文の複数h3セクション |
@@ -197,7 +197,7 @@
 | /software-engineering/code-generation-models/ | コード生成AIの正体 | あり | あり | あり | 24 | 長文の複数h3セクション |
 | /software-engineering/code-maintenance-context/ | なぜAIは新規コードよりコード保守に強いのか | あり | あり | あり | 23 | 長文の複数h3セクション |
 | /software-engineering/development-workflow/ | AIを開発工程に組み込む | あり | あり | あり | 27 | 長文の複数h3セクション |
-| /software-engineering/engineering-judgment-in-ai-code-review/ | AIがコードを読めても、違和感に気づくには技術力がいる | あり | あり | あり | 6 | 主要見出しが複数 |
+| /software-engineering/engineering-judgment-in-ai-code-review/ | AIがコードを読めても、違和感に気づくには技術力がいる | なし | あり | あり | 6 | 主要見出しが複数 |
 | /software-engineering/multi-ai-orchestration/ | 複数AIの役割分担と工程設計 | あり | あり | あり | 27 | 主要見出しが複数 |
 | /start-here/ | Rosariumとは？へ移動します | なし | なし | なし | 0 | 短いページまたは移動見出し不足 |
 | /system-design/ | システム設計 | あり | あり | あり | 7 | 主要見出しが複数 |

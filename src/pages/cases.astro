@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
-import ContentLink from "../components/ContentLink.astro";
 import DesignStudiesGateway from "../components/DesignStudiesGateway.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
 import { caseStudies } from "../lib/navigation";
@@ -60,6 +59,5 @@ const headings = [
         ))}
       </section>
     ))}
-  <section aria-labelledby="investigation-note"><h2 id="investigation-note">技術調査の判断</h2><ContentLink entry={all.find(entry => entry.id === "software-engineering/engineering-judgment-in-ai-code-review")!} heading="h3" /></section>
   <DesignStudiesGateway entries={all} />
 </Site>

@@ -101,7 +101,8 @@ test("the article revision appears once, independently of the daily title", () =
   const revisions = events.filter(event => event.date === "2026-10-18" && event.type === "revised");
   assert.equal(revisions.length, 1);
   assert.equal(revisions[0].text, "終了順序の記事を、本人が確認した調査・判断の記録に整理した");
-  assert.equal(revisions[0].text.split(data.update_note).length - 1, 1);
+  assert.equal(events.filter(event => event.type === "retired" && event.date === "2026-11-27").length, 1);
+  assert.equal(events.filter(event => event.type === "revised" && event.date === "2026-11-27").length, 0);
 });
 
 test("PoC publication history is preserved when its body is kept in the two Book PoC chapters", () => {
