@@ -2642,7 +2642,7 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
     min-width: 44px;
     min-height: 44px;
     justify-content: center;
-    padding-inline: .75rem;
+    padding-inline: clamp(1.125rem, 1.4vw, 1.375rem);
     white-space: nowrap;
   }
   .header-primary-group > a + a::before {
