@@ -93,6 +93,20 @@ def moe():
     chosen, weights = route(logits, 1, False)
     outputs['top1_without_renormalization'] = sum(g*experts[e] for e, g in zip(chosen, weights))
     close(outputs['top1_without_renormalization'], .8)
+    # Main-loss path through the gate only; selected expert and input stay fixed.
+    def main_loss(values, normalize):
+        selected, gates = route(values, 1, normalize)
+        assert selected == [0]
+        y = sum(g*experts[e] for e, g in zip(selected, gates))
+        return .5*y*y
+    gate_gradients = {}
+    for normalize, expected in ((True, 0.), (False, .384)):
+        plus, minus = logits.copy(), logits.copy()
+        plus[0] += 1e-5
+        minus[0] -= 1e-5
+        numerical = (main_loss(plus, normalize)-main_loss(minus, normalize))/(2e-5)
+        close(numerical, expected, 1e-9)
+        gate_gradients['renormalized' if normalize else 'switch_style'] = dict(analytic=expected, finite_difference=numerical)
     scores = [[4,3,2,1],[4,1,3,2],[4,2,1,3],[4,3,1,2]]
     def loads(rows, k):
         return [sum(e in route(s,k)[0] for s in rows) for e in range(4)]
@@ -121,7 +135,7 @@ def moe():
     d,h,k=2,3,1
     costs=dict(single_dense=4*d*h, sparse_with_router=4*k*d*h+2*E*d, all_experts_with_router=4*E*d*h+2*E*d)
     assert costs==dict(single_dense=24,sparse_with_router=40,all_experts_with_router=112)
-    return dict(passed=True,router_probabilities=p,outputs=outputs,top1_load=loads(scores,1),top2_load=loads(scores,2),balanced_load=loads(balanced,1),auxiliary_loss_unbalanced=aux(scores),auxiliary_loss_balanced=aux(balanced),aux_gradient=analytic,dropped=3,theoretical_flops=costs,excludes='No balancing training, GPU speedup, or LLM quality experiment.')
+    return dict(passed=True,router_probabilities=p,outputs=outputs,top1_load=loads(scores,1),top2_load=loads(scores,2),balanced_load=loads(balanced,1),auxiliary_loss_unbalanced=aux(scores),auxiliary_loss_balanced=aux(balanced),aux_gradient=analytic,top1_main_loss_router_gradient=gate_gradients,dropped=3,theoretical_flops=costs,excludes='No balancing training, GPU speedup, or LLM quality experiment.')
 
 
 def ssm():
