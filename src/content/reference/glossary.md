@@ -954,6 +954,176 @@ eの行列乗を級数で定義したもの。定係数線形系の状態遷移e
 
 第3段階追加語の基礎資料：[原著論文](https://www.jmlr.org/papers/v23/21-0998.html)。各語の利用条件と主張の根拠はレビュー資料の対応表で区別する。
 
+### 内部表現と介入
+
+<span id="mechanistic-interpretability"></span>
+
+#### 機構的解釈可能性（Mechanistic Interpretability）
+
+モデルの内部計算要素が挙動をどう作るかを調べる研究。可視化や読みやすいラベルだけで判断理由を完全に説明できるとは限らず、再構成・介入・対照条件を分けて評価する。
+
+<span id="activation"></span>
+
+#### 活性化（Activation）
+
+ある入力を処理した際に、ニューロンや層から得られる値・ベクトル。学習によって保存された重みとは異なり、入力や位置によって変わる。
+
+<span id="feature-representation"></span>
+
+#### 特徴表現（Feature Representation）
+
+入力の性質や計算中の情報に対応付けて調べる内部表現。特徴が単一ニューロンと一対一に対応するとは限らず、人間の概念名を付けたこと自体は因果的な証明ではない。
+
+<span id="superposition"></span>
+
+#### 重ね合わせ（Superposition）
+
+複数の特徴を、それらの数より少ない次元の方向へ重ねて表す考え方。特徴の疎性などの条件で復元しやすさが変わる。量子状態の重ね合わせと同じ理論を意味しない。
+
+<span id="sparse-autoencoder"></span>
+
+#### 疎な自己符号化器（Sparse Autoencoder, SAE）
+
+入力表現を少数の活動する成分で符号化し、その成分から元の表現を近似的に復元するモデル。再構成誤差と疎性の両方を調べる。L1罰則やTop-kなど複数の学習方式がある。
+
+<span id="dictionary-decoder"></span>
+
+#### 復号辞書（Decoder Dictionary）
+
+符号の各成分を元の表現空間のベクトルへ対応付ける行列。列の尺度と符号の尺度には自由度があり、疎性罰則を比較する際は列の正規化などの条件が必要となる。
+
+<span id="activation-patching"></span>
+
+#### 活性化置換（Activation Patching）
+
+指定した入力での内部値を、対照入力から得た値へ置換し、下流の出力変化を測る介入。何を置換するか、対照、評価指標に依存する証拠であり、全状況の原因を一意に確定する手段ではない。
+
+<span id="circuit-analysis"></span>
+
+#### 回路解析（Circuit Analysis）
+
+ある挙動に関係する内部要素と接続の計算を調べる。相関した要素の一覧とは異なり、除去・置換などの介入と対照を通じて仮説を評価する。
+
+### 計算モデルと資源
+
+<span id="formal-language"></span>
+
+#### 形式言語（Formal Language）
+
+有限の記号集合から作る有限列の集合の一部。対象列がその集合に属するかという判定問題を、入力長一般について定義できる。自然言語の意味理解と同義ではない。
+
+<span id="finite-automaton"></span>
+
+#### 有限オートマトン（Finite Automaton）
+
+有限個の状態、入力記号ごとの遷移、初期状態などを持つ計算モデル。入力を読みながら状態を更新する。無制限に増やせる記憶領域を備えるチューリング機械とは区別する。
+
+<span id="computational-complexity"></span>
+
+#### 計算複雑性（Computational Complexity）
+
+問題を解くのに必要な時間、空間、回路の深さなどを入力長との関係で調べる分野。特定ハードウェアで測った実行時間やモデルの正答率とは異なる。
+
+<span id="turing-completeness"></span>
+
+#### チューリング完全性（Turing Completeness）
+
+指定した資源の拡張を許した計算モデルで、チューリング機械を模擬できる性質。有限の実機で任意の問題を短時間で解けることや、学習できることを保証しない。
+
+<span id="threshold-circuit"></span>
+
+#### しきい値回路（Threshold Circuit）
+
+しきい値判定を行うゲートなどを接続した計算モデル。深さ、ゲート数、一様性の条件を指定して計算能力を比較する。定数深さのしきい値回路と、AND・ORだけの回路は同じではない。
+
+<span id="numerical-precision"></span>
+
+#### 数値精度（Numerical Precision）
+
+数をどの形式とビット数で区別して表すかという計算条件。任意精度の理論、固定精度の実装、入力長とともに増える精度は区別する。丸め規則も結果に影響する。
+
+### 記号推論と形式的検証
+
+<span id="neural-symbolic"></span>
+
+#### 神経記号推論（Neural-Symbolic Reasoning）
+
+ニューラルネットワークによる候補生成や探索の誘導と、記号で定めた表現・規則による推論を組み合わせる考え方。構成は一つではなく、生成と検査の責務を明示する必要がある。
+
+<span id="propositional-logic"></span>
+
+#### 命題論理（Propositional Logic）
+
+真または偽を取る命題と、否定・論理積・含意などの演算を扱う論理。古典論理では含意P→Qは¬P∨Qとして評価し、因果関係を直接表すわけではない。
+
+<span id="predicate-logic"></span>
+
+#### 述語論理（Predicate Logic）
+
+対象領域、対象についての述語、すべて・存在するなどの量化を扱う論理。真偽を評価するには対象領域と各記号の解釈を指定する。
+
+<span id="formal-system"></span>
+
+#### 形式体系（Formal System）
+
+使用できる式の構文、公理、推論規則を定めた体系。形式的に証明できることと、現実についての前提が正しいことは異なる。
+
+<span id="inference-rule"></span>
+
+#### 推論規則（Inference Rule）
+
+既に得られた式から、どの式を導いてよいかを指定する規則。モーダスポネンスはAとA→BからBを導く。自然な文章の続きの予測とは別の適合条件である。
+
+<span id="proof-search"></span>
+
+#### 証明探索（Proof Search）
+
+目標を導くために、規則、補題、中間目標などの組合せを探す作業。候補が与えられた後の検査と費用や責務が異なる。
+
+<span id="sat"></span>
+
+#### 充足可能性判定（Boolean Satisfiability, SAT）
+
+命題論理式を真にする割当てが存在するかを調べる問題。前提と結論の否定を合わせた式の充足不能性を調べれば、命題論理での帰結を確認できる。
+
+<span id="smt"></span>
+
+#### 背景理論付き充足可能性判定（Satisfiability Modulo Theories, SMT）
+
+算術・配列などの指定した背景理論を加えた充足可能性判定。扱う理論や断片によって決定可能性と費用が異なり、手続きがunknownを返す場合もある。
+
+<span id="proof-assistant"></span>
+
+#### 定理証明支援系（Proof Assistant）
+
+形式的な命題と証明を構築・検査するシステム。自動探索やAIの候補生成を利用しても、検査カーネル、公理、形式化の妥当性を保証の条件として確認する。
+
+<span id="soundness"></span>
+
+#### 健全性（Soundness）
+
+指定した体系で導ける式が、その意味論でも前提からの帰結となる性質。証明規則、意味論、実装の範囲を特定して使う。
+
+<span id="completeness"></span>
+
+#### 完全性（Completeness）
+
+指定した意味論での帰結を、採用した証明体系で導ける性質。一般の入力に必ず停止する判定手続きがあることとは異なる。チューリング完全性とも別の概念である。
+
+<span id="decidability"></span>
+
+#### 決定可能性（Decidability）
+
+対象とする問題のすべての入力に対し、有限時間で正否を返すアルゴリズムが存在する性質。証明がある場合だけ探索が停止する半決定可能性とは区別する。
+
+<span id="counterexample"></span>
+
+#### 反例（Counterexample）
+
+一般的な主張や帰結を成立させない具体的な例。論理的帰結なら、前提を真、結論を偽にする解釈である。有限テストで反例が見つからないことは一般の証明ではない。
+
+追加語の基礎資料：[疎な自己符号化器](https://arxiv.org/html/2406.04093v1)、[Transformerの計算モデル](https://aclanthology.org/2023.tacl-1.31/)、[Lean公式の命題と証明](https://lean-lang.org/theorem_proving_in_lean4/Propositions-and-Proofs/)、[Z3公式資料](https://microsoft.github.io/z3guide/docs/logic/basiccommands/)。本文の使用条件と閲覧範囲は記事及びレビュー対応表で区別する。
+
 ### 似ている用語を読み分ける
 
 |組|区別する点|

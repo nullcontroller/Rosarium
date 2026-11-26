@@ -25,5 +25,8 @@
   "foundations/in-context-learning",
   "foundations/mixture-of-experts",
   "foundations/state-space-sequence-models",
-  "foundations/diffusion-language-models"
+  "foundations/diffusion-language-models",
+  "foundations/mechanistic-interpretability",
+  "foundations/transformer-computational-limits",
+  "foundations/neural-symbolic-proof"
 ]

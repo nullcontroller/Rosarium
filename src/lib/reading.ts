@@ -40,6 +40,7 @@ export const readingGroups: Record<
     { title: "文脈適応と生成方式", ids: ["foundations/in-context-learning", "foundations/diffusion-language-models"] },
     { title: "強化学習と選好学習", ids: ["foundations/policy-gradient-learning", "foundations/preference-learning-dpo", "foundations/verifiable-reward-reasoning"] },
     { title: "推論と計算資源の最適化", ids: ["foundations/test-time-compute-allocation", "foundations/compute-optimal-scaling", "foundations/speculative-decoding"] },
+    { title: "内部機構と計算・証明の限界", ids: ["foundations/mechanistic-interpretability", "foundations/transformer-computational-limits", "foundations/neural-symbolic-proof"] },
   ],
   "ai-theory": [
     {
