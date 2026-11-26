@@ -5,34 +5,26 @@ import PageHeader from "../components/PageHeader.astro";
 import ContentLink from "../components/ContentLink.astro";
 import RelatedCases from "../components/RelatedCases.astro";
 import { activeEntry, url } from "../lib/site";
-import { planningQuestions, planningPublishedAt } from "../lib/planning";
+import { planningPublishedAt } from "../lib/planning";
 import { planningGroups, relatedCasesForDomain } from "../data/knowledge-domains.mjs";
 const articles = await getCollection("pages", activeEntry);
 const groups = planningGroups.map(group => ({ ...group, entries: group.ids.map(id => articles.find(entry => entry.id === id)).filter(entry => !!entry) }));
 const headings = [
   ...groups.map(group => ({ depth: 2, slug: group.id, text: group.title })),
   ...(relatedCasesForDomain("planning", articles).length ? [{depth:2,slug:"related-cases-heading",text:"関連事例"}] : []),
-  { depth: 2, slug: "scope", text: "企画で決めること" },
-  { depth: 2, slug: "purpose", text: "この領域を深める理由" },
 ];
 ---
 <Site title="IT戦略・企画" section="planning" publishedAt={planningPublishedAt} headings={headings}>
   <PageHeader alignHero navigationPath="planning" title="IT戦略・企画" eyebrow="IT STRATEGY & PLANNING" />
-  <p>ここで整理した目的・業務要求・対象範囲を、<a href={url("system-design")}>システム設計</a>でシステム要件と実現方式へ具体化します。<a href={url("dx")}>DX</a>は業務・組織・価値の変革、<a href={url("ai")}>AI・数理</a>は技術を支える数学的・計算的原理を扱います。</p>
+  <span id="scope" aria-hidden="true"></span>
+  <span id="handoff" aria-hidden="true"></span>
+  <p>目的・業務要求・対象範囲を定め、新技術の検証へ進む条件と費用・期間の上限を考えます。技術方式と検証条件は<a href={url("system-design")}>システム設計</a>で具体化します。企画で決める項目と方式設計への接続は、<a href={`${url("architecture/requirements-to-system-method")}#planning-decisions`}>業務要求からシステム方式を設計する</a>で詳しく説明します。</p>
+  <span id="purpose" aria-hidden="true"></span>
+  <p>著者が今後深めたい領域は<a href={`${url("career")}#目指すキャリア`}>Career</a>で紹介します。関連事例では、企画部門の要求・目標と著者のシステム設計担当を区別します。</p>
   {groups.map(group => <section aria-labelledby={group.id}>
     <h2 id={group.id}>{group.title}</h2>
     <p>{group.summary}</p>
     <div class="document-list">{group.entries.map(entry => <ContentLink entry={entry!} heading="h3" />)}</div>
   </section>)}
   <RelatedCases domain="planning" entries={articles} />
-  <section aria-labelledby="scope">
-    <span id="handoff" aria-hidden="true"></span>
-    <h2 id="scope">企画で決めること</h2>
-    <ul>{planningQuestions.map(question => <li><strong>{question.title}</strong><p>{question.description}</p></li>)}</ul>
-  </section>
-  <section aria-labelledby="purpose">
-    <h2 id="purpose">この領域を深める理由</h2>
-    <p>私は、与えられた課題をどうシステム化するかだけでなく、何を変える価値があるのかを見つけるところから関わりたいと考えています。価値を確かめ、業務要件とシステム化範囲を定める判断を、今後の専門領域として深めたいと思っています。</p>
-    <p>ここでは、そのための知識と判断原則を整理しています。関連事例では、企画部門から受けた要求と、著者が担当したシステム設計を区別して読みます。著者自身が企画や投資判断を担当した事例の掲載ではありません。</p>
-  </section>
 </Site>

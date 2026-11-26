@@ -5,6 +5,7 @@ import PageHeader from "../components/PageHeader.astro";
 import ContentLink from "../components/ContentLink.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
 import RelatedCases from "../components/RelatedCases.astro";
+import ThemeTitleLink from "../components/ThemeTitleLink.astro";
 import { domainEntries, relatedCasesForDomain } from "../data/knowledge-domains.mjs";
 import { domainSerialGroups } from "../lib/ai";
 import { dxCategories } from "../lib/dx";
@@ -12,17 +13,17 @@ import { activeEntry, url } from "../lib/site";
 const all = await getCollection("pages", activeEntry);
 const serials = domainSerialGroups(all, "dx");
 const articles = domainEntries("dx", all).filter(entry => entry.data.publication_format !== "series");
-const headings = [{depth:2,slug:"dx-series-heading",text:"連載"},{depth:2,slug:"dx-articles",text:"業務・組織の変革を考える"},{depth:2,slug:"dx-themes-heading",text:"テーマ別に探す"},...(relatedCasesForDomain("dx",all).length ? [{depth:2,slug:"related-cases-heading",text:"関連事例"}] : [])];
+const headings = [{depth:2,slug:"dx-themes-heading",text:"テーマ別に探す"},{depth:2,slug:"dx-series-heading",text:"連載"},{depth:2,slug:"dx-articles",text:"業務・組織の変革を考える"},...(relatedCasesForDomain("dx",all).length ? [{depth:2,slug:"related-cases-heading",text:"関連事例"}] : [])];
 ---
 <Site title="DX" section="dx" headings={headings}>
   <PageHeader alignHero navigationPath="dx" title="DX" eyebrow="DIGITAL TRANSFORMATION" />
   <p>デジタル技術によって業務・組織・価値をどう変えるか。AI活用、知的協働、教育、知識共有、定着と改善を扱います。投資・事業価値の判断は<a href={url("planning")}>IT戦略・企画</a>、技術による実現は<a href={url("system-design")}>システム設計</a>へ進めます。</p>
+  <section aria-labelledby="dx-themes-heading"><h2 id="dx-themes-heading">テーマ別に探す</h2><p>関連する戦略・設計の記事も、主分類を示して参照できます。</p><ul>{dxCategories.map(category => <li><ThemeTitleLink path={`dx/${category.id}`} title={category.title} /> — {category.scope}</li>)}</ul></section>
+  <p><a href={url("practices")}>導入・教育・定着の実践知</a> · <a href={url("essays")}>専門領域を横断する考察</a></p>
   {serials.length > 0 && <section aria-labelledby="dx-series-heading" data-dx-series>
     <h2 id="dx-series-heading">連載</h2>
     <div class="document-list">{serials.map(({entry,chapterCount}) => <SeriesIndex entry={entry} all={all} heading="h3" showCover={false} showIcons={false}><p slot="details" class="meta">全{chapterCount}回の連載</p></SeriesIndex>)}</div>
   </section>}
   <section aria-labelledby="dx-articles"><h2 id="dx-articles">業務・組織の変革を考える</h2><div class="document-list" data-primary-index>{articles.map(entry => <article><ContentLink entry={entry} heading="h3" showIcon={false} /></article>)}</div></section>
-  <section aria-labelledby="dx-themes-heading"><h2 id="dx-themes-heading">テーマ別に探す</h2><p>関連する戦略・設計の記事も、主分類を示して参照できます。</p><ul>{dxCategories.map(category => <li><a href={url(`dx/${category.id}`)}>{category.title}</a> — {category.scope}</li>)}</ul></section>
-  <p><a href={url("practices")}>導入・教育・定着の実践知</a> · <a href={url("essays")}>専門領域を横断する考察</a></p>
   <RelatedCases domain="dx" entries={all} />
 </Site>

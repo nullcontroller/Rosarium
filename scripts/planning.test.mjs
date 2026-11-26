@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import YAML from "yaml";
-import { isPlanningKnowledge, planningPublishedAt, planningQuestions } from "../src/lib/planning.ts";
+import { isPlanningKnowledge, planningPublishedAt } from "../src/lib/planning.ts";
 import { contentHistory } from "../src/data/content-history.ts";
 const entry = (tags, extra = {}) => ({ data: { tags, kind: "essay", section: "essays", ...extra } });
 test("planning retains its entry and legacy anchor without the boundary explanation", () => {
@@ -12,7 +12,10 @@ test("planning retains its entry and legacy anchor without the boundary explanat
   assert(!planning.includes("IPAの区分"));
   assert(planning.includes('id="handoff" aria-hidden="true"'));
   assert(planning.includes('id="scope"'));
-  assert(!planningQuestions.some(question => question.title === "要件定義への引渡し"));
+  assert(planning.indexOf("planning-decisions") < planning.indexOf("<RelatedCases"));
+  assert(!planning.split("<RelatedCases")[1].includes("<p>"));
+  const details = fs.readFileSync("src/content/architecture/requirements-to-system-method.md", "utf8");
+  for (const topic of ["経営課題・価値発見・IT戦略", "対象・投資・優先順位", "KPI・成果指標と費用対効果", "業務・組織の再設計", "新技術・PoCの企画判断"]) assert(details.includes(topic));
   for (const file of ["src/content/career/overview.md", "src/content/cases/customer-support-ai-dx.md"]) {
     assert(!fs.readFileSync(file, "utf8").includes("/planning/#handoff"));
   }

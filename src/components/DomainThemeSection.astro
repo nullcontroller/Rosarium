@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { url } from "../lib/site";
+import ThemeTitleLink from "./ThemeTitleLink.astro";
 interface Props {
   id: string;
   title: string;
@@ -14,9 +15,8 @@ const { id, title, path, paragraphs, articles, related = [], domain } = Astro.pr
 ---
 <section class="dx-category" id={id} data-domain-theme={domain} aria-labelledby={id+"-heading"}>
   <header class="dx-theme-introduction">
-    <h2 id={id+"-heading"}>{title}</h2>
+    <h2 id={id+"-heading"}><ThemeTitleLink path={path} title={title} /></h2>
     {paragraphs.map(paragraph => <p>{paragraph}</p>)}
-    <p class="dx-theme-all"><a href={url(path)}>{title}の記事一覧を見る</a></p>
   </header>
   <div class="dx-theme-detail">
     <p class="meta">最初に読む</p>

@@ -351,7 +351,7 @@ assert.equal(pubs("[data-content-id]").not("[data-ai-series] [data-content-id], 
 assert.equal(pubs("#ai-themes-heading").length, 1);
 const aiSections = pubs('[data-domain-theme="ai"]');
 assert.equal(aiSections.length, 2);
-assert.deepEqual(aiSections.find(".dx-theme-introduction h2").map((_, el) => pubs(el).text()).get(),
+assert.deepEqual(aiSections.find(".dx-theme-introduction h2").map((_, el) => { const title = pubs(el).clone(); title.find('[aria-hidden="true"]').remove(); return title.text(); }).get(),
   ["学習・確率・計算の原理", "生成と誤答の原理"]);
 const aiFeatured = pubs("[data-ai-featured]").map((_, el) => pubs(el).attr("data-ai-featured")).get();
 assert.equal(aiFeatured.length, 2);
@@ -360,7 +360,9 @@ for (const element of aiSections.toArray()) {
   const theme = pubs(element);
   assert.equal(theme.find(".dx-theme-questions li").length, 0);
   assert.equal(theme.find("[data-ai-featured]").length, 1);
-  assert.equal(theme.find(".dx-theme-introduction p").length, 2);
+  assert.equal(theme.find(".dx-theme-introduction p").length, 1);
+  assert.equal(theme.find(".dx-theme-introduction h2 a[href]").length, 1);
+  assert.equal(theme.find(".dx-theme-all").length, 0);
 }
 assert.equal(pubs(".secondary-reading").length, 0);
 assert.equal(pubs('main a[href^="/cases/"]').not('[data-related-cases] a').length, 0);
@@ -920,7 +922,7 @@ for (const file of walk("dist").filter((file) => file.endsWith(".html") && !file
       .some((node) => /^(関連する入口|関連する設計(?:原則|知識)?|関連する記事・設計|関連記事|関連テーマ|Next|Related|Explore)$/.test($(node).text().trim())),
     file,
   );
-  assert(!$("main a[href]").toArray().some((node) => !$(node).closest(".home-main-case,.home-primary-links,.home-about-link").length && /→\s*$/.test($(node).text().trim())), `${file}: no arrow CTA`);
+  assert(!$("main a[href]").toArray().some((node) => !$(node).closest(".home-main-case,.home-primary-links,.home-about-link,.theme-title-link").length && /→\s*$/.test($(node).text().trim())), `${file}: no arrow CTA`);
 }
 console.log(
   "Verified absence of automatic related sections and next-reading headings.",
