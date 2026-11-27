@@ -1,4 +1,6 @@
 ---
+import BookmarkToggle from "../components/BookmarkToggle.astro";
+import { isBookmarkable } from "../lib/bookmark-catalog.mjs";
 import { compatibilityFor } from "../data/compatibility-urls.mjs";
 import { getCollection, render } from "astro:content";
 import { isDraftPreview } from "../lib/draft-preview.mjs";
@@ -134,6 +136,7 @@ const bookNavigation = series.length
       <div class="document-title-row">
         <Icon name={iconForEntry(entry)} size="page" />
         <h1 data-pagefind-meta="title">{d.title}</h1>
+        {isBookmarkable(entry) && <BookmarkToggle id={entry.id} />}
       </div>
       <span hidden data-pagefind-meta="icon">{iconForEntry(entry)}</span>
       {d.summary && !designAreaFor(entry.id) && (

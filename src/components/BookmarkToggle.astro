@@ -1,0 +1,22 @@
+---
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<button
+  type="button"
+  class="bookmark-icon-button bookmark-toggle"
+  data-bookmark-toggle
+  data-bookmark-id={id}
+  data-bookmark-collection="pages"
+  aria-label="記事をブックマークに登録"
+  aria-pressed="false"
+  title="ブックマークに登録"
+  disabled
+>
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+    <path d="M6 3h12v18l-6-4-6 4Z" />
+  </svg>
+</button>

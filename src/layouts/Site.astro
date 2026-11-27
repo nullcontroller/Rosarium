@@ -1,4 +1,6 @@
 ---
+import BookmarkOpen from "../components/BookmarkOpen.astro";
+import BookmarkPanel from "../components/BookmarkPanel.astro";
 import "../styles/global.css";
 import "../styles/archive-colors.css";
 import "katex/dist/katex.min.css";
@@ -299,6 +301,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         <div class="header-actions">
           <a class="sitemap-header-tool sitemap-entry" href={url("sitemap")}>サイトマップ</a>
           {showRightSidebar && showReference && <a class="reference-header-tool" href={url("reference")} data-reference-toggle aria-label="Referenceを開く" aria-controls="reference-panel" aria-expanded="false">参照</a>}
+          <BookmarkOpen />
           <GlobalSearch />
           <button id="theme" data-theme-toggle type="button" aria-label="配色を切り替える">
             配色切替
@@ -310,6 +313,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
         <nav id="mobile-navigation-links" aria-label="モバイル主要ナビゲーション">
           {headerNavigation.map(item => <a href={url(item.path)} aria-current={navigationMatches(item, section) ? "page" : undefined}>{item.title}</a>)}
           <div class="mobile-navigation-auxiliary">
+            <BookmarkOpen menu />
             <a href={url(retiredNavigation.path)}>{retiredNavigation.title}</a>
             <a href={url("reference")}>リファレンス</a>
             <a class="sitemap-entry" href={url("sitemap")}>サイトマップ</a>
@@ -319,6 +323,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       </details>
 
     </header>
+    <BookmarkPanel />
     <div
       class:list={[
         "shell",

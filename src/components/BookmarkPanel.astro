@@ -1,0 +1,238 @@
+<dialog
+  id="bookmark-panel"
+  class="bookmark-panel"
+  aria-labelledby="bookmark-panel-title"
+>
+  <div class="bookmark-panel-heading">
+    <h2 id="bookmark-panel-title">ブックマーク</h2>
+    <button
+      type="button"
+      data-bookmarks-close
+      aria-label="ブックマークを閉じる"
+    >
+      閉じる
+    </button>
+  </div>
+  <p class="bookmark-storage-note">
+    このブラウザーに保存します。端末間・異なるサイト間では自動同期しません。データを残すにはJSONを書き出してください。
+  </p>
+  <p data-bookmark-panel-message role="status" aria-live="polite"></p>
+  <div data-bookmark-list></div>
+  <div class="bookmark-transfer">
+    <button type="button" data-bookmarks-export>
+      JSONを書き出す
+    </button>
+    <label>
+      JSONを読み込む
+      <input
+        type="file"
+        data-bookmarks-import
+        accept=".json,application/json"
+      />
+    </label>
+  </div>
+  <section
+    data-bookmark-preview
+    hidden
+    aria-labelledby="bookmark-preview-title"
+  >
+    <h3 id="bookmark-preview-title">読み込み内容の確認</h3>
+    <p data-bookmark-preview-summary></p>
+    <ul data-bookmark-preview-list></ul>
+    <p>既存データを残してマージします。未解決の項目も保持します。</p>
+    <button type="button" data-bookmarks-merge>
+      マージして保存
+    </button>
+    <button type="button" data-bookmarks-cancel>
+      キャンセル
+    </button>
+  </section>
+</dialog>
+<p
+  class="bookmark-feedback"
+  data-bookmark-message
+  role="status"
+  aria-live="polite"
+></p>
+<script>
+  import { mountBookmarks } from "../lib/bookmarks-client";
+  mountBookmarks();
+</script>
+<style is:inline>
+  .bookmark-icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.45rem;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+  }
+  .bookmark-icon-button svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+  .bookmark-icon-button[aria-pressed="true"] svg {
+    fill: currentColor;
+  }
+  .bookmark-icon-button:focus-visible,
+  .bookmark-panel :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .bookmark-icon-button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .mobile-navigation .bookmark-menu-open {
+    display: none;
+  }
+  .document-title-row:has(.bookmark-toggle) {
+    grid-template-columns: 3.35rem minmax(0, 1fr) 44px;
+  }
+  .bookmark-toggle {
+    margin-top: 0.15rem;
+  }
+  .bookmark-panel {
+    width: min(40rem, calc(100vw - 2rem));
+    max-height: 85dvh;
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--ink);
+    overflow: auto;
+  }
+  .bookmark-panel::backdrop {
+    background: rgb(0 0 0/0.5);
+  }
+  .bookmark-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .bookmark-panel h2 {
+    margin: 0;
+    font-size: 1.4rem;
+  }
+  .bookmark-panel h3 {
+    font-size: 1.1rem;
+    margin: 1.2rem 0 0.35rem;
+  }
+  .bookmark-storage-note {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .bookmark-panel button,
+  .bookmark-transfer label {
+    min-height: 44px;
+    padding: 0.4rem 0.65rem;
+    font: inherit;
+    cursor: pointer;
+  }
+  .bookmark-panel button {
+    color: var(--accent);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .bookmark-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.35rem 0;
+  }
+  .bookmark-panel li {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 0.7rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--line);
+    overflow-wrap: anywhere;
+  }
+  .bookmark-panel li > div {
+    min-width: 0;
+  }
+  .bookmark-panel li > button {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .bookmark-panel li p {
+    margin: 0.2rem 0 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .bookmark-panel li a {
+    font-weight: 650;
+  }
+  .bookmark-transfer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+  }
+  .bookmark-transfer input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    font: inherit;
+  }
+  .bookmark-transfer label {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .bookmark-panel [hidden] {
+    display: none;
+  }
+  .bookmark-feedback:empty,
+  [data-bookmark-panel-message]:empty {
+    display: none;
+  }
+  .bookmark-feedback {
+    position: fixed;
+    z-index: 100;
+    bottom: 1rem;
+    left: 1rem;
+    max-width: calc(100vw - 2rem);
+    padding: 0.65rem 1rem;
+    margin: 0;
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    box-shadow: 0 2px 8px #0003;
+  }
+  .bookmark-panel [data-bookmark-panel-message] {
+    border-inline-start: 3px solid var(--accent);
+    padding-left: 0.6rem;
+  }
+  @media (max-width: 700px) {
+    .document-title-row:has(.bookmark-toggle) {
+      grid-template-columns: 2.5rem minmax(0, 1fr) 44px;
+      column-gap: 0.5rem;
+    }
+    .bookmark-panel {
+      padding: 1rem;
+    }
+    .bookmark-panel li {
+      gap: 0.4rem;
+    }
+  }
+  @media (max-width: 360px) {
+    .masthead .bookmark-header-open {
+      display: none;
+    }
+    .mobile-navigation .bookmark-menu-open {
+      display: inline-flex;
+      gap: 0.5rem;
+    }
+  }
+</style>

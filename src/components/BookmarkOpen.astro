@@ -1,0 +1,26 @@
+---
+interface Props {
+  menu?: boolean;
+}
+const { menu = false } = Astro.props;
+---
+
+<button
+  type="button"
+  class:list={[
+    "bookmark-icon-button",
+    menu ? "bookmark-menu-open" : "bookmark-header-open",
+  ]}
+  data-bookmarks-open
+  aria-label="ブックマークを開く"
+  aria-haspopup="dialog"
+  aria-controls="bookmark-panel"
+  aria-expanded="false"
+  title="ブックマーク"
+  disabled
+>
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+    <path d="M6 3h12v18l-6-4-6 4Z" />
+  </svg>
+  {menu && <span>ブックマーク</span>}
+</button>
