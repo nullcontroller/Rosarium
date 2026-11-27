@@ -62,7 +62,7 @@ const informationArchitectureChanges = [
 const curatedRecentGrowth = [
 {
   date: "2026-11-27",
-  type: "retired",
+  type: "revised",
   title: "障害調査に関する既存実務事例をBookへ集約",
   category: "Rosarium",
   icon: "updates",
