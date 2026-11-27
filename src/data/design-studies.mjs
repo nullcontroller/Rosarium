@@ -1,7 +1,9 @@
 /** Explicit design studies, separate from the real-work Case evidence registry. */
 export const designStudyGroups = [{
   caseId: "cases/customer-support-ai-dx",
-  indexId: "cases/design-studies",
+  idBase: "cases/design-studies",
+  indexId: "cases/design-studies", // Historical index identity; never used as the display location.
+  listingTarget: "/cases/customer-support-ai-dx/#virtual-designs",
   summary: "顧客サポートDXの実務経験を起点として、異なる条件下でのシステム設計を検討する。",
   studies: [
   { slug: "inquiry-analysis", area: "業務分析・要求定義", question: "どの問い合わせを自動化すべきか。", decision: "保留360件をCSと読み直し、操作案内だけで済む質問を選んで削減時間を計算する。", chapters: ["why-ai"] },
@@ -14,7 +16,7 @@ export const designStudyGroups = [{
 }];
 
 export const designStudies = designStudyGroups.flatMap(group => group.studies.map(study => ({
-  ...study, id: `${group.indexId}/${study.slug}`, sourceCase: group.caseId,
+  ...study, id: `${group.idBase}/${study.slug}`, sourceCase: group.caseId,
 })));
 
 export function selectedDesignStudies(selectedIds = "") {

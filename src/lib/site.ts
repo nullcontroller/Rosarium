@@ -1,3 +1,4 @@
+import { compatibilityFor } from "../data/compatibility-urls.mjs";
 export const sections = [
   ["foundations", "AI設計原則", "サイトの目的と読み方は「Rosariumとは？」へ"],
   [
@@ -38,9 +39,9 @@ export const pageIntroductions: Record<string, string> = {
     "AIへ何を指示し、何を根拠に渡し、その場の条件をどう伝えるかを分けます。ナレッジ / コンテキストの役割と更新方法を設計します。",
   architecture:
     "AI・人間・既存システムをどうつなぐかを考えます。処理の流れ、権限、安全性を含むシステムアーキテクチャを設計します。",
-  planning: "何を、なぜ、どこまで実現するか。経営課題と価値発見から、IT戦略・業務要求・システム化構想・投資・KPI・対象範囲を考えます。維持・刷新・統合・廃止と、業務・組織の再設計も扱います。",
+  planning: "何を、なぜ、どこまで実現するか。経営課題と価値発見から、IT戦略・業務要求・システム化構想・投資・KPI・対象範囲を考えます。作らない選択と、維持・刷新・統合・廃止を投資と維持責任から判断します。",
   "system-design": "要求をどのようなシステムとして実現するか。機能・非機能要件、アーキテクチャ、処理・データ・連携、品質、移行、保守・運用を設計します。",
-  ai: "AIはどのような数学的・計算的原理によって成立するのか。現在の記事から、条件付き確率・分布・生成と誤答の原理を学びます。",
+  ai: "AIを支える確率・生成原理、学習理論、モデルの計算構造、推論・計算効率、解釈・理論的限界を学びます。",
   "ai-design":
     "与えられた業務要求を、AI・人間・既存システムの役割、必要な情報、要件・方式、検証・運用へ具体化する設計領域です。",
   "ai-mathematics":
@@ -53,7 +54,7 @@ export const pageIntroductions: Record<string, string> = {
     "専門領域を横断する事例集です。実務経験の担当・判断・確認結果と、実務を起点に条件を変えた仮想設計を区別します。",
   books:
     "業務の課題から、設計・確認・改善までを章ごとに追う実務事例です。現在の主要事例から、判断の理由と役割分担を確かめられます。",
-  dx: "価値設計、業務変革、選択と廃止、システム変革、継続的価値創出。DXを技術導入ではなく、業務・サービス・システムの変化として考えるための記事を整理しています。",
+  dx: "業務分析、業務変革、組織設計、AIの業務活用、教育、定着と運用改善を扱います。技術の利用量ではなく、仕事全体の変化と成果を考えます。",
   reference:
     "用語や数式、評価の基準を、設計中に確認するための資料です。本文を読む際の前提や、判断の根拠を確かめられます。",
   essays:
@@ -149,7 +150,7 @@ export const formatDateJa = (value: string) => {
   return `${year}年${month ? `${Number(month)}月` : ""}${day ? `${Number(day)}日` : ""}`;
 };
 export const url = (p = "") =>
-  base + "/" + p.replace(/^\/+|\/+$/g, "") + (p ? "/" : "");
+  compatibilityFor(p)?.to ?? (base + "/" + p.replace(/^\/+|\/+$/g, "") + (p ? "/" : ""));
 export const assetUrl = (p: string) => base + "/" + p.replace(/^\/+|\/+$/g, "");
 export const absoluteUrl = (site: URL, p = "") =>
   new URL(/\.[a-z0-9]+$/i.test(p) ? assetUrl(p) : url(p), site).toString();
@@ -160,8 +161,8 @@ export const publishedEntry = (e: {
 // RETIRED stays available at its URL and the dedicated retired index,
 // but is absent from ordinary discovery/feed/sitemap. DELETE is for valueless records only.
 export const publicEntry = (e: {
-  data: { status: string; public?: boolean; lifecycle?: string };
-}) => publishedEntry(e) && e.data.lifecycle !== "retired";
+  id?: string; collection?: string; data: { status: string; public?: boolean; lifecycle?: string };
+}) => publishedEntry(e) && e.data.lifecycle !== "retired" && (!e.id || e.collection === "career" || !compatibilityFor(e.id));
 // Ordinary category discovery is ACTIVE-only; historical records use the archive.
 export const activeEntry = (e: { data: { status: string; public?: boolean; lifecycle?: string } }) =>
   publishedEntry(e) && (!e.data.lifecycle || e.data.lifecycle === "active");

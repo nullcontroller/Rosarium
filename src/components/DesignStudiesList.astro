@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { visibleDesignStudies } from "../lib/design-study-discovery";
+import { designStudyGroups, designAreaFor } from "../data/design-studies.mjs";
+import { url } from "../lib/site";
+interface Props { entries: CollectionEntry<"pages">[]; caseId: string; }
+const {entries,caseId} = Astro.props;
+const group = designStudyGroups.find(group => group.caseId === caseId);
+const studies = visibleDesignStudies(entries,caseId);
+---
+{group && studies.length > 0 && <section id="virtual-designs" data-design-studies-list data-design-studies-source={caseId} aria-labelledby="virtual-designs-heading">
+  <h2 id="virtual-designs-heading">仮想設計</h2>
+  <p>{group.summary}実務実績とは区別した仮想の条件による設計検討です。</p>
+  <ul>{studies.map(entry => <li><span class="meta">{designAreaFor(entry.id)}</span><a href={url(entry.id)}>{entry.data.title}</a></li>)}</ul>
+</section>}
+<style>.meta {display:block;} li {padding:.6rem 0;} section {margin-block:1.5rem;}</style>

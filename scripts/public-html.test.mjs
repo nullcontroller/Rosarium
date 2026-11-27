@@ -50,5 +50,5 @@ test("explicit portfolio link allowance preserves only the approved repository",
   const $ = load(publicHtml(html, map, new Set([href])));
   assert.equal($("a").length, 1);
   assert.equal($("a").attr("href"), href);
-  assert.equal(load(publicHtml(html, map))("a").attr("href"), "/ai-design/");
+  assert.equal(load(publicHtml(html, map))("a").attr("href"), "/system-design/#requirements");
 });

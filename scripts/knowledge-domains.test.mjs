@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import YAML from "yaml";
-import { primaryDomain, domainAssignments, planningGroups, systemDesignGroups, relatedCasesForDomain } from "../src/data/knowledge-domains.mjs";
+import { primaryDomain, domainAssignments, planningGroups, systemDesignGroups, sameDomainRelatedEntries } from "../src/data/knowledge-domains.mjs";
 import { buildBreadcrumbs } from "../src/lib/breadcrumbs.mjs";
 const entry = id => ({id,data:YAML.parse(fs.readFileSync(`src/content/${id}.md`,"utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/)[1])});
 test("general design is distinct from AI applications and Cases keep their owner",()=>{
@@ -13,20 +13,9 @@ test("general design is distinct from AI applications and Cases keep their owner
   assert.equal(primaryDomain(entry("essays/ai-investment-value-cost-evolution")),"planning");
   assert.equal(primaryDomain(entry("essays/from-ai-efficiency-to-value")),"dx");
 });
-test("one Case is referenced across domains without becoming domain knowledge",()=>{
-  const support=entry("cases/customer-support-ai-dx");
-  for(const domain of ["dx","planning","system-design"]){
-    const result=relatedCasesForDomain(domain,[support]);assert.equal(result.length,1);assert.equal(result[0].entry.id,support.id);assert.equal(primaryDomain(result[0].entry),"cases");
-  }
-  assert.match(relatedCasesForDomain("planning",[support])[0].relevance,/企画部門から受けた/);
-});
-test("related Cases never revive private, draft, obsolete or unregistered manuscripts",()=>{
-  const support=entry("cases/customer-support-ai-dx");
-  for(const data of [{public:false},{status:"draft"},{lifecycle:"obsolete"},{lifecycle:"retired"},{section:"essays"}])assert.deepEqual(relatedCasesForDomain("planning",[{...support,data:{...support.data,...data}}]),[]);
-  const study=entry("cases/design-studies/inquiry-analysis");
-  assert.equal(relatedCasesForDomain("planning",[study]).length,1);
-  assert.deepEqual(relatedCasesForDomain("planning",[{...study,data:{...study.data,public:false,status:"draft"}}]),[]);
-  assert.deepEqual(relatedCasesForDomain("unknown",[support]),[]);
+test("domain-related cases never cross their primary category",()=>{
+ const support=entry("cases/customer-support-ai-dx");
+ for(const id of ["foundations/conditional-probability","essays/ai-capability-and-organization","architecture/reference-architecture","essays/it-strategy-and-not-building"])assert.deepEqual(sameDomainRelatedEntries(entry(id),[support]),[]);
 });
 test("curated reading routes use unique existing public active originals",()=>{
   for(const groups of [planningGroups,systemDesignGroups]){

@@ -1,8 +1,8 @@
 ---
 import type { Entry } from "../lib/navigation";
-import { url } from "../lib/site";
 import { archiveLifecycles, getArchiveGroup, groupArchiveEntries, archiveCategoryAnchor, archiveEntryAnchor } from "../lib/archive";
-import { archiveReason, archiveDestination } from "../lib/archive-presentation";
+import { compatibilityFor } from "../data/compatibility-urls.mjs";
+import { archiveReason } from "../lib/archive-presentation";
 import Icon from "./Icon.astro";
 interface Props { entries: Entry[]; lifecycle?: "obsolete" | "retired"; }
 const { entries, lifecycle } = Astro.props;
@@ -13,8 +13,7 @@ const groups = archiveLifecycles.map(state => {
   })) };
 }).filter(group => group.count > 0);
 const categories = groups.flatMap(group => group.categories);
-const routes = import.meta.glob<string>("../pages/**/*.astro", { query: "?raw", import: "default", eager: true });
-const targetFor = (entry: Entry) => archiveDestination(routes[`../pages/${entry.id}.astro`] ?? "");
+const targetFor = (entry: Entry) => compatibilityFor(entry.id)?.to;
 ---
 <div class="retired-page archive-list" data-archive-list>
   <div class="archive-actions" hidden>
@@ -28,9 +27,9 @@ const targetFor = (entry: Entry) => archiveDestination(routes[`../pages/${entry.
   <summary><h3>{category} <span class="archive-count">{categoryEntries.length}件</span></h3></summary>
   <ul class="retired-list">
   {categoryEntries.map((entry) => <li id={archiveEntryAnchor(entry)} data-history-id={entry.id} data-retired-id={group.lifecycle === "retired" ? entry.id : undefined}>
-    <h4><a href={url(entry.id)}>{entry.data.title}</a></h4>
+    <h4><a href={`/${entry.id}/`}>{entry.data.title}</a></h4>
     <p class="retired-reason">{archiveReason(entry.data.lifecycle_reason)}</p>
-    {targetFor(entry) && <p class="archive-destination"><a href={url(targetFor(entry)!)}>統合先・移転先へ</a></p>}
+    {targetFor(entry) && <p class="archive-destination"><a href={targetFor(entry)!}>統合先・移転先へ</a></p>}
   </li>)}
   </ul>
 </details>)}

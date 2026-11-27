@@ -1,3 +1,4 @@
+import { resolveCompatibilityHref } from "../data/compatibility-urls.mjs";
 import { load } from "cheerio";
 
 export const normalizeSourceUrl = (value) => {
@@ -63,5 +64,6 @@ export function publicHtml(html, sourceLinks = new Map(), allowedExternalLinks =
       else a.replaceWith(a.contents());
     }
   });
+  $("a[href]").each((_, node) => { const href=$(node).attr("href"); if (/^(?:\/|https:\/\/rosarium-tech\.com)/.test(href)) $(node).attr("href",resolveCompatibilityHref(href)); });
   return $.html();
 }

@@ -1,3 +1,4 @@
+import { resolveCompatibilityHref } from "../data/compatibility-urls.mjs";
 import { visit } from "unist-util-visit";
 export const labels = {
   principle: "設計原則",
@@ -49,6 +50,7 @@ export function localUrls() {
         node.properties[key] = value
           .replace(/^https:\/\/nullcontroller\.github\.io\/Rosarium(?=\/|$)/, "https://rosarium-tech.com")
           .replace(/^\/Rosarium(?=\/|$)/, "") || "/";
+        if (key === "href" && /^(?:\/|https:\/\/rosarium-tech\.com)/.test(node.properties[key])) node.properties[key] = resolveCompatibilityHref(node.properties[key]);
       }
     });
   };

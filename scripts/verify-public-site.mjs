@@ -23,6 +23,7 @@ for (const id of removed)
 let htmlCount = 0;
 for (const file of walk("dist").filter((p) => p.endsWith(".html") && !p.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(file, "utf8"));
+  if ($('meta[http-equiv="refresh"]').length) continue;
   htmlCount++;
   for (const element of $("[href]").toArray()) {
     const href = $(element).attr("href");
@@ -157,6 +158,7 @@ assert.equal(careerDetails('meta[http-equiv="refresh"]').attr("content"), "0;url
 assert.equal(career(".content-related").length, 0);
 for (const file of walk("dist").filter(p => p.endsWith(".html"))) {
   const $ = load(fs.readFileSync(file, "utf8"));
+  if ($('meta[http-equiv="refresh"]').length) continue;
   assert.equal($('a[href="/career/details/"]').length, 0, file);
 }
 assert(!fs.readFileSync("dist/sitemap.xml", "utf8").includes("/career/details/"));

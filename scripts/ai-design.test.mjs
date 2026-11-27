@@ -1,42 +1,5 @@
-import assert from "node:assert/strict";
-import fs from "node:fs";
-import path from "node:path";
-import test from "node:test";
-import YAML from "yaml";
-import { aiDesignAreas, aiDesignTopicGuides, orderedDesignEntries } from "../src/lib/ai-design.ts";
-
-const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => entry.isDirectory() ? walk(path.join(dir, entry.name)) : [path.join(dir, entry.name)]);
-const entries = walk("src/content").filter(file => file.endsWith(".md")).map(file => {
-  const source = fs.readFileSync(file, "utf8");
-  return { id: path.relative("src/content", file).replaceAll("\\", "/").replace(/\.md$/, ""), data: YAML.parse(source.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]) };
-});
-const active = (entry) => entry && entry.data.public !== false && entry.data.status === "published" && (!entry.data.lifecycle || entry.data.lifecycle === "active");
-
-test("design map targets existing active explanations or existing collections", () => {
-  assert.equal(new Set(aiDesignAreas.map(area => area.id)).size, aiDesignAreas.length);
-  assert.equal(new Set(aiDesignAreas.map(area => area.path)).size, aiDesignAreas.length);
-  for (const area of aiDesignAreas) {
-    if (area.path.startsWith("ai-design/")) {
-      assert(aiDesignTopicGuides[area.path.slice("ai-design/".length)], area.path);
-    } else assert(active(entries.find(entry => entry.id === area.path)), area.path);
-  }
-});
-
-test("category reading guides cover each active design article exactly once", () => {
-  const covered = [];
-  for (const [topic, guide] of Object.entries(aiDesignTopicGuides)) {
-    const selected = orderedDesignEntries(entries.filter(active).reverse(), topic);
-    assert.deepEqual(selected.map(entry => entry.id), [...guide.readingOrder], topic);
-    covered.push(...guide.readingOrder);
-    if (guide.next.path.startsWith("ai-design/")) assert(aiDesignTopicGuides[guide.next.path.slice("ai-design/".length)]);
-    else assert(active(entries.find(entry => entry.id === guide.next.path)), guide.next.path);
-  }
-  assert.equal(new Set(covered).size, covered.length);
-  assert.deepEqual(new Set(covered), new Set(entries.filter(entry => active(entry) && entry.data.layer === "ai-design").map(entry => entry.id)));
-});
-
-test("a missing or misclassified guide target fails instead of disappearing", () => {
-  const id = "architecture/reference-architecture";
-  assert.throws(() => orderedDesignEntries(entries.filter(entry => entry.id !== id), "architecture"), /missing or outside its category/);
-  assert.throws(() => orderedDesignEntries(entries.map(entry => entry.id === id ? { ...entry, data: { ...entry.data, design_topic: "applicability" } } : entry), "architecture"), /missing or outside its category/);
-});
+import assert from 'node:assert/strict';import fs from 'node:fs';import test from 'node:test';import YAML from 'yaml';import {systemDesignGroups,primaryDomain} from '../src/data/knowledge-domains.mjs';
+const read=id=>({id,data:YAML.parse(fs.readFileSync(`src/content/${id}.md`,'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---/)[1])});
+test('former design guides are integrated into the five existing system design groups',()=>{assert.deepEqual(systemDesignGroups.map(g=>g.id),['requirements','architecture','knowledge-context','quality','development']);for(const g of systemDesignGroups){assert(g.summary);assert(g.ids.length);for(const id of g.ids)assert.equal(primaryDomain(read(id)),'system-design');}});
+test('system design routes cover 28 active originals exactly once',()=>{const ids=systemDesignGroups.flatMap(g=>g.ids);assert.equal(ids.length,28);assert.equal(new Set(ids).size,28);for(const id of ids){const e=read(id);assert.notEqual(e.data.public,false);assert.equal(e.data.lifecycle??'active','active');assert(['published','stable'].includes(e.data.status));}});
+test('integrated guide summaries retain responsibility, information, verification and lifecycle distinctions',()=>{const text=systemDesignGroups.map(g=>g.summary).join('');for(const term of ['使わない選択','監視','再評価','切り戻し','終了','承認','プログラム','版','権限','人間が判断できない','回帰テスト','保守工程'])assert(text.includes(term),term);});

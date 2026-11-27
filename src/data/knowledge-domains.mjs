@@ -349,15 +349,28 @@ export const primaryDomain = entry => {
   return assignment.primary;
 };
 export const planningGroups = [
-  { id: "reading", title: "業務課題とシステム化範囲", summary: "仕事の必要性と価値を問い、作る・作らないを選ぶ。", ids: ["essays/rethink-work-before-ai", "essays/it-strategy-and-not-building"] },
-  { id: "investment", title: "投資と成果を判断する", summary: "AIを題材に、総コスト・評価基準・得られる価値の関係を読む。", ids: ["essays/ai-investment-value-cost-evolution", "essays/ai-adoption-success-and-value", "essays/from-ai-efficiency-to-value"] },
-  { id: "redesign", title: "業務・組織と既存システムを見直す", summary: "AIを前提とした組織の考察と、既存システムの変更・移行をつなぐ。", ids: ["essays/ai-capability-and-organization", "essays/legacy-change-and-retirement"] },
+  {
+    "id": "reading",
+    "title": "業務課題とシステム化範囲",
+    "summary": "仕事の必要性と価値を問い、作る・作らないを選ぶ。",
+    "ids": [
+      "essays/it-strategy-and-not-building"
+    ]
+  },
+  {
+    "id": "investment",
+    "title": "投資と成果を判断する",
+    "summary": "AIを題材に、総コスト・評価基準・得られる価値の関係を読む。",
+    "ids": [
+      "essays/ai-investment-value-cost-evolution"
+    ]
+  }
 ];
 export const systemDesignGroups = [
   {
     "id": "requirements",
     "title": "要求・方式・ライフサイクル",
-    "summary": "要求を方式へ具体化し、変更・移行・終了まで考える。",
+    "summary": "要求と制約から方式を選び、AIを使わない選択も検討する。稼働後の監視・SLO、変更時の再評価・切り戻し、縮小・終了まで設計する。",
     "ids": [
       "architecture/requirements-to-system-method",
       "essays/legacy-change-and-retirement",
@@ -368,7 +381,7 @@ export const systemDesignGroups = [
   {
     "id": "architecture",
     "title": "アーキテクチャと実行制御",
-    "summary": "構成、情報の受渡し、道具と権限、監視・復旧を設計する。",
+    "summary": "候補生成・検証・人間の承認・既存システムの実行を分離する。単一AIで足りるかを確認し、既知の制御はプログラムへ、必要な探索をAIへ分担する。",
     "ids": [
       "architecture/change-and-reevaluation",
       "architecture/cost-latency-routing",
@@ -381,7 +394,7 @@ export const systemDesignGroups = [
   {
     "id": "knowledge-context",
     "title": "データ・ナレッジとコンテキスト",
-    "summary": "情報の正本、適用条件、検索と回答制御を設計する。",
+    "summary": "指示・継続して使う知識・今回の根拠を分け、対象・版・権限に合う情報を渡す。文書の取得単位、入力の組立て、行動規則と失敗の診断を設計する。",
     "ids": [
       "knowledge-context/context-before-model-performance",
       "knowledge-context/human-and-ai-documentation",
@@ -395,7 +408,7 @@ export const systemDesignGroups = [
   {
     "id": "quality",
     "title": "品質・評価・人間への引継ぎ",
-    "summary": "生成結果の受理条件、検証と停止・承認を分離する。",
+    "summary": "候補の採用・承認・停止の責任を定め、人間が判断できない場合の引継ぎを設計する。回答・コードの検証、採用基準、回帰テスト、人間レビューを分ける。",
     "ids": [
       "evaluation-hitl/code-evaluation-acceptance",
       "evaluation-hitl/datasets-and-regression",
@@ -409,58 +422,24 @@ export const systemDesignGroups = [
   {
     "id": "development",
     "title": "ソフトウェア開発・保守",
-    "summary": "調査・変更・テスト・反映を、検証可能な工程としてつなぐ。",
+    "summary": "変更の適用判断から、必要情報と検証条件、工程と責務の分担へ進む。調査・変更・テスト・反映を、検証可能な保守工程としてつなぐ。",
     "ids": [
       "software-engineering/code-generation-models",
       "software-engineering/code-maintenance-context",
       "software-engineering/development-workflow",
       "software-engineering/multi-ai-orchestration"
     ]
-  },
-  { id: "business-outcomes", title: "業務の成果と設計をつなぐ", summary: "DXの連載から、検証を含む総工数と人間・AIの判断関係を参照する。", ids: ["essays/ai-verification-cost-and-learning", "essays/ai-intellectual-collaboration"] }
-
+  }
 ];
-/** Per-domain relevance is separate from Case ownership and experience claims. */
-export const relatedCaseDefinitions = [
-  { id: "cases/customer-support-ai-dx", domains: {
-    dx: "全件有人の問い合わせ業務から、顧客の自己解決と専門対応を分ける設計を読む。業務効果は未測定。",
-    planning: "企画部門から受けた業務要求・目標を、著者がシステム要件と対象範囲へ具体化した過程を読む。",
-    "system-design": "要件定義、機能分担、RAG管理基盤の方式・データ管理と品質評価を読む。",
-  } },
-  { id: "cases/specification-debt-review", domains: {
-    "system-design": "長期保守された仕様と現行コードを照合し、整合性を確認する方法を読む。",
-  } },
-  { id: "cases/three-ai-maintenance", domains: {
-    "system-design": "暗号処理の変更、異常系、復旧と既存機能への影響を整理する判断を読む。",
-  } },
-  { id: "cases/ai-technical-investigation", domains: {
-    "system-design": "障害解析・品質保証の観点から、調査範囲の選択、仮説検証、私自身の稼働工数2人日で調査し、担当者の修正・検証と連携して残存リークの解決に導いた過程を読む。",
-  } },
-  {"id": "cases/design-studies/inquiry-analysis", "domains": {"planning": "問い合わせ履歴から業務要求・対象範囲と削減目標を考える仮想設計。", "dx": "自動化対象と有人業務の境界を考える仮想設計。"}},
-  {"id": "cases/design-studies/metadata-batch", "domains": {"system-design": "バッチの起動・差分更新・再試行を設計する仮想設計。"}},
-  {"id": "cases/design-studies/qualification-testing", "domains": {"system-design": "機能・業務受入れ・性能の合格条件を分ける仮想設計。"}},
-  {"id": "cases/design-studies/data-migration", "domains": {"system-design": "事前移行、差分、切替と切戻しを考える仮想設計。"}},
-  {"id": "cases/design-studies/rag-security", "domains": {"system-design": "連携段階の情報境界と承認を設計する仮想設計。"}},
-  {"id": "cases/design-studies/document-lifecycle", "domains": {"system-design": "版管理、差分確認と反映の整合を考える仮想設計。"}},
-];
-export const relatedCasesForDomain = (domain, entries) => relatedCaseDefinitions.flatMap(definition => {
-  const entry = entries.find(entry => entry.id === definition.id);
-  const relevance = definition.domains[domain];
-  return relevance && entry && entry.data.section === "cases" && entry.data.public !== false &&
-    ["published", "stable"].includes(entry.data.status) && (entry.data.lifecycle ?? "active") === "active"
-    ? [{ entry, relevance }] : [];
-});
-export const domainReferenceIds = domain => [...new Set([
-  ...(domain === "planning" ? planningGroups : domain === "system-design" ? systemDesignGroups : []).flatMap(group => group.ids),
-  ...relatedCaseDefinitions.filter(definition => definition.domains[domain]).map(definition => definition.id),
-])];
-export const domainReferences = entry => [...new Set([
-  primaryDomain(entry),
-  ...["ai", "dx", "planning", "system-design"].filter(domain => domainReferenceIds(domain).includes(entry.id)),
-  ...(entry.id.startsWith("foundations/ai-business-design") || entry.data.primaryCategory ? ["dx"] : []),
-])];
+/** Discovery uses one primary owner; contextual evidence links are handled separately. */
+export const domainReferences = entry => [primaryDomain(entry)];
+export const sameDomainRelatedEntries = (entry, candidates) => candidates.filter(candidate =>
+  candidate.id !== entry.id && primaryDomain(candidate) === primaryDomain(entry) &&
+  candidate.data.public !== false && ["published", "stable"].includes(candidate.data.status) &&
+  (candidate.data.lifecycle ?? "active") === "active");
 /** @template {{id:string,data:any}} T @param {string} domain @param {T[]} entries @returns {T[]} */
 export const domainEntries = (domain, entries) => entries.filter(entry =>
   primaryDomain(entry) === domain && (entry.data.lifecycle ?? "active") === "active" &&
   entry.data.public !== false && ["published", "stable"].includes(entry.data.status) &&
   (!entry.data.series || entry.data.order === 0));
+export const domainReferenceIds = domain => (domain === 'planning' ? planningGroups : domain === 'system-design' ? systemDesignGroups : []).flatMap(group => group.ids);

@@ -2,7 +2,6 @@
 import type { CollectionEntry } from "astro:content";
 import { visibleDesignStudies } from "../lib/design-study-discovery";
 import { designStudyGroups } from "../data/design-studies.mjs";
-import { url } from "../lib/site";
 interface Props {
   entries: CollectionEntry<"pages">[];
   caseId: string;
@@ -14,12 +13,10 @@ const studies = visibleDesignStudies(entries, caseId);
 const isVisible = (entry: CollectionEntry<"pages">) => entry.data.public !== false &&
   ["published", "stable"].includes(entry.data.status) && (!entry.data.lifecycle || entry.data.lifecycle === "active");
 const source = entries.find(entry => entry.id === caseId && isVisible(entry));
-const hub = entries.find(entry => entry.id === group?.indexId && entry.data.public !== false &&
-  ["published", "stable"].includes(entry.data.status) && entry.data.lifecycle === "active");
 const id = `design-studies-${caseId.replaceAll("/", "-")}`;
 ---
-{group && source && hub && studies.length > 0 && <section class="design-studies-gateway" data-design-studies-gateway data-design-studies-source={caseId} data-toc-exclude aria-labelledby={id}>
-  <Heading id={id}><a href={url(group.indexId)}>仮想設計</a></Heading>
+{group && source && studies.length > 0 && <section class="design-studies-gateway" data-design-studies-gateway data-design-studies-source={caseId} data-toc-exclude aria-labelledby={id}>
+  <Heading id={id}><a href={group.listingTarget}>仮想設計</a></Heading>
   <p>{group.summary}</p>
 </section>}
 <style>

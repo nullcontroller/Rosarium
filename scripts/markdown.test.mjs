@@ -32,7 +32,7 @@ test("Static SVG and base-path links survive Markdown processing", async () => {
   const { code } = await p.render(
     "[読書](/foundations/)\n\n<figure class=\"diagram-static\"><img src=\"/diagrams/static/example.svg\" alt=\"流れ\" /></figure>\n\n| A | B |\n|---|---|\n| C | D |",
   );
-  assert.match(code, /href="\/foundations\/"/);
+  assert.match(code, /href="\/sitemap\/#choose-domain"/);
   assert.match(code, /class="diagram-static"/);
   assert.match(code, /src="\/diagrams\/static\/example.svg"/);
   assert.match(code, /<table>/);

@@ -1,4 +1,5 @@
 ---
+import { compatibilityFor } from "../data/compatibility-urls.mjs";
 import { getCollection, render } from "astro:content";
 import { isDraftPreview } from "../lib/draft-preview.mjs";
 import DesignArea from "../components/DesignArea.astro";
@@ -18,18 +19,18 @@ import {
 import ContentLink from "../components/ContentLink.astro";
 import MarkdownBody from "../components/MarkdownBody.astro";
 import { imageDimensions } from "../lib/image-metadata";
-import { domainReferences } from "../data/knowledge-domains.mjs";
+import { domainReferences, primaryDomain } from "../data/knowledge-domains.mjs";
 import { contentUseCases } from "../lib/use-cases";
 import { bookChapterLegacyFragments } from "../data/book-chapter-fragments";
 import ContentHistory from "../components/ContentHistory.astro";
 import { url, layerLabel, publicEntry, publishedEntry, formatDateJa } from "../lib/site";
 import LifecycleNote from "../components/LifecycleNote.astro";
-import DesignStudiesGateway from "../components/DesignStudiesGateway.astro";
+import DesignStudiesList from "../components/DesignStudiesList.astro";
 import { getArchiveGroup } from "../lib/archive";
 import { iconForEntry } from "../lib/icons";
 import Icon from "../components/Icon.astro";
 export async function getStaticPaths() {
-  return (await getCollection("pages", (entry) => (publishedEntry(entry) || isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW)) && !["essays/ai-use-and-operation", "practices/transferring-practices", "cases/design-studies", "cases/ai-technical-investigation/investigation-principles", "software-engineering/ai-technical-investigation-design", "evaluation-hitl/customer-support-qa-poc", "practices/ai-adoption-and-effective-use", "practices/ai-education-principles", "practices/transferring-ai-practices", "essays/what-not-to-build-with-ai", "architecture/agents-tools-and-workflows", "foundations/generation-and-acceptance", "cases/understanding-systems-as-capability", "software-engineering/ai-driven-development", "software-engineering/code-generation-boundaries", "software-engineering/code-generation-and-work-design"].includes(entry.id))).map((entry) => ({
+  return (await getCollection("pages", (entry) => (publishedEntry(entry) || isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW)) && !compatibilityFor(entry.id))).map((entry) => ({
     params: { id: entry.id },
     props: { entry },
   }));
@@ -63,7 +64,7 @@ const { headings } = await render(entry);
 const all = await getCollection("pages", publicEntry);
 const activeIds = new Set(all.filter(item => item.data.lifecycle === "active").map(item => item.id));
 const evidenceLinks = caseEvidenceLinks(entry.id, content.body, Astro.url, caseStudies.filter(study => activeIds.has(study.book)), activeIds)
-  .map((id: string) => all.find(item => item.id === id)!);
+  .map((id: string) => all.find(item => item.id === id)!).filter(item => primaryDomain(item) === primaryDomain(entry));
 const series = d.series
   ? (await getCollection("pages", item => publicEntry(item) || isDraftPreview(item, process.env.ROSARIUM_DRAFT_PREVIEW)))
       .filter((e) => e.data.series === d.series)
@@ -186,7 +187,7 @@ const bookNavigation = series.length
     <div class="prose" data-book-introduction={isBookIntroduction ? "" : undefined} data-toc-exclude={isBookIntroduction ? "" : undefined} id={isBookIntroduction ? "このbookについて" : undefined}>
       <MarkdownBody html={content.body} />
     </div>
-    <DesignStudiesGateway entries={all} caseId={entry.id} />
+    <DesignStudiesList entries={all} caseId={entry.id} />
     {evidenceLinks.length > 0 && <section class="case-knowledge-links" aria-labelledby="evidence-links-heading">
       <h2 id="evidence-links-heading">{d.section === "cases" ? "この事例で使う設計原則" : "この原則を使う事例"}</h2>
       <ul>{evidenceLinks.map(item => <li><a href={url(item.id)}>{item.data.title}</a></li>)}</ul>

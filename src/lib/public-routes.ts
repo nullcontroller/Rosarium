@@ -1,5 +1,6 @@
+import { compatibilityFor } from "../data/compatibility-urls.mjs";
 import { dxCategories } from "./dx";
-export const manualRoutes = [
+const previousRoutes = [
   "",
   "about",
   "sitemap",
@@ -25,3 +26,5 @@ export const manualRoutes = [
   "practices",
   "reference",
 ];
+
+export const manualRoutes = previousRoutes.filter(route => !compatibilityFor(route));

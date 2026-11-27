@@ -1,3 +1,4 @@
+import { compatibilityFor } from "../src/data/compatibility-urls.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
@@ -20,10 +21,11 @@ for(const entry of entries) {
   const owner = primaryDomain(entry);
   assert(domainLabels[owner],entry.id);
   const current = (entry.data.lifecycle ?? "active") === "active" && entry.data.public !== false && ["published","stable"].includes(entry.data.status);
-  if(current && !["career","reference"].includes(owner)) {
+  if(current && !compatibilityFor(entry.id) && !["career","reference"].includes(owner)) {
     const direct = links(owner).includes(`/${entry.id}/`);
     const cover = entry.data.series && entries.find(other=>other.data.series===entry.data.series && other.data.order===0);
-    const viaStudyHub = designStudies.some(study => study.id === entry.id) && links(owner).includes('/cases/design-studies/') && links('cases/design-studies').includes(`/${entry.id}/`);
+    const sourceCase = designStudies.find(study => study.id === entry.id)?.sourceCase;
+    const viaStudyHub = sourceCase && links(owner).includes(`/${sourceCase}/`) && links(sourceCase).includes(`/${entry.id}/`);
     const viaMathHub = owner === "ai" && entry.data.ai_theme === "ai-mathematics" && links(owner).includes("/ai-mathematics/") && links("ai-mathematics").includes(`/${entry.id}/`);
     assert(direct || viaStudyHub || viaMathHub || (cover && links(owner).includes(`/${cover.id}/`) && links(cover.id).includes(`/${entry.id}/`)),entry.id+": unreachable from primary domain");
     const $ = page(entry.id);

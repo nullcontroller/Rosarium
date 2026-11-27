@@ -37,6 +37,7 @@ for (const file of walk(buildRoot).filter((file) => file.endsWith(".html") && !f
   const expected = dates.get(route);
   assert(expected, `No explicit content date source: ${route}`);
   const $ = load(fs.readFileSync(file, "utf8"));
+  if ($('meta[http-equiv="refresh"]').length) continue;
   const date = $('meta[name="last-updated"]').attr("content");
   if (route === "garden-notes") assert.equal(date, recentGrowth[0].date, "Garden Notes must include its latest public entry");
   assert.equal(date, expected.date, `Date source mismatch: ${route}`);

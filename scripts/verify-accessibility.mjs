@@ -13,6 +13,7 @@ let pages = 0;
 let images = 0;
 for (const file of walk("dist").filter((name) => name.endsWith(".html") && !name.endsWith("google57af630fc0ce16af.html"))) {
   const $ = load(fs.readFileSync(file, "utf8"));
+  if ($('meta[http-equiv="refresh"]').length) continue;
   pages++;
   assert.equal($("html").attr("lang"), "ja", `Document language: ${file}`);
   assert.equal($('.skip[href="#main"]').length, 1, `Skip link: ${file}`);

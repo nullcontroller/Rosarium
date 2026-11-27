@@ -1,9 +1,10 @@
+import { compatibilityFor } from "../src/data/compatibility-urls.mjs";
 import fs from "node:fs";
 import crypto from "node:crypto";
 import assert from "node:assert/strict";
 import YAML from "yaml";
 import { verifyRecoveredBody } from "./recovered-body.mjs";
-import { getArchiveGroup, isCaseEntry, archiveLifecycles } from "../src/lib/archive.ts";
+import { getArchiveGroup, archiveLifecycles } from "../src/lib/archive.ts";
 import { load } from "cheerio";
 import { archiveReason } from "../src/lib/archive-presentation.ts";
 import { publicEntry, publishedEntry } from "../src/lib/site.ts";
@@ -13,7 +14,7 @@ const sitemap = fs.readFileSync("dist/sitemap.xml", "utf8");
 const feeds = ["feed.xml", "feed.json", "rss.xml"].map((name) => fs.readFileSync(`dist/${name}`, "utf8"));
 const counts = {};
 const integrationTargets = {
-  "practices/ai-adoption-and-effective-use": "practices",
+  "practices/ai-adoption-and-effective-use": "dx/#practice-adoption",
   "practices/ai-education-principles": "practices/education-and-capability",
   "practices/transferring-ai-practices": "essays/ai-case-sharing-and-judgment",
   "essays/what-not-to-build-with-ai": "essays/it-strategy-and-not-building",
@@ -25,66 +26,14 @@ const integrationTargets = {
 };
 const integratedEntries = new Set(Object.keys(integrationTargets));
 const archiveTop = load(fs.readFileSync("dist/retired/index.html", "utf8"));
-const obsoleteIndex = load(fs.readFileSync("dist/retired/obsolete/index.html", "utf8"));
-const obsoleteCasesIndex = load(fs.readFileSync("dist/retired/obsolete-cases/index.html", "utf8"));
-const retiredIndex = load(fs.readFileSync("dist/retired/retired/index.html", "utf8"));
-for (const [route, index] of [["retired", archiveTop], ["retired/obsolete", obsoleteIndex], ["retired/obsolete-cases", obsoleteCasesIndex], ["retired/retired", retiredIndex]]) {
-  const canonical = `https://rosarium-tech.com/${route}/`;
-  assert.match(index('meta[name="robots"]').attr("content"), /noindex/);
-  assert.equal(index('link[rel="canonical"]').attr("href"), canonical);
-  assert.equal(index("[data-pagefind-body]").length, 0);
-  assert.equal(index("main[data-pagefind-ignore]").length, 1);
-  assert(!sitemap.includes(canonical));
-  for (const feed of feeds) assert(!feed.includes(canonical));
-}
-assert.match(retiredIndex('meta[name="robots"]').attr("content"), /noindex/);
-assert.equal(retiredIndex('link[rel="canonical"]').attr("href"), "https://rosarium-tech.com/retired/retired/");
-assert.equal(retiredIndex("[data-pagefind-body]").length, 0);
-assert.equal(retiredIndex("main[data-pagefind-ignore]").length, 1);
-assert(!sitemap.includes("https://rosarium-tech.com/retired/retired/"));
-for (const feed of feeds) assert(!feed.includes("https://rosarium-tech.com/retired/retired/"));
-const about = load(fs.readFileSync("dist/about/index.html", "utf8"));
-assert.equal(about('main a[href="/retired/"]').length, 1);
+const retiredIndex=archiveTop;
 const historical = fs.readdirSync("src/content", { recursive: true })
   .filter((file) => file.endsWith(".md"))
   .map((file) => ({ id: file.replaceAll("\\", "/").replace(/\.md$/, ""), data: YAML.parse(fs.readFileSync(`src/content/${file}`, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]) }))
   .filter((entry) => publishedEntry(entry) && !entry.data.source?.chapter_slug && ["obsolete", "retired"].includes(entry.data.lifecycle));
-assert.equal(retiredIndex("[data-retired-id]").length, historical.filter((entry) => entry.data.lifecycle === "retired").length);
-assert.equal(archiveTop("[data-history-id]").length, historical.length);
-assert.equal(archiveTop("[data-archive-entrance]").length, 3);
-assert.equal(retiredIndex("[data-history-id]").length + obsoleteIndex("[data-history-id]").length + obsoleteCasesIndex("[data-history-id]").length, historical.length);
-for (const entry of historical) {
-  const item = (entry.data.lifecycle === "obsolete" ? (isCaseEntry(entry) ? obsoleteCasesIndex : obsoleteIndex) : retiredIndex)(`[data-history-group="${entry.data.lifecycle}"] [data-history-id="${entry.id}"]`);
-  assert.equal(item.length, 1);
-  assert(item.closest("[data-archive-category]").length === 1);
-  for (const route of ["cases", "books", "ai", "dx", "practices", "essays"]) {
-    const index = load(fs.readFileSync(`dist/${route}/index.html`, "utf8"));
-    assert.equal(index(`[data-content-id="${entry.id}"]`).length, 0);
-  }
-  assert(item.text().includes(archiveReason(entry.data.lifecycle_reason)));
-  assert.equal(item.find("time").length, 0);
-}
-for (const group of archiveLifecycles) {
-  assert.equal(archiveTop(`[data-archive-entrance="${group.id}"] small`).text(), `${historical.filter((entry) => getArchiveGroup(entry) === group.id).length}件`);
-}
-assert.equal(obsoleteIndex('[data-archive-category="事例"]').length, 0);
-assert.equal(obsoleteCasesIndex('[data-history-id="cases/system-understanding"]').length, 1);
-const nav = retiredIndex(".sidebar .nav-group").last();
-assert.equal(retiredIndex('.sidebar a[href="/reference/"]').length, 0);
-assert.equal(retiredIndex('.reference-edge-tab').length, 0);
-assert.equal(retiredIndex('.reference-header-tool[href="/reference/"]').length, 0);
-for (const [index, title] of [[obsoleteIndex, '旧記事'], [obsoleteCasesIndex, '旧事例'], [retiredIndex, '退役記事']]) {
-  assert.equal(index('#page-toc-tab, #page-toc-panel, details[data-page-heading-toc], .book-toc-mobile').length, 0, title);
-  assert.equal(index('#reference-sidebar-tab, #reference-panel').length, 0);
-  assert(index('details[data-archive-category]').length > 0);
-  assert.equal(index('details[data-archive-category][open]').length, 0);
-  assert.equal(index('[data-archive-open], [data-archive-close]').length, 2);
-  assert.equal(index('.retired-badge, .retired-date').length, 0);
-
-}
-assert.equal(retiredIndex('.sidebar [role="group"][aria-label="旧記事・退役記事"] a').attr("href"), "/retired/");
-assert.deepEqual(nav.find(".nav-copy > span").map((_, element) => nav.find(element).text()).get(), ["旧記事・退役記事"]);
-assert.equal(retiredIndex('.header-primary a.mobile-retired-link[href="/retired/"]').length, 1);
+assert.equal(archiveTop("[data-history-id]").length,historical.length);
+for(const entry of historical){const item=archiveTop(`[data-history-id="${entry.id}"]`);assert.equal(item.length,1);assert(item.text().includes(archiveReason(entry.data.lifecycle_reason)));}
+for(const group of archiveLifecycles)assert.equal(archiveTop(`[data-archive-entrance="${group.id}"] small`).text(),`${historical.filter(entry=>getArchiveGroup(entry)===group.id).length}件`);
 for (const record of report.entries) {
   counts[record.lifecycle] = (counts[record.lifecycle] ?? 0) + 1;
   if (record.lifecycle === "DELETE") { assert.equal(record.original_slug, "test"); assert.equal(record.recovered, true); continue; }
@@ -109,7 +58,7 @@ for (const record of report.entries) {
   if (!integratedEntries.has(record.destination)) assert.equal($('link[rel="canonical"]').attr("href"), canonical);
   if (integratedEntries.has(record.destination)) {
     assert.match($('meta[name="robots"]').attr("content"), /noindex/);
-    assert.equal($('meta[http-equiv="refresh"]').attr("content"), `0;url=/${integrationTargets[record.destination]}/`);
+    assert.equal($('meta[http-equiv="refresh"]').attr("content"), `0;url=${compatibilityFor(record.destination).to}`);
     assert.equal(retiredIndex(`[data-retired-id="${record.destination}"]`).length, 1);
     assert(!sitemap.includes(canonical));
     for (const feed of feeds) assert(!feed.includes(canonical));

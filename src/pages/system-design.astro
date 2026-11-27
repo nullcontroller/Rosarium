@@ -3,22 +3,19 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import ContentLink from "../components/ContentLink.astro";
-import RelatedCases from "../components/RelatedCases.astro";
-import { activeEntry, url } from "../lib/site";
-import { systemDesignGroups, relatedCasesForDomain } from "../data/knowledge-domains.mjs";
+import { activeEntry } from "../lib/site";
+import { systemDesignGroups, primaryDomain } from "../data/knowledge-domains.mjs";
 const entries = await getCollection("pages", activeEntry);
-const groups = systemDesignGroups.map(group => ({ ...group, entries: group.ids.map(id => entries.find(entry => entry.id === id)).filter(entry => !!entry) }));
-const headings = [...groups.map(group => ({depth:2,slug:group.id,text:group.title})), ...(relatedCasesForDomain("system-design", entries).length ? [{depth:2,slug:"related-cases-heading",text:"関連事例"}] : [])];
+const groups = systemDesignGroups.map(group => ({ ...group, entries: group.ids.map(id => entries.find(entry => entry.id === id)).filter(entry => !!entry && primaryDomain(entry) === "system-design") })).filter(group => group.entries.length > 0);
+const headings = groups.map(group => ({depth:2,slug:group.id,text:group.title}));
 ---
 <Site title="システム設計" section="system-design" headings={headings}>
   <PageHeader alignHero navigationPath="system-design" title="システム設計" eyebrow="SYSTEM DESIGN" />
-  <p>実現する目的と範囲は<a href={url("planning")}>IT戦略・企画</a>で整理し、ここでは要求を機能・品質・構成・処理・データ・運用へ具体化します。AIの採用を前提とせず、RAG・コンテキスト・評価・HITLも実現方式と品質の設計として扱います。数学的・計算的原理は<a href={url("ai")}>AI・数理</a>で確認できます。</p>
-  <p>既存のテーマ別入口：<a href={url("ai-design")}>AI設計</a> · <a href={url("architecture")}>システムアーキテクチャ</a> · <a href={url("knowledge-context")}>ナレッジ / コンテキスト</a> · <a href={url("evaluation-hitl")}>評価・ヒューマンレビュー</a> · <a href={url("software-engineering")}>ソフトウェア開発</a></p>
+  <p>要求を機能・品質・構成・処理・データ・運用へ具体化します。AIの採用を前提とせず、実現方式と品質を設計します。</p>
   {groups.map(group => <section aria-labelledby={group.id}>
     <h2 id={group.id}>{group.title}</h2>
     <p>{group.summary}</p>
     <div class="document-list">{group.entries.map(entry => <ContentLink entry={entry!} heading="h3" />)}</div>
   </section>)}
   <span id="case-design" aria-hidden="true"></span>
-  <RelatedCases domain="system-design" entries={entries} />
 </Site>

@@ -37,7 +37,7 @@ const html = (f) => {
 };
 for (const file of files) {
   const $ = html(file);
-  assert.equal($("main").length, 1);
+  if (!$('meta[http-equiv="refresh"]').length) assert.equal($("main").length, 1);
   assert.equal($("h1").length, 1, `One page heading: ${file}`);
   assert.equal($("adf-directive").length, 0, "Unrendered directive");
   if ($("[data-pagefind-body]").length)

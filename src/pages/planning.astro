@@ -3,28 +3,22 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
 import ContentLink from "../components/ContentLink.astro";
-import RelatedCases from "../components/RelatedCases.astro";
-import { activeEntry, url } from "../lib/site";
+import { activeEntry } from "../lib/site";
 import { planningPublishedAt } from "../lib/planning";
-import { planningGroups, relatedCasesForDomain } from "../data/knowledge-domains.mjs";
+import { planningGroups, primaryDomain } from "../data/knowledge-domains.mjs";
 const articles = await getCollection("pages", activeEntry);
-const groups = planningGroups.map(group => ({ ...group, entries: group.ids.map(id => articles.find(entry => entry.id === id)).filter(entry => !!entry) }));
-const headings = [
-  ...groups.map(group => ({ depth: 2, slug: group.id, text: group.title })),
-  ...(relatedCasesForDomain("planning", articles).length ? [{depth:2,slug:"related-cases-heading",text:"関連事例"}] : []),
-];
+const groups = planningGroups.map(group => ({ ...group, entries: group.ids.map(id => articles.find(entry => entry.id === id)).filter(entry => !!entry && primaryDomain(entry) === "planning") })).filter(group => group.entries.length > 0);
+const headings = groups.map(group => ({depth:2,slug:group.id,text:group.title}));
 ---
 <Site title="IT戦略・企画" section="planning" publishedAt={planningPublishedAt} headings={headings}>
   <PageHeader alignHero navigationPath="planning" title="IT戦略・企画" eyebrow="IT STRATEGY & PLANNING" />
   <span id="scope" aria-hidden="true"></span>
   <span id="handoff" aria-hidden="true"></span>
-  <p>目的・業務要求・対象範囲を定め、新技術の検証へ進む条件と費用・期間の上限を考えます。技術方式と検証条件は<a href={url("system-design")}>システム設計</a>で具体化します。企画で決める項目と方式設計への接続は、<a href={`${url("architecture/requirements-to-system-method")}#planning-decisions`}>業務要求からシステム方式を設計する</a>で詳しく説明します。</p>
   <span id="purpose" aria-hidden="true"></span>
-  <p>著者が今後深めたい領域は<a href={`${url("career")}#目指すキャリア`}>Career</a>で紹介します。関連事例では、企画部門の要求・目標と著者のシステム設計担当を区別します。</p>
+  <p>経営課題と事業価値から、投資の目的、業務要求、システム化する範囲を整理します。</p>
   {groups.map(group => <section aria-labelledby={group.id}>
     <h2 id={group.id}>{group.title}</h2>
     <p>{group.summary}</p>
     <div class="document-list">{group.entries.map(entry => <ContentLink entry={entry!} heading="h3" />)}</div>
   </section>)}
-  <RelatedCases domain="planning" entries={articles} />
 </Site>

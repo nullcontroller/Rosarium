@@ -1,3 +1,4 @@
+import { compatibilityFor } from "../src/data/compatibility-urls.mjs";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -76,7 +77,7 @@ test('final chapter concludes PoC goal achievement without a production-readines
 
 test('legacy routes and chapter anchors remain available after the reorganization',()=>{
  const s=read('poc-metadata-improvement');for(const p of ['102-poc再実施で検索品質と有人振り分けの目標を達成する','103-月750件への適用から業務改善の見込みを判断する'])assert(s.includes(`id="${p}"`),p);
- assert(!fs.existsSync(root+'/continuous-improvement.md'));const redirect=fs.readFileSync('src/pages/cases/customer-support-ai-dx/continuous-improvement.astro','utf8');assert(redirect.includes('poc-metadata-improvement'));assert(redirect.includes('noindex'));
+ assert(!fs.existsSync(root+'/continuous-improvement.md'));assert.equal(compatibilityFor('cases/customer-support-ai-dx/continuous-improvement').to,'/cases/customer-support-ai-dx/poc-metadata-improvement/');
 });
 test('real work in other Case and Career is not reclassified',()=>{
  const career=fs.readFileSync('src/content/career/overview.md','utf8');const support=career.split('data-career-case="customer-support-ai-dx"')[1].split('</section>')[0];assert(support.includes('要件定義・システム設計'));assert(support.includes('回答正答率72％から96％へ改善'));assert(support.includes('本番運用での業務効果は未測定'));assert(!/検証シナリオ|720件/.test(support));

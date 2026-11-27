@@ -2,22 +2,27 @@
 import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import PageHeader from "../components/PageHeader.astro";
-import DomainThemeSection from "../components/DomainThemeSection.astro";
-import { aiThemeGroups } from "../lib/ai";
+import { aiKnowledgeGroups } from "../data/ai-knowledge-groups.mjs";
 import { activeEntry, url } from "../lib/site";
 const entries = await getCollection("pages", activeEntry);
-const groups = aiThemeGroups(entries);
-const headings = [
-  ...groups.map((theme) => ({ depth: 2, slug: theme.id, text: theme.title })),
-];
+const groups = aiKnowledgeGroups.map(group => ({...group,entries:group.ids.map(id => {
+  const entry = entries.find(entry => entry.id === id);
+  if (!entry) throw new Error(`Missing AI article: ${id}`);
+  return entry;
+})}));
+const headings = groups.map(group => ({depth:2,slug:group.id,text:group.title}));
 ---
-
 <Site title="AI・数理" section="ai" headings={headings}>
   <PageHeader alignHero navigationPath="ai" title="AI・数理" />
-  <p>業務・組織での活用は<a href={url("dx")}>DX</a>、RAG・評価・HITLなどの実現方式は<a href={url("system-design")}>システム設計</a>、導入目的や投資の判断は<a href={url("planning")}>IT戦略・企画</a>で扱います。</p>
-  <section class="dx-category-list" aria-label="AIのテーマ別記事">
-    <span id="ai-themes-heading" aria-hidden="true"></span>
-    {groups.map((theme) => <DomainThemeSection {...theme} domain="ai" />)}
-  </section>
-
+  <p>数学によってAIの仕組みを理解する。確率・学習・モデルの計算構造から、推論と計算効率、解釈と理論的限界へ進みます。</p>
+  <span id="math-principles" aria-hidden="true"></span><span id="generation-errors" aria-hidden="true"></span>
+  {groups.map(group => <section aria-labelledby={group.id} data-ai-knowledge-group>
+    <h2 id={group.id}>{group.title}</h2>
+    <ul class="ai-article-links">{group.entries.map(entry => <li><a href={url(entry.id)}>{entry.data.title}</a></li>)}</ul>
+  </section>)}
 </Site>
+<style>
+.ai-article-links {list-style:none;padding:0;margin:0 0 1.5rem;}
+.ai-article-links li {padding:.7rem 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere;}
+.ai-article-links a {font-weight:650;}
+</style>

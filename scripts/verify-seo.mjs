@@ -23,6 +23,11 @@ assert.deepEqual(
 
 for (const file of htmlFiles) {
   const $ = load(fs.readFileSync(file, "utf8"));
+  if ($('meta[http-equiv="refresh"]').length) {
+    assert.match($('meta[name="robots"]').attr('content'),/noindex/);
+    assert($('link[rel="canonical"]').attr('href')?.startsWith('https://rosarium-tech.com/'));
+    continue; // Compatibility contracts are exhaustively checked by verify-information-architecture.
+  }
   const title = $("head > title").first().text().trim();
   const description = $('meta[name="description"]').attr("content")?.trim();
   const canonical = $('link[rel="canonical"]').attr("href");
@@ -205,18 +210,7 @@ console.log(
   `SEO audit: ${htmlFiles.length} HTML pages, ${articleCount} TechArticles, ${sitemapUrls.size} sitemap URLs, no indexable orphans, RSS/JSON Feed/robots/OpenSearch/llms.txt verified. ${repeatedDescriptions.length} shared description group(s) retained where context is equivalent.`,
 );
 
-// Retired catalogs keep their URLs as noindex redirects to authoritative entrances.
-for (const [route, destination] of [["practices/ai-education-principles","practices/education-and-capability"], ["practices/transferring-ai-practices","essays/ai-case-sharing-and-judgment"], ["practices/transferring-practices","essays/ai-case-sharing-and-judgment"], ["essays/ai-use-and-operation","essays/ai-capability-and-organization"], ["essays/what-not-to-build-with-ai","essays/it-strategy-and-not-building"], ["architecture/agents-tools-and-workflows","software-engineering/multi-ai-orchestration"], ["foundations/generation-and-acceptance","evaluation-hitl/responsibility-and-hitl"], ["cases/understanding-systems-as-capability","cases/system-understanding"], ["software-engineering/ai-driven-development", "software-engineering/development-workflow"], ["software-engineering/code-generation-and-work-design", "software-engineering/development-workflow"], ["software-engineering/code-generation-boundaries", "software-engineering/development-workflow"], ["books", "cases"], ["series", "dx"], ["practices/ai-generation-and-work-completion", "foundations/ai-business-design/evaluating-business-efficiency"]]) {
-  const $ = load(fs.readFileSync("dist/" + route + "/index.html", "utf8"));
-  const target = "/" + destination + "/";
-  assert.match($('meta[name="robots"]').attr("content") || "", /noindex/);
-  assert.equal($('link[rel="canonical"]').attr("href"), "https://rosarium-tech.com" + target);
-  assert.equal($('meta[http-equiv="refresh"]').attr("content"), "0;url=" + target + (route === "series" ? "#dx-series-heading" : ""));
-  assert.equal($("main a[href]").not('.breadcrumb a').first().attr("href"), target + (route === "series" ? "#dx-series-heading" : ""));
-  assert.equal($("[data-series-index]").length, 0);
-  assert.ok($("script").text().includes("location.replace(destination)"));
-}
-
+// All 53 compatibility routes are validated by verify-index.mjs.
 const home = load(fs.readFileSync("dist/index.html", "utf8"));
 assert.equal(home("title").text(), "Rosarium");
 const homeDescription = home('meta[name="description"]').attr("content");

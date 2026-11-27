@@ -1,3 +1,4 @@
+import { designStudyGroups } from "../data/design-studies.mjs";
 import { load } from "cheerio";
 
 /** Visible page names come from rendered headings, not URL segments or SEO suffixes. */
@@ -27,10 +28,11 @@ export function buildBreadcrumbs({ pathname, title, entries, labels, primaryPath
   const entry = byId.get(route);
   if (route === "cases/design-studies" || designStudyIds.includes(route)) {
     add("cases");
-    if (route !== "cases/design-studies") add("cases/design-studies");
+    const group = designStudyGroups.find(group => route.startsWith(group.idBase + "/"));
+    if (group) add(group.caseId);
   } else if (entry) {
     const archive = archiveGroup(entry);
-    if (archive) { add("retired"); add(`retired/${archive}`); }
+    if (archive) { add("retired"); }
     else addArea(primaryPath(entry));
     const cover = entry.data.series && entries.find(other => other.data.series === entry.data.series && other.data.order === 0);
     if (cover && cover.id !== route) add(cover.id);

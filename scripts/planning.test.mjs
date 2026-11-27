@@ -12,8 +12,8 @@ test("planning retains its entry and legacy anchor without the boundary explanat
   assert(!planning.includes("IPAの区分"));
   assert(planning.includes('id="handoff" aria-hidden="true"'));
   assert(planning.includes('id="scope"'));
-  assert(planning.indexOf("planning-decisions") < planning.indexOf("<RelatedCases"));
-  assert(!planning.split("<RelatedCases")[1].includes("<p>"));
+  assert(!planning.includes("<RelatedCases"));
+  assert(planning.includes("primaryDomain(entry)"));
   const details = fs.readFileSync("src/content/architecture/requirements-to-system-method.md", "utf8");
   for (const topic of ["経営課題・価値発見・IT戦略", "対象・投資・優先順位", "KPI・成果指標と費用対効果", "業務・組織の再設計", "新技術・PoCの企画判断"]) assert(details.includes(topic));
   for (const file of ["src/content/career/overview.md", "src/content/cases/customer-support-ai-dx.md"]) {

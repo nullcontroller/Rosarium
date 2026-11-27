@@ -1,3 +1,4 @@
+import { compatibilityFor } from "../src/data/compatibility-urls.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -24,7 +25,7 @@ test("unique knowledge is integrated into the existing argument rather than appe
  for(const id of ["essays/ai-case-sharing-and-judgment","essays/ai-capability-and-organization"]){assert.equal(data(read(id)).published_at,data(before(id)).published_at);assert.equal(data(read(id)).last_updated,"2026-11-26");}
 });
 test("old URLs use the existing noindex canonical redirect pattern and same-day history is additive",()=>{
- for(const id of ids.slice(1)){const t=fs.readFileSync(`src/pages/${id}.astro`,"utf8");for(const s of ["location.replace(destination)","http-equiv=\"refresh\"","canonical={canonical} noindex"])assert(t.includes(s));}
+ for(const id of ids.slice(1)) assert(compatibilityFor(id)?.to);
  const day=recentGrowth.find(e=>e.date==="2026-11-26");assert.equal(day.topics.length,10);assert(day.topics.some(t=>t.title==="既存論考の退役・統合による知識体系の整理"));
  for(const id of ids)assert(day.changes.some(c=>typeof c!=="string"&&c.contentIds.includes(id)));
 });

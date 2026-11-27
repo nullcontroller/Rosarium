@@ -1,4 +1,6 @@
 ---
+import { resolveCompatibilityHref } from "../data/compatibility-urls.mjs";
+import { navigationLinkExclusions } from "../data/navigation-link-exclusions.mjs";
 import { load } from "cheerio";
 import { getCollection } from "astro:content";
 import { publicEntry, url } from "../lib/site";
@@ -39,6 +41,13 @@ const components = {
 const portfolioLinks = new Set(Astro.url.pathname === url("career")
   ? ["https://github.com/nullcontroller/Rosarium"] : []);
 const $ = load(publicHtml(Astro.props.html, sourceLinks, portfolioLinks), null, false);
+// Only audited navigation roles are unlinked; preserve text and evidence.
+for (const rule of navigationLinkExclusions.filter(rule => rule.source === Astro.url.pathname)) {
+  $("a[href]").each((_, node) => {
+    const target = new URL($(node).attr("href")!, Astro.url);
+    if (target.origin === Astro.url.origin && target.pathname === new URL(resolveCompatibilityHref(rule.target), Astro.url).pathname && $(node).text().trim() === rule.text) $(node).replaceWith($(node).contents());
+  });
+}
 // Keep authored evidence links; recommendation sections are filtered separately.
 $("img").each((_, element) => {
   const image = $(element);

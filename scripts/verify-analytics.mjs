@@ -15,7 +15,6 @@ const pages = walk("dist").filter((file) => file.endsWith(".html") && !file.ends
 const representativeTypes = new Map([
   ["/", "home"], ["/about/", "about"],
   ["/ai/", "ai"], ["/dx/", "dx"], ["/planning/", "planning"], ["/system-design/", "system-design"],
-  ["/ai-design/knowledge-context/", "theme"], ["/dx/value-design/", "theme"],
   ["/essays/rethink-work-before-ai/", "article"],
   ["/foundations/ai-business-design/", "book"],
   ["/cases/customer-support-ai-dx/", "case"],
@@ -24,6 +23,7 @@ const representativeTypes = new Map([
 ]);
 for (const file of pages) {
   const $ = load(fs.readFileSync(file, "utf8"));
+  if ($('meta[http-equiv="refresh"]').length) { assert.equal($("script[data-analytics-init]").length,0,`${file}: compatibility page must not initialize analytics`); continue; }
   const loaders = $('script[src*="googletagmanager.com/gtag/js"]');
   assert.equal(loaders.length, 0, `${file}: no unconditional Google tag loader`);
   const initializers = $("script[data-analytics-init]");

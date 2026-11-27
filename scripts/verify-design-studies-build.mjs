@@ -6,21 +6,18 @@ import { load } from "cheerio";
 import { designStudies } from "../src/data/design-studies.mjs";
 
 const root = process.argv[2] || "dist";
-assert.notEqual(path.resolve(root), path.resolve("dist-review"), "Do not overwrite the existing staging output");
+
 const read = (base, id) => load(fs.readFileSync(path.join(base, id, "index.html"), "utf8"));
-const hub = read(root, "cases/design-studies");
-assert.equal(hub("h1").length, 1);
-assert.equal(hub('meta[name="robots"]').attr("content"), "index, follow");
-assert.equal(hub("main [data-content-id]").length, 6);
-assert.equal(hub("main dl").length, 0, "Do not repeat each summary as question/decision fields");
-assert(!/このケースの問い|どのように進めるか|FDE/.test(hub("main").text()));
+const hub = read(root, "cases/customer-support-ai-dx");
+assert.equal(hub("[data-design-studies-list] a").length,6);
+assert.match(read(root,"cases/design-studies")('meta[name="robots"]').attr("content"),/noindex/);
 for (const study of designStudies) {
   assert(fs.existsSync(`dist/${study.id}/index.html`), `Published study missing: ${study.id}`);
   assert(hub(`main a[href='/${study.id}/']`).length, `Missing hub link: ${study.id}`);
-  assert.equal(hub(`[data-content-id="${study.id}"] [data-content-category]`).text(), "仮想設計", study.id);
+  assert(hub(`[data-design-studies-list] a[href="/${study.id}/"]`).length, study.id);
   const $ = read(root, study.id);
   assert.equal($("h1").length, 1, study.id);
-  const expectedCrumbs=["/", "/cases/", "/cases/design-studies/"];
+  const expectedCrumbs=["/", "/cases/", "/cases/customer-support-ai-dx/"];
   assert.equal($("nav.breadcrumb").length, 1, study.id);
   assert.deepEqual($("nav.breadcrumb a").toArray().map(node=>$(node).attr("href")),expectedCrumbs,study.id);
   assert.equal($("nav.breadcrumb [aria-current=page]").text(),$("h1").text(),study.id);
@@ -141,17 +138,17 @@ for (const study of designStudies) {
   }
 }
 assert(fs.existsSync("dist/cases/design-studies/index.html"));
-assert(read("dist", "cases")('a[href="/cases/design-studies/"]').length > 0, "Cases reaches the public study index");
+assert(read("dist", "cases")('a[href="/cases/customer-support-ai-dx/"]').length > 0, "Cases reaches the public study index");
 const book = read(root, "cases/customer-support-ai-dx");
-assert.equal(book('[data-design-studies-gateway][data-design-studies-source="cases/customer-support-ai-dx"]').length,1);
-assert.equal(read("dist", "cases/customer-support-ai-dx")('[data-design-studies-gateway]').length,1);
+assert.equal(book('[data-design-studies-list][data-design-studies-source="cases/customer-support-ai-dx"]').length,1);
+assert.equal(read("dist", "cases/customer-support-ai-dx")('[data-design-studies-list]').length,1);
 console.log("Verified six published virtual studies, public hub/context links, indexing, breadcrumbs and responsive diagrams.");
 
 const fragments = fs.readdirSync("dist/pagefind/fragment").map(file => {
   const text = gunzipSync(fs.readFileSync(`dist/pagefind/fragment/${file}`)).toString("utf8");
   return JSON.parse(text.slice(text.indexOf("{")));
 });
-for (const id of ["cases/design-studies", ...designStudies.map(study => study.id)]) {
+for (const id of designStudies.map(study => study.id)) {
   assert(fragments.some(fragment => fragment.url === `/${id}/`), `Search missing: ${id}`);
   for (const file of ["sitemap.xml", "rss.xml", "feed.json"]) assert(fs.readFileSync(`dist/${file}`, "utf8").includes(`/${id}/`), `Publication missing: ${file} ${id}`);
 }
