@@ -10,9 +10,9 @@ async function worker(network) {
     if (!stores.has(name)) stores.set(name, new Map());
     const store = stores.get(name);
     return { keys: async () => [...store.keys()].map(url => ({ url })),
-      match: async request => store.get(request.url)?.clone(),
-      put: async (request, response) => store.set(request.url, response.clone()),
-      delete: async request => store.delete(request.url) };
+      match: async request => store.get(typeof request === 'string' ? request : request.url)?.clone(),
+      put: async (request, response) => store.set(typeof request === 'string' ? request : request.url, response.clone()),
+      delete: async request => store.delete(typeof request === 'string' ? request : request.url) };
   } };
   const context = { self: { location: new URL('https://rosarium-tech.com'), addEventListener: (type, handler) => handlers[type] = handler }, caches, Response, Headers, URL, Set, Date, fetch: network };
   vm.runInNewContext((await fs.readFile('src/pwa/worker.js', 'utf8')).replace('/* PWA_CONFIG */ { review: false, version: "development", paths: [] }', JSON.stringify({ version: 'test', review: false, paths: ['/visited/'], assets: ['/assets/example.12345678.svg', '/diagrams/example.svg'] })), context);
@@ -70,4 +70,12 @@ test('hashed static images use cache first; ordinary diagrams check the network'
   assert.equal(await (await app.request('/assets/example.12345678.svg', 'cors')).text(), '1');
   assert.equal(await (await app.request('/diagrams/example.svg', 'cors')).text(), '2');
   assert.equal(await (await app.request('/diagrams/example.svg', 'cors')).text(), '3');
+});
+test('search query navigation falls back to canonical HTML without persisting search terms', async () => {
+  let online = true;
+  const app = await worker(async () => { if (!online) throw Error(); return new Response('<body>article'); });
+  await app.request('/visited/?q=private-search&search=1');
+  assert.deepEqual([...app.stores.values()][0].keys().toArray(), ['https://rosarium-tech.com/visited/']);
+  online = false;
+  assert.match(await (await app.request('/visited/?q=other&search=1')).text(), /data-pwa-offline/);
 });

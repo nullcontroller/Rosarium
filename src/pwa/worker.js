@@ -11,7 +11,8 @@ const MAX_RESPONSE = 2 * 1024 * 1024;
 const STAMP = 'x-rosarium-cached-at';
 
 function eligible(url) {
-  if (url.origin !== self.location.origin || url.search) return false;
+  if (url.origin !== self.location.origin) return false;
+  if (url.search) return PUBLIC.has(url.pathname);
   return PUBLIC.has(url.pathname) || url.pathname === '/bookmarks.json' ||
     ASSETS.has(url.pathname) || /^\/(?:_astro|pagefind)\//.test(url.pathname) ||
     url.pathname === '/favicon.svg';
@@ -82,28 +83,32 @@ self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
+  if (url.search && request.mode !== 'navigate') return;
   if (!eligible(url)) {
     if (request.mode === 'navigate') event.respondWith(fetch(request, { cache: 'no-cache' }).catch(offlinePage));
     return;
   }
   event.respondWith((async () => {
+    // Static HTML is identical across search/analytics query parameters.
+    // Preserve the live URL, but never persist search terms as cache keys.
+    const key = request.mode === 'navigate' ? new URL(url.pathname, url.origin).href : request;
     let cache;
     try { cache = await caches.open(CACHE); }
     catch {
       return fetch(request, { cache: 'no-cache' }).catch(() => request.mode === 'navigate' ? offlinePage() : Response.error());
     }
     if (immutable(url)) {
-      const hit = await cached(cache, request);
+      const hit = await cached(cache, key);
       if (hit) return hit;
     }
     try {
       const response = await fetch(request, { cache: 'no-cache' });
       // An online 404/redirect must never resurrect retired content.
-      if (!response.ok || response.redirected) await cache.delete(request).catch(() => {});
-      else await save(cache, request, response).catch(() => {});
+      if (!response.ok || response.redirected) await cache.delete(key).catch(() => {});
+      else await save(cache, key, response).catch(() => {});
       return response;
     } catch {
-      const hit = await cached(cache, request);
+      const hit = await cached(cache, key);
       if (hit) {
         if (request.mode === 'navigate') {
           // Mark the document itself; notification cannot race page startup.
