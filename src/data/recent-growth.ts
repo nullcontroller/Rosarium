@@ -67,6 +67,9 @@ const curatedRecentGrowth = [
   category: "Rosarium",
   icon: "updates",
   topics: [{
+    title: "RosariumのPWA対応",
+    summary: "PWAの仕組みを整備し、閲覧済み記事のオフライン参照に対応しました。",
+  }, {
     title: "記事のブックマーク機能を追加",
     summary: "気になる記事をブラウザー内に保存し、後から参照できる機能を追加しました。",
   }, {
@@ -90,7 +93,7 @@ const curatedRecentGrowth = [
     summary: "同一の実務経験を扱う旧記事を保存し、体系化した障害調査Bookを正本として案内。品質不足ではなく、発展的な成果物への集約による退役。",
     links: [{ path: "cases/ai-technical-investigation", title: "障害調査Book" }],
   }],
-  changes: ["記事のブックマーク機能を追加", "サイトの情報構造を再設計し、専門領域の独立性と閲覧性を改善", {"action":"revised","text":"記事タイトルを見直し、専門領域と主題を明確化","contentIds":["architecture/cost-latency-routing","cases/ai-technical-investigation/findings-and-evaluation","cases/ai-technical-investigation/reusable-method","cases/customer-support-ai-dx/customer-experience","cases/customer-support-ai-dx/design-principles","cases/customer-support-ai-dx/executive-summary","cases/customer-support-ai-dx/human-handoff","cases/customer-support-ai-dx/why-ai","cases/design-studies/document-lifecycle","cases/three-ai-maintenance/results-and-reflections","cases/three-ai-maintenance/structuring-failure-handling","evaluation-hitl/qa-evaluation","foundations/answer-scope","foundations/attention-efficiency","foundations/compute-optimal-scaling","foundations/conditional-probability","foundations/guardrail-models","foundations/in-context-learning","foundations/mechanistic-interpretability","foundations/neural-symbolic-proof","foundations/speculative-decoding","foundations/state-space-sequence-models","foundations/temperature-design","foundations/test-time-compute-allocation","foundations/transformer-computational-limits","knowledge-context/context-before-model-performance","knowledge-context/human-and-ai-documentation","knowledge-context/qa-behavior-constraints","knowledge-context/qa-operations","software-engineering/code-generation-models","software-engineering/code-maintenance-context"]}, { action: "retired", text: "退役。同一の実務経験を体系化した障害調査Bookを正本とし、旧記事の原稿と履歴を保存した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] }],
+  changes: ["RosariumのPWA対応", "記事のブックマーク機能を追加", "サイトの情報構造を再設計し、専門領域の独立性と閲覧性を改善", {"action":"revised","text":"記事タイトルを見直し、専門領域と主題を明確化","contentIds":["architecture/cost-latency-routing","cases/ai-technical-investigation/findings-and-evaluation","cases/ai-technical-investigation/reusable-method","cases/customer-support-ai-dx/customer-experience","cases/customer-support-ai-dx/design-principles","cases/customer-support-ai-dx/executive-summary","cases/customer-support-ai-dx/human-handoff","cases/customer-support-ai-dx/why-ai","cases/design-studies/document-lifecycle","cases/three-ai-maintenance/results-and-reflections","cases/three-ai-maintenance/structuring-failure-handling","evaluation-hitl/qa-evaluation","foundations/answer-scope","foundations/attention-efficiency","foundations/compute-optimal-scaling","foundations/conditional-probability","foundations/guardrail-models","foundations/in-context-learning","foundations/mechanistic-interpretability","foundations/neural-symbolic-proof","foundations/speculative-decoding","foundations/state-space-sequence-models","foundations/temperature-design","foundations/test-time-compute-allocation","foundations/transformer-computational-limits","knowledge-context/context-before-model-performance","knowledge-context/human-and-ai-documentation","knowledge-context/qa-behavior-constraints","knowledge-context/qa-operations","software-engineering/code-generation-models","software-engineering/code-maintenance-context"]}, { action: "retired", text: "退役。同一の実務経験を体系化した障害調査Bookを正本とし、旧記事の原稿と履歴を保存した", contentIds: ["software-engineering/engineering-judgment-in-ai-code-review"] }],
 },
 {
   date: "2026-11-26",
