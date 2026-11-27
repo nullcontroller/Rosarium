@@ -68,7 +68,7 @@ const curatedRecentGrowth = [
   icon: "updates",
   topics: [{
     title: "RosariumのPWA対応",
-    summary: "PWAの仕組みを整備し、閲覧済み記事のオフライン参照に対応しました。",
+    summary: "ホーム画面からアプリとして起動できるようにし、閲覧済み記事のオフライン参照にも対応しました。",
   }, {
     title: "記事のブックマーク機能を追加",
     summary: "気になる記事をブラウザー内に保存し、後から参照できる機能を追加しました。",
