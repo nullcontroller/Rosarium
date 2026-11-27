@@ -13,7 +13,6 @@ const { domain, entries } = Astro.props;
 const cases = relatedCasesForDomain(domain, entries).sort((a,b) =>
   (caseStudies.findIndex(study => study.book === a.entry.id) < 0 ? caseStudies.length : caseStudies.findIndex(study => study.book === a.entry.id)) - (caseStudies.findIndex(study => study.book === b.entry.id) < 0 ? caseStudies.length : caseStudies.findIndex(study => study.book === b.entry.id)));
 const actualCases = cases.filter(({ entry }) => !designAreaFor(entry.id));
-const hasVirtualCases = cases.some(({ entry }) => !!designAreaFor(entry.id));
 ---
 {cases.length > 0 && <section class="related-cases" data-related-cases={domain} aria-labelledby="related-cases-heading">
   <h2 id="related-cases-heading">関連事例</h2>
@@ -21,7 +20,7 @@ const hasVirtualCases = cases.some(({ entry }) => !!designAreaFor(entry.id));
     {actualCases.map(({entry,relevance}) => <li data-related-case-id={entry.id}>
       <h3><a href={url(entry.id)}>{entry.data.title}</a></h3>
       <p><span class="meta">{contentType(entry)}</span> · {relevance}</p>
+      <DesignStudiesGateway entries={entries} caseId={entry.id} heading="h4" />
     </li>)}
   </ul>}
-  {hasVirtualCases && <DesignStudiesGateway entries={entries} heading="h3" id="related-design-studies-heading" />}
 </section>}

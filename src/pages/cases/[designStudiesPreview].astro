@@ -4,7 +4,7 @@ import PageHeader from "../../components/PageHeader.astro";
 import { url } from "../../lib/site";
 import { getCollection, getEntry } from "astro:content";
 import { publicEntry } from "../../lib/site";
-import { designStudies } from "../../data/design-studies.mjs";
+import { designStudies, designStudyGroups } from "../../data/design-studies.mjs";
 import ContentLink from "../../components/ContentLink.astro";
 export function getStaticPaths() {
   return [{ params: { designStudiesPreview: "design-studies" } }];
@@ -12,6 +12,11 @@ export function getStaticPaths() {
 const index = (await getEntry("pages", "cases/design-studies"))!;
 const entries = await getCollection("pages", publicEntry);
 const studies = designStudies.filter(study => entries.some(entry => entry.id === study.id));
+const groups = designStudyGroups.flatMap(group => {
+  const source = entries.find(entry => entry.id === group.caseId && (!entry.data.lifecycle || entry.data.lifecycle === "active"));
+  const children = studies.filter(study => study.sourceCase === group.caseId);
+  return source && children.length ? [{ ...group, source, children }] : [];
+});
 ---
 <Site title="実務から広げるシステム設計ケーススタディ" section="cases" summary={index.data.summary} publishedAt={index.data.published_at} lastUpdated={index.data.last_updated}>
   <div data-pagefind-body>
@@ -23,12 +28,14 @@ const studies = designStudies.filter(study => entries.some(entry => entry.id ===
   <span hidden data-pagefind-meta="last_updated">{index.data.last_updated}</span>
   <PageHeader title="実務から広げるシステム設計ケーススタディ" />
   <div class="prose">
-  <p>実務経験をもとに、異なる制約や追加要件を設定して検討した6つの仮想設計ケーススタディです。</p>
-  <p>起点となる実務事例：<a href={url("cases/customer-support-ai-dx")}>生成AI / RAGによる顧客サポートDX</a></p>
+  <p>実務経験をもとに、異なる制約や追加要件を設定して検討した仮想設計ケーススタディです。</p>
   </div>
   <section>
     <h2>発展ケーススタディ一覧</h2>
-    {studies.map(study => <ContentLink entry={entries.find(entry => entry.id === study.id)!} heading="h3" />)}
+    {groups.map(group => <section data-design-studies-source={group.caseId}>
+      <div class="prose"><p>起点となる実務事例：<a href={url(group.source.id)}>{group.source.data.title}</a></p></div>
+      {group.children.map(study => <ContentLink entry={entries.find(entry => entry.id === study.id)!} heading="h3" />)}
+    </section>)}
   </section>
   <p>関心のある業務・設計課題から、どのケースも独立して読めます。</p>
   </div>

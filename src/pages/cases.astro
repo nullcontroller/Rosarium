@@ -53,11 +53,11 @@ const headings = [
                     <dd>{study.result}</dd>
                   </div>
                 </dl>
+                <DesignStudiesGateway entries={all} caseId={study.book} heading="h4" />
               </div>
             </SeriesIndex>
           </div>
         ))}
       </section>
     ))}
-  <DesignStudiesGateway entries={all} />
 </Site>

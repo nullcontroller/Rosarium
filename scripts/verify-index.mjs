@@ -1453,7 +1453,8 @@ for(const route of ["ai","dx","planning","system-design"]) {
   if(expected.length)assert.equal(related.find("h2").text(),"関連事例",route);
   const isVirtual = id => registeredDesignStudies.some(study => study.id === id);
   assert.deepEqual(related.find("[data-related-case-id]").map((_,el)=>$(el).attr("data-related-case-id")).get(),expected.filter(id=>!isVirtual(id)),route);
-  assert.equal(related.find('[data-design-studies-gateway]').length,expected.some(isVirtual)?1:0,route);
+  const sourceCases = new Set(registeredDesignStudies.map(study=>study.sourceCase));
+  assert.equal(related.find('[data-design-studies-gateway]').length,expected.filter(id=>!isVirtual(id)&&sourceCases.has(id)).length,route);
   for(const id of expected.filter(id=>!isVirtual(id))) {
     assert.equal(related.find(`a[href="/${id}/"]`).length,1);
     assert(!$("main [data-content-id]").not("[data-related-cases] [data-content-id]").toArray().some(el=>$(el).attr("data-content-id")===id),"Cases are not knowledge cards");

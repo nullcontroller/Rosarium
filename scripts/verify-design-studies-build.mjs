@@ -143,8 +143,8 @@ for (const study of designStudies) {
 assert(fs.existsSync("dist/cases/design-studies/index.html"));
 assert(read("dist", "cases")('a[href="/cases/design-studies/"]').length > 0, "Cases reaches the public study index");
 const book = read(root, "cases/customer-support-ai-dx");
-assert(book("[data-design-studies-preview]").length);
-assert(read("dist", "cases/customer-support-ai-dx")("[data-design-studies-preview]").length > 0);
+assert.equal(book('[data-design-studies-gateway][data-design-studies-source="cases/customer-support-ai-dx"]').length,1);
+assert.equal(read("dist", "cases/customer-support-ai-dx")('[data-design-studies-gateway]').length,1);
 console.log("Verified six published virtual studies, public hub/context links, indexing, breadcrumbs and responsive diagrams.");
 
 const fragments = fs.readdirSync("dist/pagefind/fragment").map(file => {

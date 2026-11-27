@@ -18,9 +18,12 @@ for(const study of designStudies){
   assert.equal($('main [data-design-studies-gateway]').length,1,id);
   assert.equal($('main [data-design-studies-gateway] a').attr('href'),'/cases/design-studies/',id);
   assert.equal($('main [data-design-studies-gateway] a').length,1,id);
-  assert.equal($('main [data-design-studies-gateway] :is(h2,h3) a').attr('href'),'/cases/design-studies/',id);
+  assert.equal($('main [data-design-studies-gateway] :is(h2,h3,h4) a').attr('href'),'/cases/design-studies/',id);
   assert(!$('main [data-design-studies-gateway]').text().includes('仮想設計の一覧を見る'),id);
-  assert.equal($('main [data-design-studies-gateway] :is(h2,h3)').text(),'仮想設計',id);
+  assert.equal($('main [data-design-studies-gateway] :is(h2,h3,h4)').text(),'仮想設計',id);
+  const container=id==='cases'?`[data-series-index="${study.sourceCase}"]`:`[data-related-case-id="${study.sourceCase}"]`;
+  assert.equal($(`${container} [data-design-studies-gateway][data-design-studies-source="${study.sourceCase}"]`).length,1,`${id}: gateway belongs to its source Case`);
+  assert.equal($('main [data-design-studies-gateway] p').text(),'顧客サポートDXの実務経験を起点として、異なる条件下でのシステム設計を検討する。');
   assert.equal($('main [data-design-study-count]').length,0,id);
   assert(!$('main [data-design-studies-gateway]').text().includes('→'),id);
  }
