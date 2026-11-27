@@ -14,7 +14,7 @@ const review = Boolean(process.env.ROSARIUM_DRAFT_PREVIEW);
   if (allowed && isSecureContext && 'serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js', { scope: '/', updateViaCache: 'none' }).then(registration => {
       const waiting = () => {
-        if (registration.waiting && status && !document.body.dataset.pwaOffline) {
+        if (registration.active && registration.waiting && status && !document.body.dataset.pwaOffline) {
           status.textContent = '新しい版を準備しました。Rosariumのタブやアプリをすべて閉じ、再度開くと適用されます。';
           status.hidden = false;
         }

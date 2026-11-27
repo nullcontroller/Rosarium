@@ -88,3 +88,18 @@ test('Pagefind timestamped entry uses network first and a canonical offline key'
   assert.equal(await (await app.request('/pagefind/pagefind-entry.json?ts=456', 'cors')).text(), '{"languages":{}}');
   assert.equal(app.request('/pagefind/pagefind-entry.json?secret=value', 'cors'), undefined);
 });
+test('update notice requires an existing active worker and is absent on first installation', async () => {
+  const source = (await fs.readFile('src/components/PwaStatus.astro', 'utf8')).match(/<script define:vars[^>]*>([\s\S]*?)<\/script>/)[1];
+  for (const existing of [false, true]) {
+    const status = { hidden: true, textContent: '' };
+    const registration = { active: existing ? {} : null, waiting: {}, addEventListener() {} };
+    vm.runInNewContext(source, {
+      review: false, location: { hostname: 'rosarium-tech.com' }, isSecureContext: true,
+      document: { body: { dataset: {} }, querySelector: () => status },
+      navigator: { serviceWorker: { register: async () => registration } },
+    });
+    await new Promise(resolve => setImmediate(resolve));
+    assert.equal(status.hidden, !existing);
+    assert.equal(status.textContent.includes('新しい版'), existing);
+  }
+});
