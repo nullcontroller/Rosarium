@@ -115,7 +115,7 @@ const analyticsEntry = (await getCollection("pages", publicEntry)).find(
 );
 const analyticsPage = analyticsMetadata(Astro.url.pathname, analyticsTitle, analyticsEntry);
 const documentTitle =
-  title === "Home" ? "Rosarium | 立林 裕太朗" : `${title} | Rosarium`;
+  title === "Home" ? "Rosarium" : `${title} | Rosarium`;
 const canonicalUrl = canonical?.startsWith(
   "https://rosarium-tech.com/",
 )

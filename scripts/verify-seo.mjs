@@ -23,11 +23,14 @@ assert.deepEqual(
 
 for (const file of htmlFiles) {
   const $ = load(fs.readFileSync(file, "utf8"));
-  const title = $("title").text().trim();
+  const title = $("head > title").first().text().trim();
   const description = $('meta[name="description"]').attr("content")?.trim();
   const canonical = $('link[rel="canonical"]').attr("href");
   const robots = $('meta[name="robots"]').attr("content");
   assert.ok(title, `Missing title: ${file}`);
+  if (path.relative("dist", file) === "index.html") assert.equal(title, "Rosarium");
+  else assert.match(title, /^.+ \| Rosarium$/, `Page title format: ${file}`);
+  assert.equal($('meta[property="og:site_name"]').attr("content"), "Rosarium", `Site name: ${file}`);
   assert.ok(description, `Missing description: ${file}`);
   assert.ok(
     canonical?.startsWith(
@@ -215,7 +218,7 @@ for (const [route, destination] of [["practices/ai-education-principles","practi
 }
 
 const home = load(fs.readFileSync("dist/index.html", "utf8"));
-assert.equal(home("title").text(), "Rosarium | 立林 裕太朗");
+assert.equal(home("title").text(), "Rosarium");
 const homeDescription = home('meta[name="description"]').attr("content");
 assert(homeDescription.includes("立林裕太朗の技術ポートフォリオ"));
 for(const domain of ["IT戦略・企画","DX","システム設計","AI・数理"]) assert(homeDescription.includes(domain));

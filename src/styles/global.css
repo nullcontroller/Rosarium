@@ -2610,20 +2610,20 @@ main [data-toc-target] { scroll-margin-top:var(--toc-scroll-offset,6rem); }
 /* Desktop identity/actions and navigation occupy two shared rows. */
 @media (min-width:1200px) {
   :root {
-    --desktop-brand-size: clamp(3.8rem, 4.6vw, 4.4rem);
-    --desktop-identity-height: calc(var(--desktop-brand-size) * 1.2 + 1rem);
-    --desktop-header-height: calc(var(--desktop-identity-height) + 45px);
+    --desktop-brand-size: 3rem;
+    --desktop-identity-height: calc(var(--desktop-brand-size) * 1.2 + .875rem);
+    --desktop-header-height: calc(var(--desktop-identity-height) + 46px);
   }
   .masthead {
-    height: var(--desktop-header-height);
+    height: auto;
     grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: var(--desktop-identity-height) 44px;
+    grid-template-rows: auto auto;
     padding-inline: clamp(1.5rem, 2vw, 2rem);
     gap: 0;
   }
-  .masthead > .brand { grid-column: 1; grid-row: 1; margin-inline-end: 2rem; }
+  .masthead > .brand { grid-column: 1; grid-row: 1; margin-inline-end: 2rem; padding-block: .4375rem; gap: .625rem; }
   .brand-name { font-size: var(--desktop-brand-size); white-space: nowrap; }
-  .brand-mark { width: 4rem; height: 4rem; }
+  .brand-mark { width: 2.75rem; height: 2.75rem; }
   .header-primary {
     grid-column: 1 / -1;
     grid-row: 2;
