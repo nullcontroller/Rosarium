@@ -2,16 +2,19 @@ import type { APIRoute } from "astro";
 import { assetUrl, siteDescription, url } from "../lib/site";
 
 export const prerender = true;
+const review = Boolean(process.env.ROSARIUM_DRAFT_PREVIEW);
 
 export const GET: APIRoute = () =>
   new Response(
     JSON.stringify({
-      name: "Rosarium — 立林 裕太朗",
-      short_name: "Rosarium",
+      name: review ? "Rosarium Review" : "Rosarium",
+      short_name: review ? "Rosarium Review" : "Rosarium",
+      id: review ? "/?app=rosarium-review" : "/",
+      lang: "ja",
       description: siteDescription,
       start_url: url(),
       scope: url(),
-      display: "browser",
+      display: "standalone",
       background_color: "#17383b",
       theme_color: "#17383b",
       icons: [

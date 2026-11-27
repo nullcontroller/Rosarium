@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import { pwaBuild } from "./scripts/pwa-build.mjs";
 import { unified } from "@astrojs/markdown-remark";
 import directive from "remark-directive";
 import math from "remark-math";
@@ -8,6 +9,7 @@ import {
   localUrls,
 } from "./src/lib/markdown.mjs";
 export default defineConfig({
+  integrations: [pwaBuild()],
   site: "https://rosarium-tech.com",
   trailingSlash: "always",
   // Review output is isolated from the ordinary production build.

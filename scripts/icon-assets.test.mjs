@@ -24,7 +24,7 @@ test("site icon assets have valid SVG and expected PNG dimensions", async () => 
 
 test("manifest endpoint keeps GitHub Pages base and required metadata", async () => {
   const source = await readFile("src/pages/site.webmanifest.ts", "utf8");
-  for (const value of ['name: "Rosarium — 立林 裕太朗"', 'short_name: "Rosarium"', 'display: "browser"', 'theme_color: "#17383b"', 'background_color: "#17383b"', "start_url: url()", "scope: url()"]) {
+  for (const value of ['name: review ? "Rosarium Review" : "Rosarium"', 'id: review ? "/?app=rosarium-review" : "/"', 'lang: "ja"', 'display: "standalone"', 'theme_color: "#17383b"', 'background_color: "#17383b"', "start_url: url()", "scope: url()"]) {
     assert(source.includes(value), value);
   }
   assert(source.includes("assetUrl"));

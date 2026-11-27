@@ -1,6 +1,7 @@
 ---
 import BookmarkOpen from "../components/BookmarkOpen.astro";
 import BookmarkPanel from "../components/BookmarkPanel.astro";
+import PwaStatus from "../components/PwaStatus.astro";
 import "../styles/global.css";
 import "../styles/archive-colors.css";
 import "katex/dist/katex.min.css";
@@ -200,7 +201,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     <meta name="content-lifecycle" content={searchLifecycle} data-pagefind-meta="lifecycle[content]" data-pagefind-filter="lifecycle[content]" />
     <meta
       name="robots"
-      content={noindex ? "noindex, follow" : "index, follow"}
+      content={noindex || process.env.ROSARIUM_DRAFT_PREVIEW ? "noindex, follow" : "index, follow"}
     />
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#17383b" />
@@ -324,6 +325,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
 
     </header>
     <BookmarkPanel />
+    <PwaStatus />
     <div
       class:list={[
         "shell",
