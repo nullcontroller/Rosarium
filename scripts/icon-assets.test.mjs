@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { pwaEnvironment, pwaManifest } from '../src/lib/pwa-environment.mjs';
 
 const pngSize = (buffer) => [buffer.readUInt32BE(16), buffer.readUInt32BE(20)];
 
@@ -22,11 +23,16 @@ test("site icon assets have valid SVG and expected PNG dimensions", async () => 
   }
 });
 
-test("manifest endpoint keeps GitHub Pages base and required metadata", async () => {
+test("manifest endpoint uses the shared, origin-bound environment metadata", async () => {
   const source = await readFile("src/pages/site.webmanifest.ts", "utf8");
-  for (const value of ['name: review ? "Rosarium Review" : "Rosarium"', 'id: review ? "/?app=rosarium-review" : "/"', 'lang: "ja"', 'display: "standalone"', 'theme_color: "#17383b"', 'background_color: "#17383b"', "start_url: url()", "scope: url()"]) {
-    assert(source.includes(value), value);
+  assert(source.includes('pwaManifest(pwaEnvironment(), siteDescription)'));
+  for (const env of [{}, { ROSARIUM_DRAFT_PREVIEW: 'staging-no-drafts' }]) {
+    const settings = pwaEnvironment(env), manifest = pwaManifest(settings, 'description');
+    assert.equal(manifest.display, 'standalone'); assert.equal(manifest.lang, 'ja');
+    assert.equal(new URL(manifest.start_url).origin, settings.origin);
+    assert.equal(new URL(manifest.scope).origin, settings.origin);
+    assert.equal(new URL(manifest.id).origin, settings.origin);
+    assert(manifest.icons.every(icon => icon.src.startsWith(settings.icons)));
+    assert.equal(manifest.icons.filter(icon => icon.purpose === 'maskable').length, 2);
   }
-  assert(source.includes("assetUrl"));
-  assert(source.includes('purpose: "maskable"'));
 });

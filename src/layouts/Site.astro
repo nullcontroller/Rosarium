@@ -2,6 +2,8 @@
 import BookmarkOpen from "../components/BookmarkOpen.astro";
 import BookmarkPanel from "../components/BookmarkPanel.astro";
 import PwaStatus from "../components/PwaStatus.astro";
+import { pwaEnvironment } from "../lib/pwa-environment.mjs";
+const pwa = pwaEnvironment();
 import "../styles/global.css";
 import "../styles/archive-colors.css";
 import "katex/dist/katex.min.css";
@@ -204,7 +206,9 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       content={noindex || process.env.ROSARIUM_DRAFT_PREVIEW ? "noindex, follow" : "index, follow"}
     />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#17383b" />
+    <meta name="theme-color" content={pwa.color} />
+    <meta name="application-name" content={pwa.name} />
+    <meta name="apple-mobile-web-app-title" content={pwa.shortName} />
     <meta property="og:title" content={documentTitle} />
     <meta property="og:description" content={summary} />
     <meta property="og:type" content={ogType} />
@@ -231,17 +235,18 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     )}
     <title>{documentTitle}</title>
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" type="image/svg+xml" href={assetUrl("favicon.svg")} />
+    <link rel="icon" type="image/svg+xml" href={pwa.favicon} />
+    {pwa.staging && <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />}
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href={assetUrl("icons/favicon-32x32.png")}
+      href={pwa.icons + "favicon-32x32.png"}
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href={assetUrl("icons/apple-touch-icon.png")}
+      href={pwa.icons + "apple-touch-icon.png"}
     />
     <link rel="manifest" href={assetUrl("site.webmanifest")} />
     <link
@@ -277,7 +282,7 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       <a class="brand" href={url()}>
         <img
           class="brand-mark"
-          src={assetUrl("favicon.svg")}
+          src={pwa.favicon}
           width="40"
           height="40"
           alt=""

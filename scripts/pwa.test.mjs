@@ -2,8 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import vm from 'node:vm';
+import { pwaEnvironment } from '../src/lib/pwa-environment.mjs';
 
-async function worker(network) {
+async function worker(network, review = false) {
   const handlers = {};
   const stores = new Map();
   const caches = { keys: async () => [...stores.keys()], delete: async name => stores.delete(name), open: async name => {
@@ -15,8 +16,8 @@ async function worker(network) {
       delete: async request => store.delete(typeof request === 'string' ? request : request.url) };
   } };
   const context = { self: { location: new URL('https://rosarium-tech.com'), addEventListener: (type, handler) => handlers[type] = handler }, caches, Response, Headers, URL, Set, Date, fetch: network };
-  vm.runInNewContext((await fs.readFile('src/pwa/worker.js', 'utf8')).replace('/* PWA_CONFIG */ { review: false, version: "development", paths: [] }', JSON.stringify({ version: 'test', review: false, paths: ['/visited/'], assets: ['/assets/example.12345678.svg', '/diagrams/example.svg'] })), context);
-  return { stores, caches, request: (path, mode = 'navigate') => {
+  vm.runInNewContext((await fs.readFile('src/pwa/worker.js', 'utf8')).replace('/* PWA_CONFIG */ { review: false, version: "development", paths: [] }', JSON.stringify({ version: 'test', review, paths: ['/visited/'], assets: ['/assets/example.12345678.svg', '/diagrams/example.svg'] })), context);
+  return { stores, caches, activate: async () => { /** @type {Promise<void> | undefined} */ let complete; handlers.activate({ waitUntil: promise => complete = promise }); await complete; }, request: (path, mode = 'navigate') => {
     /** @type {Promise<Response> | undefined} */
     let result;
     handlers.fetch({ request: { url: new URL(path, context.self.location).href, method: 'GET', mode }, respondWith: promise => result = promise });
@@ -94,7 +95,7 @@ test('update notice requires an existing active worker and is absent on first in
     const status = { hidden: true, textContent: '' };
     const registration = { active: existing ? {} : null, waiting: {}, addEventListener() {} };
     vm.runInNewContext(source, {
-      review: false, location: { hostname: 'rosarium-tech.com' }, isSecureContext: true,
+      pwa: pwaEnvironment({}), location: { origin: 'https://rosarium-tech.com' }, isSecureContext: true,
       document: { body: { dataset: {} }, querySelector: () => status },
       navigator: { serviceWorker: { register: async () => registration } },
     });
@@ -102,4 +103,13 @@ test('update notice requires an existing active worker and is absent on first in
     assert.equal(status.hidden, !existing);
     assert.equal(status.textContent.includes('新しい版'), existing);
   }
+});
+test('staging activation removes only legacy Review caches and preserves production and unrelated caches', async () => {
+  const app = await worker(async () => new Response('live'), true);
+  for (const name of ['rosarium-pwa-review-legacy', 'rosarium-pwa-production-current', 'another-feature']) await app.caches.open(name);
+  await app.activate();
+  assert(!app.stores.has('rosarium-pwa-review-legacy'));
+  assert(app.stores.has('rosarium-pwa-production-current'));
+  assert(app.stores.has('another-feature'));
+  assert(app.stores.has('rosarium-pwa-staging-test'));
 });

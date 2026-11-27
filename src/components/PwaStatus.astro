@@ -1,18 +1,17 @@
 ---
-const review = Boolean(process.env.ROSARIUM_DRAFT_PREVIEW);
+import { pwaEnvironment } from '../lib/pwa-environment.mjs';
+const pwa = pwaEnvironment();
 ---
 <aside data-pwa-status role="status" hidden></aside>
-<script define:vars={{ review }}>
-  const allowed = review
-    ? location.hostname === 'nullcontroller.tail8bbb3b.ts.net' || ['localhost', '127.0.0.1'].includes(location.hostname)
-    : location.hostname === 'rosarium-tech.com';
+<script define:vars={{ pwa }}>
+  const allowed = location.origin === pwa.origin;
   const status = document.querySelector('[data-pwa-status]');
   if (document.body.dataset.pwaOffline && status) {
     status.textContent = 'オフラインのため、保存済みの内容を表示しています。接続後に再読み込みすると最新版を確認できます。';
     status.hidden = false;
   }
   if (allowed && isSecureContext && 'serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js', { scope: '/', updateViaCache: 'none' }).then(registration => {
+    navigator.serviceWorker.register(pwa.worker, { scope: pwa.scope, updateViaCache: 'none' }).then(registration => {
       const waiting = () => {
         if (registration.active && registration.waiting && status && !document.body.dataset.pwaOffline) {
           status.textContent = '新しい版を準備しました。Rosariumのタブやアプリをすべて閉じ、再度開くと適用されます。';

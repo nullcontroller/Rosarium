@@ -1,6 +1,6 @@
 /* Native runtime cache. No IndexedDB, analytics, background sync or precrawl. */
 const CONFIG = /* PWA_CONFIG */ { review: false, version: "development", paths: [] };
-const PREFIX = `rosarium-pwa-${CONFIG.review ? 'review' : 'production'}-`;
+const PREFIX = `rosarium-pwa-${CONFIG.review ? 'staging' : 'production'}-`;
 const CACHE = PREFIX + CONFIG.version;
 const PUBLIC = new Set(CONFIG.paths);
 const ASSETS = new Set(CONFIG.assets || []);
@@ -72,6 +72,9 @@ self.addEventListener('activate', event => event.waitUntil((async () => {
   // Activation waits for the old worker's clients to leave. Keep visited
   // resources for offline use, but only if still eligible and within limits.
   for (const name of await caches.keys()) {
+    // The old Review app used teal HTML. Discard only that disposable staging
+    // cache after natural activation; keep its origin's bookmark DB untouched.
+    if (CONFIG.review && name.startsWith('rosarium-pwa-review-')) { await caches.delete(name); continue; }
     if (!name.startsWith(PREFIX) || name === CACHE) continue;
     const previous = await caches.open(name);
     for (const request of await previous.keys()) {

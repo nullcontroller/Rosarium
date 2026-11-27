@@ -1,0 +1,48 @@
+{
+  "palette": "brand/staging-palette.json",
+  "files": [
+    {
+      "source": "public/icons/icon-192.png",
+      "sha256": "df9b603ac8d169751385b78acaa1cb5715a602d7ae150bf4fda6e6bc4c8c493c",
+      "output": "brand/staging/icon-192.png",
+      "outputSha256": "1dcfae65219ab33a5f530ce593303600f2aa72bf0d45d58740eed08f6a358aaa"
+    },
+    {
+      "source": "public/icons/icon-512.png",
+      "sha256": "3285b540bca0366aa06c671dcb492ec4f7a206198cce1e21fc97a5b88a84b629",
+      "output": "brand/staging/icon-512.png",
+      "outputSha256": "fb8e90401aba5a3edd88d53d839e2c0afab4aa1d4933a514210215919959f4b6"
+    },
+    {
+      "source": "public/icons/icon-maskable-192.png",
+      "sha256": "7c6255b3f082c0411baecccbbdd1d16d294a2914931c5964c3544516e1d593e6",
+      "output": "brand/staging/icon-maskable-192.png",
+      "outputSha256": "04ceee95b9d3a456783654de70197ff01d4763db6a73c05ba22010822bbf8c20"
+    },
+    {
+      "source": "public/icons/icon-maskable-512.png",
+      "sha256": "54bf539132fe9dd87d4121de3ef3c21f6931ac5c5e6c57bca8b73df720525117",
+      "output": "brand/staging/icon-maskable-512.png",
+      "outputSha256": "1cf2b027bdd5d8c3804e4a8eb9c14a2322c957178f518d81778edc9f9b6bf57c"
+    },
+    {
+      "source": "public/icons/apple-touch-icon.png",
+      "sha256": "bcb9d180606c5055c31027277d6df58d2bd6607108a32fe3f52beb07ec45ab27",
+      "output": "brand/staging/apple-touch-icon.png",
+      "outputSha256": "b0e7fd9d72711de26ca658b3f33a1c28bac75a1c223174d9c9dfda48e7ab30fd"
+    },
+    {
+      "source": "public/icons/favicon-32x32.png",
+      "sha256": "98813849c68a27d7343c939ac5e505d67f5e21aeb212fd913cfa2b9c9a23266e",
+      "output": "brand/staging/favicon-32x32.png",
+      "outputSha256": "1f73267d72154c096552c5550289a2d5a99b95fd994d7f12b284141e68721cc5"
+    },
+    {
+      "source": "public/favicon.svg",
+      "sourceLineEndings": "LF",
+      "sha256": "4d19f91072ddcc31e09d273e78785b53974002b58e0d2c7a8bdb3bd240ef1d37",
+      "output": "brand/staging/favicon.svg",
+      "outputSha256": "e514a77107549391ac92d5b47c920e334c68dc6f8394856a24a627bf598c4c98"
+    }
+  ]
+}
