@@ -158,7 +158,7 @@ test("Book cover and chapters remain distinct saved keys", () => {
     identityKey(item("overview", { collection: "career" })),
   );
 });
-test("validated import preserves unresolved records and collapses only identical qualified IDs", () => {
+test("stored JSON preserves unresolved records and collapses only identical qualified IDs", () => {
   const parsed = parseBookmarks(
     text([
       item("unknown/one"),
@@ -185,7 +185,7 @@ test("malformed JSON, unknown schema/site, wrong types and extra keys are reject
   ])
     assert.throws(() => parseBookmarks(value));
 });
-test("import size, item count and string length are bounded before writes", () => {
+test("stored JSON size, item count and string length are bounded before writes", () => {
   assert.throws(() => parseBookmarks(" ".repeat(LIMITS.bytes + 1)));
   assert.throws(() =>
     parseBookmarks(
@@ -199,7 +199,7 @@ test("import size, item count and string length are bounded before writes", () =
     ),
   );
 });
-test("unsafe or external URLs are rejected, imported HTML stays inert text", () => {
+test("unsafe or external URLs are rejected, snapshot HTML stays inert text", () => {
   for (const url of [
     "javascript:alert(1)",
     "data:text/html,x",
@@ -241,9 +241,7 @@ test("save denial, quota failure and corrupted existing data do not erase prior 
   corrupt.setItem = () => {
     writes++;
   };
-  assert.throws(() =>
-    changeBookmarks(corrupt, { type: "merge", data: documentFor([]) }),
-  );
+  assert.throws(() => changeBookmarks(corrupt, { type: "add", record: r }));
   assert.equal(writes, 0);
   assert.equal(corrupt.map.get(BOOKMARK_KEY), "{bad");
   assert.throws(() =>
@@ -254,19 +252,7 @@ test("save denial, quota failure and corrupted existing data do not erase prior 
     }),
   );
 });
-test("merge re-reads concurrent changes, preserves originals and never rewrites unknown keys", () => {
-  const s = store(text([item("unknown/first")])),
-    preview = documentFor([item("unknown/import"), item("unknown/first")]);
-  s.setItem(
-    BOOKMARK_KEY,
-    text([item("unknown/first"), item("unknown/other-tab")]),
-  );
-  const result = changeBookmarks(s, { type: "merge", data: preview });
-  assert.deepEqual(
-    result.items.map((i) => i.id),
-    ["unknown/first", "unknown/other-tab", "unknown/import"],
-  );
-});
+
 test("schema validation cannot trigger a write on a noneligible add", () => {
   const s = store(text([item("unknown/prior")])),
     prior = s.map.get(BOOKMARK_KEY);

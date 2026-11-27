@@ -1,4 +1,44 @@
 export const BOOKMARK_KEY = "rosarium.bookmarks";
+export const BOOKMARK_LOCK = "rosarium.bookmarks.write";
+export function supportsBookmarkLocks(environment = globalThis) {
+  return (
+    environment.isSecureContext === true &&
+    typeof environment.navigator?.locks?.request === "function"
+  );
+}
+/** All UI writes cooperate on the same origin-scoped lock. Never retry a failed lock unlocked. */
+export async function writeBookmarks(
+  getStorage,
+  operation,
+  environment = globalThis,
+) {
+  const commit = () => {
+    const storage = getStorage();
+    // State-dependent operations (the article toggle) are decided only after acquisition.
+    const action =
+      typeof operation === "function"
+        ? operation(readBookmarks(storage))
+        : operation;
+    return { data: changeBookmarks(storage, action), actionType: action.type };
+  };
+  if (!supportsBookmarkLocks(environment)) return commit();
+  let entered = false;
+  try {
+    return await environment.navigator.locks.request(
+      BOOKMARK_LOCK,
+      { mode: "exclusive" },
+      () => {
+        entered = true;
+        return commit();
+      },
+    );
+  } catch (reason) {
+    if (entered) throw reason;
+    throw new BookmarkError(
+      "排他制御を開始できませんでした。保存していません。もう一度お試しください。",
+    );
+  }
+}
 export const LIMITS = Object.freeze({
   bytes: 1024 * 1024,
   items: 2000,
@@ -30,7 +70,7 @@ export function parseBookmarks(text) {
     typeof text !== "string" ||
     new TextEncoder().encode(text).length > LIMITS.bytes
   )
-    fail("ファイルが大きすぎます。1MB以内にしてください。");
+    fail("保存データが大きすぎます。1MB以内にしてください。");
   let data;
   try {
     data = JSON.parse(text);
@@ -172,22 +212,7 @@ export function changeBookmarks(storage, action) {
       ...latest,
       items: latest.items.filter((item) => identityKey(item) !== action.key),
     };
-  else if (action.type === "merge") {
-    const incoming = parseBookmarks(JSON.stringify(action.data));
-    const keys = new Set(latest.items.map(identityKey));
-    next = {
-      ...latest,
-      items: [
-        ...latest.items,
-        ...incoming.items.filter((item) => {
-          const key = identityKey(item);
-          if (keys.has(key)) return false;
-          keys.add(key);
-          return true;
-        }),
-      ],
-    };
-  } else fail("対応していない操作です。");
+  else fail("対応していない操作です。");
   const serialized = JSON.stringify(next);
   const validated = parseBookmarks(serialized);
   try {

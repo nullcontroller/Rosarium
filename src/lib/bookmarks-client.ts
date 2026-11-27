@@ -1,10 +1,8 @@
 import {
   BOOKMARK_KEY,
-  LIMITS,
   emptyBookmarks,
   readBookmarks,
-  parseBookmarks,
-  changeBookmarks,
+  writeBookmarks,
   identityKey,
   resolveBookmark,
 } from "./bookmarks.mjs";
@@ -28,13 +26,11 @@ export function mountBookmarks() {
   const panelFeedback = panel.querySelector<HTMLElement>(
     "[data-bookmark-panel-message]",
   )!;
-  const preview = panel.querySelector<HTMLElement>("[data-bookmark-preview]")!;
   let current: Saved = emptyBookmarks(),
     readable = true,
     catalog: Catalog | undefined,
     loading: Promise<Catalog> | undefined,
-    returnFocus: HTMLElement | null = null,
-    pending: Saved | undefined;
+    returnFocus: HTMLElement | null = null;
   const notify = (message: string) => {
     feedback.textContent = "";
     panelFeedback.textContent = "";
@@ -159,12 +155,15 @@ export function mountBookmarks() {
           `${resolved.title}のブックマークを解除`,
         );
         remove.dataset.bookmarkRemove = identityKey(item);
-        remove.addEventListener("click", () => {
+        remove.addEventListener("click", async () => {
+          remove.disabled = true;
           try {
-            current = changeBookmarks(window.localStorage, {
-              type: "remove",
-              key: identityKey(item),
-            });
+            current = (
+              await writeBookmarks(() => window.localStorage, {
+                type: "remove",
+                key: identityKey(item),
+              })
+            ).data;
             refresh();
             notify("ブックマークを解除しました。");
             (
@@ -173,6 +172,8 @@ export function mountBookmarks() {
             )?.focus();
           } catch (reason) {
             error(reason);
+          } finally {
+            remove.disabled = false;
           }
         });
         li.append(info, remove);
@@ -229,8 +230,6 @@ export function mountBookmarks() {
   });
   panel.addEventListener("close", () => {
     openers.forEach((button) => button.setAttribute("aria-expanded", "false"));
-    pending = undefined;
-    preview.hidden = true;
     returnFocus?.focus();
   });
   panel.addEventListener("click", (event) => {
@@ -253,22 +252,22 @@ export function mountBookmarks() {
             collection: button.dataset.bookmarkCollection,
             id: button.dataset.bookmarkId,
           };
-        const latest = readBookmarks(window.localStorage);
-        const saved = latest.items.some(
-          (item: any) => identityKey(item) === identityKey(address),
-        );
         const record = data.records.find(
           (record) => identityKey(record) === identityKey(address),
         );
-        current = changeBookmarks(
-          window.localStorage,
-          saved
-            ? { type: "remove", key: identityKey(address) }
-            : { type: "add", record },
+        const result = await writeBookmarks(
+          () => window.localStorage,
+          (latest: Saved) =>
+            latest.items.some(
+              (item: any) => identityKey(item) === identityKey(address),
+            )
+              ? { type: "remove", key: identityKey(address) }
+              : { type: "add", record },
         );
+        current = result.data;
         refresh();
         notify(
-          saved
+          result.actionType === "remove"
             ? "ブックマークを解除しました。"
             : "ブックマークを保存しました。",
         );
@@ -276,98 +275,6 @@ export function mountBookmarks() {
         error(reason);
       } finally {
         button.disabled = false;
-      }
-    });
-  panel
-    .querySelector("[data-bookmarks-export]")!
-    .addEventListener("click", () => {
-      try {
-        const data = readBookmarks(window.localStorage),
-          blob = new Blob([JSON.stringify(data, null, 2) + "\n"], {
-            type: "application/json",
-          }),
-          href = URL.createObjectURL(blob),
-          link = make("a");
-        link.href = href;
-        link.download = `rosarium-bookmarks-${new Date().toISOString().slice(0, 10)}.json`;
-        link.click();
-        setTimeout(() => URL.revokeObjectURL(href), 1000);
-        notify("JSONを書き出しました。");
-      } catch (reason) {
-        error(reason);
-      }
-    });
-  const input = panel.querySelector<HTMLInputElement>(
-    "[data-bookmarks-import]",
-  )!;
-  input.addEventListener("change", async () => {
-    pending = undefined;
-    preview.hidden = true;
-    try {
-      const file = input.files?.[0];
-      if (!file) return;
-      if (file.size > LIMITS.bytes)
-        throw new Error("ファイルが大きすぎます。1MB以内にしてください。");
-      const incoming = parseBookmarks(await file.text());
-      const latest = readBookmarks(window.localStorage),
-        data = await getCatalog(),
-        keys = new Set(latest.items.map(identityKey));
-      let added = 0,
-        existing = 0,
-        unavailable = 0,
-        integrated = 0;
-      const items = panel.querySelector<HTMLElement>(
-        "[data-bookmark-preview-list]",
-      )!;
-      items.replaceChildren();
-      for (const [index, item] of incoming.items.entries()) {
-        const resolved = resolveBookmark(item, data);
-        if (keys.has(identityKey(item))) existing++;
-        else added++;
-        if (!resolved.url) unavailable++;
-        if (resolved.state === "統合・移転済み") integrated++;
-        if (index < 10)
-          items.append(
-            make(
-              "li",
-              `${resolved.title}${resolved.state ? " — " + resolved.state : ""}`,
-            ),
-          );
-      }
-      panel.querySelector("[data-bookmark-preview-summary]")!.textContent =
-        `追加 ${added}件・登録済み ${existing}件・統合/移転 ${integrated}件・利用できない項目 ${unavailable}件${incoming.items.length > 10 ? "（先頭10件を表示）" : ""}`;
-      pending = incoming;
-      preview.hidden = false;
-      panel.querySelector<HTMLButtonElement>("[data-bookmarks-merge]")?.focus();
-    } catch (reason) {
-      error(reason);
-    } finally {
-      input.value = "";
-    }
-  });
-  panel
-    .querySelector("[data-bookmarks-cancel]")!
-    .addEventListener("click", () => {
-      pending = undefined;
-      preview.hidden = true;
-      input.focus();
-    });
-  panel
-    .querySelector("[data-bookmarks-merge]")!
-    .addEventListener("click", () => {
-      try {
-        if (!pending) return;
-        current = changeBookmarks(window.localStorage, {
-          type: "merge",
-          data: pending,
-        });
-        pending = undefined;
-        preview.hidden = true;
-        refresh();
-        notify("既存データを残してマージしました。");
-        input.focus();
-      } catch (reason) {
-        error(reason);
       }
     });
   window.addEventListener("storage", (event) => {

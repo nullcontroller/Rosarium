@@ -14,39 +14,10 @@
     </button>
   </div>
   <p class="bookmark-storage-note">
-    このブラウザーに保存します。端末間・異なるサイト間では自動同期しません。データを残すにはJSONを書き出してください。
+    ブックマークはこのブラウザーに保存されます。
   </p>
   <p data-bookmark-panel-message role="status" aria-live="polite"></p>
   <div data-bookmark-list></div>
-  <div class="bookmark-transfer">
-    <button type="button" data-bookmarks-export>
-      JSONを書き出す
-    </button>
-    <label>
-      JSONを読み込む
-      <input
-        type="file"
-        data-bookmarks-import
-        accept=".json,application/json"
-      />
-    </label>
-  </div>
-  <section
-    data-bookmark-preview
-    hidden
-    aria-labelledby="bookmark-preview-title"
-  >
-    <h3 id="bookmark-preview-title">読み込み内容の確認</h3>
-    <p data-bookmark-preview-summary></p>
-    <ul data-bookmark-preview-list></ul>
-    <p>既存データを残してマージします。未解決の項目も保持します。</p>
-    <button type="button" data-bookmarks-merge>
-      マージして保存
-    </button>
-    <button type="button" data-bookmarks-cancel>
-      キャンセル
-    </button>
-  </section>
 </dialog>
 <p
   class="bookmark-feedback"
@@ -124,14 +95,13 @@
   }
   .bookmark-panel h3 {
     font-size: 1.1rem;
-    margin: 1.2rem 0 0.35rem;
+    margin: 0.85rem 0 0.3rem;
   }
   .bookmark-storage-note {
     color: var(--muted);
     font-size: 0.9rem;
   }
-  .bookmark-panel button,
-  .bookmark-transfer label {
+  .bookmark-panel button {
     min-height: 44px;
     padding: 0.4rem 0.65rem;
     font: inherit;
@@ -153,8 +123,7 @@
     align-items: start;
     justify-content: space-between;
     gap: 0.7rem;
-    padding: 0.65rem 0;
-    border-bottom: 1px solid var(--line);
+    padding: 0.4rem 0;
     overflow-wrap: anywhere;
   }
   .bookmark-panel li > div {
@@ -171,27 +140,6 @@
   }
   .bookmark-panel li a {
     font-weight: 650;
-  }
-  .bookmark-transfer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    border-top: 1px solid var(--line);
-    padding-top: 1rem;
-  }
-  .bookmark-transfer input {
-    display: block;
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-    font: inherit;
-  }
-  .bookmark-transfer label {
-    min-width: 0;
-    max-width: 100%;
-  }
-  .bookmark-panel [hidden] {
-    display: none;
   }
   .bookmark-feedback:empty,
   [data-bookmark-panel-message]:empty {
