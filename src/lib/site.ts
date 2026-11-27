@@ -81,7 +81,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "career/details": "2026-10-04",
   // Site-wide last public change; independent of Garden Notes and individual page histories.
   "": "2026-11-27",
-  sitemap: "2026-11-26",
+  sitemap: "2026-11-27",
   ai: "2026-11-27",
   "ai-design": "2026-11-27",
   "ai-design/applicability": "2026-11-27",
@@ -106,7 +106,7 @@ export const staticPageLastUpdated: Record<string, string> = {
   "dx/continuous-value": "2026-11-27",
   essays: "2026-11-26",
   practices: "2026-11-27",
-  reference: "2026-11-26",
+  reference: "2026-11-27",
   series: "2026-11-26",
   "start-here": "2026-11-25",
   architecture: "2026-11-27",
