@@ -15,7 +15,7 @@ async function worker(network) {
       delete: async request => store.delete(request.url) };
   } };
   const context = { self: { location: new URL('https://rosarium-tech.com'), addEventListener: (type, handler) => handlers[type] = handler }, caches, Response, Headers, URL, Set, Date, fetch: network };
-  vm.runInNewContext((await fs.readFile('src/pwa/worker.js', 'utf8')).replace('/* PWA_CONFIG */ { review: false, version: "development", paths: [] }', JSON.stringify({ version: 'test', review: false, paths: ['/visited/'] })), context);
+  vm.runInNewContext((await fs.readFile('src/pwa/worker.js', 'utf8')).replace('/* PWA_CONFIG */ { review: false, version: "development", paths: [] }', JSON.stringify({ version: 'test', review: false, paths: ['/visited/'], assets: ['/assets/example.12345678.svg', '/diagrams/example.svg'] })), context);
   return { stores, caches, request: (path, mode = 'navigate') => {
     /** @type {Promise<Response> | undefined} */
     let result;
@@ -45,6 +45,7 @@ test('external requests, review assets and nonpublic routes are never stored', a
   const app = await worker(async () => new Response('secret'));
   assert.equal(app.request('https://google-analytics.com/g/collect', 'cors'), undefined);
   await app.request('/private-draft/');
+  assert.equal(app.request('/diagrams/private-draft.svg', 'cors'), undefined);
   assert.equal(app.stores.size, 0);
 });
 test('cache entries expire after thirty days', async () => {

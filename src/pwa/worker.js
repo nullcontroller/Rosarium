@@ -3,6 +3,7 @@ const CONFIG = /* PWA_CONFIG */ { review: false, version: "development", paths: 
 const PREFIX = `rosarium-pwa-${CONFIG.review ? 'review' : 'production'}-`;
 const CACHE = PREFIX + CONFIG.version;
 const PUBLIC = new Set(CONFIG.paths);
+const ASSETS = new Set(CONFIG.assets || []);
 const AGE = 30 * 24 * 60 * 60 * 1000;
 const MAX_ITEMS = 240;
 const MAX_BYTES = 32 * 1024 * 1024;
@@ -12,7 +13,7 @@ const STAMP = 'x-rosarium-cached-at';
 function eligible(url) {
   if (url.origin !== self.location.origin || url.search) return false;
   return PUBLIC.has(url.pathname) || url.pathname === '/bookmarks.json' ||
-    /^\/(?:_astro|pagefind|assets|images|diagrams|icons|fonts)\//.test(url.pathname) ||
+    ASSETS.has(url.pathname) || /^\/(?:_astro|pagefind)\//.test(url.pathname) ||
     url.pathname === '/favicon.svg';
 }
 function immutable(url) {
