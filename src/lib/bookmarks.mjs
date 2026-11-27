@@ -1,44 +1,4 @@
 export const BOOKMARK_KEY = "rosarium.bookmarks";
-export const BOOKMARK_LOCK = "rosarium.bookmarks.write";
-export function supportsBookmarkLocks(environment = globalThis) {
-  return (
-    environment.isSecureContext === true &&
-    typeof environment.navigator?.locks?.request === "function"
-  );
-}
-/** All UI writes cooperate on the same origin-scoped lock. Never retry a failed lock unlocked. */
-export async function writeBookmarks(
-  getStorage,
-  operation,
-  environment = globalThis,
-) {
-  const commit = () => {
-    const storage = getStorage();
-    // State-dependent operations (the article toggle) are decided only after acquisition.
-    const action =
-      typeof operation === "function"
-        ? operation(readBookmarks(storage))
-        : operation;
-    return { data: changeBookmarks(storage, action), actionType: action.type };
-  };
-  if (!supportsBookmarkLocks(environment)) return commit();
-  let entered = false;
-  try {
-    return await environment.navigator.locks.request(
-      BOOKMARK_LOCK,
-      { mode: "exclusive" },
-      () => {
-        entered = true;
-        return commit();
-      },
-    );
-  } catch (reason) {
-    if (entered) throw reason;
-    throw new BookmarkError(
-      "排他制御を開始できませんでした。保存していません。もう一度お試しください。",
-    );
-  }
-}
 export const LIMITS = Object.freeze({
   bytes: 1024 * 1024,
   items: 2000,
@@ -171,58 +131,25 @@ export function parseBookmarks(text) {
   }
   return { schemaVersion: 1, site: "rosarium", items };
 }
-export function readBookmarks(storage) {
-  let raw;
-  try {
-    raw = storage.getItem(BOOKMARK_KEY);
-  } catch {
-    fail(
-      "このブラウザーでは保存内容を読み取れません。設定を確認してください。",
-    );
-  }
-  return raw === null ? emptyBookmarks() : parseBookmarks(raw);
-}
-/** Re-read immediately before every write. setItem failure never triggers a success state. */
-export function changeBookmarks(storage, action) {
-  const latest = readBookmarks(storage);
-  let next;
-  if (action.type === "add") {
-    if (!action.record?.canAdd)
-      fail("この記事は新規登録の対象ではありません。");
-    const record = action.record,
-      key = identityKey(record);
-    next = {
-      ...latest,
-      items: latest.items.some((item) => identityKey(item) === key)
-        ? latest.items
-        : [
-            ...latest.items,
-            {
-              collection: record.collection,
-              id: record.id,
-              addedAt: new Date().toISOString(),
-              titleSnapshot: record.title,
-              urlSnapshot: new URL(record.url, "https://rosarium-tech.com")
-                .href,
-            },
-          ],
-    };
-  } else if (action.type === "remove")
-    next = {
-      ...latest,
-      items: latest.items.filter((item) => identityKey(item) !== action.key),
-    };
-  else fail("対応していない操作です。");
-  const serialized = JSON.stringify(next);
-  const validated = parseBookmarks(serialized);
-  try {
-    storage.setItem(BOOKMARK_KEY, serialized);
-  } catch {
-    fail(
-      "保存できませんでした。容量やブラウザー設定を確認してください。既存データは変更していません。",
-    );
-  }
-  return validated;
+/** Validate just one new record; persistence itself is per-record IndexedDB. */
+export function bookmarkForRecord(record) {
+  if (!record?.canAdd)
+    throw new BookmarkError("この記事は新規登録の対象ではありません。");
+  return parseBookmarks(
+    JSON.stringify({
+      schemaVersion: 1,
+      site: "rosarium",
+      items: [
+        {
+          collection: record.collection,
+          id: record.id,
+          addedAt: new Date().toISOString(),
+          titleSnapshot: record.title,
+          urlSnapshot: new URL(record.url, "https://rosarium-tech.com").href,
+        },
+      ],
+    }),
+  ).items[0];
 }
 export function resolveBookmark(item, catalog) {
   const record = catalog.records.find(

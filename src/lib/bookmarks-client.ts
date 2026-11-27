@@ -1,12 +1,6 @@
-import {
-  BOOKMARK_KEY,
-  emptyBookmarks,
-  readBookmarks,
-  writeBookmarks,
-  identityKey,
-  resolveBookmark,
-} from "./bookmarks.mjs";
-type Saved = ReturnType<typeof readBookmarks>;
+import { identityKey, resolveBookmark } from "./bookmarks.mjs";
+import { createBookmarkStore } from "./bookmark-store.mjs";
+type Saved = { items: any[] };
 type Catalog = { schemaVersion: number; site: string; records: any[] };
 export function mountBookmarks() {
   const dialog = document.querySelector<HTMLDialogElement>("#bookmark-panel");
@@ -26,7 +20,10 @@ export function mountBookmarks() {
   const panelFeedback = panel.querySelector<HTMLElement>(
     "[data-bookmark-panel-message]",
   )!;
-  let current: Saved = emptyBookmarks(),
+  const store = createBookmarkStore();
+  let refreshVersion = 0;
+  let initialized = false;
+  let current: Saved = { items: [] },
     readable = true,
     catalog: Catalog | undefined,
     loading: Promise<Catalog> | undefined,
@@ -42,11 +39,15 @@ export function mountBookmarks() {
         ? reason.message
         : "操作できませんでした。既存データは変更していません。",
     );
-  function refresh() {
+  async function refresh() {
+    const version = ++refreshVersion;
     try {
-      current = readBookmarks(window.localStorage);
+      const items = await store.read();
+      if (version !== refreshVersion) return false;
+      current = { items };
       readable = true;
     } catch (reason) {
+      if (version !== refreshVersion) return false;
       readable = false;
       error(reason);
     }
@@ -67,6 +68,11 @@ export function mountBookmarks() {
       button.title = saved ? "ブックマークを解除" : "ブックマークに登録";
     }
     if (panel.open) renderList();
+    if (!initialized) {
+      initialized = true;
+      [...openers, ...toggles].forEach((button) => (button.disabled = false));
+    }
+    return readable;
   }
   async function getCatalog(): Promise<Catalog> {
     if (catalog) return catalog;
@@ -158,14 +164,8 @@ export function mountBookmarks() {
         remove.addEventListener("click", async () => {
           remove.disabled = true;
           try {
-            current = (
-              await writeBookmarks(() => window.localStorage, {
-                type: "remove",
-                key: identityKey(item),
-              })
-            ).data;
-            refresh();
-            notify("ブックマークを解除しました。");
+            await store.mutate({ type: "remove", address: item });
+            if (await refresh()) notify("ブックマークを解除しました。");
             (
               list.querySelector<HTMLButtonElement>("button") ??
               panel.querySelector<HTMLButtonElement>("[data-bookmarks-close]")
@@ -193,7 +193,7 @@ export function mountBookmarks() {
       panelFeedback.textContent = "";
       if (!panel.open) panel.showModal();
       openers.forEach((button) => button.setAttribute("aria-expanded", "true"));
-      refresh();
+      void refresh();
       panel.querySelector<HTMLButtonElement>("[data-bookmarks-close]")?.focus();
       try {
         await getCatalog();
@@ -255,17 +255,8 @@ export function mountBookmarks() {
         const record = data.records.find(
           (record) => identityKey(record) === identityKey(address),
         );
-        const result = await writeBookmarks(
-          () => window.localStorage,
-          (latest: Saved) =>
-            latest.items.some(
-              (item: any) => identityKey(item) === identityKey(address),
-            )
-              ? { type: "remove", key: identityKey(address) }
-              : { type: "add", record },
-        );
-        current = result.data;
-        refresh();
+        const result = await store.mutate({ type: "toggle", record });
+        if (!(await refresh())) return;
         notify(
           result.actionType === "remove"
             ? "ブックマークを解除しました。"
@@ -277,9 +268,17 @@ export function mountBookmarks() {
         button.disabled = false;
       }
     });
-  window.addEventListener("storage", (event) => {
-    if (event.key === BOOKMARK_KEY || event.key === null) refresh();
+  store.subscribe(() => {
+    void refresh();
   });
-  refresh();
-  [...openers, ...toggles].forEach((button) => (button.disabled = false));
+  window.addEventListener("focus", () => {
+    void refresh();
+  });
+  window.addEventListener("pageshow", () => {
+    void refresh();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") void refresh();
+  });
+  void refresh();
 }

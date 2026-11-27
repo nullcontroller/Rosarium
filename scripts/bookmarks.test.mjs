@@ -3,11 +3,9 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import YAML from "yaml";
 import {
-  BOOKMARK_KEY,
   LIMITS,
   parseBookmarks,
-  readBookmarks,
-  changeBookmarks,
+  bookmarkForRecord,
   identityKey,
   resolveBookmark,
 } from "../src/lib/bookmarks.mjs";
@@ -24,14 +22,6 @@ const item = (id = "foundations/conditional-probability", extra = {}) => ({
 });
 const documentFor = (items) => ({ schemaVersion: 1, site: "rosarium", items });
 const text = (items) => JSON.stringify(documentFor(items));
-const store = (raw = null) => {
-  const map = new Map(raw === null ? [] : [[BOOKMARK_KEY, raw]]);
-  return {
-    map,
-    getItem: (key) => map.get(key) ?? null,
-    setItem: (key, value) => map.set(key, value),
-  };
-};
 const entry = (
   id = "foundations/conditional-probability",
   data = {},
@@ -217,50 +207,15 @@ test("unsafe or external URLs are rejected, snapshot HTML stays inert text", () 
   );
   assert.equal(resolveBookmark(parsed.items[0], { records: [] }).url, null);
 });
-test("add/remove persists only the dedicated key and resolves across subsequent reads", () => {
-  const s = store();
-  s.map.set("adf-theme", "dark");
+test("new record keeps collection identity and validates snapshots before persistence", () => {
   const r = buildBookmarkCatalog([entry()]).records[0];
-  changeBookmarks(s, { type: "add", record: r });
-  assert.equal(readBookmarks(s).items.length, 1);
-  changeBookmarks(s, { type: "remove", key: identityKey(r) });
-  assert.equal(readBookmarks(s).items.length, 0);
-  assert.equal(s.map.get("adf-theme"), "dark");
-});
-test("save denial, quota failure and corrupted existing data do not erase prior bytes", () => {
-  const prior = text([item("unknown/existing")]),
-    s = store(prior),
-    r = buildBookmarkCatalog([entry()]).records[0];
-  s.setItem = () => {
-    throw new Error("QuotaExceededError");
-  };
-  assert.throws(() => changeBookmarks(s, { type: "add", record: r }));
-  assert.equal(s.map.get(BOOKMARK_KEY), prior);
-  const corrupt = store("{bad");
-  let writes = 0;
-  corrupt.setItem = () => {
-    writes++;
-  };
-  assert.throws(() => changeBookmarks(corrupt, { type: "add", record: r }));
-  assert.equal(writes, 0);
-  assert.equal(corrupt.map.get(BOOKMARK_KEY), "{bad");
-  assert.throws(() =>
-    readBookmarks({
-      getItem() {
-        throw new Error("SecurityError");
-      },
-    }),
-  );
+  const saved = bookmarkForRecord(r);
+  assert.equal(saved.id, r.id);
+  assert.equal(saved.collection, "pages");
+  assert.throws(() => bookmarkForRecord({ ...r, canAdd: false }));
+  assert.throws(() => bookmarkForRecord({ ...r, id: "../invalid" }));
 });
 
-test("schema validation cannot trigger a write on a noneligible add", () => {
-  const s = store(text([item("unknown/prior")])),
-    prior = s.map.get(BOOKMARK_KEY);
-  assert.throws(() =>
-    changeBookmarks(s, { type: "add", record: { canAdd: false } }),
-  );
-  assert.equal(s.map.get(BOOKMARK_KEY), prior);
-});
 test("ID guard rejects duplicate, case collision, published rename and retired ID reuse", () => {
   const old = { collection: "pages", id: "foundations/old" };
   assert(identityViolations([old, old]).some((s) => s.includes("重複")));
