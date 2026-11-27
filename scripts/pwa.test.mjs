@@ -79,3 +79,12 @@ test('search query navigation falls back to canonical HTML without persisting se
   online = false;
   assert.match(await (await app.request('/visited/?q=other&search=1')).text(), /data-pwa-offline/);
 });
+test('Pagefind timestamped entry uses network first and a canonical offline key', async () => {
+  let online = true;
+  const app = await worker(async () => { if (!online) throw Error(); return new Response('{"languages":{}}'); });
+  await app.request('/pagefind/pagefind-entry.json?ts=123', 'cors');
+  assert.deepEqual([...app.stores.values()][0].keys().toArray(), ['https://rosarium-tech.com/pagefind/pagefind-entry.json']);
+  online = false;
+  assert.equal(await (await app.request('/pagefind/pagefind-entry.json?ts=456', 'cors')).text(), '{"languages":{}}');
+  assert.equal(app.request('/pagefind/pagefind-entry.json?secret=value', 'cors'), undefined);
+});

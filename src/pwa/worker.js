@@ -9,10 +9,14 @@ const MAX_ITEMS = 240;
 const MAX_BYTES = 32 * 1024 * 1024;
 const MAX_RESPONSE = 2 * 1024 * 1024;
 const STAMP = 'x-rosarium-cached-at';
+function searchEntry(url) {
+  return url.pathname === '/pagefind/pagefind-entry.json' &&
+    [...url.searchParams.keys()].every(key => key === 'ts');
+}
 
 function eligible(url) {
   if (url.origin !== self.location.origin) return false;
-  if (url.search) return PUBLIC.has(url.pathname);
+  if (url.search) return PUBLIC.has(url.pathname) || searchEntry(url);
   return PUBLIC.has(url.pathname) || url.pathname === '/bookmarks.json' ||
     ASSETS.has(url.pathname) || /^\/(?:_astro|pagefind)\//.test(url.pathname) ||
     url.pathname === '/favicon.svg';
@@ -83,7 +87,7 @@ self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
-  if (url.search && request.mode !== 'navigate') return;
+  if (url.search && request.mode !== 'navigate' && !searchEntry(url)) return;
   if (!eligible(url)) {
     if (request.mode === 'navigate') event.respondWith(fetch(request, { cache: 'no-cache' }).catch(offlinePage));
     return;
@@ -91,7 +95,7 @@ self.addEventListener('fetch', event => {
   event.respondWith((async () => {
     // Static HTML is identical across search/analytics query parameters.
     // Preserve the live URL, but never persist search terms as cache keys.
-    const key = request.mode === 'navigate' ? new URL(url.pathname, url.origin).href : request;
+    const key = request.mode === 'navigate' || searchEntry(url) ? new URL(url.pathname, url.origin).href : request;
     let cache;
     try { cache = await caches.open(CACHE); }
     catch {
