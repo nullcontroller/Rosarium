@@ -63,17 +63,13 @@ const curatedRecentGrowth = [
 {
   date: "2026-11-28",
   type: "new",
-  title: "生成AIを活用した個人開発事例を追加",
+  title: "個人資産管理Webアプリの設計・開発事例を公開",
   category: "Rosarium",
   icon: "updates",
   topics: [{
-    title: "個人資産管理Webアプリの設計・開発事例をBookに統合",
+    title: "個人資産管理Webアプリの設計・開発事例を公開",
     summary: "資産管理アプリAのシステム方式設計と生成AIを活用した開発管理を一つのBookに統合し、対象範囲の定義、技術選定、運用設計、開発管理及び品質保証を全7章に整理しました。",
     links: [{ path: "cases/asset-management-app-a-architecture", title: "統合Book" }],
-  }, {
-    title: "生成AIを活用した個人開発事例を追加",
-    summary: "Excelによる資産管理をWebアプリへ発展させ、ChatGPTとCodexを活用して5日間で開発した事例を追加しました。開発管理の委任、責任分界、レビュー方式及び改善サイクルを整理しています。",
-    links: [{ path: "cases", title: "事例" }],
   }],
   changes: [{
     action: "integrated",

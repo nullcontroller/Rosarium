@@ -161,3 +161,14 @@ test("same-day publication and integration preserve both events without duplicat
   assert.equal(events.filter(e => e.type === "published").length, 1);
   assert(events.some(e => e.type === "integrated" && e.date === "2026-11-28"));
 });
+
+test("same-day asset application topics represent the final Book while retaining original events", () => {
+  const day = recentGrowth.find(item => item.date === "2026-11-28");
+  assert.equal(day.title, "個人資産管理Webアプリの設計・開発事例を公開");
+  assert.equal(day.topics.length, 1);
+  assert.equal(day.topics[0].title, day.title);
+  assert.deepEqual(day.topics[0].links.map(link => link.path), ["cases/asset-management-app-a-architecture"]);
+  const original = day.changes.filter(change => growthChangeTargets(change).includes("cases/ai-development-management"));
+  assert.deepEqual(original.map(change => change.action).sort(), ["integrated", "published"]);
+  assert.equal(day.changes.length, 3);
+});

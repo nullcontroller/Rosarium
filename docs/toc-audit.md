@@ -132,7 +132,7 @@
 | /foundations/test-time-compute-allocation/ | 推論時計算の予算配分 | あり | あり | あり | 9 | 長文の複数h3セクション |
 | /foundations/transformer-computational-limits/ | Transformerの計算能力と理論的限界 | あり | あり | あり | 11 | 主要見出しが複数 |
 | /foundations/verifiable-reward-reasoning/ | 検証可能な報酬は、言語モデルの推論能力をどう変えるのか | あり | あり | あり | 8 | 主要見出しが複数 |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 45 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 44 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | コンテキストに基づくAIと調査経路の選択 | あり | あり | あり | 9 | 長文の複数h3セクション |
 | /knowledge-context/human-and-ai-documentation/ | 単一の正本から設計する人向け資料とAI向け資料 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /knowledge-context/instruction-knowledge-evidence/ | Instruction・Knowledge・Evidenceの責務分離 | あり | あり | あり | 11 | 長文の複数h3セクション |
