@@ -21,11 +21,20 @@ DIAGRAMS = {
     'operations': [('作業ソースと状態を保全', '金融データとコードを分離'), ('隔離検証・対象差分確認', '本番データを試験で置換しない'), ('対象ソースのみ手動反映', '必要なら既存手順で再起動'), ('ヘルス・経路・版を確認', 'プロセス存在だけで成功にしない')],
 }
 NON_FLOW = {'data-model', 'price-states', 'financial-consistency'}
+LABELS = {
+    'requirements':'要求と方式', 'architecture':'システム全体構成',
+    'data-model':'論理データモデル', 'persistence':'保存の確定点',
+    'save-failure':'置換前の失敗', 'market-data':'価格取得と適用',
+    'price-states':'価格観測の分類', 'financial-consistency':'実績と予定の区分',
+    'scheduled-jobs':'定期処理の追跡', 'access':'アクセス制御',
+    'pwa-update':'アプリ版の更新', 'backup':'外部バックアップ',
+    'restore':'正本の復元', 'operations':'ソースの反映',
+}
 
 def svg(name, rows, dark):
     bg, fill, ink, muted, accent = ('#14221e','#20392f','#edf5ef','#c5d8cd','#9ad1ad') if dark else ('#f7faf8','#edf4ee','#18392b','#405d4c','#326448')
     n=len(rows); top=56; gap=100 if n==5 else 120; box=76
-    items=[f'<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-labelledby="title desc">', f'<title id="title">{escape(name)}：方式の概念図</title>', '<desc id="desc">上から順に本文の論点を示す。実データや接続先は含まない。</desc>',f'<rect width="480" height="600" rx="12" fill="{bg}"/>',f'<text x="24" y="32" fill="{muted}" font-family="sans-serif" font-size="22">概念図・実環境の構成値は非掲載</text>']
+    items=[f'<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-labelledby="title desc">', f'<title id="title">{escape(LABELS[name])}</title>', '<desc id="desc">各段に要素または工程と、その役割を示す。</desc>',f'<rect width="480" height="600" rx="12" fill="{bg}"/>',f'<text x="24" y="32" fill="{muted}" font-family="sans-serif" font-size="22">{escape(LABELS[name])}</text>']
     for i,(a,b) in enumerate(rows):
         y=top+i*gap
         items += [f'<rect x="20" y="{y}" width="440" height="{box}" rx="9" fill="{fill}" stroke="{accent}" stroke-width="2"/>',f'<text x="240" y="{y+30}" text-anchor="middle" fill="{ink}" font-family="sans-serif" font-size="24" font-weight="600">{escape(a)}</text>',f'<text x="240" y="{y+59}" text-anchor="middle" fill="{muted}" font-family="sans-serif" font-size="22">{escape(b)}</text>']

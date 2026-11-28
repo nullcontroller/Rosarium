@@ -13,8 +13,8 @@ export const caseIntegrationPlans = [
       to: `/${developmentId}/#開発管理を委任する目的`,
       disposition: "簡素化",
       fragments: {
-        "1-開発の背景と目的": `/${bookId}/requirements/#管理するためのシステムに管理時間を奪われない`,
-        "2-開発したシステム": `/${bookId}/requirements/#二つの改善対象と開発した機能`,
+        "1-開発の背景と目的": `/${bookId}/requirements/#従来の資産管理`,
+        "2-開発したシステム": `/${bookId}/requirements/#機能要求`,
         "3-人間chatgptcodexの責任分界": `/${developmentId}/#人間chatgptcodexの責任分界`,
         "4-実利用を起点とするアジャイルな開発サイクル": `/${qualityId}/#レビュー担当ごとに評価する成果物を変える`,
         "5-人間の判断がボトルネックになる構造": `/${developmentId}/#人間の判断がボトルネックになる構造`,

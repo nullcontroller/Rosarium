@@ -1,6 +1,6 @@
 ---
 title: "06. 金融計算と業務データの整合性"
-summary: "実績、予定、目標、予測を混同せず、金融データの意味をどう維持するか。 採用方式、その理由と検証範囲・適用限界を整理する。"
+summary: "価格単位に基づく評価、実績と予定の分離、配分と到達価格、長期予測と単年ストレスの計算を、架空例と数式で説明する。"
 layer: "publication"
 kind: "case"
 section: "cases"
@@ -23,7 +23,7 @@ order: 6
 
 ## 同じ総資産でも、何を足した値かを確かめる
 
-価格が正しくても、単位や集計範囲を間違えれば評価額は誤る。本章の数値・比率はすべて実資産と無関係な架空例である。数量 $q\ge0$、価格 $p>0$、価格単位に含まれる口数 $u>0$ の評価額 $V$ は次で求める。
+価格が正しくても、単位や集計範囲を間違えれば評価額は誤る。以下では、計算方法を追えるように架空の数量と価格を使う。数量 $q\ge0$、価格 $p>0$、価格単位に含まれる口数 $u>0$ の評価額 $V$ は次で求める。
 
 $$
 V=\frac{q}{u}p.
@@ -32,9 +32,9 @@ $$
 1口価格なら $u=1$、1万口基準価額なら $u=10{,}000$ である。$q=25{,}000$ 口、$p=12{,}000$ 円／1万口なら、$V=30{,}000$ 円となる。外貨は数量に第5章の円／対象通貨を掛ける。外貨200単位、レート150円なら30,000円となる。既存の集約行とその内訳を両方足して二重計上しない。
 
 <figure class="diagram diagram-static">
-  <a class="diagram-light" href="/diagrams/asset-management-app-a-architecture/financial-consistency-light.svg" aria-label="実績・予定・目標・予測の境界を拡大"><img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/financial-consistency-light.svg" alt="実績・予定・目標・予測の境界。本文で各工程の条件と制約を説明する。" width="480" height="600" loading="lazy" /></a>
-  <a class="diagram-dark" href="/diagrams/asset-management-app-a-architecture/financial-consistency-dark.svg" aria-label="実績・予定・目標・予測の境界を拡大"><img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/financial-consistency-dark.svg" alt="実績・予定・目標・予測の境界。本文で各工程の条件と制約を説明する。" width="480" height="600" loading="lazy" /></a>
-  <figcaption>実績・予定・目標・予測の境界。実環境の接続情報や実データを含まない概念図。</figcaption>
+  <a class="diagram-light" href="/diagrams/asset-management-app-a-architecture/financial-consistency-light.svg" aria-label="実績・予定・目標・予測の境界を拡大"><img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/financial-consistency-light.svg" alt="実績・予定・目標・予測の境界。" width="480" height="600" loading="lazy" /></a>
+  <a class="diagram-dark" href="/diagrams/asset-management-app-a-architecture/financial-consistency-dark.svg" aria-label="実績・予定・目標・予測の境界を拡大"><img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/financial-consistency-dark.svg" alt="実績・予定・目標・予測の境界。" width="480" height="600" loading="lazy" /></a>
+  <figcaption>実績・予定・目標・予測の境界。</figcaption>
 </figure>
 
 ## 実績と予定を分ける
@@ -49,9 +49,9 @@ $T_d=1{,}060{,}000$ 円、$S=60{,}000$ 円なら、実総資産は1,000,000円�
 
 ## 目標配分と到達価格
 
-配分対象外の評価額を $X$ とすれば、個別管理の共通分母は対象総額 $B=T-X>0$ となる。ここで $T$ はその画面で定義された総額であり、予定を含む表示と実績の違いを勝手に消さない。現在評価額 $V_i$ の比率は $a_i=V_i/B$、同じ分母での目標比率を $w_i$ とした差額は $\Delta_i=Bw_i-V_i$ である。
+配分対象外の評価額を $X$ とすれば、個別管理の共通分母は対象総額 $B=T-X>0$ となる。ここで $T$ はその画面で定義された総額であり、予定を含む表示では予定反映後の値、実績では実総資産を用いる。現在評価額 $V_i$ の比率は $a_i=V_i/B$、同じ分母での目標比率を $w_i$ とした差額は $\Delta_i=Bw_i-V_i$ である。
 
-架空の共通分母1,000,000円、目標40%、現在350,000円なら、目標400,000円、不足50,000円となる。この比率は読者向けの計算例であり、著者の配分を示さない。実装では固定枠等を確保して主力予算を求めるため、全枠に無条件に同じ $w_i$ を掛ける単純式へ置き換えない。
+架空の共通分母1,000,000円、目標40%、現在350,000円なら、目標400,000円、不足50,000円となる。実装では固定枠等を確保して主力予算を求め、その予算に対する目標比率を使う。共通分母による上の例は、同じ評価範囲を比較するときの基本形である。
 
 不足・過剰の判定には許容範囲を持つ。ある判定境界の評価額 $H$ が既に定まり、そこに固定評価部分 $F$ と可変数量 $q>0$ が含まれる場合、価格 $p^*$ は $H=F+(q/u)p^*$ を移項して求める。
 
@@ -59,7 +59,7 @@ $$
 p^*=\frac{(H-F)u}{q}.
 $$
 
-$H=50{,}000$ 円、$F=10{,}000$ 円、$q=20$ 口、$u=1$ なら2,000円／口である。$H\ge F$、固定部分一定という条件が必要で、価格変動に応じて分母や境界も動く一般問題の解ではない。実装の具体的境界ルールは引継ぎ資料の範囲にとどめる。売買注文は実行せず参考値を示す。
+$H=50{,}000$ 円、$F=10{,}000$ 円、$q=20$ 口、$u=1$ なら2,000円／口である。$H\ge F$、固定部分一定という条件が必要で、価格変動に応じて分母や境界も動く一般問題の解ではない。境界は目標予算と許容幅に従って定まるため、価格とともに境界も変わる場合は、その関係を含めて評価する必要がある。売買注文は実行せず参考値を示す。
 
 ## 長期予測は仮定の積上げである
 
@@ -89,7 +89,7 @@ $$
 
 ## 検算と丸めの境界
 
-付属Pythonは全架空例を有理数・Decimalと別形式の計算で照合し、長期予測は反復計算と閉形式も比較する。実装の中心は浮動小数点であり、商品別の端数処理も残る。表示丸めと内部値を分け、不必要な中間丸めを避ける。[Pythonの浮動小数点の制約](https://docs.python.org/3.14/tutorial/floatingpoint.html)を参照し、微小誤差を厳密な十進演算と同一視しない。検算成功は実口座の照合や投資成果の保証ではない。
+架空例の検算では、有理数・Decimalと別形式の計算を照合し、長期予測は反復計算と閉形式も比較する。実装の中心は浮動小数点であり、商品別の端数処理も残る。表示丸めと内部値を分け、不必要な中間丸めを避ける。[Pythonの浮動小数点の制約](https://docs.python.org/3.14/tutorial/floatingpoint.html)を参照し、微小誤差を厳密な十進演算と同一視しない。数式の検算とは別に、保有数量や残高は実際の口座資料と照合して管理する。
 
 ## 次の論点
 
