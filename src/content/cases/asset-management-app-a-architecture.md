@@ -23,7 +23,7 @@ order: 0
 
 追加費用と日常の管理負担を抑えるため、公表価格の夜間取得、収支と月末入力、データの保全を組み合わせた。金融取引を対象外とし、個人利用に必要な管理・計算へ責務を限定した設計と、その実現を支えた開発管理・レビューを扱う。
 
-## 全8章の構成
+## 全7章の構成
 
 1. [システム化の背景と対象範囲の定義](/cases/asset-management-app-a-architecture/requirements/)
 2. [システム全体構成と技術選定](/cases/asset-management-app-a-architecture/architecture/)
@@ -32,4 +32,3 @@ order: 0
 5. [データ保全とバックアップ](/cases/asset-management-app-a-architecture/backup-and-recovery/)
 6. [生成AIへの開発管理の委任](/cases/asset-management-app-a-architecture/development-management/)
 7. [レビュー方式と品質保証](/cases/asset-management-app-a-architecture/review-and-quality/)
-8. [運用保守と設計上の評価](/cases/asset-management-app-a-architecture/operations-and-tradeoffs/)

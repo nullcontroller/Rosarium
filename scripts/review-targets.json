@@ -37,6 +37,5 @@
   "cases/asset-management-app-a-architecture/cashflow-and-input",
   "cases/asset-management-app-a-architecture/backup-and-recovery",
   "cases/asset-management-app-a-architecture/development-management",
-  "cases/asset-management-app-a-architecture/review-and-quality",
-  "cases/asset-management-app-a-architecture/operations-and-tradeoffs"
+  "cases/asset-management-app-a-architecture/review-and-quality"
 ]

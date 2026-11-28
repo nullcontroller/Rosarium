@@ -409,3 +409,8 @@ status:draft・public:false・初回公開日なしでレビューする。通�
 - 未公開のdata-model/access-and-pwaは第2章へ必要な概要を統合。persistence/financial-consistency/scheduled-jobsの詳細は非公開制作履歴へ保全し、公開資産から除去。
 - development-management/review-and-qualityは第6・7章として既存の開発知見と3図を継承。その他の既存未公開章はIDを維持して再構成。
 - 公開済み元記事のID・URL・本文・日付・公開状態は維持。統合処置はBook公開承認後。
+
+
+## 資産管理アプリA 最終著者編集（2026-11-28、未公開）
+
+著者提供情報の回収を軸に全7章へ整理。operations-and-tradeoffsは非公開制作履歴へ保全し、総括のみreview-and-quality末尾へ統合。全8原稿（目次含む）はdraft/public false、元の公開記事は変更しない。

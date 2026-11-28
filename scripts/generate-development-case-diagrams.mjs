@@ -1,7 +1,7 @@
 /** Code-native SVG originals. No app screens, private data, or measured performance. */
 import fs from "node:fs";
 const book = process.argv.includes("--book");
-const reviewEnvironment = book ? "動作確認環境" : "ステージング";
+const reviewEnvironment = "ステージング";
 const output = book ? "public/diagrams/asset-management-app-a-architecture" : "public/diagrams/ai-development-management";
 fs.mkdirSync(output, { recursive: true });
 const escape = value => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;");
@@ -30,7 +30,7 @@ for (const theme of ["light", "dark"]) {
     box(285, 90, "実装・テスト", ["Codex"], "ai", 22) +
     line("M220 375V400") + path("M220 400H114V435") + path("M220 400H326V435") +
     reviewColumn(16, "ai", "AIレビュー", "ChatGPT", ["レビューZIP"], ["設計・実装・品質", "検証結果の確認"]) +
-    reviewColumn(228, "human", "人間レビュー", "人間", book ? ["動作確認", "環境"] : ["ステージング", "環境"], ["実操作・要求充足", "実用性の評価"]) +
+    reviewColumn(228, "human", "人間レビュー", "人間", ["ステージング", "環境"], ["実操作・要求充足", "実用性の評価"]) +
     line("M114 665V695H220") + line("M326 665V695H220") + arrow(695, 725) +
     box(725, 90, "レビュー結果の統合", ["ChatGPT：改善判断・修正指示"], "review", 22) + arrow(815, 845) +
     box(845, 110, "人間の最終承認", ["承認後に本番反映・実利用"], "human", 22) +

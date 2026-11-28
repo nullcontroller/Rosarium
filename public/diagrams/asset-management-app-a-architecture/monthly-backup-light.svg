@@ -9,13 +9,13 @@
 <path d="M240 135 V167" fill="none" stroke="#326448" stroke-width="2"/>
 <path d="M235 162 L240 169 L245 162" fill="none" stroke="#326448"/>
 <rect x="20" y="176" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
-<text x="240" y="206" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">保存内容を検証</text>
-<text x="240" y="235" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">失敗時は既存分を保持</text>
+<text x="240" y="206" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">新しいバックアップを作成</text>
+<text x="240" y="235" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">外付けHDDへ保存</text>
 <path d="M240 255 V287" fill="none" stroke="#326448" stroke-width="2"/>
 <path d="M235 282 L240 289 L245 282" fill="none" stroke="#326448"/>
 <rect x="20" y="296" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
-<text x="240" y="326" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">外付けHDDへ保存</text>
-<text x="240" y="355" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">未接続時は退避・再試行</text>
+<text x="240" y="326" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">保存成功を確認</text>
+<text x="240" y="355" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">失敗時は既存分を保持</text>
 <path d="M240 375 V407" fill="none" stroke="#326448" stroke-width="2"/>
 <path d="M235 402 L240 409 L245 402" fill="none" stroke="#326448"/>
 <rect x="20" y="416" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
