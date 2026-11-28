@@ -36,12 +36,12 @@ ChatGPTとCodexを活用し、資産管理アプリAを5日間で開発した。
 |Codex|実装、テスト、修正、リファクタリング、レビュー成果物の用意|
 
 <figure class="diagram diagram-static">
-  <img class="diagram-light" src="/diagrams/ai-development-management/responsibility-light.svg" alt="人間は目的・制約・重要判断、ステージングでの評価、最終承認を担う。ChatGPTは要求整理・指示とレビューZIPの確認を担い、Codexは実装・テストと二つの成果物の用意を担う" width="440" height="630" loading="lazy" />
-  <img class="diagram-dark" src="/diagrams/ai-development-management/responsibility-dark.svg" alt="人間は目的・制約・重要判断、ステージングでの評価、最終承認を担う。ChatGPTは要求整理・指示とレビューZIPの確認を担い、Codexは実装・テストと二つの成果物の用意を担う" width="440" height="630" loading="lazy" />
+  <img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/development-responsibility-light.svg" alt="人間は目的・制約・重要判断、動作確認環境での評価、最終承認を担う。ChatGPTは要求整理・指示とレビューZIPの確認を担い、Codexは実装・テストと二つの成果物の用意を担う" width="440" height="630" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/development-responsibility-dark.svg" alt="人間は目的・制約・重要判断、動作確認環境での評価、最終承認を担う。ChatGPTは要求整理・指示とレビューZIPの確認を担い、Codexは実装・テストと二つの成果物の用意を担う" width="440" height="630" loading="lazy" />
   <figcaption>開発における責任分界。破線は人間、太線はAI支援を表す。工程の順序ではなく、担当する責務と確認対象を示す。</figcaption>
 </figure>
 
-ChatGPTが作成する要求と指示をCodexの作業へつなぎ、実装結果を次のレビューへ渡す。人間が操作する成果物と、AIが確認する資料の使い分けは、第7章で説明する。
+ChatGPTが作成する要求と指示をCodexの作業へつなぎ、実装結果を次のレビューへ渡す。人間が操作する動作確認環境と、AIが確認するレビューZIPの使い分けは、第7章で説明する。
 
 ## 人間の判断がボトルネックになる構造
 
