@@ -27,7 +27,6 @@ const headings = [
 <Site title="事例" section="cases" headings={headings} toc="never">
   <PageHeader alignHero navigationPath="cases" title="事例" />
   <p>業務上の実務経験と個人開発を区別し、課題に対する設計判断と確認できた結果を示します。業務実務事例では、Bookとそこから派生した仮想設計も確認できます。</p>
-  <p><a href={url("retired/obsolete-cases")}>過去の参考事例（OBSOLETE）</a></p>
   {caseGroups
     .filter((group) => group.studies.length > 0)
     .map((group) => (
@@ -74,6 +73,7 @@ const headings = [
       {personalCases.map(entry => <SeriesIndex entry={entry} all={all} showCover={false} showIcons={false} heading="h3" />)}
     </section>
   )}
+  <p><a href={url("retired/obsolete-cases")}>過去の参考事例（OBSOLETE）</a></p>
 </Site>
 
 <style>
