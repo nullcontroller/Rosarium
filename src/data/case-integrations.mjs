@@ -7,7 +7,7 @@ export const caseIntegrationPlans = [
     sourceId: "cases/ai-development-management",
     bookId,
     successorId: developmentId,
-    reason: "同一の個人開発経験を、方式設計・開発管理・品質保証・運用保守を扱うBookへ統合したため。元記事の開発管理に関する知見は第10章を中心に継承する。",
+    reason: "同一の個人開発経験を、方式設計・開発管理・品質保証・運用保守を扱うBookへ統合したため。元記事の開発管理に関する知見は第6章を中心に継承する。",
     compatibility: {
       from: "/cases/ai-development-management/",
       to: `/${developmentId}/#開発管理を委任する目的`,

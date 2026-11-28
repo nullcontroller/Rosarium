@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-labelledby="title desc">
+<title id="title">価格取得方式の決定</title>
+<desc id="desc">業務上の役割と設計判断を整理する。</desc>
+<rect width="480" height="600" rx="12" fill="#f7faf8"/>
+<text x="24" y="32" fill="#405d4c" font-family="sans-serif" font-size="22">価格取得方式の決定</text>
+<rect x="20" y="56" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
+<text x="240" y="86" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">場中価格を検討</text>
+<text x="240" y="115" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">検討した手段では有料API</text>
+<path d="M240 135 V147" fill="none" stroke="#326448" stroke-width="2"/>
+<path d="M235 142 L240 149 L245 142" fill="none" stroke="#326448"/>
+<rect x="20" y="156" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
+<text x="240" y="186" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">相場終了後の価格を採用</text>
+<text x="240" y="215" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">追加費用と保守負担を抑制</text>
+<path d="M240 235 V247" fill="none" stroke="#326448" stroke-width="2"/>
+<path d="M235 242 L240 249 L245 242" fill="none" stroke="#326448"/>
+<rect x="20" y="256" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
+<text x="240" y="286" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">17時に取得</text>
+<text x="240" y="315" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">取得失敗が多かった</text>
+<path d="M240 335 V347" fill="none" stroke="#326448" stroke-width="2"/>
+<path d="M235 342 L240 349 L245 342" fill="none" stroke="#326448"/>
+<rect x="20" y="356" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
+<text x="240" y="386" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">即時確認の要求を見直す</text>
+<text x="240" y="415" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">終了直後の確認は求めない</text>
+<path d="M240 435 V447" fill="none" stroke="#326448" stroke-width="2"/>
+<path d="M235 442 L240 449 L245 442" fill="none" stroke="#326448"/>
+<rect x="20" y="456" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
+<text x="240" y="486" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">夜間処理へ変更</text>
+<text x="240" y="515" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">現行設定は04:00 JST</text>
+</svg>

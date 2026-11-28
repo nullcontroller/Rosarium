@@ -1,5 +1,5 @@
 ---
-title: "10. 生成AIへの開発管理の委任"
+title: "06. 生成AIへの開発管理の委任"
 summary: "人間・ChatGPT・Codexの責任分界を定め、通常の開発管理をAIへ委ねる。判断のボトルネックと実利用からの改善サイクルを説明する。"
 layer: "publication"
 kind: "case"
@@ -11,10 +11,10 @@ public: false
 lifecycle: "active"
 last_updated: "2026-11-28"
 entry_points: ["ai"]
-tags: ["個人開発", "システム方式設計", "データ整合性", "AI駆動開発"]
+tags: ["個人開発", "システム方式設計", "運用設計"]
 series: "asset-management-app-a-architecture"
 series_title: "個人資産管理Webアプリの設計と開発 ― 低コスト・低保守負担を目指したシステム構築"
-order: 10
+order: 6
 ---
 
 ## この章の問い
@@ -23,7 +23,7 @@ order: 10
 
 ## 開発管理を委任する目的
 
-必要な方式を設計しても、その実装と改善をすべて私が細かく管理すれば、判断待ちが制約になり得る。そこで、通常の開発管理をAIへ委ね、人間が重要な判断を引き受ける範囲を定めた。
+ChatGPTとCodexを活用し、資産管理アプリAを5日間で開発した。必要な方式を設計しても、その実装と改善をすべて私が細かく管理すれば、判断待ちが制約になり得る。そこで、通常の開発管理をAIへ委ね、人間が重要な判断を引き受ける範囲を定めた。
 
 ## 人間・ChatGPT・Codexの責任分界
 
@@ -41,7 +41,7 @@ order: 10
   <figcaption>開発における責任分界。破線は人間、太線はAI支援を表す。工程の順序ではなく、担当する責務と確認対象を示す。</figcaption>
 </figure>
 
-ChatGPTが作成する要求と指示をCodexの作業へつなぎ、実装結果を次のレビューへ渡す。人間が操作する成果物と、AIが確認する資料の使い分けは、第11章で説明する。
+ChatGPTが作成する要求と指示をCodexの作業へつなぎ、実装結果を次のレビューへ渡す。人間が操作する成果物と、AIが確認する資料の使い分けは、第7章で説明する。
 
 ## 人間の判断がボトルネックになる構造
 
@@ -90,4 +90,4 @@ AIへの委任範囲、品質基準、責任分界、承認条件、フィード
 
 ## 次の論点
 
-[第11章：レビュー方式と品質保証](/cases/asset-management-app-a-architecture/review-and-quality/)へ進む。
+[第7章：レビュー方式と品質保証](/cases/asset-management-app-a-architecture/review-and-quality/)へ進む。

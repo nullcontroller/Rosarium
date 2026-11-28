@@ -1,6 +1,6 @@
 ---
-title: "05. 外部市場情報の取得方式"
-summary: "終値・基準価額・参考為替を取得し、商品・単位・日付を検証する。提供元別の解析、失敗時の状態管理、交差換算を説明する。"
+title: "03. 資産価格の取得方式"
+summary: "場中取得の見送りから相場終了後の価格取得へ進み、17時の取得失敗と利用要求を踏まえて夜間処理へ変更した経緯を説明する。"
 layer: "publication"
 kind: "case"
 section: "cases"
@@ -11,58 +11,49 @@ public: false
 lifecycle: "active"
 last_updated: "2026-11-28"
 entry_points: ["ai"]
-tags: ["個人開発", "システム方式設計", "データ整合性"]
+tags: ["個人開発", "システム方式設計", "運用設計"]
 series: "asset-management-app-a-architecture"
 series_title: "個人資産管理Webアプリの設計と開発 ― 低コスト・低保守負担を目指したシステム構築"
-order: 5
+order: 3
 ---
 
 ## この章の問い
 
-有料サービスを利用せず、資産管理に必要な価格情報をどう取得するか。
+必要な価格の鮮度と、取得に伴う費用・保守負担をどう折り合わせ、運用時刻を決めたか。
 
-## 公表値を評価用の価格へ取り込む
+## 場中取得から、相場終了後の価格へ
 
-第1章で確定した対応範囲に従い、価格取得は終値・基準価額を中心に設計した。取得対象の公表周期に合わせて処理し、評価に使う価格の基準日と取得状況を管理する。
+当初は場中価格の取得も検討した。私が検討した手段と要求の範囲では有料APIが必要だった一方、無料で利用できる手段では相場終了後の株価を取得できた。そこで、追加費用と継続保守を抑える方針に合わせ、相場終了後の価格を利用することにした。
 
-上場商品の終値、投資信託等の基準価額、参考為替は別の観測値である。公式公開データのHTML・CSV・XML・ZIPは、提供元ごとの形式を読み取り、アプリが扱う価格へ変換するアダプターで解析する。基準価額を市場終値の代わりに使わず、対象商品の識別子と単位を検証する。取得処理は商品の種別と提供元ごとに分け、必要な観測値を対応する評価方法へ渡す。
+評価には上場商品の終値、投資信託等の基準価額、参考為替を利用する。それぞれの公表周期と価格単位を確認し、価格がどの日付の値であるかを管理する。
 
-<figure class="diagram diagram-static">
-  <a class="diagram-light" href="/diagrams/asset-management-app-a-architecture/market-data-light.svg" aria-label="価格取得と最新正本への適用を拡大"><img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/market-data-light.svg" alt="価格取得と最新正本への適用。" width="480" height="600" loading="lazy" /></a>
-  <a class="diagram-dark" href="/diagrams/asset-management-app-a-architecture/market-data-dark.svg" aria-label="価格取得と最新正本への適用を拡大"><img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/market-data-dark.svg" alt="価格取得と最新正本への適用。" width="480" height="600" loading="lazy" /></a>
-  <figcaption>価格取得と最新正本への適用。</figcaption>
-</figure>
+## 17時の取得から夜間処理へ変更する
 
-## 取得できたことと、使える価格であることを分ける
+当初は17時に価格を取得していたが、取得失敗が多かった。私は相場終了直後に資産額を確認する必要性を感じていなかったため、取得を急ぐ条件を見直し、夜間処理へ変更した。
 
-共通HTTP処理が期限、読込サイズ、HTTP応答等を検証する。その後、商品、基準日、有限な値、単位を確認する。未来日や不適切な日付逆行を受け入れない。取得時刻は通信を行った日時であり、その時刻の市場価格を意味しない。
+この変更では、取得が安定しない状況に対し、利用者が必要とする確認時点を再評価した。17時の失敗原因については確定していない。公表の遅れなど特定の原因に結び付けず、確認できた失敗と運用時刻の変更を分けて捉えている。
 
-外部通信は正本ロックの外で実施する。検証済みの価格を適用するときだけロック内で最新正本を読む。取得開始時の数量や全体データを書き戻さず、取得中に行われた別端末の編集を保護する。
+現在の引継ぎ記録で確認できる価格処理の設定は、毎日04:00（日本時間）である。処理日と価格の基準日は別に持ち、取得した時刻を価格そのものの時点として扱わない。
 
 <figure class="diagram diagram-static">
-  <a class="diagram-light" href="/diagrams/asset-management-app-a-architecture/price-states-light.svg" aria-label="価格観測結果と次の処理を拡大"><img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/price-states-light.svg" alt="価格観測結果と次の処理。" width="480" height="600" loading="lazy" /></a>
-  <a class="diagram-dark" href="/diagrams/asset-management-app-a-architecture/price-states-dark.svg" aria-label="価格観測結果と次の処理を拡大"><img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/price-states-dark.svg" alt="価格観測結果と次の処理。" width="480" height="600" loading="lazy" /></a>
-  <figcaption>価格観測結果と次の処理。</figcaption>
+  <img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/price-decision-light.svg" alt="場中取得の費用を踏まえて公表値を採用し、17時の失敗と利用要求の再評価から夜間処理へ変更した。" width="480" height="600" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/price-decision-dark.svg" alt="場中取得の費用を踏まえて公表値を採用し、17時の失敗と利用要求の再評価から夜間処理へ変更した。" width="480" height="600" loading="lazy" />
+  <figcaption>場中取得の費用を踏まえて公表値を採用し、17時の失敗と利用要求の再評価から夜間処理へ変更した。</figcaption>
 </figure>
 
-未公表、休場、通信失敗、解析失敗を区別し、最後の有効価格を維持する。値が同じでも新しい基準日の公表なら、その日付の観測として意味がある。HTTP200だけで価格更新成功にせず、失敗した価格をゼロや現在値の推測で補わない。
+## 自動取得と、失敗しても値を壊さない運用
 
-自動バッチは最低30分間隔で未取得対象を再試行し、長期失敗、認可・制限応答、次の試行までの待機を指定するRetry-After等に応じて待機する。共通通信層の短い再試行と、永続ジョブの次回試行は役割が異なる。取得失敗だけで画面用HTTPサーバーを停止しない。
+PC側で提供元の公開データを取得し、商品識別子、単位、基準日、値を検証してから評価に反映する。提供元ごとに形式が異なるため、HTML・CSV等の解析は提供元別に分ける。
 
-## 為替の交差換算を単位から導く
+未公表、休場、通信失敗、解析失敗を区別し、失敗時には最後の有効価格を維持する。価格が取れなかったことをゼロ価格として反映すると資産額を誤るため、取得状況と評価に使う価格を別に確認できるようにする。
 
-同じ基準日の基軸通貨1単位あたり円を $r_J>0$、対象通貨単位を $r_F>0$ とする。対象通貨1単位の円価格は、基軸通貨を中間に消去して次になる。
+未取得の対象は最低30分間隔で再試行し、制限応答等に応じて待機する。PC停止・スリープ中には処理できず、起動後に未完了状態を追跡する。月末記録にはその時点の最後の有効価格を使うため、翌朝の価格処理より前の記録が当日終値を含むとは限らない。
 
-$$
-r_{J/F}=\frac{r_J\;[\mathrm{JPY/base}]}{r_F\;[\mathrm{foreign/base}]}\quad[\mathrm{JPY/foreign}].
-$$
+## 費用を抑える代わりに残る管理
 
-説明用の架空値で $r_J=180$、$r_F=1.2$ なら、$180\div1.2=150$ 円／対象通貨となる。異なる基準日の混在や分子分母の逆転を避ける。これは参考レートであり、金融機関の売買・手数料込み適用額ではない。この例は有理数とPythonの十進演算（Decimal）で照合した。
+公開データの形式や利用条件が変わる場合は対応が必要になる。対象を公表値へ限定しても、取得成否、価格基準日、提供元の変更は継続して確認する。利用者が必要とする時点を定めたことで、高頻度の取得を維持する代わりに、日常の確認に必要な夜間処理へ運用を絞った。
 
-## 公開データ利用の限界
-
-公表データを利用する際は、提供元の利用条件、再配布の可否、取得頻度の条件を確認する。公表遅延やHTML・CSV等の形式変更、提供終了への対応も運用保守に含まれる。提供条件が変わった場合は、取得方式と対応範囲を見直す。
 
 ## 次の論点
 
-[第6章：金融計算と業務データの整合性](/cases/asset-management-app-a-architecture/financial-consistency/)へ進む。
+[第4章：収支管理と入力業務の設計](/cases/asset-management-app-a-architecture/cashflow-and-input/)へ進む。

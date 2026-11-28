@@ -1,6 +1,6 @@
 ---
 title: "02. システム全体構成と技術選定"
-summary: "確定した要求を、PCへの処理集約、共通Web UI、標準ライブラリ、ファイル保存などの方式へ対応付け、技術選定と運用上の取引条件を説明する。"
+summary: "Google Driveでのソース管理と容量制限、Windows PC上のデータ・処理、複数端末からの非公開アクセスを役割別に説明する。"
 layer: "publication"
 kind: "case"
 section: "cases"
@@ -11,7 +11,7 @@ public: false
 lifecycle: "active"
 last_updated: "2026-11-28"
 entry_points: ["ai"]
-tags: ["個人開発", "システム方式設計", "データ整合性"]
+tags: ["個人開発", "システム方式設計", "運用設計"]
 series: "asset-management-app-a-architecture"
 series_title: "個人資産管理Webアプリの設計と開発 ― 低コスト・低保守負担を目指したシステム構築"
 order: 2
@@ -19,58 +19,57 @@ order: 2
 
 ## この章の問い
 
-個人利用という規模に対して、必要十分なシステム構成をどう選択するか。
+対応範囲に必要な機能を、場所と端末を使い分けながら、少ない管理対象で利用するにはどう構成するか。
 
-## 確定した要求を方式へつなぐ
+## 場所を問わず利用するために、役割を分ける
 
-第1章で対応範囲を絞り、複数端末での利用、データの整合性、自動処理、復旧性を要求として整理した。ここでは、それらを実現する仕組みと、維持する必要がある管理対象を対応付ける。保存・計算の共通基準となるデータを正本と呼び、その所在をまず決める。
+私はGoogle Driveを活用し、場所を問わず利用できる環境を目指した。ソースファイル一式をGoogle Driveの管理領域へ置き、容量を100MB以内に抑えて管理している。保存するものを増やし続けるのではなく、管理領域の容量も制約として扱う方針である。
 
-|要求|選択した方式|引き受ける制約|
-|---|---|---|
-|複数端末で同じ状態を見る|PC上に正本を一つ置く|PC停止中は利用を制限される|
-|有料サービスを使わない|公式公表データと既存環境を利用|公表形式や利用条件の変更へ追従が必要|
-|日常作業を減らす|サーバー内の定期実行処理（ワーカー）と永続ジョブ状態|停止中の時刻保証はできない|
-|データの正確性|単位・基準日・revision・世代保存を検証|検証規則の実装と保守が必要|
-|復旧可能性|外部媒体へ検証済みZIPを保存|PCと媒体の同時被災等は別課題|
-|依存を抑える|標準ライブラリと共通Web UI|枠組みが提供する機能も自前で担う|
+このソース管理と、アプリを動かす処理の配置は役割が異なる。資産データの正本と計算処理はWindows PCに置き、Windows・Androidは共通のWeb UIで利用する。端末からPCへ接続する経路には、非公開ネットワークのTailscaleを利用する。
 
-## 正本・計算・自動処理をPCへ集める
-
-資産管理アプリAでは、Windows PCが資産データと計算処理を保持し、Windows・Androidは共通のWeb UIを利用する。端末ごとにデータベースを作る方式では、同期や競合解消を管理し続ける必要がある。今回は正本を一つにし、接続できるときに同じ状態を参照する方式を採った。
+Google Driveはソースファイルの管理、Windows PCは実行と正本保持、Tailscaleは遠隔接続を担当する。Google Driveを利用していても、アプリの利用にはPCの稼働とネットワーク接続が必要である。
 
 <figure class="diagram diagram-static">
-  <a class="diagram-light" href="/diagrams/asset-management-app-a-architecture/architecture-light.svg" aria-label="PC集約型の論理構成を拡大"><img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/architecture-light.svg" alt="PC集約型の論理構成。" width="480" height="600" loading="lazy" /></a>
-  <a class="diagram-dark" href="/diagrams/asset-management-app-a-architecture/architecture-dark.svg" aria-label="PC集約型の論理構成を拡大"><img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/architecture-dark.svg" alt="PC集約型の論理構成。" width="480" height="600" loading="lazy" /></a>
-  <figcaption>PC集約型の論理構成。</figcaption>
+  <img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/architecture-light.svg" alt="Google Drive上のソース管理と、Windows PCの実行・正本保持、端末からの非公開接続を分ける。" width="480" height="600" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/architecture-dark.svg" alt="Google Drive上のソース管理と、Windows PCの実行・正本保持、端末からの非公開接続を分ける。" width="480" height="600" loading="lazy" />
+  <figcaption>Google Drive上のソース管理と、Windows PCの実行・正本保持、端末からの非公開接続を分ける。</figcaption>
 </figure>
 
-この構成では、端末、非公開ネットワーク、PC上の処理、保存先の役割を分ける。ブラウザーは非公開ネットワークからTailscale Serveへ接続し、ループバックで待ち受けるPythonサーバーへ転送される。市場情報はPC側から取得し、外部媒体はバックアップに利用する。
+## 正本を一つにして、端末ごとの同期を持たない
 
-## 少ない依存と、自前で持つ責務
+保存・計算の基準となるデータを正本と呼ぶ。資産管理アプリAではWindows PC上の正本を参照し、端末ごとに資産データベースを作らない。Androidで利用するときも、PCと同じ資産状態を読み、更新する。
 
-バックエンドはPython標準ライブラリ中心で、HTTP要求はThreadingHTTPServerが処理する。JavaScript ES Modules・HTML・CSSで画面を構成し、JSONとMarkdownを永続化に使う。PowerShellとWindowsタスクスケジューラが起動を担い、Python内のワーカーが定期処理を担う。PWA（Progressive Web App）は、同じWeb UIをアプリとして起動するための仕組みとして利用する。
+資産、保有数量、価格、現金、目標、予定、履歴などをJSONで管理し、方針等の文書にはMarkdownを使う。計算と入力検証はPC側に集め、ブラウザーは表示と操作を担当する。閲覧位置などの画面状態と、評価の基準になる金融データを分けて扱う。
 
-標準ライブラリ中心の構成は追加パッケージの更新対象を抑えられる一方、入力検証、アクセス制御、保存整合性、監視をアプリ側で担う。ThreadingHTTPServerは、本人の限定端末と非公開接続を前提に採用した。Python公式資料はhttp.serverを一般的な本番用途には推奨しておらず、公開サービスへ展開する場合はHTTP基盤と安全性の設計を見直す必要がある。[ThreadingHTTPServerの仕様](https://docs.python.org/3.14/library/http.server.html)も参照できる。
+ファイル保存は、個人用途の小規模なデータを見通しよく管理できる一方、入力の整合性と復元手順をアプリ側で整える必要がある。端末が独自に正本を持つ同期方式を避ける代わりに、PCへ接続できることを利用条件とした。
 
-## 代替方式との比較
+## 共通のWeb UIと、標準ライブラリ中心の構成
 
-採用方式の特徴を捉えるため、代替方式が持つ運用上の利点と管理対象を整理する。対応範囲を決めた経緯は第1章、運用面の総括は第12章で扱う。
+バックエンドはPython標準ライブラリ中心で、ThreadingHTTPServerがHTTP要求を処理する。画面はJavaScript ES Modules・HTML・CSSで構成した。OSごとのアプリを作り分けるより、同じ画面と処理をWindows・Androidで利用する方式を選んだ。
 
-|方式候補|得られるもの|今回採用しなかった場合の論点|
+PWA（Progressive Web App）により、共通のWeb UIをアプリとして起動できる。資産管理アプリAのService WorkerはNetwork Onlyで、金融データの鮮度を優先する。PCやネットワークが使えないときの閲覧は制限される。更新時には編集中・保存中の再読み込みを待ち、閲覧状態を保持する。
+
+依存パッケージを抑える構成では、更新対象を減らす代わりに、検証や保存、アクセス制御などを自前で保守する責務が残る。Python公式資料はhttp.serverを一般的な本番用途に推奨していないため、本人の限定端末と非公開接続を前提とした構成として扱う。[PythonのHTTPサーバー仕様](https://docs.python.org/3.14/library/http.server.html)
+
+## 非公開アクセスとデータ保護
+
+Tailscale ServeがHTTPS接続を受け、PCのループバックで待ち受けるアプリへ転送する。アプリ側でも接続者・端末や書込み要求を確認し、配信する静的ファイルを限定する。正本、ログ、設定、バックアップはWeb公開する対象から外す。
+
+第1章で金融取引を責務から外したうえで、残る金融情報もこの接続経路と端末側の管理によって保護する。OS権限、PC、接続設定を維持することは運用上の条件となる。[Tailscale Serveの仕様](https://tailscale.com/docs/features/tailscale-serve)
+
+## 必要十分な構成の適用条件
+
+|選択|目的への寄与|引き受ける条件|
 |---|---|---|
-|クラウド上のアプリとDB|PC停止と切り離した稼働|契約・費用・秘密情報・配信基盤の管理が増える|
-|RDBMS（関係データベース管理システム）|制約、問い合わせ、トランザクション|今回の少量データで導入・運用対象を増やすかの判断|
-|Webフレームワーク|ルーティング・検証等の枠組み|依存更新が増える一方、自前コードを減らせる利点もある|
-|OS別ネイティブアプリ|各OS機能との密な統合|複数の実装・配布経路を保守する必要|
-|専用ジョブキュー|分散・監視・再実行の機構|単一PCの個人用途には常駐要素が増える|
-|有料市場情報API|契約で定めた仕様や提供範囲|有料サービスを使わない制約と適合しない|
+|PCへデータと処理を集約|端末別の同期管理を抑える|PC停止中は利用できない|
+|Google Driveでソース管理|管理場所をまとめる|100MB以内の容量管理を続ける|
+|ファイル保存|追加のDB運用を増やさない|データ検証と復元手順を持つ|
+|共通Web UI・PWA|端末別の実装・配布を抑える|ブラウザーと接続環境の条件を受ける|
+|非公開ネットワーク|利用者と接続経路を限定する|端末とアクセス設定を管理する|
 
-対象範囲に必要な処理を既存PCへ集約し、追加の実行基盤を抑えることを採用理由とした。PCが単一障害点になること、手動配信やファイル容量管理が残ることを合わせて受け入れる。
+利用人数や可用性要求が変わる場合は、クラウド実行やデータベース、HTTP基盤を改めて選ぶ必要がある。今回は単一利用者が手元のPCを管理する範囲で構成した。
 
-## 構成を維持するための条件
-
-接続経路には[Tailscale Serve](https://tailscale.com/docs/features/tailscale-serve)を利用する。利用条件や提供範囲の変化、PCの故障、保存容量の増加は継続して確認する対象となる。アクセス制御の信頼境界は第8章、復旧と運用の条件は第9・12章で説明する。
 
 ## 次の論点
 
-[第3章：データモデルと正本管理](/cases/asset-management-app-a-architecture/data-model/)へ進む。
+[第3章：資産価格の取得方式](/cases/asset-management-app-a-architecture/market-data/)へ進む。

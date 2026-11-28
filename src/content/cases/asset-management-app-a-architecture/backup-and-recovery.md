@@ -1,6 +1,6 @@
 ---
-title: "09. バックアップと障害復旧"
-summary: "確定世代からのZIP作成、外部媒体での検証、一時退避と再試行、現行データを保護した復元を、一連の保全手順として説明する。"
+title: "05. データ保全とバックアップ"
+summary: "月末に外付けHDDへ自動バックアップし、保存成功後に最新3回分を残す。容量管理と復元時の現行データ保護を説明する。"
 layer: "publication"
 kind: "case"
 section: "cases"
@@ -11,54 +11,47 @@ public: false
 lifecycle: "active"
 last_updated: "2026-11-28"
 entry_points: ["ai"]
-tags: ["個人開発", "システム方式設計", "データ整合性"]
+tags: ["個人開発", "システム方式設計", "運用設計"]
 series: "asset-management-app-a-architecture"
 series_title: "個人資産管理Webアプリの設計と開発 ― 低コスト・低保守負担を目指したシステム構築"
-order: 9
+order: 5
 ---
 
 ## この章の問い
 
-日常的な手動バックアップを減らしながら、データの復旧可能性をどう確保するか。
+日常的な手動バックアップを減らしながら、データを保全し、保存容量の増加を抑えるにはどうするか。
 
-## 確定世代を外部媒体へ保存する
+## 月末の管理業務にバックアップを組み込む
 
-正本の保存世代は、同じPCや媒体を失う障害へ単独では対応できない。資産管理アプリAは自動・手動を共通の外部バックアップ処理へ集約する。自動処理は月末記録後、手動は設定画面から実行し、検証済みの新方式バックアップを共通で最新3世代保持する。
+資産管理データを失うと、継続して記録してきた状態を確認できなくなる。日常の入力と同じく保全も継続する必要があるため、毎月末に外付けHDDへ自動バックアップする運用とした。月末記録の保存後に処理し、手動バックアップも同じ処理を使う。
 
-<figure class="diagram diagram-static">
-  <a class="diagram-light" href="/diagrams/asset-management-app-a-architecture/backup-light.svg" aria-label="外部保存完了後に成功とするを拡大"><img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/backup-light.svg" alt="外部保存完了後に成功とする。" width="480" height="600" loading="lazy" /></a>
-  <a class="diagram-dark" href="/diagrams/asset-management-app-a-architecture/backup-dark.svg" aria-label="外部保存完了後に成功とするを拡大"><img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/backup-dark.svg" alt="外部保存完了後に成功とする。" width="480" height="600" loading="lazy" /></a>
-  <figcaption>外部保存完了後に成功とする。</figcaption>
-</figure>
+確認済みのデータを外部媒体に残すことで、PC上の稼働データとは別の復旧元を用意する。金融情報を含むため、外付けHDDの保管とアクセスの管理も必要になる。
 
-確定済み世代からスナップショット、設定、履歴等を集め、まず非公開の一時ZIPを作る。CRC、許可されたファイル名、一覧、SHA-256、JSON／Markdownの復元整合性を検証する。外部媒体の同一性を確認して一時名で保存し、読戻し検証と正式名への確定を経て成功を記録する。単にドライブ文字が同じという理由で別媒体へ保存しない。
+## 保存成功後に、最新3回分を残す
 
-CRCはZIP内の読取り時の破損検出に役立ち、SHA-256は期待した内容との比較に用いる。[Python ZipFile.testzip](https://docs.python.org/3.14/library/zipfile.html#zipfile.ZipFile.testzip)でZIP内のCRC等を検査し、内容の整合性は別に検証する。業務上の値の確認、バックアップの保管権限、実際の復元は、それぞれ別の確認対象となる。
+バックアップは内容を検証して保存し、保存成功を確認してから古いものを整理する。最新3回分を保持し、それより古いバックアップを自動削除することで、保存容量が増え続けることを抑える。
 
-## 媒体がないときは、未完了を残す
-
-外付け未接続や権限不足の場合は一時退避ZIPを保持し、状態を永続化して再試行する。再試行は5分間隔で行い、再起動後にも保存した状態から再開する。外部保存と検証を終えるまで成功にせず、成功済み同名ZIPも内容一致を確認し、無条件に上書きしない。
-
-新しいZIPが外部媒体で検証できた後にだけ、通常バックアップの古い世代を整理する。旧形式、復元前の保護コピー、正本保存世代まで同じ規則で削除するものではない。それらの容量管理は別の残存課題である。
-
-## 復元も、新しい保存操作として扱う
+保存失敗や外付けHDDの未接続時には、既存バックアップを先に削除しない。一時退避と処理状態を保持し、保存を再試行する。外部媒体への保存を終えていない状態を、正常完了と区別する。
 
 <figure class="diagram diagram-static">
-  <a class="diagram-light" href="/diagrams/asset-management-app-a-architecture/restore-light.svg" aria-label="現行正本を保護して復元するを拡大"><img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/restore-light.svg" alt="現行正本を保護して復元する。" width="480" height="600" loading="lazy" /></a>
-  <a class="diagram-dark" href="/diagrams/asset-management-app-a-architecture/restore-dark.svg" aria-label="現行正本を保護して復元するを拡大"><img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/restore-dark.svg" alt="現行正本を保護して復元する。" width="480" height="600" loading="lazy" /></a>
-  <figcaption>現行正本を保護して復元する。</figcaption>
+  <img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/monthly-backup-light.svg" alt="月末に検証・外付けHDD保存を行い、成功後に最新3回分へ整理する。失敗時は既存分を保持する。" width="480" height="600" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/monthly-backup-dark.svg" alt="月末に検証・外付けHDD保存を行い、成功後に最新3回分へ整理する。失敗時は既存分を保持する。" width="480" height="600" loading="lazy" />
+  <figcaption>月末に検証・外付けHDD保存を行い、成功後に最新3回分へ整理する。失敗時は既存分を保持する。</figcaption>
 </figure>
 
-利用者の確認とrevision照合後、まず現行正本を保護する。選んだZIPと内容を検証し、新しい正本世代として復元する。古いファイルを稼働中の正本へ無条件に上書きする操作ではない。起動・接続用設定がZIPに含まれる場合も、稼働先を勝手に切り替えるような自動適用は行わない。
+最新3回分という制限は、通常の検証済みバックアップを対象とする。復元前に保護したコピーや旧形式の保存物などは別に残るため、媒体全体の使用量も確認する必要がある。
 
-コードのロールバックと資産データの復元は別である。画面障害のために正常な資産データまで過去へ戻すと、新しい入力を失う。逆にデータを復元しただけで起動用コード・OSタスク・接続設定が整うとも限らない。
+## 復元では、現在のデータを先に保護する
 
-## バックアップと復旧可能性の検証を分ける
+復元時は現在の正本を保全し、復元対象の内容と整合性を検証してから反映する。過去のバックアップを無条件に上書きするより、復元前へ戻れる状態を確保することを優先する。
 
-バックアップ処理ではZIPの内容と保存先へのコピーを検証する。実際の復旧性を確認するには、外部媒体からの復元に加え、PCを失った場合の実行環境の再構築も必要になる。現時点で、実媒体からの総合復旧と復旧時間は未確認である。
+アプリコードの反映と、資産データの復元は別の作業である。データを戻した後も、アプリが起動し、必要な記録を読めることまで段階ごとに確認する。実媒体からの総合的な復旧確認は、運用上の確認事項として残っている。
 
-独自暗号化、遠隔地への自動複製は未実装・未確認であり、同一場所のPCと媒体を同時に失う障害も別途考える必要がある。バックアップは金融情報や環境情報を含むため、保管先のアクセスと媒体の管理も必要になる。
+## 自動化で減る作業と、残る確認
+
+月末バックアップと世代整理を組み合わせることで、毎回の手動コピーと古い保存物の整理を通常処理へ組み込んだ。一方、外付けHDDを接続できること、保存結果、媒体の状態、復元手順の確認は引き続き必要になる。
+
 
 ## 次の論点
 
-[第10章：生成AIへの開発管理の委任](/cases/asset-management-app-a-architecture/development-management/)へ進む。
+[第6章：生成AIへの開発管理の委任](/cases/asset-management-app-a-architecture/development-management/)へ進む。

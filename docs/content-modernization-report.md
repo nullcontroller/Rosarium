@@ -400,3 +400,12 @@ status:draft・public:false・初回公開日なしでレビューする。通�
 
 - `src/content/cases/asset-management-app-a-architecture/development-management.md`：元記事の責任分界・委任・ボトルネック・改善サイクルを継承。
 - `src/content/cases/asset-management-app-a-architecture/review-and-quality.md`：レビュー成果物・環境区分・検証・最終責任を統合。
+
+
+## 資産管理アプリA Bookの8章再編（2026-11-28、未公開）
+
+著者の確定指示に基づき、実装詳細より対象範囲・方式判断・運用設計を中心とする8章へ再編。
+- `src/content/cases/asset-management-app-a-architecture/cashflow-and-input.md`：銀行API代替の収支管理、固定額登録、変動額月末入力、スマートフォン通知を扱う新第4章。draft/public false。
+- 未公開のdata-model/access-and-pwaは第2章へ必要な概要を統合。persistence/financial-consistency/scheduled-jobsの詳細は非公開制作履歴へ保全し、公開資産から除去。
+- development-management/review-and-qualityは第6・7章として既存の開発知見と3図を継承。その他の既存未公開章はIDを維持して再構成。
+- 公開済み元記事のID・URL・本文・日付・公開状態は維持。統合処置はBook公開承認後。
