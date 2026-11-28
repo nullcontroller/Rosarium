@@ -11,7 +11,7 @@ import { formatDateJa, url } from "../lib/site";
 import Icon from "./Icon.astro";
 interface Props {
   entry: Entry;
-  heading?: "h2" | "h3" | "h4" | "p";
+  heading?: "h2" | "h3" | "p";
   showIcon?: boolean;
 }
 const { entry, heading: Heading = "h3", showIcon = true } = Astro.props;

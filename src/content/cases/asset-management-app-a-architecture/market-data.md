@@ -13,7 +13,7 @@ last_updated: "2026-11-28"
 entry_points: ["ai"]
 tags: ["個人開発", "システム方式設計", "データ整合性"]
 series: "asset-management-app-a-architecture"
-series_title: "個人資産管理Webアプリのシステム方式設計 ― 低コスト・低保守負担を目指した設計"
+series_title: "個人資産管理Webアプリの設計と開発 ― 低コスト・低保守負担を目指したシステム構築"
 order: 5
 ---
 

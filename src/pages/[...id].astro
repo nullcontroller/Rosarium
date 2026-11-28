@@ -2,6 +2,7 @@
 import BookmarkToggle from "../components/BookmarkToggle.astro";
 import { isBookmarkable } from "../lib/bookmark-catalog.mjs";
 import { compatibilityFor } from "../data/compatibility-urls.mjs";
+import { integrationPreview } from "../data/case-integrations.mjs";
 import { getCollection, render } from "astro:content";
 import { isDraftPreview } from "../lib/draft-preview.mjs";
 import DesignArea from "../components/DesignArea.astro";
@@ -54,7 +55,10 @@ const type = contentType(entry);
 const articleType = ["実務事例", "個人開発事例", "仮想設計"].includes(type) ? `事例 / ${type}` : type;
 const isBookIntroduction = entry.id === "cases/customer-support-ai-dx";
 const content = splitRelatedContent(entry.rendered?.html || "");
-const visibleIds = new Set((await getCollection("pages", entry => publicEntry(entry) || isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW))).map(entry => entry.id));
+const visibleEntries = await getCollection("pages", entry => publicEntry(entry) || isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW));
+const visibleIds = new Set(visibleEntries.map(entry => entry.id));
+const pendingIntegration = integrationPreview(entry.id, visibleIds, Boolean(process.env.ROSARIUM_DRAFT_PREVIEW));
+const pendingSuccessor = pendingIntegration && visibleEntries.find(item => item.id === pendingIntegration.successorId);
 const visibleStudies = designStudies.filter(study => visibleIds.has(study.id));
 const studyLinks = visibleStudies
   .filter(study => study.chapters.some(chapter => entry.id === `${study.sourceCase}/${chapter}`));
@@ -178,6 +182,11 @@ const bookNavigation = series.length
         </p>
       )}
     </header>
+    {pendingSuccessor && <aside data-integration-preview role="note">
+      <p><strong>レビュー用：統合準備中</strong></p>
+      <p>この原稿は統合前の記録です。統合先は<a href={url(pendingSuccessor.id)}>{pendingSuccessor.data.title}</a>です。</p>
+      <p>本番の公開状態は維持しています。ライフサイクルとURL転送の変更は、統合Bookの本番公開承認後に同時反映します。</p>
+    </aside>}
     {entry.id === "cases/system-understanding" && <p class="archive-status"><span class="archive-state-icon"><Icon name="cases" size="meta" /></span>旧事例</p>}
     {entry.id !== "cases/system-understanding" && <LifecycleNote lifecycle={d.lifecycle} archiveKind={getArchiveGroup(entry)} reason={d.lifecycle_reason} />}
     {d.cover && d.show_cover && (

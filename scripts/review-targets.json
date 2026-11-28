@@ -40,5 +40,7 @@
   "cases/asset-management-app-a-architecture/operations-and-tradeoffs",
   "cases/asset-management-app-a-architecture/persistence",
   "cases/asset-management-app-a-architecture/requirements",
-  "cases/asset-management-app-a-architecture/scheduled-jobs"
+  "cases/asset-management-app-a-architecture/scheduled-jobs",
+  "cases/asset-management-app-a-architecture/development-management",
+  "cases/asset-management-app-a-architecture/review-and-quality"
 ]

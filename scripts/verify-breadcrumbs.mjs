@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import assert from "node:assert/strict";
 import { load } from "cheerio";
+import { caseIntegrationPlans } from "../src/data/case-integrations.mjs";
 const root = process.argv[2] || "dist";
 const walk = dir => fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);
 const report=[];
@@ -57,6 +58,20 @@ for(const entry of report){
   }
   if(!found && $("meta[name=robots]").attr("content")?.includes("noindex") && !$("[data-pagefind-body]").length && !route.startsWith("/cases/design-studies")){
     categoryPaths.push({route,parent,result:"auxiliary-noindex-index",reason:"Legacy/nonprimary index; its current entry is linked from the page"});continue;
+  }
+  if(!found && root === "dist-review" && $("[data-integration-preview]").length) {
+    // The retained source is deliberately absent from the current-case list in a
+    // staged integration. Verify its actual successor path instead of inventing
+    // an incoming category link or permitting this exception in production.
+    const plan = caseIntegrationPlans.find(plan => route === `/${plan.sourceId}/`);
+    assert(plan, `${route}: unregistered integration preview`);
+    const successor = `/${plan.successorId}/`, book = `/${plan.bookId}/`;
+    assert.equal($("[data-integration-preview] a").attr("href"), successor, route);
+    assert(documents.has(successor) && documents.has(book), route);
+    assert(links(parent).includes(book), `${route}: replacement Book missing from category`);
+    assert(links(book).includes(successor), `${route}: successor missing from Book`);
+    categoryPaths.push({route,parent,result:"retained-integration-source-review-only",successorPath:[parent,book,successor],reason:"Original URL retained for review, intentionally omitted from the current-case list"});
+    continue;
   }
   assert(found,`${route}: no category path from breadcrumb parent ${parent}`);
   categoryPaths.push({route,parent,path:found,result:found.length===2?"direct":"via-category-index"});

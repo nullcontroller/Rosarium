@@ -392,3 +392,11 @@ status:draft・public:false・初回公開日なしでレビューする。通�
 - `src/content/cases/asset-management-app-a-architecture/persistence.md`：新規Book、draft・public false。
 - `src/content/cases/asset-management-app-a-architecture/requirements.md`：新規Book、draft・public false。
 - `src/content/cases/asset-management-app-a-architecture/scheduled-jobs.md`：新規Book、draft・public false。
+
+
+## 資産管理アプリA 全12章への統合準備（2026-11-28）
+
+元記事は公開状態と原稿を維持し、本番の退役・互換URL登録は統合Bookの公開承認後に同時実施する。今回のBookは13原稿（目次と12章）、draft/public falseを維持。第2〜9章の知見と図解を保全し、開発管理と品質保証へ元記事の知見を移管した。
+
+- `src/content/cases/asset-management-app-a-architecture/development-management.md`：元記事の責任分界・委任・ボトルネック・改善サイクルを継承。
+- `src/content/cases/asset-management-app-a-architecture/review-and-quality.md`：レビュー成果物・環境区分・検証・最終責任を統合。
