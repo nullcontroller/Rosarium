@@ -1,31 +1,30 @@
 ---
-import { getEntry } from "astro:content";
-import { publishedEntry, url } from "../lib/site";
+import { getCollection, getEntry } from "astro:content";
+import { activeEntry, publicEntry, publishedEntry, url } from "../lib/site";
 import type { RecentGrowthItem } from "../data/recent-growth";
 import {
   recentGrowthDateLabel,
   recentGrowthLabels,
   growthChangeTargets,
-  growthPublishedTargets,
   growthSummary,
   growthChangeText,
 } from "../data/recent-growth";
 import Icon from "./Icon.astro";
+import { newPublications } from "../lib/new-publications.mjs";
 
 interface Props { entry: RecentGrowthItem; compact?: boolean; }
 const { entry, compact = false } = Astro.props;
 const cases = new Set<string>();
-const articleLinks: { href: string; title: string }[] = [];
-const published = new Set(growthPublishedTargets(entry));
+const articleLinks = newPublications(entry.date, (await getCollection("pages")).filter(content => activeEntry(content) && publicEntry(content)))
+  .map(content => ({ href: url(content.id), title: content.data.title }));
 for (const id of new Set(entry.changes.flatMap(growthChangeTargets))) {
   const content = id.startsWith("career/")
     ? await getEntry("career", id.slice("career/".length))
     : await getEntry("pages", id);
   if (!content || !publishedEntry(content)) throw new Error("History target is not published: " + id);
-  if (published.has(id)) articleLinks.push({ href: url(id === "career/overview" ? "career" : id), title: content.data.title });
   if ("kind" in content.data && (content.data.kind === "case" || content.data.layer === "case" || content.data.section === "cases")) cases.add(id);
 }
-const visibleArticleLinks = entry.showPublicationLinks === false ? [] : articleLinks;
+
 const allSummaries = growthSummary(entry, id => cases.has(id));
 const summaries = compact ? allSummaries.slice(0, 3) : allSummaries;
 ---
@@ -51,13 +50,14 @@ const summaries = compact ? allSummaries.slice(0, 3) : allSummaries;
     <ul class="growth-changes content-summary" role="list" hidden={!!entry.topics}>
       {!entry.topics && summaries.map(text => <li>{text}</li>)}
     </ul>
-    {!compact && <ul class="growth-publications" data-growth-publications>{visibleArticleLinks.map(({ href, title }) => <li><a href={href}>{title}</a></li>)}</ul>}
     {compact && (entry.topics || allSummaries.length > summaries.length) && <p class="meta"><a data-growth-more href={`${url("garden-notes")}#growth-${entry.date}`}>全履歴で続きを見る</a></p>}
-    {(!compact || !!entry.relatedLinks?.length || visibleArticleLinks.length > 0) && <details class="growth-details" data-pagefind-ignore>
-      <summary>{compact ? "関連ページ" : "関連ページ・記録の詳細と訂正"}</summary>
-      {compact && <ul data-growth-publications>{visibleArticleLinks.map(({href,title}) => <li><a href={href}>{title}</a></li>)}</ul>}
-      {!!entry.relatedLinks?.length && <ul data-growth-related>{entry.relatedLinks.map(({path,title})=><li><a href={url(path)}>{title}</a></li>)}</ul>}
-      {!compact && <ul data-growth-record>{entry.changes.map(change=><li>{growthChangeText(change)}</li>)}</ul>}
+    {articleLinks.length > 0 && <details class="growth-details" data-pagefind-ignore>
+      <summary>新規公開</summary>
+      <ul class="growth-publications" data-growth-publications>{articleLinks.map(({href,title}) => <li><a href={href}>{title}</a></li>)}</ul>
+    </details>}
+    {!compact && <details class="growth-details" data-pagefind-ignore>
+      <summary>記録の詳細と訂正</summary>
+      <ul data-growth-record>{entry.changes.map(change => <li>{growthChangeText(change)}</li>)}</ul>
     </details>}
   </div>
 </article>
