@@ -61,6 +61,23 @@ const informationArchitectureChanges = [
 ];
 const curatedRecentGrowth = [
 {
+  date: "2026-11-28",
+  type: "new",
+  title: "生成AIを活用した個人開発事例を追加",
+  category: "Rosarium",
+  icon: "updates",
+  topics: [{
+    title: "生成AIを活用した個人開発事例を追加",
+    summary: "Excelによる資産管理をWebアプリへ発展させ、ChatGPTとCodexを活用して5日間で開発した事例を追加しました。開発管理の委任、責任分界、レビュー方式及び改善サイクルを整理しています。",
+    links: [{ path: "cases", title: "事例" }],
+  }],
+  changes: [{
+    action: "published",
+    text: "Excelによる資産管理をWebアプリへ発展させ、ChatGPTとCodexを活用して5日間で開発した事例を追加しました。開発管理の委任、責任分界、レビュー方式及び改善サイクルを整理しています。",
+    contentIds: ["cases/ai-development-management"],
+  }],
+},
+{
   date: "2026-11-27",
   type: "revised",
   title: "障害調査に関する既存実務事例をBookへ集約",

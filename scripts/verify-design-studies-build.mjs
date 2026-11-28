@@ -133,7 +133,8 @@ for (const study of designStudies) {
     assert(read(root, chapterId)(`a[href='/${study.id}/']`).length, `Missing contextual link: ${study.id}`);
     assert(read("dist", chapterId)(`a[href='/${study.id}/']`).length > 0);
   }
-  for (const file of ["sitemap.xml", "rss.xml", "feed.json", "index.html"]) {
+  // Home intentionally shows only the latest three dates; older publications stay in full history.
+  for (const file of ["sitemap.xml", "rss.xml", "feed.json", "garden-notes/index.html"]) {
     assert(fs.readFileSync(`dist/${file}`, "utf8").includes(`/${study.id}/`), `Published discovery missing: ${file}`);
   }
 }

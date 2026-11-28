@@ -8,10 +8,10 @@ case_context: personal
 case_specialty: "AI駆動開発・開発プロセス設計"
 development_period: "5日間"
 publication_format: article
-status: draft
-public: false
+status: published
+public: true
 lifecycle: active
-published_at: null
+published_at: "2026-11-28"
 last_updated: "2026-11-28"
 entry_points: [ai]
 tags: [個人開発, AI駆動開発, 開発管理, 責任分界, アジャイル]

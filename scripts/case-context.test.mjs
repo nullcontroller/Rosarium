@@ -21,8 +21,9 @@ test("new personal cases are found without names, and chapters are not duplicate
   assert.deepEqual(independentCases(entries, "business", registry), []);
 });
 const raw = fs.readFileSync("src/content/cases/ai-development-management.md", "utf8");
-const draft = { collection: "pages", id: "cases/ai-development-management", data: YAML.parse(raw.match(/^---\n([\s\S]*?)\n---/)[1]) };
-test("the new manuscript stays private; exact review selection is required", () => {
+const article = { collection: "pages", id: "cases/ai-development-management", data: YAML.parse(raw.match(/^---\n([\s\S]*?)\n---/)[1]) };
+const draft = { ...article, data: { ...article.data, public: false, status: "draft", published_at: null } };
+test("a private draft fixture requires exact review selection and stays out of the public catalogue", () => {
   assert.equal(draft.data.public, false);
   assert.equal(draft.data.status, "draft");
   assert.equal(draft.data.published_at, null);
@@ -31,8 +32,10 @@ test("the new manuscript stays private; exact review selection is required", () 
   assert.equal(isBookmarkable(draft), false);
   assert.equal(buildBookmarkCatalog([draft]).records.length, 0);
 });
-test("publication simulation resolves the same ID through the existing bookmark catalogue", () => {
-  const published = { ...draft, data: { ...draft.data, public: true, status: "published" } };
+test("the approved published personal case resolves its existing ID through the bookmark catalogue", () => {
+  const published = article;
+  assert.equal(published.data.public, true);
+  assert.equal(published.data.status, "published");
   assert.equal(primaryDomain(published), "cases");
   assert.equal(isBookmarkable(published), true);
   const record = buildBookmarkCatalog([published]).records.find(e => e.id === draft.id);

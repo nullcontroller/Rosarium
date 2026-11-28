@@ -2,7 +2,7 @@
 
 `npm run build`で本文レイアウトを持つ全ページを検査。noindexのアーカイブも含め、検索エンジン向け公開と区別する。互換HTML53件は別のIA監査で検証する。
 
-対象 141ページ。目次あり 130、なし 11。Referenceあり 132、なし 9。
+対象 142ページ。目次あり 131、なし 11。Referenceあり 133、なし 9。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -21,6 +21,7 @@
 | /architecture/security-threat-modeling/ | 生成AIセキュリティと脅威モデリング | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /career/ | Career | あり | あり | あり | 6 | 主要見出しが複数 |
 | /cases/ | 事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
+| /cases/ai-development-management/ | 生成AIへの開発管理の委任 ― 資産管理Webアプリのアジャイル開発 | あり | あり | あり | 9 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/ | 複数のソフトウェアにまたがる障害調査の設計 | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/background/ | 01. 対象システムと障害調査の背景 | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/crash-resolution/ | 06. クラッシュの解消と残存するメモリリーク | あり | あり | あり | 17 | 主要見出しが複数 |
@@ -124,7 +125,7 @@
 | /foundations/test-time-compute-allocation/ | 推論時計算の予算配分 | あり | あり | あり | 9 | 長文の複数h3セクション |
 | /foundations/transformer-computational-limits/ | Transformerの計算能力と理論的限界 | あり | あり | あり | 11 | 主要見出しが複数 |
 | /foundations/verifiable-reward-reasoning/ | 検証可能な報酬は、言語モデルの推論能力をどう変えるのか | あり | あり | あり | 8 | 主要見出しが複数 |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 43 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 44 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | コンテキストに基づくAIと調査経路の選択 | あり | あり | あり | 9 | 長文の複数h3セクション |
 | /knowledge-context/human-and-ai-documentation/ | 単一の正本から設計する人向け資料とAI向け資料 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /knowledge-context/instruction-knowledge-evidence/ | Instruction・Knowledge・Evidenceの責務分離 | あり | あり | あり | 11 | 長文の複数h3セクション |
