@@ -1,4 +1,4 @@
-/** Prepared only. No production lifecycle or compatibility registration changes here. */
+/** Approved source/successor relation and compatibility mapping for the integrated Book. */
 const bookId = "cases/asset-management-app-a-architecture";
 const developmentId = `${bookId}/development-management`;
 const qualityId = `${bookId}/review-and-quality`;

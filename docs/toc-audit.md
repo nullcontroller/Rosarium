@@ -1,8 +1,8 @@
 # 共通目次と右補助パネルの全ページ監査
 
-`npm run build`で本文レイアウトを持つ全ページを検査。noindexのアーカイブも含め、検索エンジン向け公開と区別する。互換HTML53件は別のIA監査で検証する。
+`npm run build`で本文レイアウトを持つ全ページを検査。noindexのアーカイブも含め、検索エンジン向け公開と区別する。互換HTML54件は別のIA監査で検証する。
 
-対象 142ページ。目次あり 131、なし 11。Referenceあり 133、なし 9。
+対象 149ページ。目次あり 138、なし 11。Referenceあり 140、なし 9。
 
 共通ルール：描画済み本文のh2/h3から生成し、h2が2件以上で表示。一覧の移動単位が複数ある場合、本文1000文字以上でh3が複数ある構造、Book章構造も対象。Home、Reference本体、検索、404、互換リダイレクトは明示除外。既存IDとmetadata由来の一覧アンカーを保持。
 
@@ -21,7 +21,6 @@
 | /architecture/security-threat-modeling/ | 生成AIセキュリティと脅威モデリング | あり | あり | あり | 12 | 長文の複数h3セクション |
 | /career/ | Career | あり | あり | あり | 6 | 主要見出しが複数 |
 | /cases/ | 事例 | あり | なし | あり | 0 | 入口・Reference・検索・404・互換リダイレクト |
-| /cases/ai-development-management/ | 生成AIへの開発管理の委任 ― 資産管理Webアプリのアジャイル開発 | あり | あり | あり | 9 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/ | 複数のソフトウェアにまたがる障害調査の設計 | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/background/ | 01. 対象システムと障害調査の背景 | あり | あり | あり | 13 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/crash-resolution/ | 06. クラッシュの解消と残存するメモリリーク | あり | あり | あり | 17 | 主要見出しが複数 |
@@ -32,6 +31,14 @@
 | /cases/ai-technical-investigation/memory-leak-investigation/ | 07. 残存メモリリークの仮説検証と解決 | あり | あり | あり | 18 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/reusable-method/ | 09. 生成AIへの調査指示と判断基準 | あり | あり | あり | 24 | 主要見出しが複数 |
 | /cases/ai-technical-investigation/shared-library-investigation/ | 05. 実行時情報の取得とソフトウェアCへの調査移行 | あり | あり | あり | 17 | 主要見出しが複数 |
+| /cases/asset-management-app-a-architecture/ | 個人資産管理Webアプリの設計と開発 ― 低コスト・低保守負担を目指したシステム構築 | あり | あり | あり | 10 | 主要見出しが複数 |
+| /cases/asset-management-app-a-architecture/architecture/ | 02. システム全体構成と技術選定 | あり | あり | あり | 13 | 主要見出しが複数 |
+| /cases/asset-management-app-a-architecture/backup-and-recovery/ | 05. データ保全とバックアップ | あり | あり | あり | 12 | 主要見出しが複数 |
+| /cases/asset-management-app-a-architecture/cashflow-and-input/ | 04. 収支管理と入力業務の設計 | あり | あり | あり | 13 | 主要見出しが複数 |
+| /cases/asset-management-app-a-architecture/development-management/ | 06. 生成AIへの開発管理の委任 | あり | あり | あり | 14 | 主要見出しが複数 |
+| /cases/asset-management-app-a-architecture/market-data/ | 03. 資産価格の取得方式 | あり | あり | あり | 13 | 主要見出しが複数 |
+| /cases/asset-management-app-a-architecture/requirements/ | 01. システム化の背景と対象範囲の定義 | あり | あり | あり | 19 | 主要見出しが複数 |
+| /cases/asset-management-app-a-architecture/review-and-quality/ | 07. レビュー方式と品質保証 | あり | あり | あり | 12 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/ | 生成AI / RAGによる顧客サポートDX | あり | あり | あり | 12 | Book章構造 |
 | /cases/customer-support-ai-dx/customer-experience/ | 06. 自己解決と有人対応をつなぐ顧客体験設計 | あり | あり | あり | 16 | 主要見出しが複数 |
 | /cases/customer-support-ai-dx/design-principles/ | 11. 検索対象制御と回答許可の設計判断 | あり | あり | あり | 16 | 主要見出しが複数 |
@@ -125,7 +132,7 @@
 | /foundations/test-time-compute-allocation/ | 推論時計算の予算配分 | あり | あり | あり | 9 | 長文の複数h3セクション |
 | /foundations/transformer-computational-limits/ | Transformerの計算能力と理論的限界 | あり | あり | あり | 11 | 主要見出しが複数 |
 | /foundations/verifiable-reward-reasoning/ | 検証可能な報酬は、言語モデルの推論能力をどう変えるのか | あり | あり | あり | 8 | 主要見出しが複数 |
-| /garden-notes/ | Garden Notes | あり | あり | なし | 44 | 主要見出しが複数 |
+| /garden-notes/ | Garden Notes | あり | あり | なし | 45 | 主要見出しが複数 |
 | /knowledge-context/context-before-model-performance/ | コンテキストに基づくAIと調査経路の選択 | あり | あり | あり | 9 | 長文の複数h3セクション |
 | /knowledge-context/human-and-ai-documentation/ | 単一の正本から設計する人向け資料とAI向け資料 | あり | あり | あり | 17 | 長文の複数h3セクション |
 | /knowledge-context/instruction-knowledge-evidence/ | Instruction・Knowledge・Evidenceの責務分離 | あり | あり | あり | 11 | 長文の複数h3セクション |

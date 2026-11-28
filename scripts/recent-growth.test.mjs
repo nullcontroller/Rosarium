@@ -149,3 +149,15 @@ test('the 26 November revised Book topic links only to its overview and preserve
  const day=recentGrowth.find(e=>e.date==='2026-11-26');assert.equal(day.type,'revised');const book=day.topics.find(t=>t.title.includes('障害調査'));assert.equal(book.details.length,4);assert.deepEqual(book.links.map(e=>e.path),['cases/ai-technical-investigation']);assert.equal(day.showPublicationLinks,false);assert.equal(growthPublishedTargets(day).length,20);
  assert(!recentGrowth.find(e=>e.date==='2026-11-25').topics.some(t=>t.title.includes('障害調査')));
 });
+
+
+test("same-day publication and integration preserve both events without duplicate event records", () => {
+  const published = { action: "published", text: "Publication", contentIds: ["cases/example"] };
+  const integrated = { action: "integrated", text: "Integration", contentIds: ["cases/example"] };
+  validateRecentGrowth([entry([published, integrated])]);
+  assert.throws(() => validateRecentGrowth([entry([published, published])]));
+  assert.throws(() => validateRecentGrowth([entry([integrated, integrated])]));
+  const events = contentHistory("cases/ai-development-management", { published_at: "2026-11-28", last_updated: "2026-11-28" });
+  assert.equal(events.filter(e => e.type === "published").length, 1);
+  assert(events.some(e => e.type === "integrated" && e.date === "2026-11-28"));
+});

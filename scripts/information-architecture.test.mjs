@@ -6,7 +6,7 @@ import {aiKnowledgeGroups} from '../src/data/ai-knowledge-groups.mjs';
 import {designStudies,designStudyGroups} from '../src/data/design-studies.mjs';
 import {primaryDomain} from '../src/data/knowledge-domains.mjs';
 test('all approved compatibility URLs are unique and resolve without chains',()=>{
- assert.equal(compatibilityUrls.length,53);const urls=new Set(compatibilityUrls.map(r=>r.from));assert.equal(urls.size,53);
+ assert.equal(compatibilityUrls.length,54);const urls=new Set(compatibilityUrls.map(r=>r.from));assert.equal(urls.size,54);
  for(const r of compatibilityUrls){for(const to of [r.to,...Object.values(r.fragments)])assert(!urls.has(new URL(to,'https://rosarium-tech.com').pathname));assert.equal(compatibilityFor(r.from.slice(1,-1)),r);}
  assert.equal(compatibilityUrls.filter(r=>['他ページへ統合','廃止'].includes(r.disposition)).length,27);
 });

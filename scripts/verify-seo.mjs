@@ -210,7 +210,7 @@ console.log(
   `SEO audit: ${htmlFiles.length} HTML pages, ${articleCount} TechArticles, ${sitemapUrls.size} sitemap URLs, no indexable orphans, RSS/JSON Feed/robots/OpenSearch/llms.txt verified. ${repeatedDescriptions.length} shared description group(s) retained where context is equivalent.`,
 );
 
-// All 53 compatibility routes are validated by verify-index.mjs.
+// All 54 compatibility routes are validated by verify-index.mjs.
 const home = load(fs.readFileSync("dist/index.html", "utf8"));
 assert.equal(home("title").text(), "Rosarium");
 const homeDescription = home('meta[name="description"]').attr("content");

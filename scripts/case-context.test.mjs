@@ -21,7 +21,7 @@ test("new personal cases are found without names, and chapters are not duplicate
   assert.deepEqual(independentCases(entries, "business", registry), []);
 });
 const raw = fs.readFileSync("src/content/cases/ai-development-management.md", "utf8");
-const article = { collection: "pages", id: "cases/ai-development-management", data: YAML.parse(raw.match(/^---\n([\s\S]*?)\n---/)[1]) };
+const article = { collection: "pages", id: "cases/ai-development-management", data: YAML.parse(raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]) };
 const draft = { ...article, data: { ...article.data, public: false, status: "draft", published_at: null } };
 test("a private draft fixture requires exact review selection and stays out of the public catalogue", () => {
   assert.equal(draft.data.public, false);
@@ -32,15 +32,20 @@ test("a private draft fixture requires exact review selection and stays out of t
   assert.equal(isBookmarkable(draft), false);
   assert.equal(buildBookmarkCatalog([draft]).records.length, 0);
 });
-test("the approved published personal case resolves its existing ID through the bookmark catalogue", () => {
-  const published = article;
-  assert.equal(published.data.public, true);
-  assert.equal(published.data.status, "published");
-  assert.equal(primaryDomain(published), "cases");
-  assert.equal(isBookmarkable(published), true);
-  const record = buildBookmarkCatalog([published]).records.find(e => e.id === draft.id);
-  assert.equal(record.url, `/${draft.id}/`);
-  assert.equal(record.category, "cases");
-  assert.equal(record.canAdd, true);
-  assert.equal(record.title, draft.data.title);
+test("the integrated personal case preserves its ID and resolves the approved successor", () => {
+  const source = article;
+  const successorId = "cases/asset-management-app-a-architecture/development-management";
+  const successorRaw = fs.readFileSync(`src/content/${successorId}.md`, "utf8");
+  const successor = { collection: "pages", id: successorId, data: YAML.parse(successorRaw.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]) };
+  assert.equal(source.data.lifecycle, "retired");
+  assert.equal(primaryDomain(source), "cases");
+  assert.equal(primaryDomain(successor), "cases");
+  assert.equal(isBookmarkable(source), false);
+  const record = buildBookmarkCatalog([source, successor]).records.find(e => e.id === source.id);
+  assert.equal(record.id, "cases/ai-development-management");
+  assert.equal(record.resolution, "integrated");
+  assert.equal(record.successor.id, successorId);
+  assert.equal(record.successor.url, `/${successorId}/`);
+  assert.equal(record.canAdd, false);
+  assert.equal(isBookmarkable(successor), true);
 });

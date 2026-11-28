@@ -6,9 +6,10 @@ kind: "case"
 section: "cases"
 case_context: "personal"
 case_specialty: "システム方式設計・システムアーキテクチャ"
-status: "draft"
-public: false
+status: "published"
+public: true
 lifecycle: "active"
+published_at: "2026-11-28"
 last_updated: "2026-11-28"
 entry_points: ["ai"]
 tags: ["個人開発", "システム方式設計", "運用設計"]

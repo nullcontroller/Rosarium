@@ -10,7 +10,8 @@ development_period: "5日間"
 publication_format: article
 status: published
 public: true
-lifecycle: active
+lifecycle: retired
+lifecycle_reason: "同一の個人開発経験を、方式設計・開発管理・品質保証を扱う統合Bookへ集約したため。開発管理の知見は第6章へ継承しています。"
 published_at: "2026-11-28"
 last_updated: "2026-11-28"
 entry_points: [ai]

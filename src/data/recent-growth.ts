@@ -67,11 +67,23 @@ const curatedRecentGrowth = [
   category: "Rosarium",
   icon: "updates",
   topics: [{
+    title: "個人資産管理Webアプリの設計・開発事例をBookに統合",
+    summary: "資産管理アプリAのシステム方式設計と生成AIを活用した開発管理を一つのBookに統合し、対象範囲の定義、技術選定、運用設計、開発管理及び品質保証を全7章に整理しました。",
+    links: [{ path: "cases/asset-management-app-a-architecture", title: "統合Book" }],
+  }, {
     title: "生成AIを活用した個人開発事例を追加",
     summary: "Excelによる資産管理をWebアプリへ発展させ、ChatGPTとCodexを活用して5日間で開発した事例を追加しました。開発管理の委任、責任分界、レビュー方式及び改善サイクルを整理しています。",
     links: [{ path: "cases", title: "事例" }],
   }],
   changes: [{
+    action: "integrated",
+    text: "元の個人開発事例を統合Bookへ集約",
+    contentIds: ["cases/ai-development-management"],
+  }, {
+    action: "published",
+    text: "資産管理アプリAのシステム方式設計と生成AIを活用した開発管理を一つのBookに統合し、対象範囲の定義、技術選定、運用設計、開発管理及び品質保証を全7章に整理しました。",
+    contentIds: ["cases/asset-management-app-a-architecture", "cases/asset-management-app-a-architecture/architecture", "cases/asset-management-app-a-architecture/backup-and-recovery", "cases/asset-management-app-a-architecture/cashflow-and-input", "cases/asset-management-app-a-architecture/development-management", "cases/asset-management-app-a-architecture/market-data", "cases/asset-management-app-a-architecture/requirements", "cases/asset-management-app-a-architecture/review-and-quality"],
+  }, {
     action: "published",
     text: "Excelによる資産管理をWebアプリへ発展させ、ChatGPTとCodexを活用して5日間で開発した事例を追加しました。開発管理の委任、責任分界、レビュー方式及び改善サイクルを整理しています。",
     contentIds: ["cases/ai-development-management"],
@@ -536,8 +548,9 @@ export function validateRecentGrowth(entries: RecentGrowthItem[]) {
     const targets = new Set<string>();
     for (const change of entry.changes) for (const id of growthChangeTargets(change)) {
       if (!/^[a-z0-9-]+(?:\/[a-z0-9-]+)+$/.test(id)) throw new Error("Garden Notes requires an internal content id: " + id);
-      if (targets.has(id)) throw new Error("Duplicate Garden Notes content link: " + id);
-      targets.add(id);
+      const eventKey = `${id}:${typeof change === "string" ? "" : change.action ?? "revised"}`;
+      if (targets.has(eventKey)) throw new Error("Duplicate Garden Notes content link: " + id);
+      targets.add(eventKey);
     }
     const topicTitles = new Set<string>();
     for (const topic of entry.topics ?? []) {

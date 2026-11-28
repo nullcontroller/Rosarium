@@ -1,5 +1,7 @@
+import { caseIntegrationPlans } from "./case-integrations.mjs";
 /** Approved compatibility URLs. Identity, publication state and article sources are unchanged. */
 export const compatibilityUrls = [
+  caseIntegrationPlans[0].compatibility,
   {
     "from": "/ai-design/applicability/",
     "to": "/system-design/#requirements",
