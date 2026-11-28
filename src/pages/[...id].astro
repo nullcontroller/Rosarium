@@ -51,7 +51,7 @@ const legacyPocFragments = ["cases/customer-support-ai-dx/poc-effect-evaluation"
 const d = entry.data;
 // Real-work labels are limited to the existing evidence registry and its chapters.
 const type = contentType(entry);
-const articleType = type === "実務事例" || type === "仮想設計" ? `事例 / ${type}` : type;
+const articleType = ["実務事例", "個人開発事例", "仮想設計"].includes(type) ? `事例 / ${type}` : type;
 const isBookIntroduction = entry.id === "cases/customer-support-ai-dx";
 const content = splitRelatedContent(entry.rendered?.html || "");
 const visibleIds = new Set((await getCollection("pages", entry => publicEntry(entry) || isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW))).map(entry => entry.id));
@@ -151,6 +151,12 @@ const bookNavigation = series.length
         <ContentHistory lastUpdated={d.last_updated} />
         <span hidden data-pagefind-meta="last_updated">{d.last_updated}</span>
       </p>
+      {d.case_context === "personal" && (d.case_specialty || d.development_period) && (
+        <p class="meta">
+          {d.case_specialty && <span>専門領域：{d.case_specialty}</span>}
+          {d.development_period && <span>開発期間：{d.development_period}（実作業工数ではありません）</span>}
+        </p>
+      )}
       {designAreaFor(entry.id) && <p class="lead" data-pagefind-meta="summary">{d.summary}</p>}
       {d.status === "draft" && d.published_at && <p class="meta" data-publication-planned>公開予定：<time datetime={d.published_at}>{formatDateJa(d.published_at)}</time></p>}
       {(d.publication_format || d.layer === "publication") && (

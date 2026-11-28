@@ -3,30 +3,35 @@ import { getCollection } from "astro:content";
 import Site from "../layouts/Site.astro";
 import DesignStudiesGateway from "../components/DesignStudiesGateway.astro";
 import SeriesIndex from "../components/SeriesIndex.astro";
-import { caseStudies } from "../lib/navigation";
+import { caseStudies, type Entry } from "../lib/navigation";
 import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
-const all = await getCollection("pages", activeEntry);
+import { independentCases } from "../lib/case-context.mjs";
+import { isDraftPreview } from "../lib/draft-preview.mjs";
+const all = await getCollection("pages", entry => activeEntry(entry) || isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW));
+const personalCases: Entry[] = independentCases(all, "personal", caseStudies);
+const businessArticles: Entry[] = independentCases(all, "business", caseStudies);
 const caseGroups = [{ id: "active-cases", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
 const caseAnchor = (id: string) => `case-${id.split("/").pop()}`;
 
 const headings = [
-  { depth: 2, slug: "active-cases-heading", text: "実務事例" },
+  { depth: 2, slug: "active-cases-heading", text: "業務実務事例" },
   ...caseGroups.filter((group) => group.studies.length > 0).flatMap((group) => [
   ...group.studies.map((study) => ({ depth: 3, slug: caseAnchor(study.book), text: all.find((entry) => entry.id === study.book)!.data.title })),
   ]),
+  ...(personalCases.length ? [{ depth: 2, slug: "personal-cases-heading", text: "個人開発事例" }] : []),
 ];
 ---
 
 <Site title="事例" section="cases" headings={headings} toc="never">
   <PageHeader alignHero navigationPath="cases" title="事例" />
-  <p>業務要求から方式を組み立てた代表設計事例を先に、その設計力を支える仕様書レビュー・保守開発の実務成果を続けて確認できます。</p>
+  <p>業務上の実務経験と個人開発を区別し、課題に対する設計判断と確認できた結果を示します。業務実務事例では、Bookとそこから派生した仮想設計も確認できます。</p>
   <p><a href={url("retired/obsolete-cases")}>過去の参考事例（OBSOLETE）</a></p>
   {caseGroups
     .filter((group) => group.studies.length > 0)
     .map((group) => (
       <section id={group.id} aria-labelledby="active-cases-heading">
-        <h2 id="active-cases-heading">実務事例</h2>
+        <h2 id="active-cases-heading">業務実務事例</h2>
         <p>実際の業務課題、著者の担当範囲と設計判断、確認できた結果を示します。</p>
         {group.studies.map((study) => (
           <div id={caseAnchor(study.book)} class="case-study-index">
@@ -58,6 +63,18 @@ const headings = [
             </SeriesIndex>
           </div>
         ))}
+        {businessArticles.map(entry => <SeriesIndex entry={entry} all={all} showCover={false} showIcons={false} heading="h3" />)}
       </section>
     ))}
+  {personalCases.length > 0 && (
+    <section id="personal-cases" aria-labelledby="personal-cases-heading">
+      <h2 id="personal-cases-heading">個人開発事例</h2>
+      <p>個人で企画・設計・開発・運用したシステムの技術的な実践と設計判断を示します。</p>
+      {personalCases.map(entry => <SeriesIndex entry={entry} all={all} showCover={false} showIcons={false} heading="h3" />)}
+    </section>
+  )}
 </Site>
+
+<style>
+  #personal-cases :global(.content-title) { text-wrap: balance; }
+</style>

@@ -5,6 +5,7 @@ import { iconForPath } from "./icons";
 import { archiveTitle } from "./archive";
 import { dxCategories } from "./dx";
 import { designStudies } from "../data/design-studies.mjs";
+import { caseContext } from "./case-context.mjs";
 import { domainLabels, primaryDomain, domainResponsibilities } from "../data/knowledge-domains.mjs";
 export type Entry = CollectionEntry<"pages">;
 
@@ -385,6 +386,7 @@ export const navigationItemForPath = (path: string) =>
 
 // Reader-facing types use explicit evidence registries, never titles or kind: case alone.
 export const contentType = (entry: Entry) => {
+  if (caseContext(entry, caseStudies) === "personal") return "個人開発事例";
   if (entry.id === "cases/design-studies" || designStudies.some(study => study.id === entry.id)) return "仮想設計";
   if (entry.id === "software-engineering/engineering-judgment-in-ai-code-review") return "実務事例";
   if (caseStudies.some(study => entry.id === study.book || entry.id.startsWith(study.book + "/"))) return "実務事例";

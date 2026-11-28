@@ -363,3 +363,9 @@ GA4実装修正e636326を独立コミットで取り込み、レビュー用ビ�
 - `src/content/foundations/neural-symbolic-proof.md`：N16、候補生成と形式検証の保証境界。
 
 3稿はstatus:draft・public:false・初回公開日なし。通常ビルド・検索・sitemapから除外し、私的ステージングだけに出力する。セルフレビューはセリーヌレビューの代用にしない。本番公開承認待ち。既存の公開記事本文、分類、UI、GA4対策を維持する。
+
+## 2026-11-28 個人開発事例の初稿
+
+- `src/content/cases/ai-development-management.md`：著者提供の資産管理Webアプリ開発経験を基に、開発管理の委任・責任分界・反復改善を整理した独立記事。個人開発と業務実績を区別する。
+
+status:draft・public:false・初回公開日なしでレビューする。通常ビルド・検索・サイトマップ・公開カタログ・PWAキャッシュへの登録は公開承認後。事例の個人開発区分をメタデータで抽出し、既存の業務事例順序・Book・仮想設計を維持する。記事本文・日付の既存資産及びGA4・IndexedDB・Service Workerは変更しない。

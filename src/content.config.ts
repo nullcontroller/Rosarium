@@ -54,6 +54,9 @@ const pages = defineCollection({
         .enum(["article", "book", "series", "essay"])
         .optional(),
       kind: z.enum(["principle", "architecture", "guide", "case", "essay"]),
+      case_context: z.enum(["business", "personal"]).optional(),
+      case_specialty: z.string().trim().min(1).optional(),
+      development_period: z.string().trim().min(1).optional(),
       section,
       status: z.enum(["draft", "published", "stable", "archived"]),
       // Publication state and content lifecycle are separate: RETIRED remains readable.

@@ -28,5 +28,6 @@
   "foundations/diffusion-language-models",
   "foundations/mechanistic-interpretability",
   "foundations/transformer-computational-limits",
-  "foundations/neural-symbolic-proof"
+  "foundations/neural-symbolic-proof",
+  "cases/ai-development-management"
 ]
