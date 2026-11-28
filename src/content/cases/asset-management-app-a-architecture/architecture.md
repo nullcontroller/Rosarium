@@ -22,17 +22,25 @@ order: 2
 
 場所や端末を使い分けて利用しながら、個人で管理し続けやすい構成をどう選んだか。
 
+<figure class="diagram diagram-static">
+  <picture>
+    <source media="(max-width: 800px)" srcset="/diagrams/asset-management-app-a-architecture/architecture-mobile-light.svg" />
+    <img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/architecture-light.svg" alt="端末はTailscale経由でWindows PCのアプリへ接続する。金融データの正本はPCに保持し、Google Driveはソース管理に使用する。夜間に価格を取得し、月末に外付けHDDへ最新3回分をバックアップする。" width="1040" height="930" loading="lazy" />
+  </picture>
+  <picture>
+    <source media="(max-width: 800px)" srcset="/diagrams/asset-management-app-a-architecture/architecture-mobile-dark.svg" />
+    <img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/architecture-dark.svg" alt="端末はTailscale経由でWindows PCのアプリへ接続する。金融データの正本はPCに保持し、Google Driveはソース管理に使用する。夜間に価格を取得し、月末に外付けHDDへ最新3回分をバックアップする。" width="1040" height="930" loading="lazy" />
+  </picture>
+  <figcaption>資産管理アプリAのシステム全体構成</figcaption>
+</figure>
+
 ## Google Driveの採用目的と管理範囲
 
 私は、ソースファイル、資産データ、動作するアプリに場所を問わずアクセスできることを目指した。Google Driveを活用する構成を選び、ソースファイル一式をその管理領域へ置いた。管理領域は100MB以内に抑え、保存容量が大きくならないようにしている。
 
 Google Driveをファイル管理に使い、アプリの実行と資産データの正本保持はWindows PC、遠隔からの利用はTailscaleによる非公開接続が担う。ファイルを管理する場所、処理を実行する場所、利用端末からの接続経路をそれぞれの役割に応じて組み合わせた。
 
-<figure class="diagram diagram-static">
-  <img class="diagram-light" src="/diagrams/asset-management-app-a-architecture/architecture-light.svg" alt="Google Drive上のソース管理と、Windows PCの実行・正本保持、端末からの非公開接続を分ける。" width="480" height="600" loading="lazy" />
-  <img class="diagram-dark" src="/diagrams/asset-management-app-a-architecture/architecture-dark.svg" alt="Google Drive上のソース管理と、Windows PCの実行・正本保持、端末からの非公開接続を分ける。" width="480" height="600" loading="lazy" />
-  <figcaption>Google Drive上のソース管理と、Windows PCの実行・正本保持、端末からの非公開接続を分ける。</figcaption>
-</figure>
+
 
 ## Windows・Androidで同じ画面を使う
 

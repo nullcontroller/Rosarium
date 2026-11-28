@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="1530" viewBox="0 0 480 1530" role="img" aria-labelledby="title desc"><title id="title">資産管理アプリAのシステム全体構成</title><desc id="desc">端末はTailscale経由でWindows PCのアプリへ接続する。金融データの正本はPCが保持し、Google Driveは100MB以内のソース管理に使用する。夜間に価格を取得し、月末には外付けHDDへバックアップする。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#145b4f"/></marker></defs><rect width="480" height="1530" rx="12" fill="#f5f7f1"/><g font-family="'Yu Gothic UI','Yu Gothic',system-ui,sans-serif"><text x="24" y="42" font-size="28" font-weight="700" fill="#145b4f">資産管理アプリA</text>
+<rect x="20" y="72" width="440" height="150" rx="10" fill="#f5f7f1" stroke="#9eafa4" stroke-width="1.5"/>
+<path transform="translate(38 90)" d="M2 3h28v19H2z M16 22v7 M8 29h16" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="82" y="115" font-size="24" font-weight="600" fill="#243439">利用環境</text>
+<text x="42" y="150" font-size="24" font-weight="400" fill="#243439">Windows PC・Android</text>
+<text x="42" y="184" font-size="24" font-weight="400" fill="#243439">ブラウザー／PWA</text>
+<path d="M240 270 V294" fill="none" stroke="#145b4f" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="36" y="255" font-size="24" font-weight="400" fill="#145b4f">Tailscale経由の非公開アクセス</text>
+<rect x="20" y="304" width="440" height="286" rx="10" fill="#d8e6dc" stroke="#145b4f" stroke-width="2.5"/>
+<path transform="translate(38 322)" d="M2 3h28v19H2z M16 22v7 M8 29h16" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="82" y="347" font-size="24" font-weight="600" fill="#243439">Windows PC｜実行環境</text>
+<text x="42" y="390" font-size="28" font-weight="700" fill="#243439">資産管理アプリA</text>
+<text x="42" y="428" font-size="24" font-weight="400" fill="#243439">Python Webアプリケーション</text>
+<text x="42" y="473" font-size="24" font-weight="400" fill="#243439">資産評価・集計／収支管理</text>
+<text x="42" y="507" font-size="24" font-weight="400" fill="#243439">データ保存／自動処理</text>
+<rect x="40" y="535" width="400" height="38" rx="6" fill="#f5f7f1"/>
+<text x="56" y="562" font-size="24" font-weight="600" fill="#145b4f">金融データの正本を保持</text>
+<rect x="20" y="632" width="440" height="156" rx="10" fill="#f5f7f1" stroke="#9eafa4" stroke-width="1.5"/>
+<path transform="translate(38 650)" d="M16 2a14 14 0 1 0 0 28 14 14 0 0 0 0-28 M2 16h28 M16 2c-9 8-9 20 0 28 M16 2c9 8 9 20 0 28" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="82" y="675" font-size="24" font-weight="600" fill="#243439">外部市場情報</text>
+<text x="42" y="709" font-size="23" font-weight="400" fill="#243439">無料の公開データ・相場終了後の価格</text>
+<text x="42" y="743" font-size="23" font-weight="400" fill="#243439">アプリが夜間に自動取得</text>
+<rect x="20" y="818" width="440" height="188" rx="10" fill="#f5f7f1" stroke="#9eafa4" stroke-width="1.5"/>
+<path transform="translate(38 836)" d="M2 8h11l4 4h13v17H2z M2 8V4h11l4 4" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="82" y="861" font-size="24" font-weight="600" fill="#243439">Google Drive｜ソース管理</text>
+<text x="42" y="899" font-size="24" font-weight="400" fill="#243439">アプリのソースファイル一式</text>
+<text x="42" y="933" font-size="24" font-weight="400" fill="#243439">場所を問わずアクセス</text>
+<text x="42" y="967" font-size="24" font-weight="400" fill="#243439">ソース管理領域は100MB以内</text>
+<rect x="20" y="1036" width="440" height="190" rx="10" fill="#f5f7f1" stroke="#9eafa4" stroke-width="1.5"/>
+<path transform="translate(38 1054)" d="M5 3h22l4 25H1z M7 21h18 M8 25h1 M13 25h1" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="82" y="1079" font-size="24" font-weight="600" fill="#243439">外付けHDD｜バックアップ</text>
+<text x="42" y="1116" font-size="24" font-weight="400" fill="#243439">アプリから毎月末に自動保存</text>
+<text x="42" y="1150" font-size="24" font-weight="400" fill="#243439">最新3回分を保持</text>
+<text x="42" y="1184" font-size="24" font-weight="400" fill="#243439">古いバックアップは自動削除</text>
+<rect x="20" y="1256" width="440" height="170" rx="10" fill="#f5f7f1" stroke="#9eafa4" stroke-width="1.5"/>
+<path transform="translate(38 1274)" d="M16 2a14 14 0 1 0 0 28 14 14 0 0 0 0-28 M16 7v10l6 4" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="82" y="1299" font-size="24" font-weight="600" fill="#243439">アプリの自動処理</text>
+<text x="42" y="1338" font-size="23" font-weight="400" fill="#243439">夜間の価格取得／月末バックアップ</text>
+<text x="42" y="1372" font-size="23" font-weight="400" fill="#243439">変動額が未入力なら月末に通知</text>
+<text x="24" y="1480" font-size="23" font-weight="400" fill="#4a6057">利用条件：PCの稼働・ネットワーク接続</text></g></svg>

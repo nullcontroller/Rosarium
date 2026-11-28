@@ -1,25 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-labelledby="title desc">
-<title id="title">管理場所と実行場所</title>
-<desc id="desc">業務上の役割と設計判断を整理する。</desc>
-<rect width="480" height="600" rx="12" fill="#f7faf8"/>
-<text x="24" y="32" fill="#405d4c" font-family="sans-serif" font-size="22">管理場所と実行場所</text>
-<rect x="20" y="56" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
-<text x="240" y="86" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">Windows・Android</text>
-<text x="240" y="115" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">共通Web UI／PWA</text>
-<path d="M240 135 V167" fill="none" stroke="#326448" stroke-width="2"/>
-<path d="M235 162 L240 169 L245 162" fill="none" stroke="#326448"/>
-<rect x="20" y="176" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
-<text x="240" y="206" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">Tailscale Serve</text>
-<text x="240" y="235" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">非公開接続・HTTPS</text>
-<path d="M240 255 V287" fill="none" stroke="#326448" stroke-width="2"/>
-<path d="M235 282 L240 289 L245 282" fill="none" stroke="#326448"/>
-<rect x="20" y="296" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
-<text x="240" y="326" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">Windows PC</text>
-<text x="240" y="355" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">正本データ・計算・定期処理</text>
-<path d="M240 407 V381" fill="none" stroke="#326448" stroke-width="2" stroke-dasharray="4 4"/>
-<path d="M235 387 L240 380 L245 387" fill="none" stroke="#326448"/>
-<text x="255" y="399" fill="#405d4c" font-family="sans-serif" font-size="22">コード反映</text>
-<rect x="20" y="416" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
-<text x="240" y="446" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">Google Drive</text>
-<text x="240" y="475" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">ソース一式を100MB以内で管理</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="930" viewBox="0 0 1040 930" role="img" aria-labelledby="title desc"><title id="title">資産管理アプリAのシステム全体構成</title><desc id="desc">端末はTailscale経由でWindows PCのアプリへ接続する。金融データの正本はPCが保持し、Google Driveは100MB以内のソース管理に使用する。夜間に価格を取得し、月末には外付けHDDへバックアップする。</desc><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#145b4f"/></marker></defs><rect width="1040" height="930" rx="12" fill="#f5f7f1"/><g font-family="'Yu Gothic UI','Yu Gothic',system-ui,sans-serif"><text x="24" y="42" font-size="30" font-weight="700" fill="#145b4f">資産管理アプリA</text>
+<text x="345" y="42" font-size="28" font-weight="600" fill="#243439">システム全体構成</text>
+<rect x="24" y="160" width="270" height="215" rx="10" fill="#f5f7f1" stroke="#9eafa4" stroke-width="1.5"/>
+<path transform="translate(42 178)" d="M2 3h28v19H2z M16 22v7 M8 29h16" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="86" y="203" font-size="24" font-weight="600" fill="#243439">利用環境</text>
+<text x="44" y="246" font-size="24" font-weight="400" fill="#243439">Windows PC</text>
+<text x="44" y="280" font-size="24" font-weight="400" fill="#243439">Android</text>
+<text x="44" y="314" font-size="24" font-weight="400" fill="#243439">ブラウザー／PWA</text>
+<path d="M300 280 H374" fill="none" stroke="#145b4f" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="299" y="242" font-size="19" font-weight="600" fill="#145b4f">Tailscale</text>
+<text x="300" y="319" font-size="18" font-weight="400" fill="#4a6057">非公開接続</text>
+<rect x="384" y="160" width="330" height="430" rx="10" fill="#d8e6dc" stroke="#145b4f" stroke-width="2.5"/>
+<path transform="translate(402 178)" d="M2 3h28v19H2z M16 22v7 M8 29h16" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="446" y="203" font-size="24" font-weight="600" fill="#243439">Windows PC</text>
+<text x="406" y="261" font-size="26" font-weight="700" fill="#243439">資産管理アプリA</text>
+<text x="406" y="304" font-size="23" font-weight="400" fill="#243439">Pythonによる</text>
+<text x="406" y="338" font-size="23" font-weight="400" fill="#243439">Webアプリケーション</text>
+<text x="406" y="397" font-size="25" font-weight="400" fill="#243439">資産評価・集計</text>
+<text x="406" y="437" font-size="25" font-weight="400" fill="#243439">収支管理</text>
+<text x="406" y="477" font-size="25" font-weight="400" fill="#243439">データ保存・自動処理</text>
+<rect x="400" y="520" width="298" height="48" rx="6" fill="#f5f7f1"/>
+<text x="413" y="551" font-size="25" font-weight="600" fill="#145b4f">金融データの正本</text>
+<rect x="772" y="160" width="244" height="205" rx="10" fill="#f5f7f1" stroke="#9eafa4" stroke-width="1.5"/>
+<path transform="translate(790 178)" d="M16 2a14 14 0 1 0 0 28 14 14 0 0 0 0-28 M2 16h28 M16 2c-9 8-9 20 0 28 M16 2c9 8 9 20 0 28" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="834" y="203" font-size="24" font-weight="600" fill="#243439">外部市場情報</text>
+<text x="790" y="246" font-size="23" font-weight="400" fill="#243439">無料の公開データ</text>
+<text x="790" y="280" font-size="23" font-weight="400" fill="#243439">相場終了後の価格</text>
+<text x="790" y="314" font-size="23" font-weight="400" fill="#243439">夜間に自動取得</text>
+<path d="M766 280 H724" fill="none" stroke="#145b4f" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="24" y="450" width="270" height="230" rx="10" fill="#f5f7f1" stroke="#9eafa4" stroke-width="1.5"/>
+<path transform="translate(42 468)" d="M16 2a14 14 0 1 0 0 28 14 14 0 0 0 0-28 M16 7v10l6 4" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="86" y="493" font-size="24" font-weight="600" fill="#243439">アプリの自動処理</text>
+<text x="44" y="537" font-size="23" font-weight="400" fill="#243439">夜間の価格取得</text>
+<text x="44" y="572" font-size="23" font-weight="400" fill="#243439">月末バックアップ</text>
+<text x="44" y="607" font-size="23" font-weight="400" fill="#243439">変動額が未入力なら</text>
+<text x="44" y="642" font-size="23" font-weight="400" fill="#243439">月末に通知</text>
+<rect x="772" y="450" width="244" height="245" rx="10" fill="#f5f7f1" stroke="#9eafa4" stroke-width="1.5"/>
+<path transform="translate(790 468)" d="M5 3h22l4 25H1z M7 21h18 M8 25h1 M13 25h1" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="834" y="493" font-size="24" font-weight="600" fill="#243439">外付けHDD</text>
+<text x="790" y="537" font-size="23" font-weight="400" fill="#243439">毎月末に自動保存</text>
+<text x="790" y="573" font-size="23" font-weight="400" fill="#243439">最新3回分を保持</text>
+<text x="790" y="609" font-size="23" font-weight="400" fill="#243439">古いバックアップ</text>
+<text x="790" y="645" font-size="23" font-weight="400" fill="#243439">は自動削除</text>
+<path d="M720 520 H762" fill="none" stroke="#145b4f" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="384" y="680" width="330" height="195" rx="10" fill="#f5f7f1" stroke="#9eafa4" stroke-width="1.5"/>
+<path transform="translate(402 698)" d="M2 8h11l4 4h13v17H2z M2 8V4h11l4 4" fill="none" stroke="#145b4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="446" y="723" font-size="24" font-weight="600" fill="#243439">Google Drive</text>
+<text x="406" y="761" font-size="23" font-weight="400" fill="#243439">ソースファイル一式を管理</text>
+<text x="406" y="795" font-size="23" font-weight="400" fill="#243439">場所を問わずアクセス</text>
+<text x="406" y="829" font-size="23" font-weight="400" fill="#243439">管理領域は100MB以内</text>
+<path d="M549 670 V600" fill="none" stroke="#145b4f" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="567" y="640" font-size="21" font-weight="400" fill="#4a6057">コード反映</text>
+<text x="24" y="915" font-size="24" font-weight="400" fill="#4a6057">利用条件：Windows PCの稼働とネットワーク接続</text></g></svg>
