@@ -12,7 +12,10 @@ for (const id of ids) {
     assert(fs.existsSync(`dist/${id}/index.html`), `Published target missing: ${id}`);
     const published = load(fs.readFileSync(`dist-review/${id}/index.html`, "utf8"));
     assert.equal(published("h1").text(), data.title);
-    assert.equal(published('meta[name="robots"]').attr("content"), "index, follow");
+    // Site applies noindex to the entire staging build, including published content.
+    assert.equal(published('meta[name="robots"]').attr("content"), "noindex, follow");
+    const production = load(fs.readFileSync(`dist/${id}/index.html`, "utf8"));
+    assert.equal(production('meta[name="robots"]').attr("content"), data.lifecycle === "retired" ? "noindex, follow" : "index, follow");
     continue;
   }
   assert.equal(data.status, "draft", id); assert.equal(data.public, false, id);
@@ -23,7 +26,8 @@ for (const id of ids) {
   assert.equal($("main[data-pagefind-ignore]").length, 1, id);
   for(const el of $("main a[href^='/']").toArray()) {
     const target = new URL($(el).attr("href"), "https://rosarium-tech.com");
-    const file = path.join("dist-review", decodeURIComponent(target.pathname), "index.html");
+    const pathname = decodeURIComponent(target.pathname);
+    const file = path.extname(pathname) ? path.join("dist-review", pathname) : path.join("dist-review", pathname, "index.html");
     assert(fs.existsSync(file), `Missing review destination: ${file}`);
     if(target.hash) {
       const dest = load(fs.readFileSync(file, "utf8"));
@@ -32,8 +36,9 @@ for (const id of ids) {
   }
   for(const file of ["sitemap.xml", "rss.xml", "feed.json", "index.html"]) assert(!fs.readFileSync(`dist/${file}`, "utf8").includes(`/${id}/`), `Production discovery leak: ${id}`);
 }
-const hub = load(fs.readFileSync("dist-review/cases/design-studies/index.html", "utf8"));
-assert.equal(hub('meta[name="robots"]').attr("content"), "index, follow");
+// The approved IA moved this list into its source Book; the old URL is compatibility HTML.
+const hub = load(fs.readFileSync("dist-review/cases/customer-support-ai-dx/index.html", "utf8"));
+assert.equal(hub('meta[name="robots"]').attr("content"), "noindex, follow");
 for(const id of ids.filter(id=>id.startsWith("cases/design-studies/"))) assert(hub(`a[href='/${id}/']`).length>0,id);
 // A review build must never ship the GA initializer, including public pages.
 const files = dir => fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name)]);

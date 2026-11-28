@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-labelledby="title desc">
+<title id="title">market-data：方式の概念図</title>
+<desc id="desc">上から順に本文の論点を示す。実データや接続先は含まない。</desc>
+<rect width="480" height="600" rx="12" fill="#14221e"/>
+<text x="24" y="32" fill="#c5d8cd" font-family="sans-serif" font-size="22">概念図・実環境の構成値は非掲載</text>
+<rect x="20" y="56" width="440" height="76" rx="9" fill="#20392f" stroke="#9ad1ad" stroke-width="2"/>
+<text x="240" y="86" text-anchor="middle" fill="#edf5ef" font-family="sans-serif" font-size="24" font-weight="600">公式の公表データ</text>
+<text x="240" y="115" text-anchor="middle" fill="#c5d8cd" font-family="sans-serif" font-size="22">HTML・CSV・XML・ZIP</text>
+<path d="M240 135 V147" fill="none" stroke="#9ad1ad" stroke-width="2"/>
+<path d="M235 142 L240 149 L245 142" fill="none" stroke="#9ad1ad" stroke-width="2"/>
+<rect x="20" y="156" width="440" height="76" rx="9" fill="#20392f" stroke="#9ad1ad" stroke-width="2"/>
+<text x="240" y="186" text-anchor="middle" fill="#edf5ef" font-family="sans-serif" font-size="24" font-weight="600">期限とサイズを検査</text>
+<text x="240" y="215" text-anchor="middle" fill="#c5d8cd" font-family="sans-serif" font-size="22">共通HTTP処理</text>
+<path d="M240 235 V247" fill="none" stroke="#9ad1ad" stroke-width="2"/>
+<path d="M235 242 L240 249 L245 242" fill="none" stroke="#9ad1ad" stroke-width="2"/>
+<rect x="20" y="256" width="440" height="76" rx="9" fill="#20392f" stroke="#9ad1ad" stroke-width="2"/>
+<text x="240" y="286" text-anchor="middle" fill="#edf5ef" font-family="sans-serif" font-size="24" font-weight="600">識別子・単位・日付</text>
+<text x="240" y="315" text-anchor="middle" fill="#c5d8cd" font-family="sans-serif" font-size="22">提供元別に解析・検証</text>
+<path d="M240 335 V347" fill="none" stroke="#9ad1ad" stroke-width="2"/>
+<path d="M235 342 L240 349 L245 342" fill="none" stroke="#9ad1ad" stroke-width="2"/>
+<rect x="20" y="356" width="440" height="76" rx="9" fill="#20392f" stroke="#9ad1ad" stroke-width="2"/>
+<text x="240" y="386" text-anchor="middle" fill="#edf5ef" font-family="sans-serif" font-size="24" font-weight="600">最新正本へ価格を適用</text>
+<text x="240" y="415" text-anchor="middle" fill="#c5d8cd" font-family="sans-serif" font-size="22">ここで保存ロックを取得</text>
+<path d="M240 435 V447" fill="none" stroke="#9ad1ad" stroke-width="2"/>
+<path d="M235 442 L240 449 L245 442" fill="none" stroke="#9ad1ad" stroke-width="2"/>
+<rect x="20" y="456" width="440" height="76" rx="9" fill="#20392f" stroke="#9ad1ad" stroke-width="2"/>
+<text x="240" y="486" text-anchor="middle" fill="#edf5ef" font-family="sans-serif" font-size="24" font-weight="600">新世代へ保存</text>
+<text x="240" y="515" text-anchor="middle" fill="#c5d8cd" font-family="sans-serif" font-size="22">保有数量は取得結果で上書きしない</text>
+</svg>

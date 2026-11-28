@@ -8,8 +8,10 @@ import { activeEntry, url } from "../lib/site";
 import PageHeader from "../components/PageHeader.astro";
 import { independentCases } from "../lib/case-context.mjs";
 import { isDraftPreview } from "../lib/draft-preview.mjs";
+import { groupPersonalCases } from "../data/personal-case-groups.mjs";
 const all = await getCollection("pages", entry => activeEntry(entry) || isDraftPreview(entry, process.env.ROSARIUM_DRAFT_PREVIEW));
 const personalCases: Entry[] = independentCases(all, "personal", caseStudies);
+const personalCasePresentation: { groups: { id: string; title: string; entries: Entry[] }[]; independent: Entry[] } = groupPersonalCases(personalCases);
 const businessArticles: Entry[] = independentCases(all, "business", caseStudies);
 const caseGroups = [{ id: "active-cases", studies: caseStudies.filter((study) => all.some((entry) => entry.id === study.book)) }];
 const caseAnchor = (id: string) => `case-${id.split("/").pop()}`;
@@ -70,7 +72,13 @@ const headings = [
     <section id="personal-cases" aria-labelledby="personal-cases-heading">
       <h2 id="personal-cases-heading">個人開発事例</h2>
       <p>個人で企画・設計・開発・運用したシステムの技術的な実践と設計判断を示します。</p>
-      {personalCases.map(entry => <SeriesIndex entry={entry} all={all} showCover={false} showIcons={false} heading="h3" />)}
+      {personalCasePresentation.groups.map(group => (
+        <section aria-labelledby={group.id}>
+          <h3 id={group.id}>{group.title}</h3>
+          {group.entries.map(entry => <SeriesIndex entry={entry} all={all} showCover={false} showIcons={false} heading="h4" />)}
+        </section>
+      ))}
+      {personalCasePresentation.independent.map(entry => <SeriesIndex entry={entry} all={all} showCover={false} showIcons={false} heading="h3" />)}
     </section>
   )}
 </Site>

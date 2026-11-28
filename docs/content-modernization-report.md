@@ -375,3 +375,20 @@ status:draft・public:false・初回公開日なしでレビューする。通�
 著者の正式な公開承認に基づき、承認対象5ed0962の本文と3図を維持して通常公開の設定へ変更した。開発期間は5日間、主カテゴリは事例、区分は個人開発、専門領域はAI駆動開発・開発プロセス設計を維持する。初回公開日・最終更新日は2026-11-28（JST）。上記の初稿記録は制作時点の履歴として保持する。
 
 公開先は `/cases/ai-development-management/`。公開設定・事例カテゴリ・GARDEN NOTES・既存の検索／カタログ／PWA自動生成への反映を検証する。本番デプロイ及び実環境の確認結果は、本番反映報告ZIPに記録する。既存記事本文・ID・URL・日付、GA4・IndexedDB・Service Workerの実装は変更しない。
+
+
+## 資産管理アプリA 方式設計Book（2026-11-28、レビュー待ち・非公開）
+
+著者確定の10章構成。引継ぎ資料は内部根拠のみ、実データ・原本は公開資産へ含めない。
+
+- `src/content/cases/asset-management-app-a-architecture.md`：新規Book、draft・public false。
+- `src/content/cases/asset-management-app-a-architecture/access-and-pwa.md`：新規Book、draft・public false。
+- `src/content/cases/asset-management-app-a-architecture/architecture.md`：新規Book、draft・public false。
+- `src/content/cases/asset-management-app-a-architecture/backup-and-recovery.md`：新規Book、draft・public false。
+- `src/content/cases/asset-management-app-a-architecture/data-model.md`：新規Book、draft・public false。
+- `src/content/cases/asset-management-app-a-architecture/financial-consistency.md`：新規Book、draft・public false。
+- `src/content/cases/asset-management-app-a-architecture/market-data.md`：新規Book、draft・public false。
+- `src/content/cases/asset-management-app-a-architecture/operations-and-tradeoffs.md`：新規Book、draft・public false。
+- `src/content/cases/asset-management-app-a-architecture/persistence.md`：新規Book、draft・public false。
+- `src/content/cases/asset-management-app-a-architecture/requirements.md`：新規Book、draft・public false。
+- `src/content/cases/asset-management-app-a-architecture/scheduled-jobs.md`：新規Book、draft・public false。

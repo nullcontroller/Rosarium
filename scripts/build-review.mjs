@@ -15,6 +15,11 @@ const result = spawnSync(process.execPath, ["node_modules/astro/bin/astro.mjs", 
 if (result.error) throw result.error;
 if (result.status !== 0) process.exit(result.status ?? 1);
 
+// Review uses the same registered legacy URLs as an ordinary build.
+const compatibility = spawnSync(process.execPath, ["scripts/generate-compatibility.mjs", "dist-review"], { stdio: "inherit" });
+if (compatibility.error) throw compatibility.error;
+if (compatibility.status !== 0) process.exit(compatibility.status ?? 1);
+
 // Never index review HTML: reuse only the normal build's public search bundle.
 fs.cpSync("dist/pagefind", "dist-review/pagefind", { recursive: true });
 const verification = spawnSync(process.execPath, ["scripts/verify-review-targets.mjs", ...ids], { stdio: "inherit" });

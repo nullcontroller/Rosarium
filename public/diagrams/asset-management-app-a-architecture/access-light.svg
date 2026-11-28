@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-labelledby="title desc">
+<title id="title">access：方式の概念図</title>
+<desc id="desc">上から順に本文の論点を示す。実データや接続先は含まない。</desc>
+<rect width="480" height="600" rx="12" fill="#f7faf8"/>
+<text x="24" y="32" fill="#405d4c" font-family="sans-serif" font-size="22">概念図・実環境の構成値は非掲載</text>
+<rect x="20" y="56" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
+<text x="240" y="86" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">本人の限定端末</text>
+<text x="240" y="115" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">私設ネットワークの入口</text>
+<path d="M240 135 V167" fill="none" stroke="#326448" stroke-width="2"/>
+<path d="M235 162 L240 169 L245 162" fill="none" stroke="#326448" stroke-width="2"/>
+<rect x="20" y="176" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
+<text x="240" y="206" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">Tailscale Serve</text>
+<text x="240" y="235" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">HTTPS終端・転送</text>
+<path d="M240 255 V287" fill="none" stroke="#326448" stroke-width="2"/>
+<path d="M235 282 L240 289 L245 282" fill="none" stroke="#326448" stroke-width="2"/>
+<rect x="20" y="296" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
+<text x="240" y="326" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">ループバックのアプリ</text>
+<text x="240" y="355" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">転送元・本人・端末を確認</text>
+<path d="M240 375 V407" fill="none" stroke="#326448" stroke-width="2"/>
+<path d="M235 402 L240 409 L245 402" fill="none" stroke="#326448" stroke-width="2"/>
+<rect x="20" y="416" width="440" height="76" rx="9" fill="#edf4ee" stroke="#326448" stroke-width="2"/>
+<text x="240" y="446" text-anchor="middle" fill="#18392b" font-family="sans-serif" font-size="24" font-weight="600">書込みAPI／静的許可リスト</text>
+<text x="240" y="475" text-anchor="middle" fill="#405d4c" font-family="sans-serif" font-size="22">Origin等の確認・秘密領域は配信しない</text>
+</svg>

@@ -29,5 +29,16 @@
   "foundations/mechanistic-interpretability",
   "foundations/transformer-computational-limits",
   "foundations/neural-symbolic-proof",
-  "cases/ai-development-management"
+  "cases/ai-development-management",
+  "cases/asset-management-app-a-architecture",
+  "cases/asset-management-app-a-architecture/access-and-pwa",
+  "cases/asset-management-app-a-architecture/architecture",
+  "cases/asset-management-app-a-architecture/backup-and-recovery",
+  "cases/asset-management-app-a-architecture/data-model",
+  "cases/asset-management-app-a-architecture/financial-consistency",
+  "cases/asset-management-app-a-architecture/market-data",
+  "cases/asset-management-app-a-architecture/operations-and-tradeoffs",
+  "cases/asset-management-app-a-architecture/persistence",
+  "cases/asset-management-app-a-architecture/requirements",
+  "cases/asset-management-app-a-architecture/scheduled-jobs"
 ]

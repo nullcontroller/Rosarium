@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="600" viewBox="0 0 480 600" role="img" aria-labelledby="title desc">
+<title id="title">price-states：方式の概念図</title>
+<desc id="desc">上から順に本文の論点を示す。実データや接続先は含まない。</desc>
+<rect width="480" height="600" rx="12" fill="#14221e"/>
+<text x="24" y="32" fill="#c5d8cd" font-family="sans-serif" font-size="22">概念図・実環境の構成値は非掲載</text>
+<rect x="20" y="56" width="440" height="76" rx="9" fill="#20392f" stroke="#9ad1ad" stroke-width="2"/>
+<text x="240" y="86" text-anchor="middle" fill="#edf5ef" font-family="sans-serif" font-size="24" font-weight="600">取得・解析・検証</text>
+<text x="240" y="115" text-anchor="middle" fill="#c5d8cd" font-family="sans-serif" font-size="22">HTTP成功だけでは確定しない</text>
+<path d="M60 154.0 H420" fill="none" stroke="#9ad1ad" stroke-dasharray="3 5"/>
+<rect x="20" y="176" width="440" height="76" rx="9" fill="#20392f" stroke="#9ad1ad" stroke-width="2"/>
+<text x="240" y="206" text-anchor="middle" fill="#edf5ef" font-family="sans-serif" font-size="24" font-weight="600">有効：適用して記録</text>
+<text x="240" y="235" text-anchor="middle" fill="#c5d8cd" font-family="sans-serif" font-size="22">同値でも基準日を確認</text>
+<path d="M60 274.0 H420" fill="none" stroke="#9ad1ad" stroke-dasharray="3 5"/>
+<rect x="20" y="296" width="440" height="76" rx="9" fill="#20392f" stroke="#9ad1ad" stroke-width="2"/>
+<text x="240" y="326" text-anchor="middle" fill="#edf5ef" font-family="sans-serif" font-size="24" font-weight="600">未公表・休場：待機</text>
+<text x="240" y="355" text-anchor="middle" fill="#c5d8cd" font-family="sans-serif" font-size="22">公表周期と営業日を確認</text>
+<path d="M60 394.0 H420" fill="none" stroke="#9ad1ad" stroke-dasharray="3 5"/>
+<rect x="20" y="416" width="440" height="76" rx="9" fill="#20392f" stroke="#9ad1ad" stroke-width="2"/>
+<text x="240" y="446" text-anchor="middle" fill="#edf5ef" font-family="sans-serif" font-size="24" font-weight="600">通信・解析失敗：記録</text>
+<text x="240" y="475" text-anchor="middle" fill="#c5d8cd" font-family="sans-serif" font-size="22">再試行まで有効価格を維持</text>
+</svg>
