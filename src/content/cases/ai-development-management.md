@@ -62,12 +62,12 @@ Excelはカスタマイズが容易であり、自分の管理方法に合わせ
 | ChatGPT | 要求整理、設計、Codexへの作業指示の作成、品質レビュー、改善方針の管理 |
 | Codex | 実装、テスト、修正、リファクタリング |
 
-Codexは実装結果及び検証資料をレビューZIPにまとめ、実装したシステムをステージング環境へ反映する。ChatGPTには実装及び検証の証跡を、人間には実際に操作できるシステムを提供する。図1は、この二つのレビュー経路と責任分界を示す。ChatGPTとCodexが完全に自律連携していたことを意味せず、指示を伝達する具体的な仕組みも表していない。
+Codexは実装結果及び検証資料をレビューZIPにまとめ、実装したシステムをステージング環境へ反映する。ChatGPTには実装及び検証の証跡を、人間には実際に操作できるシステムを提供する。図1は、三者の責務と確認対象を示す。ChatGPTとCodexが完全に自律連携していたことを意味せず、指示を伝達する具体的な仕組みも表していない。
 
 <figure class="diagram diagram-static">
-  <img class="diagram-light" src="/diagrams/ai-development-management/responsibility-light.svg" alt="CodexのレビューZIPをChatGPTが確認し、ステージング環境を人間が操作する。双方のレビュー結果を改善判断と修正指示へ戻し、人間が最終承認する責任分界" width="440" height="1150" loading="lazy" />
-  <img class="diagram-dark" src="/diagrams/ai-development-management/responsibility-dark.svg" alt="CodexのレビューZIPをChatGPTが確認し、ステージング環境を人間が操作する。双方のレビュー結果を改善判断と修正指示へ戻し、人間が最終承認する責任分界" width="440" height="1150" loading="lazy" />
-  <figcaption>図1 開発における責任分界。破線は人間、太線はAI支援、丸みのある枠は判断・受入れを表す。線は責務上の関係であり、自律的な通信経路ではない。</figcaption>
+  <img class="diagram-light" src="/diagrams/ai-development-management/responsibility-light.svg" alt="人間は目的・制約・重要判断、ステージングでの評価、最終承認を担う。ChatGPTは要求整理・指示とレビューZIPの確認を担い、Codexは実装・テストと二つの成果物の用意を担う" width="440" height="630" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/ai-development-management/responsibility-dark.svg" alt="人間は目的・制約・重要判断、ステージングでの評価、最終承認を担う。ChatGPTは要求整理・指示とレビューZIPの確認を担い、Codexは実装・テストと二つの成果物の用意を担う" width="440" height="630" loading="lazy" />
+  <figcaption>図1 開発における責任分界。破線は人間、太線はAI支援を表す。工程の順序ではなく、担当する責務と確認対象を示す。</figcaption>
 </figure>
 
 AIレビューと人間レビューに同一の作業を要求せず、役割に適した成果物を用意した。これにより、人間がすべての実装差分やテストログを逐一確認するのではなく、重要な技術判断、実用性の評価、最終承認に集中できる構成とした。AIによるレビューと、人間の最終的な受入判断は区別する。
@@ -84,12 +84,12 @@ AIレビューと人間レビューに同一の作業を要求せず、役割に
 ここでいうアジャイルは、利用結果を次の改善へ反映する進め方を指す。Scrumなどの特定の開発フレームワークを正式に採用したという意味ではない。
 
 <figure class="diagram diagram-static">
-  <img class="diagram-light" src="/diagrams/ai-development-management/cycle-light.svg" alt="実利用と課題発見から要求整理、実装指示、Codexの実装・テストへ進む。レビューZIPをChatGPTが、ステージングを人間が確認し、結果を改善判断に集める。修正は再実装・再検証へ戻り、人間の最終承認後に実利用へ戻る" width="440" height="1330" loading="lazy" />
-  <img class="diagram-dark" src="/diagrams/ai-development-management/cycle-dark.svg" alt="実利用と課題発見から要求整理、実装指示、Codexの実装・テストへ進む。レビューZIPをChatGPTが、ステージングを人間が確認し、結果を改善判断に集める。修正は再実装・再検証へ戻り、人間の最終承認後に実利用へ戻る" width="440" height="1330" loading="lazy" />
-  <figcaption>図2 実利用と改善の循環。修正と要求の見直しを含む開発の概念図であり、実行基盤や自動連携の構成図ではない。</figcaption>
+  <img class="diagram-light" src="/diagrams/ai-development-management/cycle-light.svg" alt="人間の課題発見・改善要求から、ChatGPTの要求整理・実装指示、Codexの実装・テストへ進む。左列のAIレビューはレビューZIP、右列の人間レビューはステージングを評価し、結果を統合する。人間の最終承認後に本番反映・実利用へ進む。修正時は実装工程へ戻る" width="440" height="1035" loading="lazy" />
+  <img class="diagram-dark" src="/diagrams/ai-development-management/cycle-dark.svg" alt="人間の課題発見・改善要求から、ChatGPTの要求整理・実装指示、Codexの実装・テストへ進む。左列のAIレビューはレビューZIP、右列の人間レビューはステージングを評価し、結果を統合する。人間の最終承認後に本番反映・実利用へ進む。修正時は実装工程へ戻る" width="440" height="1035" loading="lazy" />
+  <figcaption>図2 主経路を上から下へ読む開発サイクル。確認対象の異なる二つのレビュー結果を一つに統合する。戻り経路は下部の注記にまとめている。</figcaption>
 </figure>
 
-実装できたことだけで完了とせず、利用して得た気づきを次の要求へ戻すことに意味があった。
+実装できたことだけで完了とせず、利用して得た気づきを次の要求へ戻すことに意味があった。実利用で新たな改善要求が生じた場合は、次の開発サイクルへ進む。
 
 ## 5. 人間の判断がボトルネックになる構造
 
